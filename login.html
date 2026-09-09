@@ -1,1 +1,1908 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
 
+    <!-- ======================================================
+         手机端核心设置
+         viewport-fit=cover：适配 iPhone 刘海 / 灵动岛 / 底部安全区
+    ======================================================= -->
+    <meta
+        name="viewport"
+        content="width=device-width,
+                 initial-scale=1.0,
+                 maximum-scale=1.0,
+                 user-scalable=no,
+                 viewport-fit=cover"
+    >
+
+    <meta name="theme-color" content="#ffffff">
+
+    <title>孕乃馨 - 登录</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        /* =====================================================
+           1. 基础
+        ===================================================== */
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                "PingFang SC",
+                "Hiragino Sans GB",
+                "Microsoft YaHei",
+                Arial,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #fff8fa 0%,
+                    #ffffff 42%,
+                    #f8f9fb 100%
+                );
+
+            color: #242424;
+
+            min-height: 100vh;
+            min-height: 100dvh;
+
+            display: flex;
+            justify-content: center;
+
+            padding:
+                max(18px, env(safe-area-inset-top))
+                16px
+                max(20px, env(safe-area-inset-bottom))
+                16px;
+        }
+
+
+        button,
+        input {
+            font: inherit;
+        }
+
+
+        button {
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           2. 整体容器
+           手机优先
+        ===================================================== */
+
+        .page {
+            width: 100%;
+            max-width: 460px;
+
+            display: flex;
+            flex-direction: column;
+
+            min-height:
+                calc(
+                    100dvh
+                    - max(18px, env(safe-area-inset-top))
+                    - max(20px, env(safe-area-inset-bottom))
+                    - 32px
+                );
+        }
+
+
+        /* =====================================================
+           3. 品牌区
+        ===================================================== */
+
+        .brand {
+            text-align: center;
+            padding-top: 7vh;
+            padding-bottom: 30px;
+        }
+
+
+        .brand-logo {
+            width: 68px;
+            height: 68px;
+
+            margin: 0 auto 14px;
+
+            border-radius: 22px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 30px;
+            font-weight: 700;
+
+            background: #ffffff;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.07);
+        }
+
+
+        .brand-title {
+            margin: 0;
+
+            font-size: 29px;
+            line-height: 1.25;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+        }
+
+
+        .brand-subtitle {
+            margin-top: 8px;
+
+            font-size: 14px;
+
+            color: #8b8b8b;
+
+            letter-spacing: 1px;
+        }
+
+
+        /* =====================================================
+           4. 登录卡片
+        ===================================================== */
+
+        .login-card {
+            width: 100%;
+
+            background: rgba(255, 255, 255, 0.96);
+
+            border-radius: 24px;
+
+            padding: 8px 18px 22px;
+
+            box-shadow:
+                0 12px 40px rgba(0, 0, 0, 0.07);
+
+            border: 1px solid rgba(0, 0, 0, 0.035);
+        }
+
+
+        /* =====================================================
+           5. Tab
+        ===================================================== */
+
+        .tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            gap: 6px;
+
+            background: #f4f4f6;
+
+            border-radius: 15px;
+
+            padding: 4px;
+
+            margin: 10px 0 24px;
+        }
+
+
+        .tab-button {
+            height: 48px;
+
+            border: 0;
+            border-radius: 12px;
+
+            background: transparent;
+
+            font-size: 16px;
+            font-weight: 600;
+
+            color: #767676;
+
+            transition: 0.18s;
+        }
+
+
+        .tab-button.active {
+            background: #ffffff;
+
+            color: #222222;
+
+            box-shadow:
+                0 3px 12px rgba(0, 0, 0, 0.08);
+        }
+
+
+        /* =====================================================
+           6. 表单
+        ===================================================== */
+
+        .tab-panel {
+            display: none;
+        }
+
+
+        .tab-panel.active {
+            display: block;
+        }
+
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+
+        .form-label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            color: #555555;
+        }
+
+
+        .input {
+            width: 100%;
+            height: 54px;
+
+            border-radius: 14px;
+
+            border: 1px solid #dddddf;
+
+            padding: 0 15px;
+
+            background: #ffffff;
+
+            /*
+               16px 非常重要：
+               iPhone Safari 小于16px可能自动放大页面
+            */
+            font-size: 16px;
+
+            color: #222222;
+
+            outline: none;
+
+            transition: 0.18s;
+        }
+
+
+        .input:focus {
+            border-color: #a6a6aa;
+
+            box-shadow:
+                0 0 0 3px rgba(0, 0, 0, 0.035);
+        }
+
+
+        .input::placeholder {
+            color: #b8b8bc;
+        }
+
+
+        /* =====================================================
+           7. 手机号
+        ===================================================== */
+
+        .phone-row {
+            display: grid;
+            grid-template-columns: 82px 1fr;
+            gap: 8px;
+        }
+
+
+        .country-code {
+            height: 54px;
+
+            border-radius: 14px;
+
+            border: 1px solid #dddddf;
+
+            background: #f7f7f8;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 16px;
+            font-weight: 600;
+
+            color: #444444;
+        }
+
+
+        /* =====================================================
+           8. 验证码
+        ===================================================== */
+
+        .otp-row {
+            display: grid;
+            grid-template-columns: 1fr 122px;
+            gap: 8px;
+        }
+
+
+        .otp-button {
+            height: 54px;
+
+            border: 0;
+
+            border-radius: 14px;
+
+            background: #f0f0f2;
+
+            color: #333333;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            padding: 0 10px;
+        }
+
+
+        .otp-button:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+        }
+
+
+        /* =====================================================
+           9. 主按钮
+        ===================================================== */
+
+        .primary-button {
+            width: 100%;
+            height: 56px;
+
+            margin-top: 5px;
+
+            border: 0;
+            border-radius: 15px;
+
+            background: #222222;
+
+            color: #ffffff;
+
+            font-size: 17px;
+            font-weight: 650;
+
+            letter-spacing: 1px;
+
+            box-shadow:
+                0 8px 18px rgba(0, 0, 0, 0.13);
+
+            transition: 0.15s;
+        }
+
+
+        .primary-button:active {
+            transform: scale(0.985);
+        }
+
+
+        .primary-button:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+        }
+
+
+        /* =====================================================
+           10. 密码显示
+        ===================================================== */
+
+        .password-wrap {
+            position: relative;
+        }
+
+
+        .password-wrap .input {
+            padding-right: 72px;
+        }
+
+
+        .password-toggle {
+            position: absolute;
+
+            right: 9px;
+            top: 7px;
+
+            height: 40px;
+
+            padding: 0 10px;
+
+            border: 0;
+
+            background: transparent;
+
+            color: #777777;
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           11. 提示
+        ===================================================== */
+
+        .login-description {
+            margin: -8px 2px 20px;
+
+            font-size: 13px;
+            line-height: 1.6;
+
+            color: #8b8b8b;
+        }
+
+
+        .message {
+            display: none;
+
+            margin: 16px 0 0;
+
+            padding: 12px 14px;
+
+            border-radius: 12px;
+
+            font-size: 14px;
+            line-height: 1.55;
+        }
+
+
+        .message.show {
+            display: block;
+        }
+
+
+        .message.error {
+            background: #fff1f2;
+            color: #b42332;
+        }
+
+
+        .message.success {
+            background: #f0f8f3;
+            color: #26734d;
+        }
+
+
+        .message.info {
+            background: #f3f5f8;
+            color: #555555;
+        }
+
+
+        /* =====================================================
+           12. 底部
+        ===================================================== */
+
+        .footer {
+            margin-top: auto;
+
+            padding: 26px 8px 6px;
+
+            text-align: center;
+
+            font-size: 12px;
+            line-height: 1.7;
+
+            color: #a0a0a5;
+        }
+
+
+        .footer a {
+            color: #77777c;
+            text-decoration: none;
+        }
+
+
+        /* =====================================================
+           13. Loading
+        ===================================================== */
+
+        .spinner {
+            display: inline-block;
+
+            width: 16px;
+            height: 16px;
+
+            border: 2px solid rgba(255,255,255,.4);
+            border-top-color: #ffffff;
+
+            border-radius: 50%;
+
+            vertical-align: -3px;
+
+            margin-right: 8px;
+
+            animation: spin .7s linear infinite;
+        }
+
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+
+        /* =====================================================
+           14. 小屏手机
+        ===================================================== */
+
+        @media (max-width: 360px) {
+
+            body {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .login-card {
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+
+            .brand {
+                padding-top: 4vh;
+            }
+
+            .brand-title {
+                font-size: 26px;
+            }
+
+            .otp-row {
+                grid-template-columns: 1fr 108px;
+            }
+
+        }
+
+
+        /* =====================================================
+           15. 电脑端
+           不拉得特别宽，保持登录窗口集中
+        ===================================================== */
+
+        @media (min-width: 768px) {
+
+            body {
+                align-items: center;
+            }
+
+            .page {
+                min-height: auto;
+            }
+
+            .brand {
+                padding-top: 0;
+            }
+
+            .login-card {
+                padding:
+                    12px
+                    28px
+                    28px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<div class="page">
+
+
+    <!-- ======================================================
+         品牌
+    ======================================================= -->
+
+    <header class="brand">
+
+        <div class="brand-logo">
+            ♡
+        </div>
+
+        <h1 class="brand-title">
+            孕乃馨
+        </h1>
+
+        <div class="brand-subtitle">
+            专业服务 · 安心生活
+        </div>
+
+    </header>
+
+
+
+    <!-- ======================================================
+         登录卡片
+    ======================================================= -->
+
+    <main class="login-card">
+
+
+        <!-- Tab -->
+
+        <div class="tabs">
+
+            <button
+                id="customerTab"
+                class="tab-button active"
+                type="button"
+            >
+                客户登录
+            </button>
+
+
+            <button
+                id="businessTab"
+                class="tab-button"
+                type="button"
+            >
+                商户 / 管理
+            </button>
+
+        </div>
+
+
+
+        <!-- ==================================================
+             客户
+        =================================================== -->
+
+        <section
+            id="customerPanel"
+            class="tab-panel active"
+        >
+
+            <div class="login-description">
+                使用手机号码登录。首次登录将自动创建客户账户。
+            </div>
+
+
+            <div class="form-group">
+
+                <label
+                    class="form-label"
+                    for="customerPhone"
+                >
+                    手机号码
+                </label>
+
+
+                <div class="phone-row">
+
+                    <div class="country-code">
+                        +86
+                    </div>
+
+                    <input
+                        id="customerPhone"
+                        class="input"
+                        type="tel"
+                        inputmode="numeric"
+                        autocomplete="tel"
+                        maxlength="11"
+                        placeholder="请输入手机号码"
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label
+                    class="form-label"
+                    for="customerOtp"
+                >
+                    短信验证码
+                </label>
+
+
+                <div class="otp-row">
+
+                    <input
+                        id="customerOtp"
+                        class="input"
+                        type="text"
+                        inputmode="numeric"
+                        autocomplete="one-time-code"
+                        maxlength="6"
+                        placeholder="6位验证码"
+                    >
+
+
+                    <button
+                        id="sendOtpButton"
+                        class="otp-button"
+                        type="button"
+                    >
+                        获取验证码
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <button
+                id="customerLoginButton"
+                class="primary-button"
+                type="button"
+            >
+                登录 / 注册
+            </button>
+
+
+            <div
+                id="customerMessage"
+                class="message"
+            ></div>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             商户 / 平台人员
+        =================================================== -->
+
+        <section
+            id="businessPanel"
+            class="tab-panel"
+        >
+
+            <div class="login-description">
+                平台工作人员和商户均使用邮箱及密码登录，系统会自动识别身份。
+            </div>
+
+
+            <div class="form-group">
+
+                <label
+                    class="form-label"
+                    for="businessEmail"
+                >
+                    邮箱地址
+                </label>
+
+                <input
+                    id="businessEmail"
+                    class="input"
+                    type="email"
+                    inputmode="email"
+                    autocomplete="username"
+                    autocapitalize="none"
+                    spellcheck="false"
+                    placeholder="请输入邮箱地址"
+                >
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label
+                    class="form-label"
+                    for="businessPassword"
+                >
+                    密码
+                </label>
+
+
+                <div class="password-wrap">
+
+                    <input
+                        id="businessPassword"
+                        class="input"
+                        type="password"
+                        autocomplete="current-password"
+                        placeholder="请输入密码"
+                    >
+
+
+                    <button
+                        id="passwordToggle"
+                        class="password-toggle"
+                        type="button"
+                    >
+                        显示
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <button
+                id="businessLoginButton"
+                class="primary-button"
+                type="button"
+            >
+                登录
+            </button>
+
+
+            <div
+                id="businessMessage"
+                class="message"
+            ></div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ======================================================
+         Footer
+    ======================================================= -->
+
+    <footer class="footer">
+
+        登录即表示您同意平台相关服务条款和隐私政策
+
+        <br>
+
+        © 孕乃馨
+
+    </footer>
+
+</div>
+
+
+
+<script>
+
+    /* =========================================================
+       1. Supabase 配置
+
+       替换成你自己的：
+
+       Project URL
+       anon public key
+
+       注意：
+       这里只能放 ANON KEY
+       绝对不能放 service_role key
+    ========================================================== */
+
+    const SUPABASE_URL =
+        'YOUR_SUPABASE_URL';
+
+    const SUPABASE_ANON_KEY =
+        'YOUR_SUPABASE_ANON_KEY';
+
+
+    const supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
+        );
+
+
+
+    /* =========================================================
+       2. 登录后的页面
+
+       后面我们正式建立页面以后，
+       再统一修改这里。
+    ========================================================== */
+
+    const PAGE_PLATFORM =
+        './platform.html';
+
+    const PAGE_MERCHANT =
+        './merchant.html';
+
+    const PAGE_CUSTOMER =
+        './customer.html';
+
+
+
+    /* =========================================================
+       3. DOM
+    ========================================================== */
+
+    const customerTab =
+        document.getElementById('customerTab');
+
+    const businessTab =
+        document.getElementById('businessTab');
+
+    const customerPanel =
+        document.getElementById('customerPanel');
+
+    const businessPanel =
+        document.getElementById('businessPanel');
+
+
+    const customerPhone =
+        document.getElementById('customerPhone');
+
+    const customerOtp =
+        document.getElementById('customerOtp');
+
+    const sendOtpButton =
+        document.getElementById('sendOtpButton');
+
+    const customerLoginButton =
+        document.getElementById('customerLoginButton');
+
+    const customerMessage =
+        document.getElementById('customerMessage');
+
+
+    const businessEmail =
+        document.getElementById('businessEmail');
+
+    const businessPassword =
+        document.getElementById('businessPassword');
+
+    const businessLoginButton =
+        document.getElementById('businessLoginButton');
+
+    const businessMessage =
+        document.getElementById('businessMessage');
+
+    const passwordToggle =
+        document.getElementById('passwordToggle');
+
+
+
+    /* =========================================================
+       4. Tab 切换
+    ========================================================== */
+
+    function openCustomerTab() {
+
+        customerTab.classList.add('active');
+        businessTab.classList.remove('active');
+
+        customerPanel.classList.add('active');
+        businessPanel.classList.remove('active');
+
+        clearMessage(customerMessage);
+        clearMessage(businessMessage);
+
+    }
+
+
+    function openBusinessTab() {
+
+        businessTab.classList.add('active');
+        customerTab.classList.remove('active');
+
+        businessPanel.classList.add('active');
+        customerPanel.classList.remove('active');
+
+        clearMessage(customerMessage);
+        clearMessage(businessMessage);
+
+    }
+
+
+    customerTab.addEventListener(
+        'click',
+        openCustomerTab
+    );
+
+
+    businessTab.addEventListener(
+        'click',
+        openBusinessTab
+    );
+
+
+
+    /* =========================================================
+       5. 信息提示
+    ========================================================== */
+
+    function showMessage(
+        element,
+        message,
+        type = 'info'
+    ) {
+
+        element.textContent = message;
+
+        element.className =
+            'message show ' + type;
+
+    }
+
+
+    function clearMessage(element) {
+
+        element.textContent = '';
+
+        element.className = 'message';
+
+    }
+
+
+
+    /* =========================================================
+       6. 手机号码处理
+    ========================================================== */
+
+    function normalizeChinaPhone(value) {
+
+        let phone =
+            String(value || '')
+                .replace(/\D/g, '');
+
+
+        if (phone.startsWith('86') &&
+            phone.length === 13) {
+
+            phone = phone.substring(2);
+
+        }
+
+
+        if (!/^1\d{10}$/.test(phone)) {
+
+            return null;
+
+        }
+
+
+        return '+86' + phone;
+
+    }
+
+
+
+    /* =========================================================
+       7. 发送验证码
+    ========================================================== */
+
+    let otpCountdown = 0;
+
+    let otpTimer = null;
+
+
+    async function sendOtp() {
+
+        clearMessage(customerMessage);
+
+
+        const phone =
+            normalizeChinaPhone(
+                customerPhone.value
+            );
+
+
+        if (!phone) {
+
+            showMessage(
+                customerMessage,
+                '请输入正确的11位手机号码。',
+                'error'
+            );
+
+            customerPhone.focus();
+
+            return;
+
+        }
+
+
+        sendOtpButton.disabled = true;
+
+
+        try {
+
+            const {
+                error
+            } =
+            await supabaseClient.auth.signInWithOtp({
+
+                phone: phone,
+
+                options: {
+
+                    /*
+                     * 客户不存在时允许自动注册
+                     */
+                    shouldCreateUser: true
+
+                }
+
+            });
+
+
+            if (error) {
+                throw error;
+            }
+
+
+            showMessage(
+                customerMessage,
+                '验证码已经发送，请查看手机短信。',
+                'success'
+            );
+
+
+            startOtpCountdown();
+
+        }
+        catch (error) {
+
+            console.error(error);
+
+
+            showMessage(
+                customerMessage,
+                getReadableError(error),
+                'error'
+            );
+
+
+            sendOtpButton.disabled = false;
+
+        }
+
+    }
+
+
+
+    /* =========================================================
+       8. 验证码倒计时
+    ========================================================== */
+
+    function startOtpCountdown() {
+
+        otpCountdown = 60;
+
+        sendOtpButton.disabled = true;
+
+
+        updateOtpButton();
+
+
+        otpTimer = setInterval(() => {
+
+            otpCountdown--;
+
+            updateOtpButton();
+
+
+            if (otpCountdown <= 0) {
+
+                clearInterval(otpTimer);
+
+                otpTimer = null;
+
+                sendOtpButton.disabled = false;
+
+                sendOtpButton.textContent =
+                    '重新获取';
+
+            }
+
+        }, 1000);
+
+    }
+
+
+    function updateOtpButton() {
+
+        if (otpCountdown > 0) {
+
+            sendOtpButton.textContent =
+                otpCountdown + '秒';
+
+        }
+
+    }
+
+
+
+    /* =========================================================
+       9. 客户 OTP 登录
+    ========================================================== */
+
+    async function customerLogin() {
+
+        clearMessage(customerMessage);
+
+
+        const phone =
+            normalizeChinaPhone(
+                customerPhone.value
+            );
+
+
+        const token =
+            String(customerOtp.value || '')
+                .trim();
+
+
+        if (!phone) {
+
+            showMessage(
+                customerMessage,
+                '请输入正确的手机号码。',
+                'error'
+            );
+
+            return;
+
+        }
+
+
+        if (!/^\d{6}$/.test(token)) {
+
+            showMessage(
+                customerMessage,
+                '请输入6位短信验证码。',
+                'error'
+            );
+
+            customerOtp.focus();
+
+            return;
+
+        }
+
+
+        setButtonLoading(
+            customerLoginButton,
+            true,
+            '正在登录'
+        );
+
+
+        try {
+
+            const {
+                data,
+                error
+            } =
+            await supabaseClient.auth.verifyOtp({
+
+                phone: phone,
+
+                token: token,
+
+                type: 'sms'
+
+            });
+
+
+            if (error) {
+                throw error;
+            }
+
+
+            if (!data.user) {
+
+                throw new Error(
+                    '登录失败，请重新获取验证码。'
+                );
+
+            }
+
+
+            /*
+             * 再次确认身份
+             *
+             * 客户手机号登录后只允许 customer。
+             */
+
+            const userType =
+                await getCurrentUserType();
+
+
+            if (userType !== 'customer') {
+
+                await supabaseClient.auth.signOut();
+
+                throw new Error(
+                    '该账号不是客户账号，请使用正确的登录入口。'
+                );
+
+            }
+
+
+            window.location.replace(
+                PAGE_CUSTOMER
+            );
+
+        }
+        catch (error) {
+
+            console.error(error);
+
+
+            showMessage(
+                customerMessage,
+                getReadableError(error),
+                'error'
+            );
+
+
+            setButtonLoading(
+                customerLoginButton,
+                false,
+                '登录 / 注册'
+            );
+
+        }
+
+    }
+
+
+
+    /* =========================================================
+       10. 商户 / 平台人员邮箱密码登录
+    ========================================================== */
+
+    async function businessLogin() {
+
+        clearMessage(businessMessage);
+
+
+        const email =
+            String(businessEmail.value || '')
+                .trim()
+                .toLowerCase();
+
+
+        const password =
+            String(
+                businessPassword.value || ''
+            );
+
+
+        if (!isValidEmail(email)) {
+
+            showMessage(
+                businessMessage,
+                '请输入正确的邮箱地址。',
+                'error'
+            );
+
+            businessEmail.focus();
+
+            return;
+
+        }
+
+
+        if (!password) {
+
+            showMessage(
+                businessMessage,
+                '请输入登录密码。',
+                'error'
+            );
+
+            businessPassword.focus();
+
+            return;
+
+        }
+
+
+        setButtonLoading(
+            businessLoginButton,
+            true,
+            '正在验证'
+        );
+
+
+        try {
+
+            /*
+             * 第一步
+             * Supabase Auth 验证邮箱 + 密码
+             */
+
+            const {
+                data,
+                error
+            } =
+            await supabaseClient.auth
+                .signInWithPassword({
+
+                    email: email,
+                    password: password
+
+                });
+
+
+            if (error) {
+                throw error;
+            }
+
+
+            if (!data.user) {
+
+                throw new Error(
+                    '登录失败，请重新尝试。'
+                );
+
+            }
+
+
+            /*
+             * 第二步
+             * 数据库读取身份
+             *
+             * 用户自己不需要选择：
+             * Founder / Admin / Staff / Merchant
+             */
+
+            const userType =
+                await getCurrentUserType();
+
+
+            /*
+             * 第三步
+             * 自动分流
+             */
+
+            if (userType === 'platform') {
+
+                window.location.replace(
+                    PAGE_PLATFORM
+                );
+
+                return;
+
+            }
+
+
+            if (userType === 'merchant') {
+
+                window.location.replace(
+                    PAGE_MERCHANT
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * customer 不允许通过后台入口登录
+             */
+
+            await supabaseClient.auth.signOut();
+
+
+            throw new Error(
+                '该账号不是平台工作人员或商户账号。'
+            );
+
+        }
+        catch (error) {
+
+            console.error(error);
+
+
+            showMessage(
+                businessMessage,
+                getReadableError(error),
+                'error'
+            );
+
+
+            setButtonLoading(
+                businessLoginButton,
+                false,
+                '登录'
+            );
+
+        }
+
+    }
+
+
+
+    /* =========================================================
+       11. 获取当前身份
+    ========================================================== */
+
+    async function getCurrentUserType() {
+
+        const {
+            data: userData,
+            error: userError
+        } =
+        await supabaseClient.auth.getUser();
+
+
+        if (userError) {
+            throw userError;
+        }
+
+
+        const user =
+            userData?.user;
+
+
+        if (!user) {
+
+            throw new Error(
+                '无法获取登录用户信息。'
+            );
+
+        }
+
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+            .from('profiles')
+            .select('user_type')
+            .eq('id', user.id)
+            .single();
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        if (!data?.user_type) {
+
+            throw new Error(
+                '账号尚未完成身份配置，请联系平台管理员。'
+            );
+
+        }
+
+
+        return data.user_type;
+
+    }
+
+
+
+    /* =========================================================
+       12. 工具
+    ========================================================== */
+
+    function isValidEmail(email) {
+
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+            .test(email);
+
+    }
+
+
+    function setButtonLoading(
+        button,
+        loading,
+        text
+    ) {
+
+        button.disabled = loading;
+
+
+        if (loading) {
+
+            button.innerHTML =
+                '<span class="spinner"></span>'
+                + text;
+
+        }
+        else {
+
+            button.textContent = text;
+
+        }
+
+    }
+
+
+
+    /* =========================================================
+       13. 错误信息转换
+
+       不直接把技术错误全部暴露给普通用户
+    ========================================================== */
+
+    function getReadableError(error) {
+
+        const message =
+            String(
+                error?.message || ''
+            ).toLowerCase();
+
+
+        if (
+            message.includes(
+                'invalid login credentials'
+            )
+        ) {
+
+            return '邮箱或密码错误。';
+
+        }
+
+
+        if (
+            message.includes(
+                'email not confirmed'
+            )
+        ) {
+
+            return '该邮箱尚未完成确认。';
+
+        }
+
+
+        if (
+            message.includes(
+                'token has expired'
+            ) ||
+            message.includes(
+                'otp expired'
+            )
+        ) {
+
+            return '验证码已经失效，请重新获取。';
+
+        }
+
+
+        if (
+            message.includes(
+                'invalid token'
+            )
+        ) {
+
+            return '验证码错误，请重新输入。';
+
+        }
+
+
+        if (
+            message.includes(
+                'rate limit'
+            )
+        ) {
+
+            return '操作过于频繁，请稍后再试。';
+
+        }
+
+
+        return error?.message ||
+            '登录失败，请稍后重试。';
+
+    }
+
+
+
+    /* =========================================================
+       14. 密码显示 / 隐藏
+    ========================================================== */
+
+    passwordToggle.addEventListener(
+        'click',
+        () => {
+
+            const isPassword =
+                businessPassword.type
+                === 'password';
+
+
+            businessPassword.type =
+                isPassword
+                    ? 'text'
+                    : 'password';
+
+
+            passwordToggle.textContent =
+                isPassword
+                    ? '隐藏'
+                    : '显示';
+
+        }
+    );
+
+
+
+    /* =========================================================
+       15. 事件
+    ========================================================== */
+
+    sendOtpButton.addEventListener(
+        'click',
+        sendOtp
+    );
+
+
+    customerLoginButton.addEventListener(
+        'click',
+        customerLogin
+    );
+
+
+    businessLoginButton.addEventListener(
+        'click',
+        businessLogin
+    );
+
+
+
+    /* =========================================================
+       16. 键盘 Enter
+    ========================================================== */
+
+    customerOtp.addEventListener(
+        'keydown',
+        event => {
+
+            if (event.key === 'Enter') {
+
+                customerLogin();
+
+            }
+
+        }
+    );
+
+
+    businessPassword.addEventListener(
+        'keydown',
+        event => {
+
+            if (event.key === 'Enter') {
+
+                businessLogin();
+
+            }
+
+        }
+    );
+
+
+
+    /* =========================================================
+       17. 手机号只保留数字
+    ========================================================== */
+
+    customerPhone.addEventListener(
+        'input',
+        () => {
+
+            customerPhone.value =
+                customerPhone.value
+                    .replace(/\D/g, '')
+                    .slice(0, 11);
+
+        }
+    );
+
+
+    customerOtp.addEventListener(
+        'input',
+        () => {
+
+            customerOtp.value =
+                customerOtp.value
+                    .replace(/\D/g, '')
+                    .slice(0, 6);
+
+        }
+    );
+
+
+
+    /* =========================================================
+       18. 已登录用户自动分流
+
+       比如：
+       用户昨天已经登录，
+       今天再次从微信链接打开，
+       不需要重复登录。
+    ========================================================== */
+
+    async function autoRedirectExistingSession() {
+
+        try {
+
+            const {
+                data
+            } =
+            await supabaseClient.auth
+                .getSession();
+
+
+            if (!data?.session) {
+                return;
+            }
+
+
+            const userType =
+                await getCurrentUserType();
+
+
+            if (userType === 'platform') {
+
+                window.location.replace(
+                    PAGE_PLATFORM
+                );
+
+                return;
+
+            }
+
+
+            if (userType === 'merchant') {
+
+                window.location.replace(
+                    PAGE_MERCHANT
+                );
+
+                return;
+
+            }
+
+
+            if (userType === 'customer') {
+
+                window.location.replace(
+                    PAGE_CUSTOMER
+                );
+
+            }
+
+        }
+        catch (error) {
+
+            console.error(
+                '自动登录检测失败：',
+                error
+            );
+
+        }
+
+    }
+
+
+    autoRedirectExistingSession();
+
+</script>
+
+</body>
+</html>

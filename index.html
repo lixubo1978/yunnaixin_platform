@@ -189,27 +189,21 @@
   }
   .quick a:hover{background: var(--chip2)}
 
-  /* ✅ 主体三栏：下沿对齐的“关键改动”
-     这里不再强行拉伸整列高度（之前的 flex:1 / margin-top:auto 会制造巨大空白）
-     改回按内容自然高度，三列底部不会被空白拖下去。
-  */
   .mainGrid{
     display:grid;
     grid-template-columns: 280px 1fr 320px;
     gap:14px;
-    align-items:start; /* ✅ 重要：不要 stretch，不要制造空白高度 */
+    align-items:start;
   }
   @media (max-width: 1100px){ .mainGrid{grid-template-columns: 1fr} }
   .mainGrid > *{ min-width:0; }
 
-  /* 如果你外层用了 colStack，这里保持“自然堆叠”即可（不再补齐高度） */
   .colStack{
     display:flex;
     flex-direction:column;
     gap:14px;
   }
 
-  /* 左栏旧类兼容 */
   .leftStack{
     display:flex;
     flex-direction:column;
@@ -222,7 +216,6 @@
   .more{font-size:13px; color:var(--muted)}
   .more:hover{text-decoration:underline; color:var(--text)}
 
-  /* 左栏：公益项目 */
   .vnav{display:grid; gap:8px; margin-top:6px}
   .vnav a{
     display:flex; justify-content:space-between; align-items:center;
@@ -236,7 +229,6 @@
   .vnav a span{font-size:12px; color:var(--muted); font-weight:700}
   .vnav a:hover{background: var(--chip2)}
 
-  /* 左栏：快速入口 */
   .shortcutGrid{
     display:grid;
     grid-template-columns: 1fr 1fr;
@@ -256,11 +248,9 @@
   .sbtn:hover{background: var(--chip2)}
   .smallNote{font-size:12px; color:var(--muted); margin-top:10px; line-height:1.6;}
 
-  /* 服务信息 */
   .infoList{margin:10px 0 0; padding-left:18px; color:var(--muted); font-size:13px;}
   .infoList li{margin:6px 0}
 
-  /* 中间：重点项目 */
   .feature{padding:16px;padding-bottom:60px;}
   .feature h2{font-size:18px; margin-bottom:8px}
   .feature p{margin:0 0 10px; color:var(--muted)}
@@ -289,7 +279,6 @@
   .miniList{margin:0; padding-left:18px; color:var(--muted); font-size:13px}
   .miniList li{margin:6px 0}
 
-  /* 右栏 */
   .list{display:grid; gap:8px}
   .list a{
     display:block;
@@ -308,7 +297,6 @@
   .donate .btn{width:100%}
   .donateNote{font-size:12px; color:var(--muted)}
 
-  /* 下部 */
   .grid2{display:grid; grid-template-columns: 1fr 1fr; gap:14px;}
   @media (max-width: 980px){ .grid2{grid-template-columns:1fr} }
 
@@ -324,7 +312,6 @@
     font-weight:700;
   }
 
-  /* 页脚 */
   .footer{
     margin-top:16px;
     padding:22px 0 34px;
@@ -340,7 +327,6 @@
   .footer a{color:var(--text); text-decoration:underline; text-decoration-color: rgba(244,143,177,.35)}
   .footLinks{display:grid; gap:6px}
 
-  /* 赞助单位 + 滚动感谢：上下结构（不再 flex:1 撑高） */
   .sponsorWrap{
     margin-top:14px;
     display:flex;
@@ -353,7 +339,7 @@
     border-radius: var(--radius);
     border:1px solid var(--line);
     background: rgba(255,255,255,.60);
-    overflow:hidden; /* ✅ 防止任何内容溢出中间框 */
+    overflow:hidden;
   }
 
   .sponsorTitle{
@@ -373,14 +359,13 @@
   }
   .sponsorTitle a:hover{color:var(--text); text-decoration:underline;}
 
-  /* ✅ 赞助单位：纵向列表 + 自身滚动（高度固定，避免把中间/右边撑出巨型空白） */
   .sponsorGrid{
     display:flex;
     flex-direction:column;
     gap:10px;
     overflow-y:auto;
     padding-right:6px;
-    max-height:200px;  /* ✅ 关键：固定展示高度 = “切除空白” */
+    max-height:200px;
   }
   .sponsorGrid::-webkit-scrollbar{ width:8px; }
   .sponsorGrid::-webkit-scrollbar-thumb{
@@ -409,7 +394,6 @@
     color:var(--muted);
   }
 
-  /* 滚动感谢：横向滚动 + 严格限制在自己的框内 */
   .thanksBox{
     border:1px solid var(--line);
     border-radius:14px;
@@ -463,17 +447,11 @@
     100% { transform: translateX(-50%); }
   }
   .thanksMarquee:hover .thanksTrack{ animation-play-state: paused; }
-
-
-
 </style>
-
-
-
 </head>
 
 <body>
-  <!-- 顶部细条 -->
+
   <div class="topbar">
     <div class="wrap topbarIn">
       <div class="topbarLeft">
@@ -493,7 +471,6 @@
     </div>
   </div>
 
-  <!-- Header -->
   <header class="nav" id="top">
     <div class="wrap navin">
       <a class="brand" href="#top" aria-label="孕乃馨-首页">
@@ -513,7 +490,6 @@
     </div>
   </header>
 
-  <!-- 首屏 -->
   <main id="home" class="wrap">
     <section class="hero">
       <div class="heroGrid">
@@ -567,10 +543,8 @@
       </div>
     </section>
 
-    <!-- ✅ 主体：三栏门户布局（左栏填满方案已做） -->
     <section class="section" id="projects">
       <div class="mainGrid">
-        <!-- 左栏：堆叠（解决左下空白） -->
         <div class="leftStack">
           <aside class="panel box" aria-label="公益项目">
             <div class="boxTitle">
@@ -587,7 +561,6 @@
             </div>
           </aside>
 
-          <!-- ✅ 新增块1：快速入口 -->
           <aside class="panel box" aria-label="快速入口">
             <div class="boxTitle">
               <h2>快速入口</h2>
@@ -606,7 +579,6 @@
             </div>
           </aside>
 
-          <!-- ✅ 新增块2：服务信息（进一步填满、也更像机构门户） -->
           <aside class="panel box" aria-label="服务信息">
             <div class="boxTitle">
               <h2>服务信息</h2>
@@ -625,7 +597,6 @@
           </aside>
         </div>
 
-<!-- 中间：重点项目 -->
 <section class="panel feature" aria-label="重点项目">
   <div class="boxTitle">
     <h2>重点项目介绍</h2>
@@ -646,9 +617,7 @@
     <span class="tag">隐私保护</span>
   </div>
 
-  <!-- ✅ 关键：赞助单位 + 滚动感谢 移到 split2 外面（紧贴在上方内容后面） -->
   <div class="sponsorWrap" aria-label="赞助单位与感谢">
-    <!-- 赞助单位列表 -->
     <div class="sponsorCard">
       <div class="sponsorTitle">
         <h3>赞助单位</h3>
@@ -679,7 +648,6 @@
       </div>
     </div>
 
-    <!-- 滚动感谢 -->
     <div class="sponsorCard">
       <div class="thanksBox">
         <div class="thanksHead">滚动感谢</div>
@@ -693,7 +661,6 @@
             <div class="thanksRow"><b>爱心人士E</b><em>支持：¥100</em></div>
             <div class="thanksRow"><b>合作社区F</b><em>支持：场地支持</em></div>
 
-            <!-- 复制一遍用于无缝滚动（别删） -->
             <div class="thanksRow"><b>爱心人士A</b><em>支持：¥200</em></div>
             <div class="thanksRow"><b>爱心人士B</b><em>支持：物资捐赠</em></div>
             <div class="thanksRow"><b>爱心人士C</b><em>支持：¥500</em></div>
@@ -710,7 +677,6 @@
     </div>
   </div>
 
-  <!-- ✅ split2 只保留两个 miniCard（不会再把“如何参与”挤到很远） -->
   <div class="split2">
     <div class="miniCard">
       <h3>我们提供什么</h3>
@@ -734,8 +700,6 @@
   </div>
 </section>
 
-
-        <!-- 右栏：动态/公告/捐赠 -->
         <aside class="panel box" aria-label="资讯与公告">
           <div class="boxTitle" id="news">
             <h2>基金会动态</h2>
@@ -772,7 +736,6 @@
       </div>
     </section>
 
-    <!-- 下部：关于我们 + 爱心故事 -->
     <section class="section" id="about">
       <div class="grid2">
         <div class="panel box">
@@ -811,7 +774,6 @@
       </div>
     </section>
 
-    <!-- 相册区 -->
     <section class="section" id="gallery">
       <div class="panel box">
         <div class="boxTitle">
@@ -834,7 +796,6 @@
       </div>
     </section>
 
-    <!-- 信息公开 / 参与支持 -->
     <section class="section" id="open">
       <div class="grid2">
         <div class="panel box">
@@ -872,7 +833,6 @@
       </div>
     </section>
 
-    <!-- 联系方式 -->
     <section class="section" id="contact">
       <div class="panel box">
         <div class="boxTitle">
@@ -887,7 +847,6 @@
     </section>
   </main>
 
-  <!-- 页脚 -->
   <footer class="footer">
     <div class="wrap footerGrid">
       <div>
@@ -914,7 +873,7 @@
 
 <!-- ===== 新增：预定滚动区域 START ===== -->
 
-  <style>
+<style>
 .booking-link{
     text-decoration:none;
     display:block;

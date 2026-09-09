@@ -23,6 +23,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
+
         /* =====================================================
            1. 基础
         ===================================================== */
@@ -74,12 +75,10 @@
                 16px;
         }
 
-
         button,
         input {
             font: inherit;
         }
-
 
         button {
             cursor: pointer;
@@ -118,28 +117,44 @@
             padding-bottom: 30px;
         }
 
-
-        .brand-logo {
-            width: 68px;
-            height: 68px;
-
-            margin: 0 auto 14px;
-
-            border-radius: 22px;
-
+        /*
+           Logo + 孕乃馨
+           横向排列
+        */
+        .brand-main {
             display: flex;
             align-items: center;
             justify-content: center;
 
-            font-size: 30px;
-            font-weight: 700;
+            gap: 13px;
+
+            width: 100%;
+        }
+
+        /*
+           项目根目录：
+           logo.jpeg
+
+           login.html 与 logo.jpeg 都在根目录时：
+           ./logo.jpeg
+        */
+        .brand-logo-image {
+            width: 58px;
+            height: 58px;
+
+            flex: 0 0 58px;
+
+            border-radius: 16px;
+
+            object-fit: contain;
+
+            display: block;
 
             background: #ffffff;
 
             box-shadow:
-                0 10px 30px rgba(0, 0, 0, 0.07);
+                0 8px 24px rgba(0, 0, 0, 0.07);
         }
-
 
         .brand-title {
             margin: 0;
@@ -152,9 +167,8 @@
             letter-spacing: 2px;
         }
 
-
         .brand-subtitle {
-            margin-top: 8px;
+            margin-top: 10px;
 
             font-size: 14px;
 
@@ -203,7 +217,6 @@
             margin: 10px 0 24px;
         }
 
-
         .tab-button {
             height: 48px;
 
@@ -219,7 +232,6 @@
 
             transition: 0.18s;
         }
-
 
         .tab-button.active {
             background: #ffffff;
@@ -239,16 +251,13 @@
             display: none;
         }
 
-
         .tab-panel.active {
             display: block;
         }
 
-
         .form-group {
             margin-bottom: 18px;
         }
-
 
         .form-label {
             display: block;
@@ -260,7 +269,6 @@
 
             color: #555555;
         }
-
 
         .input {
             width: 100%;
@@ -275,8 +283,8 @@
             background: #ffffff;
 
             /*
-               16px 非常重要：
-               iPhone Safari 小于16px可能自动放大页面
+               iPhone Safari 小于16px
+               可能自动放大页面
             */
             font-size: 16px;
 
@@ -287,14 +295,12 @@
             transition: 0.18s;
         }
 
-
         .input:focus {
             border-color: #a6a6aa;
 
             box-shadow:
                 0 0 0 3px rgba(0, 0, 0, 0.035);
         }
-
 
         .input::placeholder {
             color: #b8b8bc;
@@ -310,7 +316,6 @@
             grid-template-columns: 82px 1fr;
             gap: 8px;
         }
-
 
         .country-code {
             height: 54px;
@@ -342,7 +347,6 @@
             gap: 8px;
         }
 
-
         .otp-button {
             height: 54px;
 
@@ -360,7 +364,6 @@
             padding: 0 10px;
         }
 
-
         .otp-button:disabled {
             opacity: 0.55;
             cursor: not-allowed;
@@ -368,7 +371,35 @@
 
 
         /* =====================================================
-           9. 主按钮
+           9. 商户 / 管理人员登录区域
+        ===================================================== */
+
+        .business-login-box {
+            width: 100%;
+        }
+
+        .business-tip {
+            padding: 12px 14px;
+
+            margin-bottom: 20px;
+
+            border-radius: 13px;
+
+            background: #f8f8f9;
+
+            color: #777777;
+
+            font-size: 13px;
+            line-height: 1.65;
+        }
+
+        .business-tip strong {
+            color: #444444;
+        }
+
+
+        /* =====================================================
+           10. 主按钮
         ===================================================== */
 
         .primary-button {
@@ -395,11 +426,9 @@
             transition: 0.15s;
         }
 
-
         .primary-button:active {
             transform: scale(0.985);
         }
-
 
         .primary-button:disabled {
             opacity: 0.55;
@@ -408,18 +437,16 @@
 
 
         /* =====================================================
-           10. 密码显示
+           11. 密码显示
         ===================================================== */
 
         .password-wrap {
             position: relative;
         }
 
-
         .password-wrap .input {
             padding-right: 72px;
         }
-
 
         .password-toggle {
             position: absolute;
@@ -442,7 +469,7 @@
 
 
         /* =====================================================
-           11. 提示
+           12. 登录说明
         ===================================================== */
 
         .login-description {
@@ -454,6 +481,10 @@
             color: #8b8b8b;
         }
 
+
+        /* =====================================================
+           13. 信息提示
+        ===================================================== */
 
         .message {
             display: none;
@@ -468,23 +499,19 @@
             line-height: 1.55;
         }
 
-
         .message.show {
             display: block;
         }
-
 
         .message.error {
             background: #fff1f2;
             color: #b42332;
         }
 
-
         .message.success {
             background: #f0f8f3;
             color: #26734d;
         }
-
 
         .message.info {
             background: #f3f5f8;
@@ -493,7 +520,7 @@
 
 
         /* =====================================================
-           12. 底部
+           14. 底部
         ===================================================== */
 
         .footer {
@@ -509,7 +536,6 @@
             color: #a0a0a5;
         }
 
-
         .footer a {
             color: #77777c;
             text-decoration: none;
@@ -517,7 +543,7 @@
 
 
         /* =====================================================
-           13. Loading
+           15. Loading
         ===================================================== */
 
         .spinner {
@@ -538,7 +564,6 @@
             animation: spin .7s linear infinite;
         }
 
-
         @keyframes spin {
             to {
                 transform: rotate(360deg);
@@ -547,7 +572,7 @@
 
 
         /* =====================================================
-           14. 小屏手机
+           16. 小屏手机
         ===================================================== */
 
         @media (max-width: 360px) {
@@ -570,6 +595,12 @@
                 font-size: 26px;
             }
 
+            .brand-logo-image {
+                width: 52px;
+                height: 52px;
+                flex-basis: 52px;
+            }
+
             .otp-row {
                 grid-template-columns: 1fr 108px;
             }
@@ -578,8 +609,33 @@
 
 
         /* =====================================================
-           15. 电脑端
-           不拉得特别宽，保持登录窗口集中
+           17. 手机端优化
+        ===================================================== */
+
+        @media (max-width: 600px) {
+
+            .brand {
+                padding-top: 4vh;
+                padding-bottom: 24px;
+            }
+
+            .login-card {
+                border-radius: 22px;
+            }
+
+            .tab-button {
+                min-height: 48px;
+            }
+
+            .primary-button {
+                min-height: 56px;
+            }
+
+        }
+
+
+        /* =====================================================
+           18. 电脑端
         ===================================================== */
 
         @media (min-width: 768px) {
@@ -620,13 +676,22 @@
 
     <header class="brand">
 
-        <div class="brand-logo">
-            ♡
-        </div>
+        <div class="brand-main">
 
-        <h1 class="brand-title">
-            孕乃馨
-        </h1>
+            <!--
+                项目根目录中的 logo.jpeg
+            -->
+            <img
+                src="./logo.jpeg"
+                class="brand-logo-image"
+                alt="孕乃馨 Logo"
+            >
+
+            <h1 class="brand-title">
+                孕乃馨
+            </h1>
+
+        </div>
 
         <div class="brand-subtitle">
             专业服务 · 安心生活
@@ -669,7 +734,7 @@
 
 
         <!-- ==================================================
-             客户
+             客户登录
         =================================================== -->
 
         <section
@@ -770,7 +835,7 @@
 
 
         <!-- ==================================================
-             商户 / 平台人员
+             商户 / 平台管理人员
         =================================================== -->
 
         <section
@@ -778,83 +843,94 @@
             class="tab-panel"
         >
 
-            <div class="login-description">
-                平台工作人员和商户均使用邮箱及密码登录，系统会自动识别身份。
-            </div>
+            <div class="business-login-box">
+
+                <div class="business-tip">
+                    <strong>商户及平台管理人员入口</strong><br>
+                    使用注册邮箱和密码登录。登录成功后，系统会自动识别您的身份，并进入对应工作平台。
+                </div>
 
 
-            <div class="form-group">
+                <!-- 邮箱 -->
 
-                <label
-                    class="form-label"
-                    for="businessEmail"
-                >
-                    邮箱地址
-                </label>
+                <div class="form-group">
 
-                <input
-                    id="businessEmail"
-                    class="input"
-                    type="email"
-                    inputmode="email"
-                    autocomplete="username"
-                    autocapitalize="none"
-                    spellcheck="false"
-                    placeholder="请输入邮箱地址"
-                >
-
-            </div>
-
-
-
-            <div class="form-group">
-
-                <label
-                    class="form-label"
-                    for="businessPassword"
-                >
-                    密码
-                </label>
-
-
-                <div class="password-wrap">
+                    <label
+                        class="form-label"
+                        for="businessEmail"
+                    >
+                        邮箱地址
+                    </label>
 
                     <input
-                        id="businessPassword"
+                        id="businessEmail"
                         class="input"
-                        type="password"
-                        autocomplete="current-password"
-                        placeholder="请输入密码"
+                        type="email"
+                        inputmode="email"
+                        autocomplete="username"
+                        autocapitalize="none"
+                        spellcheck="false"
+                        placeholder="请输入登录邮箱"
                     >
-
-
-                    <button
-                        id="passwordToggle"
-                        class="password-toggle"
-                        type="button"
-                    >
-                        显示
-                    </button>
 
                 </div>
 
+
+
+                <!-- 密码 -->
+
+                <div class="form-group">
+
+                    <label
+                        class="form-label"
+                        for="businessPassword"
+                    >
+                        登录密码
+                    </label>
+
+
+                    <div class="password-wrap">
+
+                        <input
+                            id="businessPassword"
+                            class="input"
+                            type="password"
+                            autocomplete="current-password"
+                            placeholder="请输入登录密码"
+                        >
+
+
+                        <button
+                            id="passwordToggle"
+                            class="password-toggle"
+                            type="button"
+                        >
+                            显示
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- 登录按钮 -->
+
+                <button
+                    id="businessLoginButton"
+                    class="primary-button"
+                    type="button"
+                >
+                    邮箱密码登录
+                </button>
+
+
+                <div
+                    id="businessMessage"
+                    class="message"
+                ></div>
+
             </div>
-
-
-
-            <button
-                id="businessLoginButton"
-                class="primary-button"
-                type="button"
-            >
-                登录
-            </button>
-
-
-            <div
-                id="businessMessage"
-                class="message"
-            ></div>
 
         </section>
 
@@ -886,13 +962,12 @@
     /* =========================================================
        1. Supabase 配置
 
-       替换成你自己的：
-
+       替换为你的：
        Project URL
        anon public key
 
        注意：
-       这里只能放 ANON KEY
+       前端只能放 ANON KEY
        绝对不能放 service_role key
     ========================================================== */
 
@@ -914,8 +989,8 @@
     /* =========================================================
        2. 登录后的页面
 
-       后面我们正式建立页面以后，
-       再统一修改这里。
+       后面建立正式页面后，
+       可以再统一修改文件名。
     ========================================================== */
 
     const PAGE_PLATFORM =
@@ -1008,6 +1083,10 @@
         clearMessage(customerMessage);
         clearMessage(businessMessage);
 
+        setTimeout(() => {
+            businessEmail.focus();
+        }, 100);
+
     }
 
 
@@ -1063,8 +1142,11 @@
                 .replace(/\D/g, '');
 
 
-        if (phone.startsWith('86') &&
-            phone.length === 13) {
+        if (
+            phone.startsWith('86')
+            &&
+            phone.length === 13
+        ) {
 
             phone = phone.substring(2);
 
@@ -1134,7 +1216,7 @@
                 options: {
 
                     /*
-                     * 客户不存在时允许自动注册
+                     * 客户不存在时允许自动创建账号
                      */
                     shouldCreateUser: true
 
@@ -1317,9 +1399,8 @@
 
 
             /*
-             * 再次确认身份
-             *
-             * 客户手机号登录后只允许 customer。
+             * 客户手机号登录后
+             * 必须确认数据库身份为 customer
              */
 
             const userType =
@@ -1367,7 +1448,8 @@
 
 
     /* =========================================================
-       10. 商户 / 平台人员邮箱密码登录
+       10. 商户 / 平台管理人员
+           邮箱 + 密码登录
     ========================================================== */
 
     async function businessLogin() {
@@ -1376,9 +1458,11 @@
 
 
         const email =
-            String(businessEmail.value || '')
-                .trim()
-                .toLowerCase();
+            String(
+                businessEmail.value || ''
+            )
+            .trim()
+            .toLowerCase();
 
 
         const password =
@@ -1427,8 +1511,8 @@
         try {
 
             /*
-             * 第一步
-             * Supabase Auth 验证邮箱 + 密码
+             * 第一层认证：
+             * Supabase Auth
              */
 
             const {
@@ -1439,6 +1523,7 @@
                 .signInWithPassword({
 
                     email: email,
+
                     password: password
 
                 });
@@ -1459,11 +1544,13 @@
 
 
             /*
-             * 第二步
-             * 数据库读取身份
+             * 第二层认证：
              *
-             * 用户自己不需要选择：
-             * Founder / Admin / Staff / Merchant
+             * 从 profiles 判断：
+             *
+             * platform
+             * merchant
+             * customer
              */
 
             const userType =
@@ -1471,8 +1558,7 @@
 
 
             /*
-             * 第三步
-             * 自动分流
+             * 平台工作人员
              */
 
             if (userType === 'platform') {
@@ -1486,6 +1572,10 @@
             }
 
 
+            /*
+             * 商户
+             */
+
             if (userType === 'merchant') {
 
                 window.location.replace(
@@ -1498,7 +1588,7 @@
 
 
             /*
-             * customer 不允许通过后台入口登录
+             * 客户账号不能从商户/管理入口进入
              */
 
             await supabaseClient.auth.signOut();
@@ -1524,7 +1614,7 @@
             setButtonLoading(
                 businessLoginButton,
                 false,
-                '登录'
+                '邮箱密码登录'
             );
 
         }
@@ -1534,7 +1624,7 @@
 
 
     /* =========================================================
-       11. 获取当前身份
+       11. 获取当前用户身份
     ========================================================== */
 
     async function getCurrentUserType() {
@@ -1596,7 +1686,7 @@
 
 
     /* =========================================================
-       12. 工具
+       12. 邮箱验证
     ========================================================== */
 
     function isValidEmail(email) {
@@ -1606,6 +1696,11 @@
 
     }
 
+
+
+    /* =========================================================
+       13. Button Loading
+    ========================================================== */
 
     function setButtonLoading(
         button,
@@ -1634,9 +1729,7 @@
 
 
     /* =========================================================
-       13. 错误信息转换
-
-       不直接把技术错误全部暴露给普通用户
+       14. 错误信息
     ========================================================== */
 
     function getReadableError(error) {
@@ -1672,7 +1765,8 @@
         if (
             message.includes(
                 'token has expired'
-            ) ||
+            )
+            ||
             message.includes(
                 'otp expired'
             )
@@ -1713,7 +1807,7 @@
 
 
     /* =========================================================
-       14. 密码显示 / 隐藏
+       15. 密码显示 / 隐藏
     ========================================================== */
 
     passwordToggle.addEventListener(
@@ -1742,7 +1836,7 @@
 
 
     /* =========================================================
-       15. 事件
+       16. 点击事件
     ========================================================== */
 
     sendOtpButton.addEventListener(
@@ -1765,7 +1859,7 @@
 
 
     /* =========================================================
-       16. 键盘 Enter
+       17. Enter 登录
     ========================================================== */
 
     customerOtp.addEventListener(
@@ -1775,6 +1869,20 @@
             if (event.key === 'Enter') {
 
                 customerLogin();
+
+            }
+
+        }
+    );
+
+
+    businessEmail.addEventListener(
+        'keydown',
+        event => {
+
+            if (event.key === 'Enter') {
+
+                businessPassword.focus();
 
             }
 
@@ -1798,7 +1906,7 @@
 
 
     /* =========================================================
-       17. 手机号只保留数字
+       18. 手机号只保留数字
     ========================================================== */
 
     customerPhone.addEventListener(
@@ -1829,12 +1937,7 @@
 
 
     /* =========================================================
-       18. 已登录用户自动分流
-
-       比如：
-       用户昨天已经登录，
-       今天再次从微信链接打开，
-       不需要重复登录。
+       19. 已登录用户自动分流
     ========================================================== */
 
     async function autoRedirectExistingSession() {

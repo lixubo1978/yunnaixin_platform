@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 
@@ -16,25 +15,19 @@
     "
 >
 
-<meta
-    name="theme-color"
-    content="#fff7fa"
->
+<meta name="theme-color" content="#fff7fa">
 
 <title>孕乃馨 - 服务区域管理</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-
 <style>
 
-:root {
-
+:root{
     --pink-50:#fff7fa;
     --pink-100:#ffeef4;
     --pink-200:#ffd9e7;
     --pink-300:#f8bdd2;
-    --pink-400:#f28aae;
     --pink-500:#e85d8f;
     --pink-600:#d94d7d;
     --pink-700:#b93667;
@@ -45,45 +38,25 @@
 
     --border:#eee4e9;
 
-    --white:#ffffff;
-
-    --success:#16815d;
-    --danger:#c83355;
-
     --shadow:
         0 10px 30px
         rgba(123,50,79,.07);
-
 }
 
-
-* {
-
+*{
     box-sizing:border-box;
-
-    -webkit-tap-highlight-color:
-        transparent;
-
+    -webkit-tap-highlight-color:transparent;
 }
-
 
 html,
-body {
-
+body{
     margin:0;
-
     min-height:100%;
-
 }
 
-
-body {
-
-    min-height:
-        100vh;
-
-    min-height:
-        100dvh;
+body{
+    min-height:100vh;
+    min-height:100dvh;
 
     background:
         linear-gradient(
@@ -92,8 +65,7 @@ body {
             #faf8f9
         );
 
-    color:
-        var(--text);
+    color:var(--text);
 
     font-family:
         -apple-system,
@@ -103,172 +75,111 @@ body {
         "Microsoft YaHei",
         Arial,
         sans-serif;
-
 }
-
 
 button,
 input,
-select {
-
+select{
     font:inherit;
-
 }
 
-
-button {
-
+button{
     cursor:pointer;
-
 }
 
-
-.hidden {
-
+.hidden{
     display:none !important;
-
 }
 
 
 /* =========================================================
-   TOP BAR
+   顶部
 ========================================================= */
 
-.topbar {
-
+.topbar{
     min-height:68px;
 
-    padding:
-        8px
-        24px;
+    padding:8px 24px;
 
     position:sticky;
-
     top:0;
 
     z-index:1000;
 
     display:flex;
-
     align-items:center;
-
-    justify-content:
-        space-between;
+    justify-content:space-between;
 
     gap:15px;
 
     background:
-        rgba(
-            255,
-            255,
-            255,
-            .95
-        );
+        rgba(255,255,255,.95);
 
     backdrop-filter:
         blur(16px);
 
     border-bottom:
-        1px solid
-        var(--border);
-
+        1px solid var(--border);
 }
 
-
-.brand {
-
+.brand{
     display:flex;
-
     align-items:center;
-
     gap:11px;
-
 }
 
-
-.brand img {
-
+.brand img{
     width:42px;
-
     height:42px;
 
     border-radius:12px;
 
     object-fit:contain;
-
 }
 
-
-.brand-title {
-
+.brand-title{
     font-size:18px;
-
     font-weight:750;
-
 }
 
-
-.brand-sub {
-
+.brand-sub{
     margin-top:2px;
 
     font-size:11px;
-
-    color:
-        var(--text3);
-
+    color:var(--text3);
 }
 
-
-.top-actions {
-
+.top-actions{
     display:flex;
-
     align-items:center;
-
     gap:9px;
-
 }
-
 
 .back-button,
-.logout-button {
-
+.logout-button{
     min-height:44px;
 
-    padding:
-        0
-        15px;
+    padding:0 15px;
 
     border-radius:12px;
 
     font-size:13px;
-
     font-weight:650;
-
 }
 
-
-.back-button {
-
+.back-button{
     border:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 
-    background:
-        #ffffff;
+    background:#fff;
 
-    color:
-        var(--text2);
-
+    color:var(--text2);
 }
 
-
-.logout-button {
-
+.logout-button{
     border:0;
 
-    color:#ffffff;
+    color:#fff;
 
     background:
         linear-gradient(
@@ -276,154 +187,98 @@ button {
             var(--pink-500),
             var(--pink-600)
         );
-
 }
 
 
 /* =========================================================
-   MAIN
+   主体
 ========================================================= */
 
-.main {
-
+.main{
     width:100%;
-
     max-width:1450px;
 
-    margin:
-        0 auto;
+    margin:0 auto;
 
-    padding:
-        28px;
-
+    padding:28px;
 }
 
-
-.heading {
-
-    display:flex;
-
-    align-items:flex-end;
-
-    justify-content:
-        space-between;
-
-    gap:20px;
-
+.heading{
     margin-bottom:20px;
-
 }
 
-
-.heading h1 {
-
+.heading h1{
     margin:0;
-
     font-size:27px;
-
 }
 
+.heading p{
+    margin:7px 0 0;
 
-.heading p {
-
-    margin:
-        7px
-        0
-        0;
-
-    color:
-        var(--text2);
+    color:var(--text2);
 
     font-size:13px;
-
     line-height:1.7;
-
 }
 
 
 /* =========================================================
-   STATS
+   统计
 ========================================================= */
 
-.stats {
-
+.stats{
     display:grid;
 
     grid-template-columns:
-        repeat(
-            4,
-            1fr
-        );
+        repeat(4,1fr);
 
     gap:13px;
 
     margin-bottom:18px;
-
 }
 
-
-.stat {
-
+.stat{
     min-height:102px;
 
     padding:17px;
 
     border:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 
     border-radius:17px;
 
-    background:
-        #ffffff;
-
+    background:#fff;
 }
 
-
-.stat-title {
-
+.stat-title{
     font-size:11px;
-
-    color:
-        var(--text3);
-
+    color:var(--text3);
 }
 
-
-.stat-number {
-
+.stat-number{
     margin-top:9px;
 
     font-size:24px;
-
     font-weight:750;
-
 }
 
-
-.stat-note {
-
+.stat-note{
     margin-top:4px;
 
     font-size:11px;
-
-    color:
-        var(--text2);
-
+    color:var(--text2);
 }
 
 
 /* =========================================================
-   PANEL
+   主面板
 ========================================================= */
 
-.panel {
-
-    background:#ffffff;
+.panel{
+    background:#fff;
 
     border:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 
     border-radius:19px;
 
@@ -431,87 +286,65 @@ button {
 
     box-shadow:
         0 5px 18px
-        rgba(
-            100,
-            40,
-            65,
-            .035
-        );
-
+        rgba(100,40,65,.035);
 }
 
-
-.panel-toolbar {
-
+.panel-toolbar{
     padding:14px;
 
     display:grid;
 
     grid-template-columns:
-        minmax(
-            220px,
-            1fr
-        )
+        minmax(220px,1fr)
         180px
         auto;
 
     gap:10px;
 
     border-bottom:
-        1px solid
-        var(--border);
-
+        1px solid var(--border);
 }
 
-
 .input,
-.select {
-
+.select{
     width:100%;
 
     min-height:46px;
 
-    padding:
-        0
-        13px;
+    padding:0 13px;
 
     border:
-        1px solid
-        #e3dce0;
+        1px solid #e3dce0;
 
     border-radius:11px;
 
-    background:#ffffff;
+    background:#fff;
 
     outline:none;
-
 }
 
-
 .input:focus,
-.select:focus {
-
-    border-color:
-        var(--pink-300);
+.select:focus{
+    border-color:var(--pink-300);
 
     box-shadow:
         0 0 0 3px
         var(--pink-50);
-
 }
 
-
-.primary-button {
-
+.primary-button{
     min-height:46px;
 
-    padding:
-        0
-        18px;
+    padding:0 18px;
 
     border:0;
 
     border-radius:11px;
+
+    color:#fff;
+
+    font-size:13px;
+    font-weight:700;
 
     background:
         linear-gradient(
@@ -519,378 +352,254 @@ button {
             var(--pink-500),
             var(--pink-600)
         );
-
-    color:#ffffff;
-
-    font-size:13px;
-
-    font-weight:700;
-
 }
 
 
 /* =========================================================
-   TABLE
+   表格
 ========================================================= */
 
-.table-scroll {
-
+.table-scroll{
     overflow-x:auto;
-
 }
 
-
-table {
-
+table{
     width:100%;
 
     min-width:900px;
 
-    border-collapse:
-        collapse;
-
+    border-collapse:collapse;
 }
 
+th{
+    padding:13px 15px;
 
-th {
+    background:#fcfafb;
 
-    padding:
-        13px
-        15px;
-
-    background:
-        #fcfafb;
-
-    color:
-        #837980;
+    color:#837980;
 
     text-align:left;
 
     font-size:11px;
 
     white-space:nowrap;
-
 }
 
-
-td {
-
-    padding:
-        15px;
+td{
+    padding:15px;
 
     border-top:
-        1px solid
-        #f1eaee;
+        1px solid #f1eaee;
 
     font-size:13px;
 
     vertical-align:middle;
-
 }
 
-
-.number-cell {
-
-    color:
-        var(--pink-700);
+.number-cell{
+    color:var(--pink-700);
 
     font-weight:750;
-
 }
 
-
-.area-name {
-
+.area-name{
     font-weight:700;
-
 }
 
-
-.area-sub {
-
+.area-sub{
     margin-top:4px;
 
     font-size:11px;
 
-    color:
-        var(--text3);
-
+    color:var(--text3);
 }
 
-
-.badge {
-
+.badge{
     display:inline-flex;
 
     align-items:center;
 
     min-height:26px;
 
-    padding:
-        4px
-        9px;
+    padding:4px 9px;
 
     border-radius:999px;
 
     font-size:11px;
-
     font-weight:650;
-
 }
 
-
-.badge-active {
-
+.badge-active{
     color:#157758;
-
     background:#edfaf4;
-
 }
 
-
-.badge-inactive {
-
+.badge-inactive{
     color:#806f76;
-
     background:#f1edef;
-
 }
 
-
-.badge-price {
-
+.badge-price{
     color:#a15e22;
-
     background:#fff5e9;
-
 }
 
-
-.action-buttons {
-
+.action-buttons{
     display:flex;
-
     gap:7px;
-
     flex-wrap:wrap;
-
 }
 
-
-.action {
-
+.action{
     min-height:40px;
 
-    padding:
-        0
-        12px;
+    padding:0 12px;
 
     border:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 
     border-radius:10px;
 
-    background:#ffffff;
+    background:#fff;
 
-    color:
-        var(--text2);
-
+    color:var(--text2);
 }
 
+.action:disabled{
+    cursor:not-allowed;
+    opacity:.65;
+}
 
-.danger-action {
-
+.danger-action{
     color:#b52d50;
 
     border-color:#f2c8d5;
 
     background:#fff7fa;
-
 }
 
+.price-action{
+    color:var(--pink-700);
 
-.price-action {
+    border-color:var(--pink-200);
 
-    color:
-        var(--pink-700);
-
-    border-color:
-        var(--pink-200);
-
-    background:
-        var(--pink-50);
-
+    background:var(--pink-50);
 }
 
-
-.empty {
-
-    padding:
-        55px
-        20px;
+.empty{
+    padding:55px 20px;
 
     text-align:center;
 
-    color:
-        var(--text3);
-
+    color:var(--text3);
 }
 
 
 /* =========================================================
-   MOBILE CARDS
+   手机版
 ========================================================= */
 
-.mobile-list {
-
+.mobile-list{
     display:none;
-
 }
 
-
-.mobile-card {
-
+.mobile-card{
     padding:16px;
 
     margin-bottom:10px;
 
     border:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 
     border-radius:16px;
 
-    background:#ffffff;
-
+    background:#fff;
 }
 
-
-.mobile-card-head {
-
+.mobile-card-head{
     display:flex;
 
-    justify-content:
-        space-between;
+    justify-content:space-between;
 
     align-items:flex-start;
 
     gap:10px;
-
 }
 
-
-.mobile-number {
-
+.mobile-number{
     margin-bottom:5px;
 
-    color:
-        var(--pink-700);
+    color:var(--pink-700);
 
     font-size:12px;
-
     font-weight:750;
-
 }
 
-
-.mobile-title {
-
+.mobile-title{
     font-size:15px;
-
     font-weight:700;
-
 }
 
-
-.mobile-sub {
-
+.mobile-sub{
     margin-top:4px;
 
     font-size:11px;
 
-    color:
-        var(--text3);
-
+    color:var(--text3);
 }
 
-
-.mobile-grid {
-
+.mobile-grid{
     display:grid;
 
     grid-template-columns:
-        1fr
-        1fr;
+        1fr 1fr;
 
     gap:9px;
 
     margin-top:13px;
-
 }
 
-
-.mobile-info {
-
+.mobile-info{
     padding:10px;
 
-    background:
-        var(--pink-50);
+    background:var(--pink-50);
 
     border-radius:11px;
-
 }
 
-
-.mobile-info-label {
-
+.mobile-info-label{
     font-size:10px;
-
-    color:
-        var(--text3);
-
+    color:var(--text3);
 }
 
-
-.mobile-info-value {
-
+.mobile-info-value{
     margin-top:3px;
 
     font-size:12px;
-
     font-weight:650;
-
 }
 
-
-.mobile-actions {
-
+.mobile-actions{
     display:grid;
 
     grid-template-columns:
-        1fr
-        1fr;
+        1fr 1fr;
 
     gap:8px;
 
     margin-top:12px;
-
 }
 
-
-.mobile-actions .action {
-
+.mobile-actions .action{
     min-height:48px;
-
 }
 
 
 /* =========================================================
-   MODAL
+   弹窗
 ========================================================= */
 
-.modal-mask {
-
+.modal-mask{
     display:none;
 
     position:fixed;
@@ -902,210 +611,145 @@ td {
     padding:16px;
 
     align-items:center;
-
     justify-content:center;
 
     background:
-        rgba(
-            35,
-            25,
-            31,
-            .45
-        );
-
+        rgba(35,25,31,.45);
 }
 
-
-.modal-mask.show {
-
+.modal-mask.show{
     display:flex;
-
 }
 
-
-.modal {
-
+.modal{
     width:100%;
 
     max-width:560px;
 
-    max-height:
-        92vh;
+    max-height:92vh;
 
     overflow:auto;
 
     border-radius:20px;
 
-    background:#ffffff;
+    background:#fff;
 
     box-shadow:
         0 25px 70px
-        rgba(
-            50,
-            20,
-            32,
-            .2
-        );
-
+        rgba(50,20,32,.2);
 }
 
-
-.modal-head {
-
+.modal-head{
     position:sticky;
 
     top:0;
 
     z-index:2;
 
-    padding:
-        18px
-        20px;
+    padding:18px 20px;
 
     display:flex;
 
     align-items:center;
 
-    justify-content:
-        space-between;
+    justify-content:space-between;
 
-    background:#ffffff;
+    background:#fff;
 
     border-bottom:
-        1px solid
-        var(--border);
-
+        1px solid var(--border);
 }
 
-
-.modal-title {
-
+.modal-title{
     font-size:18px;
-
     font-weight:750;
-
 }
 
-
-.modal-close {
-
+.modal-close{
     width:42px;
-
     height:42px;
 
     border:0;
 
     border-radius:11px;
 
-    background:
-        var(--pink-50);
+    background:var(--pink-50);
 
-    color:
-        var(--pink-700);
+    color:var(--pink-700);
 
     font-size:20px;
-
 }
 
-
-.modal-body {
-
+.modal-body{
     padding:20px;
-
 }
 
-
-.form-group {
-
+.form-group{
     margin-bottom:16px;
-
 }
 
-
-.form-label {
-
+.form-label{
     display:block;
 
     margin-bottom:7px;
 
     font-size:12px;
-
     font-weight:650;
 
-    color:
-        var(--text2);
-
+    color:var(--text2);
 }
 
-
-.required {
-
-    color:
-        var(--pink-600);
-
+.required{
+    color:var(--pink-600);
 }
 
-
-.form-control {
-
+.form-control{
     width:100%;
 
     min-height:50px;
 
-    padding:
-        0
-        13px;
+    padding:0 13px;
 
     border:
-        1px solid
-        #e3dce0;
+        1px solid #e3dce0;
 
     border-radius:12px;
 
-    background:#ffffff;
+    background:#fff;
 
     outline:none;
-
 }
 
+.form-control:disabled{
+    color:#9d9499;
+    background:#f6f3f5;
+}
 
-.form-hint {
-
+.form-hint{
     margin-top:7px;
 
-    color:
-        var(--text3);
+    color:var(--text3);
 
     font-size:10px;
-
     line-height:1.6;
-
 }
 
-
-.info-box {
-
+.info-box{
     padding:13px;
 
     margin-bottom:16px;
 
     border-radius:13px;
 
-    background:
-        var(--pink-50);
+    background:var(--pink-50);
 
-    color:
-        var(--text2);
+    color:var(--text2);
 
     font-size:12px;
-
     line-height:1.7;
-
 }
 
-
-.modal-footer {
-
+.modal-footer{
     position:sticky;
 
     bottom:0;
@@ -1113,53 +757,39 @@ td {
     display:grid;
 
     grid-template-columns:
-        1fr
-        1fr;
+        1fr 1fr;
 
     gap:9px;
 
     padding:
-        15px
-        20px
-        20px;
+        15px 20px 20px;
 
-    background:#ffffff;
+    background:#fff;
 
     border-top:
-        1px solid
-        var(--border);
-
+        1px solid var(--border);
 }
 
-
 .cancel-button,
-.save-button {
-
+.save-button{
     min-height:50px;
 
     border-radius:12px;
 
     font-weight:700;
-
 }
 
-
-.cancel-button {
-
+.cancel-button{
     border:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 
-    background:#ffffff;
-
+    background:#fff;
 }
 
-
-.save-button {
-
+.save-button{
     border:0;
 
-    color:#ffffff;
+    color:#fff;
 
     background:
         linear-gradient(
@@ -1167,23 +797,18 @@ td {
             var(--pink-500),
             var(--pink-600)
         );
-
 }
 
-
-.save-button:disabled {
-
+.save-button:disabled{
     opacity:.55;
-
 }
 
 
 /* =========================================================
-   TOAST
+   Toast
 ========================================================= */
 
-.toast {
-
+.toast{
     display:none;
 
     position:fixed;
@@ -1196,60 +821,40 @@ td {
 
     max-width:400px;
 
-    padding:
-        13px
-        16px;
+    padding:13px 16px;
 
     border-radius:12px;
 
     font-size:13px;
 
-    box-shadow:
-        var(--shadow);
-
+    box-shadow:var(--shadow);
 }
 
-
-.toast.show {
-
+.toast.show{
     display:block;
-
 }
 
-
-.toast.success {
-
+.toast.success{
     color:#17664c;
-
     background:#effaf5;
-
 }
 
-
-.toast.error {
-
+.toast.error{
     color:#af294b;
-
     background:#fff0f4;
-
 }
 
-
-.toast.info {
-
+.toast.info{
     color:#665c62;
-
     background:#f8f5f7;
-
 }
 
 
 /* =========================================================
-   LOADING
+   Loading
 ========================================================= */
 
-.loading {
-
+.loading{
     position:fixed;
 
     inset:0;
@@ -1267,19 +872,14 @@ td {
     gap:12px;
 
     background:#fffafd;
-
 }
 
-
-.spinner {
-
+.spinner{
     width:38px;
-
     height:38px;
 
     border:
-        4px solid
-        var(--pink-100);
+        4px solid var(--pink-100);
 
     border-top-color:
         var(--pink-500);
@@ -1287,136 +887,76 @@ td {
     border-radius:50%;
 
     animation:
-        spin .8s
-        linear infinite;
-
+        spin .8s linear infinite;
 }
 
-
-@keyframes spin {
-
-    to {
-
-        transform:
-            rotate(360deg);
-
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
     }
-
 }
 
 
 /* =========================================================
-   MOBILE
+   手机
 ========================================================= */
 
-@media
-(max-width:760px) {
+@media(max-width:760px){
 
-    .topbar {
-
-        padding:
-            7px
-            11px;
-
+    .topbar{
+        padding:7px 11px;
     }
 
-
-    .brand-sub {
-
+    .brand-sub{
         display:none;
-
     }
 
-
-    .brand img {
-
+    .brand img{
         width:38px;
-
         height:38px;
-
     }
 
-
-    .brand-title {
-
+    .brand-title{
         font-size:16px;
-
     }
 
-
-    .back-button {
-
+    .back-button{
         display:none;
-
     }
 
-
-    .logout-button {
-
+    .logout-button{
         min-height:42px;
 
-        padding:
-            0
-            13px;
+        padding:0 13px;
 
         font-size:11px;
-
     }
 
-
-    .main {
-
-        padding:
-            17px
-            11px
-            30px;
-
+    .main{
+        padding:17px 11px 30px;
     }
 
-
-    .heading {
-
-        display:block;
-
-    }
-
-
-    .heading h1 {
-
+    .heading h1{
         font-size:22px;
-
     }
 
-
-    .stats {
-
+    .stats{
         grid-template-columns:
-            1fr
-            1fr;
+            1fr 1fr;
 
         gap:8px;
-
     }
 
-
-    .stat {
-
+    .stat{
         min-height:92px;
-
         padding:14px;
-
     }
 
-
-    .stat-number {
-
+    .stat-number{
         font-size:21px;
-
     }
 
-
-    .panel {
-
+    .panel{
         padding:0;
 
         background:transparent;
@@ -1424,86 +964,54 @@ td {
         border:0;
 
         box-shadow:none;
-
     }
 
-
-    .panel-toolbar {
-
+    .panel-toolbar{
         padding:0;
 
         margin-bottom:12px;
 
-        grid-template-columns:
-            1fr;
+        grid-template-columns:1fr;
 
         border:0;
-
     }
 
-
-    .panel-toolbar .primary-button {
-
+    .panel-toolbar .primary-button{
         min-height:52px;
-
         font-size:14px;
-
     }
 
-
-    .table-scroll {
-
+    .table-scroll{
         display:none;
-
     }
 
-
-    .mobile-list {
-
+    .mobile-list{
         display:block;
-
     }
 
-
-    .modal-mask {
-
+    .modal-mask{
         align-items:flex-end;
-
         padding:0;
-
     }
 
-
-    .modal {
-
+    .modal{
         max-width:none;
 
-        max-height:
-            92dvh;
+        max-height:92dvh;
 
         border-radius:
-            22px
-            22px
-            0
-            0;
-
+            22px 22px 0 0;
     }
 
-
-    .toast {
-
+    .toast{
         left:10px;
-
         right:10px;
 
         bottom:
             max(
                 12px,
-                env(
-                    safe-area-inset-bottom
-                )
+                env(safe-area-inset-bottom)
             );
-
     }
 
 }
@@ -1515,10 +1023,6 @@ td {
 
 <body>
 
-
-<!-- =========================================================
-     Loading
-========================================================= -->
 
 <div
     id="loading"
@@ -1539,44 +1043,31 @@ td {
 </div>
 
 
-<!-- =========================================================
-     Header
-========================================================= -->
-
 <header class="topbar">
 
-
     <div class="brand">
-
 
         <img
             src="./logo.jpeg"
             alt="孕乃馨"
         >
 
-
         <div>
-
 
             <div class="brand-title">
                 孕乃馨
             </div>
 
-
             <div class="brand-sub">
                 服务区域管理
             </div>
 
-
         </div>
-
 
     </div>
 
 
-
     <div class="top-actions">
-
 
         <button
             class="back-button"
@@ -1585,7 +1076,6 @@ td {
             返回工作台
         </button>
 
-
         <button
             class="logout-button"
             onclick="logout()"
@@ -1593,62 +1083,40 @@ td {
             退出
         </button>
 
-
     </div>
-
 
 </header>
 
-
-<!-- =========================================================
-     Main
-========================================================= -->
 
 <main class="main">
 
 
 <section class="heading">
 
-
     <div>
-
 
         <h1>
             服务区域管理
         </h1>
 
-
         <p>
-
-            平台按地级市开通服务区域。
-
+            平台按照省份和地级市开通服务区域。
             <br>
-
-            每开通一个城市，系统自动按照平台产品目录建立该城市的销售价格目录，初始价格统一为“未定义”。
-
+            每开通一个城市，系统自动按照平台产品名录建立该城市的销售价格目录，新价格初始统一为“未定义”。
         </p>
 
-
     </div>
-
 
 </section>
 
 
-<!-- =========================================================
-     Stats
-========================================================= -->
-
 <div class="stats">
 
-
     <div class="stat">
-
 
         <div class="stat-title">
             已创建区域
         </div>
-
 
         <div
             id="totalCount"
@@ -1657,18 +1125,14 @@ td {
             0
         </div>
 
-
     </div>
-
 
 
     <div class="stat">
 
-
         <div class="stat-title">
             正常区域
         </div>
-
 
         <div
             id="activeCount"
@@ -1677,18 +1141,14 @@ td {
             0
         </div>
 
-
     </div>
-
 
 
     <div class="stat">
 
-
         <div class="stat-title">
             已失效区域
         </div>
-
 
         <div
             id="inactiveCount"
@@ -1697,18 +1157,14 @@ td {
             0
         </div>
 
-
     </div>
-
 
 
     <div class="stat">
 
-
         <div class="stat-title">
             平台标准产品
         </div>
-
 
         <div
             id="productCount"
@@ -1717,27 +1173,19 @@ td {
             0
         </div>
 
-
         <div class="stat-note">
-            开通城市时自动建立价格目录
+            开通城市自动生成价格目录
         </div>
-
 
     </div>
 
-
 </div>
 
-
-<!-- =========================================================
-     Panel
-========================================================= -->
 
 <div class="panel">
 
 
 <div class="panel-toolbar">
-
 
     <input
         id="searchInput"
@@ -1746,7 +1194,6 @@ td {
         placeholder="搜索区域编号、省份或城市"
         oninput="renderAreas()"
     >
-
 
     <select
         id="statusFilter"
@@ -1768,7 +1215,6 @@ td {
 
     </select>
 
-
     <button
         class="primary-button"
         onclick="openCreateModal()"
@@ -1776,63 +1222,39 @@ td {
         ＋ 开通服务区域
     </button>
 
-
 </div>
 
 
 <div class="table-scroll">
 
-
 <table>
-
 
 <thead>
 
-
 <tr>
 
-    <th>
-        编号
-    </th>
+    <th>编号</th>
 
-    <th>
-        省份
-    </th>
+    <th>省份</th>
 
-    <th>
-        地级市
-    </th>
+    <th>地级市</th>
 
-    <th>
-        城市价格
-    </th>
+    <th>城市价格</th>
 
-    <th>
-        状态
-    </th>
+    <th>状态</th>
 
-    <th>
-        开通时间
-    </th>
+    <th>开通时间</th>
 
-    <th>
-        操作
-    </th>
+    <th>操作</th>
 
 </tr>
-
 
 </thead>
 
 
-<tbody
-    id="areaTable"
->
-</tbody>
-
+<tbody id="areaTable"></tbody>
 
 </table>
-
 
 </div>
 
@@ -1859,7 +1281,7 @@ td {
 
 
 <!-- =========================================================
-     Create Modal
+     开通服务区域
 ========================================================= -->
 
 <div
@@ -1867,17 +1289,14 @@ td {
     class="modal-mask"
 >
 
-
 <div class="modal">
 
 
 <div class="modal-head">
 
-
     <div class="modal-title">
         开通服务区域
     </div>
-
 
     <button
         class="modal-close"
@@ -1885,7 +1304,6 @@ td {
     >
         ×
     </button>
-
 
 </div>
 
@@ -1895,17 +1313,24 @@ td {
 
     <div class="info-box">
 
-        服务区域按照中国大陆行政区域中的“省 / 地级市”建立。
+        服务区域直接使用系统现有的中国大陆行政区域标准数据。
+
+        <br><br>
+
+        先选择省份，再选择该省所属地级市。
 
         <br>
 
-        开通后，系统会自动读取平台标准产品目录，并为该城市建立对应的销售价格记录。所有新生成价格初始均为“未定义”。
+        已经开通的城市不能重复开通。
+
+        <br>
+
+        创建后系统自动读取平台标准产品名录，并为该城市建立销售价格目录，初始销售价格均为“未定义”。
 
     </div>
 
 
     <div class="form-group">
-
 
         <label class="form-label">
 
@@ -1916,7 +1341,6 @@ td {
             </span>
 
         </label>
-
 
         <select
             id="provinceSelect"
@@ -1930,13 +1354,10 @@ td {
 
         </select>
 
-
     </div>
 
 
-
     <div class="form-group">
-
 
         <label class="form-label">
 
@@ -1948,10 +1369,10 @@ td {
 
         </label>
 
-
         <select
             id="citySelect"
             class="form-control"
+            disabled
         >
 
             <option value="">
@@ -1960,6 +1381,9 @@ td {
 
         </select>
 
+        <div class="form-hint">
+            已经开通的城市将显示“已开通”，不能再次选择。
+        </div>
 
     </div>
 
@@ -1969,14 +1393,12 @@ td {
 
 <div class="modal-footer">
 
-
     <button
         class="cancel-button"
         onclick="closeCreateModal()"
     >
         取消
     </button>
-
 
     <button
         id="createButton"
@@ -1986,19 +1408,13 @@ td {
         确认开通
     </button>
 
-
 </div>
 
 
 </div>
 
-
 </div>
 
-
-<!-- =========================================================
-     Toast
-========================================================= -->
 
 <div
     id="toast"
@@ -2008,6 +1424,7 @@ td {
 
 
 <script>
+
 
 /* =========================================================
    Supabase
@@ -2029,17 +1446,10 @@ const supabaseClient =
         SUPABASE_ANON_KEY,
 
         {
-
-            auth: {
-
-                persistSession:
-                    true,
-
-                autoRefreshToken:
-                    true
-
+            auth:{
+                persistSession:true,
+                autoRefreshToken:true
             }
-
         }
 
     );
@@ -2082,14 +1492,12 @@ let products =
 
 
 /* =========================================================
-   Init
+   初始化
 ========================================================= */
 
-async function initialize() {
+async function initialize(){
 
-
-    try {
-
+    try{
 
         const {
             data:{
@@ -2100,16 +1508,13 @@ async function initialize() {
             .getSession();
 
 
-        if (!session) {
-
+        if(!session){
 
             location.replace(
                 LOGIN_PAGE
             );
 
-
             return;
-
         }
 
 
@@ -2122,75 +1527,60 @@ async function initialize() {
             error:profileError
         } =
         await supabaseClient
-
-            .from(
-                "profiles"
-            )
-
+            .from("profiles")
             .select(`
                 id,
                 full_name,
                 role,
                 status
             `)
-
             .eq(
                 "id",
                 currentUser.id
             )
-
             .single();
 
 
-        if (
-            profileError
-            ||
+        if(
+            profileError ||
             !profile
-        ) {
-
+        ){
 
             throw new Error(
                 "无法读取当前账号权限。"
             );
-
         }
 
 
-        if (
+        if(
             profile.status !==
             "active"
-        ) {
-
+        ){
 
             throw new Error(
                 "当前账号已经停用。"
             );
-
         }
 
 
-        if (
+        if(
             ![
                 "founder",
                 "platform_admin"
             ].includes(
                 profile.role
             )
-        ) {
-
+        ){
 
             alert(
                 "您没有服务区域管理权限。"
             );
 
-
             location.replace(
                 HOME_PAGE
             );
 
-
             return;
-
         }
 
 
@@ -2198,16 +1588,21 @@ async function initialize() {
             profile;
 
 
-        await Promise.all([
+        /*
+        按顺序加载。
 
-            loadProvinces(),
+        先加载全国行政区域，
+        再加载服务区域。
 
-            loadCities(),
+        这样服务区域列表里的省市名称
+        一定可以正确显示。
+        */
 
-            loadProducts()
+        await loadProvinces();
 
-        ]);
+        await loadCities();
 
+        await loadProducts();
 
         await loadAreas();
 
@@ -2220,145 +1615,170 @@ async function initialize() {
         ).style.display =
             "none";
 
-
     }
+    catch(error){
 
-    catch(error) {
+        console.error(
+            "页面初始化失败：",
+            error
+        );
 
 
-        console.error(error);
+        document.getElementById(
+            "loading"
+        ).style.display =
+            "none";
 
 
         alert(
-            error.message
-            ||
+            error.message ||
             "页面初始化失败。"
         );
-
     }
-
 }
 
 
 /* =========================================================
-   Provinces
+   读取省份
 ========================================================= */
 
-async function loadProvinces() {
-
+async function loadProvinces(){
 
     const {
         data,
         error
     } =
     await supabaseClient
-
-        .from(
-            "provinces"
-        )
-
+        .from("provinces")
         .select(`
             id,
+            province_code,
             province_name,
             status
         `)
-
         .eq(
             "status",
             "active"
         )
-
         .order(
-            "province_name"
+            "province_code",
+            {
+                ascending:true
+            }
         );
 
 
-    if (error) {
-        throw error;
+    if(error){
+
+        console.error(
+            "省份读取失败：",
+            error
+        );
+
+        throw new Error(
+            "行政区域中的省份数据读取失败：" +
+            error.message
+        );
     }
 
 
     provinces =
         data || [];
 
+
+    console.log(
+        "省份数量：",
+        provinces.length
+    );
 }
 
 
 /* =========================================================
-   Cities
+   读取全部城市
 ========================================================= */
 
-async function loadCities() {
-
+async function loadCities(){
 
     const {
         data,
         error
     } =
     await supabaseClient
-
-        .from(
-            "cities"
-        )
-
+        .from("cities")
         .select(`
             id,
             province_id,
+            city_code,
             city_name,
             status
         `)
-
         .eq(
             "status",
             "active"
         )
-
         .order(
-            "city_name"
+            "city_code",
+            {
+                ascending:true
+            }
         );
 
 
-    if (error) {
-        throw error;
+    if(error){
+
+        console.error(
+            "城市读取失败：",
+            error
+        );
+
+        throw new Error(
+            "行政区域中的城市数据读取失败：" +
+            error.message
+        );
     }
 
 
     cities =
         data || [];
 
+
+    console.log(
+        "城市数量：",
+        cities.length
+    );
 }
 
 
 /* =========================================================
-   Products
+   产品目录
 ========================================================= */
 
-async function loadProducts() {
-
+async function loadProducts(){
 
     const {
         data,
         error
     } =
     await supabaseClient
-
-        .from(
-            "products"
-        )
-
+        .from("products")
         .select(`
             id,
             product_name,
             status
         `)
-
         .eq(
             "status",
             "active"
         );
 
 
-    if (error) {
+    if(error){
+
+        console.error(
+            "产品读取失败：",
+            error
+        );
+
         throw error;
     }
 
@@ -2371,27 +1791,21 @@ async function loadProducts() {
         "productCount"
     ).textContent =
         products.length;
-
 }
 
 
 /* =========================================================
-   Areas
+   服务区域
 ========================================================= */
 
-async function loadAreas() {
-
+async function loadAreas(){
 
     const {
         data,
         error
     } =
     await supabaseClient
-
-        .from(
-            "service_areas"
-        )
-
+        .from("service_areas")
         .select(`
             id,
             area_no,
@@ -2403,7 +1817,6 @@ async function loadAreas() {
             created_at,
             invalidated_at
         `)
-
         .order(
             "area_no",
             {
@@ -2412,7 +1825,13 @@ async function loadAreas() {
         );
 
 
-    if (error) {
+    if(error){
+
+        console.error(
+            "服务区域读取失败：",
+            error
+        );
+
         throw error;
     }
 
@@ -2424,16 +1843,14 @@ async function loadAreas() {
     renderStats();
 
     renderAreas();
-
 }
 
 
 /* =========================================================
-   Stats
+   统计
 ========================================================= */
 
-function renderStats() {
-
+function renderStats(){
 
     document.getElementById(
         "totalCount"
@@ -2459,16 +1876,14 @@ function renderStats() {
                 item.status ===
                 "inactive"
         ).length;
-
 }
 
 
 /* =========================================================
-   Render Areas
+   服务区域列表
 ========================================================= */
 
-function renderAreas() {
-
+function renderAreas(){
 
     const keyword =
         document.getElementById(
@@ -2489,16 +1904,12 @@ function renderAreas() {
         areas.filter(
             item => {
 
-
-                if (
-                    status
-                    &&
-                    item.status !==
-                    status
-                ) {
+                if(
+                    status &&
+                    item.status !== status
+                ){
 
                     return false;
-
                 }
 
 
@@ -2526,7 +1937,6 @@ function renderAreas() {
                 return text.includes(
                     keyword
                 );
-
             }
         );
 
@@ -2566,7 +1976,6 @@ function renderAreas() {
     list.forEach(
         item => {
 
-
             const province =
                 provinceName(
                     item.province_id
@@ -2580,22 +1989,17 @@ function renderAreas() {
 
 
             tbody.insertAdjacentHTML(
-
                 "beforeend",
-
                 `
-
                 <tr>
 
                     <td class="number-cell">
                         ${formatNo(item.area_no)}
                     </td>
 
-
                     <td>
                         ${escapeHtml(province)}
                     </td>
-
 
                     <td>
 
@@ -2604,11 +2008,12 @@ function renderAreas() {
                         </div>
 
                         <div class="area-sub">
-                            ${escapeHtml(province)} · ${escapeHtml(city)}
+                            ${escapeHtml(province)}
+                            ·
+                            ${escapeHtml(city)}
                         </div>
 
                     </td>
-
 
                     <td>
 
@@ -2618,71 +2023,54 @@ function renderAreas() {
 
                     </td>
 
-
                     <td>
                         ${statusBadge(item.status)}
                     </td>
-
 
                     <td>
                         ${formatDate(item.created_at)}
                     </td>
 
-
                     <td>
-
                         ${areaActions(item)}
-
                     </td>
 
                 </tr>
-
                 `
-
             );
 
 
             mobile.insertAdjacentHTML(
-
                 "beforeend",
-
                 `
-
                 <div class="mobile-card">
-
 
                     <div class="mobile-card-head">
 
-
                         <div>
-
 
                             <div class="mobile-number">
                                 区域 ${formatNo(item.area_no)}
                             </div>
 
-
                             <div class="mobile-title">
                                 ${escapeHtml(city)}
                             </div>
 
-
                             <div class="mobile-sub">
-                                ${escapeHtml(province)} · ${escapeHtml(city)}
+                                ${escapeHtml(province)}
+                                ·
+                                ${escapeHtml(city)}
                             </div>
-
 
                         </div>
 
-
                         ${statusBadge(item.status)}
-
 
                     </div>
 
 
                     <div class="mobile-grid">
-
 
                         <div class="mobile-info">
 
@@ -2735,40 +2123,32 @@ function renderAreas() {
 
                         </div>
 
-
                     </div>
 
 
                     ${mobileAreaActions(item)}
 
-
                 </div>
-
                 `
-
             );
 
         }
     );
-
 }
 
 
 /* =========================================================
-   Actions
+   操作按钮
 ========================================================= */
 
-function areaActions(item) {
+function areaActions(item){
 
-
-    if (
+    if(
         item.status ===
         "inactive"
-    ) {
-
+    ){
 
         return `
-
             <div class="action-buttons">
 
                 <button
@@ -2779,14 +2159,11 @@ function areaActions(item) {
                 </button>
 
             </div>
-
         `;
-
     }
 
 
     return `
-
         <div class="action-buttons">
 
             <button
@@ -2804,23 +2181,18 @@ function areaActions(item) {
             </button>
 
         </div>
-
     `;
-
 }
 
 
-function mobileAreaActions(item) {
+function mobileAreaActions(item){
 
-
-    if (
+    if(
         item.status ===
         "inactive"
-    ) {
-
+    ){
 
         return `
-
             <div class="mobile-actions">
 
                 <button
@@ -2831,14 +2203,11 @@ function mobileAreaActions(item) {
                 </button>
 
             </div>
-
         `;
-
     }
 
 
     return `
-
         <div class="mobile-actions">
 
             <button
@@ -2856,68 +2225,94 @@ function mobileAreaActions(item) {
             </button>
 
         </div>
-
     `;
-
 }
 
 
 /* =========================================================
-   Open Create Modal
+   打开创建窗口
 ========================================================= */
 
-function openCreateModal() {
+async function openCreateModal(){
+
+    try{
+
+        /*
+        每次打开都重新读取行政区域，
+        保证使用行政区域管理中的最新数据。
+        */
+
+        await loadProvinces();
+
+        await loadCities();
 
 
-    document.getElementById(
-        "provinceSelect"
-    ).value =
-        "";
+        fillProvinceSelect();
 
 
-    document.getElementById(
-        "citySelect"
-    ).innerHTML =
-        `
-
-        <option value="">
-            请先选择省份
-        </option>
-
-        `;
+        document.getElementById(
+            "provinceSelect"
+        ).value =
+            "";
 
 
-    document.getElementById(
-        "createModal"
-    ).classList.add(
-        "show"
-    );
+        const citySelect =
+            document.getElementById(
+                "citySelect"
+            );
 
+
+        citySelect.innerHTML =
+            `
+            <option value="">
+                请先选择省份
+            </option>
+            `;
+
+
+        citySelect.disabled =
+            true;
+
+
+        document.getElementById(
+            "createModal"
+        ).classList.add(
+            "show"
+        );
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        showToast(
+            error.message ||
+            "行政区域数据读取失败。",
+            "error"
+        );
+    }
 }
 
 
 /* =========================================================
-   Close Modal
+   关闭创建窗口
 ========================================================= */
 
-function closeCreateModal() {
-
+function closeCreateModal(){
 
     document.getElementById(
         "createModal"
     ).classList.remove(
         "show"
     );
-
 }
 
 
 /* =========================================================
-   Province Select
+   省份下拉
 ========================================================= */
 
-function fillProvinceSelect() {
-
+function fillProvinceSelect(){
 
     const select =
         document.getElementById(
@@ -2927,44 +2322,52 @@ function fillProvinceSelect() {
 
     select.innerHTML =
         `
-
         <option value="">
             请选择省份
         </option>
-
         `;
+
+
+    if(
+        !provinces ||
+        provinces.length === 0
+    ){
+
+        select.innerHTML =
+            `
+            <option value="">
+                暂无行政省份数据
+            </option>
+            `;
+
+        return;
+    }
 
 
     provinces.forEach(
         province => {
 
-
             select.insertAdjacentHTML(
-
                 "beforeend",
-
                 `
-
                 <option value="${province.id}">
-                    ${escapeHtml(province.province_name)}
+                    ${escapeHtml(
+                        province.province_name
+                    )}
                 </option>
-
                 `
-
             );
 
         }
     );
-
 }
 
 
 /* =========================================================
-   Province Changed
+   选择省份
 ========================================================= */
 
-function provinceChanged() {
-
+function provinceChanged(){
 
     const provinceId =
         document.getElementById(
@@ -2979,51 +2382,127 @@ function provinceChanged() {
 
 
     citySelect.innerHTML =
-        `
-
-        <option value="">
-            请选择地级市
-        </option>
-
-        `;
+        "";
 
 
-    cities
-        .filter(
+    if(!provinceId){
+
+        citySelect.disabled =
+            true;
+
+        citySelect.innerHTML =
+            `
+            <option value="">
+                请先选择省份
+            </option>
+            `;
+
+        return;
+    }
+
+
+    const cityList =
+        cities.filter(
             city =>
                 String(city.province_id) ===
                 String(provinceId)
-        )
-        .forEach(
-            city => {
+        );
 
+
+    citySelect.disabled =
+        false;
+
+
+    citySelect.innerHTML =
+        `
+        <option value="">
+            请选择地级市
+        </option>
+        `;
+
+
+    /*
+    取得所有正常开通中的城市
+    */
+
+    const activeCityIds =
+        new Set(
+            areas
+                .filter(
+                    area =>
+                        area.status ===
+                        "active"
+                )
+                .map(
+                    area =>
+                        String(
+                            area.city_id
+                        )
+                )
+        );
+
+
+    cityList.forEach(
+        city => {
+
+            const alreadyOpened =
+                activeCityIds.has(
+                    String(city.id)
+                );
+
+
+            if(alreadyOpened){
 
                 citySelect.insertAdjacentHTML(
-
                     "beforeend",
-
                     `
-
-                    <option value="${city.id}">
+                    <option
+                        value="${city.id}"
+                        disabled
+                    >
                         ${escapeHtml(city.city_name)}
+                        （已开通）
                     </option>
-
                     `
-
                 );
 
             }
-        );
+            else{
 
+                citySelect.insertAdjacentHTML(
+                    "beforeend",
+                    `
+                    <option value="${city.id}">
+                        ${escapeHtml(city.city_name)}
+                    </option>
+                    `
+                );
+
+            }
+
+        }
+    );
+
+
+    if(
+        cityList.length === 0
+    ){
+
+        citySelect.innerHTML =
+            `
+            <option value="">
+                该省暂无地级市数据
+            </option>
+            `;
+    }
 }
 
 
 /* =========================================================
-   Create Area
+   创建服务区域
 ========================================================= */
 
-async function createArea() {
-
+async function createArea(){
 
     const provinceId =
         Number(
@@ -3041,76 +2520,71 @@ async function createArea() {
         );
 
 
-    if (
-        !provinceId
-        ||
+    if(
+        !provinceId ||
         !cityId
-    ) {
-
+    ){
 
         showToast(
             "请选择省份和地级市。",
             "error"
         );
 
-
         return;
-
     }
 
+
+    /*
+    再次验证这个城市是否属于这个省。
+    */
 
     const city =
         cities.find(
             item =>
                 Number(item.id) ===
-                cityId
+                Number(cityId)
         );
 
 
-    if (
-        !city
-        ||
+    if(
+        !city ||
         Number(city.province_id) !==
-        provinceId
-    ) {
-
+        Number(provinceId)
+    ){
 
         showToast(
             "省份和城市不匹配。",
             "error"
         );
 
-
         return;
-
     }
 
+
+    /*
+    前端再次检查是否已经开通。
+    数据库RPC还会再检查一次。
+    */
 
     const existing =
         areas.find(
             item =>
-                Number(item.province_id) ===
-                provinceId
-                &&
                 Number(item.city_id) ===
-                cityId
+                Number(cityId)
                 &&
                 item.status ===
                 "active"
         );
 
 
-    if (existing) {
-
+    if(existing){
 
         showToast(
             "该城市已经开通服务区域。",
             "error"
         );
 
-
         return;
-
     }
 
 
@@ -3128,59 +2602,63 @@ async function createArea() {
         "正在开通...";
 
 
-    try {
-
+    try{
 
         /*
-        核心 RPC：
+        数据库RPC完成：
 
         1. 创建 service_areas
-        2. 自动读取 products
-        3. 为该城市生成 city_prices
-        4. 所有销售价默认 NULL = 未定义
+        2. 自动读取 active products
+        3. 自动生成 city_prices
+        4. price = NULL
+        5. 前端显示“未定义”
         */
-
 
         const {
             data,
             error
         } =
         await supabaseClient.rpc(
-
             "create_service_area_with_prices",
-
             {
-
                 p_province_id:
                     provinceId,
 
                 p_city_id:
                     cityId
-
             }
-
         );
 
 
-        if (error) {
+        if(error){
+
             throw error;
         }
 
 
-        if (
-            data?.error
-        ) {
+        if(
+            data?.success === false
+        ){
 
+            throw new Error(
+                data.error ||
+                "开通失败。"
+            );
+        }
+
+
+        if(data?.error){
 
             throw new Error(
                 data.error
             );
-
         }
 
 
         showToast(
-            "服务区域开通成功，城市产品价格目录已经生成。",
+            `服务区域开通成功，已生成 ${
+                data?.created_price_records ?? 0
+            } 条城市产品价格记录。`,
             "success"
         );
 
@@ -3190,30 +2668,23 @@ async function createArea() {
 
         await loadAreas();
 
-
     }
+    catch(error){
 
-    catch(error) {
-
-
-        console.error(error);
-
-
-        showToast(
-
-            error.message
-            ||
-            "服务区域创建失败。",
-
-            "error"
-
+        console.error(
+            "开通服务区域失败：",
+            error
         );
 
 
+        showToast(
+            error.message ||
+            "服务区域创建失败。",
+            "error"
+        );
+
     }
-
-    finally {
-
+    finally{
 
         button.disabled =
             false;
@@ -3221,18 +2692,15 @@ async function createArea() {
 
         button.textContent =
             "确认开通";
-
     }
-
 }
 
 
 /* =========================================================
-   Invalidate Area
+   服务区域设无效
 ========================================================= */
 
-async function invalidateArea(id) {
-
+async function invalidateArea(id){
 
     const area =
         areas.find(
@@ -3242,7 +2710,8 @@ async function invalidateArea(id) {
         );
 
 
-    if (!area) {
+    if(!area){
+
         return;
     }
 
@@ -3251,53 +2720,53 @@ async function invalidateArea(id) {
         `${provinceName(area.province_id)} · ${cityName(area.city_id)}`;
 
 
-    if (
+    if(
         !confirm(
             `确定将“${name}”设为无效吗？\n\n设为无效后不能恢复。如果以后重新开通，需要创建新的服务区域记录。`
         )
-    ) {
-
+    ){
 
         return;
-
     }
 
 
-    try {
-
+    try{
 
         const {
             data,
             error
         } =
         await supabaseClient.rpc(
-
             "invalidate_service_area",
-
             {
-
                 p_service_area_id:
-                    id
-
+                    Number(id)
             }
-
         );
 
 
-        if (error) {
+        if(error){
+
             throw error;
         }
 
 
-        if (
-            data?.error
-        ) {
+        if(
+            data?.success === false
+        ){
 
+            throw new Error(
+                data.error ||
+                "操作失败。"
+            );
+        }
+
+
+        if(data?.error){
 
             throw new Error(
                 data.error
             );
-
         }
 
 
@@ -3309,45 +2778,42 @@ async function invalidateArea(id) {
 
         await loadAreas();
 
-
     }
+    catch(error){
 
-    catch(error) {
+        console.error(error);
 
 
         showToast(
-
-            error.message
-            ||
+            error.message ||
             "操作失败。",
-
             "error"
-
         );
-
     }
-
 }
 
 
 /* =========================================================
-   City Prices
+   城市价格
 ========================================================= */
 
-function openCityPrices(cityId) {
-
+function openCityPrices(cityId){
 
     location.href =
         `${CITY_PRICE_PAGE}?city_id=${encodeURIComponent(cityId)}`;
-
 }
 
 
 /* =========================================================
-   Helpers
+   省份名称
 ========================================================= */
 
-function provinceName(id) {
+function provinceName(id){
+
+    if(!id){
+
+        return "-";
+    }
 
 
     return (
@@ -3359,11 +2825,19 @@ function provinceName(id) {
         ||
         "-"
     );
-
 }
 
 
-function cityName(id) {
+/* =========================================================
+   城市名称
+========================================================= */
+
+function cityName(id){
+
+    if(!id){
+
+        return "-";
+    }
 
 
     return (
@@ -3375,22 +2849,22 @@ function cityName(id) {
         ||
         "-"
     );
-
 }
 
 
-function formatNo(value) {
+/* =========================================================
+   编号
+========================================================= */
 
+function formatNo(value){
 
-    if (
-        value === null
-        ||
-        value === undefined
-    ) {
-
+    if(
+        value === null ||
+        value === undefined ||
+        value === ""
+    ){
 
         return "-";
-
     }
 
 
@@ -3399,45 +2873,44 @@ function formatNo(value) {
             3,
             "0"
         );
-
 }
 
 
-function statusBadge(status) {
+/* =========================================================
+   状态
+========================================================= */
 
+function statusBadge(status){
 
-    if (
+    if(
         status ===
         "active"
-    ) {
-
+    ){
 
         return `
-
             <span class="badge badge-active">
                 正常
             </span>
-
         `;
-
     }
 
 
     return `
-
         <span class="badge badge-inactive">
             已失效
         </span>
-
     `;
-
 }
 
 
-function formatDate(value) {
+/* =========================================================
+   时间
+========================================================= */
 
+function formatDate(value){
 
-    if (!value) {
+    if(!value){
+
         return "-";
     }
 
@@ -3446,16 +2919,27 @@ function formatDate(value) {
         new Date(value);
 
 
-    return date
-        .toLocaleDateString(
-            "zh-CN"
-        );
+    if(
+        Number.isNaN(
+            date.getTime()
+        )
+    ){
 
+        return "-";
+    }
+
+
+    return date.toLocaleDateString(
+        "zh-CN"
+    );
 }
 
 
-function escapeHtml(value) {
+/* =========================================================
+   HTML安全
+========================================================= */
 
+function escapeHtml(value){
 
     return String(
         value ?? ""
@@ -3480,7 +2964,6 @@ function escapeHtml(value) {
         /'/g,
         "&#039;"
     );
-
 }
 
 
@@ -3494,8 +2977,7 @@ let toastTimer;
 function showToast(
     text,
     type="info"
-) {
-
+){
 
     const toast =
         document.getElementById(
@@ -3518,52 +3000,41 @@ function showToast(
 
     toastTimer =
         setTimeout(
-
             () => {
-
 
                 toast.className =
                     "toast";
 
-
             },
-
             3500
-
         );
-
 }
 
 
 /* =========================================================
-   Home
+   返回工作台
 ========================================================= */
 
-function goHome() {
-
+function goHome(){
 
     location.href =
         HOME_PAGE;
-
 }
 
 
 /* =========================================================
-   Logout
+   退出
 ========================================================= */
 
-async function logout() {
+async function logout(){
 
-
-    if (
+    if(
         !confirm(
             "确定退出登录吗？"
         )
-    ) {
-
+    ){
 
         return;
-
     }
 
 
@@ -3574,19 +3045,17 @@ async function logout() {
     location.replace(
         LOGIN_PAGE
     );
-
 }
 
 
 /* =========================================================
-   10分钟自动退出
+   10分钟无操作自动退出
 ========================================================= */
 
 let idleTimer;
 
 
-function resetIdle() {
-
+function resetIdle(){
 
     clearTimeout(
         idleTimer
@@ -3595,9 +3064,7 @@ function resetIdle() {
 
     idleTimer =
         setTimeout(
-
             async () => {
-
 
                 await supabaseClient.auth
                     .signOut();
@@ -3612,13 +3079,9 @@ function resetIdle() {
                     LOGIN_PAGE
                 );
 
-
             },
-
             10 * 60 * 1000
-
         );
-
 }
 
 
@@ -3632,17 +3095,12 @@ function resetIdle() {
 .forEach(
     event => {
 
-
         document.addEventListener(
-
             event,
-
             resetIdle,
-
             {
                 passive:true
             }
-
         );
 
     }
@@ -3650,27 +3108,22 @@ function resetIdle() {
 
 
 /* =========================================================
-   Start
+   启动
 ========================================================= */
 
 document.addEventListener(
-
     "DOMContentLoaded",
-
     () => {
-
 
         resetIdle();
 
         initialize();
 
     }
-
 );
 
 </script>
 
 
 </body>
-
 </html>

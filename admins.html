@@ -479,6 +479,11 @@ td {
     background:#faf7ff;
 }
 
+.no-action {
+    color:var(--text3);
+    font-size:12px;
+}
+
 .empty {
     padding:55px 20px;
     text-align:center;
@@ -3233,9 +3238,28 @@ function renderMerchants() {
 
 /* =========================================================
    人员按钮
+
+   创始人：
+   不显示编辑
+   不显示设为无效
 ========================================================= */
 
 function staffActionButtons(item) {
+
+    if (
+        item.role ===
+        "founder"
+    ) {
+
+        return `
+            <div class="action-buttons">
+                <span class="no-action">
+                    -
+                </span>
+            </div>
+        `;
+    }
+
 
     if (
         item.status ===
@@ -3280,6 +3304,15 @@ function staffActionButtons(item) {
 
 
 function mobileStaffButtons(item) {
+
+    if (
+        item.role ===
+        "founder"
+    ) {
+
+        return "";
+    }
+
 
     if (
         item.status ===
@@ -3494,6 +3527,22 @@ function editStaff(id) {
     }
 
 
+    /* 创始人禁止编辑 */
+
+    if (
+        item.role ===
+        "founder"
+    ) {
+
+        showToast(
+            "创始人账号不允许编辑。",
+            "error"
+        );
+
+        return;
+    }
+
+
     const assignment =
         assignmentList.find(
             x =>
@@ -3610,6 +3659,22 @@ function recreateStaff(id) {
 
 
     if (!item) {
+        return;
+    }
+
+
+    /* 创始人禁止重新添加 */
+
+    if (
+        item.role ===
+        "founder"
+    ) {
+
+        showToast(
+            "创始人账号不允许重新添加。",
+            "error"
+        );
+
         return;
     }
 
@@ -3987,6 +4052,28 @@ async function createStaff() {
 
 async function updateStaff() {
 
+    const target =
+        staffList.find(
+            x =>
+                x.id ===
+                editingStaffId
+        );
+
+
+    if (
+        target?.role ===
+        "founder"
+    ) {
+
+        showToast(
+            "创始人账号不允许修改。",
+            "error"
+        );
+
+        return;
+    }
+
+
     const name =
         document.getElementById(
             "staffName"
@@ -4135,6 +4222,22 @@ async function invalidateStaff(id) {
 
 
     if (!item) {
+        return;
+    }
+
+
+    /* 创始人禁止设无效 */
+
+    if (
+        item.role ===
+        "founder"
+    ) {
+
+        showToast(
+            "创始人账号不允许设为无效。",
+            "error"
+        );
+
         return;
     }
 

@@ -1,492 +1,2084 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="
+      width=device-width,
+      initial-scale=1.0,
+      maximum-scale=1.0,
+      viewport-fit=cover
+    "
+  >
+
+  <meta
+    name="theme-color"
+    content="#fff7fa"
+  >
 
   <title>孕乃馨平台管理中心</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+
+    /* =========================================================
+       全局品牌变量
+    ========================================================= */
+
+    :root {
+
+      --pink-50: #fff7fa;
+      --pink-100: #ffeef4;
+      --pink-200: #ffd9e7;
+      --pink-300: #fbbfd3;
+      --pink-400: #f28aae;
+      --pink-500: #e85d8f;
+      --pink-600: #d94d7d;
+      --pink-700: #b93667;
+      --pink-800: #8e294f;
+
+      --rose-dark: #61213d;
+
+      --text-main: #26232a;
+      --text-sub: #716a73;
+      --text-light: #a39ba5;
+
+      --border: #eee5e9;
+      --surface: #ffffff;
+      --background: #fbf9fa;
+
+      --shadow-soft:
+        0 10px 30px
+        rgba(120, 47, 78, 0.06);
+
+      --shadow-card:
+        0 8px 26px
+        rgba(120, 47, 78, 0.07);
+
+      --radius-sm: 12px;
+      --radius-md: 16px;
+      --radius-lg: 22px;
+
+      --touch-size: 48px;
+
     }
 
+
+    /* =========================================================
+       RESET
+    ========================================================= */
+
+    * {
+
+      box-sizing: border-box;
+
+      margin: 0;
+      padding: 0;
+
+      -webkit-tap-highlight-color:
+        transparent;
+
+    }
+
+
+    html {
+
+      width: 100%;
+
+      min-height: 100%;
+
+      scroll-behavior: smooth;
+
+    }
+
+
     body {
+
+      width: 100%;
+
+      min-height: 100vh;
+      min-height: 100dvh;
+
       font-family:
         -apple-system,
         BlinkMacSystemFont,
+        "SF Pro Display",
         "Segoe UI",
         "PingFang SC",
+        "Hiragino Sans GB",
         "Microsoft YaHei",
         Arial,
         sans-serif;
 
-      background: #f5f7fb;
-      color: #1f2937;
-      min-height: 100vh;
+      background:
+        linear-gradient(
+          180deg,
+          #fff9fb 0%,
+          #fbf9fa 45%,
+          #f8f8fa 100%
+        );
+
+      color:
+        var(--text-main);
+
+      font-size: 15px;
+
+      line-height: 1.6;
+
+      -webkit-font-smoothing:
+        antialiased;
+
+      text-rendering:
+        optimizeLegibility;
+
     }
 
-    /* =====================================================
-       顶部
-    ===================================================== */
 
-    .topbar {
-      height: 68px;
-      background: #ffffff;
-      border-bottom: 1px solid #e5e7eb;
+    button,
+    input,
+    select,
+    textarea {
 
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      font: inherit;
 
-      padding: 0 28px;
-
-      position: sticky;
-      top: 0;
-      z-index: 100;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+
+    button,
+    a {
+
+      touch-action: manipulation;
+
     }
 
-    .brand-logo {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
 
-      background: #fbbf24;
+    a {
 
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      color: inherit;
 
-      font-size: 23px;
     }
 
-    .brand-title {
-      font-weight: 700;
-      font-size: 20px;
-      color: #111827;
-    }
 
-    .brand-subtitle {
-      font-size: 12px;
-      color: #9ca3af;
-      margin-top: 2px;
-    }
-
-    .top-right {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
-
-    .user-info {
-      text-align: right;
-    }
-
-    .user-name {
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .user-role {
-      margin-top: 3px;
-      font-size: 12px;
-      color: #6b7280;
-    }
-
-    .logout-btn {
-      border: none;
-      background: #111827;
-      color: white;
-
-      padding: 9px 16px;
-      border-radius: 8px;
+    button {
 
       cursor: pointer;
 
-      font-size: 13px;
     }
 
-    .logout-btn:hover {
-      background: #374151;
-    }
-
-    /* =====================================================
-       主体
-    ===================================================== */
-
-    .page {
-      display: flex;
-      min-height: calc(100vh - 68px);
-    }
-
-    /* =====================================================
-       左侧菜单
-    ===================================================== */
-
-    .sidebar {
-      width: 230px;
-      background: #ffffff;
-      border-right: 1px solid #e5e7eb;
-
-      padding: 22px 14px;
-    }
-
-    .menu-title {
-      font-size: 11px;
-      color: #9ca3af;
-
-      padding: 8px 12px;
-
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-    }
-
-    .menu-item {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-
-      padding: 12px 14px;
-      margin-bottom: 5px;
-
-      color: #374151;
-      text-decoration: none;
-
-      border-radius: 9px;
-
-      cursor: pointer;
-
-      font-size: 14px;
-
-      transition: 0.2s;
-    }
-
-    .menu-item:hover {
-      background: #f3f4f6;
-    }
-
-    .menu-item.active {
-      background: #fff7d6;
-      color: #92400e;
-      font-weight: 600;
-    }
-
-    .menu-icon {
-      width: 24px;
-      text-align: center;
-    }
 
     .hidden {
+
       display: none !important;
+
     }
 
-    /* =====================================================
-       主内容
-    ===================================================== */
 
-    .main {
-      flex: 1;
-      padding: 28px;
-      overflow-x: hidden;
+
+    /* =========================================================
+       顶部导航
+    ========================================================= */
+
+    .topbar {
+
+      min-height: 72px;
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          0.94
+        );
+
+      backdrop-filter:
+        blur(18px);
+
+      -webkit-backdrop-filter:
+        blur(18px);
+
+      border-bottom:
+        1px solid
+        rgba(
+          232,
+          93,
+          143,
+          0.08
+        );
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content:
+        space-between;
+
+      gap: 18px;
+
+      padding:
+        0
+        28px;
+
+      position:
+        sticky;
+
+      top: 0;
+
+      z-index: 1000;
+
+      box-shadow:
+        0 2px 18px
+        rgba(
+          100,
+          40,
+          66,
+          0.03
+        );
+
     }
 
-    .welcome {
+
+    .brand {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 13px;
+
+      min-width: 0;
+
+    }
+
+
+    .brand-logo {
+
+      width: 44px;
+      height: 44px;
+
+      flex:
+        0 0 44px;
+
+      border-radius: 13px;
+
+      object-fit: contain;
+
+      background: #ffffff;
+
+      box-shadow:
+        0 6px 18px
+        rgba(
+          186,
+          63,
+          110,
+          0.12
+        );
+
+    }
+
+
+    .brand-text {
+
+      min-width: 0;
+
+    }
+
+
+    .brand-title {
+
+      font-size: 20px;
+
+      line-height: 1.25;
+
+      font-weight: 720;
+
+      letter-spacing: 1.5px;
+
+      color:
+        var(--text-main);
+
+    }
+
+
+    .brand-subtitle {
+
+      margin-top: 3px;
+
+      font-size: 11px;
+
+      line-height: 1.35;
+
+      color:
+        var(--text-light);
+
+      letter-spacing: 0.5px;
+
+    }
+
+
+    .top-right {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 14px;
+
+    }
+
+
+    .user-info {
+
+      text-align: right;
+
+      max-width: 240px;
+
+    }
+
+
+    .user-name {
+
+      font-size: 14px;
+
+      line-height: 1.3;
+
+      font-weight: 650;
+
+      white-space: nowrap;
+
+      overflow: hidden;
+
+      text-overflow: ellipsis;
+
+    }
+
+
+    .user-role {
+
+      margin-top: 4px;
+
+      font-size: 11px;
+
+      color:
+        var(--pink-600);
+
+      font-weight: 600;
+
+    }
+
+
+    .logout-btn {
+
+      min-width: 88px;
+
+      min-height:
+        var(--touch-size);
+
+      padding:
+        0
+        18px;
+
+      border: none;
+
+      border-radius: 13px;
+
       background:
         linear-gradient(
           135deg,
-          #fbbf24,
-          #fde68a
+          var(--pink-500),
+          var(--pink-600)
         );
 
-      border-radius: 18px;
+      color: #ffffff;
 
-      padding: 28px 30px;
-
-      margin-bottom: 26px;
-    }
-
-    .welcome h1 {
-      font-size: 25px;
-      margin-bottom: 9px;
-      color: #78350f;
-    }
-
-    .welcome p {
-      font-size: 14px;
-      color: #92400e;
-      line-height: 1.7;
-    }
-
-    /* =====================================================
-       信息栏
-    ===================================================== */
-
-    .info-grid {
-      display: grid;
-      grid-template-columns:
-        repeat(4, minmax(0, 1fr));
-
-      gap: 18px;
-
-      margin-bottom: 28px;
-    }
-
-    .info-card {
-      background: white;
-      border: 1px solid #e5e7eb;
-
-      border-radius: 14px;
-
-      padding: 20px;
-
-      min-height: 105px;
-    }
-
-    .info-label {
-      font-size: 12px;
-      color: #9ca3af;
-      margin-bottom: 12px;
-    }
-
-    .info-value {
-      font-size: 20px;
-      font-weight: 700;
-      color: #111827;
-      word-break: break-all;
-    }
-
-    .info-small {
       font-size: 13px;
-      font-weight: 500;
-    }
 
-    /* =====================================================
-       功能卡片
-    ===================================================== */
+      font-weight: 650;
 
-    .section-title {
-      font-size: 18px;
-      font-weight: 700;
-
-      margin-bottom: 15px;
-    }
-
-    .module-grid {
-      display: grid;
-
-      grid-template-columns:
-        repeat(3, minmax(0, 1fr));
-
-      gap: 18px;
-    }
-
-    .module-card {
-      background: white;
-
-      border-radius: 15px;
-
-      border: 1px solid #e5e7eb;
-
-      padding: 22px;
-
-      text-decoration: none;
-      color: inherit;
-
-      transition: 0.2s;
-
-      cursor: pointer;
-    }
-
-    .module-card:hover {
-      transform: translateY(-2px);
+      letter-spacing: 0.5px;
 
       box-shadow:
-        0 10px 25px rgba(0, 0, 0, 0.07);
+        0 7px 18px
+        rgba(
+          217,
+          77,
+          125,
+          0.18
+        );
 
-      border-color: #fbbf24;
+      transition:
+        transform .16s ease,
+        box-shadow .16s ease;
+
     }
 
-    .module-icon {
-      width: 45px;
-      height: 45px;
 
-      border-radius: 12px;
+    .logout-btn:hover {
 
-      background: #fff7d6;
+      box-shadow:
+        0 10px 22px
+        rgba(
+          217,
+          77,
+          125,
+          0.24
+        );
+
+    }
+
+
+    .logout-btn:active {
+
+      transform:
+        scale(0.97);
+
+    }
+
+
+
+    /* =========================================================
+       主页面结构
+    ========================================================= */
+
+    .page {
 
       display: flex;
-      justify-content: center;
-      align-items: center;
 
-      font-size: 23px;
+      width: 100%;
 
-      margin-bottom: 16px;
+      min-height:
+        calc(
+          100vh
+          - 72px
+        );
+
     }
 
-    .module-name {
+
+
+    /* =========================================================
+       桌面侧边栏
+    ========================================================= */
+
+    .sidebar {
+
+      width: 238px;
+
+      flex:
+        0 0 238px;
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          0.92
+        );
+
+      border-right:
+        1px solid
+        var(--border);
+
+      padding:
+        22px
+        14px
+        34px;
+
+      position:
+        sticky;
+
+      top: 72px;
+
+      height:
+        calc(
+          100vh
+          - 72px
+        );
+
+      overflow-y: auto;
+
+    }
+
+
+    .menu-title {
+
+      padding:
+        13px
+        13px
+        7px;
+
+      font-size: 10px;
+
       font-weight: 700;
-      font-size: 16px;
-      margin-bottom: 8px;
+
+      letter-spacing: 1.2px;
+
+      color:
+        #b0a7ad;
+
+      text-transform:
+        uppercase;
+
     }
 
-    .module-desc {
-      font-size: 13px;
-      color: #6b7280;
-      line-height: 1.6;
-    }
 
-    /* =====================================================
-       加载遮罩
-    ===================================================== */
+    .menu-item {
 
-    .loading-mask {
-      position: fixed;
-      inset: 0;
-
-      background: white;
+      min-height:
+        var(--touch-size);
 
       display: flex;
-      flex-direction: column;
 
       align-items: center;
-      justify-content: center;
 
-      z-index: 9999;
+      gap: 12px;
+
+      padding:
+        10px
+        13px;
+
+      margin-bottom: 5px;
+
+      border-radius: 13px;
+
+      text-decoration: none;
+
+      color:
+        #554f55;
+
+      font-size: 14px;
+
+      font-weight: 520;
+
+      transition:
+        background .18s ease,
+        color .18s ease,
+        transform .18s ease;
+
     }
 
-    .spinner {
-      width: 38px;
-      height: 38px;
 
-      border: 4px solid #f3f4f6;
-      border-top-color: #fbbf24;
+    .menu-item:hover {
+
+      background:
+        var(--pink-50);
+
+      color:
+        var(--pink-700);
+
+      transform:
+        translateX(2px);
+
+    }
+
+
+    .menu-item.active {
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--pink-100),
+          #fff8fb
+        );
+
+      color:
+        var(--pink-700);
+
+      font-weight: 650;
+
+      box-shadow:
+        inset
+        3px
+        0
+        0
+        var(--pink-500);
+
+    }
+
+
+    .menu-icon {
+
+      width: 26px;
+
+      flex:
+        0 0 26px;
+
+      text-align: center;
+
+      font-size: 19px;
+
+    }
+
+
+
+    /* =========================================================
+       主内容
+    ========================================================= */
+
+    .main {
+
+      flex: 1;
+
+      min-width: 0;
+
+      padding:
+        30px;
+
+      overflow-x:
+        hidden;
+
+    }
+
+
+    .content-wrap {
+
+      width: 100%;
+
+      max-width:
+        1360px;
+
+      margin:
+        0
+        auto;
+
+    }
+
+
+
+    /* =========================================================
+       欢迎区
+    ========================================================= */
+
+    .welcome {
+
+      position: relative;
+
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          135deg,
+          #fff1f6 0%,
+          #ffe3ed 52%,
+          #ffd4e5 100%
+        );
+
+      border:
+        1px solid
+        rgba(
+          232,
+          93,
+          143,
+          0.10
+        );
+
+      border-radius:
+        24px;
+
+      padding:
+        30px
+        32px;
+
+      margin-bottom:
+        24px;
+
+      box-shadow:
+        var(--shadow-soft);
+
+    }
+
+
+    .welcome::after {
+
+      content: "";
+
+      position: absolute;
+
+      width: 210px;
+      height: 210px;
+
+      right: -70px;
+      top: -80px;
 
       border-radius: 50%;
 
-      animation: spin 0.8s linear infinite;
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          0.33
+        );
 
-      margin-bottom: 15px;
     }
+
+
+    .welcome::before {
+
+      content: "";
+
+      position: absolute;
+
+      width: 110px;
+      height: 110px;
+
+      right: 70px;
+      bottom: -60px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          0.22
+        );
+
+    }
+
+
+    .welcome-content {
+
+      position: relative;
+
+      z-index: 2;
+
+      max-width:
+        880px;
+
+    }
+
+
+    .welcome-tag {
+
+      display:
+        inline-flex;
+
+      align-items:
+        center;
+
+      min-height:
+        28px;
+
+      padding:
+        4px
+        11px;
+
+      margin-bottom:
+        12px;
+
+      border-radius:
+        999px;
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          0.72
+        );
+
+      color:
+        var(--pink-700);
+
+      font-size:
+        11px;
+
+      font-weight:
+        700;
+
+      letter-spacing:
+        0.6px;
+
+    }
+
+
+    .welcome h1 {
+
+      margin-bottom:
+        9px;
+
+      font-size:
+        27px;
+
+      line-height:
+        1.35;
+
+      font-weight:
+        720;
+
+      letter-spacing:
+        0.2px;
+
+      color:
+        var(--rose-dark);
+
+    }
+
+
+    .welcome p {
+
+      font-size:
+        14px;
+
+      line-height:
+        1.8;
+
+      color:
+        #8a4863;
+
+      max-width:
+        850px;
+
+    }
+
+
+
+    /* =========================================================
+       信息卡
+    ========================================================= */
+
+    .info-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(
+          4,
+          minmax(
+            0,
+            1fr
+          )
+        );
+
+      gap:
+        16px;
+
+      margin-bottom:
+        30px;
+
+    }
+
+
+    .info-card {
+
+      position:
+        relative;
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          0.96
+        );
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius:
+        18px;
+
+      padding:
+        20px;
+
+      min-height:
+        112px;
+
+      box-shadow:
+        0 5px 18px
+        rgba(
+          98,
+          46,
+          68,
+          0.035
+        );
+
+    }
+
+
+    .info-card::before {
+
+      content: "";
+
+      position:
+        absolute;
+
+      left: 0;
+      top: 18px;
+      bottom: 18px;
+
+      width: 3px;
+
+      border-radius:
+        0
+        3px
+        3px
+        0;
+
+      background:
+        linear-gradient(
+          180deg,
+          var(--pink-400),
+          var(--pink-600)
+        );
+
+    }
+
+
+    .info-label {
+
+      margin-bottom:
+        12px;
+
+      padding-left:
+        3px;
+
+      font-size:
+        11px;
+
+      font-weight:
+        650;
+
+      color:
+        var(--text-light);
+
+      letter-spacing:
+        0.5px;
+
+    }
+
+
+    .info-value {
+
+      padding-left:
+        3px;
+
+      font-size:
+        18px;
+
+      font-weight:
+        700;
+
+      line-height:
+        1.5;
+
+      color:
+        var(--text-main);
+
+      word-break:
+        break-word;
+
+    }
+
+
+    .info-small {
+
+      font-size:
+        13px;
+
+      font-weight:
+        600;
+
+      color:
+        #494349;
+
+    }
+
+
+
+    /* =========================================================
+       功能标题
+    ========================================================= */
+
+    .section-heading {
+
+      display: flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        space-between;
+
+      gap: 12px;
+
+      margin-bottom:
+        15px;
+
+    }
+
+
+    .section-title {
+
+      font-size:
+        19px;
+
+      font-weight:
+        720;
+
+      letter-spacing:
+        0.2px;
+
+      color:
+        var(--text-main);
+
+    }
+
+
+    .section-hint {
+
+      font-size:
+        12px;
+
+      color:
+        var(--text-light);
+
+    }
+
+
+
+    /* =========================================================
+       功能卡片
+    ========================================================= */
+
+    .module-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(
+          3,
+          minmax(
+            0,
+            1fr
+          )
+        );
+
+      gap:
+        16px;
+
+      padding-bottom:
+        40px;
+
+    }
+
+
+    .module-card {
+
+      min-height:
+        170px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          0.97
+        );
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius:
+        19px;
+
+      padding:
+        21px;
+
+      text-decoration:
+        none;
+
+      color:
+        inherit;
+
+      box-shadow:
+        0 5px 18px
+        rgba(
+          98,
+          46,
+          68,
+          0.035
+        );
+
+      transition:
+        transform .18s ease,
+        border-color .18s ease,
+        box-shadow .18s ease,
+        background .18s ease;
+
+      cursor: pointer;
+
+    }
+
+
+    .module-card:hover {
+
+      transform:
+        translateY(-3px);
+
+      border-color:
+        var(--pink-300);
+
+      background:
+        #fffdfd;
+
+      box-shadow:
+        var(--shadow-card);
+
+    }
+
+
+    .module-card:active {
+
+      transform:
+        scale(0.985);
+
+    }
+
+
+    .module-top {
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        space-between;
+
+      margin-bottom:
+        17px;
+
+    }
+
+
+    .module-icon {
+
+      width: 48px;
+      height: 48px;
+
+      flex:
+        0 0 48px;
+
+      border-radius:
+        14px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--pink-100),
+          #fff9fb
+        );
+
+      display: flex;
+
+      justify-content:
+        center;
+
+      align-items:
+        center;
+
+      font-size:
+        22px;
+
+      box-shadow:
+        inset
+        0 0 0
+        1px
+        rgba(
+          232,
+          93,
+          143,
+          0.07
+        );
+
+    }
+
+
+    .module-arrow {
+
+      width: 30px;
+      height: 30px;
+
+      border-radius:
+        50%;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      background:
+        #faf7f9;
+
+      color:
+        var(--pink-500);
+
+      font-size:
+        17px;
+
+      transition:
+        transform .18s ease;
+
+    }
+
+
+    .module-card:hover
+    .module-arrow {
+
+      transform:
+        translateX(3px);
+
+    }
+
+
+    .module-name {
+
+      margin-bottom:
+        7px;
+
+      font-size:
+        16px;
+
+      line-height:
+        1.4;
+
+      font-weight:
+        700;
+
+      color:
+        #332e33;
+
+    }
+
+
+    .module-desc {
+
+      font-size:
+        12.5px;
+
+      line-height:
+        1.75;
+
+      color:
+        var(--text-sub);
+
+    }
+
+
+
+    /* =========================================================
+       加载
+    ========================================================= */
+
+    .loading-mask {
+
+      position:
+        fixed;
+
+      inset: 0;
+
+      z-index:
+        9999;
+
+      display: flex;
+
+      flex-direction:
+        column;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      background:
+        linear-gradient(
+          180deg,
+          #fff8fb,
+          #ffffff
+        );
+
+    }
+
+
+    .spinner {
+
+      width: 40px;
+      height: 40px;
+
+      border:
+        4px solid
+        var(--pink-100);
+
+      border-top-color:
+        var(--pink-500);
+
+      border-radius:
+        50%;
+
+      animation:
+        spin .8s
+        linear
+        infinite;
+
+      margin-bottom:
+        15px;
+
+    }
+
 
     @keyframes spin {
+
       to {
-        transform: rotate(360deg);
+        transform:
+          rotate(360deg);
       }
+
     }
+
 
     .loading-text {
-      color: #6b7280;
-      font-size: 14px;
+
+      font-size:
+        13px;
+
+      color:
+        var(--text-sub);
+
     }
 
-    /* =====================================================
-       手机适配
-    ===================================================== */
 
-    @media (max-width: 1000px) {
+
+    /* =========================================================
+       手机底部导航
+    ========================================================= */
+
+    .mobile-bottom-nav {
+
+      display: none;
+
+    }
+
+
+
+    /* =========================================================
+       平板
+    ========================================================= */
+
+    @media
+    (max-width: 1100px) {
+
       .info-grid {
+
         grid-template-columns:
-          repeat(2, minmax(0, 1fr));
+          repeat(
+            2,
+            minmax(
+              0,
+              1fr
+            )
+          );
+
       }
+
 
       .module-grid {
+
         grid-template-columns:
-          repeat(2, minmax(0, 1fr));
+          repeat(
+            2,
+            minmax(
+              0,
+              1fr
+            )
+          );
+
       }
+
     }
 
-    @media (max-width: 760px) {
-      .sidebar {
-        display: none;
+
+
+    /* =========================================================
+       手机端
+       手机操作优先
+    ========================================================= */
+
+    @media
+    (max-width: 760px) {
+
+
+      body {
+
+        padding-bottom:
+          calc(
+            78px
+            + env(
+              safe-area-inset-bottom
+            )
+          );
+
       }
 
-      .main {
-        padding: 16px;
-      }
 
       .topbar {
-        padding: 0 14px;
+
+        min-height:
+          64px;
+
+        padding:
+
+          max(
+            4px,
+            env(
+              safe-area-inset-top
+            )
+          )
+
+          13px
+
+          4px;
+
       }
+
+
+      .brand {
+
+        gap:
+          10px;
+
+      }
+
+
+      .brand-logo {
+
+        width: 39px;
+        height: 39px;
+
+        flex-basis:
+          39px;
+
+        border-radius:
+          11px;
+
+      }
+
+
+      .brand-title {
+
+        font-size:
+          17px;
+
+        letter-spacing:
+          1px;
+
+      }
+
 
       .brand-subtitle {
-        display: none;
+
+        display:
+          none;
+
       }
+
 
       .user-info {
-        display: none;
+
+        display:
+          none;
+
       }
 
-      .info-grid {
-        grid-template-columns: 1fr;
+
+      .logout-btn {
+
+        min-width:
+          72px;
+
+        min-height:
+          44px;
+
+        padding:
+          0
+          14px;
+
+        border-radius:
+          12px;
+
+        font-size:
+          12px;
+
       }
 
-      .module-grid {
-        grid-template-columns: 1fr;
+
+      .page {
+
+        display:
+          block;
+
+        min-height:
+          auto;
+
       }
+
+
+      .sidebar {
+
+        display:
+          none;
+
+      }
+
+
+      .main {
+
+        width: 100%;
+
+        padding:
+          15px
+          13px
+          18px;
+
+      }
+
 
       .welcome {
-        padding: 22px;
+
+        padding:
+          22px
+          20px;
+
+        border-radius:
+          20px;
+
+        margin-bottom:
+          16px;
+
       }
+
+
+      .welcome-tag {
+
+        margin-bottom:
+          9px;
+
+      }
+
+
+      .welcome h1 {
+
+        font-size:
+          21px;
+
+        line-height:
+          1.4;
+
+      }
+
+
+      .welcome p {
+
+        font-size:
+          13px;
+
+        line-height:
+          1.75;
+
+      }
+
+
+      .info-grid {
+
+        grid-template-columns:
+          repeat(
+            2,
+            minmax(
+              0,
+              1fr
+            )
+          );
+
+        gap:
+          10px;
+
+        margin-bottom:
+          24px;
+
+      }
+
+
+      .info-card {
+
+        min-height:
+          100px;
+
+        padding:
+          16px
+          14px;
+
+        border-radius:
+          16px;
+
+      }
+
+
+      .info-card::before {
+
+        top:
+          15px;
+
+        bottom:
+          15px;
+
+      }
+
+
+      .info-label {
+
+        margin-bottom:
+          9px;
+
+        font-size:
+          10px;
+
+      }
+
+
+      .info-value {
+
+        font-size:
+          15px;
+
+      }
+
+
+      .info-small {
+
+        font-size:
+          12px;
+
+      }
+
+
+      .section-heading {
+
+        align-items:
+          flex-end;
+
+        margin-bottom:
+          12px;
+
+      }
+
+
+      .section-title {
+
+        font-size:
+          18px;
+
+      }
+
+
+      .section-hint {
+
+        font-size:
+          10px;
+
+      }
+
+
+      .module-grid {
+
+        grid-template-columns:
+          1fr;
+
+        gap:
+          11px;
+
+        padding-bottom:
+          12px;
+
+      }
+
+
+      .module-card {
+
+        min-height:
+          122px;
+
+        padding:
+          17px;
+
+        border-radius:
+          17px;
+
+      }
+
+
+      .module-top {
+
+        margin-bottom:
+          12px;
+
+      }
+
+
+      .module-icon {
+
+        width: 46px;
+        height: 46px;
+
+        flex-basis:
+          46px;
+
+      }
+
+
+      .module-name {
+
+        font-size:
+          15px;
+
+        margin-bottom:
+          5px;
+
+      }
+
+
+      .module-desc {
+
+        font-size:
+          12px;
+
+        line-height:
+          1.65;
+
+      }
+
+
+      /* 手机底部操作栏 */
+
+      .mobile-bottom-nav {
+
+        position:
+          fixed;
+
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        z-index:
+          2000;
+
+        min-height:
+          70px;
+
+        padding:
+
+          7px
+
+          10px
+
+          max(
+            7px,
+            env(
+              safe-area-inset-bottom
+            )
+          );
+
+        display:
+          grid;
+
+        grid-template-columns:
+          repeat(
+            4,
+            1fr
+          );
+
+        gap:
+          5px;
+
+        background:
+          rgba(
+            255,
+            255,
+            255,
+            0.96
+          );
+
+        backdrop-filter:
+          blur(20px);
+
+        -webkit-backdrop-filter:
+          blur(20px);
+
+        border-top:
+          1px solid
+          var(--border);
+
+        box-shadow:
+          0 -5px 24px
+          rgba(
+            102,
+            48,
+            71,
+            0.06
+          );
+
+      }
+
+
+      .mobile-nav-item {
+
+        min-height:
+          54px;
+
+        display:
+          flex;
+
+        flex-direction:
+          column;
+
+        align-items:
+          center;
+
+        justify-content:
+          center;
+
+        gap:
+          2px;
+
+        border-radius:
+          13px;
+
+        text-decoration:
+          none;
+
+        color:
+          #8c838a;
+
+        font-size:
+          10px;
+
+        font-weight:
+          600;
+
+      }
+
+
+      .mobile-nav-item:active {
+
+        background:
+          var(--pink-50);
+
+      }
+
+
+      .mobile-nav-item.active {
+
+        color:
+          var(--pink-600);
+
+        background:
+          var(--pink-50);
+
+      }
+
+
+      .mobile-nav-icon {
+
+        font-size:
+          20px;
+
+        line-height:
+          1.2;
+
+      }
+
     }
+
+
+
+    /* =========================================================
+       小屏手机
+    ========================================================= */
+
+    @media
+    (max-width: 390px) {
+
+
+      .main {
+
+        padding-left:
+          10px;
+
+        padding-right:
+          10px;
+
+      }
+
+
+      .welcome {
+
+        padding:
+          19px
+          17px;
+
+      }
+
+
+      .info-grid {
+
+        gap:
+          8px;
+
+      }
+
+
+      .info-card {
+
+        min-height:
+          94px;
+
+        padding:
+          14px
+          12px;
+
+      }
+
+
+      .info-small {
+
+        font-size:
+          11px;
+
+      }
+
+    }
+
+
+
+    /* =========================================================
+       大屏
+    ========================================================= */
+
+    @media
+    (min-width: 1440px) {
+
+
+      .main {
+
+        padding:
+          36px;
+
+      }
+
+
+      .module-grid {
+
+        gap:
+          20px;
+
+      }
+
+
+      .info-grid {
+
+        gap:
+          20px;
+
+      }
+
+    }
+
   </style>
+
 </head>
+
 
 <body>
 
+
 <!-- =========================================================
-     加载中
+     加载
 ========================================================= -->
 
 <div
   id="loadingMask"
   class="loading-mask"
 >
+
   <div class="spinner"></div>
 
   <div class="loading-text">
     正在验证管理权限...
   </div>
+
 </div>
 
 
+
 <!-- =========================================================
-     顶部
+     顶部导航
 ========================================================= -->
 
 <header class="topbar">
 
+
   <div class="brand">
 
-    <div class="brand-logo">
-      🌼
-    </div>
 
-    <div>
+    <img
+      src="./logo.jpeg"
+      class="brand-logo"
+      alt="孕乃馨 Logo"
+    >
+
+
+    <div class="brand-text">
+
+
       <div class="brand-title">
         孕乃馨
       </div>
 
+
       <div class="brand-subtitle">
         全国业务管理平台
       </div>
+
+
     </div>
+
 
   </div>
 
 
+
   <div class="top-right">
 
+
     <div class="user-info">
+
 
       <div
         id="topUserName"
@@ -495,6 +2087,7 @@
         -
       </div>
 
+
       <div
         id="topUserRole"
         class="user-role"
@@ -502,19 +2095,24 @@
         -
       </div>
 
+
     </div>
 
 
     <button
       class="logout-btn"
+      type="button"
       onclick="logout()"
     >
       退出登录
     </button>
 
+
   </div>
 
+
 </header>
+
 
 
 <!-- =========================================================
@@ -524,11 +2122,13 @@
 <div class="page">
 
 
+
   <!-- =======================================================
        左侧菜单
   ======================================================== -->
 
   <aside class="sidebar">
+
 
     <div class="menu-title">
       工作台
@@ -539,9 +2139,15 @@
       class="menu-item active"
       href="wholemanagement.html"
     >
-      <span class="menu-icon">🏠</span>
+
+      <span class="menu-icon">
+        🏠
+      </span>
+
       管理首页
+
     </a>
+
 
 
     <div class="menu-title">
@@ -554,8 +2160,13 @@
       class="menu-item platform-only"
       href="admins.html"
     >
-      <span class="menu-icon">👤</span>
+
+      <span class="menu-icon">
+        👤
+      </span>
+
       管理人员
+
     </a>
 
 
@@ -564,8 +2175,13 @@
       class="menu-item platform-only"
       href="products.html"
     >
-      <span class="menu-icon">📦</span>
+
+      <span class="menu-icon">
+        📦
+      </span>
+
       产品名录
+
     </a>
 
 
@@ -573,9 +2189,15 @@
       class="menu-item"
       href="cityprices.html"
     >
-      <span class="menu-icon">💰</span>
+
+      <span class="menu-icon">
+        💗
+      </span>
+
       城市定价
+
     </a>
+
 
 
     <div class="menu-title">
@@ -587,8 +2209,13 @@
       class="menu-item"
       href="merchants.html"
     >
-      <span class="menu-icon">🏪</span>
+
+      <span class="menu-icon">
+        🏪
+      </span>
+
       商户管理
+
     </a>
 
 
@@ -596,8 +2223,13 @@
       class="menu-item"
       href="orders.html"
     >
-      <span class="menu-icon">🧾</span>
+
+      <span class="menu-icon">
+        🧾
+      </span>
+
       订单管理
+
     </a>
 
 
@@ -605,9 +2237,15 @@
       class="menu-item"
       href="customers.html"
     >
-      <span class="menu-icon">👥</span>
+
+      <span class="menu-icon">
+        👥
+      </span>
+
       客户管理
+
     </a>
+
 
 
     <div class="menu-title">
@@ -620,11 +2258,18 @@
       class="menu-item platform-only"
       href="regions.html"
     >
-      <span class="menu-icon">🗺️</span>
+
+      <span class="menu-icon">
+        🗺️
+      </span>
+
       行政区域
+
     </a>
 
+
   </aside>
+
 
 
   <!-- =======================================================
@@ -634,259 +2279,528 @@
   <main class="main">
 
 
-    <!-- 欢迎 -->
-
-    <section class="welcome">
-
-      <h1 id="welcomeTitle">
-        欢迎进入孕乃馨管理平台
-      </h1>
-
-      <p id="welcomeDesc">
-        正在加载您的管理权限和辖区信息。
-      </p>
-
-    </section>
+    <div class="content-wrap">
 
 
-    <!-- 基本信息 -->
 
-    <section class="info-grid">
+      <!-- ===================================================
+           欢迎区
+      ==================================================== -->
 
-      <div class="info-card">
+      <section class="welcome">
 
-        <div class="info-label">
-          当前身份
+
+        <div class="welcome-content">
+
+
+          <div class="welcome-tag">
+            YUNNAIXIN MANAGEMENT
+          </div>
+
+
+          <h1 id="welcomeTitle">
+            欢迎进入孕乃馨管理平台
+          </h1>
+
+
+          <p id="welcomeDesc">
+            正在加载您的管理权限和辖区信息。
+          </p>
+
+
         </div>
 
-        <div
-          id="cardRole"
-          class="info-value info-small"
-        >
-          -
+
+      </section>
+
+
+
+      <!-- ===================================================
+           登录身份信息
+      ==================================================== -->
+
+      <section class="info-grid">
+
+
+        <div class="info-card">
+
+
+          <div class="info-label">
+            当前身份
+          </div>
+
+
+          <div
+            id="cardRole"
+            class="info-value info-small"
+          >
+            -
+          </div>
+
+
         </div>
+
+
+
+        <div class="info-card">
+
+
+          <div class="info-label">
+            管理省份
+          </div>
+
+
+          <div
+            id="cardProvince"
+            class="info-value info-small"
+          >
+            -
+          </div>
+
+
+        </div>
+
+
+
+        <div class="info-card">
+
+
+          <div class="info-label">
+            管理城市
+          </div>
+
+
+          <div
+            id="cardCity"
+            class="info-value info-small"
+          >
+            -
+          </div>
+
+
+        </div>
+
+
+
+        <div class="info-card">
+
+
+          <div class="info-label">
+            登录账户
+          </div>
+
+
+          <div
+            id="cardEmail"
+            class="info-value info-small"
+          >
+            -
+          </div>
+
+
+        </div>
+
+
+      </section>
+
+
+
+      <!-- ===================================================
+           管理功能
+      ==================================================== -->
+
+      <div class="section-heading">
+
+
+        <div class="section-title">
+          管理功能
+        </div>
+
+
+        <div class="section-hint">
+          点击进入相应模块
+        </div>
+
 
       </div>
 
 
-      <div class="info-card">
 
-        <div class="info-label">
-          管理省份
-        </div>
+      <section class="module-grid">
 
-        <div
-          id="cardProvince"
-          class="info-value info-small"
+
+
+        <!-- =================================================
+             管理人员
+        ================================================== -->
+
+        <a
+          class="module-card platform-only"
+          href="admins.html"
         >
-          -
-        </div>
-
-      </div>
 
 
-      <div class="info-card">
+          <div class="module-top">
 
-        <div class="info-label">
-          管理城市
-        </div>
 
-        <div
-          id="cardCity"
-          class="info-value info-small"
+            <div class="module-icon">
+              👤
+            </div>
+
+
+            <div class="module-arrow">
+              ›
+            </div>
+
+
+          </div>
+
+
+          <div class="module-name">
+            管理人员
+          </div>
+
+
+          <div class="module-desc">
+            创建和管理平台、省、市各级管理人员及辖区权限。
+          </div>
+
+
+        </a>
+
+
+
+        <!-- =================================================
+             产品名录
+        ================================================== -->
+
+        <a
+          class="module-card platform-only"
+          href="products.html"
         >
-          -
-        </div>
-
-      </div>
 
 
-      <div class="info-card">
+          <div class="module-top">
 
-        <div class="info-label">
-          登录账户
-        </div>
 
-        <div
-          id="cardEmail"
-          class="info-value info-small"
+            <div class="module-icon">
+              📦
+            </div>
+
+
+            <div class="module-arrow">
+              ›
+            </div>
+
+
+          </div>
+
+
+          <div class="module-name">
+            产品名录
+          </div>
+
+
+          <div class="module-desc">
+            建立全国唯一产品目录，所有城市统一使用平台产品索引。
+          </div>
+
+
+        </a>
+
+
+
+        <!-- =================================================
+             城市定价
+        ================================================== -->
+
+        <a
+          class="module-card"
+          href="cityprices.html"
         >
-          -
-        </div>
-
-      </div>
-
-    </section>
 
 
-    <!-- 功能 -->
+          <div class="module-top">
 
-    <div class="section-title">
-      管理功能
+
+            <div class="module-icon">
+              💗
+            </div>
+
+
+            <div class="module-arrow">
+              ›
+            </div>
+
+
+          </div>
+
+
+          <div class="module-name">
+            城市定价
+          </div>
+
+
+          <div class="module-desc">
+            查看辖区城市产品价格，市管理员维护本市个性化价格。
+          </div>
+
+
+        </a>
+
+
+
+        <!-- =================================================
+             商户
+        ================================================== -->
+
+        <a
+          class="module-card"
+          href="merchants.html"
+        >
+
+
+          <div class="module-top">
+
+
+            <div class="module-icon">
+              🏪
+            </div>
+
+
+            <div class="module-arrow">
+              ›
+            </div>
+
+
+          </div>
+
+
+          <div class="module-name">
+            商户管理
+          </div>
+
+
+          <div class="module-desc">
+            管理辖区内机构商户和个人服务者及认证资料。
+          </div>
+
+
+        </a>
+
+
+
+        <!-- =================================================
+             订单
+        ================================================== -->
+
+        <a
+          class="module-card"
+          href="orders.html"
+        >
+
+
+          <div class="module-top">
+
+
+            <div class="module-icon">
+              🧾
+            </div>
+
+
+            <div class="module-arrow">
+              ›
+            </div>
+
+
+          </div>
+
+
+          <div class="module-name">
+            订单管理
+          </div>
+
+
+          <div class="module-desc">
+            按城市、商户、客户和时间查询订单及业务数据。
+          </div>
+
+
+        </a>
+
+
+
+        <!-- =================================================
+             客户
+        ================================================== -->
+
+        <a
+          class="module-card"
+          href="customers.html"
+        >
+
+
+          <div class="module-top">
+
+
+            <div class="module-icon">
+              👥
+            </div>
+
+
+            <div class="module-arrow">
+              ›
+            </div>
+
+
+          </div>
+
+
+          <div class="module-name">
+            客户管理
+          </div>
+
+
+          <div class="module-desc">
+            查看辖区客户资料、消费记录及关联订单数据。
+          </div>
+
+
+        </a>
+
+
+
+        <!-- =================================================
+             行政区域
+        ================================================== -->
+
+        <a
+          class="module-card platform-only"
+          href="regions.html"
+        >
+
+
+          <div class="module-top">
+
+
+            <div class="module-icon">
+              🗺️
+            </div>
+
+
+            <div class="module-arrow">
+              ›
+            </div>
+
+
+          </div>
+
+
+          <div class="module-name">
+            行政区域
+          </div>
+
+
+          <div class="module-desc">
+            管理全国省、市、区县三级行政区域基础数据。
+          </div>
+
+
+        </a>
+
+
+      </section>
+
+
     </div>
 
 
-    <section class="module-grid">
-
-
-      <!-- 平台专属 -->
-
-      <a
-        class="module-card platform-only"
-        href="admins.html"
-      >
-
-        <div class="module-icon">
-          👤
-        </div>
-
-        <div class="module-name">
-          管理人员
-        </div>
-
-        <div class="module-desc">
-          创建和管理平台、省、市各级管理人员及辖区权限。
-        </div>
-
-      </a>
-
-
-      <a
-        class="module-card platform-only"
-        href="products.html"
-      >
-
-        <div class="module-icon">
-          📦
-        </div>
-
-        <div class="module-name">
-          产品名录
-        </div>
-
-        <div class="module-desc">
-          建立全国唯一产品目录。城市只能使用平台统一产品索引。
-        </div>
-
-      </a>
-
-
-      <!-- 所有管理员 -->
-
-      <a
-        class="module-card"
-        href="cityprices.html"
-      >
-
-        <div class="module-icon">
-          💰
-        </div>
-
-        <div class="module-name">
-          城市定价
-        </div>
-
-        <div class="module-desc">
-          查看辖区城市产品价格。市管理员管理本市个性化价格。
-        </div>
-
-      </a>
-
-
-      <a
-        class="module-card"
-        href="merchants.html"
-      >
-
-        <div class="module-icon">
-          🏪
-        </div>
-
-        <div class="module-name">
-          商户管理
-        </div>
-
-        <div class="module-desc">
-          查看和管理辖区内机构和个人商户。
-        </div>
-
-      </a>
-
-
-      <a
-        class="module-card"
-        href="orders.html"
-      >
-
-        <div class="module-icon">
-          🧾
-        </div>
-
-        <div class="module-name">
-          订单管理
-        </div>
-
-        <div class="module-desc">
-          按城市、商户和时间查询订单及业务数据。
-        </div>
-
-      </a>
-
-
-      <a
-        class="module-card"
-        href="customers.html"
-      >
-
-        <div class="module-icon">
-          👥
-        </div>
-
-        <div class="module-name">
-          客户管理
-        </div>
-
-        <div class="module-desc">
-          查询辖区客户及相关订单数据。
-        </div>
-
-      </a>
-
-
-      <a
-        class="module-card platform-only"
-        href="regions.html"
-      >
-
-        <div class="module-icon">
-          🗺️
-        </div>
-
-        <div class="module-name">
-          行政区域
-        </div>
-
-        <div class="module-desc">
-          管理全国省、市、区县三级行政区域基础数据。
-        </div>
-
-      </a>
-
-    </section>
-
   </main>
+
 
 </div>
 
 
+
+<!-- =========================================================
+     手机底部导航
+========================================================= -->
+
+<nav class="mobile-bottom-nav">
+
+
+  <a
+    href="wholemanagement.html"
+    class="mobile-nav-item active"
+  >
+
+    <span class="mobile-nav-icon">
+      🏠
+    </span>
+
+    首页
+
+  </a>
+
+
+  <a
+    href="cityprices.html"
+    class="mobile-nav-item"
+  >
+
+    <span class="mobile-nav-icon">
+      💗
+    </span>
+
+    定价
+
+  </a>
+
+
+  <a
+    href="orders.html"
+    class="mobile-nav-item"
+  >
+
+    <span class="mobile-nav-icon">
+      🧾
+    </span>
+
+    订单
+
+  </a>
+
+
+  <a
+    href="merchants.html"
+    class="mobile-nav-item"
+  >
+
+    <span class="mobile-nav-icon">
+      🏪
+    </span>
+
+    商户
+
+  </a>
+
+
+</nav>
+
+
+
 <script>
 
+
 /* ==========================================================
-   01. Supabase配置
+   01.
+   Supabase
 ========================================================== */
+
 
 const SUPABASE_URL =
   "https://qbuqjwpkltbjhlfbyjyb.supabase.co";
+
 
 const SUPABASE_ANON_KEY =
   "sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
@@ -894,47 +2808,89 @@ const SUPABASE_ANON_KEY =
 
 const supabaseClient =
   window.supabase.createClient(
+
     SUPABASE_URL,
-    SUPABASE_ANON_KEY
+
+    SUPABASE_ANON_KEY,
+
+    {
+
+      auth: {
+
+        persistSession: true,
+
+        autoRefreshToken: true,
+
+        detectSessionInUrl: true
+
+      }
+
+    }
+
   );
 
 
-/* ==========================================================
-   02. 登录页地址
-========================================================== */
-
-const LOGIN_PAGE = "login.html";
-
 
 /* ==========================================================
-   03. 10分钟无操作自动退出
+   02.
+   登录页
 ========================================================== */
+
+
+const LOGIN_PAGE =
+  "login.html";
+
+
+
+/* ==========================================================
+   03.
+   10分钟无操作自动退出
+========================================================== */
+
 
 const IDLE_LIMIT =
   10 * 60 * 1000;
 
+
 let idleTimer;
+
 
 
 function resetIdleTimer() {
 
-  clearTimeout(idleTimer);
+
+  clearTimeout(
+    idleTimer
+  );
+
 
   idleTimer =
     setTimeout(
+
       autoLogout,
+
       IDLE_LIMIT
+
     );
+
 }
+
 
 
 async function autoLogout() {
 
+
   try {
 
-    await supabaseClient.auth.signOut();
 
-  } catch (error) {
+    await supabaseClient.auth
+      .signOut();
+
+
+  }
+
+  catch (error) {
+
 
     console.error(
       "自动退出失败：",
@@ -943,16 +2899,24 @@ async function autoLogout() {
 
   }
 
+
+
   alert(
     "由于10分钟未操作，系统已自动退出。"
   );
 
+
   window.location.href =
     LOGIN_PAGE;
+
 }
 
 
-/* 监听用户操作 */
+
+/* ==========================================================
+   用户操作监听
+========================================================== */
+
 
 [
   "mousemove",
@@ -961,86 +2925,141 @@ async function autoLogout() {
   "touchstart",
   "scroll",
   "click"
-].forEach(eventName => {
+]
+.forEach(
 
-  document.addEventListener(
-    eventName,
-    resetIdleTimer,
-    { passive: true }
-  );
+  eventName => {
 
-});
+
+    document.addEventListener(
+
+      eventName,
+
+      resetIdleTimer,
+
+      {
+        passive: true
+      }
+
+    );
+
+  }
+
+);
+
 
 
 /* ==========================================================
-   04. 角色中文名称
+   04.
+   角色名称
 ========================================================== */
 
-function roleText(role) {
+
+function roleText(
+  role
+) {
+
 
   const map = {
+
 
     founder:
       "创始人",
 
+
     platform_admin:
       "平台管理员",
+
 
     platform_staff:
       "平台员工",
 
+
     province_admin:
       "省管理员",
+
 
     city_admin:
       "市管理员"
 
+
   };
 
+
   return map[role] || role;
+
 }
 
 
+
 /* ==========================================================
-   05. 是否属于管理角色
+   05.
+   是否管理角色
 ========================================================== */
 
-function isManagementRole(role) {
+
+function isManagementRole(
+  role
+) {
+
 
   return [
 
     "founder",
+
     "platform_admin",
+
     "platform_staff",
+
     "province_admin",
+
     "city_admin"
 
-  ].includes(role);
+  ]
+  .includes(
+    role
+  );
 
 }
 
 
+
 /* ==========================================================
-   06. 是否平台高级管理员
+   06.
+   平台高级管理人员
 ========================================================== */
 
-function isPlatformManager(role) {
+
+function isPlatformManager(
+  role
+) {
+
 
   return [
 
     "founder",
+
     "platform_admin"
 
-  ].includes(role);
+  ]
+  .includes(
+    role
+  );
 
 }
 
 
+
 /* ==========================================================
-   07. 隐藏平台专属入口
+   07.
+   菜单权限
 ========================================================== */
 
-function applyMenuPermissions(role) {
+
+function applyMenuPermissions(
+  role
+) {
+
 
   const platformItems =
     document.querySelectorAll(
@@ -1049,17 +3068,23 @@ function applyMenuPermissions(role) {
 
 
   if (
-    !isPlatformManager(role)
+    !isPlatformManager(
+      role
+    )
   ) {
 
+
     platformItems.forEach(
+
       element => {
+
 
         element.classList.add(
           "hidden"
         );
 
       }
+
     );
 
   }
@@ -1067,147 +3092,207 @@ function applyMenuPermissions(role) {
 }
 
 
+
 /* ==========================================================
-   08. 读取辖区
+   08.
+   读取管理员辖区
 ========================================================== */
+
 
 async function loadAssignment(
   userId,
   role
 ) {
 
-  /* 创始人 / 平台管理员 */
+
+  /* --------------------------------------------------------
+     创始人
+     平台管理员
+  --------------------------------------------------------- */
+
 
   if (
-    role === "founder" ||
+    role === "founder"
+    ||
     role === "platform_admin"
   ) {
 
+
     return {
+
 
       provinceName:
         "全国",
 
+
       cityName:
         "全国"
+
 
     };
 
   }
 
 
-  /* 平台员工暂时显示全国
-     后面我们还会增加细粒度页面权限 */
+
+  /* --------------------------------------------------------
+     平台员工
+  --------------------------------------------------------- */
+
 
   if (
-    role === "platform_staff"
+    role ===
+    "platform_staff"
   ) {
 
+
     return {
+
 
       provinceName:
         "按授权",
 
+
       cityName:
         "按授权"
+
 
     };
 
   }
 
 
-  /* 查询管理员辖区 */
+
+  /* --------------------------------------------------------
+     省 / 市 管理员
+  --------------------------------------------------------- */
+
 
   const {
     data,
     error
   } =
-    await supabaseClient
-      .from(
-        "admin_assignments"
-      )
-      .select(`
-        province_id,
-        city_id
-      `)
-      .eq(
-        "user_id",
-        userId
-      )
-      .eq(
-        "status",
-        "active"
-      )
-      .limit(1)
-      .maybeSingle();
+
+  await supabaseClient
+
+    .from(
+      "admin_assignments"
+    )
+
+    .select(`
+
+      province_id,
+
+      city_id
+
+    `)
+
+    .eq(
+      "user_id",
+      userId
+    )
+
+    .eq(
+      "status",
+      "active"
+    )
+
+    .limit(1)
+
+    .maybeSingle();
+
 
 
   if (error) {
+
 
     console.error(
       "读取辖区失败：",
       error
     );
 
+
     return {
+
 
       provinceName:
         "未配置",
 
+
       cityName:
         "未配置"
+
 
     };
 
   }
+
 
 
   if (!data) {
 
+
     return {
+
 
       provinceName:
         "未配置",
 
+
       cityName:
         "未配置"
+
 
     };
 
   }
+
 
 
   let provinceName =
     "未配置";
 
+
   let cityName =
     "全部城市";
 
 
-  /* 查询省名称 */
+
+  /* --------------------------------------------------------
+     查询省
+  --------------------------------------------------------- */
+
 
   if (
     data.province_id
   ) {
 
+
     const {
       data: province
     } =
-      await supabaseClient
-        .from(
-          "provinces"
-        )
-        .select(
-          "province_name"
-        )
-        .eq(
-          "id",
-          data.province_id
-        )
-        .maybeSingle();
+
+    await supabaseClient
+
+      .from(
+        "provinces"
+      )
+
+      .select(
+        "province_name"
+      )
+
+      .eq(
+        "id",
+        data.province_id
+      )
+
+      .maybeSingle();
+
 
 
     if (province) {
+
 
       provinceName =
         province.province_name;
@@ -1217,30 +3302,42 @@ async function loadAssignment(
   }
 
 
-  /* 查询城市名称 */
+
+  /* --------------------------------------------------------
+     查询城市
+  --------------------------------------------------------- */
+
 
   if (
     data.city_id
   ) {
 
+
     const {
       data: city
     } =
-      await supabaseClient
-        .from(
-          "cities"
-        )
-        .select(
-          "city_name"
-        )
-        .eq(
-          "id",
-          data.city_id
-        )
-        .maybeSingle();
+
+    await supabaseClient
+
+      .from(
+        "cities"
+      )
+
+      .select(
+        "city_name"
+      )
+
+      .eq(
+        "id",
+        data.city_id
+      )
+
+      .maybeSingle();
+
 
 
     if (city) {
+
 
       cityName =
         city.city_name;
@@ -1250,135 +3347,184 @@ async function loadAssignment(
   }
 
 
+
   return {
 
+
     provinceName,
+
     cityName
+
 
   };
 
 }
 
 
+
 /* ==========================================================
-   09. 页面初始化
+   09.
+   初始化
 ========================================================== */
 
+
 async function initializePage() {
+
 
   resetIdleTimer();
 
 
   try {
 
-    /* --------------------------------------------
-       获取登录Session
-    -------------------------------------------- */
+
+    /* ------------------------------------------------------
+       Session
+    ------------------------------------------------------- */
+
 
     const {
+
       data: {
         session
       },
+
       error: sessionError
+
     } =
-      await supabaseClient
-        .auth
-        .getSession();
+
+    await supabaseClient.auth
+      .getSession();
+
 
 
     if (
-      sessionError ||
+      sessionError
+      ||
       !session
     ) {
+
 
       window.location.href =
         LOGIN_PAGE;
 
+
       return;
+
     }
+
 
 
     const user =
       session.user;
 
 
-    /* --------------------------------------------
-       查询profiles
-    -------------------------------------------- */
+
+    /* ------------------------------------------------------
+       Profile
+    ------------------------------------------------------- */
+
 
     const {
+
       data: profile,
+
       error: profileError
+
     } =
-      await supabaseClient
-        .from(
-          "profiles"
-        )
-        .select(`
-          id,
-          full_name,
-          role,
-          status
-        `)
-        .eq(
-          "id",
-          user.id
-        )
-        .maybeSingle();
+
+    await supabaseClient
+
+      .from(
+        "profiles"
+      )
+
+      .select(`
+
+        id,
+
+        full_name,
+
+        role,
+
+        status
+
+      `)
+
+      .eq(
+        "id",
+        user.id
+      )
+
+      .maybeSingle();
+
 
 
     if (
-      profileError ||
+      profileError
+      ||
       !profile
     ) {
+
 
       console.error(
         "读取profile失败：",
         profileError
       );
 
-      await supabaseClient
-        .auth
+
+      await supabaseClient.auth
         .signOut();
+
 
       alert(
         "当前账号没有平台管理人员资料。"
       );
 
+
       window.location.href =
         LOGIN_PAGE;
 
+
       return;
+
     }
 
 
-    /* --------------------------------------------
-       检查账户状态
-    -------------------------------------------- */
+
+    /* ------------------------------------------------------
+       状态
+    ------------------------------------------------------- */
+
 
     if (
       profile.status !==
       "active"
     ) {
 
-      await supabaseClient
-        .auth
+
+      await supabaseClient.auth
         .signOut();
+
 
       alert(
         "当前账号已停用，无法进入管理平台。"
       );
 
+
       window.location.href =
         LOGIN_PAGE;
 
+
       return;
+
     }
 
 
-    /* --------------------------------------------
-       检查是不是管理人员
-    -------------------------------------------- */
+
+    /* ------------------------------------------------------
+       管理权限
+    ------------------------------------------------------- */
+
 
     if (
       !isManagementRole(
@@ -1386,46 +3532,63 @@ async function initializePage() {
       )
     ) {
 
-      await supabaseClient
-        .auth
+
+      await supabaseClient.auth
         .signOut();
+
 
       alert(
         "当前账号没有管理平台访问权限。"
       );
 
+
       window.location.href =
         LOGIN_PAGE;
 
+
       return;
+
     }
 
 
-    /* --------------------------------------------
-       加载管理员辖区
-    -------------------------------------------- */
+
+    /* ------------------------------------------------------
+       辖区
+    ------------------------------------------------------- */
+
 
     const assignment =
       await loadAssignment(
+
         user.id,
+
         profile.role
+
       );
 
 
-    /* --------------------------------------------
-       页面显示
-    -------------------------------------------- */
+
+    /* ------------------------------------------------------
+       页面
+    ------------------------------------------------------- */
+
 
     const displayName =
-      profile.full_name ||
-      user.email ||
+
+      profile.full_name
+      ||
+      user.email
+      ||
       "管理人员";
 
 
+
     const roleName =
+
       roleText(
         profile.role
       );
+
 
 
     document.getElementById(
@@ -1434,10 +3597,12 @@ async function initializePage() {
       displayName;
 
 
+
     document.getElementById(
       "topUserRole"
     ).textContent =
       roleName;
+
 
 
     document.getElementById(
@@ -1446,10 +3611,12 @@ async function initializePage() {
       roleName;
 
 
+
     document.getElementById(
       "cardProvince"
     ).textContent =
       assignment.provinceName;
+
 
 
     document.getElementById(
@@ -1458,10 +3625,12 @@ async function initializePage() {
       assignment.cityName;
 
 
+
     document.getElementById(
       "cardEmail"
     ).textContent =
       user.email || "-";
+
 
 
     document.getElementById(
@@ -1470,11 +3639,15 @@ async function initializePage() {
       `欢迎回来，${displayName}`;
 
 
-    /* --------------------------------------------
-       根据角色显示欢迎语
-    -------------------------------------------- */
 
-    let description = "";
+    /* ------------------------------------------------------
+       欢迎语
+    ------------------------------------------------------- */
+
+
+    let description =
+      "";
+
 
 
     if (
@@ -1482,10 +3655,13 @@ async function initializePage() {
       "founder"
     ) {
 
+
       description =
-        "您当前拥有全国平台最高管理权限，可以管理全国产品、管理员、地区和业务数据。";
+
+        "您当前拥有全国平台最高管理权限，可管理全国产品、人员、地区和业务数据。";
 
     }
+
 
 
     else if (
@@ -1493,10 +3669,13 @@ async function initializePage() {
       "platform_admin"
     ) {
 
+
       description =
-        "您当前拥有平台管理权限，可以管理全国产品目录、地区和业务数据。";
+
+        "您当前拥有平台管理权限，可管理全国产品目录、地区和业务数据。";
 
     }
+
 
 
     else if (
@@ -1504,10 +3683,13 @@ async function initializePage() {
       "province_admin"
     ) {
 
+
       description =
-        `您当前负责 ${assignment.provinceName}，可以查看该省辖区内各城市业务数据。`;
+
+        `您当前负责 ${assignment.provinceName}，可以查看本省辖区内各城市业务数据。`;
 
     }
+
 
 
     else if (
@@ -1515,18 +3697,24 @@ async function initializePage() {
       "city_admin"
     ) {
 
+
       description =
+
         `您当前负责 ${assignment.cityName}，可以管理本市价格并查看本市业务数据。`;
 
     }
 
 
+
     else {
 
+
       description =
-        "您已进入孕乃馨平台管理中心，请按照授权使用相应管理功能。";
+
+        "您已进入孕乃馨平台管理中心，请按照已授权范围使用管理功能。";
 
     }
+
 
 
     document.getElementById(
@@ -1535,18 +3723,22 @@ async function initializePage() {
       description;
 
 
-    /* --------------------------------------------
-       应用菜单权限
-    -------------------------------------------- */
+
+    /* ------------------------------------------------------
+       菜单权限
+    ------------------------------------------------------- */
+
 
     applyMenuPermissions(
       profile.role
     );
 
 
-    /* --------------------------------------------
-       去掉加载遮罩
-    -------------------------------------------- */
+
+    /* ------------------------------------------------------
+       关闭加载
+    ------------------------------------------------------- */
+
 
     document.getElementById(
       "loadingMask"
@@ -1557,6 +3749,7 @@ async function initializePage() {
   }
 
   catch (error) {
+
 
     console.error(
       "页面初始化失败：",
@@ -1577,13 +3770,18 @@ async function initializePage() {
 }
 
 
+
 /* ==========================================================
-   10. 手动退出
+   10.
+   手动退出
 ========================================================== */
+
 
 async function logout() {
 
+
   const confirmLogout =
+
     confirm(
       "确定退出管理平台吗？"
     );
@@ -1593,20 +3791,24 @@ async function logout() {
     !confirmLogout
   ) {
 
+
     return;
 
   }
 
 
+
   try {
 
-    await supabaseClient
-      .auth
+
+    await supabaseClient.auth
       .signOut();
+
 
   }
 
   catch (error) {
+
 
     console.error(
       "退出登录失败：",
@@ -1616,28 +3818,35 @@ async function logout() {
   }
 
 
+
   window.location.href =
     LOGIN_PAGE;
 
 }
 
 
+
 /* ==========================================================
-   11. 防止登录状态变化后继续停留
+   11.
+   登录状态监听
 ========================================================== */
 
-supabaseClient
-  .auth
+
+supabaseClient.auth
+
   .onAuthStateChange(
+
     (
       event,
       session
     ) => {
 
+
       if (
         event ===
         "SIGNED_OUT"
       ) {
+
 
         window.location.href =
           LOGIN_PAGE;
@@ -1645,19 +3854,29 @@ supabaseClient
       }
 
     }
+
   );
 
 
+
 /* ==========================================================
-   12. 启动
+   12.
+   启动
 ========================================================== */
 
+
 document.addEventListener(
+
   "DOMContentLoaded",
+
   initializePage
+
 );
+
 
 </script>
 
+
 </body>
+
 </html>

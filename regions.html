@@ -1,1 +1,3676 @@
 
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="
+        width=device-width,
+        initial-scale=1.0,
+        maximum-scale=1.0,
+        viewport-fit=cover
+    "
+>
+
+<meta
+    name="theme-color"
+    content="#fff7fa"
+>
+
+<title>孕乃馨 - 服务区域管理</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<style>
+
+:root {
+
+    --pink-50:#fff7fa;
+    --pink-100:#ffeef4;
+    --pink-200:#ffd9e7;
+    --pink-300:#f8bdd2;
+    --pink-400:#f28aae;
+    --pink-500:#e85d8f;
+    --pink-600:#d94d7d;
+    --pink-700:#b93667;
+
+    --text:#282329;
+    --text2:#716a72;
+    --text3:#a49ba1;
+
+    --border:#eee4e9;
+
+    --white:#ffffff;
+
+    --success:#16815d;
+    --danger:#c83355;
+
+    --shadow:
+        0 10px 30px
+        rgba(123,50,79,.07);
+
+}
+
+
+* {
+
+    box-sizing:border-box;
+
+    -webkit-tap-highlight-color:
+        transparent;
+
+}
+
+
+html,
+body {
+
+    margin:0;
+
+    min-height:100%;
+
+}
+
+
+body {
+
+    min-height:
+        100vh;
+
+    min-height:
+        100dvh;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fff9fb,
+            #faf8f9
+        );
+
+    color:
+        var(--text);
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "PingFang SC",
+        "Microsoft YaHei",
+        Arial,
+        sans-serif;
+
+}
+
+
+button,
+input,
+select {
+
+    font:inherit;
+
+}
+
+
+button {
+
+    cursor:pointer;
+
+}
+
+
+.hidden {
+
+    display:none !important;
+
+}
+
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.topbar {
+
+    min-height:68px;
+
+    padding:
+        8px
+        24px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:
+        space-between;
+
+    gap:15px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .95
+        );
+
+    backdrop-filter:
+        blur(16px);
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+}
+
+
+.brand {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+}
+
+
+.brand img {
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:12px;
+
+    object-fit:contain;
+
+}
+
+
+.brand-title {
+
+    font-size:18px;
+
+    font-weight:750;
+
+}
+
+
+.brand-sub {
+
+    margin-top:2px;
+
+    font-size:11px;
+
+    color:
+        var(--text3);
+
+}
+
+
+.top-actions {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+}
+
+
+.back-button,
+.logout-button {
+
+    min-height:44px;
+
+    padding:
+        0
+        15px;
+
+    border-radius:12px;
+
+    font-size:13px;
+
+    font-weight:650;
+
+}
+
+
+.back-button {
+
+    border:
+        1px solid
+        var(--border);
+
+    background:
+        #ffffff;
+
+    color:
+        var(--text2);
+
+}
+
+
+.logout-button {
+
+    border:0;
+
+    color:#ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--pink-500),
+            var(--pink-600)
+        );
+
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main {
+
+    width:100%;
+
+    max-width:1450px;
+
+    margin:
+        0 auto;
+
+    padding:
+        28px;
+
+}
+
+
+.heading {
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:
+        space-between;
+
+    gap:20px;
+
+    margin-bottom:20px;
+
+}
+
+
+.heading h1 {
+
+    margin:0;
+
+    font-size:27px;
+
+}
+
+
+.heading p {
+
+    margin:
+        7px
+        0
+        0;
+
+    color:
+        var(--text2);
+
+    font-size:13px;
+
+    line-height:1.7;
+
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats {
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            4,
+            1fr
+        );
+
+    gap:13px;
+
+    margin-bottom:18px;
+
+}
+
+
+.stat {
+
+    min-height:102px;
+
+    padding:17px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:17px;
+
+    background:
+        #ffffff;
+
+}
+
+
+.stat-title {
+
+    font-size:11px;
+
+    color:
+        var(--text3);
+
+}
+
+
+.stat-number {
+
+    margin-top:9px;
+
+    font-size:24px;
+
+    font-weight:750;
+
+}
+
+
+.stat-note {
+
+    margin-top:4px;
+
+    font-size:11px;
+
+    color:
+        var(--text2);
+
+}
+
+
+/* =========================================================
+   PANEL
+========================================================= */
+
+.panel {
+
+    background:#ffffff;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:19px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 5px 18px
+        rgba(
+            100,
+            40,
+            65,
+            .035
+        );
+
+}
+
+
+.panel-toolbar {
+
+    padding:14px;
+
+    display:grid;
+
+    grid-template-columns:
+        minmax(
+            220px,
+            1fr
+        )
+        180px
+        auto;
+
+    gap:10px;
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+}
+
+
+.input,
+.select {
+
+    width:100%;
+
+    min-height:46px;
+
+    padding:
+        0
+        13px;
+
+    border:
+        1px solid
+        #e3dce0;
+
+    border-radius:11px;
+
+    background:#ffffff;
+
+    outline:none;
+
+}
+
+
+.input:focus,
+.select:focus {
+
+    border-color:
+        var(--pink-300);
+
+    box-shadow:
+        0 0 0 3px
+        var(--pink-50);
+
+}
+
+
+.primary-button {
+
+    min-height:46px;
+
+    padding:
+        0
+        18px;
+
+    border:0;
+
+    border-radius:11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--pink-500),
+            var(--pink-600)
+        );
+
+    color:#ffffff;
+
+    font-size:13px;
+
+    font-weight:700;
+
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.table-scroll {
+
+    overflow-x:auto;
+
+}
+
+
+table {
+
+    width:100%;
+
+    min-width:900px;
+
+    border-collapse:
+        collapse;
+
+}
+
+
+th {
+
+    padding:
+        13px
+        15px;
+
+    background:
+        #fcfafb;
+
+    color:
+        #837980;
+
+    text-align:left;
+
+    font-size:11px;
+
+    white-space:nowrap;
+
+}
+
+
+td {
+
+    padding:
+        15px;
+
+    border-top:
+        1px solid
+        #f1eaee;
+
+    font-size:13px;
+
+    vertical-align:middle;
+
+}
+
+
+.number-cell {
+
+    color:
+        var(--pink-700);
+
+    font-weight:750;
+
+}
+
+
+.area-name {
+
+    font-weight:700;
+
+}
+
+
+.area-sub {
+
+    margin-top:4px;
+
+    font-size:11px;
+
+    color:
+        var(--text3);
+
+}
+
+
+.badge {
+
+    display:inline-flex;
+
+    align-items:center;
+
+    min-height:26px;
+
+    padding:
+        4px
+        9px;
+
+    border-radius:999px;
+
+    font-size:11px;
+
+    font-weight:650;
+
+}
+
+
+.badge-active {
+
+    color:#157758;
+
+    background:#edfaf4;
+
+}
+
+
+.badge-inactive {
+
+    color:#806f76;
+
+    background:#f1edef;
+
+}
+
+
+.badge-price {
+
+    color:#a15e22;
+
+    background:#fff5e9;
+
+}
+
+
+.action-buttons {
+
+    display:flex;
+
+    gap:7px;
+
+    flex-wrap:wrap;
+
+}
+
+
+.action {
+
+    min-height:40px;
+
+    padding:
+        0
+        12px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:10px;
+
+    background:#ffffff;
+
+    color:
+        var(--text2);
+
+}
+
+
+.danger-action {
+
+    color:#b52d50;
+
+    border-color:#f2c8d5;
+
+    background:#fff7fa;
+
+}
+
+
+.price-action {
+
+    color:
+        var(--pink-700);
+
+    border-color:
+        var(--pink-200);
+
+    background:
+        var(--pink-50);
+
+}
+
+
+.empty {
+
+    padding:
+        55px
+        20px;
+
+    text-align:center;
+
+    color:
+        var(--text3);
+
+}
+
+
+/* =========================================================
+   MOBILE CARDS
+========================================================= */
+
+.mobile-list {
+
+    display:none;
+
+}
+
+
+.mobile-card {
+
+    padding:16px;
+
+    margin-bottom:10px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:16px;
+
+    background:#ffffff;
+
+}
+
+
+.mobile-card-head {
+
+    display:flex;
+
+    justify-content:
+        space-between;
+
+    align-items:flex-start;
+
+    gap:10px;
+
+}
+
+
+.mobile-number {
+
+    margin-bottom:5px;
+
+    color:
+        var(--pink-700);
+
+    font-size:12px;
+
+    font-weight:750;
+
+}
+
+
+.mobile-title {
+
+    font-size:15px;
+
+    font-weight:700;
+
+}
+
+
+.mobile-sub {
+
+    margin-top:4px;
+
+    font-size:11px;
+
+    color:
+        var(--text3);
+
+}
+
+
+.mobile-grid {
+
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap:9px;
+
+    margin-top:13px;
+
+}
+
+
+.mobile-info {
+
+    padding:10px;
+
+    background:
+        var(--pink-50);
+
+    border-radius:11px;
+
+}
+
+
+.mobile-info-label {
+
+    font-size:10px;
+
+    color:
+        var(--text3);
+
+}
+
+
+.mobile-info-value {
+
+    margin-top:3px;
+
+    font-size:12px;
+
+    font-weight:650;
+
+}
+
+
+.mobile-actions {
+
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap:8px;
+
+    margin-top:12px;
+
+}
+
+
+.mobile-actions .action {
+
+    min-height:48px;
+
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal-mask {
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:5000;
+
+    padding:16px;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+        rgba(
+            35,
+            25,
+            31,
+            .45
+        );
+
+}
+
+
+.modal-mask.show {
+
+    display:flex;
+
+}
+
+
+.modal {
+
+    width:100%;
+
+    max-width:560px;
+
+    max-height:
+        92vh;
+
+    overflow:auto;
+
+    border-radius:20px;
+
+    background:#ffffff;
+
+    box-shadow:
+        0 25px 70px
+        rgba(
+            50,
+            20,
+            32,
+            .2
+        );
+
+}
+
+
+.modal-head {
+
+    position:sticky;
+
+    top:0;
+
+    z-index:2;
+
+    padding:
+        18px
+        20px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:
+        space-between;
+
+    background:#ffffff;
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+}
+
+
+.modal-title {
+
+    font-size:18px;
+
+    font-weight:750;
+
+}
+
+
+.modal-close {
+
+    width:42px;
+
+    height:42px;
+
+    border:0;
+
+    border-radius:11px;
+
+    background:
+        var(--pink-50);
+
+    color:
+        var(--pink-700);
+
+    font-size:20px;
+
+}
+
+
+.modal-body {
+
+    padding:20px;
+
+}
+
+
+.form-group {
+
+    margin-bottom:16px;
+
+}
+
+
+.form-label {
+
+    display:block;
+
+    margin-bottom:7px;
+
+    font-size:12px;
+
+    font-weight:650;
+
+    color:
+        var(--text2);
+
+}
+
+
+.required {
+
+    color:
+        var(--pink-600);
+
+}
+
+
+.form-control {
+
+    width:100%;
+
+    min-height:50px;
+
+    padding:
+        0
+        13px;
+
+    border:
+        1px solid
+        #e3dce0;
+
+    border-radius:12px;
+
+    background:#ffffff;
+
+    outline:none;
+
+}
+
+
+.form-hint {
+
+    margin-top:7px;
+
+    color:
+        var(--text3);
+
+    font-size:10px;
+
+    line-height:1.6;
+
+}
+
+
+.info-box {
+
+    padding:13px;
+
+    margin-bottom:16px;
+
+    border-radius:13px;
+
+    background:
+        var(--pink-50);
+
+    color:
+        var(--text2);
+
+    font-size:12px;
+
+    line-height:1.7;
+
+}
+
+
+.modal-footer {
+
+    position:sticky;
+
+    bottom:0;
+
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap:9px;
+
+    padding:
+        15px
+        20px
+        20px;
+
+    background:#ffffff;
+
+    border-top:
+        1px solid
+        var(--border);
+
+}
+
+
+.cancel-button,
+.save-button {
+
+    min-height:50px;
+
+    border-radius:12px;
+
+    font-weight:700;
+
+}
+
+
+.cancel-button {
+
+    border:
+        1px solid
+        var(--border);
+
+    background:#ffffff;
+
+}
+
+
+.save-button {
+
+    border:0;
+
+    color:#ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--pink-500),
+            var(--pink-600)
+        );
+
+}
+
+
+.save-button:disabled {
+
+    opacity:.55;
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast {
+
+    display:none;
+
+    position:fixed;
+
+    z-index:9000;
+
+    right:18px;
+
+    bottom:18px;
+
+    max-width:400px;
+
+    padding:
+        13px
+        16px;
+
+    border-radius:12px;
+
+    font-size:13px;
+
+    box-shadow:
+        var(--shadow);
+
+}
+
+
+.toast.show {
+
+    display:block;
+
+}
+
+
+.toast.success {
+
+    color:#17664c;
+
+    background:#effaf5;
+
+}
+
+
+.toast.error {
+
+    color:#af294b;
+
+    background:#fff0f4;
+
+}
+
+
+.toast.info {
+
+    color:#665c62;
+
+    background:#f8f5f7;
+
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading {
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:9999;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-direction:column;
+
+    gap:12px;
+
+    background:#fffafd;
+
+}
+
+
+.spinner {
+
+    width:38px;
+
+    height:38px;
+
+    border:
+        4px solid
+        var(--pink-100);
+
+    border-top-color:
+        var(--pink-500);
+
+    border-radius:50%;
+
+    animation:
+        spin .8s
+        linear infinite;
+
+}
+
+
+@keyframes spin {
+
+    to {
+
+        transform:
+            rotate(360deg);
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media
+(max-width:760px) {
+
+    .topbar {
+
+        padding:
+            7px
+            11px;
+
+    }
+
+
+    .brand-sub {
+
+        display:none;
+
+    }
+
+
+    .brand img {
+
+        width:38px;
+
+        height:38px;
+
+    }
+
+
+    .brand-title {
+
+        font-size:16px;
+
+    }
+
+
+    .back-button {
+
+        display:none;
+
+    }
+
+
+    .logout-button {
+
+        min-height:42px;
+
+        padding:
+            0
+            13px;
+
+        font-size:11px;
+
+    }
+
+
+    .main {
+
+        padding:
+            17px
+            11px
+            30px;
+
+    }
+
+
+    .heading {
+
+        display:block;
+
+    }
+
+
+    .heading h1 {
+
+        font-size:22px;
+
+    }
+
+
+    .stats {
+
+        grid-template-columns:
+            1fr
+            1fr;
+
+        gap:8px;
+
+    }
+
+
+    .stat {
+
+        min-height:92px;
+
+        padding:14px;
+
+    }
+
+
+    .stat-number {
+
+        font-size:21px;
+
+    }
+
+
+    .panel {
+
+        padding:0;
+
+        background:transparent;
+
+        border:0;
+
+        box-shadow:none;
+
+    }
+
+
+    .panel-toolbar {
+
+        padding:0;
+
+        margin-bottom:12px;
+
+        grid-template-columns:
+            1fr;
+
+        border:0;
+
+    }
+
+
+    .panel-toolbar .primary-button {
+
+        min-height:52px;
+
+        font-size:14px;
+
+    }
+
+
+    .table-scroll {
+
+        display:none;
+
+    }
+
+
+    .mobile-list {
+
+        display:block;
+
+    }
+
+
+    .modal-mask {
+
+        align-items:flex-end;
+
+        padding:0;
+
+    }
+
+
+    .modal {
+
+        max-width:none;
+
+        max-height:
+            92dvh;
+
+        border-radius:
+            22px
+            22px
+            0
+            0;
+
+    }
+
+
+    .toast {
+
+        left:10px;
+
+        right:10px;
+
+        bottom:
+            max(
+                12px,
+                env(
+                    safe-area-inset-bottom
+                )
+            );
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     Loading
+========================================================= -->
+
+<div
+    id="loading"
+    class="loading"
+>
+
+    <div class="spinner"></div>
+
+    <div
+        style="
+            color:#756a71;
+            font-size:13px;
+        "
+    >
+        正在加载服务区域...
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     Header
+========================================================= -->
+
+<header class="topbar">
+
+
+    <div class="brand">
+
+
+        <img
+            src="./logo.jpeg"
+            alt="孕乃馨"
+        >
+
+
+        <div>
+
+
+            <div class="brand-title">
+                孕乃馨
+            </div>
+
+
+            <div class="brand-sub">
+                服务区域管理
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="top-actions">
+
+
+        <button
+            class="back-button"
+            onclick="goHome()"
+        >
+            返回工作台
+        </button>
+
+
+        <button
+            class="logout-button"
+            onclick="logout()"
+        >
+            退出
+        </button>
+
+
+    </div>
+
+
+</header>
+
+
+<!-- =========================================================
+     Main
+========================================================= -->
+
+<main class="main">
+
+
+<section class="heading">
+
+
+    <div>
+
+
+        <h1>
+            服务区域管理
+        </h1>
+
+
+        <p>
+
+            平台按地级市开通服务区域。
+
+            <br>
+
+            每开通一个城市，系统自动按照平台产品目录建立该城市的销售价格目录，初始价格统一为“未定义”。
+
+        </p>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =========================================================
+     Stats
+========================================================= -->
+
+<div class="stats">
+
+
+    <div class="stat">
+
+
+        <div class="stat-title">
+            已创建区域
+        </div>
+
+
+        <div
+            id="totalCount"
+            class="stat-number"
+        >
+            0
+        </div>
+
+
+    </div>
+
+
+
+    <div class="stat">
+
+
+        <div class="stat-title">
+            正常区域
+        </div>
+
+
+        <div
+            id="activeCount"
+            class="stat-number"
+        >
+            0
+        </div>
+
+
+    </div>
+
+
+
+    <div class="stat">
+
+
+        <div class="stat-title">
+            已失效区域
+        </div>
+
+
+        <div
+            id="inactiveCount"
+            class="stat-number"
+        >
+            0
+        </div>
+
+
+    </div>
+
+
+
+    <div class="stat">
+
+
+        <div class="stat-title">
+            平台标准产品
+        </div>
+
+
+        <div
+            id="productCount"
+            class="stat-number"
+        >
+            0
+        </div>
+
+
+        <div class="stat-note">
+            开通城市时自动建立价格目录
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- =========================================================
+     Panel
+========================================================= -->
+
+<div class="panel">
+
+
+<div class="panel-toolbar">
+
+
+    <input
+        id="searchInput"
+        class="input"
+        type="search"
+        placeholder="搜索区域编号、省份或城市"
+        oninput="renderAreas()"
+    >
+
+
+    <select
+        id="statusFilter"
+        class="select"
+        onchange="renderAreas()"
+    >
+
+        <option value="">
+            全部状态
+        </option>
+
+        <option value="active">
+            正常
+        </option>
+
+        <option value="inactive">
+            已失效
+        </option>
+
+    </select>
+
+
+    <button
+        class="primary-button"
+        onclick="openCreateModal()"
+    >
+        ＋ 开通服务区域
+    </button>
+
+
+</div>
+
+
+<div class="table-scroll">
+
+
+<table>
+
+
+<thead>
+
+
+<tr>
+
+    <th>
+        编号
+    </th>
+
+    <th>
+        省份
+    </th>
+
+    <th>
+        地级市
+    </th>
+
+    <th>
+        城市价格
+    </th>
+
+    <th>
+        状态
+    </th>
+
+    <th>
+        开通时间
+    </th>
+
+    <th>
+        操作
+    </th>
+
+</tr>
+
+
+</thead>
+
+
+<tbody
+    id="areaTable"
+>
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+<div
+    id="mobileList"
+    class="mobile-list"
+>
+</div>
+
+
+<div
+    id="emptyState"
+    class="empty hidden"
+>
+    暂无服务区域。
+</div>
+
+
+</div>
+
+
+</main>
+
+
+<!-- =========================================================
+     Create Modal
+========================================================= -->
+
+<div
+    id="createModal"
+    class="modal-mask"
+>
+
+
+<div class="modal">
+
+
+<div class="modal-head">
+
+
+    <div class="modal-title">
+        开通服务区域
+    </div>
+
+
+    <button
+        class="modal-close"
+        onclick="closeCreateModal()"
+    >
+        ×
+    </button>
+
+
+</div>
+
+
+<div class="modal-body">
+
+
+    <div class="info-box">
+
+        服务区域按照中国大陆行政区域中的“省 / 地级市”建立。
+
+        <br>
+
+        开通后，系统会自动读取平台标准产品目录，并为该城市建立对应的销售价格记录。所有新生成价格初始均为“未定义”。
+
+    </div>
+
+
+    <div class="form-group">
+
+
+        <label class="form-label">
+
+            省份
+
+            <span class="required">
+                *
+            </span>
+
+        </label>
+
+
+        <select
+            id="provinceSelect"
+            class="form-control"
+            onchange="provinceChanged()"
+        >
+
+            <option value="">
+                请选择省份
+            </option>
+
+        </select>
+
+
+    </div>
+
+
+
+    <div class="form-group">
+
+
+        <label class="form-label">
+
+            地级市
+
+            <span class="required">
+                *
+            </span>
+
+        </label>
+
+
+        <select
+            id="citySelect"
+            class="form-control"
+        >
+
+            <option value="">
+                请先选择省份
+            </option>
+
+        </select>
+
+
+    </div>
+
+
+</div>
+
+
+<div class="modal-footer">
+
+
+    <button
+        class="cancel-button"
+        onclick="closeCreateModal()"
+    >
+        取消
+    </button>
+
+
+    <button
+        id="createButton"
+        class="save-button"
+        onclick="createArea()"
+    >
+        确认开通
+    </button>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+<!-- =========================================================
+     Toast
+========================================================= -->
+
+<div
+    id="toast"
+    class="toast"
+>
+</div>
+
+
+<script>
+
+/* =========================================================
+   Supabase
+========================================================= */
+
+const SUPABASE_URL =
+    "https://qbuqjwpkltbjhlfbyjyb.supabase.co";
+
+
+const SUPABASE_ANON_KEY =
+    "sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+
+        SUPABASE_URL,
+
+        SUPABASE_ANON_KEY,
+
+        {
+
+            auth: {
+
+                persistSession:
+                    true,
+
+                autoRefreshToken:
+                    true
+
+            }
+
+        }
+
+    );
+
+
+const LOGIN_PAGE =
+    "./login.html";
+
+
+const HOME_PAGE =
+    "./wholemanagement.html";
+
+
+const CITY_PRICE_PAGE =
+    "./cityprices.html";
+
+
+let currentUser =
+    null;
+
+
+let currentProfile =
+    null;
+
+
+let provinces =
+    [];
+
+
+let cities =
+    [];
+
+
+let areas =
+    [];
+
+
+let products =
+    [];
+
+
+/* =========================================================
+   Init
+========================================================= */
+
+async function initialize() {
+
+
+    try {
+
+
+        const {
+            data:{
+                session
+            }
+        } =
+        await supabaseClient.auth
+            .getSession();
+
+
+        if (!session) {
+
+
+            location.replace(
+                LOGIN_PAGE
+            );
+
+
+            return;
+
+        }
+
+
+        currentUser =
+            session.user;
+
+
+        const {
+            data:profile,
+            error:profileError
+        } =
+        await supabaseClient
+
+            .from(
+                "profiles"
+            )
+
+            .select(`
+                id,
+                full_name,
+                role,
+                status
+            `)
+
+            .eq(
+                "id",
+                currentUser.id
+            )
+
+            .single();
+
+
+        if (
+            profileError
+            ||
+            !profile
+        ) {
+
+
+            throw new Error(
+                "无法读取当前账号权限。"
+            );
+
+        }
+
+
+        if (
+            profile.status !==
+            "active"
+        ) {
+
+
+            throw new Error(
+                "当前账号已经停用。"
+            );
+
+        }
+
+
+        if (
+            ![
+                "founder",
+                "platform_admin"
+            ].includes(
+                profile.role
+            )
+        ) {
+
+
+            alert(
+                "您没有服务区域管理权限。"
+            );
+
+
+            location.replace(
+                HOME_PAGE
+            );
+
+
+            return;
+
+        }
+
+
+        currentProfile =
+            profile;
+
+
+        await Promise.all([
+
+            loadProvinces(),
+
+            loadCities(),
+
+            loadProducts()
+
+        ]);
+
+
+        await loadAreas();
+
+
+        fillProvinceSelect();
+
+
+        document.getElementById(
+            "loading"
+        ).style.display =
+            "none";
+
+
+    }
+
+    catch(error) {
+
+
+        console.error(error);
+
+
+        alert(
+            error.message
+            ||
+            "页面初始化失败。"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   Provinces
+========================================================= */
+
+async function loadProvinces() {
+
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+
+        .from(
+            "provinces"
+        )
+
+        .select(`
+            id,
+            province_name,
+            status
+        `)
+
+        .eq(
+            "status",
+            "active"
+        )
+
+        .order(
+            "province_name"
+        );
+
+
+    if (error) {
+        throw error;
+    }
+
+
+    provinces =
+        data || [];
+
+}
+
+
+/* =========================================================
+   Cities
+========================================================= */
+
+async function loadCities() {
+
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+
+        .from(
+            "cities"
+        )
+
+        .select(`
+            id,
+            province_id,
+            city_name,
+            status
+        `)
+
+        .eq(
+            "status",
+            "active"
+        )
+
+        .order(
+            "city_name"
+        );
+
+
+    if (error) {
+        throw error;
+    }
+
+
+    cities =
+        data || [];
+
+}
+
+
+/* =========================================================
+   Products
+========================================================= */
+
+async function loadProducts() {
+
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+
+        .from(
+            "products"
+        )
+
+        .select(`
+            id,
+            product_name,
+            status
+        `)
+
+        .eq(
+            "status",
+            "active"
+        );
+
+
+    if (error) {
+        throw error;
+    }
+
+
+    products =
+        data || [];
+
+
+    document.getElementById(
+        "productCount"
+    ).textContent =
+        products.length;
+
+}
+
+
+/* =========================================================
+   Areas
+========================================================= */
+
+async function loadAreas() {
+
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+
+        .from(
+            "service_areas"
+        )
+
+        .select(`
+            id,
+            area_no,
+            province_id,
+            city_id,
+            district_id,
+            status,
+            created_by,
+            created_at,
+            invalidated_at
+        `)
+
+        .order(
+            "area_no",
+            {
+                ascending:true
+            }
+        );
+
+
+    if (error) {
+        throw error;
+    }
+
+
+    areas =
+        data || [];
+
+
+    renderStats();
+
+    renderAreas();
+
+}
+
+
+/* =========================================================
+   Stats
+========================================================= */
+
+function renderStats() {
+
+
+    document.getElementById(
+        "totalCount"
+    ).textContent =
+        areas.length;
+
+
+    document.getElementById(
+        "activeCount"
+    ).textContent =
+        areas.filter(
+            item =>
+                item.status ===
+                "active"
+        ).length;
+
+
+    document.getElementById(
+        "inactiveCount"
+    ).textContent =
+        areas.filter(
+            item =>
+                item.status ===
+                "inactive"
+        ).length;
+
+}
+
+
+/* =========================================================
+   Render Areas
+========================================================= */
+
+function renderAreas() {
+
+
+    const keyword =
+        document.getElementById(
+            "searchInput"
+        )
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    const status =
+        document.getElementById(
+            "statusFilter"
+        ).value;
+
+
+    const list =
+        areas.filter(
+            item => {
+
+
+                if (
+                    status
+                    &&
+                    item.status !==
+                    status
+                ) {
+
+                    return false;
+
+                }
+
+
+                const province =
+                    provinceName(
+                        item.province_id
+                    );
+
+
+                const city =
+                    cityName(
+                        item.city_id
+                    );
+
+
+                const text =
+                    `
+                    ${formatNo(item.area_no)}
+                    ${province}
+                    ${city}
+                    `
+                    .toLowerCase();
+
+
+                return text.includes(
+                    keyword
+                );
+
+            }
+        );
+
+
+    const tbody =
+        document.getElementById(
+            "areaTable"
+        );
+
+
+    const mobile =
+        document.getElementById(
+            "mobileList"
+        );
+
+
+    const empty =
+        document.getElementById(
+            "emptyState"
+        );
+
+
+    tbody.innerHTML =
+        "";
+
+
+    mobile.innerHTML =
+        "";
+
+
+    empty.classList.toggle(
+        "hidden",
+        list.length > 0
+    );
+
+
+    list.forEach(
+        item => {
+
+
+            const province =
+                provinceName(
+                    item.province_id
+                );
+
+
+            const city =
+                cityName(
+                    item.city_id
+                );
+
+
+            tbody.insertAdjacentHTML(
+
+                "beforeend",
+
+                `
+
+                <tr>
+
+                    <td class="number-cell">
+                        ${formatNo(item.area_no)}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(province)}
+                    </td>
+
+
+                    <td>
+
+                        <div class="area-name">
+                            ${escapeHtml(city)}
+                        </div>
+
+                        <div class="area-sub">
+                            ${escapeHtml(province)} · ${escapeHtml(city)}
+                        </div>
+
+                    </td>
+
+
+                    <td>
+
+                        <span class="badge badge-price">
+                            查看 / 定义销售价
+                        </span>
+
+                    </td>
+
+
+                    <td>
+                        ${statusBadge(item.status)}
+                    </td>
+
+
+                    <td>
+                        ${formatDate(item.created_at)}
+                    </td>
+
+
+                    <td>
+
+                        ${areaActions(item)}
+
+                    </td>
+
+                </tr>
+
+                `
+
+            );
+
+
+            mobile.insertAdjacentHTML(
+
+                "beforeend",
+
+                `
+
+                <div class="mobile-card">
+
+
+                    <div class="mobile-card-head">
+
+
+                        <div>
+
+
+                            <div class="mobile-number">
+                                区域 ${formatNo(item.area_no)}
+                            </div>
+
+
+                            <div class="mobile-title">
+                                ${escapeHtml(city)}
+                            </div>
+
+
+                            <div class="mobile-sub">
+                                ${escapeHtml(province)} · ${escapeHtml(city)}
+                            </div>
+
+
+                        </div>
+
+
+                        ${statusBadge(item.status)}
+
+
+                    </div>
+
+
+                    <div class="mobile-grid">
+
+
+                        <div class="mobile-info">
+
+                            <div class="mobile-info-label">
+                                省份
+                            </div>
+
+                            <div class="mobile-info-value">
+                                ${escapeHtml(province)}
+                            </div>
+
+                        </div>
+
+
+                        <div class="mobile-info">
+
+                            <div class="mobile-info-label">
+                                地级市
+                            </div>
+
+                            <div class="mobile-info-value">
+                                ${escapeHtml(city)}
+                            </div>
+
+                        </div>
+
+
+                        <div class="mobile-info">
+
+                            <div class="mobile-info-label">
+                                城市销售价格
+                            </div>
+
+                            <div class="mobile-info-value">
+                                按产品目录维护
+                            </div>
+
+                        </div>
+
+
+                        <div class="mobile-info">
+
+                            <div class="mobile-info-label">
+                                开通时间
+                            </div>
+
+                            <div class="mobile-info-value">
+                                ${formatDate(item.created_at)}
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    ${mobileAreaActions(item)}
+
+
+                </div>
+
+                `
+
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   Actions
+========================================================= */
+
+function areaActions(item) {
+
+
+    if (
+        item.status ===
+        "inactive"
+    ) {
+
+
+        return `
+
+            <div class="action-buttons">
+
+                <button
+                    class="action"
+                    disabled
+                >
+                    已失效
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+
+    return `
+
+        <div class="action-buttons">
+
+            <button
+                class="action price-action"
+                onclick="openCityPrices(${item.city_id})"
+            >
+                城市价格
+            </button>
+
+            <button
+                class="action danger-action"
+                onclick="invalidateArea(${item.id})"
+            >
+                设为无效
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+function mobileAreaActions(item) {
+
+
+    if (
+        item.status ===
+        "inactive"
+    ) {
+
+
+        return `
+
+            <div class="mobile-actions">
+
+                <button
+                    class="action"
+                    disabled
+                >
+                    已失效
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+
+    return `
+
+        <div class="mobile-actions">
+
+            <button
+                class="action price-action"
+                onclick="openCityPrices(${item.city_id})"
+            >
+                城市价格
+            </button>
+
+            <button
+                class="action danger-action"
+                onclick="invalidateArea(${item.id})"
+            >
+                设为无效
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   Open Create Modal
+========================================================= */
+
+function openCreateModal() {
+
+
+    document.getElementById(
+        "provinceSelect"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "citySelect"
+    ).innerHTML =
+        `
+
+        <option value="">
+            请先选择省份
+        </option>
+
+        `;
+
+
+    document.getElementById(
+        "createModal"
+    ).classList.add(
+        "show"
+    );
+
+}
+
+
+/* =========================================================
+   Close Modal
+========================================================= */
+
+function closeCreateModal() {
+
+
+    document.getElementById(
+        "createModal"
+    ).classList.remove(
+        "show"
+    );
+
+}
+
+
+/* =========================================================
+   Province Select
+========================================================= */
+
+function fillProvinceSelect() {
+
+
+    const select =
+        document.getElementById(
+            "provinceSelect"
+        );
+
+
+    select.innerHTML =
+        `
+
+        <option value="">
+            请选择省份
+        </option>
+
+        `;
+
+
+    provinces.forEach(
+        province => {
+
+
+            select.insertAdjacentHTML(
+
+                "beforeend",
+
+                `
+
+                <option value="${province.id}">
+                    ${escapeHtml(province.province_name)}
+                </option>
+
+                `
+
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   Province Changed
+========================================================= */
+
+function provinceChanged() {
+
+
+    const provinceId =
+        document.getElementById(
+            "provinceSelect"
+        ).value;
+
+
+    const citySelect =
+        document.getElementById(
+            "citySelect"
+        );
+
+
+    citySelect.innerHTML =
+        `
+
+        <option value="">
+            请选择地级市
+        </option>
+
+        `;
+
+
+    cities
+        .filter(
+            city =>
+                String(city.province_id) ===
+                String(provinceId)
+        )
+        .forEach(
+            city => {
+
+
+                citySelect.insertAdjacentHTML(
+
+                    "beforeend",
+
+                    `
+
+                    <option value="${city.id}">
+                        ${escapeHtml(city.city_name)}
+                    </option>
+
+                    `
+
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   Create Area
+========================================================= */
+
+async function createArea() {
+
+
+    const provinceId =
+        Number(
+            document.getElementById(
+                "provinceSelect"
+            ).value
+        );
+
+
+    const cityId =
+        Number(
+            document.getElementById(
+                "citySelect"
+            ).value
+        );
+
+
+    if (
+        !provinceId
+        ||
+        !cityId
+    ) {
+
+
+        showToast(
+            "请选择省份和地级市。",
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+    const city =
+        cities.find(
+            item =>
+                Number(item.id) ===
+                cityId
+        );
+
+
+    if (
+        !city
+        ||
+        Number(city.province_id) !==
+        provinceId
+    ) {
+
+
+        showToast(
+            "省份和城市不匹配。",
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+    const existing =
+        areas.find(
+            item =>
+                Number(item.province_id) ===
+                provinceId
+                &&
+                Number(item.city_id) ===
+                cityId
+                &&
+                item.status ===
+                "active"
+        );
+
+
+    if (existing) {
+
+
+        showToast(
+            "该城市已经开通服务区域。",
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+    const button =
+        document.getElementById(
+            "createButton"
+        );
+
+
+    button.disabled =
+        true;
+
+
+    button.textContent =
+        "正在开通...";
+
+
+    try {
+
+
+        /*
+        核心 RPC：
+
+        1. 创建 service_areas
+        2. 自动读取 products
+        3. 为该城市生成 city_prices
+        4. 所有销售价默认 NULL = 未定义
+        */
+
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient.rpc(
+
+            "create_service_area_with_prices",
+
+            {
+
+                p_province_id:
+                    provinceId,
+
+                p_city_id:
+                    cityId
+
+            }
+
+        );
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        if (
+            data?.error
+        ) {
+
+
+            throw new Error(
+                data.error
+            );
+
+        }
+
+
+        showToast(
+            "服务区域开通成功，城市产品价格目录已经生成。",
+            "success"
+        );
+
+
+        closeCreateModal();
+
+
+        await loadAreas();
+
+
+    }
+
+    catch(error) {
+
+
+        console.error(error);
+
+
+        showToast(
+
+            error.message
+            ||
+            "服务区域创建失败。",
+
+            "error"
+
+        );
+
+
+    }
+
+    finally {
+
+
+        button.disabled =
+            false;
+
+
+        button.textContent =
+            "确认开通";
+
+    }
+
+}
+
+
+/* =========================================================
+   Invalidate Area
+========================================================= */
+
+async function invalidateArea(id) {
+
+
+    const area =
+        areas.find(
+            item =>
+                Number(item.id) ===
+                Number(id)
+        );
+
+
+    if (!area) {
+        return;
+    }
+
+
+    const name =
+        `${provinceName(area.province_id)} · ${cityName(area.city_id)}`;
+
+
+    if (
+        !confirm(
+            `确定将“${name}”设为无效吗？\n\n设为无效后不能恢复。如果以后重新开通，需要创建新的服务区域记录。`
+        )
+    ) {
+
+
+        return;
+
+    }
+
+
+    try {
+
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient.rpc(
+
+            "invalidate_service_area",
+
+            {
+
+                p_service_area_id:
+                    id
+
+            }
+
+        );
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        if (
+            data?.error
+        ) {
+
+
+            throw new Error(
+                data.error
+            );
+
+        }
+
+
+        showToast(
+            "服务区域已经设为无效。",
+            "success"
+        );
+
+
+        await loadAreas();
+
+
+    }
+
+    catch(error) {
+
+
+        showToast(
+
+            error.message
+            ||
+            "操作失败。",
+
+            "error"
+
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   City Prices
+========================================================= */
+
+function openCityPrices(cityId) {
+
+
+    location.href =
+        `${CITY_PRICE_PAGE}?city_id=${encodeURIComponent(cityId)}`;
+
+}
+
+
+/* =========================================================
+   Helpers
+========================================================= */
+
+function provinceName(id) {
+
+
+    return (
+        provinces.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        )?.province_name
+        ||
+        "-"
+    );
+
+}
+
+
+function cityName(id) {
+
+
+    return (
+        cities.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        )?.city_name
+        ||
+        "-"
+    );
+
+}
+
+
+function formatNo(value) {
+
+
+    if (
+        value === null
+        ||
+        value === undefined
+    ) {
+
+
+        return "-";
+
+    }
+
+
+    return String(value)
+        .padStart(
+            3,
+            "0"
+        );
+
+}
+
+
+function statusBadge(status) {
+
+
+    if (
+        status ===
+        "active"
+    ) {
+
+
+        return `
+
+            <span class="badge badge-active">
+                正常
+            </span>
+
+        `;
+
+    }
+
+
+    return `
+
+        <span class="badge badge-inactive">
+            已失效
+        </span>
+
+    `;
+
+}
+
+
+function formatDate(value) {
+
+
+    if (!value) {
+        return "-";
+    }
+
+
+    const date =
+        new Date(value);
+
+
+    return date
+        .toLocaleDateString(
+            "zh-CN"
+        );
+
+}
+
+
+function escapeHtml(value) {
+
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* =========================================================
+   Toast
+========================================================= */
+
+let toastTimer;
+
+
+function showToast(
+    text,
+    type="info"
+) {
+
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        text;
+
+
+    toast.className =
+        `toast show ${type}`;
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+
+            () => {
+
+
+                toast.className =
+                    "toast";
+
+
+            },
+
+            3500
+
+        );
+
+}
+
+
+/* =========================================================
+   Home
+========================================================= */
+
+function goHome() {
+
+
+    location.href =
+        HOME_PAGE;
+
+}
+
+
+/* =========================================================
+   Logout
+========================================================= */
+
+async function logout() {
+
+
+    if (
+        !confirm(
+            "确定退出登录吗？"
+        )
+    ) {
+
+
+        return;
+
+    }
+
+
+    await supabaseClient.auth
+        .signOut();
+
+
+    location.replace(
+        LOGIN_PAGE
+    );
+
+}
+
+
+/* =========================================================
+   10分钟自动退出
+========================================================= */
+
+let idleTimer;
+
+
+function resetIdle() {
+
+
+    clearTimeout(
+        idleTimer
+    );
+
+
+    idleTimer =
+        setTimeout(
+
+            async () => {
+
+
+                await supabaseClient.auth
+                    .signOut();
+
+
+                alert(
+                    "由于10分钟未操作，系统已经自动退出。"
+                );
+
+
+                location.replace(
+                    LOGIN_PAGE
+                );
+
+
+            },
+
+            10 * 60 * 1000
+
+        );
+
+}
+
+
+[
+    "click",
+    "touchstart",
+    "keydown",
+    "mousemove",
+    "scroll"
+]
+.forEach(
+    event => {
+
+
+        document.addEventListener(
+
+            event,
+
+            resetIdle,
+
+            {
+                passive:true
+            }
+
+        );
+
+    }
+);
+
+
+/* =========================================================
+   Start
+========================================================= */
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    () => {
+
+
+        resetIdle();
+
+        initialize();
+
+    }
+
+);
+
+</script>
+
+
+</body>
+
+</html>

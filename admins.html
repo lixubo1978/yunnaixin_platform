@@ -1,1 +1,4498 @@
 
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width,
+                 initial-scale=1.0,
+                 maximum-scale=1.0,
+                 viewport-fit=cover"
+    >
+
+    <meta name="theme-color" content="#ffffff">
+
+    <title>孕乃馨 - 管理人员</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                "PingFang SC",
+                "Microsoft YaHei",
+                Arial,
+                sans-serif;
+
+            background: #f6f7f9;
+            color: #1f2937;
+            min-height: 100vh;
+        }
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+
+        /* =====================================================
+           顶部导航
+        ===================================================== */
+
+        .topbar {
+
+            height: 68px;
+
+            background: #ffffff;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 26px;
+
+            position: sticky;
+            top: 0;
+
+            z-index: 1000;
+
+        }
+
+
+        .brand {
+
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+        }
+
+
+        .brand img {
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 11px;
+
+            object-fit: contain;
+
+            background: #ffffff;
+
+        }
+
+
+        .brand-name {
+
+            font-size: 19px;
+
+            font-weight: 700;
+
+        }
+
+
+        .brand-sub {
+
+            margin-top: 2px;
+
+            font-size: 12px;
+
+            color: #9ca3af;
+
+        }
+
+
+        .top-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+        }
+
+
+        .current-user {
+
+            text-align: right;
+
+            margin-right: 4px;
+
+        }
+
+
+        .current-user-name {
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+        }
+
+
+        .current-user-role {
+
+            margin-top: 2px;
+
+            font-size: 12px;
+
+            color: #9ca3af;
+
+        }
+
+
+        .top-button {
+
+            height: 38px;
+
+            padding: 0 15px;
+
+            border-radius: 9px;
+
+            border: 1px solid #e5e7eb;
+
+            background: #ffffff;
+
+            color: #374151;
+
+            font-size: 13px;
+
+        }
+
+
+        .top-button:hover {
+            background: #f9fafb;
+        }
+
+
+        .logout-button {
+
+            background: #222222;
+
+            color: #ffffff;
+
+            border-color: #222222;
+
+        }
+
+
+        /* =====================================================
+           页面
+        ===================================================== */
+
+        .page {
+
+            width: 100%;
+
+            max-width: 1500px;
+
+            margin: 0 auto;
+
+            padding: 26px;
+
+        }
+
+
+        /* =====================================================
+           标题
+        ===================================================== */
+
+        .page-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            gap: 20px;
+
+            margin-bottom: 22px;
+
+        }
+
+
+        .page-title {
+
+            margin: 0;
+
+            font-size: 25px;
+
+            font-weight: 700;
+
+            color: #111827;
+
+        }
+
+
+        .page-description {
+
+            margin-top: 8px;
+
+            font-size: 13px;
+
+            color: #6b7280;
+
+            line-height: 1.7;
+
+        }
+
+
+        .add-button {
+
+            border: 0;
+
+            height: 44px;
+
+            padding: 0 19px;
+
+            border-radius: 10px;
+
+            background: #222222;
+
+            color: #ffffff;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            white-space: nowrap;
+
+        }
+
+
+        .add-button:hover {
+            background: #333333;
+        }
+
+
+        /* =====================================================
+           统计卡
+        ===================================================== */
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(5, minmax(0, 1fr));
+
+            gap: 14px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .stat-card {
+
+            background: #ffffff;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 13px;
+
+            padding: 17px;
+
+        }
+
+
+        .stat-label {
+
+            font-size: 12px;
+
+            color: #9ca3af;
+
+        }
+
+
+        .stat-value {
+
+            margin-top: 8px;
+
+            font-size: 24px;
+
+            font-weight: 700;
+
+            color: #111827;
+
+        }
+
+
+        /* =====================================================
+           工具栏
+        ===================================================== */
+
+        .toolbar {
+
+            background: #ffffff;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 14px;
+
+            padding: 14px;
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(200px, 1fr)
+                180px
+                160px
+                auto;
+
+            gap: 10px;
+
+            margin-bottom: 16px;
+
+        }
+
+
+        .control {
+
+            width: 100%;
+
+            height: 42px;
+
+            border-radius: 9px;
+
+            border: 1px solid #dfe2e7;
+
+            background: #ffffff;
+
+            padding: 0 12px;
+
+            outline: none;
+
+        }
+
+
+        .control:focus {
+
+            border-color: #a4a8af;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(0,0,0,.025);
+
+        }
+
+
+        .refresh-button {
+
+            height: 42px;
+
+            padding: 0 18px;
+
+            border-radius: 9px;
+
+            border: 1px solid #e5e7eb;
+
+            background: #f9fafb;
+
+            color: #374151;
+
+        }
+
+
+        /* =====================================================
+           表格
+        ===================================================== */
+
+        .table-card {
+
+            background: #ffffff;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 14px;
+
+            overflow: hidden;
+
+        }
+
+
+        .table-scroll {
+            overflow-x: auto;
+        }
+
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 1000px;
+
+        }
+
+
+        thead {
+
+            background: #f9fafb;
+
+        }
+
+
+        th {
+
+            padding: 13px 15px;
+
+            text-align: left;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            color: #6b7280;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            white-space: nowrap;
+
+        }
+
+
+        td {
+
+            padding: 15px;
+
+            font-size: 13px;
+
+            color: #374151;
+
+            border-bottom: 1px solid #f0f1f3;
+
+            vertical-align: middle;
+
+        }
+
+
+        tbody tr:last-child td {
+            border-bottom: 0;
+        }
+
+
+        tbody tr:hover {
+            background: #fcfcfd;
+        }
+
+
+        .name {
+
+            font-weight: 600;
+
+            color: #111827;
+
+        }
+
+
+        .email {
+
+            margin-top: 4px;
+
+            font-size: 12px;
+
+            color: #9ca3af;
+
+        }
+
+
+        .badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            min-height: 26px;
+
+            padding: 4px 9px;
+
+            border-radius: 999px;
+
+            font-size: 12px;
+
+            white-space: nowrap;
+
+        }
+
+
+        .badge-founder {
+
+            background: #fff4d6;
+
+            color: #92400e;
+
+        }
+
+
+        .badge-platform {
+
+            background: #eef2ff;
+
+            color: #4338ca;
+
+        }
+
+
+        .badge-province {
+
+            background: #ecfeff;
+
+            color: #0e7490;
+
+        }
+
+
+        .badge-city {
+
+            background: #f0fdf4;
+
+            color: #15803d;
+
+        }
+
+
+        .badge-staff {
+
+            background: #f3f4f6;
+
+            color: #4b5563;
+
+        }
+
+
+        .status-active {
+
+            background: #ecfdf3;
+
+            color: #15803d;
+
+        }
+
+
+        .status-inactive {
+
+            background: #f3f4f6;
+
+            color: #6b7280;
+
+        }
+
+
+        .status-suspended {
+
+            background: #fff1f2;
+
+            color: #be123c;
+
+        }
+
+
+        .action-button {
+
+            height: 34px;
+
+            padding: 0 12px;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 8px;
+
+            background: #ffffff;
+
+            color: #374151;
+
+            font-size: 12px;
+
+        }
+
+
+        .action-button:hover {
+            background: #f9fafb;
+        }
+
+
+        .empty {
+
+            padding: 60px 20px;
+
+            text-align: center;
+
+            color: #9ca3af;
+
+            font-size: 14px;
+
+        }
+
+
+        /* =====================================================
+           Modal
+        ===================================================== */
+
+        .modal-mask {
+
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 5000;
+
+            background: rgba(17,24,39,.42);
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 18px;
+
+        }
+
+
+        .modal-mask.show {
+            display: flex;
+        }
+
+
+        .modal {
+
+            width: 100%;
+
+            max-width: 560px;
+
+            max-height: 92vh;
+
+            overflow-y: auto;
+
+            background: #ffffff;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 25px 70px
+                rgba(0,0,0,.18);
+
+        }
+
+
+        .modal-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 19px 22px;
+
+            border-bottom: 1px solid #edf0f3;
+
+        }
+
+
+        .modal-title {
+
+            font-size: 18px;
+
+            font-weight: 700;
+
+        }
+
+
+        .modal-close {
+
+            width: 34px;
+            height: 34px;
+
+            border: 0;
+
+            border-radius: 8px;
+
+            background: #f5f6f7;
+
+            font-size: 19px;
+
+            color: #6b7280;
+
+        }
+
+
+        .modal-body {
+
+            padding: 21px 22px;
+
+        }
+
+
+        .form-group {
+
+            margin-bottom: 17px;
+
+        }
+
+
+        .form-label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            color: #4b5563;
+
+        }
+
+
+        .required {
+            color: #dc2626;
+        }
+
+
+        .form-help {
+
+            margin-top: 6px;
+
+            font-size: 11px;
+
+            color: #9ca3af;
+
+            line-height: 1.5;
+
+        }
+
+
+        .form-control {
+
+            width: 100%;
+
+            height: 44px;
+
+            border-radius: 9px;
+
+            border: 1px solid #dfe2e7;
+
+            padding: 0 12px;
+
+            outline: none;
+
+            background: #ffffff;
+
+        }
+
+
+        .form-control:focus {
+            border-color: #9ca3af;
+        }
+
+
+        .modal-footer {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 10px;
+
+            padding: 16px 22px 20px;
+
+            border-top: 1px solid #edf0f3;
+
+        }
+
+
+        .secondary-button {
+
+            height: 42px;
+
+            padding: 0 18px;
+
+            border-radius: 9px;
+
+            border: 1px solid #dfe2e7;
+
+            background: #ffffff;
+
+            color: #374151;
+
+        }
+
+
+        .save-button {
+
+            height: 42px;
+
+            padding: 0 20px;
+
+            border: 0;
+
+            border-radius: 9px;
+
+            background: #222222;
+
+            color: #ffffff;
+
+            font-weight: 600;
+
+        }
+
+
+        .save-button:disabled {
+
+            opacity: .55;
+
+            cursor: not-allowed;
+
+        }
+
+
+        /* =====================================================
+           提示
+        ===================================================== */
+
+        .toast {
+
+            position: fixed;
+
+            right: 22px;
+
+            bottom: 22px;
+
+            z-index: 9000;
+
+            display: none;
+
+            max-width: 390px;
+
+            padding: 13px 16px;
+
+            border-radius: 11px;
+
+            box-shadow:
+                0 10px 35px
+                rgba(0,0,0,.15);
+
+            font-size: 13px;
+
+            line-height: 1.55;
+
+        }
+
+
+        .toast.show {
+            display: block;
+        }
+
+
+        .toast-success {
+
+            background: #ecfdf3;
+
+            color: #166534;
+
+            border: 1px solid #bbf7d0;
+
+        }
+
+
+        .toast-error {
+
+            background: #fff1f2;
+
+            color: #be123c;
+
+            border: 1px solid #fecdd3;
+
+        }
+
+
+        .toast-info {
+
+            background: #f3f4f6;
+
+            color: #374151;
+
+            border: 1px solid #e5e7eb;
+
+        }
+
+
+        /* =====================================================
+           Loading
+        ===================================================== */
+
+        .loading-mask {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 9999;
+
+            background: rgba(255,255,255,.96);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-direction: column;
+
+            gap: 12px;
+
+        }
+
+
+        .spinner {
+
+            width: 36px;
+            height: 36px;
+
+            border:
+                4px solid
+                #f0f1f3;
+
+            border-top-color: #222222;
+
+            border-radius: 50%;
+
+            animation:
+                spin .8s
+                linear
+                infinite;
+
+        }
+
+
+        @keyframes spin {
+
+            to {
+                transform: rotate(360deg);
+            }
+
+        }
+
+
+        .loading-text {
+
+            font-size: 13px;
+
+            color: #6b7280;
+
+        }
+
+
+        /* =====================================================
+           响应式
+        ===================================================== */
+
+        @media (max-width: 1000px) {
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+
+            .toolbar {
+
+                grid-template-columns:
+                    1fr
+                    1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .topbar {
+
+                padding:
+                    0
+                    14px;
+
+            }
+
+
+            .brand-sub,
+            .current-user {
+                display: none;
+            }
+
+
+            .page {
+
+                padding:
+                    18px
+                    12px;
+
+            }
+
+
+            .page-header {
+
+                flex-direction: column;
+
+            }
+
+
+            .add-button {
+                width: 100%;
+            }
+
+
+            .stats {
+
+                grid-template-columns:
+                    1fr
+                    1fr;
+
+            }
+
+
+            .toolbar {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .modal-footer {
+
+                flex-direction: column-reverse;
+
+            }
+
+
+            .secondary-button,
+            .save-button {
+
+                width: 100%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     Loading
+========================================================= -->
+
+<div
+    id="loadingMask"
+    class="loading-mask"
+>
+
+    <div class="spinner"></div>
+
+    <div class="loading-text">
+        正在验证管理权限...
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     顶部导航
+========================================================= -->
+
+<header class="topbar">
+
+
+    <div class="brand">
+
+        <img
+            src="./logo.jpeg"
+            alt="孕乃馨"
+        >
+
+        <div>
+
+            <div class="brand-name">
+                孕乃馨
+            </div>
+
+            <div class="brand-sub">
+                管理人员
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="top-actions">
+
+
+        <div class="current-user">
+
+            <div
+                id="currentUserName"
+                class="current-user-name"
+            >
+                -
+            </div>
+
+            <div
+                id="currentUserRole"
+                class="current-user-role"
+            >
+                -
+            </div>
+
+        </div>
+
+
+        <button
+            class="top-button"
+            type="button"
+            onclick="goBack()"
+        >
+            返回工作台
+        </button>
+
+
+        <button
+            class="top-button logout-button"
+            type="button"
+            onclick="logout()"
+        >
+            退出
+        </button>
+
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================================================
+     页面
+========================================================= -->
+
+<main class="page">
+
+
+    <div class="page-header">
+
+
+        <div>
+
+            <h1 class="page-title">
+                管理人员
+            </h1>
+
+            <div class="page-description">
+
+                管理平台创始人、平台管理员、平台员工、省管理员和市管理员。
+
+                <br>
+
+                省管理员只能管理指定省份；
+                市管理员只能管理指定城市。
+
+            </div>
+
+        </div>
+
+
+        <button
+            id="addAdminButton"
+            class="add-button"
+            type="button"
+            onclick="openAddModal()"
+        >
+            ＋ 新增管理人员
+        </button>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         统计
+    ====================================================== -->
+
+    <section class="stats">
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                管理人员总数
+            </div>
+
+            <div
+                id="statTotal"
+                class="stat-value"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                平台级
+            </div>
+
+            <div
+                id="statPlatform"
+                class="stat-value"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                省管理员
+            </div>
+
+            <div
+                id="statProvince"
+                class="stat-value"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                市管理员
+            </div>
+
+            <div
+                id="statCity"
+                class="stat-value"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                已启用
+            </div>
+
+            <div
+                id="statActive"
+                class="stat-value"
+            >
+                0
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         搜索
+    ====================================================== -->
+
+    <section class="toolbar">
+
+
+        <input
+            id="searchInput"
+            class="control"
+            type="search"
+            placeholder="搜索姓名、角色..."
+        >
+
+
+        <select
+            id="roleFilter"
+            class="control"
+        >
+
+            <option value="">
+                全部角色
+            </option>
+
+            <option value="founder">
+                创始人
+            </option>
+
+            <option value="platform_admin">
+                平台管理员
+            </option>
+
+            <option value="platform_staff">
+                平台员工
+            </option>
+
+            <option value="province_admin">
+                省管理员
+            </option>
+
+            <option value="city_admin">
+                市管理员
+            </option>
+
+        </select>
+
+
+        <select
+            id="statusFilter"
+            class="control"
+        >
+
+            <option value="">
+                全部状态
+            </option>
+
+            <option value="active">
+                正常
+            </option>
+
+            <option value="inactive">
+                无效
+            </option>
+
+            <option value="suspended">
+                停用
+            </option>
+
+        </select>
+
+
+        <button
+            class="refresh-button"
+            type="button"
+            onclick="loadAdmins()"
+        >
+            刷新
+        </button>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         表格
+    ====================================================== -->
+
+    <section class="table-card">
+
+
+        <div class="table-scroll">
+
+
+            <table>
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            管理人员
+                        </th>
+
+                        <th>
+                            角色
+                        </th>
+
+                        <th>
+                            管理省份
+                        </th>
+
+                        <th>
+                            管理城市
+                        </th>
+
+                        <th>
+                            状态
+                        </th>
+
+                        <th>
+                            创建时间
+                        </th>
+
+                        <th>
+                            操作
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="adminTableBody">
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+        <div
+            id="emptyState"
+            class="empty hidden"
+        >
+            暂无管理人员数据。
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =========================================================
+     新增/编辑 Modal
+========================================================= -->
+
+<div
+    id="adminModalMask"
+    class="modal-mask"
+>
+
+
+    <div class="modal">
+
+
+        <div class="modal-header">
+
+
+            <div
+                id="modalTitle"
+                class="modal-title"
+            >
+                新增管理人员
+            </div>
+
+
+            <button
+                class="modal-close"
+                type="button"
+                onclick="closeAdminModal()"
+            >
+                ×
+            </button>
+
+
+        </div>
+
+
+        <div class="modal-body">
+
+
+            <input
+                id="editUserId"
+                type="hidden"
+            >
+
+
+            <div class="form-group">
+
+                <label class="form-label">
+
+                    姓名
+
+                    <span class="required">
+                        *
+                    </span>
+
+                </label>
+
+                <input
+                    id="adminName"
+                    class="form-control"
+                    type="text"
+                    maxlength="100"
+                    placeholder="请输入管理人员姓名"
+                >
+
+            </div>
+
+
+
+            <div
+                id="emailGroup"
+                class="form-group"
+            >
+
+                <label class="form-label">
+
+                    登录邮箱
+
+                    <span class="required">
+                        *
+                    </span>
+
+                </label>
+
+                <input
+                    id="adminEmail"
+                    class="form-control"
+                    type="email"
+                    autocomplete="off"
+                    placeholder="请输入登录邮箱"
+                >
+
+            </div>
+
+
+
+            <div
+                id="passwordGroup"
+                class="form-group"
+            >
+
+                <label class="form-label">
+
+                    初始密码
+
+                    <span class="required">
+                        *
+                    </span>
+
+                </label>
+
+                <input
+                    id="adminPassword"
+                    class="form-control"
+                    type="password"
+                    autocomplete="new-password"
+                    placeholder="建议至少8位"
+                >
+
+                <div class="form-help">
+
+                    新增账号时使用。
+                    密码不会保存到 profiles 表，
+                    由 Supabase Auth 管理。
+
+                </div>
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label class="form-label">
+
+                    管理角色
+
+                    <span class="required">
+                        *
+                    </span>
+
+                </label>
+
+                <select
+                    id="adminRole"
+                    class="form-control"
+                    onchange="handleRoleChange()"
+                >
+
+                    <option value="">
+                        请选择角色
+                    </option>
+
+                    <option
+                        id="founderRoleOption"
+                        value="founder"
+                    >
+                        创始人
+                    </option>
+
+                    <option value="platform_admin">
+                        平台管理员
+                    </option>
+
+                    <option value="platform_staff">
+                        平台员工
+                    </option>
+
+                    <option value="province_admin">
+                        省管理员
+                    </option>
+
+                    <option value="city_admin">
+                        市管理员
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <div
+                id="provinceGroup"
+                class="form-group hidden"
+            >
+
+                <label class="form-label">
+
+                    管理省份
+
+                    <span class="required">
+                        *
+                    </span>
+
+                </label>
+
+                <select
+                    id="provinceSelect"
+                    class="form-control"
+                    onchange="handleProvinceChange()"
+                >
+
+                    <option value="">
+                        请选择省份
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <div
+                id="cityGroup"
+                class="form-group hidden"
+            >
+
+                <label class="form-label">
+
+                    管理城市
+
+                    <span class="required">
+                        *
+                    </span>
+
+                </label>
+
+                <select
+                    id="citySelect"
+                    class="form-control"
+                >
+
+                    <option value="">
+                        请选择城市
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <div
+                id="statusGroup"
+                class="form-group hidden"
+            >
+
+                <label class="form-label">
+                    状态
+                </label>
+
+                <select
+                    id="adminStatus"
+                    class="form-control"
+                >
+
+                    <option value="active">
+                        正常
+                    </option>
+
+                    <option value="inactive">
+                        无效
+                    </option>
+
+                    <option value="suspended">
+                        停用
+                    </option>
+
+                </select>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="modal-footer">
+
+
+            <button
+                class="secondary-button"
+                type="button"
+                onclick="closeAdminModal()"
+            >
+                取消
+            </button>
+
+
+            <button
+                id="saveAdminButton"
+                class="save-button"
+                type="button"
+                onclick="saveAdmin()"
+            >
+                保存
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     Toast
+========================================================= -->
+
+<div
+    id="toast"
+    class="toast"
+></div>
+
+
+
+<script>
+
+
+/* =========================================================
+   Supabase配置
+========================================================= */
+
+
+const SUPABASE_URL =
+    'https://qbuqjwpkltbjhlfbyjyb.supabase.co';
+
+
+const SUPABASE_ANON_KEY =
+    'sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3';
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY,
+        {
+            auth: {
+                persistSession: true,
+                autoRefreshToken: true
+            }
+        }
+    );
+
+
+
+/* =========================================================
+   页面
+========================================================= */
+
+
+const LOGIN_PAGE =
+    './login.html';
+
+
+const HOME_PAGE =
+    './wholemanagement.html';
+
+
+const ADMIN_ROLES = [
+
+    'founder',
+
+    'platform_admin',
+
+    'platform_staff',
+
+    'province_admin',
+
+    'city_admin'
+
+];
+
+
+let currentUser = null;
+
+let currentProfile = null;
+
+let allAdmins = [];
+
+let provinces = [];
+
+let cities = [];
+
+let assignments = [];
+
+let editingOriginalRole = null;
+
+
+
+/* =========================================================
+   角色名称
+========================================================= */
+
+
+function roleText(role) {
+
+
+    const roles = {
+
+        founder:
+            '创始人',
+
+        platform_admin:
+            '平台管理员',
+
+        platform_staff:
+            '平台员工',
+
+        province_admin:
+            '省管理员',
+
+        city_admin:
+            '市管理员'
+
+    };
+
+
+    return roles[role] || role;
+
+}
+
+
+
+/* =========================================================
+   状态名称
+========================================================= */
+
+
+function statusText(status) {
+
+
+    const map = {
+
+        active:
+            '正常',
+
+        inactive:
+            '无效',
+
+        suspended:
+            '停用'
+
+    };
+
+
+    return map[status] || status;
+
+}
+
+
+
+/* =========================================================
+   Toast
+========================================================= */
+
+
+let toastTimer = null;
+
+
+function showToast(
+    message,
+    type = 'info'
+) {
+
+
+    const toast =
+        document.getElementById(
+            'toast'
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.className =
+        'toast show toast-' + type;
+
+
+    if (toastTimer) {
+
+        clearTimeout(
+            toastTimer
+        );
+
+    }
+
+
+    toastTimer =
+        setTimeout(
+            function () {
+
+                toast.className =
+                    'toast';
+
+            },
+            3500
+        );
+
+}
+
+
+
+/* =========================================================
+   10分钟无操作自动退出
+========================================================= */
+
+
+const IDLE_LIMIT =
+    10 * 60 * 1000;
+
+
+let idleTimer = null;
+
+
+function resetIdleTimer() {
+
+
+    if (idleTimer) {
+
+        clearTimeout(
+            idleTimer
+        );
+
+    }
+
+
+    idleTimer =
+        setTimeout(
+            async function () {
+
+                await supabaseClient.auth
+                    .signOut();
+
+
+                alert(
+                    '由于10分钟未操作，系统已经自动退出。'
+                );
+
+
+                window.location.replace(
+                    LOGIN_PAGE
+                );
+
+            },
+            IDLE_LIMIT
+        );
+
+}
+
+
+
+[
+    'mousemove',
+    'mousedown',
+    'keydown',
+    'touchstart',
+    'scroll',
+    'click'
+]
+.forEach(
+    function (eventName) {
+
+        document.addEventListener(
+            eventName,
+            resetIdleTimer,
+            {
+                passive: true
+            }
+        );
+
+    }
+);
+
+
+
+/* =========================================================
+   初始化
+========================================================= */
+
+
+async function initializePage() {
+
+
+    resetIdleTimer();
+
+
+    try {
+
+
+        const {
+            data: sessionData,
+            error: sessionError
+        } =
+        await supabaseClient.auth
+            .getSession();
+
+
+        if (
+            sessionError ||
+            !sessionData.session
+        ) {
+
+
+            window.location.replace(
+                LOGIN_PAGE
+            );
+
+
+            return;
+
+        }
+
+
+        currentUser =
+            sessionData.session.user;
+
+
+
+        const {
+            data: profile,
+            error: profileError
+        } =
+        await supabaseClient
+            .from('profiles')
+            .select(`
+                id,
+                full_name,
+                role,
+                status
+            `)
+            .eq(
+                'id',
+                currentUser.id
+            )
+            .maybeSingle();
+
+
+
+        if (
+            profileError ||
+            !profile
+        ) {
+
+
+            throw new Error(
+                '无法读取当前管理人员资料。'
+            );
+
+        }
+
+
+        currentProfile =
+            profile;
+
+
+
+        if (
+            profile.status !==
+            'active'
+        ) {
+
+
+            throw new Error(
+                '当前账号已被停用。'
+            );
+
+        }
+
+
+
+        /*
+        管理人员页面：
+        目前仅 founder / platform_admin 可进入
+        */
+
+        if (
+            ![
+                'founder',
+                'platform_admin'
+            ].includes(
+                profile.role
+            )
+        ) {
+
+
+            alert(
+                '您没有管理人员页面访问权限。'
+            );
+
+
+            window.location.replace(
+                HOME_PAGE
+            );
+
+
+            return;
+
+        }
+
+
+
+        document.getElementById(
+            'currentUserName'
+        ).textContent =
+            profile.full_name ||
+            currentUser.email ||
+            '管理人员';
+
+
+
+        document.getElementById(
+            'currentUserRole'
+        ).textContent =
+            roleText(
+                profile.role
+            );
+
+
+
+        /*
+        非创始人不能创建/修改 founder
+        */
+
+        if (
+            profile.role !==
+            'founder'
+        ) {
+
+
+            document.getElementById(
+                'founderRoleOption'
+            ).disabled =
+                true;
+
+        }
+
+
+
+        await Promise.all([
+
+            loadRegions(),
+
+            loadAdmins()
+
+        ]);
+
+
+
+        document.getElementById(
+            'loadingMask'
+        ).style.display =
+            'none';
+
+
+
+    }
+
+    catch (error) {
+
+
+        console.error(
+            error
+        );
+
+
+        alert(
+            error.message ||
+            '页面加载失败。'
+        );
+
+
+        try {
+
+            await supabaseClient.auth
+                .signOut();
+
+        }
+        catch (e) {}
+
+
+        window.location.replace(
+            LOGIN_PAGE
+        );
+
+    }
+
+}
+
+
+
+/* =========================================================
+   地区数据
+========================================================= */
+
+
+async function loadRegions() {
+
+
+    const {
+        data: provinceData,
+        error: provinceError
+    } =
+    await supabaseClient
+        .from('provinces')
+        .select(`
+            id,
+            province_name
+        `)
+        .eq(
+            'status',
+            'active'
+        )
+        .order(
+            'province_name'
+        );
+
+
+    if (provinceError) {
+        throw provinceError;
+    }
+
+
+    provinces =
+        provinceData || [];
+
+
+
+    const {
+        data: cityData,
+        error: cityError
+    } =
+    await supabaseClient
+        .from('cities')
+        .select(`
+            id,
+            province_id,
+            city_name
+        `)
+        .eq(
+            'status',
+            'active'
+        )
+        .order(
+            'city_name'
+        );
+
+
+    if (cityError) {
+        throw cityError;
+    }
+
+
+    cities =
+        cityData || [];
+
+
+
+    renderProvinceOptions();
+
+}
+
+
+
+/* =========================================================
+   省下拉
+========================================================= */
+
+
+function renderProvinceOptions() {
+
+
+    const select =
+        document.getElementById(
+            'provinceSelect'
+        );
+
+
+    select.innerHTML =
+        '<option value="">请选择省份</option>';
+
+
+
+    provinces.forEach(
+        function (province) {
+
+
+            const option =
+                document.createElement(
+                    'option'
+                );
+
+
+            option.value =
+                province.id;
+
+
+            option.textContent =
+                province.province_name;
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   市下拉
+========================================================= */
+
+
+function renderCityOptions(
+    provinceId,
+    selectedCityId = null
+) {
+
+
+    const select =
+        document.getElementById(
+            'citySelect'
+        );
+
+
+    select.innerHTML =
+        '<option value="">请选择城市</option>';
+
+
+
+    if (!provinceId) {
+        return;
+    }
+
+
+    const list =
+        cities.filter(
+            function (city) {
+
+                return String(
+                    city.province_id
+                ) === String(
+                    provinceId
+                );
+
+            }
+        );
+
+
+
+    list.forEach(
+        function (city) {
+
+
+            const option =
+                document.createElement(
+                    'option'
+                );
+
+
+            option.value =
+                city.id;
+
+
+            option.textContent =
+                city.city_name;
+
+
+            if (
+                selectedCityId &&
+                String(city.id) ===
+                String(selectedCityId)
+            ) {
+
+
+                option.selected =
+                    true;
+
+            }
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   管理人员列表
+========================================================= */
+
+
+async function loadAdmins() {
+
+
+    try {
+
+
+        const {
+            data: profileData,
+            error: profileError
+        } =
+        await supabaseClient
+            .from('profiles')
+            .select(`
+                id,
+                full_name,
+                role,
+                status,
+                created_at
+            `)
+            .in(
+                'role',
+                ADMIN_ROLES
+            )
+            .order(
+                'created_at',
+                {
+                    ascending: true
+                }
+            );
+
+
+        if (profileError) {
+            throw profileError;
+        }
+
+
+        allAdmins =
+            profileData || [];
+
+
+
+        const {
+            data: assignmentData,
+            error: assignmentError
+        } =
+        await supabaseClient
+            .from('admin_assignments')
+            .select(`
+                id,
+                user_id,
+                province_id,
+                city_id,
+                status
+            `)
+            .eq(
+                'status',
+                'active'
+            );
+
+
+        if (assignmentError) {
+            throw assignmentError;
+        }
+
+
+        assignments =
+            assignmentData || [];
+
+
+        renderAdmins();
+
+        renderStats();
+
+
+    }
+
+    catch (error) {
+
+
+        console.error(
+            '加载管理人员失败：',
+            error
+        );
+
+
+        showToast(
+            error.message ||
+            '管理人员读取失败。',
+            'error'
+        );
+
+    }
+
+}
+
+
+
+/* =========================================================
+   获取人员辖区
+========================================================= */
+
+
+function getAssignment(
+    userId
+) {
+
+
+    return assignments.find(
+        function (item) {
+
+            return item.user_id ===
+                   userId;
+
+        }
+    ) || null;
+
+}
+
+
+
+/* =========================================================
+   获取省名称
+========================================================= */
+
+
+function getProvinceName(
+    provinceId
+) {
+
+
+    if (!provinceId) {
+        return '-';
+    }
+
+
+    const item =
+        provinces.find(
+            function (province) {
+
+                return String(
+                    province.id
+                ) ===
+                String(
+                    provinceId
+                );
+
+            }
+        );
+
+
+    return item
+        ?
+        item.province_name
+        :
+        '-';
+
+}
+
+
+
+/* =========================================================
+   获取市名称
+========================================================= */
+
+
+function getCityName(
+    cityId
+) {
+
+
+    if (!cityId) {
+        return '-';
+    }
+
+
+    const item =
+        cities.find(
+            function (city) {
+
+                return String(
+                    city.id
+                ) ===
+                String(
+                    cityId
+                );
+
+            }
+        );
+
+
+    return item
+        ?
+        item.city_name
+        :
+        '-';
+
+}
+
+
+
+/* =========================================================
+   渲染
+========================================================= */
+
+
+function renderAdmins() {
+
+
+    const keyword =
+        String(
+            document.getElementById(
+                'searchInput'
+            ).value || ''
+        )
+        .trim()
+        .toLowerCase();
+
+
+    const role =
+        document.getElementById(
+            'roleFilter'
+        ).value;
+
+
+    const status =
+        document.getElementById(
+            'statusFilter'
+        ).value;
+
+
+
+    const filtered =
+        allAdmins.filter(
+            function (admin) {
+
+
+                if (
+                    role &&
+                    admin.role !== role
+                ) {
+
+                    return false;
+
+                }
+
+
+                if (
+                    status &&
+                    admin.status !== status
+                ) {
+
+                    return false;
+
+                }
+
+
+                if (keyword) {
+
+
+                    const text =
+                        (
+                            (admin.full_name || '')
+                            +
+                            ' '
+                            +
+                            roleText(
+                                admin.role
+                            )
+                        )
+                        .toLowerCase();
+
+
+                    if (
+                        !text.includes(
+                            keyword
+                        )
+                    ) {
+
+                        return false;
+
+                    }
+
+                }
+
+
+                return true;
+
+            }
+        );
+
+
+
+    const tbody =
+        document.getElementById(
+            'adminTableBody'
+        );
+
+
+    const emptyState =
+        document.getElementById(
+            'emptyState'
+        );
+
+
+    tbody.innerHTML = '';
+
+
+
+    if (
+        filtered.length === 0
+    ) {
+
+
+        emptyState.classList.remove(
+            'hidden'
+        );
+
+
+        return;
+
+    }
+
+
+    emptyState.classList.add(
+        'hidden'
+    );
+
+
+
+    filtered.forEach(
+        function (admin) {
+
+
+            const assignment =
+                getAssignment(
+                    admin.id
+                );
+
+
+            const tr =
+                document.createElement(
+                    'tr'
+                );
+
+
+            tr.innerHTML = `
+
+                <td>
+
+                    <div class="name">
+
+                        ${escapeHtml(
+                            admin.full_name ||
+                            '未设置姓名'
+                        )}
+
+                    </div>
+
+                    <div class="email">
+
+                        ${admin.id === currentUser.id
+                            ? '当前登录账号'
+                            : escapeHtml(admin.id)
+                        }
+
+                    </div>
+
+                </td>
+
+
+                <td>
+
+                    ${roleBadge(
+                        admin.role
+                    )}
+
+                </td>
+
+
+                <td>
+
+                    ${admin.role === 'founder' ||
+                      admin.role === 'platform_admin' ||
+                      admin.role === 'platform_staff'
+                        ? '全国'
+                        : escapeHtml(
+                            getProvinceName(
+                                assignment?.province_id
+                            )
+                        )
+                    }
+
+                </td>
+
+
+                <td>
+
+                    ${admin.role === 'founder' ||
+                      admin.role === 'platform_admin'
+                        ? '全国'
+                        :
+                        admin.role === 'platform_staff'
+                            ? '按权限'
+                            :
+                            admin.role === 'province_admin'
+                                ? '本省全部城市'
+                                : escapeHtml(
+                                    getCityName(
+                                        assignment?.city_id
+                                    )
+                                )
+                    }
+
+                </td>
+
+
+                <td>
+
+                    ${statusBadge(
+                        admin.status
+                    )}
+
+                </td>
+
+
+                <td>
+
+                    ${formatDate(
+                        admin.created_at
+                    )}
+
+                </td>
+
+
+                <td>
+
+                    <button
+                        class="action-button"
+                        type="button"
+                        onclick="openEditModal('${admin.id}')"
+                    >
+                        编辑
+                    </button>
+
+                </td>
+
+            `;
+
+
+            tbody.appendChild(
+                tr
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   统计
+========================================================= */
+
+
+function renderStats() {
+
+
+    const platformCount =
+        allAdmins.filter(
+            function (item) {
+
+                return [
+                    'founder',
+                    'platform_admin',
+                    'platform_staff'
+                ]
+                .includes(
+                    item.role
+                );
+
+            }
+        ).length;
+
+
+    document.getElementById(
+        'statTotal'
+    ).textContent =
+        allAdmins.length;
+
+
+    document.getElementById(
+        'statPlatform'
+    ).textContent =
+        platformCount;
+
+
+    document.getElementById(
+        'statProvince'
+    ).textContent =
+        allAdmins.filter(
+            item =>
+                item.role ===
+                'province_admin'
+        ).length;
+
+
+    document.getElementById(
+        'statCity'
+    ).textContent =
+        allAdmins.filter(
+            item =>
+                item.role ===
+                'city_admin'
+        ).length;
+
+
+    document.getElementById(
+        'statActive'
+    ).textContent =
+        allAdmins.filter(
+            item =>
+                item.status ===
+                'active'
+        ).length;
+
+}
+
+
+
+/* =========================================================
+   Role Badge
+========================================================= */
+
+
+function roleBadge(role) {
+
+
+    let className =
+        'badge-staff';
+
+
+    if (
+        role ===
+        'founder'
+    ) {
+
+        className =
+            'badge-founder';
+
+    }
+    else if (
+        role ===
+        'platform_admin'
+    ) {
+
+        className =
+            'badge-platform';
+
+    }
+    else if (
+        role ===
+        'province_admin'
+    ) {
+
+        className =
+            'badge-province';
+
+    }
+    else if (
+        role ===
+        'city_admin'
+    ) {
+
+        className =
+            'badge-city';
+
+    }
+
+
+    return `
+
+        <span class="badge ${className}">
+
+            ${roleText(role)}
+
+        </span>
+
+    `;
+
+}
+
+
+
+/* =========================================================
+   Status badge
+========================================================= */
+
+
+function statusBadge(status) {
+
+
+    return `
+
+        <span
+            class="
+                badge
+                status-${status}
+            "
+        >
+
+            ${statusText(status)}
+
+        </span>
+
+    `;
+
+}
+
+
+
+/* =========================================================
+   搜索事件
+========================================================= */
+
+
+document.getElementById(
+    'searchInput'
+)
+.addEventListener(
+    'input',
+    renderAdmins
+);
+
+
+document.getElementById(
+    'roleFilter'
+)
+.addEventListener(
+    'change',
+    renderAdmins
+);
+
+
+document.getElementById(
+    'statusFilter'
+)
+.addEventListener(
+    'change',
+    renderAdmins
+);
+
+
+
+/* =========================================================
+   新增
+========================================================= */
+
+
+function openAddModal() {
+
+
+    editingOriginalRole =
+        null;
+
+
+    document.getElementById(
+        'modalTitle'
+    ).textContent =
+        '新增管理人员';
+
+
+    document.getElementById(
+        'editUserId'
+    ).value =
+        '';
+
+
+    document.getElementById(
+        'adminName'
+    ).value =
+        '';
+
+
+    document.getElementById(
+        'adminEmail'
+    ).value =
+        '';
+
+
+    document.getElementById(
+        'adminPassword'
+    ).value =
+        '';
+
+
+    document.getElementById(
+        'adminRole'
+    ).value =
+        '';
+
+
+    document.getElementById(
+        'provinceSelect'
+    ).value =
+        '';
+
+
+    document.getElementById(
+        'citySelect'
+    ).innerHTML =
+        '<option value="">请选择城市</option>';
+
+
+    document.getElementById(
+        'adminStatus'
+    ).value =
+        'active';
+
+
+    document.getElementById(
+        'emailGroup'
+    ).classList.remove(
+        'hidden'
+    );
+
+
+    document.getElementById(
+        'passwordGroup'
+    ).classList.remove(
+        'hidden'
+    );
+
+
+    document.getElementById(
+        'statusGroup'
+    ).classList.add(
+        'hidden'
+    );
+
+
+    handleRoleChange();
+
+
+    document.getElementById(
+        'adminModalMask'
+    ).classList.add(
+        'show'
+    );
+
+}
+
+
+
+/* =========================================================
+   编辑
+========================================================= */
+
+
+async function openEditModal(
+    userId
+) {
+
+
+    const admin =
+        allAdmins.find(
+            item =>
+                item.id ===
+                userId
+        );
+
+
+    if (!admin) {
+        return;
+    }
+
+
+    /*
+    平台管理员不能编辑Founder
+    */
+
+    if (
+        currentProfile.role !==
+        'founder' &&
+        admin.role ===
+        'founder'
+    ) {
+
+
+        showToast(
+            '只有创始人可以管理创始人账号。',
+            'error'
+        );
+
+
+        return;
+
+    }
+
+
+    editingOriginalRole =
+        admin.role;
+
+
+    document.getElementById(
+        'modalTitle'
+    ).textContent =
+        '编辑管理人员';
+
+
+    document.getElementById(
+        'editUserId'
+    ).value =
+        admin.id;
+
+
+    document.getElementById(
+        'adminName'
+    ).value =
+        admin.full_name || '';
+
+
+    document.getElementById(
+        'adminRole'
+    ).value =
+        admin.role;
+
+
+    document.getElementById(
+        'adminStatus'
+    ).value =
+        admin.status;
+
+
+    document.getElementById(
+        'emailGroup'
+    ).classList.add(
+        'hidden'
+    );
+
+
+    document.getElementById(
+        'passwordGroup'
+    ).classList.add(
+        'hidden'
+    );
+
+
+    document.getElementById(
+        'statusGroup'
+    ).classList.remove(
+        'hidden'
+    );
+
+
+    handleRoleChange();
+
+
+    const assignment =
+        getAssignment(
+            admin.id
+        );
+
+
+    if (assignment) {
+
+
+        document.getElementById(
+            'provinceSelect'
+        ).value =
+            assignment.province_id || '';
+
+
+        renderCityOptions(
+            assignment.province_id,
+            assignment.city_id
+        );
+
+    }
+
+
+    /*
+    当前用户不能停用自己
+    */
+
+    document.getElementById(
+        'adminStatus'
+    ).disabled =
+        admin.id ===
+        currentUser.id;
+
+
+    /*
+    当前创始人不能把自己修改成非Founder
+    */
+
+    document.getElementById(
+        'adminRole'
+    ).disabled =
+        (
+            admin.id ===
+            currentUser.id
+            &&
+            admin.role ===
+            'founder'
+        );
+
+
+    document.getElementById(
+        'adminModalMask'
+    ).classList.add(
+        'show'
+    );
+
+}
+
+
+
+/* =========================================================
+   关闭
+========================================================= */
+
+
+function closeAdminModal() {
+
+
+    document.getElementById(
+        'adminModalMask'
+    ).classList.remove(
+        'show'
+    );
+
+
+    document.getElementById(
+        'adminRole'
+    ).disabled =
+        false;
+
+
+    document.getElementById(
+        'adminStatus'
+    ).disabled =
+        false;
+
+}
+
+
+
+/* =========================================================
+   角色变化
+========================================================= */
+
+
+function handleRoleChange() {
+
+
+    const role =
+        document.getElementById(
+            'adminRole'
+        ).value;
+
+
+    const provinceGroup =
+        document.getElementById(
+            'provinceGroup'
+        );
+
+
+    const cityGroup =
+        document.getElementById(
+            'cityGroup'
+        );
+
+
+    provinceGroup.classList.add(
+        'hidden'
+    );
+
+
+    cityGroup.classList.add(
+        'hidden'
+    );
+
+
+    if (
+        role ===
+        'province_admin'
+    ) {
+
+
+        provinceGroup.classList.remove(
+            'hidden'
+        );
+
+    }
+
+
+    if (
+        role ===
+        'city_admin'
+    ) {
+
+
+        provinceGroup.classList.remove(
+            'hidden'
+        );
+
+
+        cityGroup.classList.remove(
+            'hidden'
+        );
+
+    }
+
+}
+
+
+
+/* =========================================================
+   省变化
+========================================================= */
+
+
+function handleProvinceChange() {
+
+
+    const provinceId =
+        document.getElementById(
+            'provinceSelect'
+        ).value;
+
+
+    renderCityOptions(
+        provinceId
+    );
+
+}
+
+
+
+/* =========================================================
+   保存
+========================================================= */
+
+
+async function saveAdmin() {
+
+
+    const userId =
+        document.getElementById(
+            'editUserId'
+        ).value;
+
+
+    if (userId) {
+
+
+        await updateAdmin(
+            userId
+        );
+
+    }
+    else {
+
+
+        await createAdmin();
+
+    }
+
+}
+
+
+
+/* =========================================================
+   新增账号
+========================================================= */
+
+
+async function createAdmin() {
+
+
+    const button =
+        document.getElementById(
+            'saveAdminButton'
+        );
+
+
+    const name =
+        String(
+            document.getElementById(
+                'adminName'
+            ).value || ''
+        ).trim();
+
+
+    const email =
+        String(
+            document.getElementById(
+                'adminEmail'
+            ).value || ''
+        )
+        .trim()
+        .toLowerCase();
+
+
+    const password =
+        String(
+            document.getElementById(
+                'adminPassword'
+            ).value || ''
+        );
+
+
+    const role =
+        document.getElementById(
+            'adminRole'
+        ).value;
+
+
+    const provinceId =
+        document.getElementById(
+            'provinceSelect'
+        ).value || null;
+
+
+    const cityId =
+        document.getElementById(
+            'citySelect'
+        ).value || null;
+
+
+
+    if (!name) {
+
+        showToast(
+            '请输入管理人员姓名。',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        .test(email)
+    ) {
+
+        showToast(
+            '请输入正确的登录邮箱。',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    if (
+        password.length < 8
+    ) {
+
+        showToast(
+            '初始密码至少需要8位。',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    if (!role) {
+
+        showToast(
+            '请选择管理角色。',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    if (
+        role ===
+        'founder'
+        &&
+        currentProfile.role !==
+        'founder'
+    ) {
+
+        showToast(
+            '只有创始人可以创建创始人账号。',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    if (
+        role ===
+        'province_admin'
+        &&
+        !provinceId
+    ) {
+
+        showToast(
+            '请选择管理省份。',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    if (
+        role ===
+        'city_admin'
+        &&
+        (
+            !provinceId ||
+            !cityId
+        )
+    ) {
+
+        showToast(
+            '请选择管理省份和城市。',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+
+    button.disabled =
+        true;
+
+
+    button.textContent =
+        '正在创建...';
+
+
+
+    try {
+
+
+        /*
+        安全说明：
+
+        前端绝对不能使用 service_role 创建 Auth 用户。
+
+        所以这里调用 Supabase Edge Function：
+
+        create-admin-user
+
+        下一步建立这个Function即可。
+        */
+
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient.functions
+            .invoke(
+                'create-admin-user',
+                {
+
+                    body: {
+
+                        full_name:
+                            name,
+
+                        email:
+                            email,
+
+                        password:
+                            password,
+
+                        role:
+                            role,
+
+                        province_id:
+                            provinceId
+                                ?
+                                Number(provinceId)
+                                :
+                                null,
+
+                        city_id:
+                            cityId
+                                ?
+                                Number(cityId)
+                                :
+                                null
+
+                    }
+
+                }
+            );
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        if (
+            data &&
+            data.error
+        ) {
+
+
+            throw new Error(
+                data.error
+            );
+
+        }
+
+
+        showToast(
+            '管理人员创建成功。',
+            'success'
+        );
+
+
+        closeAdminModal();
+
+
+        await loadAdmins();
+
+
+    }
+
+    catch (error) {
+
+
+        console.error(
+            '创建管理人员失败：',
+            error
+        );
+
+
+        let message =
+            error.message ||
+            '创建管理人员失败。';
+
+
+        if (
+            message.includes(
+                'Failed to send a request'
+            )
+            ||
+            message.includes(
+                'Function not found'
+            )
+            ||
+            message.includes(
+                '404'
+            )
+        ) {
+
+
+            message =
+                '新增账号需要先部署 create-admin-user Edge Function。';
+
+        }
+
+
+        showToast(
+            message,
+            'error'
+        );
+
+    }
+
+    finally {
+
+
+        button.disabled =
+            false;
+
+
+        button.textContent =
+            '保存';
+
+    }
+
+}
+
+
+
+/* =========================================================
+   更新管理人员
+========================================================= */
+
+
+async function updateAdmin(
+    userId
+) {
+
+
+    const button =
+        document.getElementById(
+            'saveAdminButton'
+        );
+
+
+    const name =
+        String(
+            document.getElementById(
+                'adminName'
+            ).value || ''
+        ).trim();
+
+
+    const role =
+        document.getElementById(
+            'adminRole'
+        ).value;
+
+
+    const status =
+        document.getElementById(
+            'adminStatus'
+        ).value;
+
+
+    const provinceId =
+        document.getElementById(
+            'provinceSelect'
+        ).value || null;
+
+
+    const cityId =
+        document.getElementById(
+            'citySelect'
+        ).value || null;
+
+
+
+    if (!name) {
+
+        showToast(
+            '请输入管理人员姓名。',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    if (!role) {
+
+        showToast(
+            '请选择角色。',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    if (
+        role ===
+        'founder'
+        &&
+        currentProfile.role !==
+        'founder'
+    ) {
+
+
+        showToast(
+            '只有创始人可以设置创始人角色。',
+            'error'
+        );
+
+
+        return;
+
+    }
+
+
+    if (
+        role ===
+        'province_admin'
+        &&
+        !provinceId
+    ) {
+
+
+        showToast(
+            '请选择管理省份。',
+            'error'
+        );
+
+
+        return;
+
+    }
+
+
+    if (
+        role ===
+        'city_admin'
+        &&
+        (
+            !provinceId ||
+            !cityId
+        )
+    ) {
+
+
+        showToast(
+            '请选择管理省份和城市。',
+            'error'
+        );
+
+
+        return;
+
+    }
+
+
+
+    button.disabled =
+        true;
+
+
+    button.textContent =
+        '正在保存...';
+
+
+
+    try {
+
+
+        /*
+        先更新 profile
+        */
+
+        const {
+            error: profileError
+        } =
+        await supabaseClient
+            .from('profiles')
+            .update({
+
+                full_name:
+                    name,
+
+                role:
+                    role,
+
+                status:
+                    status
+
+            })
+            .eq(
+                'id',
+                userId
+            );
+
+
+        if (profileError) {
+            throw profileError;
+        }
+
+
+
+        /*
+        删除旧辖区
+        */
+
+        const {
+            error: deleteError
+        } =
+        await supabaseClient
+            .from('admin_assignments')
+            .delete()
+            .eq(
+                'user_id',
+                userId
+            );
+
+
+        if (deleteError) {
+            throw deleteError;
+        }
+
+
+
+        /*
+        省管理员
+        */
+
+        if (
+            role ===
+            'province_admin'
+        ) {
+
+
+            const {
+                error
+            } =
+            await supabaseClient
+                .from(
+                    'admin_assignments'
+                )
+                .insert({
+
+                    user_id:
+                        userId,
+
+                    province_id:
+                        Number(
+                            provinceId
+                        ),
+
+                    city_id:
+                        null,
+
+                    status:
+                        'active'
+
+                });
+
+
+            if (error) {
+                throw error;
+            }
+
+        }
+
+
+
+        /*
+        市管理员
+        */
+
+        if (
+            role ===
+            'city_admin'
+        ) {
+
+
+            const {
+                error
+            } =
+            await supabaseClient
+                .from(
+                    'admin_assignments'
+                )
+                .insert({
+
+                    user_id:
+                        userId,
+
+                    province_id:
+                        Number(
+                            provinceId
+                        ),
+
+                    city_id:
+                        Number(
+                            cityId
+                        ),
+
+                    status:
+                        'active'
+
+                });
+
+
+            if (error) {
+                throw error;
+            }
+
+        }
+
+
+
+        showToast(
+            '管理人员资料已经更新。',
+            'success'
+        );
+
+
+        closeAdminModal();
+
+
+        await loadAdmins();
+
+
+    }
+
+    catch (error) {
+
+
+        console.error(
+            '更新失败：',
+            error
+        );
+
+
+        showToast(
+            error.message ||
+            '更新失败。',
+            'error'
+        );
+
+    }
+
+    finally {
+
+
+        button.disabled =
+            false;
+
+
+        button.textContent =
+            '保存';
+
+    }
+
+}
+
+
+
+/* =========================================================
+   日期
+========================================================= */
+
+
+function formatDate(value) {
+
+
+    if (!value) {
+        return '-';
+    }
+
+
+    const date =
+        new Date(value);
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return '-';
+
+    }
+
+
+    return date.toLocaleString(
+        'zh-CN',
+        {
+
+            year:
+                'numeric',
+
+            month:
+                '2-digit',
+
+            day:
+                '2-digit',
+
+            hour:
+                '2-digit',
+
+            minute:
+                '2-digit'
+
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   HTML安全
+========================================================= */
+
+
+function escapeHtml(value) {
+
+
+    return String(
+        value ?? ''
+    )
+    .replace(
+        /&/g,
+        '&amp;'
+    )
+    .replace(
+        /</g,
+        '&lt;'
+    )
+    .replace(
+        />/g,
+        '&gt;'
+    )
+    .replace(
+        /"/g,
+        '&quot;'
+    )
+    .replace(
+        /'/g,
+        '&#039;'
+    );
+
+}
+
+
+
+/* =========================================================
+   返回
+========================================================= */
+
+
+function goBack() {
+
+
+    window.location.href =
+        HOME_PAGE;
+
+}
+
+
+
+/* =========================================================
+   退出
+========================================================= */
+
+
+async function logout() {
+
+
+    if (
+        !confirm(
+            '确定退出管理系统吗？'
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    await supabaseClient.auth
+        .signOut();
+
+
+    window.location.replace(
+        LOGIN_PAGE
+    );
+
+}
+
+
+
+/* =========================================================
+   Session变化
+========================================================= */
+
+
+supabaseClient.auth
+    .onAuthStateChange(
+        function (
+            event,
+            session
+        ) {
+
+
+            if (
+                event ===
+                'SIGNED_OUT'
+            ) {
+
+
+                window.location.replace(
+                    LOGIN_PAGE
+                );
+
+            }
+
+        }
+    );
+
+
+
+/* =========================================================
+   点击遮罩关闭
+========================================================= */
+
+
+document.getElementById(
+    'adminModalMask'
+)
+.addEventListener(
+    'click',
+    function (event) {
+
+
+        if (
+            event.target ===
+            this
+        ) {
+
+
+            closeAdminModal();
+
+        }
+
+    }
+);
+
+
+
+/* =========================================================
+   ESC关闭
+========================================================= */
+
+
+document.addEventListener(
+    'keydown',
+    function (event) {
+
+
+        if (
+            event.key ===
+            'Escape'
+        ) {
+
+
+            closeAdminModal();
+
+        }
+
+    }
+);
+
+
+
+/* =========================================================
+   启动
+========================================================= */
+
+
+document.addEventListener(
+    'DOMContentLoaded',
+    initializePage
+);
+
+
+</script>
+
+
+</body>
+
+</html>

@@ -662,7 +662,7 @@ td {
 }
 
 
-.badge-split-on {
+.badge-rule-on {
 
     color:#157758;
 
@@ -671,7 +671,7 @@ td {
 }
 
 
-.badge-split-off {
+.badge-rule-off {
 
     color:#806f76;
 
@@ -1510,7 +1510,8 @@ td {
 
         max-width:none;
 
-        max-height:92dvh;
+        max-height:
+            92dvh;
 
         border-radius:
             22px
@@ -1643,11 +1644,11 @@ td {
 
             <br>
 
-            每开通一个城市，系统自动按照平台产品目录建立该城市的销售价格目录，初始价格统一为“未定义”。
+            每开通一个城市，系统自动按照平台产品目录建立该城市的销售价格目录，初始销售价格统一为“未定义”。
 
             <br>
 
-            服务区域同时控制该区域商户是否显示“自定义分成比例”功能。
+            服务区域同时控制该区域是否启用商户分成规则目录。分成规则由平台管理人员维护，商户仅查看，不能自行修改。
 
         </p>
 
@@ -1738,7 +1739,7 @@ td {
 
 
         <div class="stat-note">
-            开通城市时自动建立价格目录
+            开通城市时自动建立销售价格目录
         </div>
 
 
@@ -1819,11 +1820,11 @@ td {
     </th>
 
     <th>
-        城市价格
+        城市销售价
     </th>
 
     <th>
-        商户分成设置
+        商户分成规则
     </th>
 
     <th>
@@ -1877,10 +1878,6 @@ td {
 </main>
 
 
-<!-- =========================================================
-     创建服务区域
-========================================================= -->
-
 <div
     id="createModal"
     class="modal-mask"
@@ -1918,15 +1915,19 @@ td {
 
         <br><br>
 
-        开通后系统会自动完成两件事：
+        开通后系统会自动：
 
         <br>
 
-        1. 按照平台产品名录建立该城市销售价格目录，初始价格为“未定义”。
+        1. 按平台产品目录建立该城市销售价格目录，初始销售价格为“未定义”。
 
         <br>
 
-        2. 开启该区域商户的“自定义分成比例”功能。
+        2. 启用该区域的商户分成规则目录。
+
+        <br>
+
+        3. 商户分成规则由公司管理人员统一定义和修改，商户只能查看。
 
     </div>
 
@@ -2694,7 +2695,7 @@ function renderAreas() {
 
                     <td>
 
-                        ${merchantSplitBadge(item)}
+                        ${merchantRuleBadge(item)}
 
                     </td>
 
@@ -2807,19 +2808,45 @@ function renderAreas() {
                         <div class="mobile-info">
 
                             <div class="mobile-info-label">
-                                商户自定义分成
+                                商户分成规则
                             </div>
 
                             <div class="mobile-info-value">
 
                                 ${
-                                    isMerchantSplitEnabled(item)
+                                    isMerchantRuleEnabled(item)
                                     ?
-                                    "已开启"
+                                    "已启用"
                                     :
-                                    "不显示"
+                                    "不启用"
                                 }
 
+                            </div>
+
+                        </div>
+
+
+                        <div class="mobile-info">
+
+                            <div class="mobile-info-label">
+                                维护权限
+                            </div>
+
+                            <div class="mobile-info-value">
+                                平台管理人员
+                            </div>
+
+                        </div>
+
+
+                        <div class="mobile-info">
+
+                            <div class="mobile-info-label">
+                                商户权限
+                            </div>
+
+                            <div class="mobile-info-value">
+                                仅查看
                             </div>
 
                         </div>
@@ -2879,10 +2906,10 @@ function renderAreas() {
 
 
 /* =========================================================
-   Merchant Split
+   Merchant Rules
 ========================================================= */
 
-function isMerchantSplitEnabled(item) {
+function isMerchantRuleEnabled(item) {
 
 
     return (
@@ -2900,17 +2927,17 @@ function isMerchantSplitEnabled(item) {
 }
 
 
-function merchantSplitBadge(item) {
+function merchantRuleBadge(item) {
 
 
     if (
-        isMerchantSplitEnabled(item)
+        isMerchantRuleEnabled(item)
     ) {
 
 
         return `
-            <span class="badge badge-split-on">
-                已开启
+            <span class="badge badge-rule-on">
+                已启用 · 管理端维护
             </span>
         `;
 
@@ -2918,8 +2945,8 @@ function merchantSplitBadge(item) {
 
 
     return `
-        <span class="badge badge-split-off">
-            不显示
+        <span class="badge badge-rule-off">
+            不启用
         </span>
     `;
 
@@ -3493,16 +3520,8 @@ async function createArea() {
         }
 
 
-        const createdCount =
-            Number(
-                data?.created_price_records
-                ||
-                0
-            );
-
-
         showToast(
-            `服务区域开通成功，已生成 ${createdCount} 条城市价格记录，商户分成功能已开启。`,
+            "服务区域开通成功，城市销售价格目录及商户分成规则功能已启用。",
             "success"
         );
 
@@ -3583,7 +3602,7 @@ async function invalidateArea(id) {
 
     if (
         !confirm(
-            `确定将“${name}”设为无效吗？\n\n设为无效后不能恢复。\n该区域商户的“自定义分成比例”功能也会同时关闭。`
+            `确定将“${name}”设为无效吗？\n\n设为无效后不能恢复。\n该区域的商户分成规则目录也会同时停用。`
         )
     ) {
 
@@ -3652,7 +3671,7 @@ async function invalidateArea(id) {
 
 
         showToast(
-            "服务区域已设为无效，商户自定义分成功能已关闭。",
+            "服务区域已设为无效，商户分成规则目录已停用。",
             "success"
         );
 

@@ -442,9 +442,13 @@
 
     .toolbar {
 
-      display: flex;
+      display: grid;
 
-      flex-wrap: wrap;
+      grid-template-columns:
+        repeat(
+          3,
+          minmax(0, 1fr)
+        );
 
       gap: 10px;
 
@@ -467,23 +471,11 @@
 
     .field {
 
-      min-width: 180px;
-
-      flex: 1;
+      min-width: 0;
 
     }
 
 
-    .field.search {
-
-      flex: 2;
-
-      min-width: 250px;
-
-    }
-
-
-    .field input,
     .field select {
 
       width: 100%;
@@ -507,7 +499,6 @@
     }
 
 
-    .field input:focus,
     .field select:focus {
 
       border-color: var(--pink-400);
@@ -1368,22 +1359,13 @@
 
       .toolbar {
 
+        grid-template-columns: 1fr;
+
         padding: 11px;
 
         gap: 8px;
 
         border-radius: 15px;
-
-      }
-
-
-      .field,
-      .field.search {
-
-        flex:
-          1 1 100%;
-
-        min-width: 100%;
 
       }
 
@@ -1640,16 +1622,22 @@
   <section class="toolbar">
 
 
-    <div class="field search">
+    <!-- 已开展业务城市 -->
 
-      <input
-        id="searchInput"
-        type="search"
-        placeholder="搜索商户名称、商户编号或产品名称"
-      >
+    <div class="field">
+
+      <select id="cityFilter">
+
+        <option value="">
+          全部已开展业务城市
+        </option>
+
+      </select>
 
     </div>
 
+
+    <!-- 商户 -->
 
     <div class="field">
 
@@ -1663,6 +1651,8 @@
 
     </div>
 
+
+    <!-- 规则状态 -->
 
     <div class="field">
 
@@ -2344,7 +2334,7 @@ function showToast(
 
 
 /* ==========================================================
-   05. 获取商户显示编号
+   05. 商户编号
 ========================================================== */
 
 
@@ -2408,7 +2398,7 @@ function getMerchantNumber(
 
 
 /* ==========================================================
-   06. 获取商户名称
+   06. 商户名称
 ========================================================== */
 
 
@@ -2441,7 +2431,7 @@ function getMerchantName(
 
 
 /* ==========================================================
-   07. 获取产品名称
+   07. 产品名称
 ========================================================== */
 
 
@@ -2472,7 +2462,63 @@ function getProductName(
 
 
 /* ==========================================================
-   08. 服务区域显示
+   08. 获取商户城市ID
+========================================================== */
+
+
+function getMerchantCityId(
+  merchant
+) {
+
+
+  if (!merchant) {
+
+    return null;
+
+  }
+
+
+  let cityId =
+    merchant.city_id
+    ??
+    null;
+
+
+  if (
+    merchant.service_area_id
+    &&
+    serviceAreasMap.has(
+      String(
+        merchant.service_area_id
+      )
+    )
+  ) {
+
+
+    const area =
+      serviceAreasMap.get(
+        String(
+          merchant.service_area_id
+        )
+      );
+
+
+    cityId =
+      area.city_id
+      ??
+      cityId;
+
+  }
+
+
+  return cityId;
+
+}
+
+
+
+/* ==========================================================
+   09. 服务区域显示
 ========================================================== */
 
 
@@ -2582,7 +2628,7 @@ function getServiceAreaText(
 
 
 /* ==========================================================
-   09. 城市价格
+   10. 城市价格
 ========================================================== */
 
 
@@ -2606,35 +2652,10 @@ function getCityPrice(
   }
 
 
-  let cityId =
-    merchant.city_id;
-
-
-  if (
-    merchant.service_area_id
-    &&
-    serviceAreasMap.has(
-      String(
-        merchant.service_area_id
-      )
-    )
-  ) {
-
-
-    const area =
-      serviceAreasMap.get(
-        String(
-          merchant.service_area_id
-        )
-      );
-
-
-    cityId =
-      area.city_id
-      ??
-      cityId;
-
-  }
+  const cityId =
+    getMerchantCityId(
+      merchant
+    );
 
 
   if (!cityId) {
@@ -2661,7 +2682,7 @@ function getCityPrice(
 
 
 /* ==========================================================
-   10. 权限验证
+   11. 权限验证
 ========================================================== */
 
 
@@ -2819,7 +2840,7 @@ async function verifyAccess() {
 
 
 /* ==========================================================
-   11. 加载基础数据
+   12. 加载基础数据
 ========================================================== */
 
 
@@ -3096,7 +3117,7 @@ async function loadBaseData() {
 
 
 /* ==========================================================
-   12. 加载规则
+   13. 加载规则
 ========================================================== */
 
 
@@ -3162,7 +3183,193 @@ async function loadRules() {
 
 
 /* ==========================================================
-   13. 商户筛选下拉框
+   14. 已开展业务城市下拉菜单
+========================================================== */
+
+
+function buildCityFilter() {
+
+
+  const select =
+    document.getElementById(
+      "cityFilter"
+    );
+
+
+  select.innerHTML =
+    `
+      <option value="">
+        全部已开展业务城市
+      </option>
+    `;
+
+
+
+  const activeAreas =
+
+    Array.from(
+      serviceAreasMap.values()
+    )
+
+    .filter(
+
+      area =>
+        area.status ===
+        "active"
+
+    )
+
+    .filter(
+
+      area =>
+        area.city_id
+
+    )
+
+    .sort(
+
+      (
+        a,
+        b
+      ) => {
+
+
+        const cityA =
+          citiesMap.get(
+            String(
+              a.city_id
+            )
+          );
+
+
+        const cityB =
+          citiesMap.get(
+            String(
+              b.city_id
+            )
+          );
+
+
+        const nameA =
+          cityA?.city_name
+          ||
+          "";
+
+
+        const nameB =
+          cityB?.city_name
+          ||
+          "";
+
+
+        return nameA.localeCompare(
+          nameB,
+          "zh-CN"
+        );
+
+      }
+
+    );
+
+
+
+  const usedCities =
+    new Set();
+
+
+
+  activeAreas.forEach(
+
+    area => {
+
+
+      const cityId =
+        String(
+          area.city_id
+        );
+
+
+      if (
+        usedCities.has(
+          cityId
+        )
+      ) {
+
+
+        return;
+
+      }
+
+
+      usedCities.add(
+        cityId
+      );
+
+
+
+      const city =
+        citiesMap.get(
+          cityId
+        );
+
+
+      const province =
+        provincesMap.get(
+          String(
+            area.province_id
+          )
+        );
+
+
+      if (!city) {
+
+        return;
+
+      }
+
+
+
+      const option =
+        document.createElement(
+          "option"
+        );
+
+
+      option.value =
+        cityId;
+
+
+
+      const provinceName =
+        province?.province_name
+        ||
+        "";
+
+
+      option.textContent =
+        provinceName
+        ?
+        `${provinceName} · ${city.city_name}`
+        :
+        city.city_name;
+
+
+
+      select.appendChild(
+        option
+      );
+
+    }
+
+  );
+
+}
+
+
+
+/* ==========================================================
+   15. 商户下拉菜单
+   会根据城市自动联动
 ========================================================== */
 
 
@@ -3173,6 +3380,18 @@ function buildMerchantFilter() {
     document.getElementById(
       "merchantFilter"
     );
+
+
+  const selectedCityId =
+    document.getElementById(
+      "cityFilter"
+    ).value;
+
+
+
+  const oldValue =
+    select.value;
+
 
 
   select.innerHTML =
@@ -3191,9 +3410,42 @@ function buildMerchantFilter() {
     )
 
     .filter(
+
       merchant =>
         merchant.status ===
         "active"
+
+    )
+
+    .filter(
+
+      merchant => {
+
+
+        if (
+          !selectedCityId
+        ) {
+
+
+          return true;
+
+        }
+
+
+        const cityId =
+          getMerchantCityId(
+            merchant
+          );
+
+
+        return (
+          String(cityId)
+          ===
+          String(selectedCityId)
+        );
+
+      }
+
     )
 
     .sort(
@@ -3259,44 +3511,70 @@ function buildMerchantFilter() {
 
   );
 
+
+
+  const exists =
+    merchants.some(
+
+      merchant =>
+        String(
+          merchant.id
+        )
+        ===
+        String(
+          oldValue
+        )
+
+    );
+
+
+
+  if (exists) {
+
+
+    select.value =
+      oldValue;
+
+  }
+
+  else {
+
+
+    select.value =
+      "";
+
+  }
+
 }
 
 
 
 /* ==========================================================
-   14. 筛选
+   16. 筛选
 ========================================================== */
 
 
 function applyFilters() {
 
 
-  const keyword =
-
+  const cityId =
     document.getElementById(
-      "searchInput"
-    )
-    .value
-    .trim()
-    .toLowerCase();
+      "cityFilter"
+    ).value;
 
 
 
   const merchantId =
-
     document.getElementById(
       "merchantFilter"
-    )
-    .value;
+    ).value;
 
 
 
   const statusFilter =
-
     document.getElementById(
       "statusFilter"
-    )
-    .value;
+    ).value;
 
 
 
@@ -3372,6 +3650,34 @@ function applyFilters() {
 
 
 
+        if (cityId) {
+
+
+          const merchantCityId =
+            getMerchantCityId(
+              merchant
+            );
+
+
+          if (
+            String(
+              merchantCityId
+            )
+            !==
+            String(
+              cityId
+            )
+          ) {
+
+
+            return false;
+
+          }
+
+        }
+
+
+
         if (
           merchantId
           &&
@@ -3424,47 +3730,6 @@ function applyFilters() {
 
 
 
-        if (keyword) {
-
-
-          const searchText =
-
-            [
-              getMerchantName(
-                merchant
-              ),
-              getMerchantNumber(
-                merchant
-              ),
-              getProductName(
-                product
-              ),
-              getServiceAreaText(
-                merchant
-              )
-            ]
-
-            .join(" ")
-
-            .toLowerCase();
-
-
-
-          if (
-            !searchText.includes(
-              keyword
-            )
-          ) {
-
-
-            return false;
-
-          }
-
-        }
-
-
-
         return true;
 
       }
@@ -3480,56 +3745,23 @@ function applyFilters() {
 
 
 /* ==========================================================
-   15. 统计
+   17. 统计
+   统计当前筛选结果
 ========================================================== */
 
 
 function updateStats() {
 
 
-  const activeRules =
-
-    allRules.filter(
-
-      rule => {
-
-
-        const merchant =
-          merchantsMap.get(
-            String(
-              rule.merchant_id
-            )
-          );
-
-
-        const product =
-          productsMap.get(
-            String(
-              rule.product_id
-            )
-          );
-
-
-        return (
-
-          rule.status === "active"
-          &&
-          merchant?.status === "active"
-          &&
-          product?.status === "active"
-
-        );
-
-      }
-
-    );
+  const rules =
+    filteredRules;
 
 
 
   const merchantIds =
     new Set(
 
-      activeRules.map(
+      rules.map(
         rule =>
           String(
             rule.merchant_id
@@ -3542,7 +3774,7 @@ function updateStats() {
 
   const definedCount =
 
-    activeRules.filter(
+    rules.filter(
       isRuleFullyDefined
     ).length;
 
@@ -3550,7 +3782,7 @@ function updateStats() {
 
   const undefinedCount =
 
-    activeRules.length
+    rules.length
     -
     definedCount;
 
@@ -3559,7 +3791,7 @@ function updateStats() {
   document.getElementById(
     "statTotal"
   ).textContent =
-    activeRules.length;
+    rules.length;
 
 
 
@@ -3587,7 +3819,7 @@ function updateStats() {
 
 
 /* ==========================================================
-   16. 渲染
+   18. 渲染
 ========================================================== */
 
 
@@ -3605,7 +3837,7 @@ function renderRules() {
 
 
 /* ==========================================================
-   17. 电脑表格
+   19. 电脑表格
 ========================================================== */
 
 
@@ -3840,7 +4072,7 @@ function renderDesktopTable() {
 
 
 /* ==========================================================
-   18. 手机列表
+   20. 手机列表
 ========================================================== */
 
 
@@ -4148,7 +4380,7 @@ function renderMobileList() {
 
 
 /* ==========================================================
-   19. 打开编辑窗口
+   21. 打开编辑窗口
 ========================================================== */
 
 
@@ -4264,7 +4496,7 @@ function openEditModal(
 
 
 /* ==========================================================
-   20. 关闭编辑窗口
+   22. 关闭编辑窗口
 ========================================================== */
 
 
@@ -4305,7 +4537,7 @@ function modalMaskClick(
 
 
 /* ==========================================================
-   21. 数值处理
+   23. 数值处理
 ========================================================== */
 
 
@@ -4366,7 +4598,7 @@ function parseOptionalPercent(
 
 
 /* ==========================================================
-   22. 保存规则
+   24. 保存规则
 ========================================================== */
 
 
@@ -4453,18 +4685,6 @@ async function saveRule() {
 
 
   try {
-
-
-    /*
-      1.0版本：
-      当前直接使用 merchant_product_rules 的 UPDATE RLS。
-
-      数据库已经限制：
-      founder / platform_admin 才能 UPDATE。
-
-      后续版本再升级为专用 SECURITY DEFINER RPC，
-      进一步限制只能修改下面四个字段。
-    */
 
 
     const {
@@ -4615,7 +4835,7 @@ async function saveRule() {
 
 
 /* ==========================================================
-   23. 初始化页面
+   25. 初始化页面
 ========================================================== */
 
 
@@ -4646,11 +4866,10 @@ async function initializePage() {
     await loadRules();
 
 
+    buildCityFilter();
+
+
     buildMerchantFilter();
-
-
-    filteredRules =
-      [...allRules];
 
 
     applyFilters();
@@ -4696,18 +4915,32 @@ async function initializePage() {
 
 
 /* ==========================================================
-   24. 筛选事件
+   26. 城市变化
+   自动重建商户下拉菜单
 ========================================================== */
 
 
 document.getElementById(
-  "searchInput"
+  "cityFilter"
 )
 .addEventListener(
-  "input",
-  applyFilters
+  "change",
+  function() {
+
+
+    buildMerchantFilter();
+
+
+    applyFilters();
+
+  }
 );
 
+
+
+/* ==========================================================
+   27. 商户筛选
+========================================================== */
 
 
 document.getElementById(
@@ -4718,6 +4951,11 @@ document.getElementById(
   applyFilters
 );
 
+
+
+/* ==========================================================
+   28. 状态筛选
+========================================================== */
 
 
 document.getElementById(
@@ -4731,7 +4969,7 @@ document.getElementById(
 
 
 /* ==========================================================
-   25. 返回
+   29. 返回
 ========================================================== */
 
 
@@ -4746,7 +4984,7 @@ function goBack() {
 
 
 /* ==========================================================
-   26. 退出
+   30. 退出
 ========================================================== */
 
 
@@ -4796,7 +5034,7 @@ async function logout() {
 
 
 /* ==========================================================
-   27. 登录状态监听
+   31. 登录状态监听
 ========================================================== */
 
 
@@ -4828,7 +5066,7 @@ supabaseClient.auth
 
 
 /* ==========================================================
-   28. 启动
+   32. 启动
 ========================================================== */
 
 

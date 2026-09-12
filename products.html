@@ -1,1 +1,4706 @@
 
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="
+        width=device-width,
+        initial-scale=1.0,
+        maximum-scale=1.0,
+        viewport-fit=cover
+    "
+>
+
+<meta
+    name="theme-color"
+    content="#fff7fa"
+>
+
+<title>孕乃馨 - 产品名录</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<style>
+
+:root {
+
+    --pink-50:#fff7fa;
+    --pink-100:#ffeef4;
+    --pink-200:#ffd9e7;
+    --pink-300:#f8bdd2;
+    --pink-400:#f28aae;
+    --pink-500:#e85d8f;
+    --pink-600:#d94d7d;
+    --pink-700:#b93667;
+
+    --rose:#672943;
+
+    --text:#282329;
+    --text2:#716a72;
+    --text3:#a49ba1;
+
+    --border:#eee4e9;
+
+    --green:#167b59;
+    --green-bg:#edfaf4;
+
+    --orange:#a26321;
+    --orange-bg:#fff5e9;
+
+    --blue:#3f6792;
+    --blue-bg:#eef5ff;
+
+    --gray:#806f76;
+    --gray-bg:#f1edef;
+
+    --danger:#be3151;
+
+    --shadow:
+        0 10px 30px
+        rgba(123,50,79,.07);
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+
+    box-sizing:border-box;
+
+    -webkit-tap-highlight-color:
+        transparent;
+
+}
+
+
+html,
+body {
+
+    margin:0;
+
+    min-height:100%;
+
+}
+
+
+body {
+
+    min-height:100vh;
+    min-height:100dvh;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fff9fb,
+            #faf8f9
+        );
+
+    color:
+        var(--text);
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "PingFang SC",
+        "Microsoft YaHei",
+        Arial,
+        sans-serif;
+
+    -webkit-font-smoothing:
+        antialiased;
+
+}
+
+
+button,
+input,
+select,
+textarea {
+
+    font:inherit;
+
+}
+
+
+button {
+
+    cursor:pointer;
+
+}
+
+
+.hidden {
+
+    display:none !important;
+
+}
+
+
+/* =========================================================
+   TOPBAR
+========================================================= */
+
+.topbar {
+
+    min-height:68px;
+
+    padding:
+        8px
+        24px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:
+        space-between;
+
+    gap:15px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .95
+        );
+
+    backdrop-filter:
+        blur(16px);
+
+    -webkit-backdrop-filter:
+        blur(16px);
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+}
+
+
+.brand {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+}
+
+
+.brand img {
+
+    width:42px;
+    height:42px;
+
+    border-radius:12px;
+
+    object-fit:contain;
+
+}
+
+
+.brand-title {
+
+    font-size:18px;
+
+    font-weight:750;
+
+    color:
+        var(--rose);
+
+}
+
+
+.brand-sub {
+
+    margin-top:2px;
+
+    font-size:11px;
+
+    color:
+        var(--text3);
+
+}
+
+
+.top-actions {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+}
+
+
+.back-button,
+.logout-button {
+
+    min-height:44px;
+
+    padding:
+        0
+        15px;
+
+    border-radius:12px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+}
+
+
+.back-button {
+
+    border:
+        1px solid
+        var(--border);
+
+    background:#fff;
+
+    color:
+        var(--text2);
+
+}
+
+
+.logout-button {
+
+    border:0;
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--pink-500),
+            var(--pink-600)
+        );
+
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main {
+
+    width:100%;
+
+    max-width:1450px;
+
+    margin:
+        0 auto;
+
+    padding:28px;
+
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+
+    position:relative;
+
+    overflow:hidden;
+
+    padding:
+        27px
+        29px;
+
+    margin-bottom:18px;
+
+    border:
+        1px solid
+        rgba(
+            232,
+            93,
+            143,
+            .10
+        );
+
+    border-radius:22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff0f5,
+            #ffe1ec
+        );
+
+    box-shadow:
+        var(--shadow);
+
+}
+
+
+.hero::after {
+
+    content:"";
+
+    position:absolute;
+
+    width:190px;
+    height:190px;
+
+    right:-60px;
+    top:-75px;
+
+    border-radius:50%;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .30
+        );
+
+}
+
+
+.hero-content {
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+
+.hero-tag {
+
+    display:inline-flex;
+
+    align-items:center;
+
+    min-height:27px;
+
+    padding:
+        3px
+        10px;
+
+    margin-bottom:9px;
+
+    border-radius:999px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .72
+        );
+
+    color:
+        var(--pink-700);
+
+    font-size:10px;
+
+    font-weight:750;
+
+}
+
+
+.hero h1 {
+
+    margin:
+        0
+        0
+        6px;
+
+    font-size:26px;
+
+    color:
+        var(--rose);
+
+}
+
+
+.hero p {
+
+    margin:0;
+
+    max-width:950px;
+
+    font-size:13px;
+
+    line-height:1.8;
+
+    color:
+        #875064;
+
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats {
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            4,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap:12px;
+
+    margin-bottom:18px;
+
+}
+
+
+.stat {
+
+    min-height:103px;
+
+    padding:17px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:16px;
+
+    background:#fff;
+
+}
+
+
+.stat-label {
+
+    font-size:10px;
+
+    color:
+        var(--text3);
+
+}
+
+
+.stat-value {
+
+    margin-top:7px;
+
+    font-size:22px;
+
+    font-weight:750;
+
+    color:
+        var(--rose);
+
+}
+
+
+.stat-note {
+
+    margin-top:3px;
+
+    font-size:10px;
+
+    color:
+        var(--text3);
+
+}
+
+
+/* =========================================================
+   PANEL
+========================================================= */
+
+.panel {
+
+    overflow:hidden;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:18px;
+
+    background:#fff;
+
+    box-shadow:
+        0 5px 18px
+        rgba(
+            100,
+            40,
+            65,
+            .035
+        );
+
+}
+
+
+/* =========================================================
+   TOOLBAR
+========================================================= */
+
+.toolbar {
+
+    display:grid;
+
+    grid-template-columns:
+        minmax(
+            260px,
+            1fr
+        )
+        180px
+        180px
+        auto;
+
+    gap:10px;
+
+    padding:14px;
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+}
+
+
+.input,
+.select {
+
+    width:100%;
+
+    min-height:47px;
+
+    padding:
+        0
+        13px;
+
+    border:
+        1px solid
+        #e4dce0;
+
+    border-radius:11px;
+
+    background:#fff;
+
+    outline:none;
+
+}
+
+
+.input:focus,
+.select:focus {
+
+    border-color:
+        var(--pink-300);
+
+    box-shadow:
+        0 0 0 3px
+        var(--pink-50);
+
+}
+
+
+.primary-button {
+
+    min-height:47px;
+
+    padding:
+        0
+        17px;
+
+    border:0;
+
+    border-radius:11px;
+
+    color:#fff;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    white-space:nowrap;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--pink-500),
+            var(--pink-600)
+        );
+
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.table-scroll {
+
+    overflow-x:auto;
+
+}
+
+
+table {
+
+    width:100%;
+
+    min-width:1000px;
+
+    border-collapse:
+        collapse;
+
+}
+
+
+th {
+
+    padding:
+        13px
+        14px;
+
+    text-align:left;
+
+    white-space:nowrap;
+
+    background:
+        #fffafb;
+
+    color:
+        #837980;
+
+    font-size:11px;
+
+}
+
+
+td {
+
+    padding:
+        15px
+        14px;
+
+    border-top:
+        1px solid
+        #f1eaee;
+
+    font-size:12px;
+
+    vertical-align:middle;
+
+}
+
+
+.number-cell {
+
+    color:
+        var(--pink-700);
+
+    font-weight:750;
+
+    white-space:nowrap;
+
+}
+
+
+.product-name {
+
+    font-size:13px;
+
+    font-weight:700;
+
+}
+
+
+.product-code {
+
+    margin-top:3px;
+
+    font-size:10px;
+
+    color:
+        var(--text3);
+
+}
+
+
+.badge {
+
+    display:inline-flex;
+
+    align-items:center;
+
+    min-height:26px;
+
+    padding:
+        3px
+        8px;
+
+    border-radius:999px;
+
+    font-size:10px;
+
+    font-weight:700;
+
+}
+
+
+.badge-service {
+
+    color:
+        var(--blue);
+
+    background:
+        var(--blue-bg);
+
+}
+
+
+.badge-physical {
+
+    color:
+        var(--orange);
+
+    background:
+        var(--orange-bg);
+
+}
+
+
+.badge-active {
+
+    color:
+        var(--green);
+
+    background:
+        var(--green-bg);
+
+}
+
+
+.badge-inactive {
+
+    color:
+        var(--gray);
+
+    background:
+        var(--gray-bg);
+
+}
+
+
+.action-buttons {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    flex-wrap:wrap;
+
+}
+
+
+.action {
+
+    min-height:39px;
+
+    padding:
+        0
+        12px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:10px;
+
+    background:#fff;
+
+    font-size:11px;
+
+    font-weight:700;
+
+}
+
+
+.edit-action {
+
+    color:
+        var(--pink-700);
+
+    border-color:
+        var(--pink-200);
+
+    background:
+        var(--pink-50);
+
+}
+
+
+.danger-action {
+
+    color:
+        var(--danger);
+
+    border-color:
+        #f2c8d5;
+
+    background:
+        #fff7fa;
+
+}
+
+
+.action:disabled {
+
+    opacity:.55;
+
+    cursor:not-allowed;
+
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.empty {
+
+    padding:
+        60px
+        20px;
+
+    text-align:center;
+
+    color:
+        var(--text3);
+
+}
+
+
+.empty-icon {
+
+    margin-bottom:8px;
+
+    font-size:34px;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+.mobile-list {
+
+    display:none;
+
+}
+
+
+.product-card {
+
+    padding:16px;
+
+    margin-bottom:10px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:16px;
+
+    background:#fff;
+
+}
+
+
+.product-card-head {
+
+    display:flex;
+
+    align-items:flex-start;
+
+    justify-content:
+        space-between;
+
+    gap:10px;
+
+}
+
+
+.mobile-number {
+
+    margin-bottom:4px;
+
+    color:
+        var(--pink-700);
+
+    font-size:11px;
+
+    font-weight:750;
+
+}
+
+
+.mobile-name {
+
+    font-size:15px;
+
+    font-weight:750;
+
+}
+
+
+.mobile-code {
+
+    margin-top:3px;
+
+    font-size:10px;
+
+    color:
+        var(--text3);
+
+}
+
+
+.mobile-grid {
+
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap:8px;
+
+    margin-top:13px;
+
+}
+
+
+.mobile-info {
+
+    padding:10px;
+
+    border-radius:11px;
+
+    background:
+        #fcfafb;
+
+}
+
+
+.mobile-info-label {
+
+    font-size:10px;
+
+    color:
+        var(--text3);
+
+}
+
+
+.mobile-info-value {
+
+    margin-top:3px;
+
+    font-size:12px;
+
+    font-weight:650;
+
+}
+
+
+.mobile-actions {
+
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap:8px;
+
+    margin-top:12px;
+
+}
+
+
+.mobile-actions.one {
+
+    grid-template-columns:1fr;
+
+}
+
+
+.mobile-actions .action {
+
+    min-height:47px;
+
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal-mask {
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:5000;
+
+    padding:16px;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+        rgba(
+            35,
+            25,
+            31,
+            .45
+        );
+
+    backdrop-filter:
+        blur(3px);
+
+}
+
+
+.modal-mask.show {
+
+    display:flex;
+
+}
+
+
+.modal {
+
+    width:100%;
+
+    max-width:540px;
+
+    max-height:92vh;
+
+    overflow:auto;
+
+    border-radius:20px;
+
+    background:#fff;
+
+    box-shadow:
+        0 25px 70px
+        rgba(
+            50,
+            20,
+            32,
+            .20
+        );
+
+}
+
+
+.modal-head {
+
+    position:sticky;
+
+    top:0;
+
+    z-index:2;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:
+        space-between;
+
+    gap:12px;
+
+    padding:
+        18px
+        20px;
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+    background:#fff;
+
+}
+
+
+.modal-title {
+
+    font-size:18px;
+
+    font-weight:750;
+
+}
+
+
+.modal-close {
+
+    width:42px;
+    height:42px;
+
+    border:0;
+
+    border-radius:11px;
+
+    background:
+        var(--pink-50);
+
+    color:
+        var(--pink-700);
+
+    font-size:20px;
+
+}
+
+
+.modal-body {
+
+    padding:20px;
+
+}
+
+
+.info-box {
+
+    margin-bottom:16px;
+
+    padding:13px;
+
+    border-radius:13px;
+
+    background:
+        var(--pink-50);
+
+    color:
+        var(--text2);
+
+    font-size:11px;
+
+    line-height:1.75;
+
+}
+
+
+.form-group {
+
+    margin-bottom:15px;
+
+}
+
+
+.form-label {
+
+    display:block;
+
+    margin-bottom:7px;
+
+    font-size:12px;
+
+    font-weight:650;
+
+    color:
+        var(--text2);
+
+}
+
+
+.required {
+
+    color:
+        var(--pink-600);
+
+}
+
+
+.form-control {
+
+    width:100%;
+
+    min-height:50px;
+
+    padding:
+        0
+        13px;
+
+    border:
+        1px solid
+        #e3dce0;
+
+    border-radius:12px;
+
+    background:#fff;
+
+    outline:none;
+
+}
+
+
+.form-control:focus {
+
+    border-color:
+        var(--pink-300);
+
+    box-shadow:
+        0 0 0 3px
+        var(--pink-50);
+
+}
+
+
+.form-control:disabled {
+
+    background:
+        #f5f2f4;
+
+    color:#999;
+
+}
+
+
+.form-hint {
+
+    margin-top:6px;
+
+    font-size:10px;
+
+    line-height:1.6;
+
+    color:
+        var(--text3);
+
+}
+
+
+.modal-footer {
+
+    position:sticky;
+
+    bottom:0;
+
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap:9px;
+
+    padding:
+        15px
+        20px
+        20px;
+
+    border-top:
+        1px solid
+        var(--border);
+
+    background:#fff;
+
+}
+
+
+.cancel-button,
+.save-button {
+
+    min-height:50px;
+
+    border-radius:12px;
+
+    font-weight:700;
+
+}
+
+
+.cancel-button {
+
+    border:
+        1px solid
+        var(--border);
+
+    background:#fff;
+
+}
+
+
+.save-button {
+
+    border:0;
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--pink-500),
+            var(--pink-600)
+        );
+
+}
+
+
+.save-button:disabled {
+
+    opacity:.55;
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast {
+
+    display:none;
+
+    position:fixed;
+
+    z-index:9000;
+
+    right:18px;
+
+    bottom:18px;
+
+    max-width:400px;
+
+    padding:
+        13px
+        16px;
+
+    border-radius:12px;
+
+    font-size:13px;
+
+    box-shadow:
+        var(--shadow);
+
+}
+
+
+.toast.show {
+
+    display:block;
+
+}
+
+
+.toast.success {
+
+    color:#17664c;
+
+    background:#effaf5;
+
+}
+
+
+.toast.error {
+
+    color:#af294b;
+
+    background:#fff0f4;
+
+}
+
+
+.toast.info {
+
+    color:#665c62;
+
+    background:#f8f5f7;
+
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading {
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:9999;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-direction:column;
+
+    gap:12px;
+
+    background:#fffafd;
+
+}
+
+
+.spinner {
+
+    width:38px;
+
+    height:38px;
+
+    border:
+        4px solid
+        var(--pink-100);
+
+    border-top-color:
+        var(--pink-500);
+
+    border-radius:50%;
+
+    animation:
+        spin .8s
+        linear infinite;
+
+}
+
+
+@keyframes spin {
+
+    to {
+
+        transform:
+            rotate(360deg);
+
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media
+(max-width:1050px) {
+
+    .stats {
+
+        grid-template-columns:
+            1fr
+            1fr;
+
+    }
+
+
+    .toolbar {
+
+        grid-template-columns:
+            1fr
+            1fr;
+
+    }
+
+}
+
+
+@media
+(max-width:760px) {
+
+    .topbar {
+
+        min-height:64px;
+
+        padding:
+            max(
+                5px,
+                env(
+                    safe-area-inset-top
+                )
+            )
+            11px
+            5px;
+
+    }
+
+
+    .brand img {
+
+        width:38px;
+
+        height:38px;
+
+    }
+
+
+    .brand-title {
+
+        font-size:16px;
+
+    }
+
+
+    .brand-sub {
+
+        display:none;
+
+    }
+
+
+    .back-button {
+
+        display:none;
+
+    }
+
+
+    .logout-button {
+
+        min-height:42px;
+
+        padding:
+            0
+            13px;
+
+        font-size:11px;
+
+    }
+
+
+    .main {
+
+        padding:
+            14px
+            11px
+            28px;
+
+    }
+
+
+    .hero {
+
+        padding:
+            21px
+            18px;
+
+        margin-bottom:13px;
+
+        border-radius:18px;
+
+    }
+
+
+    .hero h1 {
+
+        font-size:21px;
+
+    }
+
+
+    .hero p {
+
+        font-size:12px;
+
+    }
+
+
+    .stats {
+
+        grid-template-columns:
+            1fr
+            1fr;
+
+        gap:8px;
+
+        margin-bottom:12px;
+
+    }
+
+
+    .stat {
+
+        min-height:92px;
+
+        padding:14px;
+
+    }
+
+
+    .stat-value {
+
+        font-size:20px;
+
+    }
+
+
+    .panel {
+
+        border:0;
+
+        background:transparent;
+
+        box-shadow:none;
+
+    }
+
+
+    .toolbar {
+
+        padding:0;
+
+        margin-bottom:11px;
+
+        grid-template-columns:
+            1fr;
+
+        border:0;
+
+    }
+
+
+    .primary-button {
+
+        min-height:52px;
+
+    }
+
+
+    .table-scroll {
+
+        display:none;
+
+    }
+
+
+    .mobile-list {
+
+        display:block;
+
+    }
+
+
+    .empty {
+
+        padding:
+            40px
+            15px;
+
+        background:#fff;
+
+        border:
+            1px solid
+            var(--border);
+
+        border-radius:16px;
+
+    }
+
+
+    .modal-mask {
+
+        align-items:flex-end;
+
+        padding:0;
+
+    }
+
+
+    .modal {
+
+        max-width:none;
+
+        max-height:92dvh;
+
+        border-radius:
+            22px
+            22px
+            0
+            0;
+
+    }
+
+
+    .modal-footer {
+
+        padding-bottom:
+            max(
+                18px,
+                env(
+                    safe-area-inset-bottom
+                )
+            );
+
+    }
+
+
+    .toast {
+
+        left:10px;
+
+        right:10px;
+
+        bottom:
+            max(
+                12px,
+                env(
+                    safe-area-inset-bottom
+                )
+            );
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     LOADING
+========================================================= -->
+
+<div
+    id="loading"
+    class="loading"
+>
+
+    <div class="spinner"></div>
+
+    <div
+        style="
+            color:#756a71;
+            font-size:13px;
+        "
+    >
+        正在读取平台产品名录...
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     TOPBAR
+========================================================= -->
+
+<header class="topbar">
+
+
+    <div class="brand">
+
+
+        <img
+            src="./logo.jpeg"
+            alt="孕乃馨"
+        >
+
+
+        <div>
+
+
+            <div class="brand-title">
+                产品名录
+            </div>
+
+
+            <div class="brand-sub">
+                孕乃馨平台标准产品中心
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="top-actions">
+
+
+        <button
+            class="back-button"
+            onclick="goHome()"
+        >
+            返回工作台
+        </button>
+
+
+        <button
+            class="logout-button"
+            onclick="logout()"
+        >
+            退出
+        </button>
+
+
+    </div>
+
+
+</header>
+
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="main">
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero">
+
+
+    <div class="hero-content">
+
+
+        <div class="hero-tag">
+            PRODUCT CATALOG
+        </div>
+
+
+        <h1>
+            平台标准产品名录
+        </h1>
+
+
+        <p>
+            产品由孕乃馨平台统一建立，全国使用同一个标准产品索引。
+            产品创建以后，已开通服务城市会自动建立对应城市销售价格记录；
+            有效商户也会自动建立对应的商户分成规则记录。
+            产品历史记录不物理删除，停止使用时统一设为无效。
+        </p>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================================================
+     STATS
+========================================================= -->
+
+<section class="stats">
+
+
+    <div class="stat">
+
+        <div class="stat-label">
+            产品总数
+        </div>
+
+        <div
+            id="statTotal"
+            class="stat-value"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-label">
+            正常产品
+        </div>
+
+        <div
+            id="statActive"
+            class="stat-value"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-label">
+            服务类
+        </div>
+
+        <div
+            id="statService"
+            class="stat-value"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-label">
+            实物类
+        </div>
+
+        <div
+            id="statPhysical"
+            class="stat-value"
+        >
+            0
+        </div>
+
+        <div class="stat-note">
+            服务类与实物类后续可分别处理税务
+        </div>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================================================
+     PANEL
+========================================================= -->
+
+<section class="panel">
+
+
+<!-- =========================================================
+     TOOLBAR
+========================================================= -->
+
+<div class="toolbar">
+
+
+    <input
+        id="searchInput"
+        class="input"
+        type="search"
+        placeholder="搜索产品编号、产品代码或产品名称"
+        oninput="renderProducts()"
+    >
+
+
+    <select
+        id="typeFilter"
+        class="select"
+        onchange="renderProducts()"
+    >
+
+        <option value="">
+            全部类型
+        </option>
+
+        <option value="service">
+            服务类
+        </option>
+
+        <option value="physical_goods">
+            实物类
+        </option>
+
+    </select>
+
+
+    <select
+        id="statusFilter"
+        class="select"
+        onchange="renderProducts()"
+    >
+
+        <option value="">
+            全部状态
+        </option>
+
+        <option value="active">
+            正常
+        </option>
+
+        <option value="inactive">
+            已失效
+        </option>
+
+    </select>
+
+
+    <button
+        class="primary-button"
+        onclick="openCreateModal()"
+    >
+        ＋ 创建产品
+    </button>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     DESKTOP TABLE
+========================================================= -->
+
+<div class="table-scroll">
+
+
+<table>
+
+
+<thead>
+
+
+<tr>
+
+    <th>
+        编号
+    </th>
+
+    <th>
+        产品
+    </th>
+
+    <th>
+        产品类型
+    </th>
+
+    <th>
+        状态
+    </th>
+
+    <th>
+        创建时间
+    </th>
+
+    <th>
+        操作
+    </th>
+
+</tr>
+
+
+</thead>
+
+
+<tbody
+    id="productTable"
+>
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     MOBILE
+========================================================= -->
+
+<div
+    id="mobileList"
+    class="mobile-list"
+>
+</div>
+
+
+
+<div
+    id="emptyState"
+    class="empty hidden"
+>
+
+    <div class="empty-icon">
+        📦
+    </div>
+
+    暂无平台产品
+
+</div>
+
+
+</section>
+
+
+</main>
+
+
+
+<!-- =========================================================
+     PRODUCT MODAL
+========================================================= -->
+
+<div
+    id="productModal"
+    class="modal-mask"
+>
+
+
+<div class="modal">
+
+
+<div class="modal-head">
+
+
+    <div
+        id="modalTitle"
+        class="modal-title"
+    >
+        创建平台产品
+    </div>
+
+
+    <button
+        class="modal-close"
+        onclick="closeProductModal()"
+    >
+        ×
+    </button>
+
+
+</div>
+
+
+
+<div class="modal-body">
+
+
+    <div class="info-box">
+
+        产品是全国统一的标准产品主数据。
+
+        <br><br>
+
+        新产品建立后，数据库将自动：
+
+        <br>
+
+        1. 给所有已经开通的服务城市建立销售价格记录，价格初始为“未定义”。
+
+        <br>
+
+        2. 给所有有效商户建立对应的分成规则记录，税率及各项比例初始为“未定义”。
+
+        <br>
+
+        3. 产品一旦产生业务记录，不进行物理删除。如停止使用，请设为无效。
+
+    </div>
+
+
+
+    <div class="form-group">
+
+
+        <label class="form-label">
+
+            产品代码
+
+            <span class="required">
+                *
+            </span>
+
+        </label>
+
+
+        <input
+            id="productCode"
+            class="form-control"
+            maxlength="50"
+            placeholder="例如：SRV001"
+        >
+
+
+        <div class="form-hint">
+            建议使用简短、唯一、长期不变的产品代码。
+        </div>
+
+
+    </div>
+
+
+
+    <div class="form-group">
+
+
+        <label class="form-label">
+
+            产品名称
+
+            <span class="required">
+                *
+            </span>
+
+        </label>
+
+
+        <input
+            id="productName"
+            class="form-control"
+            maxlength="200"
+            placeholder="请输入标准产品名称"
+        >
+
+
+    </div>
+
+
+
+    <div class="form-group">
+
+
+        <label class="form-label">
+
+            产品类型
+
+            <span class="required">
+                *
+            </span>
+
+        </label>
+
+
+        <select
+            id="productType"
+            class="form-control"
+        >
+
+            <option value="">
+                请选择产品类型
+            </option>
+
+            <option value="service">
+                服务类
+            </option>
+
+            <option value="physical_goods">
+                实物类
+            </option>
+
+        </select>
+
+
+        <div class="form-hint">
+            服务类和实物类在后续订单、结算及税务处理中可以分别处理。
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<div class="modal-footer">
+
+
+    <button
+        class="cancel-button"
+        onclick="closeProductModal()"
+    >
+        取消
+    </button>
+
+
+    <button
+        id="saveProductButton"
+        class="save-button"
+        onclick="saveProduct()"
+    >
+        创建产品
+    </button>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+<div
+    id="toast"
+    class="toast"
+>
+</div>
+
+
+
+<script>
+
+
+/* =========================================================
+   01. SUPABASE
+========================================================= */
+
+
+const SUPABASE_URL =
+    "https://qbuqjwpkltbjhlfbyjyb.supabase.co";
+
+
+const SUPABASE_ANON_KEY =
+    "sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+
+        SUPABASE_URL,
+
+        SUPABASE_ANON_KEY,
+
+        {
+
+            auth:{
+
+                persistSession:true,
+
+                autoRefreshToken:true,
+
+                detectSessionInUrl:true
+
+            }
+
+        }
+
+    );
+
+
+const LOGIN_PAGE =
+    "./login.html";
+
+
+const HOME_PAGE =
+    "./wholemanagement.html";
+
+
+
+/* =========================================================
+   02. DATA
+========================================================= */
+
+
+let currentUser =
+    null;
+
+
+let currentProfile =
+    null;
+
+
+let products =
+    [];
+
+
+let productMode =
+    "create";
+
+
+let editingProductId =
+    null;
+
+
+
+/* =========================================================
+   03. INIT
+========================================================= */
+
+
+async function initialize() {
+
+
+    try {
+
+
+        const {
+
+            data:{
+                session
+            },
+
+            error:sessionError
+
+        } =
+
+        await supabaseClient.auth
+            .getSession();
+
+
+
+        if (
+            sessionError
+            ||
+            !session
+        ) {
+
+
+            location.replace(
+                LOGIN_PAGE
+            );
+
+
+            return;
+
+        }
+
+
+
+        currentUser =
+            session.user;
+
+
+
+        await verifyAccess();
+
+
+        await loadProducts();
+
+
+
+        document.getElementById(
+            "loading"
+        ).style.display =
+            "none";
+
+
+    }
+
+    catch(error) {
+
+
+        console.error(
+            "产品名录初始化失败：",
+            error
+        );
+
+
+        document.getElementById(
+            "loading"
+        ).style.display =
+            "none";
+
+
+        alert(
+            error.message
+            ||
+            "产品名录加载失败。"
+        );
+
+    }
+
+}
+
+
+
+/* =========================================================
+   04. ACCESS
+========================================================= */
+
+
+async function verifyAccess() {
+
+
+    const {
+
+        data:profile,
+
+        error
+
+    } =
+
+    await supabaseClient
+
+        .from(
+            "profiles"
+        )
+
+        .select(`
+            id,
+            full_name,
+            role,
+            status
+        `)
+
+        .eq(
+            "id",
+            currentUser.id
+        )
+
+        .maybeSingle();
+
+
+
+    if (
+        error
+        ||
+        !profile
+    ) {
+
+
+        throw new Error(
+            "无法读取当前管理账号资料。"
+        );
+
+    }
+
+
+
+    if (
+        profile.status !==
+        "active"
+    ) {
+
+
+        await supabaseClient.auth
+            .signOut();
+
+
+        throw new Error(
+            "当前账号已经停用。"
+        );
+
+    }
+
+
+
+    if (
+        ![
+            "founder",
+            "platform_admin"
+        ].includes(
+            profile.role
+        )
+    ) {
+
+
+        alert(
+            "当前账号没有平台产品管理权限。"
+        );
+
+
+        location.replace(
+            HOME_PAGE
+        );
+
+
+        throw new Error(
+            "没有产品管理权限。"
+        );
+
+    }
+
+
+
+    currentProfile =
+        profile;
+
+}
+
+
+
+/* =========================================================
+   05. LOAD PRODUCTS
+========================================================= */
+
+
+async function loadProducts() {
+
+
+    const {
+
+        data,
+
+        error
+
+    } =
+
+    await supabaseClient
+
+        .from(
+            "products"
+        )
+
+        .select("*")
+
+        .order(
+            "id",
+            {
+                ascending:true
+            }
+        );
+
+
+
+    if (error) {
+
+
+        throw new Error(
+            "产品数据读取失败：" +
+            error.message
+        );
+
+    }
+
+
+
+    products =
+        data
+        ||
+        [];
+
+
+
+    renderStats();
+
+
+    renderProducts();
+
+}
+
+
+
+/* =========================================================
+   06. STATS
+========================================================= */
+
+
+function renderStats() {
+
+
+    document.getElementById(
+        "statTotal"
+    ).textContent =
+        products.length;
+
+
+
+    document.getElementById(
+        "statActive"
+    ).textContent =
+
+        products.filter(
+
+            item =>
+                item.status ===
+                "active"
+
+        ).length;
+
+
+
+    document.getElementById(
+        "statService"
+    ).textContent =
+
+        products.filter(
+
+            item =>
+                getProductType(
+                    item
+                )
+                ===
+                "service"
+
+        ).length;
+
+
+
+    document.getElementById(
+        "statPhysical"
+    ).textContent =
+
+        products.filter(
+
+            item =>
+                getProductType(
+                    item
+                )
+                ===
+                "physical_goods"
+
+        ).length;
+
+}
+
+
+
+/* =========================================================
+   07. RENDER PRODUCTS
+========================================================= */
+
+
+function renderProducts() {
+
+
+    const keyword =
+        document.getElementById(
+            "searchInput"
+        )
+        .value
+        .trim()
+        .toLowerCase();
+
+
+
+    const type =
+        document.getElementById(
+            "typeFilter"
+        ).value;
+
+
+
+    const status =
+        document.getElementById(
+            "statusFilter"
+        ).value;
+
+
+
+    const list =
+        products.filter(
+
+            item => {
+
+
+                if (
+                    type
+                    &&
+                    getProductType(
+                        item
+                    )
+                    !==
+                    type
+                ) {
+
+
+                    return false;
+
+                }
+
+
+
+                if (
+                    status
+                    &&
+                    item.status !==
+                    status
+                ) {
+
+
+                    return false;
+
+                }
+
+
+
+                const text =
+
+                    `
+                    ${formatProductNo(item)}
+                    ${getProductCode(item)}
+                    ${getProductName(item)}
+                    `
+                    .toLowerCase();
+
+
+
+                return text.includes(
+                    keyword
+                );
+
+            }
+
+        );
+
+
+
+    const tbody =
+        document.getElementById(
+            "productTable"
+        );
+
+
+    const mobile =
+        document.getElementById(
+            "mobileList"
+        );
+
+
+    const empty =
+        document.getElementById(
+            "emptyState"
+        );
+
+
+
+    tbody.innerHTML =
+        "";
+
+
+    mobile.innerHTML =
+        "";
+
+
+
+    empty.classList.toggle(
+        "hidden",
+        list.length > 0
+    );
+
+
+
+    list.forEach(
+
+        item => {
+
+
+            tbody.insertAdjacentHTML(
+
+                "beforeend",
+
+                `
+
+                <tr>
+
+
+                    <td class="number-cell">
+
+                        ${formatProductNo(item)}
+
+                    </td>
+
+
+                    <td>
+
+
+                        <div class="product-name">
+
+                            ${escapeHtml(
+                                getProductName(
+                                    item
+                                )
+                            )}
+
+                        </div>
+
+
+                        <div class="product-code">
+
+                            ${escapeHtml(
+                                getProductCode(
+                                    item
+                                )
+                            )}
+
+                        </div>
+
+
+                    </td>
+
+
+                    <td>
+
+                        ${productTypeBadge(
+                            getProductType(
+                                item
+                            )
+                        )}
+
+                    </td>
+
+
+                    <td>
+
+                        ${statusBadge(
+                            item.status
+                        )}
+
+                    </td>
+
+
+                    <td>
+
+                        ${formatDate(
+                            item.created_at
+                        )}
+
+                    </td>
+
+
+                    <td>
+
+                        ${productActionButtons(
+                            item
+                        )}
+
+                    </td>
+
+
+                </tr>
+
+                `
+
+            );
+
+
+
+            mobile.insertAdjacentHTML(
+
+                "beforeend",
+
+                `
+
+                <div class="product-card">
+
+
+                    <div class="product-card-head">
+
+
+                        <div>
+
+
+                            <div class="mobile-number">
+                                产品 ${formatProductNo(item)}
+                            </div>
+
+
+                            <div class="mobile-name">
+
+                                ${escapeHtml(
+                                    getProductName(
+                                        item
+                                    )
+                                )}
+
+                            </div>
+
+
+                            <div class="mobile-code">
+
+                                ${escapeHtml(
+                                    getProductCode(
+                                        item
+                                    )
+                                )}
+
+                            </div>
+
+
+                        </div>
+
+
+                        ${statusBadge(
+                            item.status
+                        )}
+
+
+                    </div>
+
+
+
+                    <div class="mobile-grid">
+
+
+                        <div class="mobile-info">
+
+                            <div class="mobile-info-label">
+                                产品类型
+                            </div>
+
+                            <div class="mobile-info-value">
+                                ${productTypeText(
+                                    getProductType(
+                                        item
+                                    )
+                                )}
+                            </div>
+
+                        </div>
+
+
+                        <div class="mobile-info">
+
+                            <div class="mobile-info-label">
+                                创建时间
+                            </div>
+
+                            <div class="mobile-info-value">
+                                ${formatDate(
+                                    item.created_at
+                                )}
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    ${mobileProductButtons(
+                        item
+                    )}
+
+
+                </div>
+
+                `
+
+            );
+
+        }
+
+    );
+
+}
+
+
+
+/* =========================================================
+   08. ACTION BUTTONS
+========================================================= */
+
+
+function productActionButtons(
+    item
+) {
+
+
+    if (
+        item.status ===
+        "inactive"
+    ) {
+
+
+        return `
+
+            <div class="action-buttons">
+
+                <button
+                    class="action"
+                    disabled
+                >
+                    已失效
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+
+
+    return `
+
+        <div class="action-buttons">
+
+
+            <button
+                class="action edit-action"
+                onclick="editProduct(${Number(item.id)})"
+            >
+                编辑
+            </button>
+
+
+            <button
+                class="action danger-action"
+                onclick="invalidateProduct(${Number(item.id)})"
+            >
+                设为无效
+            </button>
+
+
+        </div>
+
+    `;
+
+}
+
+
+
+function mobileProductButtons(
+    item
+) {
+
+
+    if (
+        item.status ===
+        "inactive"
+    ) {
+
+
+        return `
+
+            <div class="mobile-actions one">
+
+                <button
+                    class="action"
+                    disabled
+                >
+                    已失效
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+
+
+    return `
+
+        <div class="mobile-actions">
+
+
+            <button
+                class="action edit-action"
+                onclick="editProduct(${Number(item.id)})"
+            >
+                编辑
+            </button>
+
+
+            <button
+                class="action danger-action"
+                onclick="invalidateProduct(${Number(item.id)})"
+            >
+                设为无效
+            </button>
+
+
+        </div>
+
+    `;
+
+}
+
+
+
+/* =========================================================
+   09. OPEN CREATE
+========================================================= */
+
+
+function openCreateModal() {
+
+
+    productMode =
+        "create";
+
+
+    editingProductId =
+        null;
+
+
+
+    resetForm();
+
+
+
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        "创建平台产品";
+
+
+
+    document.getElementById(
+        "productCode"
+    ).disabled =
+        false;
+
+
+
+    document.getElementById(
+        "saveProductButton"
+    ).textContent =
+        "创建产品";
+
+
+
+    document.getElementById(
+        "productModal"
+    ).classList.add(
+        "show"
+    );
+
+}
+
+
+
+/* =========================================================
+   10. EDIT
+========================================================= */
+
+
+function editProduct(
+    id
+) {
+
+
+    const item =
+        products.find(
+
+            product =>
+                Number(
+                    product.id
+                )
+                ===
+                Number(
+                    id
+                )
+
+        );
+
+
+
+    if (!item) {
+
+
+        return;
+
+    }
+
+
+
+    if (
+        item.status !==
+        "active"
+    ) {
+
+
+        showToast(
+            "已失效产品不能编辑。",
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+
+    productMode =
+        "edit";
+
+
+    editingProductId =
+        Number(
+            id
+        );
+
+
+
+    resetForm();
+
+
+
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        `编辑产品 ${formatProductNo(item)}`;
+
+
+
+    document.getElementById(
+        "productCode"
+    ).value =
+        getProductCode(
+            item
+        );
+
+
+
+    /*
+        产品代码作为长期唯一索引，
+        1.0版本编辑时锁定，不允许修改。
+    */
+
+    document.getElementById(
+        "productCode"
+    ).disabled =
+        true;
+
+
+
+    document.getElementById(
+        "productName"
+    ).value =
+        getProductName(
+            item
+        );
+
+
+
+    document.getElementById(
+        "productType"
+    ).value =
+        getProductType(
+            item
+        );
+
+
+
+    document.getElementById(
+        "saveProductButton"
+    ).textContent =
+        "保存修改";
+
+
+
+    document.getElementById(
+        "productModal"
+    ).classList.add(
+        "show"
+    );
+
+}
+
+
+
+/* =========================================================
+   11. CLOSE
+========================================================= */
+
+
+function closeProductModal() {
+
+
+    document.getElementById(
+        "productModal"
+    ).classList.remove(
+        "show"
+    );
+
+
+
+    editingProductId =
+        null;
+
+
+    productMode =
+        "create";
+
+}
+
+
+
+/* =========================================================
+   12. RESET
+========================================================= */
+
+
+function resetForm() {
+
+
+    document.getElementById(
+        "productCode"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "productCode"
+    ).disabled =
+        false;
+
+
+
+    document.getElementById(
+        "productName"
+    ).value =
+        "";
+
+
+
+    document.getElementById(
+        "productType"
+    ).value =
+        "";
+
+}
+
+
+
+/* =========================================================
+   13. SAVE
+========================================================= */
+
+
+async function saveProduct() {
+
+
+    if (
+        productMode ===
+        "edit"
+    ) {
+
+
+        return updateProduct();
+
+    }
+
+
+
+    return createProduct();
+
+}
+
+
+
+/* =========================================================
+   14. CREATE PRODUCT
+========================================================= */
+
+
+async function createProduct() {
+
+
+    const code =
+        document.getElementById(
+            "productCode"
+        )
+        .value
+        .trim()
+        .toUpperCase();
+
+
+
+    const name =
+        document.getElementById(
+            "productName"
+        )
+        .value
+        .trim();
+
+
+
+    const type =
+        document.getElementById(
+            "productType"
+        ).value;
+
+
+
+    if (!code) {
+
+
+        showToast(
+            "请输入产品代码。",
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+
+    if (!name) {
+
+
+        showToast(
+            "请输入产品名称。",
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+
+    if (
+        ![
+            "service",
+            "physical_goods"
+        ].includes(
+            type
+        )
+    ) {
+
+
+        showToast(
+            "请选择产品类型。",
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+
+    const duplicateCode =
+        products.some(
+
+            item =>
+                getProductCode(
+                    item
+                )
+                .toUpperCase()
+                ===
+                code
+
+        );
+
+
+
+    if (
+        duplicateCode
+    ) {
+
+
+        showToast(
+            "该产品代码已经存在。",
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+
+    const button =
+        document.getElementById(
+            "saveProductButton"
+        );
+
+
+
+    button.disabled =
+        true;
+
+
+    button.textContent =
+        "正在创建...";
+
+
+
+    try {
+
+
+        const {
+
+            data,
+
+            error
+
+        } =
+
+        await supabaseClient
+
+            .from(
+                "products"
+            )
+
+            .insert({
+
+                product_code:
+                    code,
+
+                product_name:
+                    name,
+
+                product_type:
+                    type,
+
+                status:
+                    "active"
+
+            })
+
+            .select()
+            .single();
+
+
+
+        if (error) {
+
+
+            throw error;
+
+        }
+
+
+
+        showToast(
+            "产品创建成功，城市价格目录和商户分成规则将自动同步。",
+            "success"
+        );
+
+
+
+        closeProductModal();
+
+
+        await loadProducts();
+
+
+    }
+
+    catch(error) {
+
+
+        console.error(
+            "创建产品失败：",
+            error
+        );
+
+
+
+        showToast(
+            error.message
+            ||
+            "产品创建失败。",
+            "error"
+        );
+
+
+    }
+
+    finally {
+
+
+        button.disabled =
+            false;
+
+
+        button.textContent =
+            "创建产品";
+
+    }
+
+}
+
+
+
+/* =========================================================
+   15. UPDATE PRODUCT
+========================================================= */
+
+
+async function updateProduct() {
+
+
+    const item =
+        products.find(
+
+            product =>
+                Number(
+                    product.id
+                )
+                ===
+                Number(
+                    editingProductId
+                )
+
+        );
+
+
+
+    if (!item) {
+
+
+        showToast(
+            "没有找到该产品。",
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+
+    if (
+        item.status !==
+        "active"
+    ) {
+
+
+        showToast(
+            "已失效产品不能修改。",
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+
+    const name =
+        document.getElementById(
+            "productName"
+        )
+        .value
+        .trim();
+
+
+
+    const type =
+        document.getElementById(
+            "productType"
+        ).value;
+
+
+
+    if (!name) {
+
+
+        showToast(
+            "请输入产品名称。",
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+
+    if (
+        ![
+            "service",
+            "physical_goods"
+        ].includes(
+            type
+        )
+    ) {
+
+
+        showToast(
+            "请选择产品类型。",
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+
+    const button =
+        document.getElementById(
+            "saveProductButton"
+        );
+
+
+
+    button.disabled =
+        true;
+
+
+    button.textContent =
+        "正在保存...";
+
+
+
+    try {
+
+
+        const {
+
+            error
+
+        } =
+
+        await supabaseClient
+
+            .from(
+                "products"
+            )
+
+            .update({
+
+                product_name:
+                    name,
+
+                product_type:
+                    type
+
+            })
+
+            .eq(
+                "id",
+                editingProductId
+            );
+
+
+
+        if (error) {
+
+
+            throw error;
+
+        }
+
+
+
+        showToast(
+            "产品资料已更新。",
+            "success"
+        );
+
+
+
+        closeProductModal();
+
+
+        await loadProducts();
+
+
+    }
+
+    catch(error) {
+
+
+        console.error(
+            "修改产品失败：",
+            error
+        );
+
+
+
+        showToast(
+            error.message
+            ||
+            "产品修改失败。",
+            "error"
+        );
+
+
+    }
+
+    finally {
+
+
+        button.disabled =
+            false;
+
+
+        button.textContent =
+            "保存修改";
+
+    }
+
+}
+
+
+
+/* =========================================================
+   16. INVALIDATE
+========================================================= */
+
+
+async function invalidateProduct(
+    id
+) {
+
+
+    const item =
+        products.find(
+
+            product =>
+                Number(
+                    product.id
+                )
+                ===
+                Number(
+                    id
+                )
+
+        );
+
+
+
+    if (!item) {
+
+
+        return;
+
+    }
+
+
+
+    if (
+        item.status !==
+        "active"
+    ) {
+
+
+        return;
+
+    }
+
+
+
+    const confirmed =
+        confirm(
+
+            `确定将产品“${getProductName(item)}”设为无效吗？\n\n` +
+
+            `设为无效后不能恢复。\n` +
+
+            `对应城市价格目录和商户产品规则也将停止继续使用。\n` +
+
+            `历史订单数据不会删除。`
+
+        );
+
+
+
+    if (!confirmed) {
+
+
+        return;
+
+    }
+
+
+
+    try {
+
+
+        const {
+
+            error
+
+        } =
+
+        await supabaseClient
+
+            .from(
+                "products"
+            )
+
+            .update({
+
+                status:
+                    "inactive"
+
+            })
+
+            .eq(
+                "id",
+                Number(
+                    id
+                )
+            );
+
+
+
+        if (error) {
+
+
+            throw error;
+
+        }
+
+
+
+        showToast(
+            "产品已设为无效。",
+            "success"
+        );
+
+
+
+        await loadProducts();
+
+
+    }
+
+    catch(error) {
+
+
+        console.error(
+            "产品设为无效失败：",
+            error
+        );
+
+
+
+        showToast(
+            error.message
+            ||
+            "操作失败。",
+            "error"
+        );
+
+    }
+
+}
+
+
+
+/* =========================================================
+   17. PRODUCT HELPERS
+========================================================= */
+
+
+function getProductName(
+    item
+) {
+
+
+    return (
+
+        item?.product_name
+        ||
+        item?.name
+        ||
+        "未命名产品"
+
+    );
+
+}
+
+
+
+function getProductCode(
+    item
+) {
+
+
+    return (
+
+        item?.product_code
+        ||
+        item?.code
+        ||
+        ""
+
+    );
+
+}
+
+
+
+function getProductType(
+    item
+) {
+
+
+    const type =
+
+        item?.product_type
+        ??
+        item?.type
+        ??
+        "";
+
+
+
+    if (
+        type ===
+        "physical"
+    ) {
+
+
+        return "physical_goods";
+
+    }
+
+
+
+    return type;
+
+}
+
+
+
+/* =========================================================
+   18. PRODUCT NUMBER
+========================================================= */
+
+
+function formatProductNo(
+    item
+) {
+
+
+    if (
+        !item
+        ||
+        item.id === null
+        ||
+        item.id === undefined
+    ) {
+
+
+        return "-";
+
+    }
+
+
+
+    return String(
+        item.id
+    )
+    .padStart(
+        3,
+        "0"
+    );
+
+}
+
+
+
+/* =========================================================
+   19. TYPE
+========================================================= */
+
+
+function productTypeText(
+    type
+) {
+
+
+    if (
+        type ===
+        "service"
+    ) {
+
+
+        return "服务类";
+
+    }
+
+
+
+    if (
+        type ===
+        "physical_goods"
+    ) {
+
+
+        return "实物类";
+
+    }
+
+
+
+    return type || "-";
+
+}
+
+
+
+function productTypeBadge(
+    type
+) {
+
+
+    if (
+        type ===
+        "service"
+    ) {
+
+
+        return `
+            <span class="badge badge-service">
+                服务类
+            </span>
+        `;
+
+    }
+
+
+
+    if (
+        type ===
+        "physical_goods"
+    ) {
+
+
+        return `
+            <span class="badge badge-physical">
+                实物类
+            </span>
+        `;
+
+    }
+
+
+
+    return `
+        <span class="badge badge-inactive">
+            ${escapeHtml(type || "-")}
+        </span>
+    `;
+
+}
+
+
+
+/* =========================================================
+   20. STATUS
+========================================================= */
+
+
+function statusBadge(
+    status
+) {
+
+
+    if (
+        status ===
+        "active"
+    ) {
+
+
+        return `
+            <span class="badge badge-active">
+                正常
+            </span>
+        `;
+
+    }
+
+
+
+    return `
+        <span class="badge badge-inactive">
+            已失效
+        </span>
+    `;
+
+}
+
+
+
+/* =========================================================
+   21. DATE
+========================================================= */
+
+
+function formatDate(
+    value
+) {
+
+
+    if (!value) {
+
+
+        return "-";
+
+    }
+
+
+
+    const date =
+        new Date(
+            value
+        );
+
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+
+        return "-";
+
+    }
+
+
+
+    return date
+        .toLocaleDateString(
+            "zh-CN"
+        );
+
+}
+
+
+
+/* =========================================================
+   22. HTML SAFE
+========================================================= */
+
+
+function escapeHtml(
+    value
+) {
+
+
+    return String(
+        value
+        ??
+        ""
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+
+/* =========================================================
+   23. TOAST
+========================================================= */
+
+
+let toastTimer;
+
+
+
+function showToast(
+    text,
+    type="info"
+) {
+
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+
+    toast.textContent =
+        text;
+
+
+
+    toast.className =
+        `toast show ${type}`;
+
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+
+    toastTimer =
+        setTimeout(
+
+            () => {
+
+
+                toast.className =
+                    "toast";
+
+
+            },
+
+            3500
+
+        );
+
+}
+
+
+
+/* =========================================================
+   24. HOME
+========================================================= */
+
+
+function goHome() {
+
+
+    location.href =
+        HOME_PAGE;
+
+}
+
+
+
+/* =========================================================
+   25. LOGOUT
+========================================================= */
+
+
+async function logout() {
+
+
+    if (
+        !confirm(
+            "确定退出登录吗？"
+        )
+    ) {
+
+
+        return;
+
+    }
+
+
+
+    try {
+
+
+        await supabaseClient.auth
+            .signOut();
+
+
+    }
+
+    catch(error) {
+
+
+        console.error(
+            error
+        );
+
+    }
+
+
+
+    location.replace(
+        LOGIN_PAGE
+    );
+
+}
+
+
+
+/* =========================================================
+   26. IDLE
+========================================================= */
+
+
+let idleTimer;
+
+
+
+function resetIdle() {
+
+
+    clearTimeout(
+        idleTimer
+    );
+
+
+
+    idleTimer =
+        setTimeout(
+
+            async () => {
+
+
+                try {
+
+
+                    await supabaseClient.auth
+                        .signOut();
+
+
+                }
+
+                catch(error) {
+
+
+                    console.error(
+                        error
+                    );
+
+                }
+
+
+
+                alert(
+                    "由于10分钟未操作，系统已经自动退出。"
+                );
+
+
+
+                location.replace(
+                    LOGIN_PAGE
+                );
+
+
+            },
+
+            10 * 60 * 1000
+
+        );
+
+}
+
+
+
+[
+    "click",
+    "touchstart",
+    "keydown",
+    "mousemove",
+    "scroll"
+]
+.forEach(
+
+    eventName => {
+
+
+        document.addEventListener(
+
+            eventName,
+
+            resetIdle,
+
+            {
+                passive:true
+            }
+
+        );
+
+    }
+
+);
+
+
+
+/* =========================================================
+   27. AUTH
+========================================================= */
+
+
+supabaseClient.auth
+
+    .onAuthStateChange(
+
+        (
+            event,
+            session
+        ) => {
+
+
+            if (
+                event ===
+                "SIGNED_OUT"
+            ) {
+
+
+                location.replace(
+                    LOGIN_PAGE
+                );
+
+            }
+
+        }
+
+    );
+
+
+
+/* =========================================================
+   28. START
+========================================================= */
+
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    () => {
+
+
+        resetIdle();
+
+
+        initialize();
+
+    }
+
+);
+
+
+</script>
+
+
+</body>
+
+</html>

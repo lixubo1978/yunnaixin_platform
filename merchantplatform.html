@@ -1,1 +1,3548 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="
+        width=device-width,
+        initial-scale=1.0,
+        maximum-scale=1.0,
+        viewport-fit=cover
+    "
+>
+
+<meta
+    name="theme-color"
+    content="#fff7fa"
+>
+
+<title>孕乃馨 - 商户工作台</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<style>
+
+:root {
+
+    --pink-50:#fff7fa;
+    --pink-100:#ffeef4;
+    --pink-200:#ffd9e7;
+    --pink-300:#f8bdd2;
+    --pink-400:#f28aae;
+    --pink-500:#e85d8f;
+    --pink-600:#d94d7d;
+    --pink-700:#b93667;
+
+    --rose:#6b2945;
+
+    --text:#282329;
+    --text2:#716a72;
+    --text3:#a49ba1;
+
+    --border:#eee4e9;
+
+    --green:#1f8a63;
+    --green-bg:#eefaf5;
+
+    --yellow:#a66d11;
+    --yellow-bg:#fff7e8;
+
+    --gray-bg:#f4f1f3;
+
+    --shadow:
+        0 10px 30px
+        rgba(123,50,79,.07);
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+
+    box-sizing:border-box;
+
+    -webkit-tap-highlight-color:
+        transparent;
+
+}
+
+
+html,
+body {
+
+    margin:0;
+
+    min-height:100%;
+
+}
+
+
+body {
+
+    min-height:100vh;
+    min-height:100dvh;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fff9fb 0%,
+            #faf8f9 55%,
+            #f8f7f8 100%
+        );
+
+    color:
+        var(--text);
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "PingFang SC",
+        "Microsoft YaHei",
+        Arial,
+        sans-serif;
+
+    -webkit-font-smoothing:
+        antialiased;
+
+}
+
+
+button,
+input,
+select {
+
+    font:inherit;
+
+}
+
+
+button {
+
+    cursor:pointer;
+
+}
+
+
+.hidden {
+
+    display:none !important;
+
+}
+
+
+/* =========================================================
+   顶部
+========================================================= */
+
+.topbar {
+
+    min-height:68px;
+
+    padding:
+        8px
+        24px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:16px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .95
+        );
+
+    backdrop-filter:
+        blur(16px);
+
+    -webkit-backdrop-filter:
+        blur(16px);
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+}
+
+
+.brand {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    min-width:0;
+
+}
+
+
+.brand img {
+
+    width:42px;
+    height:42px;
+
+    flex:
+        0 0 42px;
+
+    border-radius:12px;
+
+    object-fit:contain;
+
+}
+
+
+.brand-title {
+
+    font-size:18px;
+
+    font-weight:750;
+
+    color:
+        var(--rose);
+
+}
+
+
+.brand-sub {
+
+    margin-top:2px;
+
+    font-size:11px;
+
+    color:
+        var(--text3);
+
+}
+
+
+.top-right {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+
+.top-merchant {
+
+    text-align:right;
+
+}
+
+
+.top-merchant-name {
+
+    font-size:13px;
+
+    font-weight:700;
+
+}
+
+
+.top-merchant-no {
+
+    margin-top:2px;
+
+    font-size:10px;
+
+    color:
+        var(--text3);
+
+}
+
+
+.logout-button {
+
+    min-height:44px;
+
+    padding:
+        0
+        15px;
+
+    border:0;
+
+    border-radius:12px;
+
+    color:#fff;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--pink-500),
+            var(--pink-600)
+        );
+
+}
+
+
+/* =========================================================
+   主体
+========================================================= */
+
+.main {
+
+    width:100%;
+
+    max-width:1450px;
+
+    margin:
+        0 auto;
+
+    padding:28px;
+
+}
+
+
+/* =========================================================
+   欢迎区域
+========================================================= */
+
+.hero {
+
+    position:relative;
+
+    overflow:hidden;
+
+    margin-bottom:18px;
+
+    padding:
+        28px
+        30px;
+
+    border:
+        1px solid
+        rgba(
+            232,
+            93,
+            143,
+            .10
+        );
+
+    border-radius:22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff0f5,
+            #ffe1ec
+        );
+
+    box-shadow:
+        var(--shadow);
+
+}
+
+
+.hero::after {
+
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    right:-55px;
+    top:-70px;
+
+    border-radius:50%;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .32
+        );
+
+}
+
+
+.hero-content {
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+
+.hero-tag {
+
+    display:inline-flex;
+
+    align-items:center;
+
+    min-height:27px;
+
+    padding:
+        3px
+        10px;
+
+    margin-bottom:9px;
+
+    border-radius:999px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .72
+        );
+
+    color:
+        var(--pink-700);
+
+    font-size:10px;
+
+    font-weight:750;
+
+}
+
+
+.hero h1 {
+
+    margin:
+        0
+        0
+        6px;
+
+    font-size:26px;
+
+    color:
+        var(--rose);
+
+}
+
+
+.hero p {
+
+    margin:0;
+
+    font-size:13px;
+
+    color:
+        #875064;
+
+    line-height:1.8;
+
+}
+
+
+/* =========================================================
+   商户基础信息
+========================================================= */
+
+.section-title {
+
+    margin:
+        0
+        0
+        12px;
+
+    font-size:18px;
+
+    font-weight:750;
+
+}
+
+
+.info-grid {
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            4,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap:12px;
+
+    margin-bottom:25px;
+
+}
+
+
+.info-card {
+
+    min-height:105px;
+
+    padding:16px;
+
+    background:#fff;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:16px;
+
+}
+
+
+.info-label {
+
+    margin-bottom:7px;
+
+    font-size:10px;
+
+    color:
+        var(--text3);
+
+}
+
+
+.info-value {
+
+    font-size:14px;
+
+    font-weight:700;
+
+    word-break:
+        break-word;
+
+}
+
+
+.info-sub {
+
+    margin-top:4px;
+
+    font-size:10px;
+
+    color:
+        var(--text3);
+
+}
+
+
+/* =========================================================
+   规则标题与筛选
+========================================================= */
+
+.rules-head {
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+    margin-bottom:12px;
+
+}
+
+
+.rules-title-group h2 {
+
+    margin:0;
+
+    font-size:18px;
+
+}
+
+
+.rules-title-group p {
+
+    margin:
+        4px
+        0
+        0;
+
+    font-size:11px;
+
+    color:
+        var(--text3);
+
+}
+
+
+.rule-count {
+
+    padding:
+        6px
+        11px;
+
+    border-radius:999px;
+
+    background:
+        var(--pink-50);
+
+    color:
+        var(--pink-700);
+
+    font-size:11px;
+
+    font-weight:700;
+
+}
+
+
+/* =========================================================
+   表格
+========================================================= */
+
+.table-panel {
+
+    overflow:hidden;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:18px;
+
+    background:#fff;
+
+}
+
+
+.table-scroll {
+
+    overflow-x:auto;
+
+}
+
+
+table {
+
+    width:100%;
+
+    min-width:1050px;
+
+    border-collapse:
+        collapse;
+
+}
+
+
+th {
+
+    padding:
+        13px
+        12px;
+
+    text-align:left;
+
+    white-space:nowrap;
+
+    background:
+        #fffafb;
+
+    color:
+        #837980;
+
+    font-size:11px;
+
+}
+
+
+td {
+
+    padding:
+        14px
+        12px;
+
+    border-top:
+        1px solid
+        #f1eaee;
+
+    font-size:12px;
+
+    vertical-align:middle;
+
+}
+
+
+.product-name {
+
+    font-weight:700;
+
+}
+
+
+.product-code {
+
+    margin-top:3px;
+
+    color:
+        var(--text3);
+
+    font-size:10px;
+
+}
+
+
+.value-defined {
+
+    font-weight:700;
+
+    color:
+        var(--text);
+
+}
+
+
+.value-undefined {
+
+    display:inline-flex;
+
+    align-items:center;
+
+    min-height:25px;
+
+    padding:
+        3px
+        8px;
+
+    border-radius:999px;
+
+    background:
+        var(--yellow-bg);
+
+    color:
+        var(--yellow);
+
+    font-size:10px;
+
+    font-weight:700;
+
+}
+
+
+.status-badge {
+
+    display:inline-flex;
+
+    align-items:center;
+
+    min-height:25px;
+
+    padding:
+        3px
+        8px;
+
+    border-radius:999px;
+
+    background:
+        var(--green-bg);
+
+    color:
+        var(--green);
+
+    font-size:10px;
+
+    font-weight:700;
+
+}
+
+
+/* =========================================================
+   手机列表
+========================================================= */
+
+.mobile-list {
+
+    display:none;
+
+}
+
+
+.rule-card {
+
+    margin-bottom:10px;
+
+    padding:16px;
+
+    background:#fff;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:16px;
+
+}
+
+
+.rule-card-head {
+
+    display:flex;
+
+    align-items:flex-start;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    margin-bottom:13px;
+
+}
+
+
+.rule-card-name {
+
+    font-size:15px;
+
+    font-weight:750;
+
+}
+
+
+.rule-card-code {
+
+    margin-top:3px;
+
+    color:
+        var(--text3);
+
+    font-size:10px;
+
+}
+
+
+.rule-grid {
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap:8px;
+
+}
+
+
+.rule-item {
+
+    padding:10px;
+
+    border-radius:11px;
+
+    background:
+        #fcfafb;
+
+}
+
+
+.rule-label {
+
+    font-size:10px;
+
+    color:
+        var(--text3);
+
+}
+
+
+.rule-value {
+
+    margin-top:3px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+}
+
+
+/* =========================================================
+   空状态
+========================================================= */
+
+.empty {
+
+    padding:
+        60px
+        20px;
+
+    text-align:center;
+
+    color:
+        var(--text3);
+
+}
+
+
+.empty-icon {
+
+    margin-bottom:8px;
+
+    font-size:34px;
+
+}
+
+
+/* =========================================================
+   提示
+========================================================= */
+
+.notice {
+
+    margin-top:13px;
+
+    padding:
+        13px
+        15px;
+
+    border-radius:13px;
+
+    background:
+        var(--pink-50);
+
+    color:
+        #82516a;
+
+    font-size:11px;
+
+    line-height:1.8;
+
+}
+
+
+/* =========================================================
+   Loading
+========================================================= */
+
+.loading {
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:9999;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:12px;
+
+    background:#fffafd;
+
+}
+
+
+.spinner {
+
+    width:40px;
+    height:40px;
+
+    border:
+        4px solid
+        var(--pink-100);
+
+    border-top-color:
+        var(--pink-500);
+
+    border-radius:50%;
+
+    animation:
+        spin .8s linear infinite;
+
+}
+
+
+@keyframes spin {
+
+    to {
+
+        transform:
+            rotate(360deg);
+
+    }
+
+}
+
+
+.loading-text {
+
+    color:
+        var(--text2);
+
+    font-size:12px;
+
+}
+
+
+/* =========================================================
+   响应式
+========================================================= */
+
+@media
+(max-width:1000px) {
+
+    .info-grid {
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(
+                    0,
+                    1fr
+                )
+            );
+
+    }
+
+}
+
+
+@media
+(max-width:760px) {
+
+    .topbar {
+
+        min-height:64px;
+
+        padding:
+            max(
+                5px,
+                env(
+                    safe-area-inset-top
+                )
+            )
+            11px
+            5px;
+
+    }
+
+
+    .brand img {
+
+        width:38px;
+        height:38px;
+
+        flex-basis:38px;
+
+    }
+
+
+    .brand-title {
+
+        font-size:16px;
+
+    }
+
+
+    .brand-sub {
+
+        display:none;
+
+    }
+
+
+    .top-merchant {
+
+        display:none;
+
+    }
+
+
+    .logout-button {
+
+        min-height:42px;
+
+        padding:
+            0
+            13px;
+
+        font-size:11px;
+
+    }
+
+
+    .main {
+
+        padding:
+            14px
+            11px
+            25px;
+
+    }
+
+
+    .hero {
+
+        padding:
+            21px
+            18px;
+
+        border-radius:18px;
+
+        margin-bottom:13px;
+
+    }
+
+
+    .hero h1 {
+
+        font-size:21px;
+
+    }
+
+
+    .hero p {
+
+        font-size:12px;
+
+    }
+
+
+    .section-title {
+
+        font-size:17px;
+
+    }
+
+
+    .info-grid {
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(
+                    0,
+                    1fr
+                )
+            );
+
+        gap:8px;
+
+        margin-bottom:20px;
+
+    }
+
+
+    .info-card {
+
+        min-height:94px;
+
+        padding:13px;
+
+        border-radius:14px;
+
+    }
+
+
+    .info-value {
+
+        font-size:12px;
+
+    }
+
+
+    .rules-head {
+
+        align-items:flex-end;
+
+    }
+
+
+    .rules-title-group h2 {
+
+        font-size:17px;
+
+    }
+
+
+    .rules-title-group p {
+
+        font-size:10px;
+
+    }
+
+
+    .table-panel {
+
+        border:0;
+
+        background:transparent;
+
+    }
+
+
+    .table-scroll {
+
+        display:none;
+
+    }
+
+
+    .mobile-list {
+
+        display:block;
+
+    }
+
+
+    .empty {
+
+        padding:
+            40px
+            15px;
+
+        background:#fff;
+
+        border:
+            1px solid
+            var(--border);
+
+        border-radius:16px;
+
+    }
+
+}
+
+
+@media
+(max-width:390px) {
+
+    .main {
+
+        padding-left:9px;
+
+        padding-right:9px;
+
+    }
+
+
+    .info-grid {
+
+        grid-template-columns:
+            1fr
+            1fr;
+
+    }
+
+
+    .rule-grid {
+
+        grid-template-columns:
+            1fr
+            1fr;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     Loading
+========================================================= -->
+
+<div
+    id="loading"
+    class="loading"
+>
+
+    <div class="spinner"></div>
+
+    <div class="loading-text">
+        正在读取商户资料...
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     顶部
+========================================================= -->
+
+<header class="topbar">
+
+
+    <div class="brand">
+
+
+        <img
+            src="./logo.jpeg"
+            alt="孕乃馨"
+        >
+
+
+        <div>
+
+
+            <div class="brand-title">
+                孕乃馨商户平台
+            </div>
+
+
+            <div class="brand-sub">
+                Merchant Platform
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="top-right">
+
+
+        <div class="top-merchant">
+
+
+            <div
+                id="topMerchantName"
+                class="top-merchant-name"
+            >
+                -
+            </div>
+
+
+            <div
+                id="topMerchantNo"
+                class="top-merchant-no"
+            >
+                -
+            </div>
+
+
+        </div>
+
+
+        <button
+            type="button"
+            class="logout-button"
+            onclick="logout()"
+        >
+            退出
+        </button>
+
+
+    </div>
+
+
+</header>
+
+
+
+<!-- =========================================================
+     主页面
+========================================================= -->
+
+<main class="main">
+
+
+    <!-- =====================================================
+         欢迎
+    ====================================================== -->
+
+    <section class="hero">
+
+
+        <div class="hero-content">
+
+
+            <div class="hero-tag">
+                MERCHANT CENTER
+            </div>
+
+
+            <h1 id="welcomeTitle">
+                欢迎进入商户管理平台
+            </h1>
+
+
+            <p>
+                您可以查看平台为当前商户配置的服务区域、城市销售价格及产品分成规则。
+                分成规则由平台统一维护，商户端仅供查看。
+            </p>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         商户基本资料
+    ====================================================== -->
+
+    <h2 class="section-title">
+        商户信息
+    </h2>
+
+
+    <section class="info-grid">
+
+
+        <div class="info-card">
+
+
+            <div class="info-label">
+                商户编号
+            </div>
+
+
+            <div
+                id="merchantNo"
+                class="info-value"
+            >
+                -
+            </div>
+
+
+        </div>
+
+
+
+        <div class="info-card">
+
+
+            <div class="info-label">
+                商户名称
+            </div>
+
+
+            <div
+                id="merchantName"
+                class="info-value"
+            >
+                -
+            </div>
+
+
+        </div>
+
+
+
+        <div class="info-card">
+
+
+            <div class="info-label">
+                商户类型
+            </div>
+
+
+            <div
+                id="merchantType"
+                class="info-value"
+            >
+                -
+            </div>
+
+
+        </div>
+
+
+
+        <div class="info-card">
+
+
+            <div class="info-label">
+                已开通服务区域
+            </div>
+
+
+            <div
+                id="serviceArea"
+                class="info-value"
+            >
+                -
+            </div>
+
+
+        </div>
+
+
+
+        <div class="info-card">
+
+
+            <div class="info-label">
+                联系人
+            </div>
+
+
+            <div
+                id="contactName"
+                class="info-value"
+            >
+                -
+            </div>
+
+
+        </div>
+
+
+
+        <div class="info-card">
+
+
+            <div class="info-label">
+                联系电话
+            </div>
+
+
+            <div
+                id="phone"
+                class="info-value"
+            >
+                -
+            </div>
+
+
+        </div>
+
+
+
+        <div class="info-card">
+
+
+            <div class="info-label">
+                登录账号
+            </div>
+
+
+            <div
+                id="loginEmail"
+                class="info-value"
+            >
+                -
+            </div>
+
+
+        </div>
+
+
+
+        <div class="info-card">
+
+
+            <div class="info-label">
+                当前状态
+            </div>
+
+
+            <div
+                id="merchantStatus"
+                class="info-value"
+            >
+                -
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         产品规则
+    ====================================================== -->
+
+    <div class="rules-head">
+
+
+        <div class="rules-title-group">
+
+
+            <h2>
+                产品与分成规则
+            </h2>
+
+
+            <p>
+                平台产品自动显示，规则由平台管理人员统一维护
+            </p>
+
+
+        </div>
+
+
+        <div
+            id="ruleCount"
+            class="rule-count"
+        >
+            0 项
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         电脑表格
+    ====================================================== -->
+
+    <section class="table-panel">
+
+
+        <div class="table-scroll">
+
+
+            <table>
+
+
+                <thead>
+
+
+                    <tr>
+
+                        <th>产品</th>
+
+                        <th>城市销售价</th>
+
+                        <th>税率</th>
+
+                        <th>平台比例</th>
+
+                        <th>门店比例</th>
+
+                        <th>操作人员比例</th>
+
+                        <th>状态</th>
+
+                    </tr>
+
+
+                </thead>
+
+
+                <tbody id="rulesTable">
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+
+        <!-- 手机 -->
+
+        <div
+            id="mobileRules"
+            class="mobile-list"
+        >
+        </div>
+
+
+
+        <div
+            id="emptyRules"
+            class="empty hidden"
+        >
+
+            <div class="empty-icon">
+                📋
+            </div>
+
+            当前暂无产品分成规则
+
+        </div>
+
+
+    </section>
+
+
+
+    <div class="notice">
+
+        如需调整税率、平台比例、门店比例或操作人员比例，请联系孕乃馨平台管理人员。
+        商户账号不能自行修改分成规则。
+
+    </div>
+
+
+</main>
+
+
+
+<script>
+
+
+/* =========================================================
+   01. Supabase
+========================================================= */
+
+
+const SUPABASE_URL =
+    "https://qbuqjwpkltbjhlfbyjyb.supabase.co";
+
+
+const SUPABASE_ANON_KEY =
+    "sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+
+        SUPABASE_URL,
+
+        SUPABASE_ANON_KEY,
+
+        {
+
+            auth:{
+
+                persistSession:true,
+
+                autoRefreshToken:true
+
+            }
+
+        }
+
+    );
+
+
+const LOGIN_PAGE =
+    "./login.html";
+
+
+
+/* =========================================================
+   02. 页面数据
+========================================================= */
+
+
+let currentUser =
+    null;
+
+
+let currentProfile =
+    null;
+
+
+let currentMerchant =
+    null;
+
+
+let currentServiceArea =
+    null;
+
+
+let provinces =
+    [];
+
+
+let cities =
+    [];
+
+
+let productsMap =
+    new Map();
+
+
+let cityPricesMap =
+    new Map();
+
+
+let merchantRules =
+    [];
+
+
+
+/* =========================================================
+   03. 初始化
+========================================================= */
+
+
+async function initialize() {
+
+
+    try {
+
+
+        const {
+
+            data:{
+                session
+            },
+
+            error:sessionError
+
+        } =
+
+        await supabaseClient.auth
+            .getSession();
+
+
+
+        if (
+            sessionError
+            ||
+            !session
+        ) {
+
+
+            location.replace(
+                LOGIN_PAGE
+            );
+
+
+            return;
+
+        }
+
+
+
+        currentUser =
+            session.user;
+
+
+
+        await verifyMerchantProfile();
+
+
+
+        await Promise.all([
+
+            loadRegions(),
+
+            loadProducts()
+
+        ]);
+
+
+
+        await loadMerchant();
+
+
+
+        await loadServiceArea();
+
+
+
+        await Promise.all([
+
+            loadCityPrices(),
+
+            loadMerchantRules()
+
+        ]);
+
+
+
+        renderMerchantInfo();
+
+
+        renderRules();
+
+
+
+        document.getElementById(
+            "loading"
+        ).style.display =
+            "none";
+
+
+    }
+
+    catch(error) {
+
+
+        console.error(
+            "商户平台初始化失败：",
+            error
+        );
+
+
+        document.getElementById(
+            "loading"
+        ).style.display =
+            "none";
+
+
+        alert(
+            error.message
+            ||
+            "商户平台加载失败。"
+        );
+
+    }
+
+}
+
+
+
+/* =========================================================
+   04. 验证商户身份
+========================================================= */
+
+
+async function verifyMerchantProfile() {
+
+
+    const {
+
+        data,
+
+        error
+
+    } =
+
+    await supabaseClient
+
+        .from(
+            "profiles"
+        )
+
+        .select(`
+            id,
+            account_no,
+            full_name,
+            login_email,
+            role,
+            status
+        `)
+
+        .eq(
+            "id",
+            currentUser.id
+        )
+
+        .maybeSingle();
+
+
+
+    if (
+        error
+        ||
+        !data
+    ) {
+
+
+        throw new Error(
+            "无法读取当前账号资料。"
+        );
+
+    }
+
+
+
+    if (
+        data.role !==
+        "merchant"
+    ) {
+
+
+        await supabaseClient.auth
+            .signOut();
+
+
+        throw new Error(
+            "当前账号不是商户账号。"
+        );
+
+    }
+
+
+
+    if (
+        data.status !==
+        "active"
+    ) {
+
+
+        await supabaseClient.auth
+            .signOut();
+
+
+        throw new Error(
+            "当前商户账号已经停用。"
+        );
+
+    }
+
+
+
+    currentProfile =
+        data;
+
+}
+
+
+
+/* =========================================================
+   05. 读取商户
+========================================================= */
+
+
+async function loadMerchant() {
+
+
+    const {
+
+        data,
+
+        error
+
+    } =
+
+    await supabaseClient
+
+        .from(
+            "merchants"
+        )
+
+        .select(`
+            id,
+            auth_user_id,
+            record_no,
+            merchant_code,
+            merchant_name,
+            merchant_type,
+            service_area_id,
+            province_id,
+            city_id,
+            district_id,
+            contact_name,
+            phone,
+            email,
+            certification_status,
+            status
+        `)
+
+        .eq(
+            "auth_user_id",
+            currentUser.id
+        )
+
+        .maybeSingle();
+
+
+
+    if (error) {
+
+
+        throw error;
+
+    }
+
+
+
+    if (!data) {
+
+
+        throw new Error(
+            "没有找到当前账号对应的商户资料。"
+        );
+
+    }
+
+
+
+    if (
+        data.status !==
+        "active"
+    ) {
+
+
+        throw new Error(
+            "当前商户已经设为无效。"
+        );
+
+    }
+
+
+
+    currentMerchant =
+        data;
+
+}
+
+
+
+/* =========================================================
+   06. 行政区域
+========================================================= */
+
+
+async function loadRegions() {
+
+
+    const [
+
+        provinceResult,
+
+        cityResult
+
+    ] =
+
+    await Promise.all([
+
+
+        supabaseClient
+
+            .from(
+                "provinces"
+            )
+
+            .select(`
+                id,
+                province_name
+            `),
+
+
+        supabaseClient
+
+            .from(
+                "cities"
+            )
+
+            .select(`
+                id,
+                province_id,
+                city_name
+            `)
+
+
+    ]);
+
+
+
+    if (
+        provinceResult.error
+    ) {
+
+
+        throw provinceResult.error;
+
+    }
+
+
+
+    if (
+        cityResult.error
+    ) {
+
+
+        throw cityResult.error;
+
+    }
+
+
+
+    provinces =
+        provinceResult.data
+        ||
+        [];
+
+
+    cities =
+        cityResult.data
+        ||
+        [];
+
+}
+
+
+
+/* =========================================================
+   07. 产品
+========================================================= */
+
+
+async function loadProducts() {
+
+
+    const {
+
+        data,
+
+        error
+
+    } =
+
+    await supabaseClient
+
+        .from(
+            "products"
+        )
+
+        .select("*");
+
+
+
+    if (error) {
+
+
+        throw error;
+
+    }
+
+
+
+    productsMap =
+        new Map();
+
+
+
+    (data || [])
+    .forEach(
+
+        item => {
+
+
+            productsMap.set(
+
+                String(
+                    item.id
+                ),
+
+                item
+
+            );
+
+        }
+
+    );
+
+}
+
+
+
+/* =========================================================
+   08. 服务区域
+========================================================= */
+
+
+async function loadServiceArea() {
+
+
+    if (
+        !currentMerchant.service_area_id
+    ) {
+
+
+        currentServiceArea =
+            null;
+
+
+        return;
+
+    }
+
+
+
+    const {
+
+        data,
+
+        error
+
+    } =
+
+    await supabaseClient
+
+        .from(
+            "service_areas"
+        )
+
+        .select(`
+            id,
+            area_no,
+            province_id,
+            city_id,
+            district_id,
+            status,
+            merchant_split_enabled
+        `)
+
+        .eq(
+            "id",
+            currentMerchant.service_area_id
+        )
+
+        .maybeSingle();
+
+
+
+    if (error) {
+
+
+        throw error;
+
+    }
+
+
+
+    currentServiceArea =
+        data
+        ||
+        null;
+
+}
+
+
+
+/* =========================================================
+   09. 城市价格
+========================================================= */
+
+
+async function loadCityPrices() {
+
+
+    let cityId =
+        currentServiceArea?.city_id
+        ??
+        currentMerchant.city_id;
+
+
+
+    cityPricesMap =
+        new Map();
+
+
+
+    if (!cityId) {
+
+
+        return;
+
+    }
+
+
+
+    const {
+
+        data,
+
+        error
+
+    } =
+
+    await supabaseClient
+
+        .from(
+            "city_prices"
+        )
+
+        .select(`
+            city_id,
+            product_id,
+            price,
+            status
+        `)
+
+        .eq(
+            "city_id",
+            cityId
+        );
+
+
+
+    if (error) {
+
+
+        throw error;
+
+    }
+
+
+
+    (data || [])
+    .forEach(
+
+        item => {
+
+
+            if (
+                item.status !==
+                "active"
+            ) {
+
+
+                return;
+
+            }
+
+
+
+            cityPricesMap.set(
+
+                String(
+                    item.product_id
+                ),
+
+                item
+
+            );
+
+        }
+
+    );
+
+}
+
+
+
+/* =========================================================
+   10. 商户分成规则
+========================================================= */
+
+
+async function loadMerchantRules() {
+
+
+    const {
+
+        data,
+
+        error
+
+    } =
+
+    await supabaseClient
+
+        .from(
+            "merchant_product_rules"
+        )
+
+        .select(`
+            id,
+            merchant_id,
+            product_id,
+            tax_rate,
+            platform_ratio,
+            store_ratio,
+            operator_ratio,
+            status,
+            created_at,
+            updated_at
+        `)
+
+        .eq(
+            "merchant_id",
+            currentMerchant.id
+        )
+
+        .eq(
+            "status",
+            "active"
+        )
+
+        .order(
+            "product_id",
+            {
+                ascending:true
+            }
+        );
+
+
+
+    if (error) {
+
+
+        throw error;
+
+    }
+
+
+
+    merchantRules =
+        data
+        ||
+        [];
+
+}
+
+
+
+/* =========================================================
+   11. 商户资料显示
+========================================================= */
+
+
+function renderMerchantInfo() {
+
+
+    const merchantNo =
+        formatAccountNo(
+
+            currentProfile.account_no
+            ??
+            currentMerchant.record_no
+
+        );
+
+
+
+    const merchantName =
+        currentMerchant.merchant_name
+        ||
+        currentProfile.full_name
+        ||
+        "商户";
+
+
+
+    document.getElementById(
+        "topMerchantName"
+    ).textContent =
+        merchantName;
+
+
+
+    document.getElementById(
+        "topMerchantNo"
+    ).textContent =
+        `编号 ${merchantNo}`;
+
+
+
+    document.getElementById(
+        "welcomeTitle"
+    ).textContent =
+        `欢迎回来，${merchantName}`;
+
+
+
+    document.getElementById(
+        "merchantNo"
+    ).textContent =
+        merchantNo;
+
+
+
+    document.getElementById(
+        "merchantName"
+    ).textContent =
+        merchantName;
+
+
+
+    document.getElementById(
+        "merchantType"
+    ).textContent =
+        merchantTypeText(
+            currentMerchant.merchant_type
+        );
+
+
+
+    document.getElementById(
+        "serviceArea"
+    ).textContent =
+        serviceAreaText();
+
+
+
+    document.getElementById(
+        "contactName"
+    ).textContent =
+        currentMerchant.contact_name
+        ||
+        "-";
+
+
+
+    document.getElementById(
+        "phone"
+    ).textContent =
+        currentMerchant.phone
+        ||
+        "-";
+
+
+
+    document.getElementById(
+        "loginEmail"
+    ).textContent =
+        currentProfile.login_email
+        ||
+        currentUser.email
+        ||
+        "-";
+
+
+
+    document.getElementById(
+        "merchantStatus"
+    ).innerHTML =
+        `
+        <span class="status-badge">
+            正常
+        </span>
+        `;
+
+}
+
+
+
+/* =========================================================
+   12. 服务区域文字
+========================================================= */
+
+
+function serviceAreaText() {
+
+
+    const provinceId =
+        currentServiceArea?.province_id
+        ??
+        currentMerchant.province_id;
+
+
+
+    const cityId =
+        currentServiceArea?.city_id
+        ??
+        currentMerchant.city_id;
+
+
+
+    const province =
+        provinceName(
+            provinceId
+        );
+
+
+    const city =
+        cityName(
+            cityId
+        );
+
+
+
+    if (
+        province !== "-"
+        &&
+        city !== "-"
+    ) {
+
+
+        return (
+            province
+            +
+            " · "
+            +
+            city
+        );
+
+    }
+
+
+
+    return (
+        city !== "-"
+        ?
+        city
+        :
+        province
+    );
+
+}
+
+
+
+/* =========================================================
+   13. 渲染规则
+========================================================= */
+
+
+function renderRules() {
+
+
+    document.getElementById(
+        "ruleCount"
+    ).textContent =
+        `${merchantRules.length} 项`;
+
+
+
+    const tbody =
+        document.getElementById(
+            "rulesTable"
+        );
+
+
+    const mobile =
+        document.getElementById(
+            "mobileRules"
+        );
+
+
+    const empty =
+        document.getElementById(
+            "emptyRules"
+        );
+
+
+
+    tbody.innerHTML =
+        "";
+
+
+    mobile.innerHTML =
+        "";
+
+
+
+    if (
+        merchantRules.length === 0
+    ) {
+
+
+        empty.classList.remove(
+            "hidden"
+        );
+
+
+        return;
+
+    }
+
+
+
+    empty.classList.add(
+        "hidden"
+    );
+
+
+
+    merchantRules.forEach(
+
+        rule => {
+
+
+            const product =
+                productsMap.get(
+                    String(
+                        rule.product_id
+                    )
+                );
+
+
+
+            const productName =
+                getProductName(
+                    product
+                );
+
+
+
+            const productCode =
+                getProductCode(
+                    product
+                );
+
+
+
+            const cityPrice =
+                cityPricesMap.get(
+                    String(
+                        rule.product_id
+                    )
+                )?.price
+                ??
+                null;
+
+
+
+            tbody.insertAdjacentHTML(
+
+                "beforeend",
+
+                `
+                <tr>
+
+                    <td>
+
+                        <div class="product-name">
+                            ${escapeHtml(productName)}
+                        </div>
+
+                        <div class="product-code">
+                            ${escapeHtml(productCode)}
+                        </div>
+
+                    </td>
+
+
+                    <td>
+                        ${formatPrice(cityPrice)}
+                    </td>
+
+
+                    <td>
+                        ${formatPercent(rule.tax_rate)}
+                    </td>
+
+
+                    <td>
+                        ${formatPercent(rule.platform_ratio)}
+                    </td>
+
+
+                    <td>
+                        ${formatPercent(rule.store_ratio)}
+                    </td>
+
+
+                    <td>
+                        ${formatPercent(rule.operator_ratio)}
+                    </td>
+
+
+                    <td>
+
+                        <span class="status-badge">
+                            有效
+                        </span>
+
+                    </td>
+
+                </tr>
+                `
+
+            );
+
+
+
+            mobile.insertAdjacentHTML(
+
+                "beforeend",
+
+                `
+                <div class="rule-card">
+
+
+                    <div class="rule-card-head">
+
+
+                        <div>
+
+
+                            <div class="rule-card-name">
+                                ${escapeHtml(productName)}
+                            </div>
+
+
+                            <div class="rule-card-code">
+                                ${escapeHtml(productCode)}
+                            </div>
+
+
+                        </div>
+
+
+                        <span class="status-badge">
+                            有效
+                        </span>
+
+
+                    </div>
+
+
+
+                    <div class="rule-grid">
+
+
+                        <div class="rule-item">
+
+                            <div class="rule-label">
+                                城市销售价
+                            </div>
+
+                            <div class="rule-value">
+                                ${formatPrice(cityPrice)}
+                            </div>
+
+                        </div>
+
+
+                        <div class="rule-item">
+
+                            <div class="rule-label">
+                                税率
+                            </div>
+
+                            <div class="rule-value">
+                                ${formatPercent(rule.tax_rate)}
+                            </div>
+
+                        </div>
+
+
+                        <div class="rule-item">
+
+                            <div class="rule-label">
+                                平台比例
+                            </div>
+
+                            <div class="rule-value">
+                                ${formatPercent(rule.platform_ratio)}
+                            </div>
+
+                        </div>
+
+
+                        <div class="rule-item">
+
+                            <div class="rule-label">
+                                门店比例
+                            </div>
+
+                            <div class="rule-value">
+                                ${formatPercent(rule.store_ratio)}
+                            </div>
+
+                        </div>
+
+
+                        <div class="rule-item">
+
+                            <div class="rule-label">
+                                操作人员比例
+                            </div>
+
+                            <div class="rule-value">
+                                ${formatPercent(rule.operator_ratio)}
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+                `
+
+            );
+
+        }
+
+    );
+
+}
+
+
+
+/* =========================================================
+   14. 产品名称
+========================================================= */
+
+
+function getProductName(
+    product
+) {
+
+
+    if (!product) {
+
+
+        return "未知产品";
+
+    }
+
+
+
+    return (
+
+        product.product_name
+        ||
+        product.name
+        ||
+        "未命名产品"
+
+    );
+
+}
+
+
+
+/* =========================================================
+   15. 产品代码
+========================================================= */
+
+
+function getProductCode(
+    product
+) {
+
+
+    if (!product) {
+
+
+        return "-";
+
+    }
+
+
+
+    return (
+
+        product.product_code
+        ||
+        product.code
+        ||
+        ""
+
+    );
+
+}
+
+
+
+/* =========================================================
+   16. 金额
+========================================================= */
+
+
+function formatPrice(
+    value
+) {
+
+
+    if (
+        value === null
+        ||
+        value === undefined
+        ||
+        value === ""
+    ) {
+
+
+        return `
+            <span class="value-undefined">
+                未定义
+            </span>
+        `;
+
+    }
+
+
+
+    const number =
+        Number(
+            value
+        );
+
+
+
+    if (
+        Number.isNaN(
+            number
+        )
+    ) {
+
+
+        return `
+            <span class="value-defined">
+                ${escapeHtml(value)}
+            </span>
+        `;
+
+    }
+
+
+
+    return `
+        <span class="value-defined">
+            ¥${number.toFixed(2)}
+        </span>
+    `;
+
+}
+
+
+
+/* =========================================================
+   17. 百分比
+========================================================= */
+
+
+function formatPercent(
+    value
+) {
+
+
+    if (
+        value === null
+        ||
+        value === undefined
+        ||
+        value === ""
+    ) {
+
+
+        return `
+            <span class="value-undefined">
+                未定义
+            </span>
+        `;
+
+    }
+
+
+
+    return `
+        <span class="value-defined">
+            ${escapeHtml(value)}%
+        </span>
+    `;
+
+}
+
+
+
+/* =========================================================
+   18. 地区名称
+========================================================= */
+
+
+function provinceName(
+    id
+) {
+
+
+    if (!id) {
+
+
+        return "-";
+
+    }
+
+
+
+    return (
+
+        provinces.find(
+
+            item =>
+                String(
+                    item.id
+                )
+                ===
+                String(
+                    id
+                )
+
+        )?.province_name
+
+        ||
+
+        "-"
+
+    );
+
+}
+
+
+
+function cityName(
+    id
+) {
+
+
+    if (!id) {
+
+
+        return "-";
+
+    }
+
+
+
+    return (
+
+        cities.find(
+
+            item =>
+                String(
+                    item.id
+                )
+                ===
+                String(
+                    id
+                )
+
+        )?.city_name
+
+        ||
+
+        "-"
+
+    );
+
+}
+
+
+
+/* =========================================================
+   19. 商户类型
+========================================================= */
+
+
+function merchantTypeText(
+    type
+) {
+
+
+    return (
+        type ===
+        "individual"
+        ?
+        "个人商户"
+        :
+        "机构商户"
+    );
+
+}
+
+
+
+/* =========================================================
+   20. 编号
+========================================================= */
+
+
+function formatAccountNo(
+    value
+) {
+
+
+    if (
+        value === null
+        ||
+        value === undefined
+        ||
+        value === ""
+    ) {
+
+
+        return "-";
+
+    }
+
+
+
+    return String(
+        value
+    )
+    .padStart(
+        3,
+        "0"
+    );
+
+}
+
+
+
+/* =========================================================
+   21. HTML安全
+========================================================= */
+
+
+function escapeHtml(
+    value
+) {
+
+
+    return String(
+        value
+        ??
+        ""
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+
+/* =========================================================
+   22. 退出
+========================================================= */
+
+
+async function logout() {
+
+
+    const confirmed =
+        confirm(
+            "确定退出商户平台吗？"
+        );
+
+
+    if (
+        !confirmed
+    ) {
+
+
+        return;
+
+    }
+
+
+
+    try {
+
+
+        await supabaseClient.auth
+            .signOut();
+
+
+    }
+
+    catch(error) {
+
+
+        console.error(
+            "退出失败：",
+            error
+        );
+
+    }
+
+
+
+    location.replace(
+        LOGIN_PAGE
+    );
+
+}
+
+
+
+/* =========================================================
+   23. 10分钟无操作退出
+========================================================= */
+
+
+let idleTimer;
+
+
+
+function resetIdle() {
+
+
+    clearTimeout(
+        idleTimer
+    );
+
+
+
+    idleTimer =
+        setTimeout(
+
+            async () => {
+
+
+                try {
+
+
+                    await supabaseClient.auth
+                        .signOut();
+
+
+                }
+
+                catch(error) {
+
+
+                    console.error(
+                        error
+                    );
+
+                }
+
+
+
+                alert(
+                    "由于10分钟未操作，系统已经自动退出。"
+                );
+
+
+
+                location.replace(
+                    LOGIN_PAGE
+                );
+
+
+            },
+
+            10 * 60 * 1000
+
+        );
+
+}
+
+
+
+[
+    "click",
+    "touchstart",
+    "keydown",
+    "mousemove",
+    "scroll"
+]
+.forEach(
+
+    eventName => {
+
+
+        document.addEventListener(
+
+            eventName,
+
+            resetIdle,
+
+            {
+                passive:true
+            }
+
+        );
+
+    }
+
+);
+
+
+
+/* =========================================================
+   24. Auth监听
+========================================================= */
+
+
+supabaseClient.auth
+    .onAuthStateChange(
+
+        (
+            event,
+            session
+        ) => {
+
+
+            if (
+                event ===
+                "SIGNED_OUT"
+            ) {
+
+
+                location.replace(
+                    LOGIN_PAGE
+                );
+
+            }
+
+        }
+
+    );
+
+
+
+/* =========================================================
+   25. Start
+========================================================= */
+
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    () => {
+
+
+        resetIdle();
+
+
+        initialize();
+
+    }
+
+);
+
+
+</script>
+
+
+</body>
+
+</html>

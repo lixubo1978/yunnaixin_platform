@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 
@@ -21,7 +20,7 @@
     content="#fff7fa"
 >
 
-<title>孕乃馨 - 产品名录</title>
+<title>孕乃馨 - 服务项目</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -49,12 +48,6 @@
 
     --green:#167b59;
     --green-bg:#edfaf4;
-
-    --orange:#a26321;
-    --orange-bg:#fff5e9;
-
-    --blue:#3f6792;
-    --blue-bg:#eef5ff;
 
     --gray:#806f76;
     --gray-bg:#f1edef;
@@ -445,7 +438,7 @@ button {
 
     margin:0;
 
-    max-width:950px;
+    max-width:980px;
 
     font-size:13px;
 
@@ -467,7 +460,7 @@ button {
 
     grid-template-columns:
         repeat(
-            4,
+            3,
             minmax(
                 0,
                 1fr
@@ -576,7 +569,6 @@ button {
             1fr
         )
         180px
-        180px
         auto;
 
     gap:10px;
@@ -672,7 +664,7 @@ table {
 
     width:100%;
 
-    min-width:1000px;
+    min-width:1050px;
 
     border-collapse:
         collapse;
@@ -730,7 +722,7 @@ td {
 }
 
 
-.product-name {
+.service-name {
 
     font-size:13px;
 
@@ -739,11 +731,34 @@ td {
 }
 
 
-.product-code {
+.service-code {
 
     margin-top:3px;
 
     font-size:10px;
+
+    color:
+        var(--text3);
+
+}
+
+
+.description-text {
+
+    max-width:460px;
+
+    line-height:1.65;
+
+    color:
+        var(--text2);
+
+    word-break:
+        break-word;
+
+}
+
+
+.description-empty {
 
     color:
         var(--text3);
@@ -768,28 +783,6 @@ td {
     font-size:10px;
 
     font-weight:700;
-
-}
-
-
-.badge-service {
-
-    color:
-        var(--blue);
-
-    background:
-        var(--blue-bg);
-
-}
-
-
-.badge-physical {
-
-    color:
-        var(--orange);
-
-    background:
-        var(--orange-bg);
 
 }
 
@@ -927,7 +920,7 @@ td {
 }
 
 
-.product-card {
+.service-card {
 
     padding:16px;
 
@@ -944,7 +937,7 @@ td {
 }
 
 
-.product-card-head {
+.service-card-head {
 
     display:flex;
 
@@ -993,29 +986,39 @@ td {
 }
 
 
-.mobile-grid {
-
-    display:grid;
-
-    grid-template-columns:
-        1fr
-        1fr;
-
-    gap:8px;
+.mobile-description {
 
     margin-top:13px;
+
+    padding:11px;
+
+    border-radius:11px;
+
+    background:
+        #fcfafb;
+
+    color:
+        var(--text2);
+
+    font-size:12px;
+
+    line-height:1.7;
+
+    white-space:pre-wrap;
 
 }
 
 
 .mobile-info {
 
+    margin-top:9px;
+
     padding:10px;
 
     border-radius:11px;
 
     background:
-        #fcfafb;
+        var(--pink-50);
 
 }
 
@@ -1115,7 +1118,7 @@ td {
 
     width:100%;
 
-    max-width:540px;
+    max-width:600px;
 
     max-height:92vh;
 
@@ -1278,6 +1281,20 @@ td {
 }
 
 
+textarea.form-control {
+
+    min-height:160px;
+
+    padding:
+        13px;
+
+    resize:vertical;
+
+    line-height:1.7;
+
+}
+
+
 .form-control:focus {
 
     border-color:
@@ -1307,6 +1324,20 @@ td {
     font-size:10px;
 
     line-height:1.6;
+
+    color:
+        var(--text3);
+
+}
+
+
+.character-count {
+
+    margin-top:5px;
+
+    text-align:right;
+
+    font-size:10px;
 
     color:
         var(--text3);
@@ -1520,7 +1551,7 @@ td {
 ========================================================= */
 
 @media
-(max-width:1050px) {
+(max-width:950px) {
 
     .stats {
 
@@ -1565,7 +1596,6 @@ td {
     .brand img {
 
         width:38px;
-
         height:38px;
 
     }
@@ -1814,7 +1844,7 @@ td {
             font-size:13px;
         "
     >
-        正在读取平台产品名录...
+        正在读取服务项目...
     </div>
 
 </div>
@@ -1841,12 +1871,12 @@ td {
 
 
             <div class="brand-title">
-                产品名录
+                服务项目
             </div>
 
 
             <div class="brand-sub">
-                孕乃馨平台标准产品中心
+                孕乃馨平台标准服务项目
             </div>
 
 
@@ -1890,10 +1920,6 @@ td {
 <main class="main">
 
 
-<!-- =========================================================
-     HERO
-========================================================= -->
-
 <section class="hero">
 
 
@@ -1901,20 +1927,20 @@ td {
 
 
         <div class="hero-tag">
-            PRODUCT CATALOG
+            SERVICE CATALOG
         </div>
 
 
         <h1>
-            平台标准产品名录
+            平台标准服务项目
         </h1>
 
 
         <p>
-            产品由孕乃馨平台统一建立，全国使用同一个标准产品索引。
-            产品创建以后，已开通服务城市会自动建立对应城市销售价格记录；
-            有效商户也会自动建立对应的商户分成规则记录。
-            产品历史记录不物理删除，停止使用时统一设为无效。
+            服务项目由孕乃馨平台统一建立，全国使用统一的服务项目索引。
+            新建服务项目后，所有已经开通的服务城市会自动建立对应销售价格记录，
+            所有有效商户也会自动建立对应分成规则记录。
+            服务项目停止使用时设为无效，历史记录继续保留。
         </p>
 
 
@@ -1934,9 +1960,11 @@ td {
 
     <div class="stat">
 
+
         <div class="stat-label">
-            产品总数
+            服务项目总数
         </div>
+
 
         <div
             id="statTotal"
@@ -1945,14 +1973,18 @@ td {
             0
         </div>
 
+
     </div>
+
 
 
     <div class="stat">
 
+
         <div class="stat-label">
-            正常产品
+            正常服务项目
         </div>
+
 
         <div
             id="statActive"
@@ -1961,41 +1993,31 @@ td {
             0
         </div>
 
+
     </div>
+
 
 
     <div class="stat">
 
+
         <div class="stat-label">
-            服务类
+            已失效服务项目
         </div>
 
+
         <div
-            id="statService"
+            id="statInactive"
             class="stat-value"
         >
             0
         </div>
 
-    </div>
-
-
-    <div class="stat">
-
-        <div class="stat-label">
-            实物类
-        </div>
-
-        <div
-            id="statPhysical"
-            class="stat-value"
-        >
-            0
-        </div>
 
         <div class="stat-note">
-            服务类与实物类后续可分别处理税务
+            历史数据继续保留
         </div>
+
 
     </div>
 
@@ -2011,10 +2033,6 @@ td {
 <section class="panel">
 
 
-<!-- =========================================================
-     TOOLBAR
-========================================================= -->
-
 <div class="toolbar">
 
 
@@ -2022,30 +2040,9 @@ td {
         id="searchInput"
         class="input"
         type="search"
-        placeholder="搜索产品编号、产品代码或产品名称"
+        placeholder="搜索服务项目编号、代码、名称或详细说明"
         oninput="renderProducts()"
     >
-
-
-    <select
-        id="typeFilter"
-        class="select"
-        onchange="renderProducts()"
-    >
-
-        <option value="">
-            全部类型
-        </option>
-
-        <option value="service">
-            服务类
-        </option>
-
-        <option value="physical_goods">
-            实物类
-        </option>
-
-    </select>
 
 
     <select
@@ -2073,7 +2070,7 @@ td {
         class="primary-button"
         onclick="openCreateModal()"
     >
-        ＋ 创建产品
+        ＋ 创建服务项目
     </button>
 
 
@@ -2082,7 +2079,7 @@ td {
 
 
 <!-- =========================================================
-     DESKTOP TABLE
+     DESKTOP
 ========================================================= -->
 
 <div class="table-scroll">
@@ -2101,11 +2098,11 @@ td {
     </th>
 
     <th>
-        产品
+        服务项目
     </th>
 
     <th>
-        产品类型
+        详细说明
     </th>
 
     <th>
@@ -2157,10 +2154,10 @@ td {
 >
 
     <div class="empty-icon">
-        📦
+        🌷
     </div>
 
-    暂无平台产品
+    暂无服务项目
 
 </div>
 
@@ -2173,7 +2170,7 @@ td {
 
 
 <!-- =========================================================
-     PRODUCT MODAL
+     MODAL
 ========================================================= -->
 
 <div
@@ -2192,7 +2189,7 @@ td {
         id="modalTitle"
         class="modal-title"
     >
-        创建平台产品
+        创建服务项目
     </div>
 
 
@@ -2213,23 +2210,23 @@ td {
 
     <div class="info-box">
 
-        产品是全国统一的标准产品主数据。
+        服务项目是全国统一的标准业务项目。
 
         <br><br>
 
-        新产品建立后，数据库将自动：
+        新建服务项目后，系统自动：
 
         <br>
 
-        1. 给所有已经开通的服务城市建立销售价格记录，价格初始为“未定义”。
+        1. 给所有已经开通的服务城市建立销售价格记录，初始价格为“未定义”。
 
         <br>
 
-        2. 给所有有效商户建立对应的分成规则记录，税率及各项比例初始为“未定义”。
+        2. 给所有有效商户建立对应分成规则记录，税率、平台比例、门店比例及操作人员比例初始均为“未定义”。
 
         <br>
 
-        3. 产品一旦产生业务记录，不进行物理删除。如停止使用，请设为无效。
+        3. 服务项目停止使用时只设为无效，不删除历史业务记录。
 
     </div>
 
@@ -2240,7 +2237,7 @@ td {
 
         <label class="form-label">
 
-            产品代码
+            服务项目代码
 
             <span class="required">
                 *
@@ -2258,7 +2255,7 @@ td {
 
 
         <div class="form-hint">
-            建议使用简短、唯一、长期不变的产品代码。
+            项目代码作为长期唯一索引，创建后不允许修改。
         </div>
 
 
@@ -2271,7 +2268,7 @@ td {
 
         <label class="form-label">
 
-            产品名称
+            服务项目名称
 
             <span class="required">
                 *
@@ -2284,7 +2281,7 @@ td {
             id="productName"
             class="form-control"
             maxlength="200"
-            placeholder="请输入标准产品名称"
+            placeholder="请输入服务项目名称"
         >
 
 
@@ -2297,7 +2294,7 @@ td {
 
         <label class="form-label">
 
-            产品类型
+            服务项目详细说明
 
             <span class="required">
                 *
@@ -2306,28 +2303,25 @@ td {
         </label>
 
 
-        <select
-            id="productType"
+        <textarea
+            id="productDescription"
             class="form-control"
-        >
-
-            <option value="">
-                请选择产品类型
-            </option>
-
-            <option value="service">
-                服务类
-            </option>
-
-            <option value="physical_goods">
-                实物类
-            </option>
-
-        </select>
+            maxlength="3000"
+            placeholder="请输入该服务项目的详细内容，例如服务内容、服务范围、服务流程、注意事项等。"
+            oninput="updateDescriptionCount()"
+        ></textarea>
 
 
         <div class="form-hint">
-            服务类和实物类在后续订单、结算及税务处理中可以分别处理。
+            此说明作为服务项目的标准说明，后续可在客户和商户相关页面中调用显示。
+        </div>
+
+
+        <div
+            id="descriptionCount"
+            class="character-count"
+        >
+            0 / 3000
         </div>
 
 
@@ -2354,7 +2348,7 @@ td {
         class="save-button"
         onclick="saveProduct()"
     >
-        创建产品
+        创建服务项目
     </button>
 
 
@@ -2367,6 +2361,10 @@ td {
 </div>
 
 
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
 
 <div
     id="toast"
@@ -2519,7 +2517,7 @@ async function initialize() {
 
 
         console.error(
-            "产品名录初始化失败：",
+            "服务项目页面初始化失败：",
             error
         );
 
@@ -2533,7 +2531,7 @@ async function initialize() {
         alert(
             error.message
             ||
-            "产品名录加载失败。"
+            "服务项目页面加载失败。"
         );
 
     }
@@ -2624,7 +2622,7 @@ async function verifyAccess() {
 
 
         alert(
-            "当前账号没有平台产品管理权限。"
+            "当前账号没有服务项目管理权限。"
         );
 
 
@@ -2634,7 +2632,7 @@ async function verifyAccess() {
 
 
         throw new Error(
-            "没有产品管理权限。"
+            "没有服务项目管理权限。"
         );
 
     }
@@ -2649,7 +2647,7 @@ async function verifyAccess() {
 
 
 /* =========================================================
-   05. LOAD PRODUCTS
+   05. LOAD
 ========================================================= */
 
 
@@ -2685,7 +2683,7 @@ async function loadProducts() {
 
 
         throw new Error(
-            "产品数据读取失败：" +
+            "服务项目数据读取失败：" +
             error.message
         );
 
@@ -2739,34 +2737,14 @@ function renderStats() {
 
 
     document.getElementById(
-        "statService"
+        "statInactive"
     ).textContent =
 
         products.filter(
 
             item =>
-                getProductType(
-                    item
-                )
-                ===
-                "service"
-
-        ).length;
-
-
-
-    document.getElementById(
-        "statPhysical"
-    ).textContent =
-
-        products.filter(
-
-            item =>
-                getProductType(
-                    item
-                )
-                ===
-                "physical_goods"
+                item.status ===
+                "inactive"
 
         ).length;
 
@@ -2775,7 +2753,7 @@ function renderStats() {
 
 
 /* =========================================================
-   07. RENDER PRODUCTS
+   07. RENDER
 ========================================================= */
 
 
@@ -2792,13 +2770,6 @@ function renderProducts() {
 
 
 
-    const type =
-        document.getElementById(
-            "typeFilter"
-        ).value;
-
-
-
     const status =
         document.getElementById(
             "statusFilter"
@@ -2810,23 +2781,6 @@ function renderProducts() {
         products.filter(
 
             item => {
-
-
-                if (
-                    type
-                    &&
-                    getProductType(
-                        item
-                    )
-                    !==
-                    type
-                ) {
-
-
-                    return false;
-
-                }
-
 
 
                 if (
@@ -2846,9 +2800,10 @@ function renderProducts() {
                 const text =
 
                     `
-                    ${formatProductNo(item)}
-                    ${getProductCode(item)}
-                    ${getProductName(item)}
+                    ${formatServiceNo(item)}
+                    ${getServiceCode(item)}
+                    ${getServiceName(item)}
+                    ${getDescription(item)}
                     `
                     .toLowerCase();
 
@@ -2904,6 +2859,13 @@ function renderProducts() {
         item => {
 
 
+            const description =
+                getDescription(
+                    item
+                );
+
+
+
             tbody.insertAdjacentHTML(
 
                 "beforeend",
@@ -2915,7 +2877,7 @@ function renderProducts() {
 
                     <td class="number-cell">
 
-                        ${formatProductNo(item)}
+                        ${formatServiceNo(item)}
 
                     </td>
 
@@ -2923,10 +2885,10 @@ function renderProducts() {
                     <td>
 
 
-                        <div class="product-name">
+                        <div class="service-name">
 
                             ${escapeHtml(
-                                getProductName(
+                                getServiceName(
                                     item
                                 )
                             )}
@@ -2934,10 +2896,10 @@ function renderProducts() {
                         </div>
 
 
-                        <div class="product-code">
+                        <div class="service-code">
 
                             ${escapeHtml(
-                                getProductCode(
+                                getServiceCode(
                                     item
                                 )
                             )}
@@ -2950,11 +2912,26 @@ function renderProducts() {
 
                     <td>
 
-                        ${productTypeBadge(
-                            getProductType(
-                                item
-                            )
-                        )}
+                        ${
+                            description
+                            ?
+                            `
+                            <div class="description-text">
+                                ${escapeHtml(
+                                    truncateText(
+                                        description,
+                                        160
+                                    )
+                                )}
+                            </div>
+                            `
+                            :
+                            `
+                            <span class="description-empty">
+                                未填写
+                            </span>
+                            `
+                        }
 
                     </td>
 
@@ -2979,7 +2956,7 @@ function renderProducts() {
 
                     <td>
 
-                        ${productActionButtons(
+                        ${serviceActionButtons(
                             item
                         )}
 
@@ -3000,24 +2977,24 @@ function renderProducts() {
 
                 `
 
-                <div class="product-card">
+                <div class="service-card">
 
 
-                    <div class="product-card-head">
+                    <div class="service-card-head">
 
 
                         <div>
 
 
                             <div class="mobile-number">
-                                产品 ${formatProductNo(item)}
+                                服务项目 ${formatServiceNo(item)}
                             </div>
 
 
                             <div class="mobile-name">
 
                                 ${escapeHtml(
-                                    getProductName(
+                                    getServiceName(
                                         item
                                     )
                                 )}
@@ -3028,7 +3005,7 @@ function renderProducts() {
                             <div class="mobile-code">
 
                                 ${escapeHtml(
-                                    getProductCode(
+                                    getServiceCode(
                                         item
                                     )
                                 )}
@@ -3048,45 +3025,38 @@ function renderProducts() {
 
 
 
-                    <div class="mobile-grid">
+                    <div class="mobile-description">
 
-
-                        <div class="mobile-info">
-
-                            <div class="mobile-info-label">
-                                产品类型
-                            </div>
-
-                            <div class="mobile-info-value">
-                                ${productTypeText(
-                                    getProductType(
-                                        item
-                                    )
-                                )}
-                            </div>
-
-                        </div>
-
-
-                        <div class="mobile-info">
-
-                            <div class="mobile-info-label">
-                                创建时间
-                            </div>
-
-                            <div class="mobile-info-value">
-                                ${formatDate(
-                                    item.created_at
-                                )}
-                            </div>
-
-                        </div>
-
+                        ${
+                            description
+                            ?
+                            escapeHtml(
+                                description
+                            )
+                            :
+                            "暂无详细说明"
+                        }
 
                     </div>
 
 
-                    ${mobileProductButtons(
+
+                    <div class="mobile-info">
+
+                        <div class="mobile-info-label">
+                            创建时间
+                        </div>
+
+                        <div class="mobile-info-value">
+                            ${formatDate(
+                                item.created_at
+                            )}
+                        </div>
+
+                    </div>
+
+
+                    ${mobileServiceButtons(
                         item
                     )}
 
@@ -3106,11 +3076,11 @@ function renderProducts() {
 
 
 /* =========================================================
-   08. ACTION BUTTONS
+   08. BUTTONS
 ========================================================= */
 
 
-function productActionButtons(
+function serviceActionButtons(
     item
 ) {
 
@@ -3147,7 +3117,7 @@ function productActionButtons(
 
             <button
                 class="action edit-action"
-                onclick="editProduct(${Number(item.id)})"
+                onclick="editService(${Number(item.id)})"
             >
                 编辑
             </button>
@@ -3155,7 +3125,7 @@ function productActionButtons(
 
             <button
                 class="action danger-action"
-                onclick="invalidateProduct(${Number(item.id)})"
+                onclick="invalidateService(${Number(item.id)})"
             >
                 设为无效
             </button>
@@ -3169,7 +3139,7 @@ function productActionButtons(
 
 
 
-function mobileProductButtons(
+function mobileServiceButtons(
     item
 ) {
 
@@ -3206,7 +3176,7 @@ function mobileProductButtons(
 
             <button
                 class="action edit-action"
-                onclick="editProduct(${Number(item.id)})"
+                onclick="editService(${Number(item.id)})"
             >
                 编辑
             </button>
@@ -3214,7 +3184,7 @@ function mobileProductButtons(
 
             <button
                 class="action danger-action"
-                onclick="invalidateProduct(${Number(item.id)})"
+                onclick="invalidateService(${Number(item.id)})"
             >
                 设为无效
             </button>
@@ -3229,7 +3199,7 @@ function mobileProductButtons(
 
 
 /* =========================================================
-   09. OPEN CREATE
+   09. CREATE MODAL
 ========================================================= */
 
 
@@ -3252,7 +3222,7 @@ function openCreateModal() {
     document.getElementById(
         "modalTitle"
     ).textContent =
-        "创建平台产品";
+        "创建服务项目";
 
 
 
@@ -3266,7 +3236,7 @@ function openCreateModal() {
     document.getElementById(
         "saveProductButton"
     ).textContent =
-        "创建产品";
+        "创建服务项目";
 
 
 
@@ -3285,7 +3255,7 @@ function openCreateModal() {
 ========================================================= */
 
 
-function editProduct(
+function editService(
     id
 ) {
 
@@ -3293,9 +3263,9 @@ function editProduct(
     const item =
         products.find(
 
-            product =>
+            service =>
                 Number(
-                    product.id
+                    service.id
                 )
                 ===
                 Number(
@@ -3322,7 +3292,7 @@ function editProduct(
 
 
         showToast(
-            "已失效产品不能编辑。",
+            "已失效服务项目不能编辑。",
             "error"
         );
 
@@ -3351,23 +3321,18 @@ function editProduct(
     document.getElementById(
         "modalTitle"
     ).textContent =
-        `编辑产品 ${formatProductNo(item)}`;
+        `编辑服务项目 ${formatServiceNo(item)}`;
 
 
 
     document.getElementById(
         "productCode"
     ).value =
-        getProductCode(
+        getServiceCode(
             item
         );
 
 
-
-    /*
-        产品代码作为长期唯一索引，
-        1.0版本编辑时锁定，不允许修改。
-    */
 
     document.getElementById(
         "productCode"
@@ -3379,18 +3344,22 @@ function editProduct(
     document.getElementById(
         "productName"
     ).value =
-        getProductName(
+        getServiceName(
             item
         );
 
 
 
     document.getElementById(
-        "productType"
+        "productDescription"
     ).value =
-        getProductType(
+        getDescription(
             item
         );
+
+
+
+    updateDescriptionCount();
 
 
 
@@ -3427,12 +3396,12 @@ function closeProductModal() {
 
 
 
-    editingProductId =
-        null;
-
-
     productMode =
         "create";
+
+
+    editingProductId =
+        null;
 
 }
 
@@ -3467,16 +3436,44 @@ function resetForm() {
 
 
     document.getElementById(
-        "productType"
+        "productDescription"
     ).value =
         "";
+
+
+
+    updateDescriptionCount();
 
 }
 
 
 
 /* =========================================================
-   13. SAVE
+   13. DESCRIPTION COUNT
+========================================================= */
+
+
+function updateDescriptionCount() {
+
+
+    const value =
+        document.getElementById(
+            "productDescription"
+        ).value;
+
+
+
+    document.getElementById(
+        "descriptionCount"
+    ).textContent =
+        `${value.length} / 3000`;
+
+}
+
+
+
+/* =========================================================
+   14. SAVE
 ========================================================= */
 
 
@@ -3489,24 +3486,24 @@ async function saveProduct() {
     ) {
 
 
-        return updateProduct();
+        return updateService();
 
     }
 
 
 
-    return createProduct();
+    return createService();
 
 }
 
 
 
 /* =========================================================
-   14. CREATE PRODUCT
+   15. CREATE
 ========================================================= */
 
 
-async function createProduct() {
+async function createService() {
 
 
     const code =
@@ -3528,10 +3525,12 @@ async function createProduct() {
 
 
 
-    const type =
+    const description =
         document.getElementById(
-            "productType"
-        ).value;
+            "productDescription"
+        )
+        .value
+        .trim();
 
 
 
@@ -3539,7 +3538,7 @@ async function createProduct() {
 
 
         showToast(
-            "请输入产品代码。",
+            "请输入服务项目代码。",
             "error"
         );
 
@@ -3554,7 +3553,7 @@ async function createProduct() {
 
 
         showToast(
-            "请输入产品名称。",
+            "请输入服务项目名称。",
             "error"
         );
 
@@ -3565,18 +3564,11 @@ async function createProduct() {
 
 
 
-    if (
-        ![
-            "service",
-            "physical_goods"
-        ].includes(
-            type
-        )
-    ) {
+    if (!description) {
 
 
         showToast(
-            "请选择产品类型。",
+            "请输入服务项目详细说明。",
             "error"
         );
 
@@ -3591,7 +3583,7 @@ async function createProduct() {
         products.some(
 
             item =>
-                getProductCode(
+                getServiceCode(
                     item
                 )
                 .toUpperCase()
@@ -3608,7 +3600,7 @@ async function createProduct() {
 
 
         showToast(
-            "该产品代码已经存在。",
+            "该服务项目代码已经存在。",
             "error"
         );
 
@@ -3640,8 +3632,6 @@ async function createProduct() {
 
         const {
 
-            data,
-
             error
 
         } =
@@ -3661,15 +3651,15 @@ async function createProduct() {
                     name,
 
                 product_type:
-                    type,
+                    "service",
+
+                description:
+                    description,
 
                 status:
                     "active"
 
-            })
-
-            .select()
-            .single();
+            });
 
 
 
@@ -3683,7 +3673,7 @@ async function createProduct() {
 
 
         showToast(
-            "产品创建成功，城市价格目录和商户分成规则将自动同步。",
+            "服务项目创建成功，城市价格目录和商户分成规则已自动同步。",
             "success"
         );
 
@@ -3701,7 +3691,7 @@ async function createProduct() {
 
 
         console.error(
-            "创建产品失败：",
+            "创建服务项目失败：",
             error
         );
 
@@ -3710,7 +3700,7 @@ async function createProduct() {
         showToast(
             error.message
             ||
-            "产品创建失败。",
+            "服务项目创建失败。",
             "error"
         );
 
@@ -3725,7 +3715,7 @@ async function createProduct() {
 
 
         button.textContent =
-            "创建产品";
+            "创建服务项目";
 
     }
 
@@ -3734,19 +3724,19 @@ async function createProduct() {
 
 
 /* =========================================================
-   15. UPDATE PRODUCT
+   16. UPDATE
 ========================================================= */
 
 
-async function updateProduct() {
+async function updateService() {
 
 
     const item =
         products.find(
 
-            product =>
+            service =>
                 Number(
-                    product.id
+                    service.id
                 )
                 ===
                 Number(
@@ -3761,7 +3751,7 @@ async function updateProduct() {
 
 
         showToast(
-            "没有找到该产品。",
+            "没有找到该服务项目。",
             "error"
         );
 
@@ -3779,7 +3769,7 @@ async function updateProduct() {
 
 
         showToast(
-            "已失效产品不能修改。",
+            "已失效服务项目不能修改。",
             "error"
         );
 
@@ -3799,10 +3789,12 @@ async function updateProduct() {
 
 
 
-    const type =
+    const description =
         document.getElementById(
-            "productType"
-        ).value;
+            "productDescription"
+        )
+        .value
+        .trim();
 
 
 
@@ -3810,7 +3802,7 @@ async function updateProduct() {
 
 
         showToast(
-            "请输入产品名称。",
+            "请输入服务项目名称。",
             "error"
         );
 
@@ -3821,18 +3813,11 @@ async function updateProduct() {
 
 
 
-    if (
-        ![
-            "service",
-            "physical_goods"
-        ].includes(
-            type
-        )
-    ) {
+    if (!description) {
 
 
         showToast(
-            "请选择产品类型。",
+            "请输入服务项目详细说明。",
             "error"
         );
 
@@ -3880,13 +3865,18 @@ async function updateProduct() {
                     name,
 
                 product_type:
-                    type
+                    "service",
+
+                description:
+                    description
 
             })
 
             .eq(
                 "id",
-                editingProductId
+                Number(
+                    editingProductId
+                )
             );
 
 
@@ -3901,7 +3891,7 @@ async function updateProduct() {
 
 
         showToast(
-            "产品资料已更新。",
+            "服务项目已经更新。",
             "success"
         );
 
@@ -3919,7 +3909,7 @@ async function updateProduct() {
 
 
         console.error(
-            "修改产品失败：",
+            "修改服务项目失败：",
             error
         );
 
@@ -3928,7 +3918,7 @@ async function updateProduct() {
         showToast(
             error.message
             ||
-            "产品修改失败。",
+            "服务项目修改失败。",
             "error"
         );
 
@@ -3952,11 +3942,11 @@ async function updateProduct() {
 
 
 /* =========================================================
-   16. INVALIDATE
+   17. INVALIDATE
 ========================================================= */
 
 
-async function invalidateProduct(
+async function invalidateService(
     id
 ) {
 
@@ -3964,9 +3954,9 @@ async function invalidateProduct(
     const item =
         products.find(
 
-            product =>
+            service =>
                 Number(
-                    product.id
+                    service.id
                 )
                 ===
                 Number(
@@ -4001,13 +3991,13 @@ async function invalidateProduct(
     const confirmed =
         confirm(
 
-            `确定将产品“${getProductName(item)}”设为无效吗？\n\n` +
+            `确定将服务项目“${getServiceName(item)}”设为无效吗？\n\n` +
 
             `设为无效后不能恢复。\n` +
 
-            `对应城市价格目录和商户产品规则也将停止继续使用。\n` +
+            `对应城市销售价格和商户分成规则也将停止继续使用。\n` +
 
-            `历史订单数据不会删除。`
+            `历史订单及历史业务数据不会删除。`
 
         );
 
@@ -4063,7 +4053,7 @@ async function invalidateProduct(
 
 
         showToast(
-            "产品已设为无效。",
+            "服务项目已设为无效。",
             "success"
         );
 
@@ -4078,7 +4068,7 @@ async function invalidateProduct(
 
 
         console.error(
-            "产品设为无效失败：",
+            "服务项目设为无效失败：",
             error
         );
 
@@ -4098,11 +4088,11 @@ async function invalidateProduct(
 
 
 /* =========================================================
-   17. PRODUCT HELPERS
+   18. DATA HELPERS
 ========================================================= */
 
 
-function getProductName(
+function getServiceName(
     item
 ) {
 
@@ -4113,7 +4103,7 @@ function getProductName(
         ||
         item?.name
         ||
-        "未命名产品"
+        "未命名服务项目"
 
     );
 
@@ -4121,7 +4111,7 @@ function getProductName(
 
 
 
-function getProductCode(
+function getServiceCode(
     item
 ) {
 
@@ -4140,45 +4130,29 @@ function getProductCode(
 
 
 
-function getProductType(
+function getDescription(
     item
 ) {
 
 
-    const type =
+    return (
 
-        item?.product_type
-        ??
-        item?.type
-        ??
-        "";
+        item?.description
+        ||
+        ""
 
-
-
-    if (
-        type ===
-        "physical"
-    ) {
-
-
-        return "physical_goods";
-
-    }
-
-
-
-    return type;
+    );
 
 }
 
 
 
 /* =========================================================
-   18. PRODUCT NUMBER
+   19. NUMBER
 ========================================================= */
 
 
-function formatProductNo(
+function formatServiceNo(
     item
 ) {
 
@@ -4205,93 +4179,6 @@ function formatProductNo(
         3,
         "0"
     );
-
-}
-
-
-
-/* =========================================================
-   19. TYPE
-========================================================= */
-
-
-function productTypeText(
-    type
-) {
-
-
-    if (
-        type ===
-        "service"
-    ) {
-
-
-        return "服务类";
-
-    }
-
-
-
-    if (
-        type ===
-        "physical_goods"
-    ) {
-
-
-        return "实物类";
-
-    }
-
-
-
-    return type || "-";
-
-}
-
-
-
-function productTypeBadge(
-    type
-) {
-
-
-    if (
-        type ===
-        "service"
-    ) {
-
-
-        return `
-            <span class="badge badge-service">
-                服务类
-            </span>
-        `;
-
-    }
-
-
-
-    if (
-        type ===
-        "physical_goods"
-    ) {
-
-
-        return `
-            <span class="badge badge-physical">
-                实物类
-            </span>
-        `;
-
-    }
-
-
-
-    return `
-        <span class="badge badge-inactive">
-            ${escapeHtml(type || "-")}
-        </span>
-    `;
 
 }
 
@@ -4334,7 +4221,52 @@ function statusBadge(
 
 
 /* =========================================================
-   21. DATE
+   21. TEXT
+========================================================= */
+
+
+function truncateText(
+    value,
+    length
+) {
+
+
+    const text =
+        String(
+            value
+            ||
+            ""
+        );
+
+
+
+    if (
+        text.length <=
+        length
+    ) {
+
+
+        return text;
+
+    }
+
+
+
+    return (
+        text.slice(
+            0,
+            length
+        )
+        +
+        "…"
+    );
+
+}
+
+
+
+/* =========================================================
+   22. DATE
 ========================================================= */
 
 
@@ -4382,7 +4314,7 @@ function formatDate(
 
 
 /* =========================================================
-   22. HTML SAFE
+   23. HTML SAFE
 ========================================================= */
 
 
@@ -4427,7 +4359,7 @@ function escapeHtml(
 
 
 /* =========================================================
-   23. TOAST
+   24. TOAST
 ========================================================= */
 
 
@@ -4485,7 +4417,7 @@ function showToast(
 
 
 /* =========================================================
-   24. HOME
+   25. HOME
 ========================================================= */
 
 
@@ -4500,7 +4432,7 @@ function goHome() {
 
 
 /* =========================================================
-   25. LOGOUT
+   26. LOGOUT
 ========================================================= */
 
 
@@ -4549,7 +4481,7 @@ async function logout() {
 
 
 /* =========================================================
-   26. IDLE
+   27. 10 MINUTES
 ========================================================= */
 
 
@@ -4644,7 +4576,7 @@ function resetIdle() {
 
 
 /* =========================================================
-   27. AUTH
+   28. AUTH
 ========================================================= */
 
 
@@ -4677,7 +4609,7 @@ supabaseClient.auth
 
 
 /* =========================================================
-   28. START
+   29. START
 ========================================================= */
 
 

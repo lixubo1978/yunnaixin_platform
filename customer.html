@@ -1,203 +1,2307 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
 
-  <title>孕乃馨 - 客户中心</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    >
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <title>孕乃馨 - 客户中心</title>
 
-    body {
-      min-height: 100dvh;
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "PingFang SC",
-        "Microsoft YaHei",
-        Arial,
-        sans-serif;
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-      background:
-        linear-gradient(
-          180deg,
-          #fff7f9 0%,
-          #ffffff 100%
-        );
+    <style>
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-      display: flex;
-      justify-content: center;
-      align-items: center;
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+            background: #fff7fa;
+            color: #3f3440;
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "SF Pro Display",
+                "PingFang SC",
+                "Microsoft YaHei",
+                Arial,
+                sans-serif;
+        }
 
-      padding: 24px;
-    }
+        body {
+            padding-bottom: calc(88px + env(safe-area-inset-bottom));
+        }
 
-    .container {
-      width: 100%;
-      max-width: 520px;
-      text-align: center;
-    }
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+        }
 
-    .logo {
-      width: 82px;
-      height: 82px;
-      object-fit: contain;
-      border-radius: 22px;
-      background: #ffffff;
-      padding: 8px;
+        button {
+            cursor: pointer;
+        }
 
-      box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.08);
+        .app {
+            width: 100%;
+            max-width: 560px;
+            min-height: 100vh;
+            margin: 0 auto;
+            background:
+                linear-gradient(
+                    180deg,
+                    #ffeaf2 0,
+                    #fff7fa 230px,
+                    #fff7fa 100%
+                );
+        }
 
-      margin-bottom: 22px;
-    }
+        /* ================================
+           顶部
+        ================================ */
 
-    .brand {
-      font-size: 34px;
-      font-weight: 700;
-      color: #222222;
-      margin-bottom: 10px;
-    }
+        .top-safe {
+            height: env(safe-area-inset-top);
+        }
 
-    .subtitle {
-      font-size: 17px;
-      color: #888888;
-      margin-bottom: 45px;
-    }
+        .topbar {
+            min-height: 58px;
+            padding: 10px 18px 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-    .card {
-      background: #ffffff;
+        .brand-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
 
-      border-radius: 28px;
+        .logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 15px;
+            background:
+                linear-gradient(
+                    145deg,
+                    #ff6f9d,
+                    #ff91b3
+                );
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+            box-shadow:
+                0 8px 22px rgba(255, 105, 150, 0.24);
+            flex-shrink: 0;
+        }
 
-      padding:
-        55px
-        28px;
+        .brand-text {
+            min-width: 0;
+        }
 
-      box-shadow:
-        0 18px 55px
-        rgba(0, 0, 0, 0.08);
-    }
+        .brand-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #572f40;
+            line-height: 1.2;
+        }
 
-    .flower {
-      font-size: 58px;
-      margin-bottom: 25px;
-    }
+        .brand-subtitle {
+            margin-top: 3px;
+            font-size: 11px;
+            color: #9e7383;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
-    .welcome {
-      font-size: 28px;
-      font-weight: 700;
-      color: #222222;
-      line-height: 1.6;
-    }
+        .logout-btn {
+            border: none;
+            background: rgba(255,255,255,0.78);
+            color: #9c6277;
+            padding: 9px 12px;
+            border-radius: 14px;
+            min-height: 40px;
+            font-size: 13px;
+            font-weight: 700;
+            box-shadow: 0 4px 14px rgba(118,73,89,0.06);
+        }
 
-    .debug {
-      margin-top: 24px;
+        /* ================================
+           欢迎卡
+        ================================ */
 
-      font-size: 15px;
-      color: #999999;
+        .hero {
+            margin: 8px 16px 0;
+            padding: 22px 20px;
+            border-radius: 26px;
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff729f 0%,
+                    #ff8caf 52%,
+                    #ffa7c2 100%
+                );
+            color: white;
+            box-shadow:
+                0 14px 34px rgba(244, 98, 144, 0.24);
+            position: relative;
+            overflow: hidden;
+        }
 
-      line-height: 1.8;
-    }
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 145px;
+            height: 145px;
+            border-radius: 50%;
+            right: -58px;
+            top: -66px;
+            background: rgba(255,255,255,0.15);
+        }
 
-    .home-button {
-      display: block;
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 95px;
+            height: 95px;
+            border-radius: 50%;
+            right: 40px;
+            bottom: -60px;
+            background: rgba(255,255,255,0.10);
+        }
 
-      width: 100%;
+        .hero-label {
+            position: relative;
+            z-index: 1;
+            font-size: 13px;
+            opacity: .88;
+            margin-bottom: 6px;
+        }
 
-      margin-top: 42px;
+        .hero-name {
+            position: relative;
+            z-index: 1;
+            font-size: 25px;
+            font-weight: 900;
+            letter-spacing: .5px;
+        }
 
-      padding: 18px 20px;
+        .hero-number {
+            position: relative;
+            z-index: 1;
+            margin-top: 9px;
+            display: inline-flex;
+            align-items: center;
+            min-height: 29px;
+            padding: 5px 10px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.18);
+            font-size: 12px;
+            font-weight: 700;
+        }
 
-      border: none;
-      border-radius: 18px;
+        .hero-tip {
+            position: relative;
+            z-index: 1;
+            margin-top: 15px;
+            font-size: 12px;
+            line-height: 1.7;
+            opacity: .90;
+            max-width: 90%;
+        }
 
-      background: #222222;
-      color: #ffffff;
+        /* ================================
+           主按钮
+        ================================ */
 
-      font-size: 18px;
-      font-weight: 600;
+        .primary-wrap {
+            margin: 18px 16px 0;
+        }
 
-      text-decoration: none;
+        .primary-order-btn {
+            width: 100%;
+            min-height: 62px;
+            border: none;
+            border-radius: 22px;
+            background: white;
+            color: #e94f83;
+            box-shadow:
+                0 10px 30px rgba(117, 76, 90, 0.10);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 15px 10px 18px;
+        }
 
-      cursor: pointer;
-    }
+        .primary-left {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            min-width: 0;
+        }
 
-    .home-button:active {
-      transform: scale(0.98);
-    }
+        .primary-icon {
+            width: 43px;
+            height: 43px;
+            border-radius: 15px;
+            background: #fff0f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+            flex-shrink: 0;
+        }
 
-    @media (max-width: 600px) {
+        .primary-text {
+            text-align: left;
+        }
 
-      body {
-        padding: 18px;
-      }
+        .primary-title {
+            font-size: 17px;
+            font-weight: 900;
+            color: #5b3744;
+        }
 
-      .brand {
-        font-size: 30px;
-      }
+        .primary-desc {
+            margin-top: 3px;
+            font-size: 11px;
+            color: #aa8290;
+        }
 
-      .card {
-        padding:
-          48px
-          22px;
-      }
+        .primary-arrow {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: #ffedf3;
+            color: #ea5a89;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
 
-      .welcome {
-        font-size: 25px;
-      }
-    }
-  </style>
+        /* ================================
+           统计卡
+        ================================ */
+
+        .section {
+            margin: 22px 16px 0;
+        }
+
+        .section-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 17px;
+            font-weight: 900;
+            color: #52343f;
+        }
+
+        .section-link {
+            border: none;
+            background: transparent;
+            color: #d8668d;
+            font-size: 13px;
+            font-weight: 700;
+            min-height: 38px;
+            padding: 7px 3px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .stat-card {
+            border: none;
+            background: white;
+            border-radius: 20px;
+            min-height: 104px;
+            padding: 16px 8px 12px;
+            box-shadow:
+                0 7px 24px rgba(98, 63, 77, 0.07);
+            text-align: center;
+        }
+
+        .stat-icon {
+            font-size: 23px;
+            height: 28px;
+        }
+
+        .stat-value {
+            margin-top: 7px;
+            font-size: 23px;
+            line-height: 1;
+            font-weight: 900;
+            color: #e85687;
+        }
+
+        .stat-label {
+            margin-top: 8px;
+            font-size: 11px;
+            color: #a27a88;
+            font-weight: 600;
+        }
+
+        /* ================================
+           服务说明
+        ================================ */
+
+        .notice-card {
+            margin-top: 14px;
+            padding: 14px 15px;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow:
+                0 6px 20px rgba(98,63,77,.06);
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .notice-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 12px;
+            background: #fff3f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .notice-content {
+            min-width: 0;
+        }
+
+        .notice-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: #64424f;
+        }
+
+        .notice-text {
+            margin-top: 4px;
+            font-size: 11px;
+            line-height: 1.65;
+            color: #9a7985;
+        }
+
+        /* ================================
+           订单卡
+        ================================ */
+
+        .orders-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .order-card {
+            background: white;
+            border-radius: 22px;
+            padding: 15px;
+            box-shadow:
+                0 8px 26px rgba(95, 60, 73, 0.07);
+        }
+
+        .order-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .order-merchant {
+            min-width: 0;
+        }
+
+        .order-merchant-name {
+            font-size: 15px;
+            font-weight: 900;
+            color: #52343f;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .order-time {
+            margin-top: 4px;
+            font-size: 10px;
+            color: #ad8a97;
+        }
+
+        .status-badge {
+            flex-shrink: 0;
+            min-height: 26px;
+            padding: 5px 9px;
+            border-radius: 999px;
+            font-size: 10px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .status-unpaid {
+            color: #c47a18;
+            background: #fff4dd;
+        }
+
+        .status-paid {
+            color: #27855e;
+            background: #eaf9f2;
+        }
+
+        .status-used {
+            color: #4778bb;
+            background: #edf4ff;
+        }
+
+        .status-completed {
+            color: #bc5d83;
+            background: #ffedf5;
+        }
+
+        .status-cancelled {
+            color: #888;
+            background: #f2f2f2;
+        }
+
+        .order-line {
+            height: 1px;
+            background: #f4ebef;
+            margin: 13px 0;
+        }
+
+        .order-info-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+
+        .order-info-label {
+            color: #a48590;
+        }
+
+        .order-info-value {
+            color: #624350;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .usage-wrap {
+            margin-top: 13px;
+            background: #fff7fa;
+            border-radius: 15px;
+            padding: 11px 12px;
+        }
+
+        .usage-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            font-size: 11px;
+        }
+
+        .usage-title {
+            color: #795966;
+            font-weight: 700;
+        }
+
+        .usage-number {
+            color: #e35788;
+            font-weight: 900;
+        }
+
+        .progress {
+            height: 7px;
+            background: #f4dfe7;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            border-radius: 20px;
+            background:
+                linear-gradient(
+                    90deg,
+                    #ff7ba4,
+                    #ff9abb
+                );
+            width: 0%;
+            transition: width .25s ease;
+        }
+
+        .order-actions {
+            display: flex;
+            gap: 9px;
+            margin-top: 14px;
+        }
+
+        .order-btn {
+            min-height: 43px;
+            border: none;
+            border-radius: 14px;
+            padding: 9px 13px;
+            font-size: 12px;
+            font-weight: 800;
+            flex: 1;
+        }
+
+        .order-btn-light {
+            background: #fff1f6;
+            color: #dc5c87;
+        }
+
+        .order-btn-primary {
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff719e,
+                    #ff91b2
+                );
+            color: white;
+        }
+
+        /* ================================
+           空状态
+        ================================ */
+
+        .empty-state {
+            background: white;
+            border-radius: 22px;
+            padding: 30px 16px;
+            text-align: center;
+            box-shadow:
+                0 8px 24px rgba(94, 59, 72, 0.06);
+        }
+
+        .empty-icon {
+            font-size: 42px;
+        }
+
+        .empty-title {
+            margin-top: 9px;
+            font-size: 15px;
+            font-weight: 900;
+            color: #694654;
+        }
+
+        .empty-text {
+            margin-top: 5px;
+            font-size: 11px;
+            color: #a48590;
+            line-height: 1.6;
+        }
+
+        .empty-btn {
+            margin-top: 14px;
+            min-width: 150px;
+            min-height: 45px;
+            border: none;
+            border-radius: 15px;
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff719e,
+                    #ff91b2
+                );
+            color: white;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        /* ================================
+           底部导航
+        ================================ */
+
+        .bottom-nav {
+            position: fixed;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 560px;
+            min-height: 72px;
+            padding:
+                8px
+                15px
+                calc(8px + env(safe-area-inset-bottom));
+            background: rgba(255,255,255,.96);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-top: 1px solid #f3e4ea;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            z-index: 100;
+        }
+
+        .nav-btn {
+            border: none;
+            background: transparent;
+            min-height: 54px;
+            color: #ab8b97;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .nav-btn.active {
+            color: #ed628e;
+        }
+
+        .nav-icon {
+            font-size: 22px;
+            line-height: 1;
+        }
+
+        /* ================================
+           Toast
+        ================================ */
+
+        .toast {
+            position: fixed;
+            z-index: 9999;
+            left: 50%;
+            bottom: calc(95px + env(safe-area-inset-bottom));
+            transform: translate(-50%, 20px);
+            max-width: calc(100vw - 50px);
+            background: rgba(67, 53, 59, .94);
+            color: white;
+            padding: 11px 15px;
+            border-radius: 13px;
+            font-size: 12px;
+            line-height: 1.5;
+            opacity: 0;
+            pointer-events: none;
+            transition: .22s ease;
+            text-align: center;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        /* ================================
+           Loading
+        ================================ */
+
+        .loading-mask {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: #fff7fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-content {
+            text-align: center;
+        }
+
+        .loading-heart {
+            font-size: 44px;
+            animation: beat 1s infinite ease-in-out;
+        }
+
+        .loading-text {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #a27384;
+        }
+
+        @keyframes beat {
+            0%,100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.13);
+            }
+        }
+
+        @media (min-width: 560px) {
+            .app {
+                min-height: 100vh;
+                box-shadow:
+                    0 0 38px rgba(78, 48, 58, 0.08);
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-  <main class="container">
+<div
+    id="loadingMask"
+    class="loading-mask"
+>
+    <div class="loading-content">
 
-    <img
-      src="./logo.jpeg"
-      alt="孕乃馨 Logo"
-      class="logo"
-    >
+        <div class="loading-heart">
+            🌸
+        </div>
 
-    <div class="brand">
-      孕乃馨
+        <div class="loading-text">
+            正在进入孕乃馨...
+        </div>
+
     </div>
+</div>
 
-    <div class="subtitle">
-      专业服务 · 安心生活
-    </div>
 
-    <section class="card">
+<div class="app">
 
-      <div class="flower">
-        🌹
-      </div>
+    <div class="top-safe"></div>
 
-      <div class="welcome">
-        欢迎登入调试页面🌹
-      </div>
 
-      <div class="debug">
-        客户端系统正在建设中<br>
-        后续功能将逐步开放
-      </div>
+    <!-- 顶部 -->
+    <header class="topbar">
 
-      <a
-        href="index.html"
-        class="home-button"
-      >
-        返回主页
-      </a>
+        <div class="brand-area">
+
+            <div class="logo">
+                ♡
+            </div>
+
+            <div class="brand-text">
+
+                <div class="brand-title">
+                    孕乃馨
+                </div>
+
+                <div class="brand-subtitle">
+                    安心服务 · 温暖相伴
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="logout-btn"
+            onclick="logout()"
+        >
+            退出
+        </button>
+
+    </header>
+
+
+    <!-- 欢迎区域 -->
+    <section class="hero">
+
+        <div class="hero-label">
+            欢迎回来
+        </div>
+
+        <div
+            id="customerName"
+            class="hero-name"
+        >
+            尊敬的客户
+        </div>
+
+        <div
+            id="customerNo"
+            class="hero-number"
+        >
+            客户编号：--
+        </div>
+
+        <div class="hero-tip">
+            在线选择服务项目和实体商户，
+            支付成功后凭消费二维码到店核销。
+        </div>
 
     </section>
 
-  </main>
+
+    <!-- 立即下单 -->
+    <div class="primary-wrap">
+
+        <button
+            class="primary-order-btn"
+            onclick="goOrder()"
+        >
+
+            <div class="primary-left">
+
+                <div class="primary-icon">
+                    🌷
+                </div>
+
+                <div class="primary-text">
+
+                    <div class="primary-title">
+                        立即下单
+                    </div>
+
+                    <div class="primary-desc">
+                        选择服务、商户和推荐来源
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="primary-arrow">
+                ›
+            </div>
+
+        </button>
+
+    </div>
+
+
+    <!-- 我的服务 -->
+    <section class="section">
+
+        <div class="section-title-row">
+
+            <div class="section-title">
+                我的服务
+            </div>
+
+        </div>
+
+
+        <div class="stats-grid">
+
+            <button
+                class="stat-card"
+                onclick="goMyOrders()"
+            >
+
+                <div class="stat-icon">
+                    🧾
+                </div>
+
+                <div
+                    id="allOrderCount"
+                    class="stat-value"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    我的订单
+                </div>
+
+            </button>
+
+
+            <button
+                class="stat-card"
+                onclick="goUsingOrders()"
+            >
+
+                <div class="stat-icon">
+                    🌸
+                </div>
+
+                <div
+                    id="usingOrderCount"
+                    class="stat-value"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    待消费
+                </div>
+
+            </button>
+
+
+            <button
+                class="stat-card"
+                onclick="goPendingReviews()"
+            >
+
+                <div class="stat-icon">
+                    ⭐
+                </div>
+
+                <div
+                    id="reviewOrderCount"
+                    class="stat-value"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    待评价
+                </div>
+
+            </button>
+
+        </div>
+
+
+        <div class="notice-card">
+
+            <div class="notice-icon">
+                📍
+            </div>
+
+            <div class="notice-content">
+
+                <div class="notice-title">
+                    线下实体商户服务
+                </div>
+
+                <div class="notice-text">
+                    孕乃馨平台当前服务均在已认证实体商户场所完成，
+                    不提供上门服务。下单时可查看商户地址和地图位置。
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- 最近订单 -->
+    <section class="section">
+
+        <div class="section-title-row">
+
+            <div class="section-title">
+                最近订单
+            </div>
+
+            <button
+                class="section-link"
+                onclick="goMyOrders()"
+            >
+                查看全部 ›
+            </button>
+
+        </div>
+
+
+        <div
+            id="recentOrders"
+            class="orders-list"
+        ></div>
+
+    </section>
+
+</div>
+
+
+<!-- 底部导航 -->
+<nav class="bottom-nav">
+
+    <button
+        class="nav-btn active"
+        onclick="goHome()"
+    >
+
+        <span class="nav-icon">
+            🏠
+        </span>
+
+        <span>
+            首页
+        </span>
+
+    </button>
+
+
+    <button
+        class="nav-btn"
+        onclick="goMyOrders()"
+    >
+
+        <span class="nav-icon">
+            🧾
+        </span>
+
+        <span>
+            订单
+        </span>
+
+    </button>
+
+
+    <button
+        class="nav-btn"
+        onclick="goProfile()"
+    >
+
+        <span class="nav-icon">
+            👤
+        </span>
+
+        <span>
+            我的
+        </span>
+
+    </button>
+
+</nav>
+
+
+<div
+    id="toast"
+    class="toast"
+></div>
+
+
+<script>
+    /* ========================================================
+       Supabase
+    ======================================================== */
+
+    const SUPABASE_URL =
+        "https://qbuqjwpkltbjhlfbyjyb.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+        "sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
+
+
+    const sb =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
+        );
+
+
+    /* ========================================================
+       全局
+    ======================================================== */
+
+    let currentUser = null;
+
+    let currentProfile = null;
+
+    let currentCustomer = null;
+
+    let currentOrders = [];
+
+
+    const IDLE_LIMIT =
+        10 * 60 * 1000;
+
+    let idleTimer = null;
+
+
+
+    /* ========================================================
+       初始化
+    ======================================================== */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        init
+    );
+
+
+    async function init() {
+
+        try {
+
+            setupIdleLogout();
+
+            const {
+                data: {
+                    session
+                },
+                error
+            } =
+                await sb.auth.getSession();
+
+
+            if (
+                error
+                ||
+                !session
+                ||
+                !session.user
+            ) {
+
+                goLogin();
+                return;
+
+            }
+
+
+            currentUser =
+                session.user;
+
+
+            const allowed =
+                await verifyCustomerAccess();
+
+
+            if (!allowed) {
+
+                return;
+
+            }
+
+
+            await loadCustomerInfo();
+
+            await loadOrders();
+
+
+            hideLoading();
+
+
+        } catch (error) {
+
+            console.error(
+                "customer init error:",
+                error
+            );
+
+            hideLoading();
+
+            toast(
+                "页面加载失败，请稍后重试"
+            );
+
+        }
+
+    }
+
+
+
+    /* ========================================================
+       客户权限
+    ======================================================== */
+
+    async function verifyCustomerAccess() {
+
+        const {
+            data,
+            error
+        } =
+            await sb
+                .from("profiles")
+                .select(
+                    `
+                    id,
+                    full_name,
+                    role,
+                    status,
+                    user_type,
+                    account_no
+                    `
+                )
+                .eq(
+                    "id",
+                    currentUser.id
+                )
+                .maybeSingle();
+
+
+        if (error) {
+
+            console.error(error);
+
+            await forceLogout();
+
+            return false;
+
+        }
+
+
+        if (!data) {
+
+            await forceLogout();
+
+            return false;
+
+        }
+
+
+        currentProfile =
+            data;
+
+
+        if (
+            data.status
+            &&
+            data.status !== "active"
+        ) {
+
+            toast(
+                "当前账号已停用"
+            );
+
+            setTimeout(
+                forceLogout,
+                900
+            );
+
+            return false;
+
+        }
+
+
+        const isCustomer =
+            data.role === "customer"
+            ||
+            data.user_type === "customer";
+
+
+        if (!isCustomer) {
+
+            await forceLogout();
+
+            return false;
+
+        }
+
+
+        return true;
+
+    }
+
+
+
+    /* ========================================================
+       客户资料
+    ======================================================== */
+
+    async function loadCustomerInfo() {
+
+        let customer = null;
+
+
+        const byAuth =
+            await sb
+                .from("customers")
+                .select("*")
+                .eq(
+                    "auth_user_id",
+                    currentUser.id
+                )
+                .maybeSingle();
+
+
+        if (!byAuth.error) {
+
+            customer =
+                byAuth.data;
+
+        }
+
+
+        /*
+         * 为兼容未来customers结构，
+         * 如果auth_user_id不存在，
+         * 页面仍然能够使用profiles。
+         */
+
+        currentCustomer =
+            customer;
+
+
+        const name =
+            customer?.customer_name
+            ||
+            customer?.full_name
+            ||
+            currentProfile?.full_name
+            ||
+            "尊敬的客户";
+
+
+        document.getElementById(
+            "customerName"
+        ).textContent =
+            name;
+
+
+        const customerNo =
+            customer?.customer_no
+            ??
+            currentProfile?.account_no
+            ??
+            "--";
+
+
+        document.getElementById(
+            "customerNo"
+        ).textContent =
+            `客户编号：${formatNo(customerNo)}`;
+
+    }
+
+
+
+    /* ========================================================
+       订单
+    ======================================================== */
+
+    async function loadOrders() {
+
+        const result =
+            await sb
+                .from("orders")
+                .select(
+                    `
+                    *
+                    `
+                )
+                .eq(
+                    "customer_id",
+                    currentUser.id
+                )
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                )
+                .limit(100);
+
+
+        if (result.error) {
+
+            console.error(
+                "load orders:",
+                result.error
+            );
+
+            currentOrders = [];
+
+            renderStats();
+
+            renderRecentOrders();
+
+            return;
+
+        }
+
+
+        currentOrders =
+            result.data || [];
+
+
+        renderStats();
+
+        renderRecentOrders();
+
+    }
+
+
+
+    /* ========================================================
+       统计
+    ======================================================== */
+
+    function renderStats() {
+
+        const allCount =
+            currentOrders.length;
+
+
+        const usingCount =
+            currentOrders.filter(
+                order => {
+
+                    return (
+                        order.payment_status === "paid"
+                        &&
+                        Number(
+                            order.remaining_uses ?? 0
+                        ) > 0
+                        &&
+                        ![
+                            "cancelled",
+                            "refunded",
+                            "completed"
+                        ].includes(
+                            order.order_status
+                        )
+                    );
+
+                }
+            ).length;
+
+
+        const reviewCount =
+            currentOrders.filter(
+                order => {
+
+                    return (
+                        order.order_status === "completed"
+                        &&
+                        order.review_status !== "completed"
+                    );
+
+                }
+            ).length;
+
+
+        document.getElementById(
+            "allOrderCount"
+        ).textContent =
+            allCount;
+
+
+        document.getElementById(
+            "usingOrderCount"
+        ).textContent =
+            usingCount;
+
+
+        document.getElementById(
+            "reviewOrderCount"
+        ).textContent =
+            reviewCount;
+
+    }
+
+
+
+    /* ========================================================
+       最近订单
+    ======================================================== */
+
+    function renderRecentOrders() {
+
+        const box =
+            document.getElementById(
+                "recentOrders"
+            );
+
+
+        box.innerHTML = "";
+
+
+        const list =
+            currentOrders.slice(
+                0,
+                3
+            );
+
+
+        if (!list.length) {
+
+            box.innerHTML = `
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        🌷
+                    </div>
+
+                    <div class="empty-title">
+                        还没有订单
+                    </div>
+
+                    <div class="empty-text">
+                        选择适合您的服务项目，
+                        到已认证实体商户完成消费。
+                    </div>
+
+                    <button
+                        class="empty-btn"
+                        onclick="goOrder()"
+                    >
+                        立即下单
+                    </button>
+
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        list.forEach(
+            order => {
+
+                box.appendChild(
+                    createOrderCard(
+                        order
+                    )
+                );
+
+            }
+        );
+
+    }
+
+
+
+    function createOrderCard(order) {
+
+        const card =
+            document.createElement(
+                "div"
+            );
+
+
+        card.className =
+            "order-card";
+
+
+        const total =
+            Math.max(
+                1,
+                Number(
+                    order.total_uses ?? 1
+                )
+            );
+
+
+        const used =
+            Math.max(
+                0,
+                Number(
+                    order.used_uses ?? 0
+                )
+            );
+
+
+        const remaining =
+            Math.max(
+                0,
+                Number(
+                    order.remaining_uses
+                    ??
+                    total - used
+                )
+            );
+
+
+        const percentage =
+            Math.min(
+                100,
+                Math.max(
+                    0,
+                    (used / total) * 100
+                )
+            );
+
+
+        const status =
+            statusInfo(order);
+
+
+        const merchantName =
+            order.merchant_name_snapshot
+            ||
+            "服务商户";
+
+
+        const recommendation =
+            order.recommendation_source_name_snapshot
+            ||
+            "平台";
+
+
+        const created =
+            formatDateTime(
+                order.created_at
+            );
+
+
+        let actionHtml = "";
+
+
+        if (
+            order.payment_status === "paid"
+            &&
+            remaining > 0
+        ) {
+
+            actionHtml = `
+                <div class="order-actions">
+
+                    <button
+                        class="order-btn order-btn-light"
+                        onclick="openOrderDetail('${safeId(order.id)}')"
+                    >
+                        查看订单
+                    </button>
+
+                    <button
+                        class="order-btn order-btn-primary"
+                        onclick="showVerification('${safeId(order.id)}')"
+                    >
+                        消费二维码
+                    </button>
+
+                </div>
+            `;
+
+        } else if (
+            order.order_status === "completed"
+            &&
+            order.review_status !== "completed"
+        ) {
+
+            actionHtml = `
+                <div class="order-actions">
+
+                    <button
+                        class="order-btn order-btn-light"
+                        onclick="openOrderDetail('${safeId(order.id)}')"
+                    >
+                        查看订单
+                    </button>
+
+                    <button
+                        class="order-btn order-btn-primary"
+                        onclick="reviewOrder('${safeId(order.id)}')"
+                    >
+                        去评价
+                    </button>
+
+                </div>
+            `;
+
+        } else {
+
+            actionHtml = `
+                <div class="order-actions">
+
+                    <button
+                        class="order-btn order-btn-light"
+                        onclick="openOrderDetail('${safeId(order.id)}')"
+                    >
+                        查看订单
+                    </button>
+
+                </div>
+            `;
+
+        }
+
+
+        card.innerHTML = `
+
+            <div class="order-head">
+
+                <div class="order-merchant">
+
+                    <div class="order-merchant-name">
+                        ${escapeHtml(merchantName)}
+                    </div>
+
+                    <div class="order-time">
+                        ${escapeHtml(created)}
+                    </div>
+
+                </div>
+
+
+                <div class="
+                    status-badge
+                    ${status.className}
+                ">
+                    ${escapeHtml(status.text)}
+                </div>
+
+            </div>
+
+
+            <div class="order-line"></div>
+
+
+            <div class="order-info-row">
+
+                <span class="order-info-label">
+                    推荐来源
+                </span>
+
+                <span class="order-info-value">
+                    ${escapeHtml(recommendation)}
+                </span>
+
+            </div>
+
+
+            <div class="order-info-row">
+
+                <span class="order-info-label">
+                    支付状态
+                </span>
+
+                <span class="order-info-value">
+                    ${escapeHtml(paymentText(order.payment_status))}
+                </span>
+
+            </div>
+
+
+            <div class="usage-wrap">
+
+                <div class="usage-top">
+
+                    <span class="usage-title">
+                        消费进度
+                    </span>
+
+                    <span class="usage-number">
+                        已消费 ${used} 次 · 剩余 ${remaining} 次
+                    </span>
+
+                </div>
+
+                <div class="progress">
+
+                    <div
+                        class="progress-bar"
+                        style="width:${percentage}%"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            ${actionHtml}
+        `;
+
+
+        return card;
+
+    }
+
+
+
+    /* ========================================================
+       状态文字
+    ======================================================== */
+
+    function statusInfo(order) {
+
+        const status =
+            order.order_status;
+
+
+        if (
+            status === "completed"
+        ) {
+
+            return {
+                text: "已完成",
+                className:
+                    "status-completed"
+            };
+
+        }
+
+
+        if (
+            status === "partially_used"
+        ) {
+
+            return {
+                text: "消费中",
+                className:
+                    "status-used"
+            };
+
+        }
+
+
+        if (
+            status === "paid"
+        ) {
+
+            return {
+                text: "待消费",
+                className:
+                    "status-paid"
+            };
+
+        }
+
+
+        if (
+            status === "cancelled"
+        ) {
+
+            return {
+                text: "已取消",
+                className:
+                    "status-cancelled"
+            };
+
+        }
+
+
+        if (
+            status === "refunded"
+        ) {
+
+            return {
+                text: "已退款",
+                className:
+                    "status-cancelled"
+            };
+
+        }
+
+
+        return {
+            text: "待付款",
+            className:
+                "status-unpaid"
+        };
+
+    }
+
+
+
+    function paymentText(status) {
+
+        const map = {
+
+            unpaid:
+                "未支付",
+
+            paid:
+                "已支付",
+
+            partially_refunded:
+                "部分退款",
+
+            refunded:
+                "已退款"
+
+        };
+
+
+        return map[status]
+            || "未支付";
+
+    }
+
+
+
+    /* ========================================================
+       页面跳转
+    ======================================================== */
+
+    function goHome() {
+
+        window.location.href =
+            "./customer.html";
+
+    }
+
+
+
+    function goOrder() {
+
+        window.location.href =
+            "./customer_order.html";
+
+    }
+
+
+
+    function goMyOrders() {
+
+        window.location.href =
+            "./customer_orders.html";
+
+    }
+
+
+
+    function goUsingOrders() {
+
+        window.location.href =
+            "./customer_orders.html?filter=using";
+
+    }
+
+
+
+    function goPendingReviews() {
+
+        window.location.href =
+            "./customer_orders.html?filter=review";
+
+    }
+
+
+
+    function goProfile() {
+
+        /*
+         * 1.0暂时仍停留客户首页。
+         * 后期建立customer_profile.html后
+         * 再跳转过去。
+         */
+
+        toast(
+            "个人中心将在下一阶段开放"
+        );
+
+    }
+
+
+
+    function openOrderDetail(
+        orderId
+    ) {
+
+        window.location.href =
+            `./customer_order_detail.html?id=${encodeURIComponent(orderId)}`;
+
+    }
+
+
+
+    function showVerification(
+        orderId
+    ) {
+
+        window.location.href =
+            `./customer_order_detail.html?id=${encodeURIComponent(orderId)}&showQR=1`;
+
+    }
+
+
+
+    function reviewOrder(
+        orderId
+    ) {
+
+        window.location.href =
+            `./customer_review.html?order=${encodeURIComponent(orderId)}`;
+
+    }
+
+
+
+    /* ========================================================
+       10分钟无操作退出
+    ======================================================== */
+
+    function setupIdleLogout() {
+
+        const events = [
+            "touchstart",
+            "touchmove",
+            "click",
+            "keydown",
+            "scroll"
+        ];
+
+
+        events.forEach(
+            eventName => {
+
+                document.addEventListener(
+                    eventName,
+                    resetIdleTimer,
+                    {
+                        passive: true
+                    }
+                );
+
+            }
+        );
+
+
+        resetIdleTimer();
+
+    }
+
+
+
+    function resetIdleTimer() {
+
+        clearTimeout(
+            idleTimer
+        );
+
+
+        idleTimer =
+            setTimeout(
+                async () => {
+
+                    toast(
+                        "长时间未操作，请重新登录"
+                    );
+
+                    await sb.auth.signOut();
+
+                    setTimeout(
+                        goLogin,
+                        500
+                    );
+
+                },
+                IDLE_LIMIT
+            );
+
+    }
+
+
+
+    /* ========================================================
+       退出
+    ======================================================== */
+
+    async function logout() {
+
+        await sb.auth.signOut();
+
+        goLogin();
+
+    }
+
+
+
+    async function forceLogout() {
+
+        try {
+
+            await sb.auth.signOut();
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+
+        goLogin();
+
+    }
+
+
+
+    function goLogin() {
+
+        window.location.replace(
+            "./login.html"
+        );
+
+    }
+
+
+
+    /* ========================================================
+       工具
+    ======================================================== */
+
+    function formatNo(value) {
+
+        if (
+            value === null
+            ||
+            value === undefined
+            ||
+            value === ""
+        ) {
+
+            return "--";
+
+        }
+
+
+        return String(value);
+
+    }
+
+
+
+    function formatDateTime(value) {
+
+        if (!value) {
+
+            return "";
+
+        }
+
+
+        const date =
+            new Date(value);
+
+
+        if (
+            Number.isNaN(
+                date.getTime()
+            )
+        ) {
+
+            return "";
+
+        }
+
+
+        return date.toLocaleString(
+            "zh-CN",
+            {
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false
+            }
+        );
+
+    }
+
+
+
+    function safeId(value) {
+
+        return String(
+            value ?? ""
+        ).replace(
+            /'/g,
+            ""
+        );
+
+    }
+
+
+
+    function escapeHtml(value) {
+
+        return String(
+            value ?? ""
+        )
+            .replaceAll(
+                "&",
+                "&amp;"
+            )
+            .replaceAll(
+                "<",
+                "&lt;"
+            )
+            .replaceAll(
+                ">",
+                "&gt;"
+            )
+            .replaceAll(
+                '"',
+                "&quot;"
+            )
+            .replaceAll(
+                "'",
+                "&#039;"
+            );
+
+    }
+
+
+
+    function toast(message) {
+
+        const el =
+            document.getElementById(
+                "toast"
+            );
+
+
+        el.textContent =
+            message;
+
+
+        el.classList.add(
+            "show"
+        );
+
+
+        clearTimeout(
+            toast.timer
+        );
+
+
+        toast.timer =
+            setTimeout(
+                () => {
+
+                    el.classList.remove(
+                        "show"
+                    );
+
+                },
+                2200
+            );
+
+    }
+
+
+
+    function hideLoading() {
+
+        const mask =
+            document.getElementById(
+                "loadingMask"
+            );
+
+
+        if (!mask) {
+            return;
+        }
+
+
+        mask.style.opacity =
+            "0";
+
+
+        mask.style.transition =
+            "opacity .22s ease";
+
+
+        setTimeout(
+            () => {
+
+                mask.style.display =
+                    "none";
+
+            },
+            230
+        );
+
+    }
+
+</script>
 
 </body>
 </html>

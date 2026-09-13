@@ -2,33 +2,20 @@
 <html lang="zh-CN">
 
 <head>
-
 <meta charset="UTF-8">
-
 <meta
     name="viewport"
-    content="
-        width=device-width,
-        initial-scale=1.0,
-        maximum-scale=1.0,
-        viewport-fit=cover
-    "
+    content="width=device-width,initial-scale=1.0,maximum-scale=1.0,viewport-fit=cover"
 >
-
-<meta
-    name="theme-color"
-    content="#fff7fa"
->
+<meta name="theme-color" content="#fff7fa">
 
 <title>商户分成规则 - 孕乃馨</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-
 <style>
 
-:root {
-
+:root{
     --pink-50:#fff7fa;
     --pink-100:#ffeef4;
     --pink-200:#ffd9e7;
@@ -60,7 +47,6 @@
 
     --purple:#78518e;
     --purple-bg:#f6effa;
-
 }
 
 
@@ -68,27 +54,18 @@
    RESET
 ========================================================= */
 
-* {
-
+*{
     box-sizing:border-box;
-
     -webkit-tap-highlight-color:transparent;
-
 }
-
 
 html,
-body {
-
+body{
     margin:0;
-
     min-height:100%;
-
 }
 
-
-body {
-
+body{
     min-height:100vh;
     min-height:100dvh;
 
@@ -111,30 +88,20 @@ body {
         sans-serif;
 
     -webkit-font-smoothing:antialiased;
-
 }
-
 
 button,
 input,
-select {
-
+select{
     font:inherit;
-
 }
 
-
-button {
-
+button{
     cursor:pointer;
-
 }
 
-
-.hidden {
-
+.hidden{
     display:none !important;
-
 }
 
 
@@ -142,136 +109,77 @@ button {
    TOP
 ========================================================= */
 
-.topbar {
-
+.topbar{
     min-height:68px;
 
     position:sticky;
-
     top:0;
-
     z-index:1000;
 
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
 
     gap:15px;
 
-    padding:
-        8px
-        24px;
+    padding:8px 24px;
 
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            .95
-        );
+    background:rgba(255,255,255,.95);
 
     backdrop-filter:blur(16px);
-
     -webkit-backdrop-filter:blur(16px);
 
-    border-bottom:
-        1px solid
-        var(--border);
-
+    border-bottom:1px solid var(--border);
 }
 
-
-.brand {
-
+.brand{
     display:flex;
-
     align-items:center;
-
     gap:11px;
-
 }
 
-
-.brand img {
-
+.brand img{
     width:42px;
     height:42px;
 
     object-fit:contain;
-
     border-radius:12px;
-
 }
 
-
-.brand-title {
-
+.brand-title{
     font-size:18px;
-
     font-weight:750;
-
     color:var(--rose);
-
 }
 
-
-.brand-sub {
-
+.brand-sub{
     margin-top:2px;
-
     font-size:11px;
-
     color:var(--text3);
-
 }
 
-
-.top-actions {
-
+.top-actions{
     display:flex;
-
     align-items:center;
-
     gap:9px;
-
 }
-
 
 .back-button,
-.logout-button {
-
+.logout-button{
     min-height:44px;
-
-    padding:
-        0
-        15px;
-
+    padding:0 15px;
     border-radius:12px;
-
     font-size:12px;
-
     font-weight:700;
-
 }
 
-
-.back-button {
-
-    border:
-        1px solid
-        var(--pink-200);
-
+.back-button{
+    border:1px solid var(--pink-200);
     background:var(--pink-50);
-
     color:var(--pink-700);
-
 }
 
-
-.logout-button {
-
+.logout-button{
     border:0;
 
     background:
@@ -282,7 +190,6 @@ button {
         );
 
     color:#fff;
-
 }
 
 
@@ -290,16 +197,11 @@ button {
    PAGE
 ========================================================= */
 
-.page {
-
+.page{
     width:100%;
-
     max-width:1750px;
-
     margin:0 auto;
-
     padding:28px;
-
 }
 
 
@@ -307,24 +209,15 @@ button {
    HERO
 ========================================================= */
 
-.hero {
-
-    padding:
-        26px
-        28px;
-
+.hero{
+    padding:26px 28px;
     margin-bottom:18px;
 
     border-radius:22px;
 
     border:
         1px solid
-        rgba(
-            232,
-            93,
-            143,
-            .10
-        );
+        rgba(232,93,143,.10);
 
     background:
         linear-gradient(
@@ -332,63 +225,39 @@ button {
             #fff0f5,
             #ffe1ec
         );
-
 }
 
-
-.hero-tag {
-
+.hero-tag{
     display:inline-flex;
 
-    padding:
-        4px
-        10px;
-
+    padding:4px 10px;
     margin-bottom:8px;
 
     border-radius:999px;
 
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            .74
-        );
+    background:rgba(255,255,255,.74);
 
     color:var(--pink-700);
 
     font-size:10px;
-
     font-weight:750;
-
 }
 
-
-.hero h1 {
-
-    margin:
-        0
-        0
-        6px;
+.hero h1{
+    margin:0 0 6px;
 
     color:var(--rose);
 
     font-size:24px;
-
 }
 
-
-.hero p {
-
+.hero p{
     margin:0;
 
     color:#875064;
 
     font-size:12px;
-
     line-height:1.8;
-
 }
 
 
@@ -396,62 +265,43 @@ button {
    STATS
 ========================================================= */
 
-.stats {
-
+.stats{
     display:grid;
 
     grid-template-columns:
         repeat(
             5,
-            minmax(
-                0,
-                1fr
-            )
+            minmax(0,1fr)
         );
 
     gap:11px;
 
     margin-bottom:17px;
-
 }
 
-
-.stat {
-
+.stat{
     min-height:100px;
 
     padding:16px;
 
-    border:
-        1px solid
-        var(--border);
-
+    border:1px solid var(--border);
     border-radius:16px;
 
     background:#fff;
-
 }
 
-
-.stat-label {
-
+.stat-label{
     color:var(--text3);
-
     font-size:10px;
-
 }
 
-
-.stat-value {
-
+.stat-value{
     margin-top:7px;
 
     color:var(--rose);
 
     font-size:21px;
-
     font-weight:750;
-
 }
 
 
@@ -459,67 +309,46 @@ button {
    TOOLBAR
 ========================================================= */
 
-.toolbar {
-
+.toolbar{
     display:grid;
 
     grid-template-columns:
         repeat(
             3,
-            minmax(
-                0,
-                1fr
-            )
+            minmax(0,1fr)
         );
 
     gap:10px;
 
     padding:13px;
-
     margin-bottom:14px;
 
-    border:
-        1px solid
-        var(--border);
-
+    border:1px solid var(--border);
     border-radius:17px;
 
     background:#fff;
-
 }
 
-
-.select {
-
+.select{
     width:100%;
-
     min-height:48px;
 
-    padding:
-        0
-        13px;
+    padding:0 13px;
 
-    border:
-        1px solid
-        #e4dce0;
-
+    border:1px solid #e4dce0;
     border-radius:11px;
 
     background:#fff;
 
     outline:none;
-
 }
 
-
-.select:focus {
-
+.select:focus{
     border-color:var(--pink-300);
 
     box-shadow:
         0 0 0 3px
         var(--pink-50);
-
 }
 
 
@@ -527,47 +356,30 @@ button {
    TABLE
 ========================================================= */
 
-.table-panel {
-
+.table-panel{
     overflow:hidden;
 
-    border:
-        1px solid
-        var(--border);
-
+    border:1px solid var(--border);
     border-radius:18px;
 
     background:#fff;
-
 }
 
-
-.table-scroll {
-
+.table-scroll{
     overflow-x:auto;
-
 }
 
-
-table {
-
+table{
     width:100%;
-
     min-width:1900px;
 
     border-collapse:collapse;
-
 }
 
-
-th {
-
-    padding:
-        13px
-        11px;
+th{
+    padding:13px 11px;
 
     text-align:left;
-
     white-space:nowrap;
 
     background:#fffafb;
@@ -575,65 +387,40 @@ th {
     color:#837980;
 
     font-size:10px;
-
 }
 
+td{
+    padding:14px 11px;
 
-td {
-
-    padding:
-        14px
-        11px;
-
-    border-top:
-        1px solid
-        #f1eaee;
+    border-top:1px solid #f1eaee;
 
     font-size:11px;
-
     vertical-align:middle;
-
 }
 
-
-.merchant-name {
-
+.merchant-name{
     font-weight:750;
-
 }
 
-
-.sub-text {
-
+.sub-text{
     margin-top:3px;
 
     color:var(--text3);
 
     font-size:9px;
-
 }
 
-
-.service-name {
-
+.service-name{
     font-weight:700;
-
 }
 
-
-.value {
-
+.value{
     font-weight:650;
-
 }
 
-
-.undefined {
-
+.undefined{
     color:var(--orange);
-
     font-weight:700;
-
 }
 
 
@@ -641,64 +428,42 @@ td {
    BADGE
 ========================================================= */
 
-.badge {
-
+.badge{
     display:inline-flex;
 
     align-items:center;
-
     justify-content:center;
 
     min-height:26px;
 
-    padding:
-        3px
-        8px;
+    padding:3px 8px;
 
     border-radius:999px;
 
     font-size:9px;
-
     font-weight:750;
 
     white-space:nowrap;
-
 }
 
-
-.badge-defined {
-
+.badge-defined{
     color:var(--green);
-
     background:var(--green-bg);
-
 }
 
-
-.badge-undefined {
-
+.badge-undefined{
     color:var(--orange);
-
     background:var(--orange-bg);
-
 }
 
-
-.badge-partial {
-
+.badge-partial{
     color:#a86613;
-
     background:#fff5dc;
-
 }
 
-
-.badge-history {
-
+.badge-history{
     color:var(--gray);
-
     background:var(--gray-bg);
-
 }
 
 
@@ -707,57 +472,38 @@ td {
 ========================================================= */
 
 .define-button,
-.invalidate-button {
-
+.invalidate-button{
     min-height:39px;
 
-    padding:
-        0
-        12px;
+    padding:0 12px;
 
     border-radius:10px;
 
     font-size:10px;
-
     font-weight:750;
 
     white-space:nowrap;
-
 }
 
-
-.define-button {
-
-    border:
-        1px solid
-        var(--pink-200);
+.define-button{
+    border:1px solid var(--pink-200);
 
     background:var(--pink-50);
 
     color:var(--pink-700);
-
 }
 
-
-.invalidate-button {
-
-    border:
-        1px solid
-        #efc4ce;
+.invalidate-button{
+    border:1px solid #efc4ce;
 
     background:var(--red-bg);
 
     color:var(--red);
-
 }
 
-
-.history-text {
-
+.history-text{
     color:var(--text3);
-
     font-size:10px;
-
 }
 
 
@@ -765,25 +511,17 @@ td {
    EMPTY
 ========================================================= */
 
-.empty {
-
-    padding:
-        55px
-        20px;
+.empty{
+    padding:55px 20px;
 
     text-align:center;
 
     color:var(--text3);
-
 }
 
-
-.empty-icon {
-
+.empty-icon{
     margin-bottom:8px;
-
     font-size:33px;
-
 }
 
 
@@ -791,69 +529,46 @@ td {
    MOBILE
 ========================================================= */
 
-.mobile-list {
-
+.mobile-list{
     display:none;
-
 }
 
-
-.rule-card {
-
+.rule-card{
     padding:16px;
-
     margin-bottom:10px;
 
-    border:
-        1px solid
-        var(--border);
-
+    border:1px solid var(--border);
     border-radius:16px;
 
     background:#fff;
-
 }
 
-
-.rule-card-head {
-
+.rule-card-head{
     display:flex;
 
     align-items:flex-start;
-
     justify-content:space-between;
 
     gap:10px;
 
     margin-bottom:12px;
-
 }
 
-
-.rule-card-name {
-
+.rule-card-name{
     font-size:15px;
-
     font-weight:750;
-
 }
 
-
-.rule-card-service {
-
+.rule-card-service{
     margin-top:3px;
 
     color:var(--pink-700);
 
     font-size:12px;
-
     font-weight:650;
-
 }
 
-
-.mobile-grid {
-
+.mobile-grid{
     display:grid;
 
     grid-template-columns:
@@ -861,55 +576,36 @@ td {
         1fr;
 
     gap:8px;
-
 }
 
-
-.mobile-item {
-
+.mobile-item{
     padding:10px;
 
     border-radius:11px;
 
     background:#fcfafb;
-
 }
 
-
-.mobile-item-wide {
-
-    grid-column:
-        1 / -1;
-
+.mobile-item-wide{
+    grid-column:1 / -1;
 }
 
-
-.mobile-label {
-
+.mobile-label{
     color:var(--text3);
-
     font-size:9px;
-
 }
 
-
-.mobile-value {
-
+.mobile-value{
     margin-top:3px;
 
     font-size:11px;
-
     font-weight:650;
 
     word-break:break-word;
-
 }
 
-
-.mobile-action {
-
+.mobile-action{
     width:100%;
-
     min-height:47px;
 
     margin-top:11px;
@@ -917,7 +613,6 @@ td {
     border-radius:12px;
 
     font-weight:750;
-
 }
 
 
@@ -925,8 +620,7 @@ td {
    MODAL
 ========================================================= */
 
-.modal-mask {
-
+.modal-mask{
     position:fixed;
 
     inset:0;
@@ -936,30 +630,18 @@ td {
     display:flex;
 
     align-items:center;
-
     justify-content:center;
 
     padding:16px;
 
-    background:
-        rgba(
-            40,
-            27,
-            33,
-            .44
-        );
+    background:rgba(40,27,33,.44);
 
     backdrop-filter:blur(4px);
-
 }
 
-
-.modal {
-
+.modal{
     width:100%;
-
     max-width:560px;
-
     max-height:92vh;
 
     overflow:auto;
@@ -972,46 +654,29 @@ td {
 
     box-shadow:
         0 24px 70px
-        rgba(
-            50,
-            20,
-            35,
-            .20
-        );
-
+        rgba(50,20,35,.20);
 }
 
-
-.modal-title {
-
+.modal-title{
     margin-bottom:4px;
 
     color:var(--rose);
 
     font-size:19px;
-
     font-weight:750;
-
 }
 
-
-.modal-sub {
-
+.modal-sub{
     margin-bottom:16px;
 
     color:var(--text2);
 
     font-size:11px;
-
     line-height:1.7;
-
 }
 
-
-.modal-info {
-
+.modal-info{
     padding:12px;
-
     margin-bottom:16px;
 
     border-radius:12px;
@@ -1021,57 +686,33 @@ td {
     color:#7e4960;
 
     font-size:10px;
-
     line-height:1.7;
-
 }
 
+.health-panel{
+    padding:15px 14px 2px;
+    margin:4px 0 14px;
 
-.health-panel {
-
-    padding:
-        15px
-        14px
-        2px;
-
-    margin:
-        4px
-        0
-        14px;
-
-    border:
-        1px solid
-        #ead9f0;
-
+    border:1px solid #ead9f0;
     border-radius:14px;
 
     background:#fcf8fe;
-
 }
 
-
-.health-panel-title {
-
+.health-panel-title{
     margin-bottom:13px;
 
     color:var(--purple);
 
     font-size:12px;
-
     font-weight:750;
-
 }
 
-
-.form-group {
-
+.form-group{
     margin-bottom:13px;
-
 }
 
-
-.form-label {
-
+.form-label{
     display:block;
 
     margin-bottom:6px;
@@ -1079,48 +720,103 @@ td {
     color:#554b52;
 
     font-size:11px;
-
     font-weight:700;
-
 }
 
-
-.form-input {
-
+.form-input{
     width:100%;
-
     min-height:48px;
 
-    padding:
-        0
-        13px;
+    padding:0 13px;
 
-    border:
-        1px solid
-        #e5dce1;
-
+    border:1px solid #e5dce1;
     border-radius:11px;
 
     outline:none;
 
     background:#fff;
-
 }
 
-
-.form-input:focus {
-
+.form-input:focus{
     border-color:var(--pink-300);
 
     box-shadow:
         0 0 0 3px
         var(--pink-50);
-
 }
 
 
-.modal-actions {
+/* =========================================================
+   比例合计检查
+========================================================= */
 
+.ratio-check{
+    margin:15px 0;
+
+    padding:15px;
+
+    border:1px solid #f0d9e2;
+    border-radius:14px;
+
+    background:#fffafb;
+}
+
+.ratio-check-title{
+    color:#6e5963;
+
+    font-size:11px;
+    font-weight:700;
+}
+
+.ratio-total{
+    margin-top:6px;
+
+    font-size:24px;
+    font-weight:800;
+
+    color:var(--orange);
+}
+
+.ratio-total.valid{
+    color:var(--green);
+}
+
+.ratio-total.invalid{
+    color:var(--red);
+}
+
+.ratio-message{
+    margin-top:5px;
+
+    font-size:11px;
+    line-height:1.6;
+
+    color:var(--orange);
+}
+
+.ratio-message.valid{
+    color:var(--green);
+}
+
+.ratio-message.invalid{
+    color:var(--red);
+}
+
+.ratio-formula{
+    margin-top:8px;
+
+    color:var(--text3);
+
+    font-size:9px;
+    line-height:1.6;
+}
+
+
+/* =========================================================
+   MODAL ACTIONS
+========================================================= */
+
+.modal-actions{
     display:grid;
 
     grid-template-columns:
@@ -1130,35 +826,23 @@ td {
     gap:9px;
 
     margin-top:18px;
-
 }
 
-
 .cancel-button,
-.save-button {
-
+.save-button{
     min-height:49px;
 
     border-radius:12px;
 
     font-weight:750;
-
 }
 
-
-.cancel-button {
-
-    border:
-        1px solid
-        var(--border);
-
+.cancel-button{
+    border:1px solid var(--border);
     background:#fff;
-
 }
 
-
-.save-button {
-
+.save-button{
     border:0;
 
     background:
@@ -1169,14 +853,11 @@ td {
         );
 
     color:#fff;
-
 }
 
-
-.save-button:disabled {
-
-    opacity:.55;
-
+.save-button:disabled{
+    opacity:.45;
+    cursor:not-allowed;
 }
 
 
@@ -1184,25 +865,19 @@ td {
    TOAST
 ========================================================= */
 
-.toast {
-
+.toast{
     position:fixed;
 
     left:50%;
-
     bottom:25px;
 
     z-index:9000;
 
-    transform:
-        translateX(-50%);
+    transform:translateX(-50%);
 
-    max-width:
-        calc(100% - 30px);
+    max-width:calc(100% - 30px);
 
-    padding:
-        11px
-        16px;
+    padding:11px 16px;
 
     border-radius:11px;
 
@@ -1211,7 +886,6 @@ td {
     color:#fff;
 
     font-size:11px;
-
 }
 
 
@@ -1219,8 +893,7 @@ td {
    LOADING
 ========================================================= */
 
-.loading {
-
+.loading{
     position:fixed;
 
     inset:0;
@@ -1230,47 +903,30 @@ td {
     display:flex;
 
     align-items:center;
-
     justify-content:center;
-
     flex-direction:column;
 
     gap:12px;
 
     background:#fffafd;
-
 }
 
-
-.spinner {
-
+.spinner{
     width:38px;
     height:38px;
 
-    border:
-        4px solid
-        var(--pink-100);
-
-    border-top-color:
-        var(--pink-500);
+    border:4px solid var(--pink-100);
+    border-top-color:var(--pink-500);
 
     border-radius:50%;
 
-    animation:
-        spin .8s linear infinite;
-
+    animation:spin .8s linear infinite;
 }
 
-
-@keyframes spin {
-
-    to {
-
-        transform:
-            rotate(360deg);
-
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
     }
-
 }
 
 
@@ -1278,187 +934,103 @@ td {
    RESPONSIVE
 ========================================================= */
 
-@media
-(max-width:1050px) {
+@media(max-width:1050px){
 
-    .stats {
-
-        grid-template-columns:
-            repeat(
-                2,
-                1fr
-            );
-
+    .stats{
+        grid-template-columns:repeat(2,1fr);
     }
 
 }
 
+@media(max-width:900px){
 
-@media
-(max-width:900px) {
-
-    .toolbar {
-
-        grid-template-columns:
-            1fr
-            1fr;
-
+    .toolbar{
+        grid-template-columns:1fr 1fr;
     }
 
 }
 
+@media(max-width:760px){
 
-@media
-(max-width:760px) {
-
-    .topbar {
-
+    .topbar{
         min-height:64px;
 
         padding:
-            max(
-                5px,
-                env(
-                    safe-area-inset-top
-                )
-            )
+            max(5px,env(safe-area-inset-top))
             11px
             5px;
-
     }
 
-
-    .brand img {
-
+    .brand img{
         width:38px;
         height:38px;
-
     }
 
-
-    .brand-title {
-
+    .brand-title{
         font-size:16px;
-
     }
 
-
-    .brand-sub {
-
+    .brand-sub{
         display:none;
-
     }
 
-
-    .back-button {
-
+    .back-button{
         display:none;
-
     }
 
-
-    .logout-button {
-
+    .logout-button{
         min-height:42px;
-
-        padding:
-            0
-            12px;
-
+        padding:0 12px;
     }
 
-
-    .page {
-
-        padding:
-            13px
-            11px
-            25px;
-
+    .page{
+        padding:13px 11px 25px;
     }
 
-
-    .hero {
-
-        padding:
-            20px
-            18px;
-
+    .hero{
+        padding:20px 18px;
         margin-bottom:12px;
-
         border-radius:18px;
-
     }
 
-
-    .hero h1 {
-
+    .hero h1{
         font-size:20px;
-
     }
 
-
-    .stats {
-
+    .stats{
         gap:8px;
-
         margin-bottom:12px;
-
     }
 
-
-    .stat {
-
+    .stat{
         min-height:87px;
-
         padding:13px;
-
     }
 
-
-    .stat-value {
-
+    .stat-value{
         font-size:18px;
-
     }
 
-
-    .toolbar {
-
+    .toolbar{
         grid-template-columns:1fr;
-
         padding:10px;
-
     }
 
-
-    .table-panel {
-
+    .table-panel{
         display:none;
-
     }
 
-
-    .mobile-list {
-
+    .mobile-list{
         display:block;
-
     }
 
-
-    .modal-mask {
-
+    .modal-mask{
         align-items:flex-end;
-
         padding:0;
-
     }
 
-
-    .modal {
-
+    .modal{
         max-width:none;
-
         max-height:93dvh;
 
         border-radius:
@@ -1470,87 +1042,54 @@ td {
         padding:
             21px
             17px
-            max(
-                20px,
-                env(
-                    safe-area-inset-bottom
-                )
-            );
-
+            max(20px,env(safe-area-inset-bottom));
     }
 
 }
 
 </style>
-
 </head>
 
 
 <body>
 
 
-<!-- =========================================================
-     LOADING
-========================================================= -->
-
-<div
-    id="loading"
-    class="loading"
->
+<div id="loading" class="loading">
 
     <div class="spinner"></div>
 
-    <div
-        style="
-            color:#756a71;
-            font-size:12px;
-        "
-    >
+    <div style="color:#756a71;font-size:12px;">
         正在读取商户分成规则...
     </div>
 
 </div>
 
 
-
-<!-- =========================================================
-     TOP
-========================================================= -->
-
 <header class="topbar">
 
-
     <div class="brand">
-
 
         <img
             src="./logo.jpeg"
             alt="孕乃馨"
         >
 
-
         <div>
-
 
             <div class="brand-title">
                 商户分成规则
             </div>
 
-
             <div class="brand-sub">
                 孕乃馨平台管理中心
             </div>
 
-
         </div>
-
 
     </div>
 
 
-
     <div class="top-actions">
-
 
         <button
             class="back-button"
@@ -1559,7 +1098,6 @@ td {
             返回首页
         </button>
 
-
         <button
             class="logout-button"
             onclick="logout()"
@@ -1567,158 +1105,75 @@ td {
             退出
         </button>
 
-
     </div>
-
 
 </header>
 
 
-
-<!-- =========================================================
-     PAGE
-========================================================= -->
-
 <main class="page">
 
 
-<!-- =========================================================
-     HERO
-========================================================= -->
-
 <section class="hero">
-
 
     <div class="hero-tag">
         MERCHANT RULES
     </div>
 
-
     <h1>
         商户分成规则
     </h1>
 
-
     <p>
         每个商户、每个有效服务项目只保留一套统一分成规则。
         新商户或新服务项目建立后，系统自动生成一条未定义规则。
+        税率、平台比例、门店比例、操作人员比例、订单来源比例五项合计必须等于100%。
         规则定义后不能直接修改；如需调整，必须先将原规则设为无效，
         系统自动建立下一版本，历史规则永久保留。
     </p>
 
-
 </section>
 
-
-
-<!-- =========================================================
-     STATS
-========================================================= -->
 
 <section class="stats">
 
-
     <div class="stat">
-
-        <div class="stat-label">
-            当前有效规则
-        </div>
-
-        <div
-            id="statActive"
-            class="stat-value"
-        >
-            0
-        </div>
-
+        <div class="stat-label">当前有效规则</div>
+        <div id="statActive" class="stat-value">0</div>
     </div>
 
-
     <div class="stat">
-
-        <div class="stat-label">
-            涉及商户
-        </div>
-
-        <div
-            id="statMerchants"
-            class="stat-value"
-        >
-            0
-        </div>
-
+        <div class="stat-label">涉及商户</div>
+        <div id="statMerchants" class="stat-value">0</div>
     </div>
 
-
     <div class="stat">
-
-        <div class="stat-label">
-            已定义
-        </div>
-
-        <div
-            id="statDefined"
-            class="stat-value"
-        >
-            0
-        </div>
-
+        <div class="stat-label">已定义</div>
+        <div id="statDefined" class="stat-value">0</div>
     </div>
 
-
     <div class="stat">
-
-        <div class="stat-label">
-            未定义
-        </div>
-
-        <div
-            id="statUndefined"
-            class="stat-value"
-        >
-            0
-        </div>
-
+        <div class="stat-label">未定义</div>
+        <div id="statUndefined" class="stat-value">0</div>
     </div>
 
-
     <div class="stat">
-
-        <div class="stat-label">
-            历史无效规则
-        </div>
-
-        <div
-            id="statHistory"
-            class="stat-value"
-        >
-            0
-        </div>
-
+        <div class="stat-label">历史无效规则</div>
+        <div id="statHistory" class="stat-value">0</div>
     </div>
-
 
 </section>
 
 
-
-<!-- =========================================================
-     FILTER
-========================================================= -->
-
 <section class="toolbar">
-
 
     <select
         id="cityFilter"
         class="select"
         onchange="cityChanged()"
     >
-
         <option value="">
             全部已开展业务城市
         </option>
-
     </select>
 
 
@@ -1727,11 +1182,9 @@ td {
         class="select"
         onchange="renderRules()"
     >
-
         <option value="">
             全部商户
         </option>
-
     </select>
 
 
@@ -1740,107 +1193,53 @@ td {
         class="select"
         onchange="renderRules()"
     >
-
-        <option value="active">
-            当前有效规则
-        </option>
-
-        <option value="undefined">
-            当前未定义
-        </option>
-
-        <option value="defined">
-            当前已定义
-        </option>
-
-        <option value="history">
-            历史已失效
-        </option>
-
-        <option value="all">
-            全部规则
-        </option>
-
+        <option value="active">当前有效规则</option>
+        <option value="undefined">当前未定义</option>
+        <option value="defined">当前已定义</option>
+        <option value="history">历史已失效</option>
+        <option value="all">全部规则</option>
     </select>
-
 
 </section>
 
 
-
-<!-- =========================================================
-     DESKTOP
-========================================================= -->
-
 <section class="table-panel">
-
 
 <div class="table-scroll">
 
-
 <table>
-
 
 <thead>
 
-
 <tr>
-
     <th>商户</th>
-
     <th>服务区域</th>
-
     <th>服务项目</th>
-
     <th>版本</th>
-
     <th>城市销售价</th>
-
     <th>税率</th>
-
     <th>平台比例</th>
-
     <th>门店比例</th>
-
     <th>操作人员比例</th>
-
     <th>订单来源比例</th>
-
     <th>订单来源联系人</th>
-
     <th>健康咨询电话</th>
-
     <th>修改人</th>
-
     <th>修改时间</th>
-
     <th>状态</th>
-
     <th>操作</th>
-
 </tr>
-
 
 </thead>
 
-
-<tbody
-    id="rulesTable"
->
-</tbody>
-
+<tbody id="rulesTable"></tbody>
 
 </table>
-
 
 </div>
 
 
-
-<div
-    id="desktopEmpty"
-    class="empty hidden"
->
+<div id="desktopEmpty" class="empty hidden">
 
     <div class="empty-icon">
         📊
@@ -1850,14 +1249,8 @@ td {
 
 </div>
 
-
 </section>
 
-
-
-<!-- =========================================================
-     MOBILE
-========================================================= -->
 
 <section
     id="mobileList"
@@ -1866,10 +1259,7 @@ td {
 </section>
 
 
-<div
-    id="mobileEmpty"
-    class="empty hidden"
->
+<div id="mobileEmpty" class="empty hidden">
 
     <div class="empty-icon">
         📊
@@ -1883,7 +1273,6 @@ td {
 </main>
 
 
-
 <!-- =========================================================
      DEFINE MODAL
 ========================================================= -->
@@ -1894,9 +1283,7 @@ td {
     onclick="modalBackgroundClick(event)"
 >
 
-
 <div class="modal">
-
 
     <div class="modal-title">
         定义商户分成规则
@@ -1917,11 +1304,14 @@ td {
 
         <br>
 
+        五项比例合计必须等于100%。
+
+        <br>
+
         如果以后需要修改，请使用“设为无效”，旧版本永久保留，
         系统自动建立下一版本未定义规则。
 
     </div>
-
 
 
     <div class="form-group">
@@ -1932,16 +1322,16 @@ td {
 
         <input
             id="taxInput"
-            class="form-input"
+            class="form-input ratio-input"
             type="number"
             min="0"
             max="100"
             step="0.01"
+            inputmode="decimal"
             placeholder="请输入税率"
         >
 
     </div>
-
 
 
     <div class="form-group">
@@ -1952,16 +1342,16 @@ td {
 
         <input
             id="platformInput"
-            class="form-input"
+            class="form-input ratio-input"
             type="number"
             min="0"
             max="100"
             step="0.01"
+            inputmode="decimal"
             placeholder="请输入平台比例"
         >
 
     </div>
-
 
 
     <div class="form-group">
@@ -1972,16 +1362,16 @@ td {
 
         <input
             id="storeInput"
-            class="form-input"
+            class="form-input ratio-input"
             type="number"
             min="0"
             max="100"
             step="0.01"
+            inputmode="decimal"
             placeholder="请输入门店比例"
         >
 
     </div>
-
 
 
     <div class="form-group">
@@ -1992,42 +1382,40 @@ td {
 
         <input
             id="operatorInput"
-            class="form-input"
+            class="form-input ratio-input"
             type="number"
             min="0"
             max="100"
             step="0.01"
+            inputmode="decimal"
             placeholder="请输入操作人员比例"
         >
 
     </div>
 
 
-
-    <div
-        id="healthConsultantPanel"
-        class="health-panel"
-    >
+    <div id="healthConsultantPanel" class="health-panel">
 
         <div class="health-panel-title">
-            健康顾问信息
+            订单来源信息
         </div>
 
 
         <div class="form-group">
 
             <label class="form-label">
-                健康顾问比例（%）
+                订单来源比例（%）
             </label>
 
             <input
                 id="healthRatioInput"
-                class="form-input"
+                class="form-input ratio-input"
                 type="number"
                 min="0"
                 max="100"
                 step="0.01"
-                placeholder="请输入健康顾问比例"
+                inputmode="decimal"
+                placeholder="请输入订单来源比例"
             >
 
         </div>
@@ -2036,7 +1424,7 @@ td {
         <div class="form-group">
 
             <label class="form-label">
-                健康顾问姓名
+                订单来源联系人
             </label>
 
             <input
@@ -2045,7 +1433,7 @@ td {
                 type="text"
                 maxlength="100"
                 autocomplete="off"
-                placeholder="请输入健康顾问姓名"
+                placeholder="请输入订单来源联系人"
             >
 
         </div>
@@ -2054,7 +1442,7 @@ td {
         <div class="form-group">
 
             <label class="form-label">
-                健康顾问电话号码
+                健康咨询电话
             </label>
 
             <input
@@ -2063,18 +1451,46 @@ td {
                 type="tel"
                 maxlength="50"
                 autocomplete="off"
-                placeholder="请输入健康顾问电话号码"
+                placeholder="请输入健康咨询电话"
             >
 
         </div>
 
+    </div>
+
+
+    <!-- =====================================================
+         五项比例实时检查
+    ====================================================== -->
+
+    <div class="ratio-check">
+
+        <div class="ratio-check-title">
+            五项比例合计
+        </div>
+
+        <div
+            id="ratioTotal"
+            class="ratio-total"
+        >
+            0.00%
+        </div>
+
+        <div
+            id="ratioMessage"
+            class="ratio-message"
+        >
+            请填写全部5项比例，合计必须等于100%。
+        </div>
+
+        <div class="ratio-formula">
+            税率 + 平台比例 + 门店比例 + 操作人员比例 + 订单来源比例 = 100%
+        </div>
 
     </div>
 
 
-
     <div class="modal-actions">
-
 
         <button
             class="cancel-button"
@@ -2083,24 +1499,20 @@ td {
             取消
         </button>
 
-
         <button
             id="saveButton"
             class="save-button"
             onclick="saveDefinition()"
+            disabled
         >
             确认定义
         </button>
 
-
     </div>
 
-
 </div>
 
-
 </div>
-
 
 
 <div
@@ -2110,7 +1522,6 @@ td {
 </div>
 
 
-
 <script>
 
 
@@ -2118,221 +1529,123 @@ td {
    01. SUPABASE
 ========================================================= */
 
-
 const SUPABASE_URL =
     "https://qbuqjwpkltbjhlfbyjyb.supabase.co";
-
 
 const SUPABASE_ANON_KEY =
     "sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
 
-
 const supabaseClient =
     window.supabase.createClient(
-
         SUPABASE_URL,
-
         SUPABASE_ANON_KEY,
-
         {
-
             auth:{
-
                 persistSession:true,
-
                 autoRefreshToken:true,
-
                 detectSessionInUrl:true
-
             }
-
         }
-
     );
-
 
 const LOGIN_PAGE =
     "./login.html";
 
-
 const HOME_PAGE =
     "./wholemanagement.html";
-
 
 
 /* =========================================================
    02. DATA
 ========================================================= */
 
+let currentUser = null;
+let currentProfile = null;
 
-let currentUser =
-    null;
+let rules = [];
+let merchants = [];
+let products = [];
+let serviceAreas = [];
+let provinces = [];
+let cities = [];
+let cityPrices = [];
+let profiles = [];
 
+let merchantsMap = new Map();
+let productsMap = new Map();
+let serviceAreasMap = new Map();
+let provincesMap = new Map();
+let citiesMap = new Map();
+let pricesMap = new Map();
+let profilesMap = new Map();
 
-let currentProfile =
-    null;
-
-
-let rules =
-    [];
-
-
-let merchants =
-    [];
-
-
-let products =
-    [];
-
-
-let serviceAreas =
-    [];
-
-
-let provinces =
-    [];
-
-
-let cities =
-    [];
-
-
-let cityPrices =
-    [];
-
-
-let profiles =
-    [];
-
-
-let merchantsMap =
-    new Map();
-
-
-let productsMap =
-    new Map();
-
-
-let serviceAreasMap =
-    new Map();
-
-
-let provincesMap =
-    new Map();
-
-
-let citiesMap =
-    new Map();
-
-
-let pricesMap =
-    new Map();
-
-
-let profilesMap =
-    new Map();
-
-
-let definingRuleId =
-    null;
-
+let definingRuleId = null;
 
 
 /* =========================================================
    03. INIT
 ========================================================= */
 
+async function initialize(){
 
-async function initialize() {
-
-
-    try {
-
+    try{
 
         const {
-
-            data:{
-                session
-            },
-
+            data:{session},
             error
-
         } =
+        await supabaseClient.auth.getSession();
 
-        await supabaseClient.auth
-            .getSession();
-
-
-        if (
-            error
-            ||
+        if(
+            error ||
             !session
-        ) {
-
+        ){
 
             location.replace(
                 LOGIN_PAGE
             );
 
-
             return;
-
         }
-
 
         currentUser =
             session.user;
 
-
         await verifyAccess();
-
 
         await loadBaseData();
 
-
         await loadRules();
-
 
         buildMaps();
 
-
         buildCityFilter();
-
 
         buildMerchantFilter();
 
-
         renderStats();
 
-
         renderRules();
-
 
         document.getElementById(
             "loading"
         ).style.display =
             "none";
 
-
     }
-
-    catch(error) {
-
+    catch(error){
 
         console.error(
             error
         );
 
-
         document.getElementById(
             "loading"
         ).style.display =
             "none";
 
-
         alert(
-            error.message
-            ||
+            error.message ||
             "商户分成规则读取失败。"
         );
 
@@ -2341,110 +1654,79 @@ async function initialize() {
 }
 
 
-
 /* =========================================================
    04. ACCESS
 ========================================================= */
 
-
-async function verifyAccess() {
-
+async function verifyAccess(){
 
     const {
-
         data,
-
         error
-
     } =
-
     await supabaseClient
-
-        .from(
-            "profiles"
-        )
-
+        .from("profiles")
         .select(`
             id,
             full_name,
             role,
             status
         `)
-
         .eq(
             "id",
             currentUser.id
         )
-
         .maybeSingle();
 
-
-    if (
-        error
-        ||
+    if(
+        error ||
         !data
-    ) {
+    ){
 
-
-        await supabaseClient.auth
-            .signOut();
-
+        await supabaseClient.auth.signOut();
 
         location.replace(
             LOGIN_PAGE
         );
-
 
         throw new Error(
             "无法读取当前账号资料。"
         );
-
     }
 
-
-    if (
+    if(
         data.status !==
         "active"
-    ) {
+    ){
 
-
-        await supabaseClient.auth
-            .signOut();
-
+        await supabaseClient.auth.signOut();
 
         location.replace(
             LOGIN_PAGE
         );
 
-
         throw new Error(
             "当前账号已停用。"
         );
-
     }
 
-
-    if (
+    if(
         ![
             "founder",
             "platform_admin"
         ].includes(
             data.role
         )
-    ) {
-
+    ){
 
         location.replace(
             HOME_PAGE
         );
 
-
         throw new Error(
             "当前账号没有商户分成规则管理权限。"
         );
-
     }
-
 
     currentProfile =
         data;
@@ -2452,33 +1734,26 @@ async function verifyAccess() {
 }
 
 
-
 /* =========================================================
    05. LOAD BASE
 ========================================================= */
 
-
-async function loadBaseData() {
-
+async function loadBaseData(){
 
     const results =
         await Promise.all([
-
 
             supabaseClient
                 .from("merchants")
                 .select("*"),
 
-
             supabaseClient
                 .from("products")
                 .select("*"),
 
-
             supabaseClient
                 .from("service_areas")
                 .select("*"),
-
 
             supabaseClient
                 .from("provinces")
@@ -2487,7 +1762,6 @@ async function loadBaseData() {
                     province_name
                 `),
 
-
             supabaseClient
                 .from("cities")
                 .select(`
@@ -2495,7 +1769,6 @@ async function loadBaseData() {
                     province_id,
                     city_name
                 `),
-
 
             supabaseClient
                 .from("city_prices")
@@ -2506,7 +1779,6 @@ async function loadBaseData() {
                     status
                 `),
 
-
             supabaseClient
                 .from("profiles")
                 .select(`
@@ -2515,94 +1787,59 @@ async function loadBaseData() {
                     login_email
                 `)
 
-
         ]);
 
-
     const [
-
         merchantResult,
-
         productResult,
-
         areaResult,
-
         provinceResult,
-
         cityResult,
-
         priceResult,
-
         profileResult
-
     ] = results;
 
-
-    if (merchantResult.error) {
+    if(merchantResult.error){
         throw merchantResult.error;
     }
 
-
-    if (productResult.error) {
+    if(productResult.error){
         throw productResult.error;
     }
 
-
-    if (areaResult.error) {
+    if(areaResult.error){
         throw areaResult.error;
     }
 
-
-    if (provinceResult.error) {
+    if(provinceResult.error){
         throw provinceResult.error;
     }
 
-
-    if (cityResult.error) {
+    if(cityResult.error){
         throw cityResult.error;
     }
 
-
-    if (priceResult.error) {
+    if(priceResult.error){
         throw priceResult.error;
     }
 
-
     merchants =
-        merchantResult.data
-        ||
-        [];
-
+        merchantResult.data || [];
 
     products =
-        productResult.data
-        ||
-        [];
-
+        productResult.data || [];
 
     serviceAreas =
-        areaResult.data
-        ||
-        [];
-
+        areaResult.data || [];
 
     provinces =
-        provinceResult.data
-        ||
-        [];
-
+        provinceResult.data || [];
 
     cities =
-        cityResult.data
-        ||
-        [];
-
+        cityResult.data || [];
 
     cityPrices =
-        priceResult.data
-        ||
-        [];
-
+        priceResult.data || [];
 
     profiles =
         profileResult.error
@@ -2610,37 +1847,24 @@ async function loadBaseData() {
         []
         :
         (
-            profileResult.data
-            ||
-            []
+            profileResult.data || []
         );
 
 }
-
 
 
 /* =========================================================
    06. LOAD UNIFIED RULES
 ========================================================= */
 
-
-async function loadRules() {
-
+async function loadRules(){
 
     const {
-
         data,
-
         error
-
     } =
-
     await supabaseClient
-
-        .from(
-            "merchant_product_rules"
-        )
-
+        .from("merchant_product_rules")
         .select(`
             id,
             merchant_id,
@@ -2664,224 +1888,128 @@ async function loadRules() {
             invalidated_by,
             invalidated_at
         `)
-
         .eq(
             "rule_type",
             "health_consultant"
         )
-
         .order(
             "merchant_id",
-            {
-                ascending:true
-            }
+            {ascending:true}
         )
-
         .order(
             "product_id",
-            {
-                ascending:true
-            }
+            {ascending:true}
         )
-
         .order(
             "version_no",
-            {
-                ascending:false
-            }
+            {ascending:false}
         );
 
-
-    if (error) {
-
-
+    if(error){
         throw error;
-
     }
 
-
     rules =
-        data
-        ||
-        [];
+        data || [];
 
 }
-
 
 
 /* =========================================================
    07. MAPS
 ========================================================= */
 
-
-function buildMaps() {
-
+function buildMaps(){
 
     merchantsMap =
         new Map(
-
             merchants.map(
-
                 item => [
-
-                    String(
-                        item.id
-                    ),
-
+                    String(item.id),
                     item
-
                 ]
-
             )
-
         );
-
 
     productsMap =
         new Map(
-
             products.map(
-
                 item => [
-
-                    String(
-                        item.id
-                    ),
-
+                    String(item.id),
                     item
-
                 ]
-
             )
-
         );
-
 
     serviceAreasMap =
         new Map(
-
             serviceAreas.map(
-
                 item => [
-
-                    String(
-                        item.id
-                    ),
-
+                    String(item.id),
                     item
-
                 ]
-
             )
-
         );
-
 
     provincesMap =
         new Map(
-
             provinces.map(
-
                 item => [
-
-                    String(
-                        item.id
-                    ),
-
+                    String(item.id),
                     item
-
                 ]
-
             )
-
         );
-
 
     citiesMap =
         new Map(
-
             cities.map(
-
                 item => [
-
-                    String(
-                        item.id
-                    ),
-
+                    String(item.id),
                     item
-
                 ]
-
             )
-
         );
-
 
     profilesMap =
         new Map(
-
             profiles.map(
-
                 item => [
-
-                    String(
-                        item.id
-                    ),
-
+                    String(item.id),
                     item
-
                 ]
-
             )
-
         );
-
 
     pricesMap =
         new Map();
 
-
     cityPrices.forEach(
-
         item => {
 
-
-            if (
+            if(
                 item.status !==
                 "active"
-            ) {
-
-
+            ){
                 return;
-
             }
 
-
             pricesMap.set(
-
                 `${item.city_id}_${item.product_id}`,
-
                 item
-
             );
 
         }
-
     );
 
 }
-
 
 
 /* =========================================================
    08. HELPERS
 ========================================================= */
 
-
-function getMerchant(
-    rule
-) {
-
+function getMerchant(rule){
 
     return merchantsMap.get(
         String(
@@ -2891,12 +2019,7 @@ function getMerchant(
 
 }
 
-
-
-function getProduct(
-    rule
-) {
-
+function getProduct(rule){
 
     return productsMap.get(
         String(
@@ -2906,107 +2029,62 @@ function getProduct(
 
 }
 
-
-
-function merchantName(
-    merchant
-) {
-
+function merchantName(merchant){
 
     return (
-
-        merchant?.merchant_name
-        ||
-        merchant?.name
-        ||
+        merchant?.merchant_name ||
+        merchant?.name ||
         "未知商户"
-
     );
 
 }
 
-
-
-function merchantNo(
-    merchant
-) {
-
+function merchantNo(merchant){
 
     const raw =
-        merchant?.record_no
-        ??
-        merchant?.account_no
-        ??
+        merchant?.record_no ??
+        merchant?.account_no ??
         null;
 
-
-    if (
-        raw ===
-        null
-        ||
-        raw ===
-        undefined
-    ) {
-
-
+    if(
+        raw === null ||
+        raw === undefined
+    ){
         return "-";
-
     }
 
-
-    return String(
-        raw
-    )
-    .padStart(
-        3,
-        "0"
-    );
+    return String(raw)
+        .padStart(
+            3,
+            "0"
+        );
 
 }
 
-
-
-function productName(
-    product
-) {
-
+function productName(product){
 
     return (
-
-        product?.product_name
-        ||
-        product?.name
-        ||
+        product?.product_name ||
+        product?.name ||
         "未知服务项目"
-
     );
 
 }
-
 
 
 /* =========================================================
    09. CITY
 ========================================================= */
 
+function merchantCityId(merchant){
 
-function merchantCityId(
-    merchant
-) {
-
-
-    if (!merchant) {
-
-
+    if(!merchant){
         return null;
-
     }
 
-
-    if (
+    if(
         merchant.service_area_id
-    ) {
-
+    ){
 
         const area =
             serviceAreasMap.get(
@@ -3015,52 +2093,33 @@ function merchantCityId(
                 )
             );
 
-
-        if (
+        if(
             area?.city_id
-        ) {
-
-
+        ){
             return area.city_id;
-
         }
 
     }
 
-
-    return merchant.city_id
-        ??
-        null;
+    return merchant.city_id ?? null;
 
 }
 
+function areaText(merchant){
 
-
-function areaText(
-    merchant
-) {
-
-
-    if (!merchant) {
-
-
+    if(!merchant){
         return "-";
-
     }
-
 
     let provinceId =
         merchant.province_id;
 
-
     let cityId =
         merchant.city_id;
 
-
-    if (
+    if(
         merchant.service_area_id
-    ) {
-
+    ){
 
         const area =
             serviceAreasMap.get(
@@ -3069,219 +2128,142 @@ function areaText(
                 )
             );
 
-
-        if (area) {
-
+        if(area){
 
             provinceId =
-                area.province_id
-                ??
+                area.province_id ??
                 provinceId;
 
-
             cityId =
-                area.city_id
-                ??
+                area.city_id ??
                 cityId;
 
         }
 
     }
 
-
     const province =
         provincesMap.get(
             String(
                 provinceId
             )
-        )?.province_name
-        ||
-        "";
-
+        )?.province_name || "";
 
     const city =
         citiesMap.get(
             String(
                 cityId
             )
-        )?.city_name
-        ||
-        "";
+        )?.city_name || "";
 
-
-    if (
-        province
-        &&
+    if(
+        province &&
         city
-    ) {
-
+    ){
 
         return (
-            province
-            +
-            " · "
-            +
+            province +
+            " · " +
             city
         );
 
     }
 
-
     return (
-        city
-        ||
-        province
-        ||
+        city ||
+        province ||
         "-"
     );
 
 }
 
 
-
 /* =========================================================
    10. CITY PRICE
 ========================================================= */
 
-
-function cityPrice(
-    rule
-) {
-
+function cityPrice(rule){
 
     const merchant =
-        getMerchant(
-            rule
-        );
-
+        getMerchant(rule);
 
     const cityId =
         merchantCityId(
             merchant
         );
 
-
-    if (!cityId) {
-
-
+    if(!cityId){
         return null;
-
     }
-
 
     return (
         pricesMap.get(
             `${cityId}_${rule.product_id}`
-        )?.price
-        ??
+        )?.price ??
         null
     );
 
 }
 
 
-
 /* =========================================================
    11. RULE VALUES
 ========================================================= */
 
-
-function isEmptyValue(
-    value
-) {
-
+function isEmptyValue(value){
 
     return (
-        value === null
-        ||
-        value === undefined
-        ||
+        value === null ||
+        value === undefined ||
         value === ""
     );
 
 }
 
-
-
-function ruleValues(
-    rule
-) {
-
+function ruleValues(rule){
 
     return [
-
         rule.tax_rate,
-
         rule.platform_ratio,
-
         rule.store_ratio,
-
         rule.operator_ratio,
-
         rule.health_consultant_ratio,
-
         rule.health_consultant_name,
-
         rule.health_consultant_phone
-
     ];
 
 }
 
+function isBlankRule(rule){
 
-
-function isBlankRule(
-    rule
-) {
-
-
-    return ruleValues(
-        rule
-    )
-    .every(
-
-        value =>
-            isEmptyValue(
-                value
-            )
-
-    );
+    return ruleValues(rule)
+        .every(
+            value =>
+                isEmptyValue(
+                    value
+                )
+        );
 
 }
 
+function isFullyDefined(rule){
 
-
-function isFullyDefined(
-    rule
-) {
-
-
-    return ruleValues(
-        rule
-    )
-    .every(
-
-        value =>
-            !isEmptyValue(
-                value
-            )
-
-    );
+    return ruleValues(rule)
+        .every(
+            value =>
+                !isEmptyValue(
+                    value
+                )
+        );
 
 }
 
+function ruleStateText(rule){
 
-
-function ruleStateText(
-    rule
-) {
-
-
-    if (
+    if(
         rule.status ===
         "inactive"
-    ) {
-
+    ){
 
         return {
             text:"历史无效",
@@ -3290,13 +2272,9 @@ function ruleStateText(
 
     }
 
-
-    if (
-        isBlankRule(
-            rule
-        )
-    ) {
-
+    if(
+        isBlankRule(rule)
+    ){
 
         return {
             text:"未定义",
@@ -3305,13 +2283,9 @@ function ruleStateText(
 
     }
 
-
-    if (
-        isFullyDefined(
-            rule
-        )
-    ) {
-
+    if(
+        isFullyDefined(rule)
+    ){
 
         return {
             text:"已定义",
@@ -3319,7 +2293,6 @@ function ruleStateText(
         };
 
     }
-
 
     return {
         text:"部分定义",
@@ -3329,55 +2302,35 @@ function ruleStateText(
 }
 
 
-
 /* =========================================================
    12. MODIFIED BY
 ========================================================= */
 
+function modifierId(rule){
 
-function modifierId(
-    rule
-) {
-
-
-    if (
+    if(
         rule.status ===
         "inactive"
-    ) {
-
+    ){
 
         return (
-            rule.invalidated_by
-            ??
-            rule.updated_by
-            ??
+            rule.invalidated_by ??
+            rule.updated_by ??
             null
         );
 
     }
 
-
-    return rule.updated_by
-        ??
-        null;
+    return rule.updated_by ?? null;
 
 }
 
-
-
-function modifierName(
-    rule
-) {
-
+function modifierName(rule){
 
     const id =
-        modifierId(
-            rule
-        );
+        modifierId(rule);
 
-
-    if (!id) {
-
+    if(!id){
 
         return isBlankRule(rule)
             ?
@@ -3387,77 +2340,48 @@ function modifierName(
 
     }
 
-
     const profile =
         profilesMap.get(
-            String(
-                id
-            )
+            String(id)
         );
 
-
-    if (!profile) {
-
-
+    if(!profile){
         return "平台管理人员";
-
     }
 
-
     return (
-        profile.full_name
-        ||
-        profile.login_email
-        ||
+        profile.full_name ||
+        profile.login_email ||
         "平台管理人员"
     );
 
 }
 
 
-
 /* =========================================================
    13. MODIFIED TIME
 ========================================================= */
 
+function modifiedTime(rule){
 
-function modifiedTime(
-    rule
-) {
-
-
-    if (
-        isBlankRule(rule)
-        &&
-        rule.status ===
-        "active"
-        &&
+    if(
+        isBlankRule(rule) &&
+        rule.status === "active" &&
         !rule.updated_by
-    ) {
-
-
+    ){
         return "-";
-
     }
 
-
     const value =
-
         rule.status ===
         "inactive"
-
         ?
-
         (
-            rule.invalidated_at
-            ??
+            rule.invalidated_at ??
             rule.updated_at
         )
-
         :
-
         rule.updated_at;
-
 
     return formatDateTime(
         value
@@ -3466,23 +2390,15 @@ function modifiedTime(
 }
 
 
-
 /* =========================================================
    14. FORMAT
 ========================================================= */
 
+function formatPercent(value){
 
-function formatPercent(
-    value
-) {
-
-
-    if (
-        isEmptyValue(
-            value
-        )
-    ) {
-
+    if(
+        isEmptyValue(value)
+    ){
 
         return `
             <span class="undefined">
@@ -3491,7 +2407,6 @@ function formatPercent(
         `;
 
     }
-
 
     return `
         <span class="value">
@@ -3501,19 +2416,11 @@ function formatPercent(
 
 }
 
+function formatTextValue(value){
 
-
-function formatTextValue(
-    value
-) {
-
-
-    if (
-        isEmptyValue(
-            value
-        )
-    ) {
-
+    if(
+        isEmptyValue(value)
+    ){
 
         return `
             <span class="undefined">
@@ -3522,7 +2429,6 @@ function formatTextValue(
         `;
 
     }
-
 
     return `
         <span class="value">
@@ -3532,19 +2438,11 @@ function formatTextValue(
 
 }
 
+function formatPrice(value){
 
-
-function formatPrice(
-    value
-) {
-
-
-    if (
-        isEmptyValue(
-            value
-        )
-    ) {
-
+    if(
+        isEmptyValue(value)
+    ){
 
         return `
             <span class="undefined">
@@ -3554,26 +2452,14 @@ function formatPrice(
 
     }
 
-
     const number =
-        Number(
-            value
-        );
+        Number(value);
 
-
-    if (
-        Number.isNaN(
-            number
-        )
-    ) {
-
-
-        return escapeHtml(
-            value
-        );
-
+    if(
+        Number.isNaN(number)
+    ){
+        return escapeHtml(value);
     }
-
 
     return `
         <span class="value">
@@ -3583,120 +2469,61 @@ function formatPrice(
 
 }
 
+function formatDateTime(value){
 
-
-function formatDateTime(
-    value
-) {
-
-
-    if (!value) {
-
-
+    if(!value){
         return "-";
-
     }
 
-
     const date =
-        new Date(
-            value
-        );
+        new Date(value);
 
-
-    if (
+    if(
         Number.isNaN(
             date.getTime()
         )
-    ) {
-
-
+    ){
         return "-";
-
     }
 
-
     return new Intl.DateTimeFormat(
-
         "zh-CN",
-
         {
-
             year:"numeric",
-
             month:"2-digit",
-
             day:"2-digit",
-
             hour:"2-digit",
-
             minute:"2-digit",
-
             hour12:false
-
         }
-
-    ).format(
-        date
-    );
+    ).format(date);
 
 }
 
-
-
-function escapeHtml(
-    value
-) {
-
+function escapeHtml(value){
 
     return String(
-        value
-        ??
-        ""
+        value ?? ""
     )
-
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-
-    .replace(
-        /</g,
-        "&lt;"
-    )
-
-    .replace(
-        />/g,
-        "&gt;"
-    )
-
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-
-    .replace(
-        /'/g,
-        "&#039;"
-    );
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
-
 
 
 /* =========================================================
    15. CITY FILTER
 ========================================================= */
 
-
-function buildCityFilter() {
-
+function buildCityFilter(){
 
     const select =
         document.getElementById(
             "cityFilter"
         );
-
 
     select.innerHTML =
         `
@@ -3705,130 +2532,94 @@ function buildCityFilter() {
         </option>
         `;
 
-
     const used =
         new Set();
 
-
     serviceAreas
+        .filter(
+            area =>
+                area.status ===
+                "active"
+                &&
+                area.city_id
+        )
+        .forEach(
+            area => {
 
-    .filter(
-
-        area =>
-            area.status ===
-            "active"
-            &&
-            area.city_id
-
-    )
-
-    .forEach(
-
-        area => {
-
-
-            const cityId =
-                String(
-                    area.city_id
-                );
-
-
-            if (
-                used.has(
-                    cityId
-                )
-            ) {
-
-
-                return;
-
-            }
-
-
-            used.add(
-                cityId
-            );
-
-
-            const province =
-                provincesMap.get(
+                const cityId =
                     String(
-                        area.province_id
-                    )
-                )?.province_name
-                ||
-                "";
+                        area.city_id
+                    );
 
+                if(
+                    used.has(cityId)
+                ){
+                    return;
+                }
 
-            const city =
-                citiesMap.get(
+                used.add(
                     cityId
-                )?.city_name
-                ||
-                "";
-
-
-            if (!city) {
-
-
-                return;
-
-            }
-
-
-            const option =
-                document.createElement(
-                    "option"
                 );
 
+                const province =
+                    provincesMap.get(
+                        String(
+                            area.province_id
+                        )
+                    )?.province_name || "";
 
-            option.value =
-                cityId;
+                const city =
+                    citiesMap.get(
+                        cityId
+                    )?.city_name || "";
 
+                if(!city){
+                    return;
+                }
 
-            option.textContent =
-                province
-                ?
-                `${province} · ${city}`
-                :
-                city;
+                const option =
+                    document.createElement(
+                        "option"
+                    );
 
+                option.value =
+                    cityId;
 
-            select.appendChild(
-                option
-            );
+                option.textContent =
+                    province
+                    ?
+                    `${province} · ${city}`
+                    :
+                    city;
 
-        }
+                select.appendChild(
+                    option
+                );
 
-    );
+            }
+        );
 
 }
-
 
 
 /* =========================================================
    16. MERCHANT FILTER
 ========================================================= */
 
-
-function buildMerchantFilter() {
-
+function buildMerchantFilter(){
 
     const select =
         document.getElementById(
             "merchantFilter"
         );
 
-
     const cityId =
         document.getElementById(
             "cityFilter"
         ).value;
 
-
     const previous =
         select.value;
-
 
     select.innerHTML =
         `
@@ -3837,30 +2628,19 @@ function buildMerchantFilter() {
         </option>
         `;
 
-
     const list =
         merchants
-
         .filter(
-
             merchant =>
                 merchant.status ===
                 "active"
-
         )
-
         .filter(
-
             merchant => {
 
-
-                if (!cityId) {
-
-
+                if(!cityId){
                     return true;
-
                 }
-
 
                 return (
                     String(
@@ -3869,353 +2649,240 @@ function buildMerchantFilter() {
                         )
                     )
                     ===
-                    String(
-                        cityId
-                    )
+                    String(cityId)
                 );
 
             }
-
         );
 
-
     list.forEach(
-
         merchant => {
-
 
             const option =
                 document.createElement(
                     "option"
                 );
 
-
             option.value =
                 merchant.id;
 
-
             option.textContent =
                 `${merchantNo(merchant)}｜${merchantName(merchant)}`;
-
 
             select.appendChild(
                 option
             );
 
         }
-
     );
 
-
-    if (
+    if(
         list.some(
-
             merchant =>
                 String(
                     merchant.id
                 )
                 ===
-                String(
-                    previous
-                )
-
+                String(previous)
         )
-    ) {
-
-
+    ){
         select.value =
             previous;
-
     }
 
 }
 
-
-
-function cityChanged() {
-
+function cityChanged(){
 
     buildMerchantFilter();
-
 
     renderRules();
 
 }
 
 
-
 /* =========================================================
    17. FILTER RULES
 ========================================================= */
 
-
-function getFilteredRules() {
-
+function getFilteredRules(){
 
     const cityId =
         document.getElementById(
             "cityFilter"
         ).value;
 
-
     const merchantId =
         document.getElementById(
             "merchantFilter"
         ).value;
-
 
     const filter =
         document.getElementById(
             "ruleFilter"
         ).value;
 
-
     return rules.filter(
-
         rule => {
 
-
-            /*
-             * 双保险：
-             * 即使后端读取条件以后被修改，
-             * 页面也永远只处理统一的 health_consultant 规则。
-             */
-            if (
+            if(
                 rule.rule_type !==
                 "health_consultant"
-            ) {
-
-
+            ){
                 return false;
-
             }
-
 
             const merchant =
-                getMerchant(
-                    rule
-                );
-
+                getMerchant(rule);
 
             const product =
-                getProduct(
-                    rule
-                );
+                getProduct(rule);
 
-
-            if (
-                !merchant
-                ||
+            if(
+                !merchant ||
                 !product
-            ) {
-
-
+            ){
                 return false;
-
             }
 
+            if(cityId){
 
-            if (cityId) {
-
-
-                if (
+                if(
                     String(
                         merchantCityId(
                             merchant
                         )
                     )
                     !==
-                    String(
-                        cityId
-                    )
-                ) {
-
-
+                    String(cityId)
+                ){
                     return false;
-
                 }
 
             }
 
-
-            if (
-                merchantId
-                &&
+            if(
+                merchantId &&
                 String(
                     rule.merchant_id
                 )
                 !==
-                String(
-                    merchantId
-                )
-            ) {
-
-
+                String(merchantId)
+            ){
                 return false;
-
             }
 
-
-            if (
+            if(
                 filter ===
                 "active"
-            ) {
-
-
+            ){
                 return (
                     rule.status ===
                     "active"
                 );
-
             }
 
-
-            if (
+            if(
                 filter ===
                 "undefined"
-            ) {
-
-
+            ){
                 return (
                     rule.status ===
                     "active"
                     &&
-                    isBlankRule(
-                        rule
-                    )
+                    isBlankRule(rule)
                 );
-
             }
 
-
-            if (
+            if(
                 filter ===
                 "defined"
-            ) {
-
-
+            ){
                 return (
                     rule.status ===
                     "active"
                     &&
-                    isFullyDefined(
-                        rule
-                    )
+                    isFullyDefined(rule)
                 );
-
             }
 
-
-            if (
+            if(
                 filter ===
                 "history"
-            ) {
-
-
+            ){
                 return (
                     rule.status ===
                     "inactive"
                 );
-
             }
-
 
             return true;
 
         }
-
     );
 
 }
-
 
 
 /* =========================================================
    18. STATS
 ========================================================= */
 
-
-function renderStats() {
-
+function renderStats(){
 
     const unifiedRules =
         rules.filter(
-
             rule =>
                 rule.rule_type ===
                 "health_consultant"
-
         );
-
 
     const active =
         unifiedRules.filter(
-
             rule =>
                 rule.status ===
                 "active"
-
         );
-
 
     const history =
         unifiedRules.filter(
-
             rule =>
                 rule.status ===
                 "inactive"
-
         );
-
 
     document.getElementById(
         "statActive"
     ).textContent =
         active.length;
 
-
     document.getElementById(
         "statMerchants"
     ).textContent =
         new Set(
-
             active.map(
-
                 rule =>
                     String(
                         rule.merchant_id
                     )
-
             )
-
         ).size;
-
 
     document.getElementById(
         "statDefined"
     ).textContent =
         active.filter(
-
             rule =>
-                isFullyDefined(
-                    rule
-                )
-
+                isFullyDefined(rule)
         ).length;
-
 
     document.getElementById(
         "statUndefined"
     ).textContent =
         active.filter(
-
             rule =>
-                isBlankRule(
-                    rule
-                )
-
+                isBlankRule(rule)
         ).length;
-
 
     document.getElementById(
         "statHistory"
@@ -4225,22 +2892,16 @@ function renderStats() {
 }
 
 
-
 /* =========================================================
    19. ACTION
 ========================================================= */
 
+function desktopAction(rule){
 
-function desktopAction(
-    rule
-) {
-
-
-    if (
+    if(
         rule.status ===
         "inactive"
-    ) {
-
+    ){
 
         return `
             <span class="history-text">
@@ -4250,13 +2911,9 @@ function desktopAction(
 
     }
 
-
-    if (
-        isBlankRule(
-            rule
-        )
-    ) {
-
+    if(
+        isBlankRule(rule)
+    ){
 
         return `
             <button
@@ -4268,7 +2925,6 @@ function desktopAction(
         `;
 
     }
-
 
     return `
         <button
@@ -4282,98 +2938,66 @@ function desktopAction(
 }
 
 
-
 /* =========================================================
    20. RENDER
 ========================================================= */
 
-
-function renderRules() {
-
+function renderRules(){
 
     const filtered =
         getFilteredRules();
-
 
     const tbody =
         document.getElementById(
             "rulesTable"
         );
 
-
     const mobile =
         document.getElementById(
             "mobileList"
         );
-
 
     const desktopEmpty =
         document.getElementById(
             "desktopEmpty"
         );
 
-
     const mobileEmpty =
         document.getElementById(
             "mobileEmpty"
         );
 
-
-    tbody.innerHTML =
-        "";
-
-
-    mobile.innerHTML =
-        "";
-
+    tbody.innerHTML = "";
+    mobile.innerHTML = "";
 
     desktopEmpty.classList.toggle(
         "hidden",
-        filtered.length >
-        0
+        filtered.length > 0
     );
-
 
     mobileEmpty.classList.toggle(
         "hidden",
-        filtered.length >
-        0
+        filtered.length > 0
     );
 
-
     filtered.forEach(
-
         rule => {
 
-
             const merchant =
-                getMerchant(
-                    rule
-                );
-
+                getMerchant(rule);
 
             const product =
-                getProduct(
-                    rule
-                );
-
+                getProduct(rule);
 
             const state =
-                ruleStateText(
-                    rule
-                );
-
+                ruleStateText(rule);
 
             tbody.insertAdjacentHTML(
-
                 "beforeend",
-
                 `
                 <tr>
 
-
                     <td>
-
                         <div class="merchant-name">
                             ${escapeHtml(
                                 merchantName(
@@ -4390,9 +3014,7 @@ function renderRules() {
                                 )
                             )}
                         </div>
-
                     </td>
-
 
                     <td>
                         ${escapeHtml(
@@ -4402,9 +3024,7 @@ function renderRules() {
                         )}
                     </td>
 
-
                     <td>
-
                         <div class="service-name">
                             ${escapeHtml(
                                 productName(
@@ -4412,27 +3032,19 @@ function renderRules() {
                                 )
                             )}
                         </div>
-
                     </td>
-
 
                     <td>
                         V${escapeHtml(
-                            rule.version_no
-                            ??
-                            1
+                            rule.version_no ?? 1
                         )}
                     </td>
-
 
                     <td>
                         ${formatPrice(
-                            cityPrice(
-                                rule
-                            )
+                            cityPrice(rule)
                         )}
                     </td>
-
 
                     <td>
                         ${formatPercent(
@@ -4440,13 +3052,11 @@ function renderRules() {
                         )}
                     </td>
 
-
                     <td>
                         ${formatPercent(
                             rule.platform_ratio
                         )}
                     </td>
-
 
                     <td>
                         ${formatPercent(
@@ -4454,13 +3064,11 @@ function renderRules() {
                         )}
                     </td>
 
-
                     <td>
                         ${formatPercent(
                             rule.operator_ratio
                         )}
                     </td>
-
 
                     <td>
                         ${formatPercent(
@@ -4468,13 +3076,11 @@ function renderRules() {
                         )}
                     </td>
 
-
                     <td>
                         ${formatTextValue(
                             rule.health_consultant_name
                         )}
                     </td>
-
 
                     <td>
                         ${formatTextValue(
@@ -4482,107 +3088,74 @@ function renderRules() {
                         )}
                     </td>
 
-
                     <td>
                         ${escapeHtml(
-                            modifierName(
-                                rule
-                            )
+                            modifierName(rule)
                         )}
                     </td>
 
-
                     <td>
                         ${escapeHtml(
-                            modifiedTime(
-                                rule
-                            )
+                            modifiedTime(rule)
                         )}
                     </td>
 
-
                     <td>
-
                         <span
-                            class="
-                                badge
-                                ${state.className}
-                            "
+                            class="badge ${state.className}"
                         >
                             ${state.text}
                         </span>
-
                     </td>
-
 
                     <td>
-                        ${desktopAction(
-                            rule
-                        )}
+                        ${desktopAction(rule)}
                     </td>
-
 
                 </tr>
                 `
-
             );
 
-
             mobile.insertAdjacentHTML(
-
                 "beforeend",
-
                 mobileRuleCard(
                     rule,
                     merchant,
                     product,
                     state
                 )
-
             );
 
         }
-
     );
 
 }
-
 
 
 /* =========================================================
    21. MOBILE CARD
 ========================================================= */
 
-
 function mobileRuleCard(
     rule,
     merchant,
     product,
     state
-) {
+){
 
+    let button = "";
 
-    let button =
-        "";
-
-
-    if (
+    if(
         rule.status ===
         "active"
         &&
-        isBlankRule(
-            rule
-        )
-    ) {
-
+        isBlankRule(rule)
+    ){
 
         button =
             `
             <button
-                class="
-                    mobile-action
-                    define-button
-                "
+                class="mobile-action define-button"
                 onclick="openDefineModal(${Number(rule.id)})"
             >
                 定义分成规则
@@ -4590,21 +3163,15 @@ function mobileRuleCard(
             `;
 
     }
-
-
-    else if (
+    else if(
         rule.status ===
         "active"
-    ) {
-
+    ){
 
         button =
             `
             <button
-                class="
-                    mobile-action
-                    invalidate-button
-                "
+                class="mobile-action invalidate-button"
                 onclick="invalidateRule(${Number(rule.id)})"
             >
                 设为无效并生成新版本
@@ -4613,16 +3180,12 @@ function mobileRuleCard(
 
     }
 
-
     return `
         <div class="rule-card">
 
-
             <div class="rule-card-head">
 
-
                 <div>
-
 
                     <div class="rule-card-name">
                         ${escapeHtml(
@@ -4632,7 +3195,6 @@ function mobileRuleCard(
                         )}
                     </div>
 
-
                     <div class="rule-card-service">
                         ${escapeHtml(
                             productName(
@@ -4641,33 +3203,23 @@ function mobileRuleCard(
                         )}
                     </div>
 
-
                 </div>
 
-
                 <span
-                    class="
-                        badge
-                        ${state.className}
-                    "
+                    class="badge ${state.className}"
                 >
                     ${state.text}
                 </span>
 
-
             </div>
-
 
 
             <div class="mobile-grid">
 
-
                 <div class="mobile-item">
-
                     <div class="mobile-label">
                         商户编号
                     </div>
-
                     <div class="mobile-value">
                         ${escapeHtml(
                             merchantNo(
@@ -4675,33 +3227,23 @@ function mobileRuleCard(
                             )
                         )}
                     </div>
-
                 </div>
 
-
                 <div class="mobile-item">
-
                     <div class="mobile-label">
                         版本
                     </div>
-
                     <div class="mobile-value">
                         V${escapeHtml(
-                            rule.version_no
-                            ??
-                            1
+                            rule.version_no ?? 1
                         )}
                     </div>
-
                 </div>
 
-
                 <div class="mobile-item">
-
                     <div class="mobile-label">
                         服务区域
                     </div>
-
                     <div class="mobile-value">
                         ${escapeHtml(
                             areaText(
@@ -4709,171 +3251,121 @@ function mobileRuleCard(
                             )
                         )}
                     </div>
-
                 </div>
 
-
                 <div class="mobile-item">
-
                     <div class="mobile-label">
                         城市销售价
                     </div>
-
                     <div class="mobile-value">
                         ${formatPrice(
-                            cityPrice(
-                                rule
-                            )
+                            cityPrice(rule)
                         )}
                     </div>
-
                 </div>
 
-
                 <div class="mobile-item">
-
                     <div class="mobile-label">
                         税率
                     </div>
-
                     <div class="mobile-value">
                         ${formatPercent(
                             rule.tax_rate
                         )}
                     </div>
-
                 </div>
 
-
                 <div class="mobile-item">
-
                     <div class="mobile-label">
                         平台比例
                     </div>
-
                     <div class="mobile-value">
                         ${formatPercent(
                             rule.platform_ratio
                         )}
                     </div>
-
                 </div>
 
-
                 <div class="mobile-item">
-
                     <div class="mobile-label">
                         门店比例
                     </div>
-
                     <div class="mobile-value">
                         ${formatPercent(
                             rule.store_ratio
                         )}
                     </div>
-
                 </div>
 
-
                 <div class="mobile-item">
-
                     <div class="mobile-label">
                         操作人员比例
                     </div>
-
                     <div class="mobile-value">
                         ${formatPercent(
                             rule.operator_ratio
                         )}
                     </div>
-
                 </div>
 
-
                 <div class="mobile-item">
-
                     <div class="mobile-label">
-                        健康顾问比例
+                        订单来源比例
                     </div>
-
                     <div class="mobile-value">
                         ${formatPercent(
                             rule.health_consultant_ratio
                         )}
                     </div>
-
                 </div>
 
-
                 <div class="mobile-item">
-
                     <div class="mobile-label">
-                        健康顾问姓名
+                        订单来源联系人
                     </div>
-
                     <div class="mobile-value">
                         ${formatTextValue(
                             rule.health_consultant_name
                         )}
                     </div>
-
                 </div>
 
-
                 <div class="mobile-item mobile-item-wide">
-
                     <div class="mobile-label">
-                        健康顾问电话
+                        健康咨询电话
                     </div>
-
                     <div class="mobile-value">
                         ${formatTextValue(
                             rule.health_consultant_phone
                         )}
                     </div>
-
                 </div>
 
-
                 <div class="mobile-item">
-
                     <div class="mobile-label">
                         修改人
                     </div>
-
                     <div class="mobile-value">
                         ${escapeHtml(
-                            modifierName(
-                                rule
-                            )
+                            modifierName(rule)
                         )}
                     </div>
-
                 </div>
 
-
                 <div class="mobile-item">
-
                     <div class="mobile-label">
                         修改时间
                     </div>
-
                     <div class="mobile-value">
                         ${escapeHtml(
-                            modifiedTime(
-                                rule
-                            )
+                            modifiedTime(rule)
                         )}
                     </div>
-
                 </div>
-
 
             </div>
 
-
             ${button}
-
 
         </div>
     `;
@@ -4881,164 +3373,377 @@ function mobileRuleCard(
 }
 
 
-
 /* =========================================================
-   22. OPEN DEFINE
+   22. 比例合计检查
 ========================================================= */
 
+function readRatioInput(id){
 
-function openDefineModal(
-    ruleId
-) {
+    const element =
+        document.getElementById(id);
 
+    if(!element){
+        return null;
+    }
+
+    const raw =
+        element.value.trim();
+
+    if(raw === ""){
+        return null;
+    }
+
+    const number =
+        Number(raw);
+
+    if(
+        !Number.isFinite(number) ||
+        number < 0 ||
+        number > 100
+    ){
+        return null;
+    }
+
+    return number;
+
+}
+
+
+function getRatioValidation(){
+
+    const tax =
+        readRatioInput(
+            "taxInput"
+        );
+
+    const platform =
+        readRatioInput(
+            "platformInput"
+        );
+
+    const store =
+        readRatioInput(
+            "storeInput"
+        );
+
+    const operator =
+        readRatioInput(
+            "operatorInput"
+        );
+
+    const source =
+        readRatioInput(
+            "healthRatioInput"
+        );
+
+    const values = [
+        tax,
+        platform,
+        store,
+        operator,
+        source
+    ];
+
+    const allFilled =
+        values.every(
+            value =>
+                value !== null
+        );
+
+    const total =
+        values.reduce(
+            (
+                sum,
+                value
+            ) =>
+                sum +
+                (
+                    value === null
+                    ?
+                    0
+                    :
+                    value
+                ),
+            0
+        );
+
+    /*
+     * 统一保留两位小数比较，
+     * 避免 JavaScript 浮点误差。
+     */
+    const roundedTotal =
+        Math.round(
+            (
+                total +
+                Number.EPSILON
+            )
+            *
+            100
+        )
+        /
+        100;
+
+    const valid =
+        allFilled
+        &&
+        roundedTotal === 100;
+
+    return {
+        tax,
+        platform,
+        store,
+        operator,
+        source,
+        allFilled,
+        total:roundedTotal,
+        valid
+    };
+
+}
+
+
+function updateRatioCheck(){
+
+    const result =
+        getRatioValidation();
+
+    const totalElement =
+        document.getElementById(
+            "ratioTotal"
+        );
+
+    const messageElement =
+        document.getElementById(
+            "ratioMessage"
+        );
+
+    const saveButton =
+        document.getElementById(
+            "saveButton"
+        );
+
+    totalElement.textContent =
+        `${result.total.toFixed(2)}%`;
+
+    totalElement.classList.remove(
+        "valid",
+        "invalid"
+    );
+
+    messageElement.classList.remove(
+        "valid",
+        "invalid"
+    );
+
+
+    if(
+        !result.allFilled
+    ){
+
+        totalElement.classList.add(
+            "invalid"
+        );
+
+        messageElement.classList.add(
+            "invalid"
+        );
+
+        messageElement.textContent =
+            "请填写全部5项比例，合计必须等于100%。";
+
+        saveButton.disabled =
+            true;
+
+        return;
+    }
+
+
+    if(
+        result.total < 100
+    ){
+
+        const difference =
+            Math.round(
+                (
+                    100 -
+                    result.total
+                )
+                *
+                100
+            )
+            /
+            100;
+
+        totalElement.classList.add(
+            "invalid"
+        );
+
+        messageElement.classList.add(
+            "invalid"
+        );
+
+        messageElement.textContent =
+            `当前合计不足100%，还差 ${difference.toFixed(2)}%。`;
+
+        saveButton.disabled =
+            true;
+
+        return;
+    }
+
+
+    if(
+        result.total > 100
+    ){
+
+        const difference =
+            Math.round(
+                (
+                    result.total -
+                    100
+                )
+                *
+                100
+            )
+            /
+            100;
+
+        totalElement.classList.add(
+            "invalid"
+        );
+
+        messageElement.classList.add(
+            "invalid"
+        );
+
+        messageElement.textContent =
+            `当前合计超过100%，超出 ${difference.toFixed(2)}%。`;
+
+        saveButton.disabled =
+            true;
+
+        return;
+    }
+
+
+    totalElement.classList.add(
+        "valid"
+    );
+
+    messageElement.classList.add(
+        "valid"
+    );
+
+    messageElement.textContent =
+        "✓ 五项比例合计正确，可以保存。";
+
+    saveButton.disabled =
+        false;
+
+}
+
+
+/* =========================================================
+   23. OPEN DEFINE
+========================================================= */
+
+function openDefineModal(ruleId){
 
     const rule =
         rules.find(
-
             item =>
-                Number(
-                    item.id
-                )
+                Number(item.id)
                 ===
-                Number(
-                    ruleId
-                )
-
+                Number(ruleId)
         );
 
-
-    if (!rule) {
-
+    if(!rule){
 
         showToast(
             "没有找到该规则。"
         );
 
-
         return;
-
     }
 
-
-    if (
+    if(
         rule.rule_type !==
         "health_consultant"
-    ) {
-
+    ){
 
         showToast(
             "该记录不是当前统一规则。"
         );
 
-
         return;
-
     }
 
-
-    if (
+    if(
         rule.status !==
         "active"
-    ) {
-
+    ){
 
         showToast(
             "历史规则不能重新定义。"
         );
 
-
         return;
-
     }
 
-
-    if (
-        !isBlankRule(
-            rule
-        )
-    ) {
-
+    if(
+        !isBlankRule(rule)
+    ){
 
         showToast(
             "该规则已经定义。如需调整，请先设为无效。"
         );
 
-
         return;
-
     }
 
-
     definingRuleId =
-        Number(
-            ruleId
-        );
-
+        Number(ruleId);
 
     const merchant =
-        getMerchant(
-            rule
-        );
-
+        getMerchant(rule);
 
     const product =
-        getProduct(
-            rule
-        );
-
+        getProduct(rule);
 
     document.getElementById(
         "modalSubtitle"
     ).textContent =
-
         `${merchantNo(merchant)}｜${merchantName(merchant)} · ` +
-
         `${productName(product)} · ` +
-
         `V${rule.version_no || 1}`;
-
 
     document.getElementById(
         "taxInput"
-    ).value =
-        "";
-
+    ).value = "";
 
     document.getElementById(
         "platformInput"
-    ).value =
-        "";
-
+    ).value = "";
 
     document.getElementById(
         "storeInput"
-    ).value =
-        "";
-
+    ).value = "";
 
     document.getElementById(
         "operatorInput"
-    ).value =
-        "";
-
+    ).value = "";
 
     document.getElementById(
         "healthRatioInput"
-    ).value =
-        "";
-
+    ).value = "";
 
     document.getElementById(
         "healthNameInput"
-    ).value =
-        "";
-
+    ).value = "";
 
     document.getElementById(
         "healthPhoneInput"
-    ).value =
-        "";
-
+    ).value = "";
 
     document.getElementById(
         "defineModal"
@@ -5046,21 +3751,19 @@ function openDefineModal(
         "hidden"
     );
 
+    updateRatioCheck();
+
 }
 
 
-
 /* =========================================================
-   23. CLOSE DEFINE
+   24. CLOSE DEFINE
 ========================================================= */
 
-
-function closeDefineModal() {
-
+function closeDefineModal(){
 
     definingRuleId =
         null;
-
 
     document.getElementById(
         "defineModal"
@@ -5070,37 +3773,26 @@ function closeDefineModal() {
 
 }
 
+function modalBackgroundClick(event){
 
-
-function modalBackgroundClick(
-    event
-) {
-
-
-    if (
+    if(
         event.target.id ===
         "defineModal"
-    ) {
-
-
+    ){
         closeDefineModal();
-
     }
 
 }
 
 
-
 /* =========================================================
-   24. PARSE
+   25. PARSE
 ========================================================= */
-
 
 function parseRequiredPercent(
     id,
     name
-) {
-
+){
 
     const raw =
         document.getElementById(
@@ -5109,12 +3801,10 @@ function parseRequiredPercent(
         .value
         .trim();
 
-
-    if (
+    if(
         raw ===
         ""
-    ) {
-
+    ){
 
         throw new Error(
             `${name}不能为空。`
@@ -5122,23 +3812,16 @@ function parseRequiredPercent(
 
     }
 
-
     const number =
-        Number(
-            raw
-        );
+        Number(raw);
 
-
-    if (
-        !Number.isFinite(
-            number
-        )
+    if(
+        !Number.isFinite(number)
         ||
         number < 0
         ||
         number > 100
-    ) {
-
+    ){
 
         throw new Error(
             `${name}必须是0～100之间的数字。`
@@ -5146,19 +3829,15 @@ function parseRequiredPercent(
 
     }
 
-
     return number;
 
 }
-
-
 
 function parseRequiredText(
     id,
     name,
     maxLength
-) {
-
+){
 
     const raw =
         document.getElementById(
@@ -5167,12 +3846,10 @@ function parseRequiredText(
         .value
         .trim();
 
-
-    if (
+    if(
         raw ===
         ""
-    ) {
-
+    ){
 
         throw new Error(
             `${name}不能为空。`
@@ -5180,12 +3857,10 @@ function parseRequiredText(
 
     }
 
-
-    if (
+    if(
         raw.length >
         maxLength
-    ) {
-
+    ){
 
         throw new Error(
             `${name}长度不能超过${maxLength}个字符。`
@@ -5193,48 +3868,33 @@ function parseRequiredText(
 
     }
 
-
     return raw;
 
 }
 
 
-
 /* =========================================================
-   25. SAVE FIRST DEFINITION
+   26. SAVE FIRST DEFINITION
 ========================================================= */
 
+async function saveDefinition(){
 
-async function saveDefinition() {
-
-
-    if (
+    if(
         definingRuleId ===
         null
-    ) {
-
-
+    ){
         return;
-
     }
-
 
     const rule =
         rules.find(
-
             item =>
-                Number(
-                    item.id
-                )
+                Number(item.id)
                 ===
-                Number(
-                    definingRuleId
-                )
-
+                Number(definingRuleId)
         );
 
-
-    if (
+    if(
         !rule
         ||
         rule.rule_type !==
@@ -5243,39 +3903,61 @@ async function saveDefinition() {
         rule.status !==
         "active"
         ||
-        !isBlankRule(
-            rule
-        )
-    ) {
-
+        !isBlankRule(rule)
+    ){
 
         showToast(
             "当前规则状态已经变化，请刷新页面。"
         );
 
+        return;
+    }
+
+
+    /*
+     * 保存前再次做一次五项比例检查。
+     * 即使有人绕过按钮 disabled，
+     * 这里仍然不允许错误比例提交。
+     */
+
+    const ratioValidation =
+        getRatioValidation();
+
+    if(
+        !ratioValidation.allFilled
+    ){
+
+        alert(
+            "请完整填写5项比例。"
+        );
 
         return;
+    }
 
+    if(
+        !ratioValidation.valid
+    ){
+
+        alert(
+            "比例核查失败。\n\n" +
+            "税率 + 平台比例 + 门店比例 + 操作人员比例 + 订单来源比例\n" +
+            "必须正好等于100%。\n\n" +
+            `当前合计：${ratioValidation.total.toFixed(2)}%`
+        );
+
+        return;
     }
 
 
     let tax;
-
     let platform;
-
     let store;
-
     let operator;
-
     let healthRatio;
-
     let healthName;
-
     let healthPhone;
 
-
-    try {
-
+    try{
 
         tax =
             parseRequiredPercent(
@@ -5283,13 +3965,11 @@ async function saveDefinition() {
                 "税率"
             );
 
-
         platform =
             parseRequiredPercent(
                 "platformInput",
                 "平台比例"
             );
-
 
         store =
             parseRequiredPercent(
@@ -5297,49 +3977,73 @@ async function saveDefinition() {
                 "门店比例"
             );
 
-
         operator =
             parseRequiredPercent(
                 "operatorInput",
                 "操作人员比例"
             );
 
-
         healthRatio =
             parseRequiredPercent(
                 "healthRatioInput",
-                "健康顾问比例"
+                "订单来源比例"
             );
-
 
         healthName =
             parseRequiredText(
                 "healthNameInput",
-                "健康顾问姓名",
+                "订单来源联系人",
                 100
             );
-
 
         healthPhone =
             parseRequiredText(
                 "healthPhoneInput",
-                "健康顾问电话号码",
+                "健康咨询电话",
                 50
             );
 
-
     }
-
-    catch(error) {
-
+    catch(error){
 
         alert(
             error.message
         );
 
+        return;
+    }
+
+
+    /*
+     * 解析后最后一次按实际准备提交的数据核查。
+     */
+
+    const finalTotal =
+        Math.round(
+            (
+                tax +
+                platform +
+                store +
+                operator +
+                healthRatio +
+                Number.EPSILON
+            )
+            *
+            100
+        )
+        /
+        100;
+
+    if(
+        finalTotal !==
+        100
+    ){
+
+        alert(
+            `保存失败：5项比例合计必须等于100%。\n当前合计：${finalTotal.toFixed(2)}%`
+        );
 
         return;
-
     }
 
 
@@ -5348,18 +4052,16 @@ async function saveDefinition() {
 
             "确认定义这条统一分成规则吗？\n\n" +
 
+            `五项比例合计：${finalTotal.toFixed(2)}%\n\n` +
+
             "保存后该版本将不再允许直接修改。\n" +
 
             "以后如需调整，只能先设为无效，再生成新的规则版本。"
 
         );
 
-
-    if (!confirmed) {
-
-
+    if(!confirmed){
         return;
-
     }
 
 
@@ -5368,151 +4070,117 @@ async function saveDefinition() {
             "saveButton"
         );
 
-
     button.disabled =
         true;
-
 
     button.textContent =
         "保存中...";
 
 
-    try {
-
+    try{
 
         const updateData = {
-
 
             tax_rate:
                 tax,
 
-
             platform_ratio:
                 platform,
-
 
             store_ratio:
                 store,
 
-
             operator_ratio:
                 operator,
 
-
+            /*
+             * 当前数据库字段名称暂时继续使用
+             * health_consultant_ratio，
+             * 业务含义已经统一为“订单来源比例”。
+             */
             health_consultant_ratio:
                 healthRatio,
-
 
             health_consultant_name:
                 healthName,
 
-
             health_consultant_phone:
                 healthPhone,
-
 
             updated_by:
                 currentUser.id,
 
-
             updated_at:
-                new Date()
-                .toISOString()
-
+                new Date().toISOString()
 
         };
 
 
         const {
-
             data,
-
             error
-
         } =
-
         await supabaseClient
-
             .from(
                 "merchant_product_rules"
             )
-
             .update(
                 updateData
             )
-
             .eq(
                 "id",
                 Number(
                     definingRuleId
                 )
             )
-
             .eq(
                 "status",
                 "active"
             )
-
             .eq(
                 "rule_type",
                 "health_consultant"
             )
-
             .is(
                 "tax_rate",
                 null
             )
-
             .is(
                 "platform_ratio",
                 null
             )
-
             .is(
                 "store_ratio",
                 null
             )
-
             .is(
                 "operator_ratio",
                 null
             )
-
             .is(
                 "health_consultant_ratio",
                 null
             )
-
             .is(
                 "health_consultant_name",
                 null
             )
-
             .is(
                 "health_consultant_phone",
                 null
             )
-
             .select(`
                 id
             `);
 
-
-        if (error) {
-
-
+        if(error){
             throw error;
-
         }
 
-
-        if (
-            !data
-            ||
-            data.length !==
-            1
-        ) {
-
+        if(
+            !data ||
+            data.length !== 1
+        ){
 
             throw new Error(
                 "该规则可能已经被其他管理人员处理，请重新加载页面。"
@@ -5520,155 +4188,120 @@ async function saveDefinition() {
 
         }
 
-
         closeDefineModal();
-
 
         await loadRules();
 
-
         renderStats();
-
 
         renderRules();
 
-
         showToast(
-            "统一分成规则定义成功。"
+            "统一分成规则定义成功，五项比例合计100%。"
         );
 
-
     }
-
-    catch(error) {
-
+    catch(error){
 
         console.error(
             error
         );
 
-
         alert(
             "保存失败：" +
             (
-                error.message
-                ||
+                error.message ||
                 "未知错误"
             )
         );
 
-
     }
-
-    finally {
-
-
-        button.disabled =
-            false;
-
+    finally{
 
         button.textContent =
             "确认定义";
+
+        /*
+         * 如果窗口仍然打开，
+         * 根据当前比例重新决定按钮是否可用。
+         */
+        if(
+            !document.getElementById(
+                "defineModal"
+            ).classList.contains(
+                "hidden"
+            )
+        ){
+            updateRatioCheck();
+        }
+        else{
+            button.disabled =
+                true;
+        }
 
     }
 
 }
 
 
-
 /* =========================================================
-   26. INVALIDATE
+   27. INVALIDATE
 ========================================================= */
 
-
-async function invalidateRule(
-    ruleId
-) {
-
+async function invalidateRule(ruleId){
 
     const rule =
         rules.find(
-
             item =>
-                Number(
-                    item.id
-                )
+                Number(item.id)
                 ===
-                Number(
-                    ruleId
-                )
-
+                Number(ruleId)
         );
 
-
-    if (!rule) {
-
-
+    if(!rule){
         return;
-
     }
 
-
-    if (
+    if(
         rule.rule_type !==
         "health_consultant"
-    ) {
-
+    ){
 
         showToast(
             "该记录不是当前统一规则。"
         );
 
-
         return;
-
     }
 
-
-    if (
+    if(
         rule.status !==
         "active"
-    ) {
-
+    ){
 
         showToast(
             "该规则已经是历史记录。"
         );
 
-
         return;
-
     }
 
-
-    if (
-        isBlankRule(
-            rule
-        )
-    ) {
-
+    if(
+        isBlankRule(rule)
+    ){
 
         showToast(
             "当前规则尚未定义，无需设为无效。"
         );
 
-
         return;
-
     }
 
-
     const merchant =
-        getMerchant(
-            rule
-        );
-
+        getMerchant(rule);
 
     const product =
-        getProduct(
-            rule
-        );
-
+        getProduct(rule);
 
     const confirmed =
         confirm(
@@ -5687,94 +4320,61 @@ async function invalidateRule(
 
         );
 
-
-    if (!confirmed) {
-
-
+    if(!confirmed){
         return;
-
     }
 
-
-    try {
-
+    try{
 
         const {
-
             data,
-
             error
-
         } =
-
         await supabaseClient
-
             .rpc(
                 "invalidate_merchant_product_rule",
                 {
-
                     p_rule_id:
-                        Number(
-                            ruleId
-                        )
-
+                        Number(ruleId)
                 }
             );
 
-
-        if (error) {
-
-
+        if(error){
             throw error;
-
         }
 
-
-        if (
+        if(
             !data?.success
-        ) {
-
+        ){
 
             throw new Error(
-                data?.error
-                ||
+                data?.error ||
                 "规则设为无效失败。"
             );
 
         }
 
-
         await loadRules();
-
 
         renderStats();
 
-
         renderRules();
 
-
         showToast(
-
             `旧规则已设为无效，新的 V${data.version_no} 未定义规则已自动建立。`
-
         );
 
-
     }
-
-    catch(error) {
-
+    catch(error){
 
         console.error(
             error
         );
 
-
         alert(
             "操作失败：" +
             (
-                error.message
-                ||
+                error.message ||
                 "未知错误"
             )
         );
@@ -5784,68 +4384,91 @@ async function invalidateRule(
 }
 
 
-
 /* =========================================================
-   27. TOAST
+   28. 比例输入实时监听
 ========================================================= */
 
+function bindRatioInputs(){
+
+    [
+        "taxInput",
+        "platformInput",
+        "storeInput",
+        "operatorInput",
+        "healthRatioInput"
+    ]
+    .forEach(
+        id => {
+
+            const element =
+                document.getElementById(
+                    id
+                );
+
+            if(!element){
+                return;
+            }
+
+            element.addEventListener(
+                "input",
+                updateRatioCheck
+            );
+
+            element.addEventListener(
+                "change",
+                updateRatioCheck
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   29. TOAST
+========================================================= */
 
 let toastTimer;
 
-
-function showToast(
-    text
-) {
-
+function showToast(text){
 
     const toast =
         document.getElementById(
             "toast"
         );
 
-
     toast.textContent =
         text;
-
 
     toast.classList.remove(
         "hidden"
     );
 
-
     clearTimeout(
         toastTimer
     );
 
-
     toastTimer =
         setTimeout(
-
             () => {
-
 
                 toast.classList.add(
                     "hidden"
                 );
 
-
             },
-
             3000
-
         );
 
 }
 
 
-
 /* =========================================================
-   28. HOME
+   30. HOME
 ========================================================= */
 
-
-function goHome() {
-
+function goHome(){
 
     location.href =
         HOME_PAGE;
@@ -5853,45 +4476,32 @@ function goHome() {
 }
 
 
-
 /* =========================================================
-   29. LOGOUT
+   31. LOGOUT
 ========================================================= */
 
+async function logout(){
 
-async function logout() {
-
-
-    if (
+    if(
         !confirm(
             "确定退出管理平台吗？"
         )
-    ) {
-
-
+    ){
         return;
-
     }
 
+    try{
 
-    try {
-
-
-        await supabaseClient.auth
-            .signOut();
-
+        await supabaseClient.auth.signOut();
 
     }
-
-    catch(error) {
-
+    catch(error){
 
         console.error(
             error
         );
 
     }
-
 
     location.replace(
         LOGIN_PAGE
@@ -5900,40 +4510,28 @@ async function logout() {
 }
 
 
-
 /* =========================================================
-   30. IDLE
+   32. IDLE
 ========================================================= */
-
 
 let idleTimer;
 
-
-function resetIdle() {
-
+function resetIdle(){
 
     clearTimeout(
         idleTimer
     );
 
-
     idleTimer =
         setTimeout(
-
             async () => {
 
+                try{
 
-                try {
-
-
-                    await supabaseClient.auth
-                        .signOut();
-
+                    await supabaseClient.auth.signOut();
 
                 }
-
-                catch(error) {
-
+                catch(error){
 
                     console.error(
                         error
@@ -5941,26 +4539,19 @@ function resetIdle() {
 
                 }
 
-
                 alert(
                     "由于10分钟未操作，系统已经自动退出。"
                 );
-
 
                 location.replace(
                     LOGIN_PAGE
                 );
 
-
             },
-
             10 * 60 * 1000
-
         );
 
 }
-
-
 
 [
     "click",
@@ -5970,48 +4561,35 @@ function resetIdle() {
     "scroll"
 ]
 .forEach(
-
     eventName => {
 
-
         document.addEventListener(
-
             eventName,
-
             resetIdle,
-
             {
                 passive:true
             }
-
         );
 
     }
-
 );
 
 
-
 /* =========================================================
-   31. AUTH WATCH
+   33. AUTH WATCH
 ========================================================= */
 
-
 supabaseClient.auth
-
     .onAuthStateChange(
-
         (
             event,
             session
         ) => {
 
-
-            if (
+            if(
                 event ===
                 "SIGNED_OUT"
-            ) {
-
+            ){
 
                 location.replace(
                     LOGIN_PAGE
@@ -6020,36 +4598,29 @@ supabaseClient.auth
             }
 
         }
-
     );
 
 
-
 /* =========================================================
-   32. START
+   34. START
 ========================================================= */
 
-
 document.addEventListener(
-
     "DOMContentLoaded",
-
     () => {
-
 
         resetIdle();
 
+        bindRatioInputs();
+
+        updateRatioCheck();
 
         initialize();
 
     }
-
 );
-
 
 </script>
 
-
 </body>
-
 </html>

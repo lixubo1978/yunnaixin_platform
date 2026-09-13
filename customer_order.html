@@ -1,1 +1,4724 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
 
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    >
+
+    <meta name="theme-color" content="#fff5f8">
+
+    <title>孕乃馨 - 服务下单</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+            background: #fff7fa;
+            color: #493741;
+
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "SF Pro Display",
+                "PingFang SC",
+                "Microsoft YaHei",
+                Arial,
+                sans-serif;
+        }
+
+        body {
+            padding-bottom:
+                calc(
+                    106px
+                    + env(safe-area-inset-bottom)
+                );
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 560px;
+            min-height: 100vh;
+            margin: 0 auto;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #ffeaf2 0,
+                    #fff7fa 210px,
+                    #fff7fa 100%
+                );
+        }
+
+        .safe-top {
+            height: env(safe-area-inset-top);
+        }
+
+        /* ================================
+           顶部
+        ================================ */
+
+        .topbar {
+            height: 58px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+
+            padding:
+                8px
+                15px;
+        }
+
+        .back-btn {
+            width: 42px;
+            height: 42px;
+
+            border: none;
+            border-radius: 15px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .86
+                );
+
+            color: #72515f;
+            font-size: 23px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            box-shadow:
+                0 6px 18px
+                rgba(
+                    91,
+                    54,
+                    67,
+                    .07
+                );
+        }
+
+        .top-title {
+            flex: 1;
+            text-align: center;
+
+            font-size: 17px;
+            font-weight: 900;
+
+            color: #563743;
+        }
+
+        .top-space {
+            width: 42px;
+        }
+
+        /* ================================
+           进度
+        ================================ */
+
+        .steps {
+            margin:
+                5px
+                16px
+                0;
+
+            display: grid;
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 4px;
+        }
+
+        .step {
+            text-align: center;
+        }
+
+        .step-dot {
+            width: 25px;
+            height: 25px;
+
+            margin: 0 auto;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #f3dbe4;
+            color: #ae8393;
+
+            font-size: 11px;
+            font-weight: 900;
+        }
+
+        .step.active .step-dot {
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff719d,
+                    #ff9ab9
+                );
+
+            color: white;
+
+            box-shadow:
+                0 5px 15px
+                rgba(
+                    238,
+                    91,
+                    138,
+                    .23
+                );
+        }
+
+        .step-label {
+            margin-top: 5px;
+
+            font-size: 9px;
+            color: #aa8794;
+        }
+
+        .step.active .step-label {
+            color: #df5e89;
+            font-weight: 800;
+        }
+
+        /* ================================
+           通用区域
+        ================================ */
+
+        .section {
+            margin:
+                20px
+                16px
+                0;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 10px;
+
+            margin-bottom: 11px;
+        }
+
+        .section-title {
+            font-size: 17px;
+            font-weight: 900;
+
+            color: #573844;
+        }
+
+        .section-sub {
+            font-size: 11px;
+            color: #a6808f;
+        }
+
+        .card {
+            background: white;
+
+            border-radius: 22px;
+
+            box-shadow:
+                0 8px 28px
+                rgba(
+                    92,
+                    57,
+                    70,
+                    .07
+                );
+        }
+
+        /* ================================
+           服务项目
+        ================================ */
+
+        .service-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .service-card {
+            width: 100%;
+
+            border:
+                2px solid transparent;
+
+            background: white;
+
+            border-radius: 21px;
+
+            padding: 15px;
+
+            text-align: left;
+
+            display: flex;
+            gap: 13px;
+
+            box-shadow:
+                0 7px 24px
+                rgba(
+                    93,
+                    58,
+                    71,
+                    .06
+                );
+        }
+
+        .service-card.selected {
+            border-color: #ff81aa;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff 0%,
+                    #fff5f8 100%
+                );
+        }
+
+        .service-icon {
+            width: 50px;
+            height: 50px;
+
+            flex-shrink: 0;
+
+            border-radius: 17px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #fff0f5,
+                    #ffe4ed
+                );
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 26px;
+        }
+
+        .service-main {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .service-name {
+            font-size: 15px;
+            font-weight: 900;
+
+            color: #593946;
+        }
+
+        .service-desc {
+            margin-top: 5px;
+
+            font-size: 11px;
+            line-height: 1.55;
+
+            color: #a1818d;
+
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .service-bottom {
+            margin-top: 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 8px;
+        }
+
+        .uses-tag {
+            display: inline-flex;
+
+            min-height: 25px;
+
+            align-items: center;
+
+            padding:
+                4px
+                8px;
+
+            border-radius: 999px;
+
+            background: #fff0f5;
+
+            color: #dd5b87;
+
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .select-check {
+            width: 25px;
+            height: 25px;
+
+            border-radius: 50%;
+
+            background: #f3e8ec;
+
+            color: #b28a99;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 13px;
+            font-weight: 900;
+        }
+
+        .service-card.selected
+        .select-check {
+            background: #ef6e99;
+            color: white;
+        }
+
+        /* ================================
+           定位
+        ================================ */
+
+        .location-card {
+            padding: 15px;
+        }
+
+        .location-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .location-icon {
+            width: 42px;
+            height: 42px;
+
+            flex-shrink: 0;
+
+            border-radius: 15px;
+
+            background: #fff0f5;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 21px;
+        }
+
+        .location-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .location-title {
+            font-size: 14px;
+            font-weight: 900;
+
+            color: #5d404c;
+        }
+
+        .location-text {
+            margin-top: 5px;
+
+            font-size: 11px;
+            line-height: 1.55;
+
+            color: #a1848f;
+        }
+
+        .locate-btn {
+            width: 100%;
+
+            margin-top: 13px;
+
+            min-height: 45px;
+
+            border: none;
+            border-radius: 15px;
+
+            background: #fff0f5;
+
+            color: #dc5f88;
+
+            font-size: 13px;
+            font-weight: 900;
+        }
+
+        .location-success {
+            color: #27855e;
+        }
+
+        /* ================================
+           地图占位
+        ================================ */
+
+        .map-placeholder {
+            margin-top: 12px;
+
+            min-height: 185px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #f9edf2,
+                    #f3f3f7
+                );
+
+            position: relative;
+            overflow: hidden;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+            text-align: center;
+        }
+
+        .map-placeholder::before {
+            content: "";
+
+            position: absolute;
+            inset: 0;
+
+            background-image:
+                linear-gradient(
+                    rgba(
+                        255,
+                        255,
+                        255,
+                        .45
+                    )
+                    1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(
+                        255,
+                        255,
+                        255,
+                        .45
+                    )
+                    1px,
+                    transparent 1px
+                );
+
+            background-size:
+                25px
+                25px;
+        }
+
+        .map-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .map-pin {
+            font-size: 37px;
+        }
+
+        .map-title {
+            margin-top: 6px;
+
+            font-size: 13px;
+            font-weight: 900;
+
+            color: #765765;
+        }
+
+        .map-text {
+            margin-top: 5px;
+
+            font-size: 10px;
+            line-height: 1.55;
+
+            color: #a38691;
+        }
+
+        /* ================================
+           商户
+        ================================ */
+
+        .merchant-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .merchant-card {
+            width: 100%;
+
+            border:
+                2px solid transparent;
+
+            background: white;
+
+            border-radius: 21px;
+
+            padding: 15px;
+
+            text-align: left;
+
+            box-shadow:
+                0 7px 24px
+                rgba(
+                    94,
+                    59,
+                    72,
+                    .06
+                );
+        }
+
+        .merchant-card.selected {
+            border-color: #ff81aa;
+            background: #fff9fb;
+        }
+
+        .merchant-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+
+            gap: 10px;
+        }
+
+        .merchant-name {
+            flex: 1;
+
+            min-width: 0;
+
+            font-size: 15px;
+            font-weight: 900;
+
+            color: #573844;
+        }
+
+        .merchant-no {
+            flex-shrink: 0;
+
+            padding:
+                4px
+                8px;
+
+            border-radius: 999px;
+
+            background: #fff0f5;
+
+            color: #da5b86;
+
+            font-size: 10px;
+            font-weight: 900;
+        }
+
+        .merchant-address {
+            margin-top: 8px;
+
+            font-size: 11px;
+            line-height: 1.55;
+
+            color: #9b7a87;
+        }
+
+        .merchant-bottom {
+            margin-top: 11px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 10px;
+        }
+
+        .distance {
+            font-size: 11px;
+            font-weight: 800;
+            color: #6f8a78;
+        }
+
+        .merchant-price {
+            font-size: 17px;
+            font-weight: 900;
+
+            color: #e35484;
+        }
+
+        .merchant-price small {
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        /* ================================
+           推荐来源
+        ================================ */
+
+        .source-card {
+            padding: 15px;
+        }
+
+        .source-options {
+            display: grid;
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 8px;
+        }
+
+        .source-type-btn {
+            min-height: 48px;
+
+            border:
+                1.5px solid
+                #f0dce4;
+
+            border-radius: 15px;
+
+            background: #fff;
+
+            color: #8d6876;
+
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .source-type-btn.active {
+            border-color: #ff7da7;
+
+            background: #fff0f5;
+
+            color: #df5986;
+        }
+
+        .source-picker {
+            margin-top: 12px;
+        }
+
+        .field-label {
+            margin-bottom: 7px;
+
+            font-size: 11px;
+            font-weight: 800;
+
+            color: #785866;
+        }
+
+        .select-control {
+            width: 100%;
+
+            height: 49px;
+
+            padding:
+                0
+                12px;
+
+            border:
+                1.5px solid
+                #ead7df;
+
+            border-radius: 15px;
+
+            background: #fff;
+
+            color: #5d424d;
+
+            outline: none;
+
+            font-size: 13px;
+        }
+
+        .source-note {
+            margin-top: 10px;
+
+            padding:
+                10px
+                11px;
+
+            border-radius: 13px;
+
+            background: #fff7fa;
+
+            color: #9c7c88;
+
+            font-size: 10px;
+            line-height: 1.55;
+        }
+
+        /* ================================
+           订单汇总
+        ================================ */
+
+        .summary-card {
+            padding: 16px;
+        }
+
+        .summary-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-top: 11px;
+
+            font-size: 12px;
+        }
+
+        .summary-row:first-child {
+            margin-top: 0;
+        }
+
+        .summary-label {
+            color: #a07e8b;
+        }
+
+        .summary-value {
+            color: #5b404b;
+            font-weight: 800;
+
+            text-align: right;
+        }
+
+        .summary-line {
+            height: 1px;
+
+            background: #f3e6eb;
+
+            margin: 14px 0;
+        }
+
+        .summary-price-row {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+
+            gap: 12px;
+        }
+
+        .summary-price-label {
+            font-size: 13px;
+            font-weight: 800;
+
+            color: #765765;
+        }
+
+        .summary-price {
+            color: #e94e82;
+
+            font-size: 28px;
+            font-weight: 900;
+        }
+
+        .summary-price small {
+            font-size: 13px;
+        }
+
+        /* ================================
+           空状态
+        ================================ */
+
+        .empty {
+            background: white;
+
+            border-radius: 20px;
+
+            padding:
+                25px
+                15px;
+
+            text-align: center;
+
+            color: #a0808c;
+
+            font-size: 12px;
+
+            box-shadow:
+                0 7px 24px
+                rgba(
+                    94,
+                    59,
+                    72,
+                    .05
+                );
+        }
+
+        .empty-icon {
+            font-size: 35px;
+            margin-bottom: 8px;
+        }
+
+        /* ================================
+           底部确认
+        ================================ */
+
+        .bottom-bar {
+            position: fixed;
+
+            left: 50%;
+            bottom: 0;
+
+            transform:
+                translateX(-50%);
+
+            width: 100%;
+            max-width: 560px;
+
+            z-index: 100;
+
+            padding:
+                10px
+                14px
+                calc(
+                    10px
+                    + env(
+                        safe-area-inset-bottom
+                    )
+                );
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .97
+                );
+
+            backdrop-filter:
+                blur(18px);
+
+            -webkit-backdrop-filter:
+                blur(18px);
+
+            border-top:
+                1px solid
+                #f2e5ea;
+        }
+
+        .bottom-inner {
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+        }
+
+        .bottom-price {
+            min-width: 92px;
+        }
+
+        .bottom-price-label {
+            font-size: 10px;
+            color: #a4828f;
+        }
+
+        .bottom-price-value {
+            margin-top: 2px;
+
+            font-size: 23px;
+            font-weight: 900;
+
+            color: #e85183;
+        }
+
+        .confirm-btn {
+            flex: 1;
+
+            min-height: 55px;
+
+            border: none;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff6d9b,
+                    #ff94b5
+                );
+
+            color: white;
+
+            font-size: 15px;
+            font-weight: 900;
+
+            box-shadow:
+                0 9px 24px
+                rgba(
+                    236,
+                    83,
+                    132,
+                    .25
+                );
+        }
+
+        .confirm-btn:disabled {
+            opacity: .52;
+            box-shadow: none;
+        }
+
+        /* ================================
+           Loading
+        ================================ */
+
+        .loading-mask {
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 9999;
+
+            background: #fff7fa;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-box {
+            text-align: center;
+        }
+
+        .loading-icon {
+            font-size: 42px;
+
+            animation:
+                beat 1s
+                ease-in-out
+                infinite;
+        }
+
+        .loading-text {
+            margin-top: 10px;
+
+            font-size: 12px;
+            color: #a27e8c;
+        }
+
+        @keyframes beat {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.13);
+            }
+        }
+
+        /* ================================
+           Toast
+        ================================ */
+
+        .toast {
+            position: fixed;
+
+            left: 50%;
+            bottom:
+                calc(
+                    110px
+                    + env(
+                        safe-area-inset-bottom
+                    )
+                );
+
+            transform:
+                translate(
+                    -50%,
+                    20px
+                );
+
+            z-index: 10000;
+
+            max-width:
+                calc(
+                    100vw
+                    - 46px
+                );
+
+            padding:
+                11px
+                15px;
+
+            border-radius: 14px;
+
+            background:
+                rgba(
+                    64,
+                    50,
+                    56,
+                    .94
+                );
+
+            color: white;
+
+            text-align: center;
+
+            font-size: 12px;
+            line-height: 1.5;
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            transition:
+                .2s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+
+            transform:
+                translate(
+                    -50%,
+                    0
+                );
+        }
+
+        /* ================================
+           遮罩确认
+        ================================ */
+
+        .modal-mask {
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 5000;
+
+            background:
+                rgba(
+                    46,
+                    32,
+                    38,
+                    .38
+                );
+
+            display: none;
+
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .modal-mask.show {
+            display: flex;
+        }
+
+        .modal-sheet {
+            width: 100%;
+            max-width: 560px;
+
+            background: white;
+
+            border-radius:
+                28px
+                28px
+                0
+                0;
+
+            padding:
+                20px
+                18px
+                calc(
+                    20px
+                    + env(
+                        safe-area-inset-bottom
+                    )
+                );
+        }
+
+        .modal-title {
+            text-align: center;
+
+            font-size: 17px;
+            font-weight: 900;
+
+            color: #553945;
+        }
+
+        .modal-desc {
+            margin-top: 8px;
+
+            text-align: center;
+
+            font-size: 11px;
+            line-height: 1.6;
+
+            color: #a1818e;
+        }
+
+        .modal-summary {
+            margin-top: 16px;
+
+            padding: 14px;
+
+            border-radius: 17px;
+
+            background: #fff7fa;
+        }
+
+        .modal-row {
+            display: flex;
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-top: 9px;
+
+            font-size: 12px;
+        }
+
+        .modal-row:first-child {
+            margin-top: 0;
+        }
+
+        .modal-row span:first-child {
+            color: #a07e8b;
+        }
+
+        .modal-row span:last-child {
+            color: #5c414c;
+            font-weight: 800;
+            text-align: right;
+        }
+
+        .modal-actions {
+            margin-top: 17px;
+
+            display: grid;
+            grid-template-columns:
+                1fr
+                1.7fr;
+
+            gap: 9px;
+        }
+
+        .modal-btn {
+            min-height: 50px;
+
+            border: none;
+            border-radius: 16px;
+
+            font-size: 13px;
+            font-weight: 900;
+        }
+
+        .modal-cancel {
+            background: #f5edf0;
+            color: #846673;
+        }
+
+        .modal-confirm {
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff6e9d,
+                    #ff94b5
+                );
+
+            color: white;
+        }
+
+        @media (min-width: 560px) {
+            .app {
+                box-shadow:
+                    0 0 35px
+                    rgba(
+                        79,
+                        49,
+                        60,
+                        .08
+                    );
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div
+    id="loadingMask"
+    class="loading-mask"
+>
+    <div class="loading-box">
+
+        <div class="loading-icon">
+            🌸
+        </div>
+
+        <div class="loading-text">
+            正在准备服务项目...
+        </div>
+
+    </div>
+</div>
+
+
+<div class="app">
+
+    <div class="safe-top"></div>
+
+
+    <!-- 顶部 -->
+    <header class="topbar">
+
+        <button
+            class="back-btn"
+            onclick="goBack()"
+            aria-label="返回"
+        >
+            ‹
+        </button>
+
+        <div class="top-title">
+            服务下单
+        </div>
+
+        <div class="top-space"></div>
+
+    </header>
+
+
+    <!-- 步骤 -->
+    <div class="steps">
+
+        <div
+            id="step1"
+            class="step active"
+        >
+            <div class="step-dot">
+                1
+            </div>
+
+            <div class="step-label">
+                选服务
+            </div>
+        </div>
+
+
+        <div
+            id="step2"
+            class="step"
+        >
+            <div class="step-dot">
+                2
+            </div>
+
+            <div class="step-label">
+                选商户
+            </div>
+        </div>
+
+
+        <div
+            id="step3"
+            class="step"
+        >
+            <div class="step-dot">
+                3
+            </div>
+
+            <div class="step-label">
+                推荐来源
+            </div>
+        </div>
+
+
+        <div
+            id="step4"
+            class="step"
+        >
+            <div class="step-dot">
+                4
+            </div>
+
+            <div class="step-label">
+                确认
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- 服务项目 -->
+    <section class="section">
+
+        <div class="section-head">
+
+            <div>
+
+                <div class="section-title">
+                    选择服务
+                </div>
+
+                <div class="section-sub">
+                    请选择您需要的服务项目
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="serviceList"
+            class="service-list"
+        ></div>
+
+    </section>
+
+
+    <!-- 定位 -->
+    <section class="section">
+
+        <div class="section-head">
+
+            <div>
+
+                <div class="section-title">
+                    服务商户
+                </div>
+
+                <div class="section-sub">
+                    仅支持实体商户到店消费
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card location-card">
+
+            <div class="location-row">
+
+                <div class="location-icon">
+                    📍
+                </div>
+
+                <div class="location-content">
+
+                    <div class="location-title">
+                        获取我的位置
+                    </div>
+
+                    <div
+                        id="locationText"
+                        class="location-text"
+                    >
+                        获取位置后可优先显示距离较近的商户。
+                        如果无法定位，仍然可以手动选择商户。
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <button
+                id="locateBtn"
+                class="locate-btn"
+                onclick="requestLocation()"
+            >
+                获取当前位置
+            </button>
+
+        </div>
+
+
+        <!-- 百度地图AK下来以后替换这里 -->
+        <div
+            id="mapPlaceholder"
+            class="map-placeholder"
+        >
+
+            <div class="map-content">
+
+                <div class="map-pin">
+                    🗺️
+                </div>
+
+                <div class="map-title">
+                    商户地图
+                </div>
+
+                <div
+                    id="mapText"
+                    class="map-text"
+                >
+                    百度地图开发者 AK 正在审批中。<br>
+                    当前版本先使用商户地址和距离选择商户。
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="merchantList"
+            class="merchant-list"
+            style="margin-top:12px;"
+        ></div>
+
+    </section>
+
+
+    <!-- 推荐来源 -->
+    <section class="section">
+
+        <div class="section-head">
+
+            <div>
+
+                <div class="section-title">
+                    推荐来源
+                </div>
+
+                <div class="section-sub">
+                    选填，不选择默认平台
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card source-card">
+
+            <div class="source-options">
+
+                <button
+                    id="sourcePlatformBtn"
+                    class="source-type-btn active"
+                    onclick="chooseSourceType('platform')"
+                >
+                    平台
+                </button>
+
+
+                <button
+                    id="sourceMerchantBtn"
+                    class="source-type-btn"
+                    onclick="chooseSourceType('merchant')"
+                >
+                    商户推荐
+                </button>
+
+
+                <button
+                    id="sourceConsultantBtn"
+                    class="source-type-btn"
+                    onclick="chooseSourceType('health_consultant')"
+                >
+                    健康顾问
+                </button>
+
+            </div>
+
+
+            <div
+                id="sourceMerchantPicker"
+                class="source-picker"
+                style="display:none;"
+            >
+
+                <div class="field-label">
+                    选择推荐商户
+                </div>
+
+                <select
+                    id="sourceMerchantSelect"
+                    class="select-control"
+                    onchange="sourceSelectionChanged()"
+                >
+
+                    <option value="">
+                        请选择推荐商户
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div
+                id="sourceConsultantPicker"
+                class="source-picker"
+                style="display:none;"
+            >
+
+                <div class="field-label">
+                    选择推荐老师
+                </div>
+
+                <select
+                    id="sourceConsultantSelect"
+                    class="select-control"
+                    onchange="sourceSelectionChanged()"
+                >
+
+                    <option value="">
+                        请选择健康顾问
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div
+                id="sourceNote"
+                class="source-note"
+            >
+                当前推荐来源：平台
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- 确认 -->
+    <section class="section">
+
+        <div class="section-head">
+
+            <div>
+
+                <div class="section-title">
+                    订单确认
+                </div>
+
+                <div class="section-sub">
+                    确认无误后生成待支付订单
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card summary-card">
+
+            <div class="summary-row">
+
+                <span class="summary-label">
+                    服务项目
+                </span>
+
+                <span
+                    id="summaryService"
+                    class="summary-value"
+                >
+                    未选择
+                </span>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span class="summary-label">
+                    服务商户
+                </span>
+
+                <span
+                    id="summaryMerchant"
+                    class="summary-value"
+                >
+                    未选择
+                </span>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span class="summary-label">
+                    商户地址
+                </span>
+
+                <span
+                    id="summaryAddress"
+                    class="summary-value"
+                >
+                    --
+                </span>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span class="summary-label">
+                    消费次数
+                </span>
+
+                <span
+                    id="summaryUses"
+                    class="summary-value"
+                >
+                    --
+                </span>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span class="summary-label">
+                    推荐来源
+                </span>
+
+                <span
+                    id="summarySource"
+                    class="summary-value"
+                >
+                    平台
+                </span>
+
+            </div>
+
+
+            <div class="summary-line"></div>
+
+
+            <div class="summary-price-row">
+
+                <span class="summary-price-label">
+                    订单金额
+                </span>
+
+                <span
+                    id="summaryPrice"
+                    class="summary-price"
+                >
+                    <small>¥</small> --
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- 底部 -->
+<div class="bottom-bar">
+
+    <div class="bottom-inner">
+
+        <div class="bottom-price">
+
+            <div class="bottom-price-label">
+                应付金额
+            </div>
+
+            <div
+                id="bottomPrice"
+                class="bottom-price-value"
+            >
+                ¥--
+            </div>
+
+        </div>
+
+
+        <button
+            id="confirmBtn"
+            class="confirm-btn"
+            onclick="openConfirmModal()"
+            disabled
+        >
+            确认订单
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- 确认弹窗 -->
+<div
+    id="confirmModal"
+    class="modal-mask"
+    onclick="maskClose(event)"
+>
+
+    <div class="modal-sheet">
+
+        <div class="modal-title">
+            确认提交订单
+        </div>
+
+        <div class="modal-desc">
+            提交后将生成待支付订单。<br>
+            微信支付和支付宝接口将在下一阶段接入。
+        </div>
+
+
+        <div
+            id="modalSummary"
+            class="modal-summary"
+        ></div>
+
+
+        <div class="modal-actions">
+
+            <button
+                class="modal-btn modal-cancel"
+                onclick="closeConfirmModal()"
+            >
+                再检查一下
+            </button>
+
+
+            <button
+                id="submitOrderBtn"
+                class="modal-btn modal-confirm"
+                onclick="submitOrder()"
+            >
+                确认生成订单
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div
+    id="toast"
+    class="toast"
+></div>
+
+
+<script>
+    /* ========================================================
+       Supabase
+    ======================================================== */
+
+    const SUPABASE_URL =
+        "https://qbuqjwpkltbjhlfbyjyb.supabase.co";
+
+
+    const SUPABASE_ANON_KEY =
+        "sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
+
+
+    const sb =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
+        );
+
+
+    /* ========================================================
+       全局
+    ======================================================== */
+
+    let currentUser = null;
+
+    let currentProfile = null;
+
+    let currentCustomer = null;
+
+
+    let products = [];
+
+    let merchants = [];
+
+    let serviceAreas = [];
+
+    let cityPrices = [];
+
+    let recommendationSources = [];
+
+
+    let selectedProduct = null;
+
+    let selectedMerchant = null;
+
+    let selectedCityPrice = null;
+
+
+    let selectedSourceType =
+        "platform";
+
+    let selectedSourceNo =
+        null;
+
+
+    let customerLatitude =
+        null;
+
+    let customerLongitude =
+        null;
+
+
+    let submitting =
+        false;
+
+
+    const IDLE_LIMIT =
+        10 * 60 * 1000;
+
+    let idleTimer = null;
+
+
+
+    /* ========================================================
+       页面启动
+    ======================================================== */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        init
+    );
+
+
+    async function init() {
+
+        try {
+
+            setupIdleLogout();
+
+
+            const {
+                data: {
+                    session
+                },
+                error
+            } =
+                await sb.auth.getSession();
+
+
+            if (
+                error
+                ||
+                !session
+                ||
+                !session.user
+            ) {
+
+                goLogin();
+                return;
+
+            }
+
+
+            currentUser =
+                session.user;
+
+
+            const allowed =
+                await verifyCustomer();
+
+
+            if (!allowed) {
+
+                return;
+
+            }
+
+
+            await loadCustomer();
+
+            await loadBaseData();
+
+
+            renderServices();
+
+            renderMerchants();
+
+            renderSourceOptions();
+
+            updateSummary();
+
+            updateSteps();
+
+            hideLoading();
+
+
+        } catch (error) {
+
+            console.error(
+                "初始化失败",
+                error
+            );
+
+            hideLoading();
+
+            toast(
+                "页面加载失败，请稍后重试"
+            );
+
+        }
+
+    }
+
+
+
+    /* ========================================================
+       客户权限
+    ======================================================== */
+
+    async function verifyCustomer() {
+
+        const {
+            data,
+            error
+        } =
+            await sb
+                .from("profiles")
+                .select(
+                    `
+                    id,
+                    full_name,
+                    role,
+                    user_type,
+                    status,
+                    account_no
+                    `
+                )
+                .eq(
+                    "id",
+                    currentUser.id
+                )
+                .maybeSingle();
+
+
+        if (
+            error
+            ||
+            !data
+        ) {
+
+            await forceLogout();
+
+            return false;
+
+        }
+
+
+        if (
+            data.status
+            &&
+            data.status !== "active"
+        ) {
+
+            toast(
+                "账号已停用"
+            );
+
+            setTimeout(
+                forceLogout,
+                800
+            );
+
+            return false;
+
+        }
+
+
+        const isCustomer =
+            data.role === "customer"
+            ||
+            data.user_type === "customer";
+
+
+        if (!isCustomer) {
+
+            await forceLogout();
+
+            return false;
+
+        }
+
+
+        currentProfile =
+            data;
+
+
+        return true;
+
+    }
+
+
+
+    /* ========================================================
+       客户资料
+    ======================================================== */
+
+    async function loadCustomer() {
+
+        const {
+            data,
+            error
+        } =
+            await sb
+                .from("customers")
+                .select("*")
+                .eq(
+                    "auth_user_id",
+                    currentUser.id
+                )
+                .maybeSingle();
+
+
+        if (!error) {
+
+            currentCustomer =
+                data;
+
+        }
+
+    }
+
+
+
+    /* ========================================================
+       基础数据
+    ======================================================== */
+
+    async function loadBaseData() {
+
+        const [
+            productResult,
+            merchantResult,
+            serviceAreaResult,
+            priceResult,
+            sourceResult
+        ] =
+            await Promise.all([
+
+
+                sb
+                    .from("products")
+                    .select("*")
+                    .eq(
+                        "status",
+                        "active"
+                    ),
+
+
+                sb
+                    .from("merchants")
+                    .select("*")
+                    .eq(
+                        "status",
+                        "active"
+                    )
+                    .eq(
+                        "listing_status",
+                        "online"
+                    ),
+
+
+                sb
+                    .from("service_areas")
+                    .select(
+                        `
+                        id,
+                        area_no,
+                        province_id,
+                        city_id,
+                        district_id,
+                        status
+                        `
+                    )
+                    .eq(
+                        "status",
+                        "active"
+                    ),
+
+
+                sb
+                    .from("city_prices")
+                    .select("*")
+                    .eq(
+                        "status",
+                        "active"
+                    ),
+
+
+                sb
+                    .from(
+                        "recommendation_sources"
+                    )
+                    .select("*")
+
+            ]);
+
+
+        if (productResult.error) {
+
+            console.error(
+                productResult.error
+            );
+
+        }
+
+
+        if (merchantResult.error) {
+
+            console.error(
+                merchantResult.error
+            );
+
+        }
+
+
+        if (serviceAreaResult.error) {
+
+            console.error(
+                serviceAreaResult.error
+            );
+
+        }
+
+
+        if (priceResult.error) {
+
+            console.error(
+                priceResult.error
+            );
+
+        }
+
+
+        if (sourceResult.error) {
+
+            console.error(
+                sourceResult.error
+            );
+
+        }
+
+
+        products =
+            (
+                productResult.data
+                ||
+                []
+            )
+            .filter(
+                item => {
+
+                    /*
+                     * 当前客户下单只处理服务类项目。
+                     * 如果旧数据没有product_type，
+                     * 仍允许显示。
+                     */
+
+                    return (
+                        !item.product_type
+                        ||
+                        item.product_type === "service"
+                    );
+
+                }
+            );
+
+
+        merchants =
+            merchantResult.data
+            ||
+            [];
+
+
+        serviceAreas =
+            serviceAreaResult.data
+            ||
+            [];
+
+
+        cityPrices =
+            priceResult.data
+            ||
+            [];
+
+
+        recommendationSources =
+            sourceResult.data
+            ||
+            [];
+
+    }
+
+
+
+    /* ========================================================
+       服务项目
+    ======================================================== */
+
+    function renderServices() {
+
+        const box =
+            document.getElementById(
+                "serviceList"
+            );
+
+
+        box.innerHTML = "";
+
+
+        if (!products.length) {
+
+            box.innerHTML = `
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        🌷
+                    </div>
+
+                    当前暂无可下单服务项目
+
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        products.forEach(
+            product => {
+
+                const btn =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                btn.type =
+                    "button";
+
+
+                btn.className =
+                    "service-card";
+
+
+                btn.dataset.id =
+                    String(
+                        product.id
+                    );
+
+
+                const name =
+                    getProductName(
+                        product
+                    );
+
+
+                const desc =
+                    product.description
+                    ||
+                    "孕乃馨平台认证服务项目";
+
+
+                const uses =
+                    Number(
+                        product.default_usage_count
+                        ||
+                        1
+                    );
+
+
+                btn.innerHTML = `
+
+                    <div class="service-icon">
+                        🌸
+                    </div>
+
+                    <div class="service-main">
+
+                        <div class="service-name">
+                            ${escapeHtml(name)}
+                        </div>
+
+                        <div class="service-desc">
+                            ${escapeHtml(desc)}
+                        </div>
+
+                        <div class="service-bottom">
+
+                            <span class="uses-tag">
+                                ${uses} 次服务
+                            </span>
+
+                            <span class="select-check">
+                                ✓
+                            </span>
+
+                        </div>
+
+                    </div>
+                `;
+
+
+                btn.onclick =
+                    () => {
+
+                        selectProduct(
+                            product
+                        );
+
+                    };
+
+
+                box.appendChild(
+                    btn
+                );
+
+            }
+        );
+
+    }
+
+
+
+    function selectProduct(
+        product
+    ) {
+
+        selectedProduct =
+            product;
+
+
+        selectedMerchant =
+            null;
+
+        selectedCityPrice =
+            null;
+
+
+        document
+            .querySelectorAll(
+                ".service-card"
+            )
+            .forEach(
+                el => {
+
+                    el.classList.toggle(
+                        "selected",
+                        String(
+                            el.dataset.id
+                        )
+                        ===
+                        String(
+                            product.id
+                        )
+                    );
+
+                }
+            );
+
+
+        renderMerchants();
+
+        updateSummary();
+
+        updateSteps();
+
+
+        setTimeout(
+            () => {
+
+                document
+                    .getElementById(
+                        "merchantList"
+                    )
+                    ?.scrollIntoView(
+                        {
+                            behavior:
+                                "smooth",
+                            block:
+                                "start"
+                        }
+                    );
+
+            },
+            180
+        );
+
+    }
+
+
+
+    /* ========================================================
+       商户
+    ======================================================== */
+
+    function renderMerchants() {
+
+        const box =
+            document.getElementById(
+                "merchantList"
+            );
+
+
+        box.innerHTML = "";
+
+
+        if (!selectedProduct) {
+
+            box.innerHTML = `
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        🌸
+                    </div>
+
+                    请先选择服务项目
+
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        let displayList =
+            merchants
+                .map(
+                    merchant => {
+
+                        return {
+                            ...merchant,
+                            _distance:
+                                calculateMerchantDistance(
+                                    merchant
+                                )
+                        };
+
+                    }
+                );
+
+
+        if (
+            customerLatitude !== null
+            &&
+            customerLongitude !== null
+        ) {
+
+            displayList =
+                displayList.sort(
+                    (
+                        a,
+                        b
+                    ) => {
+
+                        const da =
+                            a._distance;
+
+                        const db =
+                            b._distance;
+
+
+                        if (
+                            da === null
+                            &&
+                            db === null
+                        ) {
+
+                            return 0;
+
+                        }
+
+
+                        if (
+                            da === null
+                        ) {
+
+                            return 1;
+
+                        }
+
+
+                        if (
+                            db === null
+                        ) {
+
+                            return -1;
+
+                        }
+
+
+                        return da - db;
+
+                    }
+                );
+
+        }
+
+
+        /*
+         * 只显示该服务项目在对应商户城市
+         * 已经存在有效价格的商户。
+         */
+
+        displayList =
+            displayList.filter(
+                merchant => {
+
+                    return !!findCityPrice(
+                        merchant,
+                        selectedProduct
+                    );
+
+                }
+            );
+
+
+        if (!displayList.length) {
+
+            box.innerHTML = `
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        🏪
+                    </div>
+
+                    当前没有可以提供该项目的商户
+
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        displayList.forEach(
+            merchant => {
+
+                const price =
+                    findCityPrice(
+                        merchant,
+                        selectedProduct
+                    );
+
+
+                const card =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                card.type =
+                    "button";
+
+
+                card.className =
+                    "merchant-card";
+
+
+                card.dataset.id =
+                    String(
+                        merchant.id
+                    );
+
+
+                const merchantName =
+                    getMerchantName(
+                        merchant
+                    );
+
+
+                const recordNo =
+                    merchant.record_no
+                    ??
+                    "--";
+
+
+                const address =
+                    merchant.address
+                    ||
+                    "商户地址暂未完善";
+
+
+                const distanceText =
+                    merchant._distance !== null
+                    ?
+                    `${formatDistance(
+                        merchant._distance
+                    )}`
+                    :
+                    "可手动选择";
+
+
+                card.innerHTML = `
+
+                    <div class="merchant-head">
+
+                        <div class="merchant-name">
+                            ${escapeHtml(merchantName)}
+                        </div>
+
+                        <div class="merchant-no">
+                            编号 ${escapeHtml(recordNo)}
+                        </div>
+
+                    </div>
+
+
+                    <div class="merchant-address">
+                        📍 ${escapeHtml(address)}
+                    </div>
+
+
+                    <div class="merchant-bottom">
+
+                        <span class="distance">
+                            ${escapeHtml(distanceText)}
+                        </span>
+
+                        <span class="merchant-price">
+                            <small>¥</small>
+                            ${formatMoney(price.price)}
+                        </span>
+
+                    </div>
+                `;
+
+
+                card.onclick =
+                    () => {
+
+                        selectMerchant(
+                            merchant
+                        );
+
+                    };
+
+
+                box.appendChild(
+                    card
+                );
+
+            }
+        );
+
+    }
+
+
+
+    function selectMerchant(
+        merchant
+    ) {
+
+        selectedMerchant =
+            merchant;
+
+
+        selectedCityPrice =
+            findCityPrice(
+                merchant,
+                selectedProduct
+            );
+
+
+        document
+            .querySelectorAll(
+                ".merchant-card"
+            )
+            .forEach(
+                el => {
+
+                    el.classList.toggle(
+                        "selected",
+                        String(
+                            el.dataset.id
+                        )
+                        ===
+                        String(
+                            merchant.id
+                        )
+                    );
+
+                }
+            );
+
+
+        updateSummary();
+
+        updateSteps();
+
+        updateMapPlaceholder();
+
+    }
+
+
+
+    /* ========================================================
+       商户城市价格
+    ======================================================== */
+
+    function findCityPrice(
+        merchant,
+        product
+    ) {
+
+        if (
+            !merchant
+            ||
+            !product
+        ) {
+
+            return null;
+
+        }
+
+
+        const area =
+            serviceAreas.find(
+                item => {
+
+                    return String(
+                        item.id
+                    )
+                    ===
+                    String(
+                        merchant.service_area_id
+                    );
+
+                }
+            );
+
+
+        if (!area) {
+
+            return null;
+
+        }
+
+
+        const price =
+            cityPrices.find(
+                item => {
+
+                    return (
+                        String(
+                            item.city_id
+                        )
+                        ===
+                        String(
+                            area.city_id
+                        )
+
+                        &&
+
+                        String(
+                            item.product_id
+                        )
+                        ===
+                        String(
+                            product.id
+                        )
+
+                        &&
+
+                        item.price !== null
+
+                        &&
+
+                        item.price !== undefined
+                    );
+
+                }
+            );
+
+
+        return price
+            ||
+            null;
+
+    }
+
+
+
+    /* ========================================================
+       浏览器定位
+    ======================================================== */
+
+    function requestLocation() {
+
+        if (
+            !navigator.geolocation
+        ) {
+
+            locationFailed(
+                "当前浏览器不支持定位，请直接手动选择商户。"
+            );
+
+            return;
+
+        }
+
+
+        const btn =
+            document.getElementById(
+                "locateBtn"
+            );
+
+
+        btn.disabled =
+            true;
+
+        btn.textContent =
+            "正在定位...";
+
+
+        navigator.geolocation
+            .getCurrentPosition(
+
+                position => {
+
+                    customerLatitude =
+                        Number(
+                            position.coords.latitude
+                        );
+
+
+                    customerLongitude =
+                        Number(
+                            position.coords.longitude
+                        );
+
+
+                    const text =
+                        document.getElementById(
+                            "locationText"
+                        );
+
+
+                    text.classList.add(
+                        "location-success"
+                    );
+
+
+                    text.textContent =
+                        "已获取当前位置，商户已按照距离优先排序。";
+
+
+                    btn.disabled =
+                        false;
+
+                    btn.textContent =
+                        "重新获取位置";
+
+
+                    renderMerchants();
+
+                    updateMapPlaceholder();
+
+                    toast(
+                        "定位成功"
+                    );
+
+                },
+
+
+                error => {
+
+                    console.warn(
+                        "geolocation",
+                        error
+                    );
+
+
+                    locationFailed(
+                        "未能获取当前位置，您可以继续手动选择商户。"
+                    );
+
+                },
+
+
+                {
+                    enableHighAccuracy:
+                        true,
+
+                    timeout:
+                        10000,
+
+                    maximumAge:
+                        60000
+                }
+
+            );
+
+    }
+
+
+
+    function locationFailed(
+        message
+    ) {
+
+        const text =
+            document.getElementById(
+                "locationText"
+            );
+
+
+        text.classList.remove(
+            "location-success"
+        );
+
+
+        text.textContent =
+            message;
+
+
+        const btn =
+            document.getElementById(
+                "locateBtn"
+            );
+
+
+        btn.disabled =
+            false;
+
+        btn.textContent =
+            "再次尝试定位";
+
+
+        renderMerchants();
+
+        toast(
+            "定位失败，可手动选择商户"
+        );
+
+    }
+
+
+
+    /* ========================================================
+       距离
+    ======================================================== */
+
+    function calculateMerchantDistance(
+        merchant
+    ) {
+
+        if (
+            customerLatitude === null
+            ||
+            customerLongitude === null
+        ) {
+
+            return null;
+
+        }
+
+
+        const lat =
+            Number(
+                merchant.latitude
+            );
+
+
+        const lng =
+            Number(
+                merchant.longitude
+            );
+
+
+        if (
+            !Number.isFinite(lat)
+            ||
+            !Number.isFinite(lng)
+        ) {
+
+            return null;
+
+        }
+
+
+        return haversineDistance(
+            customerLatitude,
+            customerLongitude,
+            lat,
+            lng
+        );
+
+    }
+
+
+
+    function haversineDistance(
+        lat1,
+        lon1,
+        lat2,
+        lon2
+    ) {
+
+        const R =
+            6371;
+
+
+        const dLat =
+            toRad(
+                lat2 - lat1
+            );
+
+
+        const dLon =
+            toRad(
+                lon2 - lon1
+            );
+
+
+        const a =
+            Math.sin(
+                dLat / 2
+            )
+            *
+            Math.sin(
+                dLat / 2
+            )
+            +
+            Math.cos(
+                toRad(lat1)
+            )
+            *
+            Math.cos(
+                toRad(lat2)
+            )
+            *
+            Math.sin(
+                dLon / 2
+            )
+            *
+            Math.sin(
+                dLon / 2
+            );
+
+
+        const c =
+            2
+            *
+            Math.atan2(
+                Math.sqrt(a),
+                Math.sqrt(
+                    1 - a
+                )
+            );
+
+
+        return R * c;
+
+    }
+
+
+
+    function toRad(
+        value
+    ) {
+
+        return value
+            *
+            Math.PI
+            /
+            180;
+
+    }
+
+
+
+    function formatDistance(
+        km
+    ) {
+
+        if (
+            km < 1
+        ) {
+
+            return `${Math.round(
+                km * 1000
+            )} 米`;
+
+        }
+
+
+        return `${km.toFixed(1)} 公里`;
+
+    }
+
+
+
+    /* ========================================================
+       地图占位
+    ======================================================== */
+
+    function updateMapPlaceholder() {
+
+        const text =
+            document.getElementById(
+                "mapText"
+            );
+
+
+        if (selectedMerchant) {
+
+            const merchantName =
+                getMerchantName(
+                    selectedMerchant
+                );
+
+
+            const address =
+                selectedMerchant.address
+                ||
+                "地址暂未完善";
+
+
+            text.innerHTML =
+                `
+                已选择：${escapeHtml(merchantName)}<br>
+                ${escapeHtml(address)}<br>
+                百度地图 AK 获取后将在这里直接显示地图位置。
+                `;
+
+        } else if (
+            customerLatitude !== null
+            &&
+            customerLongitude !== null
+        ) {
+
+            text.innerHTML =
+                `
+                已获取您的当前位置。<br>
+                请在下面选择一个实体商户。
+                `;
+
+        } else {
+
+            text.innerHTML =
+                `
+                百度地图开发者 AK 正在审批中。<br>
+                当前版本先使用商户地址和距离选择商户。
+                `;
+
+        }
+
+    }
+
+
+
+    /* ========================================================
+       推荐来源
+    ======================================================== */
+
+    function renderSourceOptions() {
+
+        const merchantSelect =
+            document.getElementById(
+                "sourceMerchantSelect"
+            );
+
+
+        const consultantSelect =
+            document.getElementById(
+                "sourceConsultantSelect"
+            );
+
+
+        merchantSelect.innerHTML =
+            `
+            <option value="">
+                请选择推荐商户
+            </option>
+            `;
+
+
+        consultantSelect.innerHTML =
+            `
+            <option value="">
+                请选择健康顾问
+            </option>
+            `;
+
+
+        recommendationSources
+            .filter(
+                item =>
+                    item.source_type
+                    ===
+                    "merchant"
+            )
+            .sort(
+                (
+                    a,
+                    b
+                ) =>
+                    Number(
+                        a.source_no
+                        ||
+                        0
+                    )
+                    -
+                    Number(
+                        b.source_no
+                        ||
+                        0
+                    )
+            )
+            .forEach(
+                item => {
+
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+
+                    option.value =
+                        item.source_no;
+
+
+                    option.textContent =
+                        `${item.source_no}｜${item.source_name}`;
+
+
+                    merchantSelect.appendChild(
+                        option
+                    );
+
+                }
+            );
+
+
+        recommendationSources
+            .filter(
+                item =>
+                    item.source_type
+                    ===
+                    "health_consultant"
+            )
+            .sort(
+                (
+                    a,
+                    b
+                ) =>
+                    Number(
+                        a.source_no
+                        ||
+                        0
+                    )
+                    -
+                    Number(
+                        b.source_no
+                        ||
+                        0
+                    )
+            )
+            .forEach(
+                item => {
+
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+
+                    option.value =
+                        item.source_no;
+
+
+                    option.textContent =
+                        `${item.source_no}｜${item.source_name}`;
+
+
+                    consultantSelect.appendChild(
+                        option
+                    );
+
+                }
+            );
+
+    }
+
+
+
+    function chooseSourceType(
+        type
+    ) {
+
+        selectedSourceType =
+            type;
+
+
+        selectedSourceNo =
+            null;
+
+
+        document
+            .getElementById(
+                "sourceMerchantSelect"
+            )
+            .value =
+            "";
+
+
+        document
+            .getElementById(
+                "sourceConsultantSelect"
+            )
+            .value =
+            "";
+
+
+        [
+            [
+                "platform",
+                "sourcePlatformBtn"
+            ],
+
+            [
+                "merchant",
+                "sourceMerchantBtn"
+            ],
+
+            [
+                "health_consultant",
+                "sourceConsultantBtn"
+            ]
+        ]
+            .forEach(
+                entry => {
+
+                    document
+                        .getElementById(
+                            entry[1]
+                        )
+                        .classList
+                        .toggle(
+                            "active",
+                            entry[0]
+                            ===
+                            type
+                        );
+
+                }
+            );
+
+
+        document
+            .getElementById(
+                "sourceMerchantPicker"
+            )
+            .style
+            .display =
+            type === "merchant"
+                ?
+                "block"
+                :
+                "none";
+
+
+        document
+            .getElementById(
+                "sourceConsultantPicker"
+            )
+            .style
+            .display =
+            type ===
+            "health_consultant"
+                ?
+                "block"
+                :
+                "none";
+
+
+        updateSourceNote();
+
+        updateSummary();
+
+        updateSteps();
+
+    }
+
+
+
+    function sourceSelectionChanged() {
+
+        if (
+            selectedSourceType
+            ===
+            "merchant"
+        ) {
+
+            const value =
+                document
+                    .getElementById(
+                        "sourceMerchantSelect"
+                    )
+                    .value;
+
+
+            selectedSourceNo =
+                value
+                ?
+                Number(value)
+                :
+                null;
+
+        }
+
+
+        if (
+            selectedSourceType
+            ===
+            "health_consultant"
+        ) {
+
+            const value =
+                document
+                    .getElementById(
+                        "sourceConsultantSelect"
+                    )
+                    .value;
+
+
+            selectedSourceNo =
+                value
+                ?
+                Number(value)
+                :
+                null;
+
+        }
+
+
+        updateSourceNote();
+
+        updateSummary();
+
+        updateSteps();
+
+    }
+
+
+
+    function getSelectedSource() {
+
+        if (
+            selectedSourceType
+            ===
+            "platform"
+        ) {
+
+            return {
+                type:
+                    "platform",
+
+                no:
+                    null,
+
+                name:
+                    "平台"
+            };
+
+        }
+
+
+        const item =
+            recommendationSources.find(
+                source => {
+
+                    return (
+                        source.source_type
+                        ===
+                        selectedSourceType
+
+                        &&
+
+                        Number(
+                            source.source_no
+                        )
+                        ===
+                        Number(
+                            selectedSourceNo
+                        )
+                    );
+
+                }
+            );
+
+
+        if (!item) {
+
+            return null;
+
+        }
+
+
+        return {
+            type:
+                item.source_type,
+
+            no:
+                Number(
+                    item.source_no
+                ),
+
+            name:
+                item.source_name
+        };
+
+    }
+
+
+
+    function updateSourceNote() {
+
+        const note =
+            document.getElementById(
+                "sourceNote"
+            );
+
+
+        const source =
+            getSelectedSource();
+
+
+        if (
+            selectedSourceType
+            ===
+            "platform"
+        ) {
+
+            note.textContent =
+                "当前推荐来源：平台";
+
+            return;
+
+        }
+
+
+        if (!source) {
+
+            note.textContent =
+                selectedSourceType
+                ===
+                "merchant"
+                ?
+                "请选择推荐商户"
+                :
+                "请选择健康顾问";
+
+            return;
+
+        }
+
+
+        note.textContent =
+            `当前推荐来源：${source.no}｜${source.name}`;
+
+    }
+
+
+
+    /* ========================================================
+       汇总
+    ======================================================== */
+
+    function updateSummary() {
+
+        const serviceName =
+            selectedProduct
+            ?
+            getProductName(
+                selectedProduct
+            )
+            :
+            "未选择";
+
+
+        const merchantName =
+            selectedMerchant
+            ?
+            getMerchantName(
+                selectedMerchant
+            )
+            :
+            "未选择";
+
+
+        const address =
+            selectedMerchant
+            ?
+            (
+                selectedMerchant.address
+                ||
+                "地址暂未完善"
+            )
+            :
+            "--";
+
+
+        const uses =
+            selectedProduct
+            ?
+            `${Number(
+                selectedProduct
+                    .default_usage_count
+                ||
+                1
+            )} 次`
+            :
+            "--";
+
+
+        const source =
+            getSelectedSource();
+
+
+        const sourceName =
+            source
+            ?
+            (
+                source.no
+                ?
+                `${source.no}｜${source.name}`
+                :
+                source.name
+            )
+            :
+            "请选择";
+
+
+        const price =
+            selectedCityPrice
+            &&
+            selectedCityPrice.price
+            !== null
+            ?
+            Number(
+                selectedCityPrice.price
+            )
+            :
+            null;
+
+
+        document
+            .getElementById(
+                "summaryService"
+            )
+            .textContent =
+            serviceName;
+
+
+        document
+            .getElementById(
+                "summaryMerchant"
+            )
+            .textContent =
+            merchantName;
+
+
+        document
+            .getElementById(
+                "summaryAddress"
+            )
+            .textContent =
+            address;
+
+
+        document
+            .getElementById(
+                "summaryUses"
+            )
+            .textContent =
+            uses;
+
+
+        document
+            .getElementById(
+                "summarySource"
+            )
+            .textContent =
+            sourceName;
+
+
+        document
+            .getElementById(
+                "summaryPrice"
+            )
+            .innerHTML =
+            price !== null
+            ?
+            `<small>¥</small> ${formatMoney(price)}`
+            :
+            `<small>¥</small> --`;
+
+
+        document
+            .getElementById(
+                "bottomPrice"
+            )
+            .textContent =
+            price !== null
+            ?
+            `¥${formatMoney(price)}`
+            :
+            "¥--";
+
+
+        document
+            .getElementById(
+                "confirmBtn"
+            )
+            .disabled =
+            !canSubmitOrder();
+
+    }
+
+
+
+    function canSubmitOrder() {
+
+        if (
+            !selectedProduct
+            ||
+            !selectedMerchant
+            ||
+            !selectedCityPrice
+        ) {
+
+            return false;
+
+        }
+
+
+        if (
+            selectedSourceType
+            !==
+            "platform"
+
+            &&
+
+            !selectedSourceNo
+        ) {
+
+            return false;
+
+        }
+
+
+        return true;
+
+    }
+
+
+
+    /* ========================================================
+       步骤显示
+    ======================================================== */
+
+    function updateSteps() {
+
+        const step1 =
+            document.getElementById(
+                "step1"
+            );
+
+
+        const step2 =
+            document.getElementById(
+                "step2"
+            );
+
+
+        const step3 =
+            document.getElementById(
+                "step3"
+            );
+
+
+        const step4 =
+            document.getElementById(
+                "step4"
+            );
+
+
+        step1.classList.add(
+            "active"
+        );
+
+
+        step2.classList.toggle(
+            "active",
+            !!selectedProduct
+        );
+
+
+        const sourceOk =
+            selectedSourceType
+            ===
+            "platform"
+            ||
+            !!selectedSourceNo;
+
+
+        step3.classList.toggle(
+            "active",
+            !!selectedMerchant
+        );
+
+
+        step4.classList.toggle(
+            "active",
+            (
+                !!selectedMerchant
+                &&
+                sourceOk
+            )
+        );
+
+    }
+
+
+
+    /* ========================================================
+       确认弹窗
+    ======================================================== */
+
+    function openConfirmModal() {
+
+        if (!canSubmitOrder()) {
+
+            toast(
+                "请先完成服务、商户和推荐来源选择"
+            );
+
+            return;
+
+        }
+
+
+        const source =
+            getSelectedSource();
+
+
+        const price =
+            Number(
+                selectedCityPrice.price
+            );
+
+
+        const sourceText =
+            source.no
+            ?
+            `${source.no}｜${source.name}`
+            :
+            source.name;
+
+
+        document
+            .getElementById(
+                "modalSummary"
+            )
+            .innerHTML =
+            `
+
+            <div class="modal-row">
+
+                <span>
+                    服务项目
+                </span>
+
+                <span>
+                    ${escapeHtml(
+                        getProductName(
+                            selectedProduct
+                        )
+                    )}
+                </span>
+
+            </div>
+
+
+            <div class="modal-row">
+
+                <span>
+                    服务商户
+                </span>
+
+                <span>
+                    ${escapeHtml(
+                        getMerchantName(
+                            selectedMerchant
+                        )
+                    )}
+                </span>
+
+            </div>
+
+
+            <div class="modal-row">
+
+                <span>
+                    消费次数
+                </span>
+
+                <span>
+                    ${Number(
+                        selectedProduct
+                            .default_usage_count
+                        ||
+                        1
+                    )} 次
+                </span>
+
+            </div>
+
+
+            <div class="modal-row">
+
+                <span>
+                    推荐来源
+                </span>
+
+                <span>
+                    ${escapeHtml(
+                        sourceText
+                    )}
+                </span>
+
+            </div>
+
+
+            <div class="modal-row">
+
+                <span>
+                    订单金额
+                </span>
+
+                <span>
+                    ¥${formatMoney(
+                        price
+                    )}
+                </span>
+
+            </div>
+            `;
+
+
+        document
+            .getElementById(
+                "confirmModal"
+            )
+            .classList
+            .add(
+                "show"
+            );
+
+    }
+
+
+
+    function closeConfirmModal() {
+
+        if (submitting) {
+
+            return;
+
+        }
+
+
+        document
+            .getElementById(
+                "confirmModal"
+            )
+            .classList
+            .remove(
+                "show"
+            );
+
+    }
+
+
+
+    function maskClose(
+        event
+    ) {
+
+        if (
+            event.target.id
+            ===
+            "confirmModal"
+        ) {
+
+            closeConfirmModal();
+
+        }
+
+    }
+
+
+
+    /* ========================================================
+       生成订单
+    ======================================================== */
+
+    async function submitOrder() {
+
+        if (
+            submitting
+            ||
+            !canSubmitOrder()
+        ) {
+
+            return;
+
+        }
+
+
+        const source =
+            getSelectedSource();
+
+
+        if (!source) {
+
+            toast(
+                "请选择推荐来源"
+            );
+
+            return;
+
+        }
+
+
+        submitting =
+            true;
+
+
+        const btn =
+            document.getElementById(
+                "submitOrderBtn"
+            );
+
+
+        btn.disabled =
+            true;
+
+        btn.textContent =
+            "正在生成订单...";
+
+
+        try {
+
+            const area =
+                serviceAreas.find(
+                    item => {
+
+                        return String(
+                            item.id
+                        )
+                        ===
+                        String(
+                            selectedMerchant
+                                .service_area_id
+                        );
+
+                    }
+                );
+
+
+            if (!area) {
+
+                throw new Error(
+                    "商户服务区域数据异常"
+                );
+
+            }
+
+
+            const totalUses =
+                Math.max(
+                    1,
+                    Number(
+                        selectedProduct
+                            .default_usage_count
+                        ||
+                        1
+                    )
+                );
+
+
+            const orderPayload = {
+
+                customer_id:
+                    currentUser.id,
+
+                merchant_id:
+                    selectedMerchant.id,
+
+                city_id:
+                    area.city_id,
+
+                payment_status:
+                    "unpaid",
+
+                order_status:
+                    "pending_payment",
+
+                total_uses:
+                    totalUses,
+
+                used_uses:
+                    0,
+
+                remaining_uses:
+                    totalUses,
+
+                recommendation_source_type:
+                    source.type,
+
+                recommendation_source_no:
+                    source.no,
+
+                customer_longitude:
+                    customerLongitude,
+
+                customer_latitude:
+                    customerLatitude,
+
+                customer_coordinate_system:
+                    customerLongitude !== null
+                    ?
+                    "WGS84"
+                    :
+                    null,
+
+                review_status:
+                    "pending"
+            };
+
+
+            const {
+                data: order,
+                error: orderError
+            } =
+                await sb
+                    .from("orders")
+                    .insert(
+                        orderPayload
+                    )
+                    .select("*")
+                    .single();
+
+
+            if (orderError) {
+
+                throw orderError;
+
+            }
+
+
+            /*
+             * 写订单项目
+             *
+             * 当前1.0一张订单一个服务项目，
+             * 后续如果允许购物车，
+             * order_items可以直接扩展为多行。
+             */
+
+            const unitPrice =
+                Number(
+                    selectedCityPrice.price
+                );
+
+
+            const itemPayload = {
+
+                order_id:
+                    order.id,
+
+                product_id:
+                    selectedProduct.id,
+
+                quantity:
+                    1,
+
+                unit_price:
+                    unitPrice,
+
+                amount:
+                    unitPrice
+            };
+
+
+            /*
+             * 如果city_prices中存在税率，
+             * 则同时写入税率快照。
+             */
+
+            if (
+                selectedCityPrice.tax_rate
+                !== undefined
+                &&
+                selectedCityPrice.tax_rate
+                !== null
+            ) {
+
+                itemPayload.tax_rate =
+                    selectedCityPrice.tax_rate;
+
+            }
+
+
+            const {
+                error: itemError
+            } =
+                await sb
+                    .from("order_items")
+                    .insert(
+                        itemPayload
+                    );
+
+
+            if (itemError) {
+
+                /*
+                 * 订单项目写入失败时，
+                 * 尝试删除刚刚创建的未支付订单，
+                 * 防止出现没有明细的脏订单。
+                 *
+                 * 如果RLS禁止delete，
+                 * 后续正式版会改为数据库RPC事务。
+                 */
+
+                console.error(
+                    "order item error",
+                    itemError
+                );
+
+
+                try {
+
+                    await sb
+                        .from("orders")
+                        .delete()
+                        .eq(
+                            "id",
+                            order.id
+                        )
+                        .eq(
+                            "payment_status",
+                            "unpaid"
+                        );
+
+                } catch (
+                    cleanupError
+                ) {
+
+                    console.error(
+                        cleanupError
+                    );
+
+                }
+
+
+                throw itemError;
+
+            }
+
+
+            toast(
+                "订单创建成功"
+            );
+
+
+            setTimeout(
+                () => {
+
+                    window
+                        .location
+                        .href =
+                        `./customer_order_detail.html?id=${encodeURIComponent(
+                            order.id
+                        )}`;
+
+                },
+                650
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "创建订单失败",
+                error
+            );
+
+
+            toast(
+                error?.message
+                ||
+                "订单创建失败，请稍后重试"
+            );
+
+
+            submitting =
+                false;
+
+
+            btn.disabled =
+                false;
+
+            btn.textContent =
+                "确认生成订单";
+
+        }
+
+    }
+
+
+
+    /* ========================================================
+       工具函数
+    ======================================================== */
+
+    function getProductName(
+        product
+    ) {
+
+        return (
+            product?.product_name
+            ||
+            product?.name
+            ||
+            product?.service_name
+            ||
+            `服务项目 ${product?.id ?? ""}`
+        );
+
+    }
+
+
+
+    function getMerchantName(
+        merchant
+    ) {
+
+        return (
+            merchant?.merchant_name
+            ||
+            merchant?.name
+            ||
+            merchant?.business_name
+            ||
+            `商户 ${merchant?.record_no ?? ""}`
+        );
+
+    }
+
+
+
+    function formatMoney(
+        value
+    ) {
+
+        const number =
+            Number(value);
+
+
+        if (
+            !Number.isFinite(
+                number
+            )
+        ) {
+
+            return "--";
+
+        }
+
+
+        return number
+            .toFixed(2)
+            .replace(
+                /\.00$/,
+                ""
+            );
+
+    }
+
+
+
+    function escapeHtml(
+        value
+    ) {
+
+        return String(
+            value
+            ??
+            ""
+        )
+            .replaceAll(
+                "&",
+                "&amp;"
+            )
+            .replaceAll(
+                "<",
+                "&lt;"
+            )
+            .replaceAll(
+                ">",
+                "&gt;"
+            )
+            .replaceAll(
+                '"',
+                "&quot;"
+            )
+            .replaceAll(
+                "'",
+                "&#039;"
+            );
+
+    }
+
+
+
+    /* ========================================================
+       返回 / 登录
+    ======================================================== */
+
+    function goBack() {
+
+        window.location.href =
+            "./customer.html";
+
+    }
+
+
+
+    function goLogin() {
+
+        window.location.replace(
+            "./login.html"
+        );
+
+    }
+
+
+
+    async function forceLogout() {
+
+        try {
+
+            await sb.auth.signOut();
+
+        } catch (error) {
+
+            console.error(
+                error
+            );
+
+        }
+
+
+        goLogin();
+
+    }
+
+
+
+    /* ========================================================
+       10分钟无操作退出
+    ======================================================== */
+
+    function setupIdleLogout() {
+
+        [
+            "touchstart",
+            "touchmove",
+            "click",
+            "keydown",
+            "scroll"
+        ]
+            .forEach(
+                eventName => {
+
+                    document
+                        .addEventListener(
+                            eventName,
+                            resetIdleTimer,
+                            {
+                                passive:
+                                    true
+                            }
+                        );
+
+                }
+            );
+
+
+        resetIdleTimer();
+
+    }
+
+
+
+    function resetIdleTimer() {
+
+        clearTimeout(
+            idleTimer
+        );
+
+
+        idleTimer =
+            setTimeout(
+                async () => {
+
+                    toast(
+                        "长时间未操作，请重新登录"
+                    );
+
+
+                    await sb.auth.signOut();
+
+
+                    setTimeout(
+                        goLogin,
+                        500
+                    );
+
+                },
+                IDLE_LIMIT
+            );
+
+    }
+
+
+
+    /* ========================================================
+       Loading
+    ======================================================== */
+
+    function hideLoading() {
+
+        const mask =
+            document.getElementById(
+                "loadingMask"
+            );
+
+
+        if (!mask) {
+
+            return;
+
+        }
+
+
+        mask.style.transition =
+            "opacity .2s ease";
+
+
+        mask.style.opacity =
+            "0";
+
+
+        setTimeout(
+            () => {
+
+                mask.style.display =
+                    "none";
+
+            },
+            220
+        );
+
+    }
+
+
+
+    /* ========================================================
+       Toast
+    ======================================================== */
+
+    function toast(
+        message
+    ) {
+
+        const el =
+            document.getElementById(
+                "toast"
+            );
+
+
+        el.textContent =
+            message;
+
+
+        el.classList.add(
+            "show"
+        );
+
+
+        clearTimeout(
+            toast.timer
+        );
+
+
+        toast.timer =
+            setTimeout(
+                () => {
+
+                    el.classList.remove(
+                        "show"
+                    );
+
+                },
+                2400
+            );
+
+    }
+
+</script>
+
+</body>
+</html>

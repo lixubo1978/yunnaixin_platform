@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta
     name="viewport"
     content="width=device-width,initial-scale=1.0,maximum-scale=1.0,viewport-fit=cover"
 >
-<meta name="theme-color" content="#fff7fa">
+
+<meta
+    name="theme-color"
+    content="#fff7fa"
+>
 
 <title>孕乃馨 - 人员与商户授权</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
 <style>
+
 :root{
     --pink50:#fff7fa;
     --pink100:#ffeef4;
@@ -24,10 +33,27 @@
     --text:#282329;
     --text2:#716a72;
     --text3:#a49ba1;
+
     --border:#eee4e9;
 
-    --shadow:0 10px 30px rgba(123,50,79,.07);
+    --green:#167758;
+    --greenBg:#edfaf4;
+
+    --orange:#a16428;
+    --orangeBg:#fff6e9;
+
+    --purple:#71528d;
+    --purpleBg:#faf7ff;
+
+    --shadow:
+        0 10px 30px
+        rgba(123,50,79,.07);
 }
+
+
+/* =========================================================
+   RESET
+========================================================= */
 
 *{
     box-sizing:border-box;
@@ -79,11 +105,12 @@ button{
 
 
 /* =========================================================
-   顶部
+   TOP
 ========================================================= */
 
 .topbar{
     min-height:68px;
+
     padding:8px 24px;
 
     position:sticky;
@@ -93,18 +120,24 @@ button{
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     gap:15px;
 
-    background:rgba(255,255,255,.95);
+    background:
+        rgba(255,255,255,.95);
 
-    backdrop-filter:blur(16px);
+    backdrop-filter:
+        blur(16px);
 
-    border-bottom:1px solid var(--border);
+    border-bottom:
+        1px solid
+        var(--border);
 }
 
 .brand{
     display:flex;
     align-items:center;
+
     gap:11px;
 }
 
@@ -137,7 +170,10 @@ button{
 .back-button,
 .logout-button{
     min-height:44px;
-    padding:0 15px;
+
+    padding:
+        0
+        15px;
 
     border-radius:12px;
 
@@ -146,9 +182,12 @@ button{
 }
 
 .back-button{
-    border:1px solid var(--border);
+    border:
+        1px solid
+        var(--border);
 
     background:#fff;
+
     color:var(--text2);
 }
 
@@ -167,7 +206,7 @@ button{
 
 
 /* =========================================================
-   主体
+   MAIN
 ========================================================= */
 
 .main{
@@ -175,6 +214,7 @@ button{
     max-width:1450px;
 
     margin:0 auto;
+
     padding:28px;
 }
 
@@ -189,7 +229,10 @@ button{
 }
 
 .heading p{
-    margin:7px 0 0;
+    margin:
+        7px
+        0
+        0;
 
     color:var(--text2);
 
@@ -199,12 +242,14 @@ button{
 
 
 /* =========================================================
-   Tabs
+   TABS
 ========================================================= */
 
 .tabs{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+
+    grid-template-columns:
+        repeat(3,1fr);
 
     gap:6px;
 
@@ -243,12 +288,14 @@ button{
 
 
 /* =========================================================
-   统计
+   STATS
 ========================================================= */
 
 .stats{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+
+    grid-template-columns:
+        repeat(4,1fr);
 
     gap:13px;
 
@@ -257,9 +304,13 @@ button{
 
 .stat{
     min-height:102px;
+
     padding:17px;
 
-    border:1px solid var(--border);
+    border:
+        1px solid
+        var(--border);
+
     border-radius:17px;
 
     background:#fff;
@@ -267,6 +318,7 @@ button{
 
 .stat-title{
     font-size:11px;
+
     color:var(--text3);
 }
 
@@ -274,6 +326,7 @@ button{
     margin-top:9px;
 
     font-size:24px;
+
     font-weight:750;
 }
 
@@ -281,18 +334,22 @@ button{
     margin-top:4px;
 
     font-size:11px;
+
     color:var(--text2);
 }
 
 
 /* =========================================================
-   Panel
+   PANEL
 ========================================================= */
 
 .panel{
     background:#fff;
 
-    border:1px solid var(--border);
+    border:
+        1px solid
+        var(--border);
+
     border-radius:19px;
 
     overflow:hidden;
@@ -314,17 +371,25 @@ button{
 
     gap:10px;
 
-    border-bottom:1px solid var(--border);
+    border-bottom:
+        1px solid
+        var(--border);
 }
 
 .input,
 .select{
     width:100%;
+
     min-height:46px;
 
-    padding:0 13px;
+    padding:
+        0
+        13px;
 
-    border:1px solid #e3dce0;
+    border:
+        1px solid
+        #e3dce0;
+
     border-radius:11px;
 
     outline:none;
@@ -334,7 +399,10 @@ button{
 
 .primary-button{
     min-height:46px;
-    padding:0 18px;
+
+    padding:
+        0
+        18px;
 
     border:0;
     border-radius:11px;
@@ -354,7 +422,7 @@ button{
 
 
 /* =========================================================
-   表格
+   TABLE
 ========================================================= */
 
 .table-scroll{
@@ -363,13 +431,16 @@ button{
 
 table{
     width:100%;
+
     min-width:1100px;
 
     border-collapse:collapse;
 }
 
 th{
-    padding:13px 12px;
+    padding:
+        13px
+        12px;
 
     background:#fcfafb;
 
@@ -383,9 +454,13 @@ th{
 }
 
 td{
-    padding:14px 12px;
+    padding:
+        14px
+        12px;
 
-    border-top:1px solid #f1eaee;
+    border-top:
+        1px solid
+        #f1eaee;
 
     font-size:13px;
 
@@ -395,9 +470,44 @@ td{
 .number-cell{
     color:var(--pink700);
 
-    font-weight:750;
+    font-size:15px;
+
+    font-weight:800;
 
     white-space:nowrap;
+}
+
+.consultant-number{
+    display:inline-flex;
+
+    align-items:center;
+
+    min-height:34px;
+
+    padding:
+        5px
+        12px;
+
+    border-radius:10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffeaf2,
+            #fff5f8
+        );
+
+    color:var(--pink700);
+
+    font-size:16px;
+
+    font-weight:850;
+
+    letter-spacing:.5px;
+
+    border:
+        1px solid
+        var(--pink200);
 }
 
 .person-name{
@@ -414,15 +524,19 @@ td{
 
 .badge{
     display:inline-flex;
+
     align-items:center;
 
     min-height:26px;
 
-    padding:4px 9px;
+    padding:
+        4px
+        9px;
 
     border-radius:999px;
 
     font-size:11px;
+
     font-weight:650;
 }
 
@@ -457,8 +571,8 @@ td{
 }
 
 .status-active{
-    color:#157758;
-    background:#edfaf4;
+    color:var(--green);
+    background:var(--greenBg);
 }
 
 .status-other{
@@ -468,6 +582,7 @@ td{
 
 .action-buttons{
     display:flex;
+
     align-items:center;
 
     gap:6px;
@@ -477,9 +592,15 @@ td{
 
 .action{
     min-height:40px;
-    padding:0 12px;
 
-    border:1px solid var(--border);
+    padding:
+        0
+        12px;
+
+    border:
+        1px solid
+        var(--border);
+
     border-radius:10px;
 
     background:#fff;
@@ -492,9 +613,11 @@ td{
 .edit-action{
     color:var(--pink700);
 
-    border-color:var(--pink200);
+    border-color:
+        var(--pink200);
 
-    background:var(--pink50);
+    background:
+        var(--pink50);
 }
 
 .danger-action{
@@ -506,11 +629,11 @@ td{
 }
 
 .recreate-action{
-    color:#71528d;
+    color:var(--purple);
 
     border-color:#ded3ec;
 
-    background:#faf7ff;
+    background:var(--purpleBg);
 }
 
 .no-action{
@@ -520,7 +643,9 @@ td{
 }
 
 .empty{
-    padding:55px 20px;
+    padding:
+        55px
+        20px;
 
     text-align:center;
 
@@ -529,7 +654,7 @@ td{
 
 
 /* =========================================================
-   手机列表
+   MOBILE
 ========================================================= */
 
 .mobile-list{
@@ -538,9 +663,13 @@ td{
 
 .mobile-card{
     padding:16px;
+
     margin-bottom:10px;
 
-    border:1px solid var(--border);
+    border:
+        1px solid
+        var(--border);
+
     border-radius:16px;
 
     background:#fff;
@@ -550,6 +679,7 @@ td{
     display:flex;
 
     align-items:flex-start;
+
     justify-content:space-between;
 
     gap:10px;
@@ -560,12 +690,14 @@ td{
 
     color:var(--pink700);
 
-    font-size:12px;
-    font-weight:750;
+    font-size:15px;
+
+    font-weight:850;
 }
 
 .mobile-card-name{
     font-size:15px;
+
     font-weight:700;
 }
 
@@ -581,7 +713,10 @@ td{
     margin-top:13px;
 
     display:grid;
-    grid-template-columns:1fr 1fr;
+
+    grid-template-columns:
+        1fr
+        1fr;
 
     gap:9px;
 }
@@ -591,11 +726,13 @@ td{
 
     border-radius:11px;
 
-    background:var(--pink50);
+    background:
+        var(--pink50);
 }
 
 .mobile-info-label{
     font-size:10px;
+
     color:var(--text3);
 }
 
@@ -603,6 +740,7 @@ td{
     margin-top:3px;
 
     font-size:12px;
+
     font-weight:650;
 
     word-break:break-all;
@@ -610,7 +748,10 @@ td{
 
 .mobile-actions{
     display:grid;
-    grid-template-columns:1fr 1fr;
+
+    grid-template-columns:
+        1fr
+        1fr;
 
     gap:8px;
 
@@ -627,13 +768,14 @@ td{
 
 
 /* =========================================================
-   Modal
+   MODAL
 ========================================================= */
 
 .modal-mask{
     display:none;
 
     position:fixed;
+
     inset:0;
 
     z-index:5000;
@@ -643,7 +785,8 @@ td{
     align-items:center;
     justify-content:center;
 
-    background:rgba(35,25,31,.45);
+    background:
+        rgba(35,25,31,.45);
 }
 
 .modal-mask.show{
@@ -652,7 +795,9 @@ td{
 
 .modal{
     width:100%;
+
     max-width:620px;
+
     max-height:92vh;
 
     overflow:auto;
@@ -668,24 +813,31 @@ td{
 
 .modal-head{
     position:sticky;
+
     top:0;
 
     z-index:2;
 
-    padding:18px 20px;
+    padding:
+        18px
+        20px;
 
     display:flex;
 
     justify-content:space-between;
+
     align-items:center;
 
     background:#fff;
 
-    border-bottom:1px solid var(--border);
+    border-bottom:
+        1px solid
+        var(--border);
 }
 
 .modal-title{
     font-size:18px;
+
     font-weight:750;
 }
 
@@ -696,9 +848,11 @@ td{
     border:0;
     border-radius:11px;
 
-    background:var(--pink50);
+    background:
+        var(--pink50);
 
-    color:var(--pink700);
+    color:
+        var(--pink700);
 
     font-size:20px;
 }
@@ -708,16 +862,23 @@ td{
 }
 
 .form-section-title{
-    margin:10px 0 16px;
+    margin:
+        10px
+        0
+        16px;
 
     padding-top:14px;
 
-    color:var(--pink700);
+    color:
+        var(--pink700);
 
     font-size:13px;
+
     font-weight:750;
 
-    border-top:1px solid var(--border);
+    border-top:
+        1px solid
+        var(--border);
 }
 
 .form-group{
@@ -732,20 +893,28 @@ td{
     color:var(--text2);
 
     font-size:12px;
+
     font-weight:650;
 }
 
 .required{
-    color:var(--pink600);
+    color:
+        var(--pink600);
 }
 
 .form-control{
     width:100%;
+
     min-height:50px;
 
-    padding:0 13px;
+    padding:
+        0
+        13px;
 
-    border:1px solid #e3dce0;
+    border:
+        1px solid
+        #e3dce0;
+
     border-radius:12px;
 
     background:#fff;
@@ -764,6 +933,7 @@ td{
 .form-control:disabled,
 .form-control[readonly]{
     background:#f5f2f4;
+
     color:#777;
 }
 
@@ -773,15 +943,151 @@ td{
     color:var(--text3);
 
     font-size:10px;
+
     line-height:1.65;
 }
 
+
+/* =========================================================
+   健康顾问编号重点显示
+========================================================= */
+
+.consultant-id-box{
+    margin-bottom:18px;
+
+    padding:
+        16px
+        17px;
+
+    border:
+        1px solid
+        var(--pink200);
+
+    border-radius:15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff0f5,
+            #fff8fa
+        );
+}
+
+.consultant-id-label{
+    color:
+        var(--pink700);
+
+    font-size:11px;
+
+    font-weight:750;
+}
+
+.consultant-id-value{
+    margin-top:5px;
+
+    color:
+        var(--pink700);
+
+    font-size:27px;
+
+    font-weight:900;
+
+    letter-spacing:1px;
+}
+
+.consultant-id-hint{
+    margin-top:6px;
+
+    color:#8a6875;
+
+    font-size:10px;
+
+    line-height:1.65;
+}
+
+.consultant-name-preview{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    min-height:50px;
+
+    margin-top:8px;
+
+    padding:
+        0
+        14px;
+
+    border:
+        1px dashed
+        var(--pink200);
+
+    border-radius:12px;
+
+    background:
+        var(--pink50);
+}
+
+.preview-label{
+    color:
+        var(--text3);
+
+    font-size:11px;
+}
+
+.preview-value{
+    color:
+        var(--pink700);
+
+    font-size:16px;
+
+    font-weight:800;
+}
+
+.privacy-note{
+    margin:
+        -4px
+        0
+        18px;
+
+    padding:
+        11px
+        13px;
+
+    border-radius:12px;
+
+    background:#f8f5ff;
+
+    color:#71528d;
+
+    font-size:11px;
+
+    line-height:1.7;
+}
+
+
+/* =========================================================
+   商户地图
+========================================================= */
+
 .map-hint{
-    margin:0 0 16px;
+    margin:
+        0
+        0
+        16px;
 
-    padding:12px 13px;
+    padding:
+        12px
+        13px;
 
-    border:1px solid #f6d7e2;
+    border:
+        1px solid
+        #f6d7e2;
+
     border-radius:12px;
 
     background:#fff7fa;
@@ -789,30 +1095,48 @@ td{
     color:#9b4e6b;
 
     font-size:12px;
+
     line-height:1.7;
 }
 
 .coordinate-grid{
     display:grid;
-    grid-template-columns:1fr 1fr;
+
+    grid-template-columns:
+        1fr
+        1fr;
 
     gap:12px;
 }
 
+
+/* =========================================================
+   MODAL FOOTER
+========================================================= */
+
 .modal-footer{
     position:sticky;
+
     bottom:0;
 
     display:grid;
-    grid-template-columns:1fr 1fr;
+
+    grid-template-columns:
+        1fr
+        1fr;
 
     gap:9px;
 
-    padding:15px 20px 20px;
+    padding:
+        15px
+        20px
+        20px;
 
     background:#fff;
 
-    border-top:1px solid var(--border);
+    border-top:
+        1px solid
+        var(--border);
 }
 
 .cancel-button,
@@ -825,7 +1149,9 @@ td{
 }
 
 .cancel-button{
-    border:1px solid var(--border);
+    border:
+        1px solid
+        var(--border);
 
     background:#fff;
 }
@@ -849,7 +1175,7 @@ td{
 
 
 /* =========================================================
-   Toast
+   TOAST
 ========================================================= */
 
 .toast{
@@ -862,15 +1188,18 @@ td{
     right:18px;
     bottom:18px;
 
-    max-width:400px;
+    max-width:430px;
 
-    padding:13px 16px;
+    padding:
+        13px
+        16px;
 
     border-radius:12px;
 
     font-size:13px;
 
-    box-shadow:var(--shadow);
+    box-shadow:
+        var(--shadow);
 }
 
 .toast.show{
@@ -894,18 +1223,21 @@ td{
 
 
 /* =========================================================
-   Loading
+   LOADING
 ========================================================= */
 
 .loading{
     position:fixed;
+
     inset:0;
 
     z-index:9999;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
+
     flex-direction:column;
 
     gap:12px;
@@ -917,29 +1249,40 @@ td{
     width:38px;
     height:38px;
 
-    border:4px solid var(--pink100);
-    border-top-color:var(--pink500);
+    border:
+        4px solid
+        var(--pink100);
+
+    border-top-color:
+        var(--pink500);
 
     border-radius:50%;
 
-    animation:spin .8s linear infinite;
+    animation:
+        spin
+        .8s
+        linear
+        infinite;
 }
 
 @keyframes spin{
     to{
-        transform:rotate(360deg);
+        transform:
+            rotate(360deg);
     }
 }
 
 
 /* =========================================================
-   手机
+   MOBILE
 ========================================================= */
 
 @media(max-width:760px){
 
     .topbar{
-        padding:7px 11px;
+        padding:
+            7px
+            11px;
     }
 
     .brand-sub{
@@ -962,13 +1305,18 @@ td{
     .logout-button{
         min-height:42px;
 
-        padding:0 13px;
+        padding:
+            0
+            13px;
 
         font-size:11px;
     }
 
     .main{
-        padding:17px 11px 30px;
+        padding:
+            17px
+            11px
+            30px;
     }
 
     .heading h1{
@@ -983,19 +1331,24 @@ td{
     .tab{
         min-height:52px;
 
-        padding:0 5px;
+        padding:
+            0
+            5px;
 
         font-size:12px;
     }
 
     .stats{
-        grid-template-columns:1fr 1fr;
+        grid-template-columns:
+            1fr
+            1fr;
 
         gap:8px;
     }
 
     .stat{
         min-height:92px;
+
         padding:14px;
     }
 
@@ -1015,6 +1368,7 @@ td{
 
     .panel-toolbar{
         padding:0;
+
         margin-bottom:12px;
 
         grid-template-columns:1fr;
@@ -1037,7 +1391,9 @@ td{
     }
 
     .empty{
-        padding:35px 15px;
+        padding:
+            35px
+            15px;
 
         background:#fff;
 
@@ -1052,9 +1408,14 @@ td{
 
     .modal{
         max-width:none;
+
         max-height:92dvh;
 
-        border-radius:22px 22px 0 0;
+        border-radius:
+            22px
+            22px
+            0
+            0;
     }
 
     .coordinate-grid{
@@ -1080,15 +1441,24 @@ td{
             );
     }
 }
+
 </style>
+
 </head>
 
+
 <body>
+
+
+<!-- =========================================================
+     LOADING
+========================================================= -->
 
 <div
     id="loading"
     class="loading"
 >
+
     <div class="spinner"></div>
 
     <div
@@ -1099,8 +1469,13 @@ td{
     >
         正在验证管理权限...
     </div>
+
 </div>
 
+
+<!-- =========================================================
+     TOPBAR
+========================================================= -->
 
 <header class="topbar">
 
@@ -1112,6 +1487,7 @@ td{
         >
 
         <div>
+
             <div class="brand-title">
                 孕乃馨
             </div>
@@ -1119,6 +1495,7 @@ td{
             <div class="brand-sub">
                 人员与商户授权中心
             </div>
+
         </div>
 
     </div>
@@ -1145,7 +1522,12 @@ td{
 </header>
 
 
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
 <main class="main">
+
 
 <section class="heading">
 
@@ -1190,33 +1572,82 @@ td{
 </div>
 
 
-<!-- =====================================================
-     公司人员
-===================================================== -->
+<!-- =========================================================
+     STAFF
+========================================================= -->
 
 <section id="staffSection">
 
 <div class="stats">
 
     <div class="stat">
-        <div class="stat-title">创始人</div>
-        <div id="founderCount" class="stat-number">0 / 2</div>
-        <div id="founderNote" class="stat-note">最多2人</div>
+
+        <div class="stat-title">
+            创始人
+        </div>
+
+        <div
+            id="founderCount"
+            class="stat-number"
+        >
+            0 / 2
+        </div>
+
+        <div
+            id="founderNote"
+            class="stat-note"
+        >
+            最多2人
+        </div>
+
     </div>
 
-    <div class="stat">
-        <div class="stat-title">平台管理</div>
-        <div id="platformCount" class="stat-number">0</div>
-    </div>
 
     <div class="stat">
-        <div class="stat-title">省级管理员</div>
-        <div id="provinceCount" class="stat-number">0</div>
+
+        <div class="stat-title">
+            平台管理
+        </div>
+
+        <div
+            id="platformCount"
+            class="stat-number"
+        >
+            0
+        </div>
+
     </div>
 
+
     <div class="stat">
-        <div class="stat-title">市级管理员</div>
-        <div id="cityCount" class="stat-number">0</div>
+
+        <div class="stat-title">
+            省级管理员
+        </div>
+
+        <div
+            id="provinceCount"
+            class="stat-number"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-title">
+            市级管理员
+        </div>
+
+        <div
+            id="cityCount"
+            class="stat-number"
+        >
+            0
+        </div>
+
     </div>
 
 </div>
@@ -1239,13 +1670,33 @@ td{
         class="select"
         onchange="renderStaff()"
     >
-        <option value="">全部角色</option>
-        <option value="founder">创始人</option>
-        <option value="platform_admin">平台管理员</option>
-        <option value="platform_staff">平台员工</option>
-        <option value="province_admin">省管理员</option>
-        <option value="city_admin">市管理员</option>
+
+        <option value="">
+            全部角色
+        </option>
+
+        <option value="founder">
+            创始人
+        </option>
+
+        <option value="platform_admin">
+            平台管理员
+        </option>
+
+        <option value="platform_staff">
+            平台员工
+        </option>
+
+        <option value="province_admin">
+            省管理员
+        </option>
+
+        <option value="city_admin">
+            市管理员
+        </option>
+
     </select>
+
 
     <button
         id="createStaffButton"
@@ -1263,7 +1714,9 @@ td{
 <table>
 
 <thead>
+
 <tr>
+
     <th>编号</th>
     <th>人员</th>
     <th>身份</th>
@@ -1272,7 +1725,9 @@ td{
     <th>区 / 县</th>
     <th>状态</th>
     <th>操作</th>
+
 </tr>
+
 </thead>
 
 <tbody id="staffTable"></tbody>
@@ -1281,10 +1736,13 @@ td{
 
 </div>
 
+
 <div
     id="staffMobileList"
     class="mobile-list"
-></div>
+>
+</div>
+
 
 <div
     id="staffEmpty"
@@ -1298,9 +1756,9 @@ td{
 </section>
 
 
-<!-- =====================================================
-     商户
-===================================================== -->
+<!-- =========================================================
+     MERCHANT
+========================================================= -->
 
 <section
     id="merchantSection"
@@ -1310,23 +1768,66 @@ td{
 <div class="stats">
 
     <div class="stat">
-        <div class="stat-title">商户总数</div>
-        <div id="merchantTotal" class="stat-number">0</div>
+
+        <div class="stat-title">
+            商户总数
+        </div>
+
+        <div
+            id="merchantTotal"
+            class="stat-number"
+        >
+            0
+        </div>
+
     </div>
 
-    <div class="stat">
-        <div class="stat-title">机构商户</div>
-        <div id="organizationTotal" class="stat-number">0</div>
-    </div>
 
     <div class="stat">
-        <div class="stat-title">个体户商户</div>
-        <div id="individualTotal" class="stat-number">0</div>
+
+        <div class="stat-title">
+            机构商户
+        </div>
+
+        <div
+            id="organizationTotal"
+            class="stat-number"
+        >
+            0
+        </div>
+
     </div>
 
+
     <div class="stat">
-        <div class="stat-title">正常使用</div>
-        <div id="merchantActive" class="stat-number">0</div>
+
+        <div class="stat-title">
+            个体户商户
+        </div>
+
+        <div
+            id="individualTotal"
+            class="stat-number"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-title">
+            正常使用
+        </div>
+
+        <div
+            id="merchantActive"
+            class="stat-number"
+        >
+            0
+        </div>
+
     </div>
 
 </div>
@@ -1344,15 +1845,27 @@ td{
         oninput="renderMerchants()"
     >
 
+
     <select
         id="merchantTypeFilter"
         class="select"
         onchange="renderMerchants()"
     >
-        <option value="">全部商户</option>
-        <option value="organization">机构</option>
-        <option value="individual">个体户</option>
+
+        <option value="">
+            全部商户
+        </option>
+
+        <option value="organization">
+            机构
+        </option>
+
+        <option value="individual">
+            个体户
+        </option>
+
     </select>
+
 
     <button
         class="primary-button"
@@ -1369,7 +1882,9 @@ td{
 <table>
 
 <thead>
+
 <tr>
+
     <th>编号</th>
     <th>商户</th>
     <th>类型</th>
@@ -1377,7 +1892,9 @@ td{
     <th>认证</th>
     <th>状态</th>
     <th>操作</th>
+
 </tr>
+
 </thead>
 
 <tbody id="merchantTable"></tbody>
@@ -1390,7 +1907,9 @@ td{
 <div
     id="merchantMobileList"
     class="mobile-list"
-></div>
+>
+</div>
+
 
 <div
     id="merchantEmpty"
@@ -1404,9 +1923,9 @@ td{
 </section>
 
 
-<!-- =====================================================
-     健康顾问
-===================================================== -->
+<!-- =========================================================
+     CONSULTANT
+========================================================= -->
 
 <section
     id="consultantSection"
@@ -1416,23 +1935,66 @@ td{
 <div class="stats">
 
     <div class="stat">
-        <div class="stat-title">健康顾问总数</div>
-        <div id="consultantTotal" class="stat-number">0</div>
+
+        <div class="stat-title">
+            健康顾问总数
+        </div>
+
+        <div
+            id="consultantTotal"
+            class="stat-number"
+        >
+            0
+        </div>
+
     </div>
 
-    <div class="stat">
-        <div class="stat-title">正常使用</div>
-        <div id="consultantActive" class="stat-number">0</div>
-    </div>
 
     <div class="stat">
-        <div class="stat-title">已设为无效</div>
-        <div id="consultantInactive" class="stat-number">0</div>
+
+        <div class="stat-title">
+            正常使用
+        </div>
+
+        <div
+            id="consultantActive"
+            class="stat-number"
+        >
+            0
+        </div>
+
     </div>
 
+
     <div class="stat">
-        <div class="stat-title">已覆盖服务区域</div>
-        <div id="consultantAreaTotal" class="stat-number">0</div>
+
+        <div class="stat-title">
+            已设为无效
+        </div>
+
+        <div
+            id="consultantInactive"
+            class="stat-number"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-title">
+            已覆盖服务区域
+        </div>
+
+        <div
+            id="consultantAreaTotal"
+            class="stat-number"
+        >
+            0
+        </div>
+
     </div>
 
 </div>
@@ -1446,19 +2008,31 @@ td{
         id="consultantSearch"
         class="input"
         type="search"
-        placeholder="搜索编号、姓名、手机号、个体户名称或税号"
+        placeholder="优先按系统编号搜索，也可搜索老师、手机号、个体户名称或税号"
         oninput="renderConsultants()"
     >
+
 
     <select
         id="consultantStatusFilter"
         class="select"
         onchange="renderConsultants()"
     >
-        <option value="">全部状态</option>
-        <option value="active">正常</option>
-        <option value="inactive">无效</option>
+
+        <option value="">
+            全部状态
+        </option>
+
+        <option value="active">
+            正常
+        </option>
+
+        <option value="inactive">
+            无效
+        </option>
+
     </select>
+
 
     <button
         class="primary-button"
@@ -1475,14 +2049,18 @@ td{
 <table>
 
 <thead>
+
 <tr>
-    <th>编号</th>
-    <th>健康顾问</th>
+
+    <th>系统唯一编号</th>
+    <th>对外显示</th>
     <th>联系电话</th>
     <th>已开通服务区域</th>
     <th>状态</th>
     <th>操作</th>
+
 </tr>
+
 </thead>
 
 <tbody id="consultantTable"></tbody>
@@ -1491,10 +2069,13 @@ td{
 
 </div>
 
+
 <div
     id="consultantMobileList"
     class="mobile-list"
-></div>
+>
+</div>
+
 
 <div
     id="consultantEmpty"
@@ -1507,12 +2088,13 @@ td{
 
 </section>
 
+
 </main>
 
 
-<!-- =====================================================
-     公司人员 Modal
-===================================================== -->
+<!-- =========================================================
+     STAFF MODAL
+========================================================= -->
 
 <div
     id="staffModal"
@@ -1520,6 +2102,7 @@ td{
 >
 
 <div class="modal">
+
 
 <div class="modal-head">
 
@@ -1541,6 +2124,7 @@ td{
 
 
 <div class="modal-body">
+
 
 <div class="form-group">
 
@@ -1613,7 +2197,10 @@ td{
         class="form-control"
         onchange="staffRoleChanged()"
     >
-        <option value="">请选择身份</option>
+
+        <option value="">
+            请选择身份
+        </option>
 
         <option
             id="founderOption"
@@ -1637,6 +2224,7 @@ td{
         <option value="city_admin">
             市管理员
         </option>
+
     </select>
 
     <div
@@ -1663,7 +2251,8 @@ td{
         id="staffProvince"
         class="form-control"
         onchange="staffProvinceChanged()"
-    ></select>
+    >
+    </select>
 
 </div>
 
@@ -1682,7 +2271,8 @@ td{
         id="staffCity"
         class="form-control"
         onchange="staffCityChanged()"
-    ></select>
+    >
+    </select>
 
 </div>
 
@@ -1699,13 +2289,15 @@ td{
     <select
         id="staffDistrict"
         class="form-control"
-    ></select>
+    >
+    </select>
 
     <div class="form-hint">
         不选择表示负责全市。
     </div>
 
 </div>
+
 
 </div>
 
@@ -1729,14 +2321,15 @@ td{
 
 </div>
 
-</div>
 
 </div>
 
+</div>
 
-<!-- =====================================================
-     商户 Modal
-===================================================== -->
+
+<!-- =========================================================
+     MERCHANT MODAL
+========================================================= -->
 
 <div
     id="merchantModal"
@@ -1744,6 +2337,7 @@ td{
 >
 
 <div class="modal">
+
 
 <div class="modal-head">
 
@@ -1765,6 +2359,7 @@ td{
 
 
 <div class="modal-body">
+
 
 <div class="form-group">
 
@@ -1793,6 +2388,7 @@ td{
         id="merchantType"
         class="form-control"
     >
+
         <option value="organization">
             机构
         </option>
@@ -1800,6 +2396,7 @@ td{
         <option value="individual">
             个体户
         </option>
+
     </select>
 
 </div>
@@ -1889,7 +2486,8 @@ td{
     <select
         id="merchantServiceArea"
         class="form-control"
-    ></select>
+    >
+    </select>
 
     <div class="form-hint">
         这里只显示平台已经开通并且当前有效的服务区域。
@@ -1920,51 +2518,60 @@ td{
 
 
 <div class="map-hint">
-    <strong>经纬度请从百度地图获取。</strong><br>
-    本系统当前统一使用百度地图 BD09 坐标。请注意百度地图中通常先显示经度、后显示纬度，不要填写颠倒。以后订单地图、商户位置和距离功能都会使用这里保存的坐标。
+
+    <strong>
+        请从百度地图获取经纬度。
+    </strong>
+
+    <br>
+
+    本系统统一使用 BD09 坐标。
+
 </div>
 
 
 <div class="coordinate-grid">
 
-    <div class="form-group">
 
-        <label class="form-label">
-            经度
-        </label>
+<div class="form-group">
 
-        <input
-            id="merchantLongitude"
-            class="form-control"
-            type="number"
-            inputmode="decimal"
-            step="0.0000001"
-            min="-180"
-            max="180"
-            placeholder="例如：120.8942910"
-        >
+    <label class="form-label">
+        经度
+    </label>
 
-    </div>
+    <input
+        id="merchantLongitude"
+        class="form-control"
+        type="number"
+        inputmode="decimal"
+        step="0.0000001"
+        min="-180"
+        max="180"
+        placeholder="例如：120.8942910"
+    >
+
+</div>
 
 
-    <div class="form-group">
+<div class="form-group">
 
-        <label class="form-label">
-            纬度
-        </label>
+    <label class="form-label">
+        纬度
+    </label>
 
-        <input
-            id="merchantLatitude"
-            class="form-control"
-            type="number"
-            inputmode="decimal"
-            step="0.0000001"
-            min="-90"
-            max="90"
-            placeholder="例如：31.9801720"
-        >
+    <input
+        id="merchantLatitude"
+        class="form-control"
+        type="number"
+        inputmode="decimal"
+        step="0.0000001"
+        min="-90"
+        max="90"
+        placeholder="例如：31.9801720"
+    >
 
-    </div>
+</div>
+
 
 </div>
 
@@ -1981,10 +2588,6 @@ td{
         value="BD09"
         readonly
     >
-
-    <div class="form-hint">
-        坐标系固定为 BD09，不需要修改。
-    </div>
 
 </div>
 
@@ -2043,6 +2646,7 @@ td{
 
 </div>
 
+
 </div>
 
 
@@ -2065,14 +2669,15 @@ td{
 
 </div>
 
-</div>
 
 </div>
 
+</div>
 
-<!-- =====================================================
-     健康顾问 Modal
-===================================================== -->
+
+<!-- =========================================================
+     CONSULTANT MODAL
+========================================================= -->
 
 <div
     id="consultantModal"
@@ -2080,6 +2685,7 @@ td{
 >
 
 <div class="modal">
+
 
 <div class="modal-head">
 
@@ -2102,6 +2708,40 @@ td{
 
 <div class="modal-body">
 
+
+<!-- 系统编号 -->
+
+<div class="consultant-id-box">
+
+    <div class="consultant-id-label">
+        健康顾问系统唯一编号
+    </div>
+
+    <div
+        id="consultantNumberDisplay"
+        class="consultant-id-value"
+    >
+        创建后自动生成
+    </div>
+
+    <div
+        id="consultantNumberHint"
+        class="consultant-id-hint"
+    >
+        这是健康顾问的永久业务识别编号。以后客户下订单选择“老师推荐”时，系统使用这个编号作为唯一识别依据。
+    </div>
+
+</div>
+
+
+<div class="privacy-note">
+
+    为保护健康顾问个人隐私，本系统只录入姓氏。
+    对外统一显示为“姓氏 + 老师”，例如输入“王”，显示为“王老师”。
+
+</div>
+
+
 <div class="form-group">
 
     <label class="form-label">
@@ -2110,11 +2750,28 @@ td{
     </label>
 
     <input
-        id="consultantName"
+        id="consultantSurname"
         class="form-control"
-        maxlength="100"
-        placeholder="请输入健康顾问姓氏"
+        maxlength="4"
+        autocomplete="off"
+        placeholder="例如：王"
+        oninput="updateConsultantPreview()"
     >
+
+    <div class="consultant-name-preview">
+
+        <span class="preview-label">
+            对外显示
+        </span>
+
+        <span
+            id="consultantNamePreview"
+            class="preview-value"
+        >
+            -
+        </span>
+
+    </div>
 
 </div>
 
@@ -2189,7 +2846,8 @@ td{
     <select
         id="consultantServiceArea"
         class="form-control"
-    ></select>
+    >
+    </select>
 
     <div class="form-hint">
         健康顾问必须绑定平台已经开通的服务区域。
@@ -2268,6 +2926,7 @@ td{
 
 </div>
 
+
 </div>
 
 
@@ -2290,24 +2949,33 @@ td{
 
 </div>
 
-</div>
 
 </div>
 
+</div>
+
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
 
 <div
     id="toast"
     class="toast"
-></div>
+>
+</div>
 
 
 <script>
+
+
 /* =========================================================
-   Supabase
+   SUPABASE
 ========================================================= */
 
 const SUPABASE_URL =
     "https://qbuqjwpkltbjhlfbyjyb.supabase.co";
+
 
 const SUPABASE_ANON_KEY =
     "sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
@@ -2315,32 +2983,52 @@ const SUPABASE_ANON_KEY =
 
 const supabaseClient =
     window.supabase.createClient(
+
         SUPABASE_URL,
+
         SUPABASE_ANON_KEY,
+
         {
+
             auth:{
+
                 persistSession:true,
+
                 autoRefreshToken:true
+
             }
+
         }
+
     );
 
 
 const LOGIN_PAGE =
     "./login.html";
 
+
 const HOME_PAGE =
     "./wholemanagement.html";
 
 
 const STAFF_ROLES = [
+
     "founder",
+
     "platform_admin",
+
     "platform_staff",
+
     "province_admin",
+
     "city_admin"
+
 ];
 
+
+/* =========================================================
+   STATE
+========================================================= */
 
 let currentUser = null;
 let currentProfile = null;
@@ -2360,39 +3048,21 @@ let districts = [];
 
 let serviceAreas = [];
 
+let staffMode = "create";
+let editingStaffId = null;
+let staffRecreatedFrom = null;
 
-let staffMode =
-    "create";
+let merchantMode = "create";
+let editingMerchantId = null;
+let merchantRecreatedFrom = null;
 
-let editingStaffId =
-    null;
-
-let staffRecreatedFrom =
-    null;
-
-
-let merchantMode =
-    "create";
-
-let editingMerchantId =
-    null;
-
-let merchantRecreatedFrom =
-    null;
-
-
-let consultantMode =
-    "create";
-
-let editingConsultantId =
-    null;
-
-let consultantRecreatedFrom =
-    null;
+let consultantMode = "create";
+let editingConsultantId = null;
+let consultantRecreatedFrom = null;
 
 
 /* =========================================================
-   初始化
+   INIT
 ========================================================= */
 
 async function initialize(){
@@ -2415,6 +3085,7 @@ async function initialize(){
             );
 
             return;
+
         }
 
 
@@ -2454,6 +3125,7 @@ async function initialize(){
             throw new Error(
                 "无法读取当前管理人员资料。"
             );
+
         }
 
 
@@ -2469,11 +3141,14 @@ async function initialize(){
             await supabaseClient.auth
                 .signOut();
 
+
             location.replace(
                 LOGIN_PAGE
             );
 
+
             return;
+
         }
 
 
@@ -2490,11 +3165,14 @@ async function initialize(){
                 "您没有人员授权页面访问权限。"
             );
 
+
             location.replace(
                 HOME_PAGE
             );
 
+
             return;
+
         }
 
 
@@ -2504,10 +3182,15 @@ async function initialize(){
 
 
         await Promise.all([
+
             loadFounderState(),
+
             loadStaff(),
+
             loadMerchants(),
+
             loadConsultants()
+
         ]);
 
 
@@ -2521,6 +3204,7 @@ async function initialize(){
             ).classList.add(
                 "hidden"
             );
+
         }
 
 
@@ -2530,20 +3214,32 @@ async function initialize(){
             "none";
 
     }
+
     catch(error){
 
-        console.error(error);
+        console.error(
+            error
+        );
+
+
+        document.getElementById(
+            "loading"
+        ).style.display =
+            "none";
+
 
         alert(
             error.message ||
             "系统初始化失败。"
         );
+
     }
+
 }
 
 
 /* =========================================================
-   Founder
+   FOUNDER
 ========================================================= */
 
 async function loadFounderState(){
@@ -2558,7 +3254,9 @@ async function loadFounderState(){
 
 
     if(error){
+
         throw error;
+
     }
 
 
@@ -2611,7 +3309,9 @@ async function loadFounderState(){
 
         option.textContent =
             "创始人（已达到上限）";
+
     }
+
     else{
 
         option.disabled =
@@ -2619,12 +3319,14 @@ async function loadFounderState(){
 
         option.textContent =
             "创始人";
+
     }
+
 }
 
 
 /* =========================================================
-   行政区域
+   REGIONS
 ========================================================= */
 
 async function loadRegions(){
@@ -2649,8 +3351,12 @@ async function loadRegions(){
             );
 
 
-    if(provinceResult.error){
+    if(
+        provinceResult.error
+    ){
+
         throw provinceResult.error;
+
     }
 
 
@@ -2679,8 +3385,12 @@ async function loadRegions(){
             );
 
 
-    if(cityResult.error){
+    if(
+        cityResult.error
+    ){
+
         throw cityResult.error;
+
     }
 
 
@@ -2709,8 +3419,12 @@ async function loadRegions(){
             );
 
 
-    if(districtResult.error){
+    if(
+        districtResult.error
+    ){
+
         throw districtResult.error;
+
     }
 
 
@@ -2719,11 +3433,12 @@ async function loadRegions(){
 
 
     fillStaffProvinceSelect();
+
 }
 
 
 /* =========================================================
-   服务区域
+   SERVICE AREAS
 ========================================================= */
 
 async function loadServiceAreas(){
@@ -2759,7 +3474,9 @@ async function loadServiceAreas(){
 
 
     if(error){
+
         throw error;
+
     }
 
 
@@ -2771,14 +3488,16 @@ async function loadServiceAreas(){
         "merchantServiceArea"
     );
 
+
     fillServiceAreaSelect(
         "consultantServiceArea"
     );
+
 }
 
 
 /* =========================================================
-   服务区域下拉
+   SERVICE AREA SELECT
 ========================================================= */
 
 function fillServiceAreaSelect(
@@ -2793,7 +3512,9 @@ function fillServiceAreaSelect(
 
 
     if(!select){
+
         return;
+
     }
 
 
@@ -2827,24 +3548,32 @@ function fillServiceAreaSelect(
                     ${selected}
                 >
                     ${escapeHtml(
-                        serviceAreaLabel(area)
+                        serviceAreaLabel(
+                            area
+                        )
                     )}
                 </option>
                 `
             );
+
         }
     );
+
 }
 
 
 /* =========================================================
-   服务区域显示
+   SERVICE AREA LABEL
 ========================================================= */
 
-function serviceAreaLabel(area){
+function serviceAreaLabel(
+    area
+){
 
     if(!area){
+
         return "-";
+
     }
 
 
@@ -2887,13 +3616,18 @@ function serviceAreaLabel(area){
         +
         district
     );
+
 }
 
 
-function getServiceAreaById(id){
+function getServiceAreaById(
+    id
+){
 
     if(!id){
+
         return null;
+
     }
 
 
@@ -2906,15 +3640,20 @@ function getServiceAreaById(id){
         ||
         null
     );
+
 }
 
 
-function findServiceAreaForMerchant(item){
+function findServiceAreaForMerchant(
+    item
+){
 
     if(
         item.service_area_id
     ){
+
         return item.service_area_id;
+
     }
 
 
@@ -2948,11 +3687,12 @@ function findServiceAreaForMerchant(item){
 
 
     return area?.id || null;
+
 }
 
 
 /* =========================================================
-   公司人员
+   LOAD STAFF
 ========================================================= */
 
 async function loadStaff(){
@@ -2988,7 +3728,9 @@ async function loadStaff(){
 
 
     if(result.error){
+
         throw result.error;
+
     }
 
 
@@ -3013,8 +3755,12 @@ async function loadStaff(){
         `);
 
 
-    if(assignmentResult.error){
+    if(
+        assignmentResult.error
+    ){
+
         throw assignmentResult.error;
+
     }
 
 
@@ -3025,11 +3771,12 @@ async function loadStaff(){
     renderStaffStats();
 
     renderStaff();
+
 }
 
 
 /* =========================================================
-   商户
+   LOAD MERCHANTS
 ========================================================= */
 
 async function loadMerchants(){
@@ -3076,7 +3823,9 @@ async function loadMerchants(){
 
 
     if(result.error){
+
         throw result.error;
+
     }
 
 
@@ -3087,11 +3836,12 @@ async function loadMerchants(){
     renderMerchantStats();
 
     renderMerchants();
+
 }
 
 
 /* =========================================================
-   健康顾问
+   LOAD CONSULTANTS
 ========================================================= */
 
 async function loadConsultants(){
@@ -3107,6 +3857,7 @@ async function loadConsultants(){
             id,
             auth_user_id,
             consultant_no,
+            consultant_surname,
             consultant_name,
             phone,
             email,
@@ -3133,7 +3884,9 @@ async function loadConsultants(){
 
 
     if(result.error){
+
         throw result.error;
+
     }
 
 
@@ -3144,16 +3897,20 @@ async function loadConsultants(){
     renderConsultantStats();
 
     renderConsultants();
+
 }
 
 
 /* =========================================================
-   Tabs
+   TAB
 ========================================================= */
 
-function activateTab(type){
+function activateTab(
+    type
+){
 
     const map = {
+
         staff:[
             "staffTab",
             "staffSection"
@@ -3168,26 +3925,31 @@ function activateTab(type){
             "consultantTab",
             "consultantSection"
         ]
+
     };
 
 
-    Object.values(map)
-        .forEach(
-            ([tabId,sectionId])=>{
+    Object.values(
+        map
+    )
+    .forEach(
+        ([tabId,sectionId])=>{
 
-                document.getElementById(
-                    tabId
-                ).classList.remove(
-                    "active"
-                );
+            document.getElementById(
+                tabId
+            ).classList.remove(
+                "active"
+            );
 
-                document.getElementById(
-                    sectionId
-                ).classList.add(
-                    "hidden"
-                );
-            }
-        );
+
+            document.getElementById(
+                sectionId
+            ).classList.add(
+                "hidden"
+            );
+
+        }
+    );
 
 
     document.getElementById(
@@ -3202,11 +3964,12 @@ function activateTab(type){
     ).classList.remove(
         "hidden"
     );
+
 }
 
 
 /* =========================================================
-   公司人员统计
+   STAFF STATS
 ========================================================= */
 
 function renderStaffStats(){
@@ -3251,28 +4014,26 @@ function renderStaffStats(){
                 x.role ===
                 "city_admin"
         ).length;
+
 }
 
 
 /* =========================================================
-   公司人员列表
+   STAFF RENDER
 ========================================================= */
 
 function renderStaff(){
 
     const keyword =
-        document.getElementById(
+        value(
             "staffSearch"
-        )
-        .value
-        .trim()
-        .toLowerCase();
+        ).toLowerCase();
 
 
     const role =
-        document.getElementById(
+        value(
             "staffRoleFilter"
-        ).value;
+        );
 
 
     const list =
@@ -3283,7 +4044,9 @@ function renderStaff(){
                     role &&
                     item.role !== role
                 ){
+
                     return false;
+
                 }
 
 
@@ -3299,6 +4062,7 @@ function renderStaff(){
                 return text.includes(
                     keyword
                 );
+
             }
         );
 
@@ -3376,7 +4140,9 @@ function renderStaff(){
                 <tr>
 
                     <td class="number-cell">
-                        ${formatAccountNo(item.staff_no)}
+                        ${formatAccountNo(
+                            item.staff_no
+                        )}
                     </td>
 
                     <td>
@@ -3398,7 +4164,9 @@ function renderStaff(){
                     </td>
 
                     <td>
-                        ${roleBadge(item.role)}
+                        ${roleBadge(
+                            item.role
+                        )}
                     </td>
 
                     <td>
@@ -3429,11 +4197,15 @@ function renderStaff(){
                     </td>
 
                     <td>
-                        ${statusBadge(item.status)}
+                        ${statusBadge(
+                            item.status
+                        )}
                     </td>
 
                     <td>
-                        ${staffActionButtons(item)}
+                        ${staffActionButtons(
+                            item
+                        )}
                     </td>
 
                 </tr>
@@ -3451,7 +4223,10 @@ function renderStaff(){
                         <div>
 
                             <div class="mobile-number">
-                                编号 ${formatAccountNo(item.staff_no)}
+                                编号
+                                ${formatAccountNo(
+                                    item.staff_no
+                                )}
                             </div>
 
                             <div class="mobile-card-name">
@@ -3470,94 +4245,28 @@ function renderStaff(){
 
                         </div>
 
-                        ${roleBadge(item.role)}
+                        ${roleBadge(
+                            item.role
+                        )}
 
                     </div>
 
-
-                    <div class="mobile-card-info">
-
-                        <div class="mobile-info">
-
-                            <div class="mobile-info-label">
-                                省份
-                            </div>
-
-                            <div class="mobile-info-value">
-                                ${escapeHtml(
-                                    staffProvinceText(
-                                        item.role,
-                                        province
-                                    )
-                                )}
-                            </div>
-
-                        </div>
-
-
-                        <div class="mobile-info">
-
-                            <div class="mobile-info-label">
-                                城市
-                            </div>
-
-                            <div class="mobile-info-value">
-                                ${escapeHtml(
-                                    staffCityText(
-                                        item.role,
-                                        city
-                                    )
-                                )}
-                            </div>
-
-                        </div>
-
-
-                        <div class="mobile-info">
-
-                            <div class="mobile-info-label">
-                                区 / 县
-                            </div>
-
-                            <div class="mobile-info-value">
-                                ${escapeHtml(
-                                    staffDistrictText(
-                                        item.role,
-                                        district
-                                    )
-                                )}
-                            </div>
-
-                        </div>
-
-
-                        <div class="mobile-info">
-
-                            <div class="mobile-info-label">
-                                状态
-                            </div>
-
-                            <div class="mobile-info-value">
-                                ${statusText(item.status)}
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    ${mobileStaffButtons(item)}
+                    ${mobileStaffButtons(
+                        item
+                    )}
 
                 </div>
                 `
             );
+
         }
     );
+
 }
 
 
 /* =========================================================
-   商户统计
+   MERCHANT STATS
 ========================================================= */
 
 function renderMerchantStats(){
@@ -3596,28 +4305,26 @@ function renderMerchantStats(){
                 x.status ===
                 "active"
         ).length;
+
 }
 
 
 /* =========================================================
-   商户列表
+   MERCHANT RENDER
 ========================================================= */
 
 function renderMerchants(){
 
     const keyword =
-        document.getElementById(
+        value(
             "merchantSearch"
-        )
-        .value
-        .trim()
-        .toLowerCase();
+        ).toLowerCase();
 
 
     const type =
-        document.getElementById(
+        value(
             "merchantTypeFilter"
-        ).value;
+        );
 
 
     const list =
@@ -3626,9 +4333,12 @@ function renderMerchants(){
 
                 if(
                     type &&
-                    item.merchant_type !== type
+                    item.merchant_type !==
+                    type
                 ){
+
                     return false;
+
                 }
 
 
@@ -3650,8 +4360,6 @@ function renderMerchants(){
                     ${item.bank_account || ""}
                     ${item.tax_no || ""}
                     ${item.address || ""}
-                    ${item.longitude ?? ""}
-                    ${item.latitude ?? ""}
                     ${area ? serviceAreaLabel(area) : ""}
                     `
                     .toLowerCase();
@@ -3660,6 +4368,7 @@ function renderMerchants(){
                 return text.includes(
                     keyword
                 );
+
             }
         );
 
@@ -3705,7 +4414,9 @@ function renderMerchants(){
             const areaText =
                 area
                 ?
-                serviceAreaLabel(area)
+                serviceAreaLabel(
+                    area
+                )
                 :
                 (
                     provinceName(
@@ -3717,18 +4428,6 @@ function renderMerchants(){
                     cityName(
                         item.city_id
                     )
-                    +
-                    " · "
-                    +
-                    (
-                        item.district_id
-                        ?
-                        districtName(
-                            item.district_id
-                        )
-                        :
-                        "全市"
-                    )
                 );
 
 
@@ -3738,7 +4437,9 @@ function renderMerchants(){
                 <tr>
 
                     <td class="number-cell">
-                        ${formatAccountNo(item.record_no)}
+                        ${formatAccountNo(
+                            item.record_no
+                        )}
                     </td>
 
                     <td>
@@ -3767,7 +4468,9 @@ function renderMerchants(){
                     </td>
 
                     <td>
-                        ${escapeHtml(areaText)}
+                        ${escapeHtml(
+                            areaText
+                        )}
                     </td>
 
                     <td>
@@ -3777,11 +4480,15 @@ function renderMerchants(){
                     </td>
 
                     <td>
-                        ${statusBadge(item.status)}
+                        ${statusBadge(
+                            item.status
+                        )}
                     </td>
 
                     <td>
-                        ${merchantActionButtons(item)}
+                        ${merchantActionButtons(
+                            item
+                        )}
                     </td>
 
                 </tr>
@@ -3799,7 +4506,10 @@ function renderMerchants(){
                         <div>
 
                             <div class="mobile-number">
-                                编号 ${formatAccountNo(item.record_no)}
+                                编号
+                                ${formatAccountNo(
+                                    item.record_no
+                                )}
                             </div>
 
                             <div class="mobile-card-name">
@@ -3812,7 +4522,6 @@ function renderMerchants(){
                             <div class="mobile-card-email">
                                 ${escapeHtml(
                                     item.email ||
-                                    item.merchant_code ||
                                     "-"
                                 )}
                             </div>
@@ -3827,7 +4536,6 @@ function renderMerchants(){
 
                     </div>
 
-
                     <div class="mobile-card-info">
 
                         <div class="mobile-info">
@@ -3837,11 +4545,12 @@ function renderMerchants(){
                             </div>
 
                             <div class="mobile-info-value">
-                                ${escapeHtml(areaText)}
+                                ${escapeHtml(
+                                    areaText
+                                )}
                             </div>
 
                         </div>
-
 
                         <div class="mobile-info">
 
@@ -3850,57 +4559,8 @@ function renderMerchants(){
                             </div>
 
                             <div class="mobile-info-value">
-                                ${statusText(item.status)}
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            class="mobile-info"
-                            style="grid-column:1 / -1;"
-                        >
-
-                            <div class="mobile-info-label">
-                                详细地址
-                            </div>
-
-                            <div class="mobile-info-value">
-                                ${escapeHtml(
-                                    item.address ||
-                                    "-"
-                                )}
-                            </div>
-
-                        </div>
-
-
-                        <div class="mobile-info">
-
-                            <div class="mobile-info-label">
-                                经度
-                            </div>
-
-                            <div class="mobile-info-value">
-                                ${escapeHtml(
-                                    item.longitude ??
-                                    "-"
-                                )}
-                            </div>
-
-                        </div>
-
-
-                        <div class="mobile-info">
-
-                            <div class="mobile-info-label">
-                                纬度
-                            </div>
-
-                            <div class="mobile-info-value">
-                                ${escapeHtml(
-                                    item.latitude ??
-                                    "-"
+                                ${statusText(
+                                    item.status
                                 )}
                             </div>
 
@@ -3908,19 +4568,22 @@ function renderMerchants(){
 
                     </div>
 
-
-                    ${mobileMerchantButtons(item)}
+                    ${mobileMerchantButtons(
+                        item
+                    )}
 
                 </div>
                 `
             );
+
         }
     );
+
 }
 
 
 /* =========================================================
-   健康顾问统计
+   CONSULTANT STATS
 ========================================================= */
 
 function renderConsultantStats(){
@@ -3955,20 +4618,20 @@ function renderConsultantStats(){
         new Set(
             consultantList
 
-                .filter(
-                    x=>
-                        x.status ===
-                        "active"
-                        &&
-                        x.service_area_id
-                )
+            .filter(
+                x=>
+                    x.status ===
+                    "active"
+                    &&
+                    x.service_area_id
+            )
 
-                .map(
-                    x=>
-                        String(
-                            x.service_area_id
-                        )
-                )
+            .map(
+                x=>
+                    String(
+                        x.service_area_id
+                    )
+            )
         );
 
 
@@ -3976,28 +4639,102 @@ function renderConsultantStats(){
         "consultantAreaTotal"
     ).textContent =
         areaIds.size;
+
 }
 
 
 /* =========================================================
-   健康顾问列表
+   CONSULTANT DISPLAY
+========================================================= */
+
+function consultantPublicName(
+    item
+){
+
+    if(
+        item?.consultant_name
+    ){
+
+        return item.consultant_name;
+
+    }
+
+
+    if(
+        item?.consultant_surname
+    ){
+
+        return (
+            item.consultant_surname
+            +
+            "老师"
+        );
+
+    }
+
+
+    return "-";
+
+}
+
+
+function consultantSurnameValue(
+    item
+){
+
+    if(
+        item?.consultant_surname
+    ){
+
+        return item.consultant_surname;
+
+    }
+
+
+    const name =
+        String(
+            item?.consultant_name ||
+            ""
+        ).trim();
+
+
+    if(
+        name.endsWith(
+            "老师"
+        )
+    ){
+
+        return name
+            .replace(
+                /老师$/,
+                ""
+            )
+            .trim();
+
+    }
+
+
+    return "";
+
+}
+
+
+/* =========================================================
+   CONSULTANT RENDER
 ========================================================= */
 
 function renderConsultants(){
 
     const keyword =
-        document.getElementById(
+        value(
             "consultantSearch"
-        )
-        .value
-        .trim()
-        .toLowerCase();
+        ).toLowerCase();
 
 
     const status =
-        document.getElementById(
+        value(
             "consultantStatusFilter"
-        ).value;
+        );
 
 
     const list =
@@ -4006,9 +4743,12 @@ function renderConsultants(){
 
                 if(
                     status &&
-                    item.status !== status
+                    item.status !==
+                    status
                 ){
+
                     return false;
+
                 }
 
 
@@ -4021,6 +4761,7 @@ function renderConsultants(){
                 const text =
                     `
                     ${formatAccountNo(item.consultant_no)}
+                    ${item.consultant_surname || ""}
                     ${item.consultant_name || ""}
                     ${item.phone || ""}
                     ${item.email || ""}
@@ -4036,6 +4777,7 @@ function renderConsultants(){
                 return text.includes(
                     keyword
                 );
+
             }
         );
 
@@ -4081,9 +4823,17 @@ function renderConsultants(){
             const areaText =
                 area
                 ?
-                serviceAreaLabel(area)
+                serviceAreaLabel(
+                    area
+                )
                 :
                 "-";
+
+
+            const displayName =
+                consultantPublicName(
+                    item
+                );
 
 
             tbody.insertAdjacentHTML(
@@ -4091,18 +4841,19 @@ function renderConsultants(){
                 `
                 <tr>
 
-                    <td class="number-cell">
-                        ${formatAccountNo(
-                            item.consultant_no
-                        )}
+                    <td>
+                        <span class="consultant-number">
+                            ${formatAccountNo(
+                                item.consultant_no
+                            )}
+                        </span>
                     </td>
 
                     <td>
 
                         <div class="person-name">
                             ${escapeHtml(
-                                item.consultant_name ||
-                                "-"
+                                displayName
                             )}
                         </div>
 
@@ -4135,7 +4886,9 @@ function renderConsultants(){
                     </td>
 
                     <td>
-                        ${consultantActionButtons(item)}
+                        ${consultantActionButtons(
+                            item
+                        )}
                     </td>
 
                 </tr>
@@ -4153,13 +4906,15 @@ function renderConsultants(){
                         <div>
 
                             <div class="mobile-number">
-                                编号 ${formatAccountNo(item.consultant_no)}
+                                系统编号：
+                                ${formatAccountNo(
+                                    item.consultant_no
+                                )}
                             </div>
 
                             <div class="mobile-card-name">
                                 ${escapeHtml(
-                                    item.consultant_name ||
-                                    "-"
+                                    displayName
                                 )}
                             </div>
 
@@ -4184,13 +4939,19 @@ function renderConsultants(){
                         <div class="mobile-info">
 
                             <div class="mobile-info-label">
-                                联系电话
+                                下单选择编号
                             </div>
 
-                            <div class="mobile-info-value">
-                                ${escapeHtml(
-                                    item.phone ||
-                                    "-"
+                            <div
+                                class="mobile-info-value"
+                                style="
+                                    color:#b93667;
+                                    font-size:16px;
+                                    font-weight:850;
+                                "
+                            >
+                                ${formatAccountNo(
+                                    item.consultant_no
                                 )}
                             </div>
 
@@ -4214,7 +4975,10 @@ function renderConsultants(){
 
                         <div
                             class="mobile-info"
-                            style="grid-column:1 / -1;"
+                            style="
+                                grid-column:
+                                    1 / -1;
+                            "
                         >
 
                             <div class="mobile-info-label">
@@ -4231,22 +4995,27 @@ function renderConsultants(){
 
                     </div>
 
-
-                    ${mobileConsultantButtons(item)}
+                    ${mobileConsultantButtons(
+                        item
+                    )}
 
                 </div>
                 `
             );
+
         }
     );
+
 }
 
 
 /* =========================================================
-   操作按钮
+   ACTION BUTTONS
 ========================================================= */
 
-function staffActionButtons(item){
+function staffActionButtons(
+    item
+){
 
     if(
         item.role ===
@@ -4254,10 +5023,11 @@ function staffActionButtons(item){
     ){
 
         return `
-            <div class="action-buttons">
-                <span class="no-action">-</span>
-            </div>
+            <span class="no-action">
+                -
+            </span>
         `;
+
     }
 
 
@@ -4278,6 +5048,7 @@ function staffActionButtons(item){
 
             </div>
         `;
+
     }
 
 
@@ -4300,16 +5071,21 @@ function staffActionButtons(item){
 
         </div>
     `;
+
 }
 
 
-function mobileStaffButtons(item){
+function mobileStaffButtons(
+    item
+){
 
     if(
         item.role ===
         "founder"
     ){
+
         return "";
+
     }
 
 
@@ -4330,6 +5106,7 @@ function mobileStaffButtons(item){
 
             </div>
         `;
+
     }
 
 
@@ -4352,10 +5129,13 @@ function mobileStaffButtons(item){
 
         </div>
     `;
+
 }
 
 
-function merchantActionButtons(item){
+function merchantActionButtons(
+    item
+){
 
     if(
         item.status ===
@@ -4374,6 +5154,7 @@ function merchantActionButtons(item){
 
             </div>
         `;
+
     }
 
 
@@ -4396,10 +5177,13 @@ function merchantActionButtons(item){
 
         </div>
     `;
+
 }
 
 
-function mobileMerchantButtons(item){
+function mobileMerchantButtons(
+    item
+){
 
     if(
         item.status ===
@@ -4418,6 +5202,7 @@ function mobileMerchantButtons(item){
 
             </div>
         `;
+
     }
 
 
@@ -4440,10 +5225,13 @@ function mobileMerchantButtons(item){
 
         </div>
     `;
+
 }
 
 
-function consultantActionButtons(item){
+function consultantActionButtons(
+    item
+){
 
     if(
         item.status ===
@@ -4462,6 +5250,7 @@ function consultantActionButtons(item){
 
             </div>
         `;
+
     }
 
 
@@ -4484,10 +5273,13 @@ function consultantActionButtons(item){
 
         </div>
     `;
+
 }
 
 
-function mobileConsultantButtons(item){
+function mobileConsultantButtons(
+    item
+){
 
     if(
         item.status ===
@@ -4506,6 +5298,7 @@ function mobileConsultantButtons(item){
 
             </div>
         `;
+
     }
 
 
@@ -4528,11 +5321,12 @@ function mobileConsultantButtons(item){
 
         </div>
     `;
+
 }
 
 
 /* =========================================================
-   公司人员
+   STAFF MODAL
 ========================================================= */
 
 async function openStaffModal(){
@@ -4543,11 +5337,12 @@ async function openStaffModal(){
     ){
 
         showToast(
-            "只有创始人可以创建公司管理人员。",
+            "只有创始人可以创建公司人员。",
             "error"
         );
 
         return;
+
     }
 
 
@@ -4588,10 +5383,17 @@ async function openStaffModal(){
     openModal(
         "staffModal"
     );
+
 }
 
 
-function editStaff(id){
+/* =========================================================
+   STAFF EDIT
+========================================================= */
+
+function editStaff(
+    id
+){
 
     const item =
         staffList.find(
@@ -4601,7 +5403,9 @@ function editStaff(id){
 
 
     if(!item){
+
         return;
+
     }
 
 
@@ -4616,13 +5420,15 @@ function editStaff(id){
         );
 
         return;
+
     }
 
 
     const assignment =
         assignmentList.find(
             x=>
-                x.user_id === id
+                x.user_id ===
+                id
                 &&
                 x.status ===
                 "active"
@@ -4648,16 +5454,16 @@ function editStaff(id){
         `编辑人员 ${formatAccountNo(item.staff_no)}`;
 
 
-    document.getElementById(
-        "staffName"
-    ).value =
-        item.full_name || "";
+    setValue(
+        "staffName",
+        item.full_name
+    );
 
 
-    document.getElementById(
-        "staffRole"
-    ).value =
-        item.role;
+    setValue(
+        "staffRole",
+        item.role
+    );
 
 
     staffRoleChanged();
@@ -4667,12 +5473,14 @@ function editStaff(id){
         assignment?.province_id
     ){
 
-        document.getElementById(
-            "staffProvince"
-        ).value =
-            assignment.province_id;
+        setValue(
+            "staffProvince",
+            assignment.province_id
+        );
+
 
         staffProvinceChanged();
+
     }
 
 
@@ -4680,12 +5488,14 @@ function editStaff(id){
         assignment?.city_id
     ){
 
-        document.getElementById(
-            "staffCity"
-        ).value =
-            assignment.city_id;
+        setValue(
+            "staffCity",
+            assignment.city_id
+        );
+
 
         staffCityChanged();
+
     }
 
 
@@ -4693,10 +5503,11 @@ function editStaff(id){
         assignment?.district_id
     ){
 
-        document.getElementById(
-            "staffDistrict"
-        ).value =
-            assignment.district_id;
+        setValue(
+            "staffDistrict",
+            assignment.district_id
+        );
+
     }
 
 
@@ -4715,10 +5526,17 @@ function editStaff(id){
     openModal(
         "staffModal"
     );
+
 }
 
 
-function recreateStaff(id){
+/* =========================================================
+   STAFF RECREATE
+========================================================= */
+
+function recreateStaff(
+    id
+){
 
     const item =
         staffList.find(
@@ -4728,23 +5546,10 @@ function recreateStaff(id){
 
 
     if(!item){
+
         return;
+
     }
-
-
-    if(
-        item.role ===
-        "founder"
-    ){
-        return;
-    }
-
-
-    const assignment =
-        assignmentList.find(
-            x=>
-                x.user_id === id
-        );
 
 
     staffMode =
@@ -4760,62 +5565,25 @@ function recreateStaff(id){
     resetStaffForm();
 
 
-    document.getElementById(
-        "staffModalTitle"
-    ).textContent =
-        `重新添加人员 ${formatAccountNo(item.staff_no)}`;
+    setValue(
+        "staffName",
+        item.full_name
+    );
 
 
-    document.getElementById(
-        "staffName"
-    ).value =
-        item.full_name || "";
-
-
-    document.getElementById(
-        "staffRole"
-    ).value =
-        item.role;
+    setValue(
+        "staffRole",
+        item.role
+    );
 
 
     staffRoleChanged();
 
 
-    if(
-        assignment?.province_id
-    ){
-
-        document.getElementById(
-            "staffProvince"
-        ).value =
-            assignment.province_id;
-
-        staffProvinceChanged();
-    }
-
-
-    if(
-        assignment?.city_id
-    ){
-
-        document.getElementById(
-            "staffCity"
-        ).value =
-            assignment.city_id;
-
-        staffCityChanged();
-    }
-
-
-    if(
-        assignment?.district_id
-    ){
-
-        document.getElementById(
-            "staffDistrict"
-        ).value =
-            assignment.district_id;
-    }
+    document.getElementById(
+        "staffModalTitle"
+    ).textContent =
+        `重新添加人员 ${formatAccountNo(item.staff_no)}`;
 
 
     setLoginFields(
@@ -4833,8 +5601,13 @@ function recreateStaff(id){
     openModal(
         "staffModal"
     );
+
 }
 
+
+/* =========================================================
+   SAVE STAFF
+========================================================= */
 
 async function saveStaff(){
 
@@ -4842,7 +5615,9 @@ async function saveStaff(){
         staffMode ===
         "edit"
     ){
+
         return updateStaff();
+
     }
 
 
@@ -4896,10 +5671,15 @@ async function saveStaff(){
         );
 
         return;
+
     }
 
 
-    if(!isEmail(email)){
+    if(
+        !isEmail(
+            email
+        )
+    ){
 
         showToast(
             "请输入正确邮箱。",
@@ -4907,283 +5687,188 @@ async function saveStaff(){
         );
 
         return;
+
     }
 
 
     if(
-        password.length < 8
+        password.length <
+        8
     ){
 
         showToast(
-            "初始密码至少8位。",
+            "密码至少8位。",
             "error"
         );
 
         return;
+
     }
 
 
-    if(!role){
+    const {
+        data,
+        error
+    } =
+    await supabaseClient.functions
+        .invoke(
+            "create-system-user",
+            {
 
-        showToast(
-            "请选择身份。",
-            "error"
-        );
+                body:{
 
-        return;
-    }
+                    action:
+                        staffMode ===
+                        "recreate"
+                        ?
+                        "recreate"
+                        :
+                        "create",
 
+                    account_type:
+                        "management",
 
-    if(
-        role ===
-        "province_admin"
-        &&
-        !provinceId
-    ){
+                    recreated_from:
+                        staffRecreatedFrom,
 
-        showToast(
-            "请选择管理省份。",
-            "error"
-        );
+                    full_name:
+                        name,
 
-        return;
-    }
+                    email,
 
+                    password,
 
-    if(
-        role ===
-        "city_admin"
-        &&
-        (
-            !provinceId
-            ||
-            !cityId
-        )
-    ){
+                    role,
 
-        showToast(
-            "请选择管理省份和城市。",
-            "error"
-        );
+                    province_id:
+                        provinceId,
 
-        return;
-    }
+                    city_id:
+                        cityId,
 
+                    district_id:
+                        districtId
 
-    const button =
-        document.getElementById(
-            "saveStaffButton"
-        );
-
-
-    button.disabled =
-        true;
-
-
-    try{
-
-        const {
-            data,
-            error
-        } =
-        await supabaseClient.functions
-            .invoke(
-                "create-system-user",
-                {
-                    body:{
-                        action:
-                            staffMode ===
-                            "recreate"
-                            ?
-                            "recreate"
-                            :
-                            "create",
-
-                        account_type:
-                            "management",
-
-                        recreated_from:
-                            staffRecreatedFrom,
-
-                        full_name:
-                            name,
-
-                        email,
-
-                        password,
-
-                        role,
-
-                        province_id:
-                            provinceId,
-
-                        city_id:
-                            cityId,
-
-                        district_id:
-                            districtId
-                    }
                 }
-            );
 
-
-        checkFunctionResult(
-            data,
-            error
+            }
         );
 
 
-        showToast(
-            staffMode ===
-            "recreate"
-            ?
-            "新的人员记录已创建。"
-            :
-            "公司人员账号创建成功。",
-            "success"
-        );
+    checkFunctionResult(
+        data,
+        error
+    );
 
 
-        closeModal(
-            "staffModal"
-        );
+    closeModal(
+        "staffModal"
+    );
 
 
-        await Promise.all([
-            loadFounderState(),
-            loadStaff()
-        ]);
+    await Promise.all([
 
-    }
-    catch(error){
+        loadFounderState(),
 
-        showToast(
-            error.message ||
-            "操作失败。",
-            "error"
-        );
-    }
-    finally{
+        loadStaff()
 
-        button.disabled =
-            false;
-    }
+    ]);
+
+
+    showToast(
+        "公司人员保存成功。",
+        "success"
+    );
+
 }
 
+
+/* =========================================================
+   UPDATE STAFF
+========================================================= */
 
 async function updateStaff(){
 
-    const name =
-        value(
-            "staffName"
-        );
+    const {
+        data,
+        error
+    } =
+    await supabaseClient.functions
+        .invoke(
+            "create-system-user",
+            {
 
+                body:{
 
-    const role =
-        value(
-            "staffRole"
-        );
+                    action:
+                        "update",
 
+                    account_type:
+                        "management",
 
-    const provinceId =
-        numberValue(
-            "staffProvince"
-        );
+                    record_id:
+                        editingStaffId,
 
+                    full_name:
+                        value(
+                            "staffName"
+                        ),
 
-    const cityId =
-        numberValue(
-            "staffCity"
-        );
+                    role:
+                        value(
+                            "staffRole"
+                        ),
 
+                    province_id:
+                        numberValue(
+                            "staffProvince"
+                        ),
 
-    const districtId =
-        numberValue(
-            "staffDistrict"
-        );
+                    city_id:
+                        numberValue(
+                            "staffCity"
+                        ),
 
+                    district_id:
+                        numberValue(
+                            "staffDistrict"
+                        )
 
-    if(!name){
-
-        showToast(
-            "请输入姓名。",
-            "error"
-        );
-
-        return;
-    }
-
-
-    try{
-
-        const {
-            data,
-            error
-        } =
-        await supabaseClient.functions
-            .invoke(
-                "create-system-user",
-                {
-                    body:{
-                        action:
-                            "update",
-
-                        account_type:
-                            "management",
-
-                        record_id:
-                            editingStaffId,
-
-                        full_name:
-                            name,
-
-                        role,
-
-                        province_id:
-                            provinceId,
-
-                        city_id:
-                            cityId,
-
-                        district_id:
-                            districtId
-                    }
                 }
-            );
 
-
-        checkFunctionResult(
-            data,
-            error
+            }
         );
 
 
-        showToast(
-            "人员资料已更新。",
-            "success"
-        );
+    checkFunctionResult(
+        data,
+        error
+    );
 
 
-        closeModal(
-            "staffModal"
-        );
+    closeModal(
+        "staffModal"
+    );
 
 
-        await loadStaff();
+    await loadStaff();
 
-    }
-    catch(error){
 
-        showToast(
-            error.message ||
-            "保存失败。",
-            "error"
-        );
-    }
+    showToast(
+        "人员资料已更新。",
+        "success"
+    );
+
 }
 
 
-async function invalidateStaff(id){
+/* =========================================================
+   INVALIDATE STAFF
+========================================================= */
+
+async function invalidateStaff(
+    id
+){
 
     const item =
         staffList.find(
@@ -5193,75 +5878,73 @@ async function invalidateStaff(id){
 
 
     if(
-        !item ||
+        !item
+        ||
         item.role ===
         "founder"
     ){
+
         return;
+
     }
 
 
     if(
         !confirm(
-            `确定将“${item.full_name || "该人员"}”设为无效吗？\n\n一旦设为无效将不能恢复。`
+            `确定将“${item.full_name || "该人员"}”设为无效吗？`
         )
     ){
+
         return;
+
     }
 
 
-    try{
+    const {
+        data,
+        error
+    } =
+    await supabaseClient.functions
+        .invoke(
+            "create-system-user",
+            {
 
-        const {
-            data,
-            error
-        } =
-        await supabaseClient.functions
-            .invoke(
-                "create-system-user",
-                {
-                    body:{
-                        action:
-                            "invalidate",
+                body:{
 
-                        account_type:
-                            "management",
+                    action:
+                        "invalidate",
 
-                        record_id:
-                            id
-                    }
+                    account_type:
+                        "management",
+
+                    record_id:
+                        id
+
                 }
-            );
 
-
-        checkFunctionResult(
-            data,
-            error
+            }
         );
 
 
-        showToast(
-            "该人员已设为无效。",
-            "success"
-        );
+    checkFunctionResult(
+        data,
+        error
+    );
 
 
-        await loadStaff();
+    await loadStaff();
 
-    }
-    catch(error){
 
-        showToast(
-            error.message ||
-            "操作失败。",
-            "error"
-        );
-    }
+    showToast(
+        "该人员已设为无效。",
+        "success"
+    );
+
 }
 
 
 /* =========================================================
-   商户
+   MERCHANT OPEN
 ========================================================= */
 
 function openMerchantModal(){
@@ -5300,10 +5983,17 @@ function openMerchantModal(){
     openModal(
         "merchantModal"
     );
+
 }
 
 
-function editMerchant(id){
+/* =========================================================
+   MERCHANT EDIT
+========================================================= */
+
+function editMerchant(
+    id
+){
 
     const item =
         merchantList.find(
@@ -5314,7 +6004,9 @@ function editMerchant(id){
 
 
     if(!item){
+
         return;
+
     }
 
 
@@ -5374,7 +6066,8 @@ function editMerchant(id){
 
     setValue(
         "merchantCoordinateSystem",
-        item.coordinate_system || "BD09"
+        item.coordinate_system ||
+        "BD09"
     );
 
     setValue(
@@ -5416,10 +6109,17 @@ function editMerchant(id){
     openModal(
         "merchantModal"
     );
+
 }
 
 
-function recreateMerchant(id){
+/* =========================================================
+   MERCHANT RECREATE
+========================================================= */
+
+function recreateMerchant(
+    id
+){
 
     const item =
         merchantList.find(
@@ -5430,7 +6130,9 @@ function recreateMerchant(id){
 
 
     if(!item){
+
         return;
+
     }
 
 
@@ -5445,12 +6147,6 @@ function recreateMerchant(id){
 
 
     resetMerchantForm();
-
-
-    document.getElementById(
-        "merchantModalTitle"
-    ).textContent =
-        `重新添加商户 ${formatAccountNo(item.record_no)}`;
 
 
     setValue(
@@ -5489,11 +6185,6 @@ function recreateMerchant(id){
     );
 
     setValue(
-        "merchantCoordinateSystem",
-        item.coordinate_system || "BD09"
-    );
-
-    setValue(
         "merchantBankName",
         item.bank_name
     );
@@ -5517,6 +6208,12 @@ function recreateMerchant(id){
     );
 
 
+    document.getElementById(
+        "merchantModalTitle"
+    ).textContent =
+        `重新添加商户 ${formatAccountNo(item.record_no)}`;
+
+
     setLoginFields(
         "merchant",
         true
@@ -5532,272 +6229,13 @@ function recreateMerchant(id){
     openModal(
         "merchantModal"
     );
+
 }
 
 
-async function saveMerchant(){
-
-    if(
-        merchantMode ===
-        "edit"
-    ){
-        return updateMerchant();
-    }
-
-
-    const form =
-        readMerchantForm(
-            true
-        );
-
-
-    if(!form){
-        return;
-    }
-
-
-    const button =
-        document.getElementById(
-            "saveMerchantButton"
-        );
-
-
-    button.disabled =
-        true;
-
-
-    try{
-
-        const {
-            data,
-            error
-        } =
-        await supabaseClient.functions
-            .invoke(
-                "create-system-user",
-                {
-                    body:{
-                        action:
-                            merchantMode ===
-                            "recreate"
-                            ?
-                            "recreate"
-                            :
-                            "create",
-
-                        account_type:
-                            "merchant",
-
-                        recreated_from:
-                            merchantRecreatedFrom,
-
-                        merchant_name:
-                            form.merchantName,
-
-                        merchant_type:
-                            form.merchantType,
-
-                        email:
-                            form.email,
-
-                        password:
-                            form.password,
-
-                        contact_name:
-                            form.contactName,
-
-                        phone:
-                            form.phone,
-
-                        service_area_id:
-                            form.serviceAreaId,
-
-                        address:
-                            form.address,
-
-                        longitude:
-                            form.longitude,
-
-                        latitude:
-                            form.latitude,
-
-                        coordinate_system:
-                            "BD09",
-
-                        bank_name:
-                            form.bankName,
-
-                        bank_account:
-                            form.bankAccount,
-
-                        tax_no:
-                            form.taxNo
-                    }
-                }
-            );
-
-
-        checkFunctionResult(
-            data,
-            error
-        );
-
-
-        showToast(
-            merchantMode ===
-            "recreate"
-            ?
-            "新的商户记录已创建。"
-            :
-            "商户账号已经创建并授权。",
-            "success"
-        );
-
-
-        closeModal(
-            "merchantModal"
-        );
-
-
-        await loadMerchants();
-
-    }
-    catch(error){
-
-        console.error(error);
-
-        showToast(
-            error.message ||
-            "商户创建失败。",
-            "error"
-        );
-    }
-    finally{
-
-        button.disabled =
-            false;
-    }
-}
-
-
-async function updateMerchant(){
-
-    const form =
-        readMerchantForm(
-            false
-        );
-
-
-    if(!form){
-        return;
-    }
-
-
-    const button =
-        document.getElementById(
-            "saveMerchantButton"
-        );
-
-
-    button.disabled =
-        true;
-
-
-    try{
-
-        const {
-            data,
-            error
-        } =
-        await supabaseClient.functions
-            .invoke(
-                "create-system-user",
-                {
-                    body:{
-                        action:
-                            "update",
-
-                        account_type:
-                            "merchant",
-
-                        record_id:
-                            editingMerchantId,
-
-                        merchant_name:
-                            form.merchantName,
-
-                        merchant_type:
-                            form.merchantType,
-
-                        contact_name:
-                            form.contactName,
-
-                        phone:
-                            form.phone,
-
-                        service_area_id:
-                            form.serviceAreaId,
-
-                        address:
-                            form.address,
-
-                        longitude:
-                            form.longitude,
-
-                        latitude:
-                            form.latitude,
-
-                        coordinate_system:
-                            "BD09",
-
-                        bank_name:
-                            form.bankName,
-
-                        bank_account:
-                            form.bankAccount,
-
-                        tax_no:
-                            form.taxNo
-                    }
-                }
-            );
-
-
-        checkFunctionResult(
-            data,
-            error
-        );
-
-
-        showToast(
-            "商户资料已更新。",
-            "success"
-        );
-
-
-        closeModal(
-            "merchantModal"
-        );
-
-
-        await loadMerchants();
-
-    }
-    catch(error){
-
-        showToast(
-            error.message ||
-            "保存失败。",
-            "error"
-        );
-    }
-    finally{
-
-        button.disabled =
-            false;
-    }
-}
-
+/* =========================================================
+   READ MERCHANT
+========================================================= */
 
 function readMerchantForm(
     requireLogin
@@ -5815,27 +6253,9 @@ function readMerchantForm(
         );
 
 
-    const contactName =
-        value(
-            "merchantContact"
-        );
-
-
-    const phone =
-        value(
-            "merchantPhone"
-        );
-
-
     const serviceAreaId =
         numberValue(
             "merchantServiceArea"
-        );
-
-
-    const address =
-        value(
-            "merchantAddress"
         );
 
 
@@ -5852,36 +6272,24 @@ function readMerchantForm(
 
 
     const longitude =
-        longitudeText === ""
+        longitudeText ===
+        ""
         ?
         null
         :
-        Number(longitudeText);
+        Number(
+            longitudeText
+        );
 
 
     const latitude =
-        latitudeText === ""
+        latitudeText ===
+        ""
         ?
         null
         :
-        Number(latitudeText);
-
-
-    const bankName =
-        value(
-            "merchantBankName"
-        );
-
-
-    const bankAccount =
-        value(
-            "merchantBankAccount"
-        );
-
-
-    const taxNo =
-        value(
-            "merchantTaxNo"
+        Number(
+            latitudeText
         );
 
 
@@ -5905,7 +6313,9 @@ function readMerchantForm(
         "";
 
 
-    if(!merchantName){
+    if(
+        !merchantName
+    ){
 
         showToast(
             "请输入商户名称。",
@@ -5913,56 +6323,48 @@ function readMerchantForm(
         );
 
         return null;
+
     }
 
 
     if(
-        ![
-            "organization",
-            "individual"
-        ].includes(
-            merchantType
+        requireLogin
+        &&
+        !isEmail(
+            email
         )
     ){
 
         showToast(
-            "商户类型不正确。",
+            "请输入正确邮箱。",
             "error"
         );
 
         return null;
+
     }
 
 
     if(
-        requireLogin &&
-        !isEmail(email)
+        requireLogin
+        &&
+        password.length <
+        8
     ){
 
         showToast(
-            "请输入正确的商户登录邮箱。",
+            "密码至少8位。",
             "error"
         );
 
         return null;
+
     }
 
 
     if(
-        requireLogin &&
-        password.length < 8
+        !serviceAreaId
     ){
-
-        showToast(
-            "初始密码至少8位。",
-            "error"
-        );
-
-        return null;
-    }
-
-
-    if(!serviceAreaId){
 
         showToast(
             "请选择已开通服务区域。",
@@ -5970,6 +6372,7 @@ function readMerchantForm(
         );
 
         return null;
+
     }
 
 
@@ -5993,74 +6396,295 @@ function readMerchantForm(
         );
 
         return null;
-    }
 
-
-    if(
-        longitude !== null
-        &&
-        (
-            !Number.isFinite(
-                longitude
-            )
-            ||
-            longitude < -180
-            ||
-            longitude > 180
-        )
-    ){
-
-        showToast(
-            "经度必须在 -180 到 180 之间。",
-            "error"
-        );
-
-        return null;
-    }
-
-
-    if(
-        latitude !== null
-        &&
-        (
-            !Number.isFinite(
-                latitude
-            )
-            ||
-            latitude < -90
-            ||
-            latitude > 90
-        )
-    ){
-
-        showToast(
-            "纬度必须在 -90 到 90 之间。",
-            "error"
-        );
-
-        return null;
     }
 
 
     return {
+
         merchantName,
+
         merchantType,
+
         email,
+
         password,
-        contactName,
-        phone,
+
+        contactName:
+            value(
+                "merchantContact"
+            ),
+
+        phone:
+            value(
+                "merchantPhone"
+            ),
+
         serviceAreaId,
-        address,
+
+        address:
+            value(
+                "merchantAddress"
+            ),
+
         longitude,
+
         latitude,
-        bankName,
-        bankAccount,
-        taxNo
+
+        bankName:
+            value(
+                "merchantBankName"
+            ),
+
+        bankAccount:
+            value(
+                "merchantBankAccount"
+            ),
+
+        taxNo:
+            value(
+                "merchantTaxNo"
+            )
+
     };
+
 }
 
 
-async function invalidateMerchant(id){
+/* =========================================================
+   SAVE MERCHANT
+========================================================= */
+
+async function saveMerchant(){
+
+    if(
+        merchantMode ===
+        "edit"
+    ){
+
+        return updateMerchant();
+
+    }
+
+
+    const form =
+        readMerchantForm(
+            true
+        );
+
+
+    if(!form){
+
+        return;
+
+    }
+
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient.functions
+        .invoke(
+            "create-system-user",
+            {
+
+                body:{
+
+                    action:
+                        merchantMode ===
+                        "recreate"
+                        ?
+                        "recreate"
+                        :
+                        "create",
+
+                    account_type:
+                        "merchant",
+
+                    recreated_from:
+                        merchantRecreatedFrom,
+
+                    merchant_name:
+                        form.merchantName,
+
+                    merchant_type:
+                        form.merchantType,
+
+                    email:
+                        form.email,
+
+                    password:
+                        form.password,
+
+                    contact_name:
+                        form.contactName,
+
+                    phone:
+                        form.phone,
+
+                    service_area_id:
+                        form.serviceAreaId,
+
+                    address:
+                        form.address,
+
+                    longitude:
+                        form.longitude,
+
+                    latitude:
+                        form.latitude,
+
+                    coordinate_system:
+                        "BD09",
+
+                    bank_name:
+                        form.bankName,
+
+                    bank_account:
+                        form.bankAccount,
+
+                    tax_no:
+                        form.taxNo
+
+                }
+
+            }
+        );
+
+
+    checkFunctionResult(
+        data,
+        error
+    );
+
+
+    closeModal(
+        "merchantModal"
+    );
+
+
+    await loadMerchants();
+
+
+    showToast(
+        "商户保存成功。",
+        "success"
+    );
+
+}
+
+
+/* =========================================================
+   UPDATE MERCHANT
+========================================================= */
+
+async function updateMerchant(){
+
+    const form =
+        readMerchantForm(
+            false
+        );
+
+
+    if(!form){
+
+        return;
+
+    }
+
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient.functions
+        .invoke(
+            "create-system-user",
+            {
+
+                body:{
+
+                    action:
+                        "update",
+
+                    account_type:
+                        "merchant",
+
+                    record_id:
+                        editingMerchantId,
+
+                    merchant_name:
+                        form.merchantName,
+
+                    merchant_type:
+                        form.merchantType,
+
+                    contact_name:
+                        form.contactName,
+
+                    phone:
+                        form.phone,
+
+                    service_area_id:
+                        form.serviceAreaId,
+
+                    address:
+                        form.address,
+
+                    longitude:
+                        form.longitude,
+
+                    latitude:
+                        form.latitude,
+
+                    coordinate_system:
+                        "BD09",
+
+                    bank_name:
+                        form.bankName,
+
+                    bank_account:
+                        form.bankAccount,
+
+                    tax_no:
+                        form.taxNo
+
+                }
+
+            }
+        );
+
+
+    checkFunctionResult(
+        data,
+        error
+    );
+
+
+    closeModal(
+        "merchantModal"
+    );
+
+
+    await loadMerchants();
+
+
+    showToast(
+        "商户资料已更新。",
+        "success"
+    );
+
+}
+
+
+/* =========================================================
+   INVALIDATE MERCHANT
+========================================================= */
+
+async function invalidateMerchant(
+    id
+){
 
     const item =
         merchantList.find(
@@ -6071,71 +6695,115 @@ async function invalidateMerchant(id){
 
 
     if(!item){
+
         return;
+
     }
 
 
     if(
         !confirm(
-            `确定将“${item.merchant_name || "该商户"}”设为无效吗？\n\n一旦设为无效将不能恢复。如需重新合作，必须重新添加并生成新编号。`
+            `确定将“${item.merchant_name}”设为无效吗？`
         )
     ){
+
         return;
+
     }
 
 
-    try{
+    const {
+        data,
+        error
+    } =
+    await supabaseClient.functions
+        .invoke(
+            "create-system-user",
+            {
 
-        const {
-            data,
-            error
-        } =
-        await supabaseClient.functions
-            .invoke(
-                "create-system-user",
-                {
-                    body:{
-                        action:
-                            "invalidate",
+                body:{
 
-                        account_type:
-                            "merchant",
+                    action:
+                        "invalidate",
 
-                        record_id:
-                            item.id
-                    }
+                    account_type:
+                        "merchant",
+
+                    record_id:
+                        item.id
+
                 }
-            );
 
-
-        checkFunctionResult(
-            data,
-            error
+            }
         );
 
 
-        showToast(
-            "商户已经设为无效。",
-            "success"
-        );
+    checkFunctionResult(
+        data,
+        error
+    );
 
 
-        await loadMerchants();
+    await loadMerchants();
 
-    }
-    catch(error){
 
-        showToast(
-            error.message ||
-            "操作失败。",
-            "error"
-        );
-    }
+    showToast(
+        "商户已设为无效。",
+        "success"
+    );
+
 }
 
 
 /* =========================================================
-   健康顾问
+   CONSULTANT PREVIEW
+========================================================= */
+
+function updateConsultantPreview(){
+
+    const surname =
+        value(
+            "consultantSurname"
+        );
+
+
+    document.getElementById(
+        "consultantNamePreview"
+    ).textContent =
+        surname
+        ?
+        `${surname}老师`
+        :
+        "-";
+
+}
+
+
+/* =========================================================
+   CONSULTANT NUMBER DISPLAY
+========================================================= */
+
+function setConsultantNumberDisplay(
+    valueText,
+    hintText
+){
+
+    document.getElementById(
+        "consultantNumberDisplay"
+    ).textContent =
+        valueText;
+
+
+    document.getElementById(
+        "consultantNumberHint"
+    ).textContent =
+        hintText;
+
+}
+
+
+/* =========================================================
+   CONSULTANT OPEN CREATE
 ========================================================= */
 
 function openConsultantModal(){
@@ -6159,6 +6827,15 @@ function openConsultantModal(){
         "创建健康顾问";
 
 
+    setConsultantNumberDisplay(
+
+        "创建后自动生成",
+
+        "系统将自动生成新的健康顾问唯一编号。以后客户下订单选择推荐老师时，以这个编号作为唯一识别依据。"
+
+    );
+
+
     setLoginFields(
         "consultant",
         true
@@ -6174,10 +6851,17 @@ function openConsultantModal(){
     openModal(
         "consultantModal"
     );
+
 }
 
 
-function editConsultant(id){
+/* =========================================================
+   CONSULTANT EDIT
+========================================================= */
+
+function editConsultant(
+    id
+){
 
     const item =
         consultantList.find(
@@ -6188,7 +6872,9 @@ function editConsultant(id){
 
 
     if(!item){
+
         return;
+
     }
 
 
@@ -6208,33 +6894,54 @@ function editConsultant(id){
     document.getElementById(
         "consultantModalTitle"
     ).textContent =
-        `编辑健康顾问 ${formatAccountNo(item.consultant_no)}`;
+        `编辑健康顾问`;
+
+
+    setConsultantNumberDisplay(
+
+        formatAccountNo(
+            item.consultant_no
+        ),
+
+        "该系统编号永久绑定此健康顾问记录，不允许修改。以后订单中的老师推荐选择也使用这个编号。"
+
+    );
 
 
     setValue(
-        "consultantName",
-        item.consultant_name
+        "consultantSurname",
+        consultantSurnameValue(
+            item
+        )
     );
+
+
+    updateConsultantPreview();
+
 
     setValue(
         "consultantPhone",
         item.phone
     );
 
+
     setValue(
         "consultantIndividualBusinessName",
         item.individual_business_name
     );
+
 
     setValue(
         "consultantBankName",
         item.bank_name
     );
 
+
     setValue(
         "consultantBankAccount",
         item.bank_account
     );
+
 
     setValue(
         "consultantTaxNo",
@@ -6243,8 +6950,11 @@ function editConsultant(id){
 
 
     fillServiceAreaSelect(
+
         "consultantServiceArea",
+
         item.service_area_id
+
     );
 
 
@@ -6263,10 +6973,17 @@ function editConsultant(id){
     openModal(
         "consultantModal"
     );
+
 }
 
 
-function recreateConsultant(id){
+/* =========================================================
+   CONSULTANT RECREATE
+========================================================= */
+
+function recreateConsultant(
+    id
+){
 
     const item =
         consultantList.find(
@@ -6277,7 +6994,9 @@ function recreateConsultant(id){
 
 
     if(!item){
+
         return;
+
     }
 
 
@@ -6297,33 +7016,52 @@ function recreateConsultant(id){
     document.getElementById(
         "consultantModalTitle"
     ).textContent =
-        `重新添加健康顾问 ${formatAccountNo(item.consultant_no)}`;
+        "重新添加健康顾问";
+
+
+    setConsultantNumberDisplay(
+
+        `原编号 ${formatAccountNo(item.consultant_no)}`,
+
+        "重新添加会生成新的健康顾问系统编号，原编号永久保留为历史编号，不会重新启用。"
+
+    );
 
 
     setValue(
-        "consultantName",
-        item.consultant_name
+        "consultantSurname",
+        consultantSurnameValue(
+            item
+        )
     );
+
+
+    updateConsultantPreview();
+
 
     setValue(
         "consultantPhone",
         item.phone
     );
 
+
     setValue(
         "consultantIndividualBusinessName",
         item.individual_business_name
     );
+
 
     setValue(
         "consultantBankName",
         item.bank_name
     );
 
+
     setValue(
         "consultantBankAccount",
         item.bank_account
     );
+
 
     setValue(
         "consultantTaxNo",
@@ -6332,8 +7070,11 @@ function recreateConsultant(id){
 
 
     fillServiceAreaSelect(
+
         "consultantServiceArea",
+
         item.service_area_id
+
     );
 
 
@@ -6346,14 +7087,194 @@ function recreateConsultant(id){
     document.getElementById(
         "saveConsultantButton"
     ).textContent =
-        "生成新记录";
+        "创建新编号";
 
 
     openModal(
         "consultantModal"
     );
+
 }
 
+
+/* =========================================================
+   READ CONSULTANT
+========================================================= */
+
+function readConsultantForm(
+    requireLogin
+){
+
+    const surname =
+        value(
+            "consultantSurname"
+        );
+
+
+    const phone =
+        value(
+            "consultantPhone"
+        );
+
+
+    const serviceAreaId =
+        numberValue(
+            "consultantServiceArea"
+        );
+
+
+    const email =
+        requireLogin
+        ?
+        value(
+            "consultantEmail"
+        ).toLowerCase()
+        :
+        "";
+
+
+    const password =
+        requireLogin
+        ?
+        document.getElementById(
+            "consultantPassword"
+        ).value
+        :
+        "";
+
+
+    if(
+        !surname
+    ){
+
+        showToast(
+            "请输入健康顾问姓氏。",
+            "error"
+        );
+
+        return null;
+
+    }
+
+
+    if(
+        surname.length >
+        4
+    ){
+
+        showToast(
+            "健康顾问姓氏最多4个字符。",
+            "error"
+        );
+
+        return null;
+
+    }
+
+
+    if(
+        !phone
+    ){
+
+        showToast(
+            "请输入健康顾问联系电话。",
+            "error"
+        );
+
+        return null;
+
+    }
+
+
+    if(
+        !serviceAreaId
+    ){
+
+        showToast(
+            "请选择已开通服务区域。",
+            "error"
+        );
+
+        return null;
+
+    }
+
+
+    if(
+        requireLogin
+        &&
+        !isEmail(
+            email
+        )
+    ){
+
+        showToast(
+            "请输入正确登录邮箱。",
+            "error"
+        );
+
+        return null;
+
+    }
+
+
+    if(
+        requireLogin
+        &&
+        password.length <
+        8
+    ){
+
+        showToast(
+            "密码至少8位。",
+            "error"
+        );
+
+        return null;
+
+    }
+
+
+    return {
+
+        surname,
+
+        email,
+
+        password,
+
+        phone,
+
+        serviceAreaId,
+
+        businessName:
+            value(
+                "consultantIndividualBusinessName"
+            ),
+
+        bankName:
+            value(
+                "consultantBankName"
+            ),
+
+        bankAccount:
+            value(
+                "consultantBankAccount"
+            ),
+
+        taxNo:
+            value(
+                "consultantTaxNo"
+            )
+
+    };
+
+}
+
+
+/* =========================================================
+   SAVE CONSULTANT
+========================================================= */
 
 async function saveConsultant(){
 
@@ -6363,6 +7284,7 @@ async function saveConsultant(){
     ){
 
         return updateConsultant();
+
     }
 
 
@@ -6373,8 +7295,20 @@ async function saveConsultant(){
 
 
     if(!form){
+
         return;
+
     }
+
+
+    const button =
+        document.getElementById(
+            "saveConsultantButton"
+        );
+
+
+    button.disabled =
+        true;
 
 
     try{
@@ -6387,7 +7321,9 @@ async function saveConsultant(){
             .invoke(
                 "create-system-user",
                 {
+
                     body:{
+
                         action:
                             consultantMode ===
                             "recreate"
@@ -6402,8 +7338,8 @@ async function saveConsultant(){
                         recreated_from:
                             consultantRecreatedFrom,
 
-                        consultant_name:
-                            form.name,
+                        consultant_surname:
+                            form.surname,
 
                         email:
                             form.email,
@@ -6428,7 +7364,9 @@ async function saveConsultant(){
 
                         tax_no:
                             form.taxNo
+
                     }
+
                 }
             );
 
@@ -6439,15 +7377,10 @@ async function saveConsultant(){
         );
 
 
-        showToast(
-            consultantMode ===
-            "recreate"
-            ?
-            "新的健康顾问记录已创建。"
-            :
-            "健康顾问账号创建成功。",
-            "success"
-        );
+        const newNo =
+            data?.account_no
+            ??
+            data?.consultant?.consultant_no;
 
 
         closeModal(
@@ -6457,7 +7390,21 @@ async function saveConsultant(){
 
         await loadConsultants();
 
+
+        showToast(
+
+            newNo
+            ?
+            `健康顾问创建成功。系统唯一编号：${formatAccountNo(newNo)}`
+            :
+            "健康顾问创建成功。",
+
+            "success"
+
+        );
+
     }
+
     catch(error){
 
         showToast(
@@ -6465,9 +7412,22 @@ async function saveConsultant(){
             "健康顾问创建失败。",
             "error"
         );
+
     }
+
+    finally{
+
+        button.disabled =
+            false;
+
+    }
+
 }
 
+
+/* =========================================================
+   UPDATE CONSULTANT
+========================================================= */
 
 async function updateConsultant(){
 
@@ -6478,8 +7438,18 @@ async function updateConsultant(){
 
 
     if(!form){
+
         return;
+
     }
+
+
+    const current =
+        consultantList.find(
+            x=>
+                String(x.id) ===
+                String(editingConsultantId)
+        );
 
 
     try{
@@ -6492,7 +7462,9 @@ async function updateConsultant(){
             .invoke(
                 "create-system-user",
                 {
+
                     body:{
+
                         action:
                             "update",
 
@@ -6502,8 +7474,8 @@ async function updateConsultant(){
                         record_id:
                             editingConsultantId,
 
-                        consultant_name:
-                            form.name,
+                        consultant_surname:
+                            form.surname,
 
                         phone:
                             form.phone,
@@ -6522,7 +7494,9 @@ async function updateConsultant(){
 
                         tax_no:
                             form.taxNo
+
                     }
+
                 }
             );
 
@@ -6530,12 +7504,6 @@ async function updateConsultant(){
         checkFunctionResult(
             data,
             error
-        );
-
-
-        showToast(
-            "健康顾问资料已更新。",
-            "success"
         );
 
 
@@ -6546,7 +7514,17 @@ async function updateConsultant(){
 
         await loadConsultants();
 
+
+        showToast(
+
+            `健康顾问资料已更新。系统编号：${formatAccountNo(current?.consultant_no)}`,
+
+            "success"
+
+        );
+
     }
+
     catch(error){
 
         showToast(
@@ -6554,152 +7532,19 @@ async function updateConsultant(){
             "保存失败。",
             "error"
         );
+
     }
+
 }
 
 
-function readConsultantForm(
-    requireLogin
+/* =========================================================
+   INVALIDATE CONSULTANT
+========================================================= */
+
+async function invalidateConsultant(
+    id
 ){
-
-    const name =
-        value(
-            "consultantName"
-        );
-
-
-    const phone =
-        value(
-            "consultantPhone"
-        );
-
-
-    const serviceAreaId =
-        numberValue(
-            "consultantServiceArea"
-        );
-
-
-    const businessName =
-        value(
-            "consultantIndividualBusinessName"
-        );
-
-
-    const bankName =
-        value(
-            "consultantBankName"
-        );
-
-
-    const bankAccount =
-        value(
-            "consultantBankAccount"
-        );
-
-
-    const taxNo =
-        value(
-            "consultantTaxNo"
-        );
-
-
-    const email =
-        requireLogin
-        ?
-        value(
-            "consultantEmail"
-        ).toLowerCase()
-        :
-        "";
-
-
-    const password =
-        requireLogin
-        ?
-        document.getElementById(
-            "consultantPassword"
-        ).value
-        :
-        "";
-
-
-    if(!name){
-
-        showToast(
-            "请输入健康顾问姓名。",
-            "error"
-        );
-
-        return null;
-    }
-
-
-    if(!phone){
-
-        showToast(
-            "请输入健康顾问联系电话。",
-            "error"
-        );
-
-        return null;
-    }
-
-
-    if(!serviceAreaId){
-
-        showToast(
-            "请选择已开通服务区域。",
-            "error"
-        );
-
-        return null;
-    }
-
-
-    if(
-        requireLogin &&
-        !isEmail(email)
-    ){
-
-        showToast(
-            "请输入正确的健康顾问登录邮箱。",
-            "error"
-        );
-
-        return null;
-    }
-
-
-    if(
-        requireLogin &&
-        password.length < 8
-    ){
-
-        showToast(
-            "初始密码至少8位。",
-            "error"
-        );
-
-        return null;
-    }
-
-
-    return {
-        name,
-        email,
-        password,
-        phone,
-        serviceAreaId,
-        businessName,
-        bankName,
-        bankAccount,
-        taxNo
-    };
-}
-
-
-async function invalidateConsultant(id){
 
     const item =
         consultantList.find(
@@ -6710,71 +7555,71 @@ async function invalidateConsultant(id){
 
 
     if(!item){
+
         return;
+
     }
 
 
     if(
         !confirm(
-            `确定将“${item.consultant_name || "该健康顾问"}”设为无效吗？\n\n一旦设为无效将不能恢复。`
+            `确定将健康顾问“${consultantPublicName(item)}”设为无效吗？\n\n系统编号：${formatAccountNo(item.consultant_no)}\n\n该编号以后不能恢复使用。`
         )
     ){
+
         return;
+
     }
 
 
-    try{
+    const {
+        data,
+        error
+    } =
+    await supabaseClient.functions
+        .invoke(
+            "create-system-user",
+            {
 
-        const {
-            data,
-            error
-        } =
-        await supabaseClient.functions
-            .invoke(
-                "create-system-user",
-                {
-                    body:{
-                        action:
-                            "invalidate",
+                body:{
 
-                        account_type:
-                            "health_consultant",
+                    action:
+                        "invalidate",
 
-                        record_id:
-                            item.id
-                    }
+                    account_type:
+                        "health_consultant",
+
+                    record_id:
+                        item.id
+
                 }
-            );
 
-
-        checkFunctionResult(
-            data,
-            error
+            }
         );
 
 
-        showToast(
-            "健康顾问已设为无效。",
-            "success"
-        );
+    checkFunctionResult(
+        data,
+        error
+    );
 
 
-        await loadConsultants();
+    await loadConsultants();
 
-    }
-    catch(error){
 
-        showToast(
-            error.message ||
-            "操作失败。",
-            "error"
-        );
-    }
+    showToast(
+
+        `系统编号 ${formatAccountNo(item.consultant_no)} 已设为无效。`,
+
+        "success"
+
+    );
+
 }
 
 
 /* =========================================================
-   管理员省市区联动
+   STAFF REGION LINK
 ========================================================= */
 
 function staffRoleChanged(){
@@ -6816,6 +7661,7 @@ function staffRoleChanged(){
         ).classList.remove(
             "hidden"
         );
+
     }
 
 
@@ -6843,7 +7689,9 @@ function staffRoleChanged(){
         ).classList.remove(
             "hidden"
         );
+
     }
+
 }
 
 
@@ -6856,7 +7704,11 @@ function fillStaffProvinceSelect(){
 
 
     select.innerHTML =
-        `<option value="">请选择省份</option>`;
+        `
+        <option value="">
+            请选择省份
+        </option>
+        `;
 
 
     provinces.forEach(
@@ -6872,6 +7724,7 @@ function fillStaffProvinceSelect(){
                 </option>
                 `
             );
+
         }
     );
 
@@ -6879,13 +7732,22 @@ function fillStaffProvinceSelect(){
     document.getElementById(
         "staffCity"
     ).innerHTML =
-        `<option value="">请选择城市</option>`;
+        `
+        <option value="">
+            请选择城市
+        </option>
+        `;
 
 
     document.getElementById(
         "staffDistrict"
     ).innerHTML =
-        `<option value="">全市 / 不指定区县</option>`;
+        `
+        <option value="">
+            全市 / 不指定区县
+        </option>
+        `;
+
 }
 
 
@@ -6904,41 +7766,53 @@ function staffProvinceChanged(){
 
 
     select.innerHTML =
-        `<option value="">请选择城市</option>`;
+        `
+        <option value="">
+            请选择城市
+        </option>
+        `;
 
 
     cities
-        .filter(
-            x=>
-                String(
-                    x.province_id
-                )
-                ===
-                String(
-                    provinceId
-                )
-        )
-        .forEach(
-            item=>{
 
-                select.insertAdjacentHTML(
-                    "beforeend",
-                    `
-                    <option value="${item.id}">
-                        ${escapeHtml(
-                            item.city_name
-                        )}
-                    </option>
-                    `
-                );
-            }
-        );
+    .filter(
+        x=>
+            String(
+                x.province_id
+            )
+            ===
+            String(
+                provinceId
+            )
+    )
+
+    .forEach(
+        item=>{
+
+            select.insertAdjacentHTML(
+                "beforeend",
+                `
+                <option value="${item.id}">
+                    ${escapeHtml(
+                        item.city_name
+                    )}
+                </option>
+                `
+            );
+
+        }
+    );
 
 
     document.getElementById(
         "staffDistrict"
     ).innerHTML =
-        `<option value="">全市 / 不指定区县</option>`;
+        `
+        <option value="">
+            全市 / 不指定区县
+        </option>
+        `;
+
 }
 
 
@@ -6957,40 +7831,48 @@ function staffCityChanged(){
 
 
     select.innerHTML =
-        `<option value="">全市 / 不指定区县</option>`;
+        `
+        <option value="">
+            全市 / 不指定区县
+        </option>
+        `;
 
 
     districts
-        .filter(
-            x=>
-                String(
-                    x.city_id
-                )
-                ===
-                String(
-                    cityId
-                )
-        )
-        .forEach(
-            item=>{
 
-                select.insertAdjacentHTML(
-                    "beforeend",
-                    `
-                    <option value="${item.id}">
-                        ${escapeHtml(
-                            item.district_name
-                        )}
-                    </option>
-                    `
-                );
-            }
-        );
+    .filter(
+        x=>
+            String(
+                x.city_id
+            )
+            ===
+            String(
+                cityId
+            )
+    )
+
+    .forEach(
+        item=>{
+
+            select.insertAdjacentHTML(
+                "beforeend",
+                `
+                <option value="${item.id}">
+                    ${escapeHtml(
+                        item.district_name
+                    )}
+                </option>
+                `
+            );
+
+        }
+    );
+
 }
 
 
 /* =========================================================
-   Reset
+   RESET FORMS
 ========================================================= */
 
 function resetStaffForm(){
@@ -7019,6 +7901,7 @@ function resetStaffForm(){
     fillStaffProvinceSelect();
 
     staffRoleChanged();
+
 }
 
 
@@ -7093,13 +7976,14 @@ function resetMerchantForm(){
     fillServiceAreaSelect(
         "merchantServiceArea"
     );
+
 }
 
 
 function resetConsultantForm(){
 
     setValue(
-        "consultantName",
+        "consultantSurname",
         ""
     );
 
@@ -7142,32 +8026,46 @@ function resetConsultantForm(){
     fillServiceAreaSelect(
         "consultantServiceArea"
     );
+
+
+    updateConsultantPreview();
+
 }
 
 
 /* =========================================================
-   Modal / Login Field
+   MODAL
 ========================================================= */
 
-function openModal(id){
+function openModal(
+    id
+){
 
     document.getElementById(
         id
     ).classList.add(
         "show"
     );
+
 }
 
 
-function closeModal(id){
+function closeModal(
+    id
+){
 
     document.getElementById(
         id
     ).classList.remove(
         "show"
     );
+
 }
 
+
+/* =========================================================
+   LOGIN FIELDS
+========================================================= */
 
 function setLoginFields(
     type,
@@ -7202,14 +8100,17 @@ function setLoginFields(
         "hidden",
         !visible
     );
+
 }
 
 
 /* =========================================================
-   Helpers
+   HELPERS
 ========================================================= */
 
-function value(id){
+function value(
+    id
+){
 
     return (
         document.getElementById(
@@ -7218,12 +8119,13 @@ function value(id){
         ??
         ""
     ).trim();
+
 }
 
 
 function setValue(
     id,
-    value
+    newValue
 ){
 
     const element =
@@ -7235,32 +8137,48 @@ function setValue(
     if(element){
 
         element.value =
-            value ??
+            newValue ??
             "";
+
     }
+
 }
 
 
-function numberValue(id){
+function numberValue(
+    id
+){
 
     const text =
-        value(id);
+        value(
+            id
+        );
 
 
-    if(text === ""){
+    if(
+        text ===
+        ""
+    ){
+
         return null;
+
     }
 
 
-    const n =
-        Number(text);
+    const number =
+        Number(
+            text
+        );
 
 
-    return Number.isFinite(n)
-        ?
-        n
-        :
-        null;
+    return Number.isFinite(
+        number
+    )
+    ?
+    number
+    :
+    null;
+
 }
 
 
@@ -7270,7 +8188,9 @@ function checkFunctionResult(
 ){
 
     if(error){
+
         throw error;
+
     }
 
 
@@ -7281,45 +8201,71 @@ function checkFunctionResult(
         throw new Error(
             data.error
         );
+
     }
+
 }
 
 
-function formatAccountNo(value){
+function formatAccountNo(
+    value
+){
 
     if(
-        value === null ||
-        value === undefined ||
+        value === null
+        ||
+        value === undefined
+        ||
         value === ""
     ){
+
         return "-";
+
     }
 
 
-    return String(value)
-        .padStart(
-            3,
-            "0"
-        );
+    return String(
+        value
+    ).padStart(
+        3,
+        "0"
+    );
+
 }
 
 
-function roleText(role){
+function roleText(
+    role
+){
 
     const map = {
-        founder:"创始人",
-        platform_admin:"平台管理员",
-        platform_staff:"平台员工",
-        province_admin:"省管理员",
-        city_admin:"市管理员"
+
+        founder:
+            "创始人",
+
+        platform_admin:
+            "平台管理员",
+
+        platform_staff:
+            "平台员工",
+
+        province_admin:
+            "省管理员",
+
+        city_admin:
+            "市管理员"
+
     };
 
 
     return map[role] || role;
+
 }
 
 
-function roleBadge(role){
+function roleBadge(
+    role
+){
 
     let className =
         "badge-admin";
@@ -7329,8 +8275,10 @@ function roleBadge(role){
         role ===
         "founder"
     ){
+
         className =
             "badge-founder";
+
     }
 
 
@@ -7338,8 +8286,10 @@ function roleBadge(role){
         role ===
         "province_admin"
     ){
+
         className =
             "badge-province";
+
     }
 
 
@@ -7347,22 +8297,29 @@ function roleBadge(role){
         role ===
         "city_admin"
     ){
+
         className =
             "badge-city";
+
     }
 
 
     return `
         <span class="badge ${className}">
             ${escapeHtml(
-                roleText(role)
+                roleText(
+                    role
+                )
             )}
         </span>
     `;
+
 }
 
 
-function statusBadge(status){
+function statusBadge(
+    status
+){
 
     return `
         <span
@@ -7378,48 +8335,88 @@ function statusBadge(status){
                 }
             "
         >
-            ${statusText(status)}
+            ${statusText(
+                status
+            )}
         </span>
     `;
+
 }
 
 
-function statusText(status){
+function statusText(
+    status
+){
 
     return {
-        active:"正常",
-        inactive:"无效",
-        suspended:"停用"
-    }[status] || status;
+
+        active:
+            "正常",
+
+        inactive:
+            "无效",
+
+        suspended:
+            "停用"
+
+    }[status]
+    ||
+    status;
+
 }
 
 
-function merchantTypeText(type){
+function merchantTypeText(
+    type
+){
 
-    return type ===
+    return (
+        type ===
         "individual"
         ?
         "个体户"
         :
-        "机构";
+        "机构"
+    );
+
 }
 
 
-function certificationText(value){
+function certificationText(
+    state
+){
 
     return {
-        pending:"待认证",
-        approved:"已认证",
-        rejected:"未通过",
-        suspended:"已暂停"
-    }[value] || value || "-";
+
+        pending:
+            "待认证",
+
+        approved:
+            "已认证",
+
+        rejected:
+            "未通过",
+
+        suspended:
+            "已暂停"
+
+    }[state]
+    ||
+    state
+    ||
+    "-";
+
 }
 
 
-function provinceName(id){
+function provinceName(
+    id
+){
 
     if(!id){
+
         return "-";
+
     }
 
 
@@ -7432,13 +8429,18 @@ function provinceName(id){
         ||
         "-"
     );
+
 }
 
 
-function cityName(id){
+function cityName(
+    id
+){
 
     if(!id){
+
         return "-";
+
     }
 
 
@@ -7451,13 +8453,18 @@ function cityName(id){
         ||
         "-"
     );
+
 }
 
 
-function districtName(id){
+function districtName(
+    id
+){
 
     if(!id){
+
         return "-";
+
     }
 
 
@@ -7470,6 +8477,7 @@ function districtName(id){
         ||
         "-"
     );
+
 }
 
 
@@ -7487,11 +8495,14 @@ function staffProvinceText(
             role
         )
     ){
+
         return "全国";
+
     }
 
 
     return province || "-";
+
 }
 
 
@@ -7508,7 +8519,9 @@ function staffCityText(
             role
         )
     ){
+
         return "全国";
+
     }
 
 
@@ -7516,7 +8529,9 @@ function staffCityText(
         role ===
         "platform_staff"
     ){
+
         return "按页面权限";
+
     }
 
 
@@ -7524,11 +8539,14 @@ function staffCityText(
         role ===
         "province_admin"
     ){
+
         return "本省全部城市";
+
     }
 
 
     return city || "-";
+
 }
 
 
@@ -7547,22 +8565,32 @@ function staffDistrictText(
             role
         )
     ){
+
         return "-";
+
     }
 
 
     return district || "全市";
+
 }
 
 
-function isEmail(value){
+function isEmail(
+    email
+){
 
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        .test(value);
+        .test(
+            email
+        );
+
 }
 
 
-function escapeHtml(value){
+function escapeHtml(
+    value
+){
 
     return String(
         value ?? ""
@@ -7587,11 +8615,12 @@ function escapeHtml(value){
         /'/g,
         "&#039;"
     );
+
 }
 
 
 /* =========================================================
-   Toast
+   TOAST
 ========================================================= */
 
 let toastTimer;
@@ -7599,7 +8628,7 @@ let toastTimer;
 
 function showToast(
     text,
-    type="info"
+    type = "info"
 ){
 
     const toast =
@@ -7629,19 +8658,21 @@ function showToast(
                     "toast";
 
             },
-            3500
+            4500
         );
+
 }
 
 
 /* =========================================================
-   Home / Logout
+   HOME / LOGOUT
 ========================================================= */
 
 function goHome(){
 
     location.href =
         HOME_PAGE;
+
 }
 
 
@@ -7652,7 +8683,9 @@ async function logout(){
             "确定退出登录吗？"
         )
     ){
+
         return;
+
     }
 
 
@@ -7663,11 +8696,12 @@ async function logout(){
     location.replace(
         LOGIN_PAGE
     );
+
 }
 
 
 /* =========================================================
-   10分钟自动退出
+   10 MIN IDLE
 ========================================================= */
 
 let idleTimer;
@@ -7698,9 +8732,9 @@ function resetIdle(){
                 );
 
             },
-
             10 * 60 * 1000
         );
+
 }
 
 
@@ -7721,12 +8755,13 @@ function resetIdle(){
                 passive:true
             }
         );
+
     }
 );
 
 
 /* =========================================================
-   Start
+   START
 ========================================================= */
 
 document.addEventListener(
@@ -7736,10 +8771,12 @@ document.addEventListener(
         resetIdle();
 
         initialize();
+
     }
 );
 
 </script>
+
 
 </body>
 </html>

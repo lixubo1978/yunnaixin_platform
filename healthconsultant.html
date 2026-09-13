@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 
@@ -23,16 +22,16 @@
 <style>
 
 * {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
 }
 
 html,
 body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    min-height: 100%;
+    margin:0;
+    padding:0;
+    width:100%;
+    min-height:100%;
 }
 
 body {
@@ -54,26 +53,35 @@ body {
             #f7f8fa 100%
         );
 
-    color: #252525;
+    color:#252525;
 
-    min-height: 100vh;
-    min-height: 100dvh;
+    min-height:100vh;
+    min-height:100dvh;
+}
+
+button,
+select {
+    font:inherit;
 }
 
 button {
-    font: inherit;
-    cursor: pointer;
+    cursor:pointer;
+}
+
+.hidden {
+    display:none !important;
 }
 
 .page {
-    width: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
+    width:100%;
+    max-width:1100px;
+
+    margin:0 auto;
 
     padding:
-        max(16px, env(safe-area-inset-top))
+        max(16px,env(safe-area-inset-top))
         16px
-        max(28px, env(safe-area-inset-bottom));
+        max(28px,env(safe-area-inset-bottom));
 }
 
 
@@ -82,34 +90,35 @@ button {
 ===================================================== */
 
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 
-    gap: 12px;
+    gap:12px;
 
-    margin-bottom: 20px;
+    margin-bottom:20px;
 }
 
 .brand {
-    display: flex;
-    align-items: center;
-    gap: 11px;
+    display:flex;
+    align-items:center;
 
-    min-width: 0;
+    gap:11px;
+
+    min-width:0;
 }
 
 .logo {
-    width: 48px;
-    height: 48px;
+    width:48px;
+    height:48px;
 
-    flex: 0 0 48px;
+    flex:0 0 48px;
 
-    border-radius: 14px;
+    border-radius:14px;
 
-    object-fit: contain;
+    object-fit:contain;
 
-    background: #ffffff;
+    background:#ffffff;
 
     box-shadow:
         0 5px 18px
@@ -117,47 +126,63 @@ button {
 }
 
 .brand-text {
-    min-width: 0;
+    min-width:0;
 }
 
 .brand-title {
-    margin: 0;
+    margin:0;
 
-    font-size: 20px;
-    line-height: 1.3;
+    font-size:20px;
+    line-height:1.3;
 
-    font-weight: 700;
+    font-weight:700;
 
-    white-space: nowrap;
+    white-space:nowrap;
 }
 
 .brand-subtitle {
-    margin-top: 3px;
+    margin-top:3px;
 
-    font-size: 12px;
+    font-size:12px;
 
-    color: #999999;
+    color:#999999;
+}
+
+.header-actions {
+    display:flex;
+    align-items:center;
+
+    gap:8px;
+}
+
+.back-button,
+.logout-button {
+    min-height:44px;
+
+    padding:0 14px;
+
+    border-radius:12px;
+
+    font-size:13px;
+    font-weight:600;
+
+    flex-shrink:0;
+}
+
+.back-button {
+    border:1px solid #eadde2;
+
+    background:#fff7fa;
+
+    color:#a54d70;
 }
 
 .logout-button {
-    min-height: 44px;
+    border:1px solid #e1e1e3;
 
-    padding: 0 16px;
+    background:#ffffff;
 
-    border:
-        1px solid
-        #e1e1e3;
-
-    border-radius: 12px;
-
-    background: #ffffff;
-
-    color: #555555;
-
-    font-size: 14px;
-    font-weight: 600;
-
-    flex-shrink: 0;
+    color:#555555;
 }
 
 
@@ -173,15 +198,13 @@ button {
             #fff8fa
         );
 
-    border:
-        1px solid
-        #f6dce6;
+    border:1px solid #f6dce6;
 
-    border-radius: 22px;
+    border-radius:22px;
 
-    padding: 22px;
+    padding:22px;
 
-    margin-bottom: 18px;
+    margin-bottom:18px;
 
     box-shadow:
         0 8px 28px
@@ -189,30 +212,87 @@ button {
 }
 
 .welcome-small {
-    font-size: 13px;
-    color: #a16a7c;
+    font-size:13px;
 
-    margin-bottom: 7px;
+    color:#a16a7c;
+
+    margin-bottom:7px;
 }
 
 .welcome-name {
-    margin: 0;
+    margin:0;
 
-    font-size: 26px;
-    line-height: 1.3;
+    font-size:26px;
+    line-height:1.3;
 
-    font-weight: 750;
+    font-weight:750;
 
-    color: #35292d;
+    color:#35292d;
 }
 
 .welcome-desc {
-    margin-top: 8px;
+    margin-top:8px;
 
-    font-size: 14px;
-    line-height: 1.65;
+    font-size:14px;
+    line-height:1.65;
 
-    color: #7f6d73;
+    color:#7f6d73;
+}
+
+
+/* =====================================================
+   创始人选择区
+===================================================== */
+
+.founder-panel {
+    margin-bottom:18px;
+
+    padding:18px;
+
+    background:#ffffff;
+
+    border:1px solid #eeeeef;
+
+    border-radius:18px;
+
+    box-shadow:
+        0 5px 18px
+        rgba(0,0,0,.035);
+}
+
+.founder-panel-title {
+    margin-bottom:7px;
+
+    font-size:16px;
+    font-weight:700;
+
+    color:#333333;
+}
+
+.founder-panel-desc {
+    margin-bottom:12px;
+
+    font-size:12px;
+    line-height:1.6;
+
+    color:#999999;
+}
+
+.select {
+    width:100%;
+    min-height:50px;
+
+    padding:0 13px;
+
+    border:1px solid #e0dadd;
+
+    border-radius:12px;
+
+    background:#ffffff;
+
+    color:#333333;
+
+    outline:none;
 }
 
 
@@ -221,26 +301,24 @@ button {
 ===================================================== */
 
 .info-grid {
-    display: grid;
+    display:grid;
 
     grid-template-columns:
-        repeat(3, 1fr);
+        repeat(3,1fr);
 
-    gap: 12px;
+    gap:12px;
 
-    margin-bottom: 22px;
+    margin-bottom:22px;
 }
 
 .info-card {
-    background: #ffffff;
+    background:#ffffff;
 
-    border:
-        1px solid
-        #eeeeef;
+    border:1px solid #eeeeef;
 
-    border-radius: 17px;
+    border-radius:17px;
 
-    padding: 16px;
+    padding:16px;
 
     box-shadow:
         0 5px 18px
@@ -248,22 +326,22 @@ button {
 }
 
 .info-label {
-    font-size: 12px;
+    font-size:12px;
 
-    color: #999999;
+    color:#999999;
 
-    margin-bottom: 7px;
+    margin-bottom:7px;
 }
 
 .info-value {
-    font-size: 16px;
-    line-height: 1.4;
+    font-size:16px;
+    line-height:1.4;
 
-    font-weight: 700;
+    font-weight:700;
 
-    color: #333333;
+    color:#333333;
 
-    word-break: break-word;
+    word-break:break-word;
 }
 
 
@@ -272,12 +350,12 @@ button {
 ===================================================== */
 
 .section-header {
-    display: flex;
+    display:flex;
 
-    align-items: flex-end;
-    justify-content: space-between;
+    align-items:flex-end;
+    justify-content:space-between;
 
-    gap: 12px;
+    gap:12px;
 
     margin:
         4px
@@ -286,35 +364,35 @@ button {
 }
 
 .section-title {
-    margin: 0;
+    margin:0;
 
-    font-size: 20px;
+    font-size:20px;
 
-    font-weight: 750;
+    font-weight:750;
 }
 
 .section-desc {
-    margin-top: 5px;
+    margin-top:5px;
 
-    font-size: 13px;
+    font-size:13px;
 
-    color: #999999;
+    color:#999999;
 }
 
 .project-count {
-    font-size: 13px;
+    font-size:13px;
 
-    color: #a56a7d;
+    color:#a56a7d;
 
-    background: #fff0f5;
+    background:#fff0f5;
 
     padding:
         7px
         11px;
 
-    border-radius: 999px;
+    border-radius:999px;
 
-    white-space: nowrap;
+    white-space:nowrap;
 }
 
 
@@ -323,15 +401,13 @@ button {
 ===================================================== */
 
 .table-card {
-    background: #ffffff;
+    background:#ffffff;
 
-    border:
-        1px solid
-        #eeeeef;
+    border:1px solid #eeeeef;
 
-    border-radius: 18px;
+    border-radius:18px;
 
-    overflow: hidden;
+    overflow:hidden;
 
     box-shadow:
         0 6px 22px
@@ -339,21 +415,21 @@ button {
 }
 
 .table-wrap {
-    width: 100%;
+    width:100%;
 
-    overflow-x: auto;
+    overflow-x:auto;
 }
 
 table {
-    width: 100%;
+    width:100%;
 
-    min-width: 760px;
+    min-width:760px;
 
-    border-collapse: collapse;
+    border-collapse:collapse;
 }
 
 thead {
-    background: #fafafa;
+    background:#fafafa;
 }
 
 th {
@@ -361,19 +437,19 @@ th {
         14px
         15px;
 
-    text-align: left;
+    text-align:left;
 
-    font-size: 13px;
+    font-size:13px;
 
-    font-weight: 650;
+    font-weight:650;
 
-    color: #777777;
+    color:#777777;
 
     border-bottom:
         1px solid
         #eeeeef;
 
-    white-space: nowrap;
+    white-space:nowrap;
 }
 
 td {
@@ -381,64 +457,64 @@ td {
         16px
         15px;
 
-    font-size: 14px;
+    font-size:14px;
 
-    color: #444444;
+    color:#444444;
 
     border-bottom:
         1px solid
         #f1f1f2;
 
-    vertical-align: middle;
+    vertical-align:middle;
 }
 
 tbody tr:last-child td {
-    border-bottom: 0;
+    border-bottom:0;
 }
 
 .project-name {
-    font-weight: 700;
+    font-weight:700;
 
-    color: #333333;
+    color:#333333;
 }
 
 .project-code {
-    margin-top: 4px;
+    margin-top:4px;
 
-    font-size: 12px;
+    font-size:12px;
 
-    color: #aaaaaa;
+    color:#aaaaaa;
 }
 
 .price-value {
-    font-weight: 650;
+    font-weight:650;
 }
 
 .ratio-badge {
-    display: inline-flex;
+    display:inline-flex;
 
-    align-items: center;
-    justify-content: center;
+    align-items:center;
+    justify-content:center;
 
-    min-width: 68px;
+    min-width:68px;
 
     padding:
         7px
         12px;
 
-    border-radius: 999px;
+    border-radius:999px;
 
-    background: #fff0f5;
+    background:#fff0f5;
 
-    color: #b45173;
+    color:#b45173;
 
-    font-weight: 750;
+    font-weight:750;
 
-    font-size: 14px;
+    font-size:14px;
 }
 
 .undefined {
-    color: #aaaaaa;
+    color:#aaaaaa;
 }
 
 
@@ -447,21 +523,19 @@ tbody tr:last-child td {
 ===================================================== */
 
 .mobile-list {
-    display: none;
+    display:none;
 }
 
 .mobile-project-card {
-    background: #ffffff;
+    background:#ffffff;
 
-    border:
-        1px solid
-        #eeeeef;
+    border:1px solid #eeeeef;
 
-    border-radius: 17px;
+    border-radius:17px;
 
-    padding: 16px;
+    padding:16px;
 
-    margin-bottom: 11px;
+    margin-bottom:11px;
 
     box-shadow:
         0 5px 18px
@@ -469,39 +543,39 @@ tbody tr:last-child td {
 }
 
 .mobile-project-top {
-    display: flex;
+    display:flex;
 
-    justify-content: space-between;
+    justify-content:space-between;
 
-    align-items: flex-start;
+    align-items:flex-start;
 
-    gap: 12px;
+    gap:12px;
 
-    margin-bottom: 14px;
+    margin-bottom:14px;
 }
 
 .mobile-project-name {
-    font-size: 16px;
+    font-size:16px;
 
-    font-weight: 750;
+    font-weight:750;
 
-    line-height: 1.4;
+    line-height:1.4;
 }
 
 .mobile-project-code {
-    margin-top: 4px;
+    margin-top:4px;
 
-    font-size: 12px;
+    font-size:12px;
 
-    color: #aaaaaa;
+    color:#aaaaaa;
 }
 
 .mobile-info-row {
-    display: flex;
+    display:flex;
 
-    justify-content: space-between;
+    justify-content:space-between;
 
-    gap: 16px;
+    gap:16px;
 
     padding:
         9px
@@ -511,21 +585,21 @@ tbody tr:last-child td {
         1px solid
         #f2f2f3;
 
-    font-size: 13px;
+    font-size:13px;
 }
 
 .mobile-info-label {
-    color: #999999;
+    color:#999999;
 
-    flex-shrink: 0;
+    flex-shrink:0;
 }
 
 .mobile-info-value {
-    color: #444444;
+    color:#444444;
 
-    font-weight: 600;
+    font-weight:600;
 
-    text-align: right;
+    text-align:right;
 }
 
 
@@ -534,33 +608,33 @@ tbody tr:last-child td {
 ===================================================== */
 
 .empty-box {
-    display: none;
+    display:none;
 
-    background: #ffffff;
+    background:#ffffff;
 
     border:
         1px dashed
         #dddddf;
 
-    border-radius: 18px;
+    border-radius:18px;
 
     padding:
         42px
         20px;
 
-    text-align: center;
+    text-align:center;
 
-    color: #999999;
+    color:#999999;
 
-    font-size: 14px;
+    font-size:14px;
 
-    line-height: 1.8;
+    line-height:1.8;
 }
 
 .empty-icon {
-    font-size: 32px;
+    font-size:32px;
 
-    margin-bottom: 8px;
+    margin-bottom:8px;
 }
 
 
@@ -569,32 +643,31 @@ tbody tr:last-child td {
 ===================================================== */
 
 .loading {
-    display: flex;
+    display:flex;
 
-    align-items: center;
-    justify-content: center;
+    align-items:center;
+    justify-content:center;
 
-    min-height: 240px;
+    min-height:240px;
 
-    color: #888888;
+    color:#888888;
 
-    font-size: 14px;
+    font-size:14px;
 }
 
 .spinner {
-    width: 22px;
-    height: 22px;
+    width:22px;
+    height:22px;
 
     border:
         2px solid
         #e5e5e7;
 
-    border-top-color:
-        #b95b7b;
+    border-top-color:#b95b7b;
 
-    border-radius: 50%;
+    border-radius:50%;
 
-    margin-right: 10px;
+    margin-right:10px;
 
     animation:
         spin
@@ -604,9 +677,11 @@ tbody tr:last-child td {
 }
 
 @keyframes spin {
+
     to {
-        transform: rotate(360deg);
+        transform:rotate(360deg);
     }
+
 }
 
 
@@ -615,23 +690,23 @@ tbody tr:last-child td {
 ===================================================== */
 
 .error-box {
-    display: none;
+    display:none;
 
     padding:
         14px
         16px;
 
-    margin-bottom: 16px;
+    margin-bottom:16px;
 
-    border-radius: 13px;
+    border-radius:13px;
 
-    background: #fff0f1;
+    background:#fff0f1;
 
-    color: #b42332;
+    color:#b42332;
 
-    font-size: 14px;
+    font-size:14px;
 
-    line-height: 1.6;
+    line-height:1.6;
 }
 
 
@@ -645,11 +720,11 @@ tbody tr:last-child td {
         8px
         4px;
 
-    text-align: center;
+    text-align:center;
 
-    color: #aaaaaa;
+    color:#aaaaaa;
 
-    font-size: 12px;
+    font-size:12px;
 }
 
 
@@ -657,26 +732,30 @@ tbody tr:last-child td {
    手机
 ===================================================== */
 
-@media (max-width: 700px) {
+@media (max-width:700px) {
 
     .page {
-        padding-left: 13px;
-        padding-right: 13px;
+        padding-left:13px;
+        padding-right:13px;
     }
 
     .logo {
-        width: 43px;
-        height: 43px;
+        width:43px;
+        height:43px;
 
-        flex-basis: 43px;
+        flex-basis:43px;
     }
 
     .brand-title {
-        font-size: 18px;
+        font-size:18px;
     }
 
     .brand-subtitle {
-        display: none;
+        display:none;
+    }
+
+    .back-button {
+        display:none;
     }
 
     .logout-button {
@@ -686,13 +765,13 @@ tbody tr:last-child td {
     }
 
     .welcome-card {
-        padding: 19px;
+        padding:19px;
 
-        border-radius: 19px;
+        border-radius:19px;
     }
 
     .welcome-name {
-        font-size: 23px;
+        font-size:23px;
     }
 
     .info-grid {
@@ -707,19 +786,19 @@ tbody tr:last-child td {
     }
 
     .section-header {
-        align-items: center;
+        align-items:center;
     }
 
     .section-title {
-        font-size: 18px;
+        font-size:18px;
     }
 
     .table-card {
-        display: none;
+        display:none;
     }
 
     .mobile-list {
-        display: block;
+        display:block;
     }
 }
 
@@ -762,13 +841,26 @@ tbody tr:last-child td {
     </div>
 
 
-    <button
-        id="logoutButton"
-        class="logout-button"
-        type="button"
-    >
-        退出登录
-    </button>
+    <div class="header-actions">
+
+        <button
+            id="backButton"
+            class="back-button hidden"
+            type="button"
+            onclick="goBackManagement()"
+        >
+            返回管理平台
+        </button>
+
+        <button
+            id="logoutButton"
+            class="logout-button"
+            type="button"
+        >
+            退出登录
+        </button>
+
+    </div>
 
 </header>
 
@@ -809,7 +901,10 @@ tbody tr:last-child td {
 
 <section class="welcome-card">
 
-    <div class="welcome-small">
+    <div
+        id="welcomeSmall"
+        class="welcome-small"
+    >
         欢迎登录
     </div>
 
@@ -820,16 +915,54 @@ tbody tr:last-child td {
         健康顾问
     </h2>
 
-    <div class="welcome-desc">
+    <div
+        id="welcomeDesc"
+        class="welcome-desc"
+    >
         这里显示您当前参与的服务项目及对应健康顾问分成比例。
     </div>
 
 </section>
 
 
+<!-- =====================================================
+     创始人专用：选择健康顾问
+===================================================== -->
+
+<section
+    id="founderPanel"
+    class="founder-panel hidden"
+>
+
+    <div class="founder-panel-title">
+        选择健康顾问
+    </div>
+
+    <div class="founder-panel-desc">
+        创始人可以查看全部有效健康顾问及其项目和分成比例。
+    </div>
+
+    <select
+        id="consultantSelect"
+        class="select"
+        onchange="founderConsultantChanged()"
+    >
+
+        <option value="">
+            请选择健康顾问
+        </option>
+
+    </select>
+
+</section>
+
+
 <!-- 顾问资料 -->
 
-<section class="info-grid">
+<section
+    id="consultantInfoSection"
+    class="info-grid"
+>
 
     <div class="info-card">
 
@@ -887,11 +1020,17 @@ tbody tr:last-child td {
 
     <div>
 
-        <h2 class="section-title">
+        <h2
+            id="projectSectionTitle"
+            class="section-title"
+        >
             我的项目及分成比例
         </h2>
 
-        <div class="section-desc">
+        <div
+            id="projectSectionDesc"
+            class="section-desc"
+        >
             仅显示当前分配给您的有效项目
         </div>
 
@@ -940,7 +1079,7 @@ tbody tr:last-child td {
                     </th>
 
                     <th>
-                        我的分成比例
+                        健康顾问分成
                     </th>
 
                 </tr>
@@ -978,7 +1117,9 @@ tbody tr:last-child td {
         ♡
     </div>
 
-    当前还没有分配给您的服务项目。
+    <span id="emptyText">
+        当前还没有分配给您的服务项目。
+    </span>
 
     <br>
 
@@ -1016,10 +1157,10 @@ const supabaseClient =
         SUPABASE_URL,
         SUPABASE_ANON_KEY,
         {
-            auth: {
-                persistSession: true,
-                autoRefreshToken: true,
-                detectSessionInUrl: true
+            auth:{
+                persistSession:true,
+                autoRefreshToken:true,
+                detectSessionInUrl:true
             }
         }
     );
@@ -1031,6 +1172,9 @@ const supabaseClient =
 
 const LOGIN_PAGE =
     './login.html';
+
+const MANAGEMENT_PAGE =
+    './wholemanagement.html';
 
 
 const loadingBox =
@@ -1046,6 +1190,16 @@ const mainContent =
 const errorBox =
     document.getElementById(
         'errorBox'
+    );
+
+const founderPanel =
+    document.getElementById(
+        'founderPanel'
+    );
+
+const consultantSelect =
+    document.getElementById(
+        'consultantSelect'
     );
 
 const consultantName =
@@ -1093,29 +1247,70 @@ const emptyBox =
         'emptyBox'
     );
 
+const emptyText =
+    document.getElementById(
+        'emptyText'
+    );
+
 const logoutButton =
     document.getElementById(
         'logoutButton'
     );
 
+const backButton =
+    document.getElementById(
+        'backButton'
+    );
+
+const welcomeSmall =
+    document.getElementById(
+        'welcomeSmall'
+    );
+
+const welcomeDesc =
+    document.getElementById(
+        'welcomeDesc'
+    );
+
+const projectSectionTitle =
+    document.getElementById(
+        'projectSectionTitle'
+    );
+
+const projectSectionDesc =
+    document.getElementById(
+        'projectSectionDesc'
+    );
+
 
 /* =========================================================
-   当前登录信息
+   当前状态
 ========================================================= */
 
-let currentUser = null;
+let currentUser =
+    null;
 
-let currentProfile = null;
+let currentProfile =
+    null;
 
-let currentConsultant = null;
+let currentConsultant =
+    null;
 
-let currentServiceArea = null;
+let currentServiceArea =
+    null;
 
-let projectRules = [];
+let consultantList =
+    [];
+
+let projectRules =
+    [];
+
+let isFounderMode =
+    false;
 
 
 /* =========================================================
-   HTML安全
+   工具
 ========================================================= */
 
 function escapeHtml(value) {
@@ -1123,32 +1318,13 @@ function escapeHtml(value) {
     return String(
         value ?? ''
     )
-    .replaceAll(
-        '&',
-        '&amp;'
-    )
-    .replaceAll(
-        '<',
-        '&lt;'
-    )
-    .replaceAll(
-        '>',
-        '&gt;'
-    )
-    .replaceAll(
-        '"',
-        '&quot;'
-    )
-    .replaceAll(
-        "'",
-        '&#039;'
-    );
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#039;');
 }
 
-
-/* =========================================================
-   数字
-========================================================= */
 
 function formatMoney(value) {
 
@@ -1174,12 +1350,13 @@ function formatMoney(value) {
     }
 
 
-    return '¥' +
+    return '¥'
+        +
         number.toLocaleString(
             'zh-CN',
             {
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 2
+                minimumFractionDigits:0,
+                maximumFractionDigits:2
             }
         );
 }
@@ -1213,11 +1390,32 @@ function formatRatio(value) {
         .toLocaleString(
             'zh-CN',
             {
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 2
+                minimumFractionDigits:0,
+                maximumFractionDigits:2
             }
         )
-        + '%';
+        +
+        '%';
+}
+
+
+function formatNo(value) {
+
+    if (
+        value === null ||
+        value === undefined ||
+        value === ''
+    ) {
+
+        return '-';
+    }
+
+
+    return String(value)
+        .padStart(
+            3,
+            '0'
+        );
 }
 
 
@@ -1252,8 +1450,8 @@ function hideError() {
 async function verifyLogin() {
 
     const {
-        data: sessionData,
-        error: sessionError
+        data:sessionData,
+        error:sessionError
     } =
     await supabaseClient.auth
         .getSession();
@@ -1273,8 +1471,8 @@ async function verifyLogin() {
 
 
     const {
-        data: userData,
-        error: userError
+        data:userData,
+        error:userError
     } =
     await supabaseClient.auth
         .getUser();
@@ -1296,8 +1494,8 @@ async function verifyLogin() {
 
 
     const {
-        data: profile,
-        error: profileError
+        data:profile,
+        error:profileError
     } =
     await supabaseClient
 
@@ -1331,13 +1529,9 @@ async function verifyLogin() {
     }
 
 
-    /*
-    只允许健康顾问进入
-    */
-
     if (
-        profile.role !==
-        'health_consultant'
+        profile.status !==
+        'active'
     ) {
 
         await forceLogout();
@@ -1347,12 +1541,21 @@ async function verifyLogin() {
 
 
     /*
-    无效账号禁止进入
+    当前页面仅允许：
+    1. 健康顾问
+    2. 创始人
     */
 
+    const allowedRoles = [
+        'health_consultant',
+        'founder'
+    ];
+
+
     if (
-        profile.status !==
-        'active'
+        !allowedRoles.includes(
+            profile.role
+        )
     ) {
 
         await forceLogout();
@@ -1365,15 +1568,66 @@ async function verifyLogin() {
         profile;
 
 
+    isFounderMode =
+        profile.role ===
+        'founder';
+
+
     return true;
 }
 
 
 /* =========================================================
-   获取健康顾问本人资料
+   创始人模式初始化
 ========================================================= */
 
-async function loadConsultant() {
+async function initializeFounderMode() {
+
+    founderPanel.classList.remove(
+        'hidden'
+    );
+
+
+    backButton.classList.remove(
+        'hidden'
+    );
+
+
+    welcomeSmall.textContent =
+        '平台管理查看';
+
+
+    consultantName.textContent =
+        '健康顾问管理查看';
+
+
+    welcomeDesc.textContent =
+        '请选择健康顾问，查看其当前关联的服务项目和分成比例。';
+
+
+    projectSectionTitle.textContent =
+        '健康顾问项目及分成比例';
+
+
+    projectSectionDesc.textContent =
+        '选择健康顾问后显示当前有效项目';
+
+
+    await loadAllConsultants();
+
+
+    fillConsultantSelect();
+
+
+    clearConsultantDisplay();
+}
+
+
+/* =========================================================
+   加载全部健康顾问
+========================================================= */
+
+async function loadAllConsultants() {
 
     const {
         data,
@@ -1381,7 +1635,259 @@ async function loadConsultant() {
     } =
     await supabaseClient
 
-        .from('health_consultants')
+        .from(
+            'health_consultants'
+        )
+
+        .select(`
+            id,
+            auth_user_id,
+            consultant_no,
+            consultant_name,
+            phone,
+            email,
+            service_area_id,
+            status,
+            created_at
+        `)
+
+        .order(
+            'consultant_no',
+            {
+                ascending:true
+            }
+        );
+
+
+    if (error) {
+        throw error;
+    }
+
+
+    consultantList =
+        data || [];
+}
+
+
+/* =========================================================
+   填充健康顾问选择框
+========================================================= */
+
+function fillConsultantSelect() {
+
+    consultantSelect.innerHTML =
+        `
+        <option value="">
+            请选择健康顾问
+        </option>
+        `;
+
+
+    consultantList
+        .filter(
+            item =>
+                item.status ===
+                'active'
+        )
+        .forEach(
+            item => {
+
+                consultantSelect
+                    .insertAdjacentHTML(
+                        'beforeend',
+                        `
+                        <option value="${item.id}">
+                            ${escapeHtml(
+                                formatNo(
+                                    item.consultant_no
+                                )
+                            )}
+                            ｜
+                            ${escapeHtml(
+                                item.consultant_name ||
+                                '未命名'
+                            )}
+                        </option>
+                        `
+                    );
+            }
+        );
+}
+
+
+/* =========================================================
+   创始人切换顾问
+========================================================= */
+
+async function founderConsultantChanged() {
+
+    hideError();
+
+
+    const id =
+        consultantSelect.value;
+
+
+    if (!id) {
+
+        currentConsultant =
+            null;
+
+        currentServiceArea =
+            null;
+
+        clearConsultantDisplay();
+
+        return;
+    }
+
+
+    const item =
+        consultantList.find(
+            x =>
+                String(x.id) ===
+                String(id)
+        );
+
+
+    if (!item) {
+
+        showError(
+            '没有找到该健康顾问。'
+        );
+
+        return;
+    }
+
+
+    currentConsultant =
+        item;
+
+
+    try {
+
+        await loadServiceArea();
+
+        renderConsultantInfo();
+
+        await loadProjectRules();
+    }
+    catch(error) {
+
+        console.error(error);
+
+        showError(
+            error?.message ||
+            '加载健康顾问资料失败。'
+        );
+    }
+}
+
+
+/* =========================================================
+   清空创始人模式显示
+========================================================= */
+
+function clearConsultantDisplay() {
+
+    consultantNo.textContent =
+        '-';
+
+    consultantEmail.textContent =
+        '-';
+
+    consultantArea.textContent =
+        '-';
+
+
+    projectCount.textContent =
+        '0 个项目';
+
+
+    projectTableBody.innerHTML =
+        '';
+
+    mobileList.innerHTML =
+        '';
+
+
+    tableCard.style.display =
+        'none';
+
+
+    mobileList.style.display =
+        'none';
+
+
+    emptyBox.style.display =
+        'block';
+
+
+    emptyText.textContent =
+        '请先选择一位健康顾问。';
+}
+
+
+/* =========================================================
+   健康顾问本人模式
+========================================================= */
+
+async function initializeConsultantMode() {
+
+    founderPanel.classList.add(
+        'hidden'
+    );
+
+
+    backButton.classList.add(
+        'hidden'
+    );
+
+
+    welcomeSmall.textContent =
+        '欢迎登录';
+
+
+    welcomeDesc.textContent =
+        '这里显示您当前参与的服务项目及对应健康顾问分成比例。';
+
+
+    projectSectionTitle.textContent =
+        '我的项目及分成比例';
+
+
+    projectSectionDesc.textContent =
+        '仅显示当前分配给您的有效项目';
+
+
+    await loadCurrentConsultant();
+
+
+    await loadServiceArea();
+
+
+    renderConsultantInfo();
+
+
+    await loadProjectRules();
+}
+
+
+/* =========================================================
+   获取健康顾问本人资料
+========================================================= */
+
+async function loadCurrentConsultant() {
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+
+        .from(
+            'health_consultants'
+        )
 
         .select(`
             id,
@@ -1450,12 +1956,14 @@ async function loadServiceArea() {
 
 
     const {
-        data: area,
-        error: areaError
+        data:area,
+        error:areaError
     } =
     await supabaseClient
 
-        .from('service_areas')
+        .from(
+            'service_areas'
+        )
 
         .select(`
             id,
@@ -1499,18 +2007,22 @@ async function loadServiceArea() {
         '';
 
 
-    if (area.province_id) {
+    if (
+        area.province_id
+    ) {
 
         const {
             data
         } =
         await supabaseClient
 
-            .from('provinces')
+            .from(
+                'provinces'
+            )
 
-            .select(`
-                province_name
-            `)
+            .select(
+                'province_name'
+            )
 
             .eq(
                 'id',
@@ -1521,22 +2033,27 @@ async function loadServiceArea() {
 
 
         provinceName =
-            data?.province_name || '';
+            data?.province_name ||
+            '';
     }
 
 
-    if (area.city_id) {
+    if (
+        area.city_id
+    ) {
 
         const {
             data
         } =
         await supabaseClient
 
-            .from('cities')
+            .from(
+                'cities'
+            )
 
-            .select(`
-                city_name
-            `)
+            .select(
+                'city_name'
+            )
 
             .eq(
                 'id',
@@ -1547,22 +2064,27 @@ async function loadServiceArea() {
 
 
         cityName =
-            data?.city_name || '';
+            data?.city_name ||
+            '';
     }
 
 
-    if (area.district_id) {
+    if (
+        area.district_id
+    ) {
 
         const {
             data
         } =
         await supabaseClient
 
-            .from('districts')
+            .from(
+                'districts'
+            )
 
-            .select(`
-                district_name
-            `)
+            .select(
+                'district_name'
+            )
 
             .eq(
                 'id',
@@ -1573,11 +2095,13 @@ async function loadServiceArea() {
 
 
         districtName =
-            data?.district_name || '';
+            data?.district_name ||
+            '';
     }
 
 
     currentServiceArea = {
+
         ...area,
 
         province_name:
@@ -1588,6 +2112,7 @@ async function loadServiceArea() {
 
         district_name:
             districtName
+
     };
 }
 
@@ -1604,7 +2129,8 @@ function getAreaText() {
     }
 
 
-    const parts = [];
+    const parts =
+        [];
 
 
     if (
@@ -1644,7 +2170,9 @@ function getAreaText() {
 
 
     return (
-        parts.join(' · ')
+        parts.join(
+            ' · '
+        )
         ||
         '未设置'
     );
@@ -1668,24 +2196,24 @@ function renderConsultantInfo() {
 
 
     consultantNo.textContent =
-        currentConsultant
-            ?.consultant_no
-        ??
-        currentProfile
-            ?.account_no
-        ??
-        '-';
+        formatNo(
+            currentConsultant
+                ?.consultant_no
+        );
 
 
     consultantEmail.textContent =
         currentConsultant
             ?.email
         ||
-        currentProfile
-            ?.login_email
-        ||
-        currentUser
-            ?.email
+        (
+            !isFounderMode
+            ?
+            currentProfile
+                ?.login_email
+            :
+            null
+        )
         ||
         '-';
 
@@ -1696,10 +2224,21 @@ function renderConsultantInfo() {
 
 
 /* =========================================================
-   加载本人健康顾问项目规则
+   加载项目规则
 ========================================================= */
 
 async function loadProjectRules() {
+
+    if (
+        !currentConsultant
+            ?.id
+    ) {
+
+        renderProjects([]);
+
+        return;
+    }
+
 
     const {
         data,
@@ -1740,7 +2279,7 @@ async function loadProjectRules() {
         .order(
             'id',
             {
-                ascending: false
+                ascending:false
             }
         );
 
@@ -1754,12 +2293,9 @@ async function loadProjectRules() {
         data || [];
 
 
-    /*
-    没有项目
-    */
-
     if (
-        projectRules.length === 0
+        projectRules.length ===
+        0
     ) {
 
         renderProjects([]);
@@ -1767,10 +2303,6 @@ async function loadProjectRules() {
         return;
     }
 
-
-    /*
-    获取产品ID
-    */
 
     const productIds =
         [
@@ -1785,10 +2317,6 @@ async function loadProjectRules() {
         ];
 
 
-    /*
-    获取商户ID
-    */
-
     const merchantIds =
         [
             ...new Set(
@@ -1802,15 +2330,13 @@ async function loadProjectRules() {
         ];
 
 
-    /*
-    产品
-    */
-
-    let products = [];
+    let products =
+        [];
 
 
     if (
-        productIds.length > 0
+        productIds.length >
+        0
     ) {
 
         const {
@@ -1819,7 +2345,9 @@ async function loadProjectRules() {
         } =
         await supabaseClient
 
-            .from('products')
+            .from(
+                'products'
+            )
 
             .select(`
                 id,
@@ -1844,15 +2372,13 @@ async function loadProjectRules() {
     }
 
 
-    /*
-    商户
-    */
-
-    let merchants = [];
+    let merchants =
+        [];
 
 
     if (
-        merchantIds.length > 0
+        merchantIds.length >
+        0
     ) {
 
         const {
@@ -1861,7 +2387,9 @@ async function loadProjectRules() {
         } =
         await supabaseClient
 
-            .from('merchants')
+            .from(
+                'merchants'
+            )
 
             .select(`
                 id,
@@ -1886,10 +2414,6 @@ async function loadProjectRules() {
     }
 
 
-    /*
-    Map
-    */
-
     const productMap =
         new Map(
             products.map(
@@ -1912,10 +2436,6 @@ async function loadProjectRules() {
         );
 
 
-    /*
-    只保留当前有效产品 + 有效商户
-    */
-
     const validRules =
         projectRules.filter(
             rule => {
@@ -1936,19 +2456,15 @@ async function loadProjectRules() {
                     &&
                     merchant
                     &&
-                    product.status
-                        === 'active'
+                    product.status ===
+                    'active'
                     &&
-                    merchant.status
-                        === 'active'
+                    merchant.status ===
+                    'active'
                 );
             }
         );
 
-
-    /*
-    获取涉及到的服务区域
-    */
 
     const serviceAreaIds =
         [
@@ -1971,17 +2487,24 @@ async function loadProjectRules() {
         new Map();
 
 
+    let rawAreas =
+        [];
+
+
     if (
-        serviceAreaIds.length > 0
+        serviceAreaIds.length >
+        0
     ) {
 
         const {
-            data: areas,
-            error: areaError
+            data:areas,
+            error:areaError
         } =
         await supabaseClient
 
-            .from('service_areas')
+            .from(
+                'service_areas'
+            )
 
             .select(`
                 id,
@@ -2001,10 +2524,14 @@ async function loadProjectRules() {
         }
 
 
+        rawAreas =
+            areas || [];
+
+
         const provinceIds =
             [
                 ...new Set(
-                    (areas || [])
+                    rawAreas
                         .map(
                             item =>
                                 item.province_id
@@ -2017,7 +2544,7 @@ async function loadProjectRules() {
         const cityIds =
             [
                 ...new Set(
-                    (areas || [])
+                    rawAreas
                         .map(
                             item =>
                                 item.city_id
@@ -2030,7 +2557,7 @@ async function loadProjectRules() {
         const districtIds =
             [
                 ...new Set(
-                    (areas || [])
+                    rawAreas
                         .map(
                             item =>
                                 item.district_id
@@ -2040,13 +2567,19 @@ async function loadProjectRules() {
             ];
 
 
-        let provinces = [];
-        let cities = [];
-        let districts = [];
+        let provinces =
+            [];
+
+        let cities =
+            [];
+
+        let districts =
+            [];
 
 
         if (
-            provinceIds.length > 0
+            provinceIds.length >
+            0
         ) {
 
             const {
@@ -2054,7 +2587,9 @@ async function loadProjectRules() {
             } =
             await supabaseClient
 
-                .from('provinces')
+                .from(
+                    'provinces'
+                )
 
                 .select(`
                     id,
@@ -2073,7 +2608,8 @@ async function loadProjectRules() {
 
 
         if (
-            cityIds.length > 0
+            cityIds.length >
+            0
         ) {
 
             const {
@@ -2081,7 +2617,9 @@ async function loadProjectRules() {
             } =
             await supabaseClient
 
-                .from('cities')
+                .from(
+                    'cities'
+                )
 
                 .select(`
                     id,
@@ -2100,7 +2638,8 @@ async function loadProjectRules() {
 
 
         if (
-            districtIds.length > 0
+            districtIds.length >
+            0
         ) {
 
             const {
@@ -2108,7 +2647,9 @@ async function loadProjectRules() {
             } =
             await supabaseClient
 
-                .from('districts')
+                .from(
+                    'districts'
+                )
 
                 .select(`
                     id,
@@ -2161,10 +2702,11 @@ async function loadProjectRules() {
 
         areaMap =
             new Map(
-                (areas || []).map(
+                rawAreas.map(
                     area => {
 
-                        const parts = [];
+                        const parts =
+                            [];
 
 
                         if (
@@ -2211,9 +2753,11 @@ async function loadProjectRules() {
 
                         return [
                             area.id,
-                            parts.join(' · ')
-                                ||
-                                '未设置'
+                            parts.join(
+                                ' · '
+                            )
+                            ||
+                            '未设置'
                         ];
                     }
                 )
@@ -2221,48 +2765,19 @@ async function loadProjectRules() {
     }
 
 
-    /*
-    当前城市价格
-    */
-
-    const cityIdsForPrice =
-        [
-            ...new Set(
-                validRules
-                    .map(
-                        rule => {
-
-                            const merchant =
-                                merchantMap.get(
-                                    rule.merchant_id
-                                );
-
-
-                            const serviceAreaId =
-                                merchant
-                                    ?.service_area_id;
-
-
-                            /*
-                            这里从已加载区域中
-                            再查对应city
-                            */
-
-                            return serviceAreaId;
-                        }
-                    )
-                    .filter(Boolean)
+    const rawAreaMap =
+        new Map(
+            rawAreas.map(
+                item => [
+                    item.id,
+                    item
+                ]
             )
-        ];
+        );
 
 
-    /*
-    为避免前端做复杂联表，
-    逐条获取当前有效城市价格。
-    1.0数据量很小，可以直接使用。
-    */
-
-    const finalRows = [];
+    const finalRows =
+        [];
 
 
     for (
@@ -2282,73 +2797,68 @@ async function loadProjectRules() {
             );
 
 
+        const area =
+            rawAreaMap.get(
+                merchant
+                    ?.service_area_id
+            );
+
+
         let price =
             null;
 
 
         if (
-            merchant
-                ?.service_area_id
+            area?.city_id
         ) {
 
             const {
-                data: area
+                data:priceData,
+                error:priceError
             } =
             await supabaseClient
 
-                .from('service_areas')
+                .from(
+                    'city_prices'
+                )
 
                 .select(`
-                    city_id
+                    price
                 `)
 
                 .eq(
-                    'id',
-                    merchant
-                        .service_area_id
+                    'city_id',
+                    area.city_id
+                )
+
+                .eq(
+                    'product_id',
+                    rule.product_id
+                )
+
+                .eq(
+                    'status',
+                    'active'
                 )
 
                 .maybeSingle();
 
 
             if (
-                area?.city_id
+                priceError
             ) {
 
-                const {
-                    data: priceData
-                } =
-                await supabaseClient
-
-                    .from('city_prices')
-
-                    .select(`
-                        price
-                    `)
-
-                    .eq(
-                        'city_id',
-                        area.city_id
-                    )
-
-                    .eq(
-                        'product_id',
-                        rule.product_id
-                    )
-
-                    .eq(
-                        'status',
-                        'active'
-                    )
-
-                    .maybeSingle();
-
-
-                price =
-                    priceData?.price
-                    ??
-                    null;
+                console.error(
+                    '读取城市价格失败：',
+                    priceError
+                );
             }
+
+
+            price =
+                priceData?.price
+                ??
+                null;
         }
 
 
@@ -2398,6 +2908,7 @@ async function loadProjectRules() {
 
             version_no:
                 rule.version_no
+
         });
     }
 
@@ -2412,7 +2923,9 @@ async function loadProjectRules() {
    渲染项目
 ========================================================= */
 
-function renderProjects(rows) {
+function renderProjects(
+    rows
+) {
 
     projectTableBody.innerHTML =
         '';
@@ -2428,7 +2941,8 @@ function renderProjects(rows) {
 
 
     if (
-        rows.length === 0
+        rows.length ===
+        0
     ) {
 
         tableCard.style.display =
@@ -2440,6 +2954,21 @@ function renderProjects(rows) {
         emptyBox.style.display =
             'block';
 
+
+        emptyText.textContent =
+            isFounderMode
+            ?
+            (
+                currentConsultant
+                ?
+                '该健康顾问当前还没有关联的有效服务项目。'
+                :
+                '请先选择一位健康顾问。'
+            )
+            :
+            '当前还没有分配给您的服务项目。';
+
+
         return;
     }
 
@@ -2448,9 +2977,20 @@ function renderProjects(rows) {
         'none';
 
 
-    /*
-    桌面
-    */
+    if (
+        window.innerWidth >
+        700
+    ) {
+
+        tableCard.style.display =
+            'block';
+    }
+    else {
+
+        mobileList.style.display =
+            'block';
+    }
+
 
     rows.forEach(
         row => {
@@ -2461,84 +3001,57 @@ function renderProjects(rows) {
                 );
 
 
-            const ratioText =
-                formatRatio(
-                    row.health_consultant_ratio
-                );
-
-
-            const priceText =
-                formatMoney(
-                    row.price
-                );
-
-
             tr.innerHTML = `
 
                 <td>
 
                     <div class="project-name">
-
-                        ${
-                            escapeHtml(
-                                row.product_name
-                            )
-                        }
-
+                        ${escapeHtml(
+                            row.product_name
+                        )}
                     </div>
 
                     <div class="project-code">
-
-                        ${
-                            escapeHtml(
-                                row.product_code
-                                ||
-                                '-'
-                            )
-                        }
-
+                        ${escapeHtml(
+                            row.product_code ||
+                            '-'
+                        )}
                     </div>
 
                 </td>
 
 
                 <td>
+                    ${escapeHtml(
+                        row.merchant_name
+                    )}
+                </td>
 
-                    ${
-                        escapeHtml(
-                            row.merchant_name
-                        )
-                    }
 
+                <td>
+                    ${escapeHtml(
+                        row.service_area
+                    )}
                 </td>
 
 
                 <td>
 
-                    ${
-                        escapeHtml(
-                            row.service_area
-                        )
-                    }
-
-                </td>
-
-
-                <td>
-
-                    <span class="${
-                        row.price === null
+                    <span
+                        class="${
+                            row.price === null
                             ?
                             'undefined'
                             :
                             'price-value'
-                    }">
+                        }"
+                    >
 
-                        ${
-                            escapeHtml(
-                                priceText
+                        ${escapeHtml(
+                            formatMoney(
+                                row.price
                             )
-                        }
+                        )}
 
                     </span>
 
@@ -2549,11 +3062,12 @@ function renderProjects(rows) {
 
                     <span class="ratio-badge">
 
-                        ${
-                            escapeHtml(
-                                ratioText
+                        ${escapeHtml(
+                            formatRatio(
+                                row
+                                    .health_consultant_ratio
                             )
-                        }
+                        )}
 
                     </span>
 
@@ -2562,16 +3076,13 @@ function renderProjects(rows) {
             `;
 
 
-            projectTableBody.appendChild(
-                tr
-            );
+            projectTableBody
+                .appendChild(
+                    tr
+                );
         }
     );
 
-
-    /*
-    手机
-    */
 
     rows.forEach(
         row => {
@@ -2593,25 +3104,16 @@ function renderProjects(rows) {
                     <div>
 
                         <div class="mobile-project-name">
-
-                            ${
-                                escapeHtml(
-                                    row.product_name
-                                )
-                            }
-
+                            ${escapeHtml(
+                                row.product_name
+                            )}
                         </div>
 
                         <div class="mobile-project-code">
-
-                            ${
-                                escapeHtml(
-                                    row.product_code
-                                    ||
-                                    '-'
-                                )
-                            }
-
+                            ${escapeHtml(
+                                row.product_code ||
+                                '-'
+                            )}
                         </div>
 
                     </div>
@@ -2619,13 +3121,12 @@ function renderProjects(rows) {
 
                     <span class="ratio-badge">
 
-                        ${
-                            escapeHtml(
-                                formatRatio(
-                                    row.health_consultant_ratio
-                                )
+                        ${escapeHtml(
+                            formatRatio(
+                                row
+                                    .health_consultant_ratio
                             )
-                        }
+                        )}
 
                     </span>
 
@@ -2639,13 +3140,9 @@ function renderProjects(rows) {
                     </span>
 
                     <span class="mobile-info-value">
-
-                        ${
-                            escapeHtml(
-                                row.merchant_name
-                            )
-                        }
-
+                        ${escapeHtml(
+                            row.merchant_name
+                        )}
                     </span>
 
                 </div>
@@ -2658,13 +3155,9 @@ function renderProjects(rows) {
                     </span>
 
                     <span class="mobile-info-value">
-
-                        ${
-                            escapeHtml(
-                                row.service_area
-                            )
-                        }
-
+                        ${escapeHtml(
+                            row.service_area
+                        )}
                     </span>
 
                 </div>
@@ -2677,15 +3170,11 @@ function renderProjects(rows) {
                     </span>
 
                     <span class="mobile-info-value">
-
-                        ${
-                            escapeHtml(
-                                formatMoney(
-                                    row.price
-                                )
+                        ${escapeHtml(
+                            formatMoney(
+                                row.price
                             )
-                        }
-
+                        )}
                     </span>
 
                 </div>
@@ -2698,16 +3187,12 @@ function renderProjects(rows) {
                     </span>
 
                     <span class="mobile-info-value">
-
-                        ${
-                            escapeHtml(
-                                formatRatio(
-                                    row
-                                        .health_consultant_ratio
-                                )
+                        ${escapeHtml(
+                            formatRatio(
+                                row
+                                    .health_consultant_ratio
                             )
-                        }
-
+                        )}
                     </span>
 
                 </div>
@@ -2715,11 +3200,23 @@ function renderProjects(rows) {
             `;
 
 
-            mobileList.appendChild(
-                card
-            );
+            mobileList
+                .appendChild(
+                    card
+                );
         }
     );
+}
+
+
+/* =========================================================
+   返回平台
+========================================================= */
+
+function goBackManagement() {
+
+    window.location.href =
+        MANAGEMENT_PAGE;
 }
 
 
@@ -2735,7 +3232,7 @@ async function forceLogout() {
             .signOut();
 
     }
-    catch (error) {
+    catch(error) {
 
         console.error(
             '退出失败：',
@@ -2768,7 +3265,9 @@ let idleTimer =
 
 function resetIdleTimer() {
 
-    if (idleTimer) {
+    if (
+        idleTimer
+    ) {
 
         clearTimeout(
             idleTimer
@@ -2779,7 +3278,7 @@ function resetIdleTimer() {
     idleTimer =
         setTimeout(
 
-            async function () {
+            async function() {
 
                 await forceLogout();
 
@@ -2795,7 +3294,8 @@ function resetIdleTimer() {
     'click',
     'touchstart',
     'keydown',
-    'scroll'
+    'scroll',
+    'mousemove'
 ]
 .forEach(
     eventName => {
@@ -2804,7 +3304,7 @@ function resetIdleTimer() {
             eventName,
             resetIdleTimer,
             {
-                passive: true
+                passive:true
             }
         );
     }
@@ -2834,16 +3334,16 @@ async function initialize() {
         }
 
 
-        await loadConsultant();
+        if (
+            isFounderMode
+        ) {
 
+            await initializeFounderMode();
+        }
+        else {
 
-        await loadServiceArea();
-
-
-        renderConsultantInfo();
-
-
-        await loadProjectRules();
+            await initializeConsultantMode();
+        }
 
 
         loadingBox.style.display =
@@ -2852,9 +3352,9 @@ async function initialize() {
 
         mainContent.style.display =
             'block';
-    }
 
-    catch (error) {
+    }
+    catch(error) {
 
         console.error(
             '健康顾问工作台加载失败：',
@@ -2876,7 +3376,7 @@ async function initialize() {
 
 
 /* =========================================================
-   Auth状态变化
+   Auth变化
 ========================================================= */
 
 supabaseClient.auth
@@ -2910,4 +3410,5 @@ initialize();
 </script>
 
 </body>
+
 </html>

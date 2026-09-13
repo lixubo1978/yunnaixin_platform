@@ -1,2285 +1,1611 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
-    >
-
-    <meta name="theme-color" content="#fff5f8">
-
-    <title>孕乃馨 - 服务下单</title>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <style>
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-            min-height: 100%;
-            background: #fff7fa;
-            color: #493741;
-
-            font-family:
-                -apple-system,
-                BlinkMacSystemFont,
-                "SF Pro Display",
-                "PingFang SC",
-                "Microsoft YaHei",
-                Arial,
-                sans-serif;
-        }
-
-        body {
-            padding-bottom:
-                calc(
-                    110px
-                    + env(safe-area-inset-bottom)
-                );
-        }
-
-        button,
-        input,
-        select {
-            font: inherit;
-        }
-
-        button {
-            cursor: pointer;
-        }
-
-        .app {
-            width: 100%;
-            max-width: 560px;
-            min-height: 100vh;
-            margin: 0 auto;
-
-            background:
-                linear-gradient(
-                    180deg,
-                    #ffeaf2 0,
-                    #fff7fa 220px,
-                    #fff7fa 100%
-                );
-        }
-
-        .safe-top {
-            height: env(safe-area-inset-top);
-        }
-
-        /* ====================================================
-           顶部
-        ==================================================== */
-
-        .topbar {
-            height: 58px;
-
-            padding: 8px 15px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            gap: 12px;
-        }
-
-        .back-btn {
-            width: 42px;
-            height: 42px;
-
-            border: none;
-
-            border-radius: 15px;
-
-            background:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    .88
-                );
-
-            color: #72515f;
-
-            font-size: 23px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            box-shadow:
-                0 6px 18px
-                rgba(
-                    91,
-                    54,
-                    67,
-                    .07
-                );
-        }
-
-        .top-title {
-            flex: 1;
-
-            text-align: center;
-
-            font-size: 17px;
-            font-weight: 900;
-
-            color: #563743;
-        }
-
-        .top-space {
-            width: 42px;
-        }
-
-        /* ====================================================
-           步骤
-        ==================================================== */
-
-        .steps {
-            margin: 5px 16px 0;
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(4, 1fr);
-
-            gap: 4px;
-        }
-
-        .step {
-            text-align: center;
-        }
-
-        .step-dot {
-            width: 25px;
-            height: 25px;
-
-            margin: 0 auto;
-
-            border-radius: 50%;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            background: #f3dbe4;
-
-            color: #ae8393;
-
-            font-size: 11px;
-            font-weight: 900;
-        }
-
-        .step.active .step-dot {
-            background:
-                linear-gradient(
-                    135deg,
-                    #ff719d,
-                    #ff9ab9
-                );
-
-            color: white;
-
-            box-shadow:
-                0 5px 15px
-                rgba(
-                    238,
-                    91,
-                    138,
-                    .23
-                );
-        }
-
-        .step-label {
-            margin-top: 5px;
-
-            font-size: 9px;
-
-            color: #aa8794;
-        }
-
-        .step.active .step-label {
-            color: #df5e89;
-            font-weight: 800;
-        }
-
-        /* ====================================================
-           通用
-        ==================================================== */
-
-        .section {
-            margin: 20px 16px 0;
-        }
-
-        .section-head {
-            margin-bottom: 11px;
-
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-
-            gap: 10px;
-        }
-
-        .section-title {
-            font-size: 17px;
-            font-weight: 900;
-
-            color: #573844;
-        }
-
-        .section-sub {
-            margin-top: 3px;
-
-            font-size: 11px;
-
-            color: #a6808f;
-        }
-
-        .card {
-            background: white;
-
-            border-radius: 22px;
-
-            box-shadow:
-                0 8px 28px
-                rgba(
-                    92,
-                    57,
-                    70,
-                    .07
-                );
-        }
-
-        /* ====================================================
-           当前城市
-        ==================================================== */
-
-        .city-card {
-            padding: 15px;
-        }
-
-        .city-row {
-            display: flex;
-            align-items: flex-start;
-
-            gap: 12px;
-        }
-
-        .city-icon {
-            width: 42px;
-            height: 42px;
-
-            flex-shrink: 0;
-
-            border-radius: 15px;
-
-            background: #fff0f5;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 21px;
-        }
-
-        .city-main {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .city-title {
-            font-size: 14px;
-            font-weight: 900;
-
-            color: #5d404c;
-        }
-
-        .city-status {
-            margin-top: 5px;
-
-            font-size: 11px;
-            line-height: 1.55;
-
-            color: #9c7d89;
-        }
-
-        .city-success {
-            color: #23855c;
-        }
-
-        .city-select-wrap {
-            margin-top: 13px;
-        }
-
-        .field-label {
-            margin-bottom: 7px;
-
-            font-size: 11px;
-            font-weight: 800;
-
-            color: #785866;
-        }
-
-        .select-control {
-            width: 100%;
-            height: 49px;
-
-            padding: 0 12px;
-
-            border:
-                1.5px solid
-                #ead7df;
-
-            border-radius: 15px;
-
-            background: white;
-
-            color: #5d424d;
-
-            outline: none;
-
-            font-size: 13px;
-        }
-
-        .locate-btn {
-            width: 100%;
-
-            min-height: 44px;
-
-            margin-top: 10px;
-
-            border: none;
-
-            border-radius: 15px;
-
-            background: #fff0f5;
-
-            color: #dc5f88;
-
-            font-size: 13px;
-            font-weight: 900;
-        }
-
-        /* ====================================================
-           服务项目
-        ==================================================== */
-
-        .service-list {
-            display: flex;
-            flex-direction: column;
-
-            gap: 10px;
-        }
-
-        .service-card {
-            width: 100%;
-
-            border:
-                2px solid
-                transparent;
-
-            background: white;
-
-            border-radius: 21px;
-
-            padding: 15px;
-
-            text-align: left;
-
-            display: flex;
-
-            gap: 13px;
-
-            box-shadow:
-                0 7px 24px
-                rgba(
-                    93,
-                    58,
-                    71,
-                    .06
-                );
-        }
-
-        .service-card.selected {
-            border-color: #ff81aa;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #ffffff 0%,
-                    #fff5f8 100%
-                );
-        }
-
-        .service-icon {
-            width: 50px;
-            height: 50px;
-
-            flex-shrink: 0;
-
-            border-radius: 17px;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    #fff0f5,
-                    #ffe4ed
-                );
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 26px;
-        }
-
-        .service-main {
-            flex: 1;
-
-            min-width: 0;
-        }
-
-        .service-name {
-            font-size: 15px;
-            font-weight: 900;
-
-            color: #593946;
-        }
-
-        .service-desc {
-            margin-top: 5px;
-
-            font-size: 11px;
-            line-height: 1.55;
-
-            color: #a1818d;
-
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-
-            overflow: hidden;
-        }
-
-        .service-bottom {
-            margin-top: 10px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            gap: 8px;
-        }
-
-        .service-tags {
-            display: flex;
-            flex-wrap: wrap;
-
-            gap: 6px;
-        }
-
-        .tag {
-            min-height: 25px;
-
-            padding: 4px 8px;
-
-            border-radius: 999px;
-
-            display: inline-flex;
-            align-items: center;
-
-            background: #fff0f5;
-
-            color: #dd5b87;
-
-            font-size: 10px;
-            font-weight: 800;
-        }
-
-        .price-tag {
-            background: #fff7e9;
-
-            color: #b97823;
-        }
-
-        .select-check {
-            width: 25px;
-            height: 25px;
-
-            flex-shrink: 0;
-
-            border-radius: 50%;
-
-            background: #f3e8ec;
-
-            color: #b28a99;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 13px;
-            font-weight: 900;
-        }
-
-        .service-card.selected
-        .select-check {
-            background: #ef6e99;
-            color: white;
-        }
-
-        /* ====================================================
-           地图占位
-        ==================================================== */
-
-        .map-placeholder {
-            min-height: 170px;
-
-            border-radius: 20px;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    #f9edf2,
-                    #f3f3f7
-                );
-
-            position: relative;
-
-            overflow: hidden;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            padding: 20px;
-
-            text-align: center;
-        }
-
-        .map-placeholder::before {
-            content: "";
-
-            position: absolute;
-            inset: 0;
-
-            background-image:
-                linear-gradient(
-                    rgba(
-                        255,
-                        255,
-                        255,
-                        .45
-                    )
-                    1px,
-                    transparent 1px
-                ),
-                linear-gradient(
-                    90deg,
-                    rgba(
-                        255,
-                        255,
-                        255,
-                        .45
-                    )
-                    1px,
-                    transparent 1px
-                );
-
-            background-size:
-                25px
-                25px;
-        }
-
-        .map-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .map-pin {
-            font-size: 37px;
-        }
-
-        .map-title {
-            margin-top: 6px;
-
-            font-size: 13px;
-            font-weight: 900;
-
-            color: #765765;
-        }
-
-        .map-text {
-            margin-top: 5px;
-
-            font-size: 10px;
-            line-height: 1.55;
-
-            color: #a38691;
-        }
-
-        /* ====================================================
-           商户
-        ==================================================== */
-
-        .merchant-list {
-            margin-top: 12px;
-
-            display: flex;
-            flex-direction: column;
-
-            gap: 10px;
-        }
-
-        .merchant-card {
-            width: 100%;
-
-            border:
-                2px solid
-                transparent;
-
-            background: white;
-
-            border-radius: 21px;
-
-            padding: 15px;
-
-            text-align: left;
-
-            box-shadow:
-                0 7px 24px
-                rgba(
-                    94,
-                    59,
-                    72,
-                    .06
-                );
-        }
-
-        .merchant-card.selected {
-            border-color: #ff81aa;
-
-            background: #fff9fb;
-        }
-
-        .merchant-head {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-
-            gap: 10px;
-        }
-
-        .merchant-name {
-            flex: 1;
-
-            min-width: 0;
-
-            font-size: 15px;
-            font-weight: 900;
-
-            color: #573844;
-        }
-
-        .merchant-no {
-            flex-shrink: 0;
-
-            padding: 4px 8px;
-
-            border-radius: 999px;
-
-            background: #fff0f5;
-
-            color: #da5b86;
-
-            font-size: 10px;
-            font-weight: 900;
-        }
-
-        .merchant-address {
-            margin-top: 8px;
-
-            font-size: 11px;
-            line-height: 1.55;
-
-            color: #9b7a87;
-        }
-
-        .merchant-bottom {
-            margin-top: 11px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            gap: 10px;
-        }
-
-        .distance {
-            font-size: 11px;
-            font-weight: 800;
-
-            color: #6f8a78;
-        }
-
-        .merchant-price {
-            font-size: 17px;
-            font-weight: 900;
-
-            color: #e35484;
-        }
-
-        .merchant-price small {
-            font-size: 10px;
-        }
-
-        /* ====================================================
-           数量
-        ==================================================== */
-
-        .quantity-card {
-            padding: 16px;
-        }
-
-        .quantity-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            gap: 15px;
-        }
-
-        .quantity-title {
-            font-size: 14px;
-            font-weight: 900;
-
-            color: #5b3e49;
-        }
-
-        .quantity-sub {
-            margin-top: 4px;
-
-            font-size: 10px;
-
-            color: #a1838e;
-        }
-
-        .quantity-control {
-            display: flex;
-            align-items: center;
-
-            gap: 7px;
-        }
-
-        .quantity-btn {
-            width: 39px;
-            height: 39px;
-
-            border: none;
-
-            border-radius: 13px;
-
-            background: #fff0f5;
-
-            color: #df5c89;
-
-            font-size: 22px;
-            font-weight: 800;
-        }
-
-        .quantity-number {
-            min-width: 43px;
-
-            text-align: center;
-
-            font-size: 18px;
-            font-weight: 900;
-
-            color: #573b46;
-        }
-
-        .quantity-detail {
-            margin-top: 13px;
-
-            padding: 11px 12px;
-
-            border-radius: 14px;
-
-            background: #fff7fa;
-
-            font-size: 11px;
-
-            color: #8e6f7b;
-
-            line-height: 1.6;
-        }
-
-        /* ====================================================
-           推荐来源
-        ==================================================== */
-
-        .source-card {
-            padding: 15px;
-        }
-
-        .source-options {
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 8px;
-        }
-
-        .source-type-btn {
-            min-height: 48px;
-
-            border:
-                1.5px solid
-                #f0dce4;
-
-            border-radius: 15px;
-
-            background: white;
-
-            color: #8d6876;
-
-            font-size: 12px;
-            font-weight: 800;
-        }
-
-        .source-type-btn.active {
-            border-color: #ff7da7;
-
-            background: #fff0f5;
-
-            color: #df5986;
-        }
-
-        .source-picker {
-            margin-top: 12px;
-        }
-
-        .source-note {
-            margin-top: 10px;
-
-            padding: 10px 11px;
-
-            border-radius: 13px;
-
-            background: #fff7fa;
-
-            color: #9c7c88;
-
-            font-size: 10px;
-            line-height: 1.55;
-        }
-
-        /* ====================================================
-           优惠
-        ==================================================== */
-
-        .discount-card {
-            overflow: hidden;
-        }
-
-        .discount-head {
-            padding: 15px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #fff2f6,
-                    #fff9fb
-                );
-        }
-
-        .discount-title {
-            font-size: 14px;
-            font-weight: 900;
-
-            color: #613e4b;
-        }
-
-        .discount-sub {
-            margin-top: 4px;
-
-            font-size: 10px;
-
-            color: #9b7a87;
-        }
-
-        .discount-grid {
-            padding: 12px 15px 15px;
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 8px;
-        }
-
-        .discount-tier {
-            padding: 10px 5px;
-
-            border-radius: 13px;
-
-            background: #f8f2f4;
-
-            text-align: center;
-
-            border:
-                1.5px solid
-                transparent;
-        }
-
-        .discount-tier.active {
-            border-color: #ff80aa;
-
-            background: #fff0f5;
-        }
-
-        .discount-tier-title {
-            font-size: 10px;
-
-            color: #9b7a87;
-        }
-
-        .discount-tier-rate {
-            margin-top: 4px;
-
-            font-size: 15px;
-            font-weight: 900;
-
-            color: #df5a88;
-        }
-
-        .discount-current {
-            padding:
-                0
-                15px
-                15px;
-
-            font-size: 11px;
-
-            color: #876a75;
-        }
-
-        /* ====================================================
-           订单确认
-        ==================================================== */
-
-        .summary-card {
-            padding: 16px;
-        }
-
-        .summary-row {
-            margin-top: 11px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            gap: 15px;
-
-            font-size: 12px;
-        }
-
-        .summary-row:first-child {
-            margin-top: 0;
-        }
-
-        .summary-label {
-            color: #a07e8b;
-        }
-
-        .summary-value {
-            max-width: 70%;
-
-            color: #5b404b;
-
-            font-weight: 800;
-
-            text-align: right;
-        }
-
-        .summary-line {
-            height: 1px;
-
-            margin: 14px 0;
-
-            background: #f3e6eb;
-        }
-
-        .price-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            gap: 15px;
-
-            margin-top: 10px;
-
-            font-size: 12px;
-        }
-
-        .price-label {
-            color: #967784;
-        }
-
-        .price-value {
-            color: #5c414c;
-
-            font-weight: 800;
-        }
-
-        .discount-value {
-            color: #279064;
-        }
-
-        .final-row {
-            margin-top: 14px;
-
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-
-            gap: 12px;
-        }
-
-        .final-label {
-            font-size: 13px;
-            font-weight: 900;
-
-            color: #72515f;
-        }
-
-        .final-price {
-            color: #e94e82;
-
-            font-size: 29px;
-            font-weight: 900;
-        }
-
-        .final-price small {
-            font-size: 13px;
-        }
-
-        /* ====================================================
-           空状态
-        ==================================================== */
-
-        .empty {
-            padding: 25px 15px;
-
-            border-radius: 20px;
-
-            background: white;
-
-            text-align: center;
-
-            color: #a0808c;
-
-            font-size: 12px;
-
-            box-shadow:
-                0 7px 24px
-                rgba(
-                    94,
-                    59,
-                    72,
-                    .05
-                );
-        }
-
-        .empty-icon {
-            margin-bottom: 8px;
-
-            font-size: 35px;
-        }
-
-        /* ====================================================
-           底部固定
-        ==================================================== */
-
-        .bottom-bar {
-            position: fixed;
-
-            left: 50%;
-            bottom: 0;
-
-            transform:
-                translateX(-50%);
-
-            width: 100%;
-            max-width: 560px;
-
-            z-index: 100;
-
-            padding:
-                10px
-                14px
-                calc(
-                    10px
-                    + env(safe-area-inset-bottom)
-                );
-
-            background:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    .97
-                );
-
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-
-            border-top:
-                1px solid
-                #f2e5ea;
-        }
-
-        .bottom-inner {
-            display: flex;
-            align-items: center;
-
-            gap: 12px;
-        }
-
-        .bottom-price {
-            min-width: 105px;
-        }
-
-        .bottom-price-label {
-            font-size: 10px;
-
-            color: #a4828f;
-        }
-
-        .bottom-old-price {
-            min-height: 14px;
-
-            margin-top: 2px;
-
-            font-size: 10px;
-
-            color: #b6a0a9;
-
-            text-decoration: line-through;
-        }
-
-        .bottom-price-value {
-            margin-top: 1px;
-
-            font-size: 23px;
-            font-weight: 900;
-
-            color: #e85183;
-        }
-
-        .confirm-btn {
-            flex: 1;
-
-            min-height: 55px;
-
-            border: none;
-
-            border-radius: 18px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #ff6d9b,
-                    #ff94b5
-                );
-
-            color: white;
-
-            font-size: 15px;
-            font-weight: 900;
-
-            box-shadow:
-                0 9px 24px
-                rgba(
-                    236,
-                    83,
-                    132,
-                    .25
-                );
-        }
-
-        .confirm-btn:disabled {
-            opacity: .5;
-
-            box-shadow: none;
-        }
-
-        /* ====================================================
-           Modal
-        ==================================================== */
-
-        .modal-mask {
-            position: fixed;
-
-            inset: 0;
-
-            z-index: 5000;
-
-            display: none;
-            align-items: flex-end;
-            justify-content: center;
-
-            background:
-                rgba(
-                    46,
-                    32,
-                    38,
-                    .38
-                );
-        }
-
-        .modal-mask.show {
-            display: flex;
-        }
-
-        .modal-sheet {
-            width: 100%;
-            max-width: 560px;
-
-            padding:
-                20px
-                18px
-                calc(
-                    20px
-                    + env(safe-area-inset-bottom)
-                );
-
-            border-radius:
-                28px
-                28px
-                0
-                0;
-
-            background: white;
-        }
-
-        .modal-title {
-            text-align: center;
-
-            font-size: 17px;
-            font-weight: 900;
-
-            color: #553945;
-        }
-
-        .modal-desc {
-            margin-top: 8px;
-
-            text-align: center;
-
-            font-size: 11px;
-            line-height: 1.6;
-
-            color: #a1818e;
-        }
-
-        .modal-summary {
-            margin-top: 16px;
-
-            padding: 14px;
-
-            border-radius: 17px;
-
-            background: #fff7fa;
-        }
-
-        .modal-row {
-            margin-top: 9px;
-
-            display: flex;
-            justify-content: space-between;
-
-            gap: 15px;
-
-            font-size: 12px;
-        }
-
-        .modal-row:first-child {
-            margin-top: 0;
-        }
-
-        .modal-row span:first-child {
-            color: #a07e8b;
-        }
-
-        .modal-row span:last-child {
-            color: #5c414c;
-
-            font-weight: 800;
-
-            text-align: right;
-        }
-
-        .modal-actions {
-            margin-top: 17px;
-
-            display: grid;
-
-            grid-template-columns:
-                1fr
-                1.7fr;
-
-            gap: 9px;
-        }
-
-        .modal-btn {
-            min-height: 50px;
-
-            border: none;
-
-            border-radius: 16px;
-
-            font-size: 13px;
-            font-weight: 900;
-        }
-
-        .modal-cancel {
-            background: #f5edf0;
-
-            color: #846673;
-        }
-
-        .modal-confirm {
-            background:
-                linear-gradient(
-                    135deg,
-                    #ff6e9d,
-                    #ff94b5
-                );
-
-            color: white;
-        }
-
-        /* ====================================================
-           Loading
-        ==================================================== */
-
-        .loading-mask {
-            position: fixed;
-
-            inset: 0;
-
-            z-index: 9999;
-
-            background: #fff7fa;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .loading-box {
-            text-align: center;
-        }
-
-        .loading-icon {
-            font-size: 42px;
-
-            animation:
-                beat
-                1s
-                ease-in-out
-                infinite;
-        }
-
-        .loading-text {
-            margin-top: 10px;
-
-            font-size: 12px;
-
-            color: #a27e8c;
-        }
-
-        @keyframes beat {
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.13);
-            }
-        }
-
-        /* ====================================================
-           Toast
-        ==================================================== */
-
-        .toast {
-            position: fixed;
-
-            left: 50%;
-
-            bottom:
-                calc(
-                    115px
-                    + env(safe-area-inset-bottom)
-                );
-
-            transform:
-                translate(
-                    -50%,
-                    20px
-                );
-
-            z-index: 10000;
-
-            max-width:
-                calc(
-                    100vw
-                    - 46px
-                );
-
-            padding: 11px 15px;
-
-            border-radius: 14px;
-
-            background:
-                rgba(
-                    64,
-                    50,
-                    56,
-                    .94
-                );
-
-            color: white;
-
-            text-align: center;
-
-            font-size: 12px;
-            line-height: 1.5;
-
-            opacity: 0;
-
-            pointer-events: none;
-
-            transition: .2s ease;
-        }
-
-        .toast.show {
-            opacity: 1;
-
-            transform:
-                translate(
-                    -50%,
-                    0
-                );
-        }
-
-        @media (min-width: 560px) {
-            .app {
-                box-shadow:
-                    0 0 35px
-                    rgba(
-                        79,
-                        49,
-                        60,
-                        .08
-                    );
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta
+    name="viewport"
+    content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
+>
+<meta name="theme-color" content="#fff5f8">
+<title>孕乃馨 - 服务下单</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+    margin:0;
+    padding:0;
+    min-height:100%;
+    background:#fff7fa;
+    color:#493741;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "PingFang SC",
+        "Microsoft YaHei",
+        Arial,
+        sans-serif;
+}
+
+body{
+    padding-bottom:calc(110px + env(safe-area-inset-bottom));
+}
+
+button,input,select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.app{
+    width:100%;
+    max-width:560px;
+    min-height:100vh;
+    margin:0 auto;
+    background:
+        linear-gradient(
+            180deg,
+            #ffeaf2 0,
+            #fff7fa 220px,
+            #fff7fa 100%
+        );
+}
+
+.safe-top{
+    height:env(safe-area-inset-top);
+}
+
+/* =========================================================
+   顶部
+========================================================= */
+
+.topbar{
+    height:58px;
+    padding:8px 15px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+}
+
+.back-btn{
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:15px;
+    background:rgba(255,255,255,.88);
+    color:#72515f;
+    font-size:23px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 6px 18px rgba(91,54,67,.07);
+}
+
+.top-title{
+    flex:1;
+    text-align:center;
+    font-size:17px;
+    font-weight:900;
+    color:#563743;
+}
+
+.top-space{
+    width:42px;
+}
+
+/* =========================================================
+   步骤
+========================================================= */
+
+.steps{
+    margin:5px 16px 0;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:4px;
+}
+
+.step{
+    text-align:center;
+}
+
+.step-dot{
+    width:25px;
+    height:25px;
+    margin:0 auto;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#f3dbe4;
+    color:#ae8393;
+    font-size:11px;
+    font-weight:900;
+}
+
+.step.active .step-dot{
+    background:linear-gradient(135deg,#ff719d,#ff9ab9);
+    color:white;
+    box-shadow:0 5px 15px rgba(238,91,138,.23);
+}
+
+.step-label{
+    margin-top:5px;
+    font-size:9px;
+    color:#aa8794;
+}
+
+.step.active .step-label{
+    color:#df5e89;
+    font-weight:800;
+}
+
+/* =========================================================
+   通用
+========================================================= */
+
+.section{
+    margin:20px 16px 0;
+}
+
+.section-head{
+    margin-bottom:11px;
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.section-title{
+    font-size:17px;
+    font-weight:900;
+    color:#573844;
+}
+
+.section-sub{
+    margin-top:3px;
+    font-size:11px;
+    color:#a6808f;
+}
+
+.card{
+    background:white;
+    border-radius:22px;
+    box-shadow:0 8px 28px rgba(92,57,70,.07);
+}
+
+.field-label{
+    margin-bottom:7px;
+    font-size:11px;
+    font-weight:800;
+    color:#785866;
+}
+
+.select-control{
+    width:100%;
+    height:49px;
+    padding:0 12px;
+    border:1.5px solid #ead7df;
+    border-radius:15px;
+    background:white;
+    color:#5d424d;
+    outline:none;
+    font-size:13px;
+}
+
+/* =========================================================
+   城市
+========================================================= */
+
+.city-card{
+    padding:15px;
+}
+
+.city-row{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+}
+
+.city-icon{
+    width:42px;
+    height:42px;
+    flex-shrink:0;
+    border-radius:15px;
+    background:#fff0f5;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:21px;
+}
+
+.city-main{
+    flex:1;
+    min-width:0;
+}
+
+.city-title{
+    font-size:14px;
+    font-weight:900;
+    color:#5d404c;
+}
+
+.city-status{
+    margin-top:5px;
+    font-size:11px;
+    line-height:1.55;
+    color:#9c7d89;
+}
+
+.city-success{
+    color:#23855c;
+}
+
+.city-select-wrap{
+    margin-top:13px;
+}
+
+.locate-btn{
+    width:100%;
+    min-height:44px;
+    margin-top:10px;
+    border:none;
+    border-radius:15px;
+    background:#fff0f5;
+    color:#dc5f88;
+    font-size:13px;
+    font-weight:900;
+}
+
+/* =========================================================
+   服务项目
+========================================================= */
+
+.service-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.service-card{
+    width:100%;
+    border:2px solid transparent;
+    background:white;
+    border-radius:21px;
+    padding:15px;
+    text-align:left;
+    display:flex;
+    gap:13px;
+    box-shadow:0 7px 24px rgba(93,58,71,.06);
+}
+
+.service-card.selected{
+    border-color:#ff81aa;
+    background:linear-gradient(135deg,#fff 0%,#fff5f8 100%);
+}
+
+.service-icon{
+    width:50px;
+    height:50px;
+    flex-shrink:0;
+    border-radius:17px;
+    background:linear-gradient(145deg,#fff0f5,#ffe4ed);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:26px;
+}
+
+.service-main{
+    flex:1;
+    min-width:0;
+}
+
+.service-name{
+    font-size:15px;
+    font-weight:900;
+    color:#593946;
+}
+
+.service-desc{
+    margin-top:5px;
+    font-size:11px;
+    line-height:1.55;
+    color:#a1818d;
+
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+}
+
+.service-bottom{
+    margin-top:10px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+}
+
+.service-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+}
+
+.tag{
+    min-height:25px;
+    padding:4px 8px;
+    border-radius:999px;
+    display:inline-flex;
+    align-items:center;
+    background:#fff0f5;
+    color:#dd5b87;
+    font-size:10px;
+    font-weight:800;
+}
+
+.price-tag{
+    background:#fff7e9;
+    color:#b97823;
+}
+
+/* 新增：查看服务详情 */
+
+.service-detail-btn{
+    min-height:25px;
+    padding:4px 10px;
+    border-radius:999px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    background:#eef5ff;
+    color:#4e79ad;
+    font-size:10px;
+    font-weight:900;
+    cursor:pointer;
+    user-select:none;
+}
+
+.service-detail-btn:active{
+    transform:scale(.97);
+}
+
+.select-check{
+    width:25px;
+    height:25px;
+    flex-shrink:0;
+    border-radius:50%;
+    background:#f3e8ec;
+    color:#b28a99;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13px;
+    font-weight:900;
+}
+
+.service-card.selected .select-check{
+    background:#ef6e99;
+    color:white;
+}
+
+/* =========================================================
+   服务详情弹窗
+========================================================= */
+
+.service-detail-sheet{
+    max-height:84vh;
+    overflow-y:auto;
+}
+
+.detail-head{
+    margin-top:15px;
+    display:flex;
+    gap:13px;
+    align-items:flex-start;
+}
+
+.detail-icon{
+    width:55px;
+    height:55px;
+    flex-shrink:0;
+    border-radius:18px;
+    background:linear-gradient(145deg,#fff0f5,#ffe4ed);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+}
+
+.detail-main{
+    flex:1;
+    min-width:0;
+}
+
+.detail-name{
+    font-size:17px;
+    line-height:1.45;
+    font-weight:900;
+    color:#563743;
+}
+
+.detail-tags{
+    margin-top:8px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+}
+
+.detail-block{
+    margin-top:16px;
+    padding:15px;
+    border-radius:17px;
+    background:#fff7fa;
+}
+
+.detail-block-title{
+    font-size:13px;
+    font-weight:900;
+    color:#674653;
+}
+
+.detail-description{
+    margin-top:9px;
+    white-space:pre-wrap;
+    word-break:break-word;
+    color:#725965;
+    font-size:12px;
+    line-height:1.85;
+}
+
+.detail-warning{
+    margin-top:14px;
+    padding:12px 13px;
+    border-radius:15px;
+    background:#fff8e9;
+    color:#8b692d;
+    font-size:11px;
+    line-height:1.7;
+}
+
+.detail-close-btn{
+    width:100%;
+    min-height:50px;
+    margin-top:17px;
+    border:none;
+    border-radius:16px;
+    background:linear-gradient(135deg,#ff6e9d,#ff94b5);
+    color:white;
+    font-size:13px;
+    font-weight:900;
+}
+
+/* =========================================================
+   地图占位
+========================================================= */
+
+.map-placeholder{
+    min-height:170px;
+    border-radius:20px;
+    background:linear-gradient(145deg,#f9edf2,#f3f3f7);
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    text-align:center;
+}
+
+.map-placeholder::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.45) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.45) 1px,
+            transparent 1px
+        );
+    background-size:25px 25px;
+}
+
+.map-content{
+    position:relative;
+    z-index:2;
+}
+
+.map-pin{
+    font-size:37px;
+}
+
+.map-title{
+    margin-top:6px;
+    font-size:13px;
+    font-weight:900;
+    color:#765765;
+}
+
+.map-text{
+    margin-top:5px;
+    font-size:10px;
+    line-height:1.55;
+    color:#a38691;
+}
+
+/* =========================================================
+   商户
+========================================================= */
+
+.merchant-list{
+    margin-top:12px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.merchant-card{
+    width:100%;
+    border:2px solid transparent;
+    background:white;
+    border-radius:21px;
+    padding:15px;
+    text-align:left;
+    box-shadow:0 7px 24px rgba(94,59,72,.06);
+}
+
+.merchant-card.selected{
+    border-color:#ff81aa;
+    background:#fff9fb;
+}
+
+.merchant-head{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.merchant-name{
+    flex:1;
+    min-width:0;
+    font-size:15px;
+    font-weight:900;
+    color:#573844;
+}
+
+.merchant-no{
+    flex-shrink:0;
+    padding:4px 8px;
+    border-radius:999px;
+    background:#fff0f5;
+    color:#da5b86;
+    font-size:10px;
+    font-weight:900;
+}
+
+.merchant-address{
+    margin-top:8px;
+    font-size:11px;
+    line-height:1.55;
+    color:#9b7a87;
+}
+
+.merchant-bottom{
+    margin-top:11px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.distance{
+    font-size:11px;
+    font-weight:800;
+    color:#6f8a78;
+}
+
+.merchant-price{
+    font-size:17px;
+    font-weight:900;
+    color:#e35484;
+}
+
+.merchant-price small{
+    font-size:10px;
+}
+
+/* =========================================================
+   数量
+========================================================= */
+
+.quantity-card{
+    padding:16px;
+}
+
+.quantity-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.quantity-title{
+    font-size:14px;
+    font-weight:900;
+    color:#5b3e49;
+}
+
+.quantity-sub{
+    margin-top:4px;
+    font-size:10px;
+    color:#a1838e;
+}
+
+.quantity-control{
+    display:flex;
+    align-items:center;
+    gap:7px;
+}
+
+.quantity-btn{
+    width:39px;
+    height:39px;
+    border:none;
+    border-radius:13px;
+    background:#fff0f5;
+    color:#df5c89;
+    font-size:22px;
+    font-weight:800;
+}
+
+.quantity-number{
+    min-width:43px;
+    text-align:center;
+    font-size:18px;
+    font-weight:900;
+    color:#573b46;
+}
+
+.quantity-detail{
+    margin-top:13px;
+    padding:11px 12px;
+    border-radius:14px;
+    background:#fff7fa;
+    font-size:11px;
+    color:#8e6f7b;
+    line-height:1.6;
+}
+
+/* =========================================================
+   推荐来源
+========================================================= */
+
+.source-card{
+    padding:15px;
+}
+
+.source-options{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+}
+
+.source-type-btn{
+    min-height:48px;
+    border:1.5px solid #f0dce4;
+    border-radius:15px;
+    background:white;
+    color:#8d6876;
+    font-size:12px;
+    font-weight:800;
+}
+
+.source-type-btn.active{
+    border-color:#ff7da7;
+    background:#fff0f5;
+    color:#df5986;
+}
+
+.source-picker{
+    margin-top:12px;
+}
+
+.source-note{
+    margin-top:10px;
+    padding:10px 11px;
+    border-radius:13px;
+    background:#fff7fa;
+    color:#9c7c88;
+    font-size:10px;
+    line-height:1.55;
+}
+
+/* =========================================================
+   优惠
+========================================================= */
+
+.discount-card{
+    overflow:hidden;
+}
+
+.discount-head{
+    padding:15px;
+    background:linear-gradient(135deg,#fff2f6,#fff9fb);
+}
+
+.discount-title{
+    font-size:14px;
+    font-weight:900;
+    color:#613e4b;
+}
+
+.discount-sub{
+    margin-top:4px;
+    font-size:10px;
+    color:#9b7a87;
+}
+
+.discount-grid{
+    padding:12px 15px 15px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+}
+
+.discount-tier{
+    padding:10px 5px;
+    border-radius:13px;
+    background:#f8f2f4;
+    text-align:center;
+    border:1.5px solid transparent;
+}
+
+.discount-tier.active{
+    border-color:#ff80aa;
+    background:#fff0f5;
+}
+
+.discount-tier-title{
+    font-size:10px;
+    color:#9b7a87;
+}
+
+.discount-tier-rate{
+    margin-top:4px;
+    font-size:15px;
+    font-weight:900;
+    color:#df5a88;
+}
+
+.discount-current{
+    padding:0 15px 15px;
+    font-size:11px;
+    color:#876a75;
+}
+
+/* =========================================================
+   订单确认
+========================================================= */
+
+.summary-card{
+    padding:16px;
+}
+
+.summary-row{
+    margin-top:11px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    font-size:12px;
+}
+
+.summary-row:first-child{
+    margin-top:0;
+}
+
+.summary-label{
+    color:#a07e8b;
+}
+
+.summary-value{
+    max-width:70%;
+    color:#5b404b;
+    font-weight:800;
+    text-align:right;
+}
+
+.summary-line{
+    height:1px;
+    margin:14px 0;
+    background:#f3e6eb;
+}
+
+.price-row{
+    margin-top:10px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    font-size:12px;
+}
+
+.price-label{
+    color:#967784;
+}
+
+.price-value{
+    color:#5c414c;
+    font-weight:800;
+}
+
+.discount-value{
+    color:#279064;
+}
+
+.final-row{
+    margin-top:14px;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:12px;
+}
+
+.final-label{
+    font-size:13px;
+    font-weight:900;
+    color:#72515f;
+}
+
+.final-price{
+    color:#e94e82;
+    font-size:29px;
+    font-weight:900;
+}
+
+.final-price small{
+    font-size:13px;
+}
+
+/* =========================================================
+   空状态
+========================================================= */
+
+.empty{
+    padding:25px 15px;
+    border-radius:20px;
+    background:white;
+    text-align:center;
+    color:#a0808c;
+    font-size:12px;
+    box-shadow:0 7px 24px rgba(94,59,72,.05);
+}
+
+.empty-icon{
+    margin-bottom:8px;
+    font-size:35px;
+}
+
+/* =========================================================
+   底部
+========================================================= */
+
+.bottom-bar{
+    position:fixed;
+    left:50%;
+    bottom:0;
+    transform:translateX(-50%);
+    width:100%;
+    max-width:560px;
+    z-index:100;
+    padding:
+        10px
+        14px
+        calc(10px + env(safe-area-inset-bottom));
+    background:rgba(255,255,255,.97);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border-top:1px solid #f2e5ea;
+}
+
+.bottom-inner{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.bottom-price{
+    min-width:105px;
+}
+
+.bottom-price-label{
+    font-size:10px;
+    color:#a4828f;
+}
+
+.bottom-old-price{
+    min-height:14px;
+    margin-top:2px;
+    font-size:10px;
+    color:#b6a0a9;
+    text-decoration:line-through;
+}
+
+.bottom-price-value{
+    margin-top:1px;
+    font-size:23px;
+    font-weight:900;
+    color:#e85183;
+}
+
+.confirm-btn{
+    flex:1;
+    min-height:55px;
+    border:none;
+    border-radius:18px;
+    background:linear-gradient(135deg,#ff6d9b,#ff94b5);
+    color:white;
+    font-size:15px;
+    font-weight:900;
+    box-shadow:0 9px 24px rgba(236,83,132,.25);
+}
+
+.confirm-btn:disabled{
+    opacity:.5;
+    box-shadow:none;
+}
+
+/* =========================================================
+   通用底部弹窗
+========================================================= */
+
+.modal-mask{
+    position:fixed;
+    inset:0;
+    z-index:5000;
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+    background:rgba(46,32,38,.38);
+}
+
+.modal-mask.show{
+    display:flex;
+}
+
+.modal-sheet{
+    width:100%;
+    max-width:560px;
+    padding:
+        20px
+        18px
+        calc(20px + env(safe-area-inset-bottom));
+    border-radius:28px 28px 0 0;
+    background:white;
+}
+
+.modal-title{
+    text-align:center;
+    font-size:17px;
+    font-weight:900;
+    color:#553945;
+}
+
+.modal-desc{
+    margin-top:8px;
+    text-align:center;
+    font-size:11px;
+    line-height:1.6;
+    color:#a1818e;
+}
+
+.modal-summary{
+    margin-top:16px;
+    padding:14px;
+    border-radius:17px;
+    background:#fff7fa;
+}
+
+.modal-row{
+    margin-top:9px;
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    font-size:12px;
+}
+
+.modal-row:first-child{
+    margin-top:0;
+}
+
+.modal-row span:first-child{
+    color:#a07e8b;
+}
+
+.modal-row span:last-child{
+    color:#5c414c;
+    font-weight:800;
+    text-align:right;
+}
+
+.modal-actions{
+    margin-top:17px;
+    display:grid;
+    grid-template-columns:1fr 1.7fr;
+    gap:9px;
+}
+
+.modal-btn{
+    min-height:50px;
+    border:none;
+    border-radius:16px;
+    font-size:13px;
+    font-weight:900;
+}
+
+.modal-cancel{
+    background:#f5edf0;
+    color:#846673;
+}
+
+.modal-confirm{
+    background:linear-gradient(135deg,#ff6e9d,#ff94b5);
+    color:white;
+}
+
+/* =========================================================
+   Loading
+========================================================= */
+
+.loading-mask{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    background:#fff7fa;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.loading-box{
+    text-align:center;
+}
+
+.loading-icon{
+    font-size:42px;
+    animation:beat 1s ease-in-out infinite;
+}
+
+.loading-text{
+    margin-top:10px;
+    font-size:12px;
+    color:#a27e8c;
+}
+
+@keyframes beat{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.13)}
+}
+
+/* =========================================================
+   Toast
+========================================================= */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:calc(115px + env(safe-area-inset-bottom));
+    transform:translate(-50%,20px);
+    z-index:10000;
+    max-width:calc(100vw - 46px);
+    padding:11px 15px;
+    border-radius:14px;
+    background:rgba(64,50,56,.94);
+    color:white;
+    text-align:center;
+    font-size:12px;
+    line-height:1.5;
+    opacity:0;
+    pointer-events:none;
+    transition:.2s ease;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+@media(min-width:560px){
+    .app{
+        box-shadow:0 0 35px rgba(79,49,60,.08);
+    }
+}
+</style>
 </head>
 
 <body>
 
-<div
-    id="loadingMask"
-    class="loading-mask"
->
+<div id="loadingMask" class="loading-mask">
     <div class="loading-box">
-
-        <div class="loading-icon">
-            🌸
-        </div>
-
-        <div class="loading-text">
-            正在准备服务项目...
-        </div>
-
+        <div class="loading-icon">🌸</div>
+        <div class="loading-text">正在准备服务项目...</div>
     </div>
 </div>
 
-
 <div class="app">
 
-    <div class="safe-top"></div>
+<div class="safe-top"></div>
 
+<header class="topbar">
+    <button class="back-btn" onclick="goBack()">‹</button>
+    <div class="top-title">服务下单</div>
+    <div class="top-space"></div>
+</header>
 
-    <!-- 顶部 -->
-    <header class="topbar">
+<div class="steps">
+
+    <div id="step1" class="step active">
+        <div class="step-dot">1</div>
+        <div class="step-label">选服务</div>
+    </div>
+
+    <div id="step2" class="step">
+        <div class="step-dot">2</div>
+        <div class="step-label">选商户</div>
+    </div>
+
+    <div id="step3" class="step">
+        <div class="step-dot">3</div>
+        <div class="step-label">推荐来源</div>
+    </div>
+
+    <div id="step4" class="step">
+        <div class="step-dot">4</div>
+        <div class="step-label">确认</div>
+    </div>
+
+</div>
+
+<!-- 当前城市 -->
+<section class="section">
+
+    <div class="section-head">
+        <div>
+            <div class="section-title">当前城市</div>
+            <div class="section-sub">
+                自动识别失败时可以手动选择
+            </div>
+        </div>
+    </div>
+
+    <div class="card city-card">
+
+        <div class="city-row">
+
+            <div class="city-icon">📍</div>
+
+            <div class="city-main">
+
+                <div id="currentCityTitle" class="city-title">
+                    正在识别当前位置
+                </div>
+
+                <div id="cityStatus" class="city-status">
+                    系统会尝试根据当前位置自动匹配已开通服务的城市。
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="city-select-wrap">
+
+            <div class="field-label">
+                手动选择城市
+            </div>
+
+            <select
+                id="citySelect"
+                class="select-control"
+                onchange="manualCityChanged()"
+            >
+                <option value="">
+                    请选择城市
+                </option>
+            </select>
+
+        </div>
 
         <button
-            class="back-btn"
-            onclick="goBack()"
+            id="locateBtn"
+            class="locate-btn"
+            onclick="requestLocation(false)"
         >
-            ‹
+            重新获取当前位置
         </button>
 
-        <div class="top-title">
-            服务下单
-        </div>
+    </div>
 
-        <div class="top-space"></div>
+</section>
 
-    </header>
+<!-- 服务 -->
+<section class="section">
 
-
-    <!-- 步骤 -->
-    <div class="steps">
-
-        <div
-            id="step1"
-            class="step active"
-        >
-            <div class="step-dot">
-                1
-            </div>
-
-            <div class="step-label">
-                选服务
+    <div class="section-head">
+        <div>
+            <div class="section-title">选择服务</div>
+            <div class="section-sub">
+                请查看详情并确认与您的需求匹配后再选择
             </div>
         </div>
+    </div>
 
+    <div id="serviceList" class="service-list"></div>
 
-        <div
-            id="step2"
-            class="step"
-        >
-            <div class="step-dot">
-                2
-            </div>
+</section>
 
-            <div class="step-label">
-                选商户
-            </div>
-        </div>
+<!-- 商户 -->
+<section class="section">
 
-
-        <div
-            id="step3"
-            class="step"
-        >
-            <div class="step-dot">
-                3
-            </div>
-
-            <div class="step-label">
-                推荐来源
+    <div class="section-head">
+        <div>
+            <div class="section-title">服务商户</div>
+            <div class="section-sub">
+                仅显示已定义完整分成规则的实体商户
             </div>
         </div>
+    </div>
 
+    <div id="mapPlaceholder" class="map-placeholder">
 
-        <div
-            id="step4"
-            class="step"
-        >
-            <div class="step-dot">
-                4
+        <div class="map-content">
+
+            <div class="map-pin">🗺️</div>
+
+            <div class="map-title">
+                商户地图
             </div>
 
-            <div class="step-label">
-                确认
+            <div id="mapText" class="map-text">
+                百度地图 AK 正在审批中。<br>
+                当前先使用定位、距离和商户地址。
             </div>
+
         </div>
 
     </div>
 
+    <div id="merchantList" class="merchant-list"></div>
 
-    <!-- 当前城市 -->
-    <section class="section">
+</section>
 
-        <div class="section-head">
+<!-- 数量 -->
+<section class="section">
+
+    <div class="section-head">
+        <div>
+            <div class="section-title">购买数量</div>
+            <div class="section-sub">
+                数量会同时影响总金额和可消费次数
+            </div>
+        </div>
+    </div>
+
+    <div class="card quantity-card">
+
+        <div class="quantity-top">
 
             <div>
 
-                <div class="section-title">
-                    当前城市
+                <div class="quantity-title">
+                    数量
                 </div>
 
-                <div class="section-sub">
-                    自动识别失败时可以手动选择
+                <div id="unitPriceText" class="quantity-sub">
+                    请先选择服务项目和商户
                 </div>
+
+            </div>
+
+            <div class="quantity-control">
+
+                <button
+                    class="quantity-btn"
+                    onclick="changeQuantity(-1)"
+                >
+                    −
+                </button>
+
+                <div id="quantityNumber" class="quantity-number">
+                    1
+                </div>
+
+                <button
+                    class="quantity-btn"
+                    onclick="changeQuantity(1)"
+                >
+                    +
+                </button>
 
             </div>
 
         </div>
 
+        <div id="quantityDetail" class="quantity-detail">
+            请选择服务项目和商户后查看消费次数。
+        </div>
 
-        <div class="card city-card">
+    </div>
 
-            <div class="city-row">
+</section>
 
-                <div class="city-icon">
-                    📍
-                </div>
+<!-- 推荐来源 -->
+<section class="section">
 
-                <div class="city-main">
-
-                    <div
-                        id="currentCityTitle"
-                        class="city-title"
-                    >
-                        正在识别当前位置
-                    </div>
-
-                    <div
-                        id="cityStatus"
-                        class="city-status"
-                    >
-                        系统会尝试根据当前位置自动匹配已开通服务的城市。
-                    </div>
-
-                </div>
-
+    <div class="section-head">
+        <div>
+            <div class="section-title">推荐来源</div>
+            <div class="section-sub">
+                选填，不选择时默认为平台
             </div>
+        </div>
+    </div>
 
+    <div class="card source-card">
 
-            <div class="city-select-wrap">
-
-                <div class="field-label">
-                    手动选择城市
-                </div>
-
-                <select
-                    id="citySelect"
-                    class="select-control"
-                    onchange="manualCityChanged()"
-                >
-                    <option value="">
-                        请选择城市
-                    </option>
-                </select>
-
-            </div>
-
+        <div class="source-options">
 
             <button
-                id="locateBtn"
-                class="locate-btn"
-                onclick="requestLocation(false)"
+                id="sourcePlatformBtn"
+                class="source-type-btn active"
+                onclick="chooseSourceType('platform')"
             >
-                重新获取当前位置
+                平台
+            </button>
+
+            <button
+                id="sourceMerchantBtn"
+                class="source-type-btn"
+                onclick="chooseSourceType('merchant')"
+            >
+                商户推荐
+            </button>
+
+            <button
+                id="sourceConsultantBtn"
+                class="source-type-btn"
+                onclick="chooseSourceType('health_consultant')"
+            >
+                健康顾问
             </button>
 
         </div>
 
-    </section>
-
-
-    <!-- 服务项目 -->
-    <section class="section">
-
-        <div class="section-head">
-
-            <div>
-
-                <div class="section-title">
-                    选择服务
-                </div>
-
-                <div class="section-sub">
-                    只显示当前城市已经定义价格的项目
-                </div>
-
-            </div>
-
-        </div>
-
-
         <div
-            id="serviceList"
-            class="service-list"
-        ></div>
-
-    </section>
-
-
-    <!-- 商户 -->
-    <section class="section">
-
-        <div class="section-head">
-
-            <div>
-
-                <div class="section-title">
-                    服务商户
-                </div>
-
-                <div class="section-sub">
-                    仅显示已定义完整分成规则的实体商户
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div
-            id="mapPlaceholder"
-            class="map-placeholder"
+            id="sourceMerchantPicker"
+            class="source-picker"
+            style="display:none;"
         >
-
-            <div class="map-content">
-
-                <div class="map-pin">
-                    🗺️
-                </div>
-
-                <div class="map-title">
-                    商户地图
-                </div>
-
-                <div
-                    id="mapText"
-                    class="map-text"
-                >
-                    百度地图 AK 正在审批中。<br>
-                    当前先使用定位、距离和商户地址。
-                </div>
-
+            <div class="field-label">
+                选择推荐商户
             </div>
 
+            <select
+                id="sourceMerchantSelect"
+                class="select-control"
+                onchange="sourceSelectionChanged()"
+            >
+                <option value="">
+                    请选择推荐商户
+                </option>
+            </select>
         </div>
-
 
         <div
-            id="merchantList"
-            class="merchant-list"
-        ></div>
-
-    </section>
-
-
-    <!-- 数量 -->
-    <section class="section">
-
-        <div class="section-head">
-
-            <div>
-
-                <div class="section-title">
-                    购买数量
-                </div>
-
-                <div class="section-sub">
-                    数量会同时影响总金额和可消费次数
-                </div>
-
+            id="sourceConsultantPicker"
+            class="source-picker"
+            style="display:none;"
+        >
+            <div class="field-label">
+                选择推荐老师
             </div>
 
-        </div>
-
-
-        <div class="card quantity-card">
-
-            <div class="quantity-top">
-
-                <div>
-
-                    <div class="quantity-title">
-                        数量
-                    </div>
-
-                    <div
-                        id="unitPriceText"
-                        class="quantity-sub"
-                    >
-                        请先选择服务项目和商户
-                    </div>
-
-                </div>
-
-
-                <div class="quantity-control">
-
-                    <button
-                        class="quantity-btn"
-                        onclick="changeQuantity(-1)"
-                    >
-                        −
-                    </button>
-
-                    <div
-                        id="quantityNumber"
-                        class="quantity-number"
-                    >
-                        1
-                    </div>
-
-                    <button
-                        class="quantity-btn"
-                        onclick="changeQuantity(1)"
-                    >
-                        +
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <div
-                id="quantityDetail"
-                class="quantity-detail"
+            <select
+                id="sourceConsultantSelect"
+                class="select-control"
+                onchange="sourceSelectionChanged()"
             >
-                请选择服务项目和商户后查看消费次数。
+                <option value="">
+                    请选择健康顾问
+                </option>
+            </select>
+        </div>
+
+        <div id="sourceNote" class="source-note">
+            当前推荐来源：平台
+        </div>
+
+    </div>
+
+</section>
+
+<!-- 自动优惠 -->
+<section class="section">
+
+    <div class="section-head">
+        <div>
+            <div class="section-title">自动优惠</div>
+            <div class="section-sub">
+                系统按照订单原价自动计算
+            </div>
+        </div>
+    </div>
+
+    <div class="card discount-card">
+
+        <div class="discount-head">
+            <div class="discount-title">
+                阶梯优惠
+            </div>
+
+            <div class="discount-sub">
+                金额越高，系统自动使用对应优惠，无需领取优惠券。
+            </div>
+        </div>
+
+        <div class="discount-grid">
+
+            <div id="tier5" class="discount-tier">
+                <div class="discount-tier-title">
+                    超过 ¥2000
+                </div>
+                <div class="discount-tier-rate">
+                    优惠 5%
+                </div>
+            </div>
+
+            <div id="tier8" class="discount-tier">
+                <div class="discount-tier-title">
+                    超过 ¥3000
+                </div>
+                <div class="discount-tier-rate">
+                    优惠 8%
+                </div>
+            </div>
+
+            <div id="tier10" class="discount-tier">
+                <div class="discount-tier-title">
+                    超过 ¥5000
+                </div>
+                <div class="discount-tier-rate">
+                    优惠 10%
+                </div>
             </div>
 
         </div>
 
-    </section>
-
-
-    <!-- 推荐来源 -->
-    <section class="section">
-
-        <div class="section-head">
-
-            <div>
-
-                <div class="section-title">
-                    推荐来源
-                </div>
-
-                <div class="section-sub">
-                    选填，不选择时默认为平台
-                </div>
-
-            </div>
-
+        <div id="discountCurrent" class="discount-current">
+            当前订单尚未达到优惠金额。
         </div>
 
+    </div>
 
-        <div class="card source-card">
+</section>
 
-            <div class="source-options">
+<!-- 订单确认 -->
+<section class="section">
 
-                <button
-                    id="sourcePlatformBtn"
-                    class="source-type-btn active"
-                    onclick="chooseSourceType('platform')"
-                >
-                    平台
-                </button>
-
-                <button
-                    id="sourceMerchantBtn"
-                    class="source-type-btn"
-                    onclick="chooseSourceType('merchant')"
-                >
-                    商户推荐
-                </button>
-
-                <button
-                    id="sourceConsultantBtn"
-                    class="source-type-btn"
-                    onclick="chooseSourceType('health_consultant')"
-                >
-                    健康顾问
-                </button>
-
+    <div class="section-head">
+        <div>
+            <div class="section-title">订单确认</div>
+            <div class="section-sub">
+                最终金额由数据库再次核算
             </div>
+        </div>
+    </div>
 
+    <div class="card summary-card">
 
-            <div
-                id="sourceMerchantPicker"
-                class="source-picker"
-                style="display:none;"
+        <div class="summary-row">
+            <span class="summary-label">当前城市</span>
+            <span id="summaryCity" class="summary-value">未选择</span>
+        </div>
+
+        <div class="summary-row">
+            <span class="summary-label">服务项目</span>
+            <span id="summaryService" class="summary-value">未选择</span>
+        </div>
+
+        <div class="summary-row">
+            <span class="summary-label">服务商户</span>
+            <span id="summaryMerchant" class="summary-value">未选择</span>
+        </div>
+
+        <div class="summary-row">
+            <span class="summary-label">商户地址</span>
+            <span id="summaryAddress" class="summary-value">--</span>
+        </div>
+
+        <div class="summary-row">
+            <span class="summary-label">城市单价</span>
+            <span id="summaryUnitPrice" class="summary-value">--</span>
+        </div>
+
+        <div class="summary-row">
+            <span class="summary-label">购买数量</span>
+            <span id="summaryQuantity" class="summary-value">1</span>
+        </div>
+
+        <div class="summary-row">
+            <span class="summary-label">可消费次数</span>
+            <span id="summaryUses" class="summary-value">--</span>
+        </div>
+
+        <div class="summary-row">
+            <span class="summary-label">推荐来源</span>
+            <span id="summarySource" class="summary-value">平台</span>
+        </div>
+
+        <div class="summary-line"></div>
+
+        <div class="price-row">
+            <span class="price-label">原价合计</span>
+            <span id="summarySubtotal" class="price-value">¥--</span>
+        </div>
+
+        <div class="price-row">
+            <span class="price-label">优惠比例</span>
+            <span
+                id="summaryDiscountRate"
+                class="price-value discount-value"
             >
+                0%
+            </span>
+        </div>
 
-                <div class="field-label">
-                    选择推荐商户
-                </div>
-
-                <select
-                    id="sourceMerchantSelect"
-                    class="select-control"
-                    onchange="sourceSelectionChanged()"
-                >
-                    <option value="">
-                        请选择推荐商户
-                    </option>
-                </select>
-
-            </div>
-
-
-            <div
-                id="sourceConsultantPicker"
-                class="source-picker"
-                style="display:none;"
+        <div class="price-row">
+            <span class="price-label">优惠金额</span>
+            <span
+                id="summaryDiscountAmount"
+                class="price-value discount-value"
             >
+                - ¥0
+            </span>
+        </div>
 
-                <div class="field-label">
-                    选择推荐老师
-                </div>
+        <div class="summary-line"></div>
 
-                <select
-                    id="sourceConsultantSelect"
-                    class="select-control"
-                    onchange="sourceSelectionChanged()"
-                >
-                    <option value="">
-                        请选择健康顾问
-                    </option>
-                </select>
+        <div class="final-row">
 
-            </div>
+            <span class="final-label">
+                应付金额
+            </span>
 
-
-            <div
-                id="sourceNote"
-                class="source-note"
-            >
-                当前推荐来源：平台
-            </div>
+            <span id="summaryPayable" class="final-price">
+                <small>¥</small> --
+            </span>
 
         </div>
 
-    </section>
+    </div>
 
-
-    <!-- 优惠 -->
-    <section class="section">
-
-        <div class="section-head">
-
-            <div>
-
-                <div class="section-title">
-                    自动优惠
-                </div>
-
-                <div class="section-sub">
-                    系统按照订单原价自动计算
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="card discount-card">
-
-            <div class="discount-head">
-
-                <div class="discount-title">
-                    阶梯优惠
-                </div>
-
-                <div class="discount-sub">
-                    金额越高，系统自动使用对应优惠，无需领取优惠券。
-                </div>
-
-            </div>
-
-
-            <div class="discount-grid">
-
-                <div
-                    id="tier5"
-                    class="discount-tier"
-                >
-                    <div class="discount-tier-title">
-                        超过 ¥2000
-                    </div>
-
-                    <div class="discount-tier-rate">
-                        优惠 5%
-                    </div>
-                </div>
-
-
-                <div
-                    id="tier8"
-                    class="discount-tier"
-                >
-                    <div class="discount-tier-title">
-                        超过 ¥3000
-                    </div>
-
-                    <div class="discount-tier-rate">
-                        优惠 8%
-                    </div>
-                </div>
-
-
-                <div
-                    id="tier10"
-                    class="discount-tier"
-                >
-                    <div class="discount-tier-title">
-                        超过 ¥5000
-                    </div>
-
-                    <div class="discount-tier-rate">
-                        优惠 10%
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div
-                id="discountCurrent"
-                class="discount-current"
-            >
-                当前订单尚未达到优惠金额。
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- 订单确认 -->
-    <section class="section">
-
-        <div class="section-head">
-
-            <div>
-
-                <div class="section-title">
-                    订单确认
-                </div>
-
-                <div class="section-sub">
-                    最终金额由数据库再次核算
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="card summary-card">
-
-            <div class="summary-row">
-
-                <span class="summary-label">
-                    当前城市
-                </span>
-
-                <span
-                    id="summaryCity"
-                    class="summary-value"
-                >
-                    未选择
-                </span>
-
-            </div>
-
-
-            <div class="summary-row">
-
-                <span class="summary-label">
-                    服务项目
-                </span>
-
-                <span
-                    id="summaryService"
-                    class="summary-value"
-                >
-                    未选择
-                </span>
-
-            </div>
-
-
-            <div class="summary-row">
-
-                <span class="summary-label">
-                    服务商户
-                </span>
-
-                <span
-                    id="summaryMerchant"
-                    class="summary-value"
-                >
-                    未选择
-                </span>
-
-            </div>
-
-
-            <div class="summary-row">
-
-                <span class="summary-label">
-                    商户地址
-                </span>
-
-                <span
-                    id="summaryAddress"
-                    class="summary-value"
-                >
-                    --
-                </span>
-
-            </div>
-
-
-            <div class="summary-row">
-
-                <span class="summary-label">
-                    城市单价
-                </span>
-
-                <span
-                    id="summaryUnitPrice"
-                    class="summary-value"
-                >
-                    --
-                </span>
-
-            </div>
-
-
-            <div class="summary-row">
-
-                <span class="summary-label">
-                    购买数量
-                </span>
-
-                <span
-                    id="summaryQuantity"
-                    class="summary-value"
-                >
-                    1
-                </span>
-
-            </div>
-
-
-            <div class="summary-row">
-
-                <span class="summary-label">
-                    可消费次数
-                </span>
-
-                <span
-                    id="summaryUses"
-                    class="summary-value"
-                >
-                    --
-                </span>
-
-            </div>
-
-
-            <div class="summary-row">
-
-                <span class="summary-label">
-                    推荐来源
-                </span>
-
-                <span
-                    id="summarySource"
-                    class="summary-value"
-                >
-                    平台
-                </span>
-
-            </div>
-
-
-            <div class="summary-line"></div>
-
-
-            <div class="price-row">
-
-                <span class="price-label">
-                    原价合计
-                </span>
-
-                <span
-                    id="summarySubtotal"
-                    class="price-value"
-                >
-                    ¥--
-                </span>
-
-            </div>
-
-
-            <div class="price-row">
-
-                <span class="price-label">
-                    优惠比例
-                </span>
-
-                <span
-                    id="summaryDiscountRate"
-                    class="price-value discount-value"
-                >
-                    0%
-                </span>
-
-            </div>
-
-
-            <div class="price-row">
-
-                <span class="price-label">
-                    优惠金额
-                </span>
-
-                <span
-                    id="summaryDiscountAmount"
-                    class="price-value discount-value"
-                >
-                    - ¥0
-                </span>
-
-            </div>
-
-
-            <div class="summary-line"></div>
-
-
-            <div class="final-row">
-
-                <span class="final-label">
-                    应付金额
-                </span>
-
-                <span
-                    id="summaryPayable"
-                    class="final-price"
-                >
-                    <small>¥</small> --
-                </span>
-
-            </div>
-
-        </div>
-
-    </section>
+</section>
 
 </div>
-
 
 <!-- 底部 -->
 <div class="bottom-bar">
@@ -2297,15 +1623,11 @@
                 class="bottom-old-price"
             ></div>
 
-            <div
-                id="bottomPrice"
-                class="bottom-price-value"
-            >
+            <div id="bottomPrice" class="bottom-price-value">
                 ¥--
             </div>
 
         </div>
-
 
         <button
             id="confirmBtn"
@@ -2320,8 +1642,39 @@
 
 </div>
 
+<!-- ======================================================
+     服务详情
+====================================================== -->
 
-<!-- 确认弹窗 -->
+<div
+    id="serviceDetailModal"
+    class="modal-mask"
+    onclick="serviceDetailMaskClose(event)"
+>
+
+    <div class="modal-sheet service-detail-sheet">
+
+        <div class="modal-title">
+            服务详情
+        </div>
+
+        <div id="serviceDetailContent"></div>
+
+        <button
+            class="detail-close-btn"
+            onclick="closeServiceDetail()"
+        >
+            我已了解
+        </button>
+
+    </div>
+
+</div>
+
+<!-- ======================================================
+     下单确认
+====================================================== -->
+
 <div
     id="confirmModal"
     class="modal-mask"
@@ -2339,12 +1692,10 @@
             实际订单金额将由数据库重新核算。
         </div>
 
-
         <div
             id="modalSummary"
             class="modal-summary"
         ></div>
-
 
         <div class="modal-actions">
 
@@ -2354,7 +1705,6 @@
             >
                 再检查一下
             </button>
-
 
             <button
                 id="submitOrderBtn"
@@ -2370,3615 +1720,2958 @@
 
 </div>
 
-
-<div
-    id="toast"
-    class="toast"
-></div>
-
+<div id="toast" class="toast"></div>
 
 <script>
-    /* ========================================================
-       Supabase
-    ======================================================== */
+const SUPABASE_URL =
+    "https://qbuqjwpkltbjhlfbyjyb.supabase.co";
 
-    const SUPABASE_URL =
-        "https://qbuqjwpkltbjhlfbyjyb.supabase.co";
+const SUPABASE_ANON_KEY =
+    "sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
 
-
-    const SUPABASE_ANON_KEY =
-        "sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
-
-
-    const sb =
-        window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_ANON_KEY
-        );
-
-
-    /* ========================================================
-       全局
-    ======================================================== */
-
-    let currentUser = null;
-
-    let currentProfile = null;
-
-    let currentCustomer = null;
-
-
-    let orderOptions = [];
-
-    let cities = [];
-
-    let recommendationSources = [];
-
-
-    let selectedCityId = null;
-
-    let selectedProductId = null;
-
-    let selectedMerchantId = null;
-
-    let selectedOption = null;
-
-
-    let quantity = 1;
-
-
-    let selectedSourceType =
-        "platform";
-
-    let selectedSourceNo =
-        null;
-
-
-    let customerLatitude =
-        null;
-
-    let customerLongitude =
-        null;
-
-
-    let submitting =
-        false;
-
-
-    const IDLE_LIMIT =
-        10 * 60 * 1000;
-
-    let idleTimer = null;
-
-
-
-    /* ========================================================
-       启动
-    ======================================================== */
-
-    document.addEventListener(
-        "DOMContentLoaded",
-        init
+const sb =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
     );
 
 
-    async function init() {
+let currentUser = null;
+let currentProfile = null;
+let currentCustomer = null;
 
-        try {
+let orderOptions = [];
+let cities = [];
+let recommendationSources = [];
 
-            setupIdleLogout();
+let selectedCityId = null;
+let selectedProductId = null;
+let selectedMerchantId = null;
+let selectedOption = null;
 
+let quantity = 1;
 
-            const {
-                data: {
-                    session
-                },
-                error
-            } =
-                await sb.auth.getSession();
+let selectedSourceType = "platform";
+let selectedSourceNo = null;
 
+let customerLatitude = null;
+let customerLongitude = null;
 
-            if (
-                error
-                ||
-                !session
-                ||
-                !session.user
-            ) {
+let submitting = false;
 
-                goLogin();
-                return;
+const IDLE_LIMIT =
+    10 * 60 * 1000;
 
-            }
-
-
-            currentUser =
-                session.user;
+let idleTimer = null;
 
 
-            const allowed =
-                await verifyCustomer();
+/* =========================================================
+   初始化
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    init
+);
 
 
-            if (!allowed) {
-                return;
-            }
+async function init(){
 
+    try{
 
-            await loadCustomer();
+        setupIdleLogout();
 
-            await loadBaseData();
-
-
-            renderCitySelect();
-
-            renderSourceOptions();
-
-            renderServices();
-
-            renderMerchants();
-
-            updateAll();
-
-
-            hideLoading();
-
-
-            /*
-             * 页面打开后自动尝试定位。
-             * 如果用户拒绝或无法定位，
-             * 页面仍然可以手动选择城市。
-             */
-            setTimeout(
-                () => {
-                    requestLocation(true);
-                },
-                350
-            );
-
-
-        } catch (error) {
-
-            console.error(
-                "初始化失败",
-                error
-            );
-
-
-            hideLoading();
-
-
-            toast(
-                "页面加载失败，请稍后重试"
-            );
-
-        }
-
-    }
-
-
-
-    /* ========================================================
-       客户权限
-    ======================================================== */
-
-    async function verifyCustomer() {
-
-        const {
-            data,
+        const{
+            data:{session},
             error
         } =
-            await sb
-                .from("profiles")
-                .select(
-                    `
-                    id,
-                    full_name,
-                    role,
-                    user_type,
-                    status,
-                    account_no
-                    `
-                )
-                .eq(
-                    "id",
-                    currentUser.id
-                )
-                .maybeSingle();
-
-
-        if (
-            error
-            ||
-            !data
-        ) {
-
-            await forceLogout();
-
-            return false;
-
-        }
-
-
-        if (
-            data.status
-            &&
-            data.status !== "active"
-        ) {
-
-            toast(
-                "账号已停用"
-            );
-
-
-            setTimeout(
-                forceLogout,
-                800
-            );
-
-
-            return false;
-
-        }
-
-
-        const isCustomer =
-            data.role === "customer"
-            ||
-            data.user_type === "customer";
-
-
-        if (!isCustomer) {
-
-            await forceLogout();
-
-            return false;
-
-        }
-
-
-        currentProfile =
-            data;
-
-
-        return true;
-
-    }
-
-
-
-    /* ========================================================
-       客户
-    ======================================================== */
-
-    async function loadCustomer() {
-
-        const {
-            data,
-            error
-        } =
-            await sb
-                .from("customers")
-                .select("*")
-                .eq(
-                    "auth_user_id",
-                    currentUser.id
-                )
-                .maybeSingle();
-
-
-        if (!error) {
-
-            currentCustomer =
-                data;
-
-        }
-
-    }
-
-
-
-    /* ========================================================
-       基础数据
-    ======================================================== */
-
-    async function loadBaseData() {
-
-        const [
-            optionResult,
-            cityResult,
-            sourceResult
-        ] =
-            await Promise.all([
-
-
-                sb
-                    .from(
-                        "customer_order_options"
-                    )
-                    .select("*"),
-
-
-                sb
-                    .from("cities")
-                    .select("*"),
-
-
-                sb
-                    .from(
-                        "recommendation_sources"
-                    )
-                    .select("*")
-
-            ]);
-
-
-        if (optionResult.error) {
-
-            console.error(
-                "customer_order_options",
-                optionResult.error
-            );
-
-
-            throw optionResult.error;
-
-        }
-
-
-        if (cityResult.error) {
-
-            console.error(
-                "cities",
-                cityResult.error
-            );
-
-        }
-
-
-        if (sourceResult.error) {
-
-            console.error(
-                "recommendation_sources",
-                sourceResult.error
-            );
-
-        }
-
-
-        orderOptions =
-            optionResult.data
-            ||
-            [];
-
-
-        cities =
-            cityResult.data
-            ||
-            [];
-
-
-        recommendationSources =
-            sourceResult.data
-            ||
-            [];
-
-    }
-
-
-
-    /* ========================================================
-       城市
-    ======================================================== */
-
-    function getAvailableCityIds() {
-
-        return [
-            ...new Set(
-                orderOptions
-                    .map(
-                        item =>
-                            String(
-                                item.city_id
-                            )
-                    )
-                    .filter(Boolean)
-            )
-        ];
-
-    }
-
-
-
-    function getCityName(
-        cityId
-    ) {
-
-        const city =
-            cities.find(
-                item =>
-                    String(
-                        item.id
-                    )
-                    ===
-                    String(
-                        cityId
-                    )
-            );
-
-
-        return (
-            city?.city_name
-            ||
-            city?.name
-            ||
-            `城市 ${cityId}`
-        );
-
-    }
-
-
-
-    function renderCitySelect() {
-
-        const select =
-            document.getElementById(
-                "citySelect"
-            );
-
-
-        select.innerHTML =
-            `
-            <option value="">
-                请选择城市
-            </option>
-            `;
-
-
-        const availableIds =
-            getAvailableCityIds();
-
-
-        availableIds
-            .map(
-                id => {
-
-                    return {
-                        id,
-                        name:
-                            getCityName(id)
-                    };
-
-                }
-            )
-            .sort(
-                (
-                    a,
-                    b
-                ) =>
-                    String(a.name)
-                        .localeCompare(
-                            String(b.name),
-                            "zh-CN"
-                        )
-            )
-            .forEach(
-                item => {
-
-                    const option =
-                        document.createElement(
-                            "option"
-                        );
-
-
-                    option.value =
-                        item.id;
-
-
-                    option.textContent =
-                        item.name;
-
-
-                    select.appendChild(
-                        option
-                    );
-
-                }
-            );
-
-
-        /*
-         * 如果只有一个已开通城市，
-         * 自动选择这个城市。
-         */
-
-        if (
-            availableIds.length === 1
-        ) {
-
-            setCity(
-                availableIds[0],
-                false,
-                "当前仅有一个已开通城市，已自动选择。"
-            );
-
-        }
-
-    }
-
-
-
-    function manualCityChanged() {
-
-        const value =
-            document
-                .getElementById(
-                    "citySelect"
-                )
-                .value;
-
-
-        if (!value) {
-
-            selectedCityId =
-                null;
-
-
-            resetAfterCity();
-
-
-            updateCityUI(
-                null,
-                "请选择城市后继续下单。"
-            );
-
-
-            return;
-
-        }
-
-
-        setCity(
-            value,
-            true,
-            "已使用您手动选择的城市。"
-        );
-
-    }
-
-
-
-    function setCity(
-        cityId,
-        isManual,
-        message
-    ) {
-
-        if (!cityId) {
+            await sb.auth.getSession();
+
+        if(
+            error ||
+            !session ||
+            !session.user
+        ){
+            goLogin();
             return;
         }
 
+        currentUser =
+            session.user;
 
-        const changed =
-            String(
-                selectedCityId
-            )
-            !==
-            String(
-                cityId
-            );
+        const allowed =
+            await verifyCustomer();
 
-
-        selectedCityId =
-            cityId;
-
-
-        document
-            .getElementById(
-                "citySelect"
-            )
-            .value =
-            String(cityId);
-
-
-        if (changed) {
-
-            resetAfterCity();
-
+        if(!allowed){
+            return;
         }
 
+        await loadCustomer();
+        await loadBaseData();
 
-        updateCityUI(
-            cityId,
-            message
-        );
-
-
+        renderCitySelect();
+        renderSourceOptions();
         renderServices();
-
         renderMerchants();
 
         updateAll();
 
+        hideLoading();
 
-        if (isManual) {
+        setTimeout(
+            ()=>{
+                requestLocation(true);
+            },
+            350
+        );
 
-            toast(
-                `当前城市：${getCityName(cityId)}`
-            );
+    }catch(error){
 
-        }
+        console.error(
+            "初始化失败",
+            error
+        );
 
+        hideLoading();
+
+        toast(
+            "页面加载失败，请稍后重试"
+        );
+    }
+}
+
+
+/* =========================================================
+   客户权限
+========================================================= */
+
+async function verifyCustomer(){
+
+    const{
+        data,
+        error
+    } =
+        await sb
+            .from("profiles")
+            .select(`
+                id,
+                full_name,
+                role,
+                user_type,
+                status,
+                account_no
+            `)
+            .eq(
+                "id",
+                currentUser.id
+            )
+            .maybeSingle();
+
+    if(error || !data){
+
+        await forceLogout();
+
+        return false;
     }
 
+    if(
+        data.status &&
+        data.status !== "active"
+    ){
+
+        toast(
+            "账号已停用"
+        );
+
+        setTimeout(
+            forceLogout,
+            800
+        );
+
+        return false;
+    }
+
+    const isCustomer =
+        data.role === "customer" ||
+        data.user_type === "customer";
+
+    if(!isCustomer){
+
+        await forceLogout();
+
+        return false;
+    }
+
+    currentProfile =
+        data;
+
+    return true;
+}
 
 
-    function updateCityUI(
+/* =========================================================
+   客户资料
+========================================================= */
+
+async function loadCustomer(){
+
+    const{
+        data,
+        error
+    } =
+        await sb
+            .from("customers")
+            .select("*")
+            .eq(
+                "auth_user_id",
+                currentUser.id
+            )
+            .maybeSingle();
+
+    if(!error){
+
+        currentCustomer =
+            data;
+    }
+}
+
+
+/* =========================================================
+   加载下单数据
+========================================================= */
+
+async function loadBaseData(){
+
+    const[
+        optionResult,
+        cityResult,
+        sourceResult
+    ] =
+        await Promise.all([
+
+            sb
+                .from(
+                    "customer_order_options"
+                )
+                .select("*"),
+
+            sb
+                .from("cities")
+                .select("*"),
+
+            sb
+                .from(
+                    "recommendation_sources"
+                )
+                .select("*")
+        ]);
+
+    if(optionResult.error){
+
+        console.error(
+            "customer_order_options",
+            optionResult.error
+        );
+
+        throw optionResult.error;
+    }
+
+    if(cityResult.error){
+
+        console.error(
+            "cities",
+            cityResult.error
+        );
+    }
+
+    if(sourceResult.error){
+
+        console.error(
+            "recommendation_sources",
+            sourceResult.error
+        );
+    }
+
+    orderOptions =
+        optionResult.data || [];
+
+    cities =
+        cityResult.data || [];
+
+    recommendationSources =
+        sourceResult.data || [];
+}
+
+
+/* =========================================================
+   城市
+========================================================= */
+
+function getAvailableCityIds(){
+
+    return[
+        ...new Set(
+            orderOptions
+                .map(
+                    item=>
+                        String(
+                            item.city_id
+                        )
+                )
+                .filter(Boolean)
+        )
+    ];
+}
+
+
+function getCityName(cityId){
+
+    const city =
+        cities.find(
+            item=>
+                String(item.id) ===
+                String(cityId)
+        );
+
+    return(
+        city?.city_name ||
+        city?.name ||
+        `城市 ${cityId}`
+    );
+}
+
+
+function renderCitySelect(){
+
+    const select =
+        document.getElementById(
+            "citySelect"
+        );
+
+    select.innerHTML =
+        `
+        <option value="">
+            请选择城市
+        </option>
+        `;
+
+    const availableIds =
+        getAvailableCityIds();
+
+    availableIds
+        .map(
+            id=>({
+                id,
+                name:getCityName(id)
+            })
+        )
+        .sort(
+            (a,b)=>
+                String(a.name)
+                    .localeCompare(
+                        String(b.name),
+                        "zh-CN"
+                    )
+        )
+        .forEach(
+            item=>{
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+                option.value =
+                    item.id;
+
+                option.textContent =
+                    item.name;
+
+                select.appendChild(
+                    option
+                );
+            }
+        );
+
+    if(
+        availableIds.length === 1
+    ){
+
+        setCity(
+            availableIds[0],
+            false,
+            "当前仅有一个已开通城市，已自动选择。"
+        );
+    }
+}
+
+
+function manualCityChanged(){
+
+    const value =
+        document
+            .getElementById(
+                "citySelect"
+            )
+            .value;
+
+    if(!value){
+
+        selectedCityId =
+            null;
+
+        resetAfterCity();
+
+        updateCityUI(
+            null,
+            "请选择城市后继续下单。"
+        );
+
+        renderServices();
+        renderMerchants();
+        updateAll();
+
+        return;
+    }
+
+    setCity(
+        value,
+        true,
+        "已使用您手动选择的城市。"
+    );
+}
+
+
+function setCity(
+    cityId,
+    isManual,
+    message
+){
+
+    if(!cityId){
+        return;
+    }
+
+    const changed =
+        String(selectedCityId) !==
+        String(cityId);
+
+    selectedCityId =
+        cityId;
+
+    document
+        .getElementById(
+            "citySelect"
+        )
+        .value =
+        String(cityId);
+
+    if(changed){
+
+        resetAfterCity();
+    }
+
+    updateCityUI(
         cityId,
         message
-    ) {
+    );
 
-        const title =
-            document.getElementById(
-                "currentCityTitle"
-            );
+    renderServices();
+    renderMerchants();
 
+    updateAll();
 
-        const status =
-            document.getElementById(
-                "cityStatus"
-            );
+    if(isManual){
 
-
-        if (!cityId) {
-
-            title.textContent =
-                "尚未选择城市";
+        toast(
+            `当前城市：${getCityName(cityId)}`
+        );
+    }
+}
 
 
-            status.textContent =
-                message
-                ||
-                "请允许定位或手动选择城市。";
+function updateCityUI(
+    cityId,
+    message
+){
 
+    const title =
+        document.getElementById(
+            "currentCityTitle"
+        );
 
-            status.classList.remove(
-                "city-success"
-            );
+    const status =
+        document.getElementById(
+            "cityStatus"
+        );
 
-
-            return;
-
-        }
-
+    if(!cityId){
 
         title.textContent =
-            getCityName(
-                cityId
-            );
-
+            "尚未选择城市";
 
         status.textContent =
-            message
-            ||
-            "当前城市已确认。";
+            message ||
+            "请允许定位或手动选择城市。";
 
-
-        status.classList.add(
+        status.classList.remove(
             "city-success"
         );
 
+        return;
     }
 
+    title.textContent =
+        getCityName(cityId);
+
+    status.textContent =
+        message ||
+        "当前城市已确认。";
+
+    status.classList.add(
+        "city-success"
+    );
+}
 
 
-    function resetAfterCity() {
+function resetAfterCity(){
 
-        selectedProductId =
-            null;
+    selectedProductId =
+        null;
 
-        selectedMerchantId =
-            null;
+    selectedMerchantId =
+        null;
 
-        selectedOption =
-            null;
+    selectedOption =
+        null;
 
-        quantity =
-            1;
+    quantity =
+        1;
+}
 
+
+/* =========================================================
+   当前城市可下单服务
+========================================================= */
+
+function getCityOptions(){
+
+    if(!selectedCityId){
+        return[];
     }
 
+    return orderOptions.filter(
+        item=>
+            String(item.city_id) ===
+            String(selectedCityId)
+    );
+}
 
 
-    /* ========================================================
-       服务项目
-    ======================================================== */
+function getCityProducts(){
 
-    function getCityOptions() {
+    const map =
+        new Map();
 
-        if (!selectedCityId) {
-            return [];
-        }
+    getCityOptions()
+        .forEach(
+            item=>{
 
+                const key =
+                    String(
+                        item.product_id
+                    );
 
-        return orderOptions.filter(
-            item =>
-                String(
-                    item.city_id
-                )
-                ===
-                String(
-                    selectedCityId
-                )
+                if(!map.has(key)){
+
+                    map.set(
+                        key,
+                        {
+                            product_id:
+                                item.product_id,
+
+                            product_name:
+                                item.product_name,
+
+                            description:
+                                item.description,
+
+                            default_usage_count:
+                                Number(
+                                    item.default_usage_count ||
+                                    1
+                                ),
+
+                            unit_price:
+                                Number(
+                                    item.unit_price
+                                )
+                        }
+                    );
+                }
+            }
         );
 
-    }
+    return[
+        ...map.values()
+    ];
+}
 
 
+/* =========================================================
+   服务列表
+========================================================= */
 
-    function getCityProducts() {
+function renderServices(){
 
-        const map =
-            new Map();
+    const box =
+        document.getElementById(
+            "serviceList"
+        );
 
+    box.innerHTML = "";
 
-        getCityOptions()
-            .forEach(
-                item => {
+    if(!selectedCityId){
 
-                    const key =
-                        String(
-                            item.product_id
-                        );
+        box.innerHTML =
+            `
+            <div class="empty">
 
-
-                    if (!map.has(key)) {
-
-                        map.set(
-                            key,
-                            {
-                                product_id:
-                                    item.product_id,
-
-                                product_name:
-                                    item.product_name,
-
-                                description:
-                                    item.description,
-
-                                default_usage_count:
-                                    Number(
-                                        item.default_usage_count
-                                        ||
-                                        1
-                                    ),
-
-                                unit_price:
-                                    Number(
-                                        item.unit_price
-                                    )
-                            }
-                        );
-
-                    }
-
-                }
-            );
-
-
-        return [
-            ...map.values()
-        ];
-
-    }
-
-
-
-    function renderServices() {
-
-        const box =
-            document.getElementById(
-                "serviceList"
-            );
-
-
-        box.innerHTML = "";
-
-
-        if (!selectedCityId) {
-
-            box.innerHTML = `
-                <div class="empty">
-
-                    <div class="empty-icon">
-                        📍
-                    </div>
-
-                    请先确认当前城市
-
+                <div class="empty-icon">
+                    📍
                 </div>
+
+                请先确认当前城市
+
+            </div>
             `;
 
-            return;
+        return;
+    }
 
-        }
+    const list =
+        getCityProducts();
 
+    if(!list.length){
 
-        const list =
-            getCityProducts();
+        box.innerHTML =
+            `
+            <div class="empty">
 
-
-        if (!list.length) {
-
-            box.innerHTML = `
-                <div class="empty">
-
-                    <div class="empty-icon">
-                        🌷
-                    </div>
-
-                    当前城市暂无已定义价格的服务项目
-
+                <div class="empty-icon">
+                    🌷
                 </div>
+
+                当前城市暂无已定义价格的服务项目
+
+            </div>
             `;
 
-            return;
+        return;
+    }
 
-        }
+    list.forEach(
+        product=>{
 
+            const card =
+                document.createElement(
+                    "button"
+                );
 
-        list.forEach(
-            product => {
+            card.type =
+                "button";
 
-                const btn =
-                    document.createElement(
-                        "button"
-                    );
+            card.className =
+                "service-card";
 
+            if(
+                String(selectedProductId) ===
+                String(product.product_id)
+            ){
 
-                btn.type =
-                    "button";
+                card.classList.add(
+                    "selected"
+                );
+            }
 
+            const uses =
+                Number(
+                    product.default_usage_count ||
+                    1
+                );
 
-                btn.className =
-                    "service-card";
+            card.innerHTML =
+                `
+                <div class="service-icon">
+                    🌸
+                </div>
 
+                <div class="service-main">
 
-                if (
-                    String(
-                        selectedProductId
-                    )
-                    ===
-                    String(
-                        product.product_id
-                    )
-                ) {
-
-                    btn.classList.add(
-                        "selected"
-                    );
-
-                }
-
-
-                const uses =
-                    Number(
-                        product.default_usage_count
-                        ||
-                        1
-                    );
-
-
-                btn.innerHTML = `
-
-                    <div class="service-icon">
-                        🌸
+                    <div class="service-name">
+                        ${escapeHtml(
+                            product.product_name
+                        )}
                     </div>
 
+                    <div class="service-desc">
+                        ${escapeHtml(
+                            product.description ||
+                            "该服务项目暂无详细说明"
+                        )}
+                    </div>
 
-                    <div class="service-main">
+                    <div class="service-bottom">
 
-                        <div class="service-name">
-                            ${escapeHtml(
-                                product.product_name
-                            )}
-                        </div>
+                        <div class="service-tags">
 
+                            <span class="tag">
+                                ${uses} 次 / 份
+                            </span>
 
-                        <div class="service-desc">
-                            ${escapeHtml(
-                                product.description
-                                ||
-                                "孕乃馨平台认证服务项目"
-                            )}
-                        </div>
+                            <span class="tag price-tag">
+                                城市价 ¥${formatMoney(
+                                    product.unit_price
+                                )}
+                            </span>
 
-
-                        <div class="service-bottom">
-
-                            <div class="service-tags">
-
-                                <span class="tag">
-                                    ${uses} 次 / 份
-                                </span>
-
-                                <span class="tag price-tag">
-                                    城市价 ¥${formatMoney(
-                                        product.unit_price
-                                    )}
-                                </span>
-
-                            </div>
-
-
-                            <span class="select-check">
-                                ✓
+                            <span
+                                class="service-detail-btn"
+                                onclick="
+                                    event.stopPropagation();
+                                    openServiceDetail(
+                                        '${String(
+                                            product.product_id
+                                        )}'
+                                    );
+                                "
+                            >
+                                查看详情
                             </span>
 
                         </div>
 
+                        <span class="select-check">
+                            ✓
+                        </span>
+
                     </div>
+
+                </div>
                 `;
 
+            card.onclick =
+                ()=>{
 
-                btn.onclick =
-                    () => {
+                    selectedProductId =
+                        product.product_id;
 
-                        selectedProductId =
-                            product.product_id;
+                    selectedMerchantId =
+                        null;
 
+                    selectedOption =
+                        null;
 
-                        selectedMerchantId =
-                            null;
+                    quantity =
+                        1;
 
+                    renderServices();
+                    renderMerchants();
 
-                        selectedOption =
-                            null;
+                    updateAll();
 
+                    setTimeout(
+                        ()=>{
 
-                        quantity =
-                            1;
+                            document
+                                .getElementById(
+                                    "merchantList"
+                                )
+                                ?.scrollIntoView({
+                                    behavior:"smooth",
+                                    block:"start"
+                                });
+                        },
+                        150
+                    );
+                };
 
-
-                        renderServices();
-
-                        renderMerchants();
-
-                        updateAll();
-
-
-                        setTimeout(
-                            () => {
-
-                                document
-                                    .getElementById(
-                                        "merchantList"
-                                    )
-                                    ?.scrollIntoView(
-                                        {
-                                            behavior:
-                                                "smooth",
-
-                                            block:
-                                                "start"
-                                        }
-                                    );
-
-                            },
-                            150
-                        );
-
-                    };
+            box.appendChild(
+                card
+            );
+        }
+    );
+}
 
 
-                box.appendChild(
-                    btn
-                );
+/* =========================================================
+   服务详情
+========================================================= */
 
-            }
+function openServiceDetail(
+    productId
+){
+
+    const product =
+        getCityProducts()
+            .find(
+                item=>
+                    String(
+                        item.product_id
+                    ) ===
+                    String(
+                        productId
+                    )
+            );
+
+    if(!product){
+
+        toast(
+            "暂时无法读取服务详情"
         );
 
+        return;
     }
 
-
-
-    /* ========================================================
-       商户
-    ======================================================== */
-
-    function getMerchantOptions() {
-
-        if (
-            !selectedCityId
-            ||
-            !selectedProductId
-        ) {
-
-            return [];
-
-        }
-
-
-        return orderOptions
-            .filter(
-                item => {
-
-                    return (
-                        String(
-                            item.city_id
-                        )
-                        ===
-                        String(
-                            selectedCityId
-                        )
-
-                        &&
-
-                        String(
-                            item.product_id
-                        )
-                        ===
-                        String(
-                            selectedProductId
-                        )
-                    );
-
-                }
+    const uses =
+        Math.max(
+            1,
+            Number(
+                product.default_usage_count ||
+                1
             )
-            .map(
-                item => {
+        );
 
-                    return {
-                        ...item,
+    const description =
+        product.description ||
+        "该服务项目暂未填写详细服务说明。请在确认下单前向平台或服务商户核实具体服务内容。";
 
-                        _distance:
-                            calculateOptionDistance(
-                                item
-                            )
-                    };
+    document
+        .getElementById(
+            "serviceDetailContent"
+        )
+        .innerHTML =
+        `
+        <div class="detail-head">
 
-                }
-            )
-            .sort(
-                (
-                    a,
-                    b
-                ) => {
+            <div class="detail-icon">
+                🌸
+            </div>
 
-                    if (
-                        a._distance === null
-                        &&
-                        b._distance === null
-                    ) {
+            <div class="detail-main">
 
-                        return Number(
-                            a.merchant_no
-                            ||
-                            0
+                <div class="detail-name">
+                    ${escapeHtml(
+                        product.product_name
+                    )}
+                </div>
+
+                <div class="detail-tags">
+
+                    <span class="tag">
+                        ${uses} 次 / 份
+                    </span>
+
+                    <span class="tag price-tag">
+                        当前城市价
+                        ¥${formatMoney(
+                            product.unit_price
+                        )}
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="detail-block">
+
+            <div class="detail-block-title">
+                服务内容与说明
+            </div>
+
+            <div class="detail-description">
+${escapeHtml(description)}
+            </div>
+
+        </div>
+
+
+        <div class="detail-warning">
+            请在下单前仔细核对服务内容、适用情况和消费次数是否与您的需求一致。
+            如果您对服务内容存在疑问，请确认清楚以后再提交订单，避免选择错误的服务项目。
+        </div>
+        `;
+
+    document
+        .getElementById(
+            "serviceDetailModal"
+        )
+        .classList.add(
+            "show"
+        );
+}
+
+
+function closeServiceDetail(){
+
+    document
+        .getElementById(
+            "serviceDetailModal"
+        )
+        .classList.remove(
+            "show"
+        );
+}
+
+
+function serviceDetailMaskClose(
+    event
+){
+
+    if(
+        event.target.id ===
+        "serviceDetailModal"
+    ){
+
+        closeServiceDetail();
+    }
+}
+
+
+/* =========================================================
+   商户
+========================================================= */
+
+function getMerchantOptions(){
+
+    if(
+        !selectedCityId ||
+        !selectedProductId
+    ){
+        return[];
+    }
+
+    return orderOptions
+        .filter(
+            item=>
+                String(item.city_id) ===
+                String(selectedCityId)
+                &&
+                String(item.product_id) ===
+                String(selectedProductId)
+        )
+        .map(
+            item=>({
+                ...item,
+                _distance:
+                    calculateOptionDistance(
+                        item
+                    )
+            })
+        )
+        .sort(
+            (a,b)=>{
+
+                if(
+                    a._distance === null &&
+                    b._distance === null
+                ){
+
+                    return(
+                        Number(
+                            a.merchant_no || 0
                         )
                         -
                         Number(
-                            b.merchant_no
-                            ||
-                            0
-                        );
-
-                    }
-
-
-                    if (
-                        a._distance === null
-                    ) {
-
-                        return 1;
-
-                    }
-
-
-                    if (
-                        b._distance === null
-                    ) {
-
-                        return -1;
-
-                    }
-
-
-                    return (
-                        a._distance
-                        -
-                        b._distance
+                            b.merchant_no || 0
+                        )
                     );
-
                 }
-            );
 
+                if(a._distance === null){
+                    return 1;
+                }
+
+                if(b._distance === null){
+                    return -1;
+                }
+
+                return(
+                    a._distance -
+                    b._distance
+                );
+            }
+        );
+}
+
+
+function renderMerchants(){
+
+    const box =
+        document.getElementById(
+            "merchantList"
+        );
+
+    box.innerHTML = "";
+
+    if(!selectedCityId){
+
+        box.innerHTML =
+            `
+            <div class="empty">
+
+                <div class="empty-icon">
+                    📍
+                </div>
+
+                请先确认城市
+
+            </div>
+            `;
+
+        return;
     }
 
+    if(!selectedProductId){
 
+        box.innerHTML =
+            `
+            <div class="empty">
 
-    function renderMerchants() {
-
-        const box =
-            document.getElementById(
-                "merchantList"
-            );
-
-
-        box.innerHTML = "";
-
-
-        if (!selectedCityId) {
-
-            box.innerHTML = `
-                <div class="empty">
-
-                    <div class="empty-icon">
-                        📍
-                    </div>
-
-                    请先确认城市
-
+                <div class="empty-icon">
+                    🌸
                 </div>
+
+                请先选择服务项目
+
+            </div>
             `;
 
-            return;
+        return;
+    }
 
-        }
+    const list =
+        getMerchantOptions();
 
+    if(!list.length){
 
-        if (!selectedProductId) {
+        box.innerHTML =
+            `
+            <div class="empty">
 
-            box.innerHTML = `
-                <div class="empty">
-
-                    <div class="empty-icon">
-                        🌸
-                    </div>
-
-                    请先选择服务项目
-
+                <div class="empty-icon">
+                    🏪
                 </div>
+
+                当前没有已完成分成规则定义的商户可提供此项目
+
+            </div>
             `;
 
-            return;
+        return;
+    }
 
-        }
+    list.forEach(
+        item=>{
 
+            const card =
+                document.createElement(
+                    "button"
+                );
 
-        const list =
-            getMerchantOptions();
+            card.type =
+                "button";
 
+            card.className =
+                "merchant-card";
 
-        if (!list.length) {
+            if(
+                String(selectedMerchantId) ===
+                String(item.merchant_id)
+            ){
 
-            box.innerHTML = `
-                <div class="empty">
+                card.classList.add(
+                    "selected"
+                );
+            }
 
-                    <div class="empty-icon">
-                        🏪
-                    </div>
+            const distanceText =
+                item._distance !== null
+                ?
+                formatDistance(
+                    item._distance
+                )
+                :
+                "可手动选择";
 
-                    当前没有已完成分成规则定义的商户可提供此项目
+            card.innerHTML =
+                `
+                <div class="merchant-head">
 
-                </div>
-            `;
-
-            return;
-
-        }
-
-
-        list.forEach(
-            item => {
-
-                const card =
-                    document.createElement(
-                        "button"
-                    );
-
-
-                card.type =
-                    "button";
-
-
-                card.className =
-                    "merchant-card";
-
-
-                if (
-                    String(
-                        selectedMerchantId
-                    )
-                    ===
-                    String(
-                        item.merchant_id
-                    )
-                ) {
-
-                    card.classList.add(
-                        "selected"
-                    );
-
-                }
-
-
-                const distanceText =
-                    item._distance !== null
-                    ?
-                    formatDistance(
-                        item._distance
-                    )
-                    :
-                    "可手动选择";
-
-
-                card.innerHTML = `
-
-                    <div class="merchant-head">
-
-                        <div class="merchant-name">
-                            ${escapeHtml(
-                                item.merchant_name
-                            )}
-                        </div>
-
-
-                        <div class="merchant-no">
-                            编号 ${escapeHtml(
-                                item.merchant_no
-                            )}
-                        </div>
-
-                    </div>
-
-
-                    <div class="merchant-address">
-                        📍 ${escapeHtml(
-                            item.address
-                            ||
-                            "商户地址暂未完善"
+                    <div class="merchant-name">
+                        ${escapeHtml(
+                            item.merchant_name
                         )}
                     </div>
 
-
-                    <div class="merchant-bottom">
-
-                        <span class="distance">
-                            ${escapeHtml(
-                                distanceText
-                            )}
-                        </span>
-
-
-                        <span class="merchant-price">
-                            <small>¥</small>
-                            ${formatMoney(
-                                item.unit_price
-                            )}
-                        </span>
-
+                    <div class="merchant-no">
+                        编号
+                        ${escapeHtml(
+                            item.merchant_no
+                        )}
                     </div>
+
+                </div>
+
+                <div class="merchant-address">
+                    📍
+                    ${escapeHtml(
+                        item.address ||
+                        "商户地址暂未完善"
+                    )}
+                </div>
+
+                <div class="merchant-bottom">
+
+                    <span class="distance">
+                        ${escapeHtml(
+                            distanceText
+                        )}
+                    </span>
+
+                    <span class="merchant-price">
+                        <small>¥</small>
+                        ${formatMoney(
+                            item.unit_price
+                        )}
+                    </span>
+
+                </div>
                 `;
 
+            card.onclick =
+                ()=>{
 
-                card.onclick =
-                    () => {
+                    selectedMerchantId =
+                        item.merchant_id;
 
-                        selectedMerchantId =
-                            item.merchant_id;
+                    selectedOption =
+                        item;
 
-
-                        selectedOption =
-                            item;
-
-
-                        quantity =
-                            Math.max(
-                                1,
-                                quantity
-                            );
-
-
-                        renderMerchants();
-
-                        updateMapPlaceholder();
-
-                        updateAll();
-
-                    };
-
-
-                box.appendChild(
-                    card
-                );
-
-            }
-        );
-
-    }
-
-
-
-    /* ========================================================
-       定位及自动城市
-    ======================================================== */
-
-    function requestLocation(
-        automatic
-    ) {
-
-        if (
-            !navigator.geolocation
-        ) {
-
-            locationFailed(
-                automatic
-            );
-
-            return;
-
-        }
-
-
-        const btn =
-            document.getElementById(
-                "locateBtn"
-            );
-
-
-        btn.disabled =
-            true;
-
-
-        btn.textContent =
-            "正在获取位置...";
-
-
-        if (
-            !selectedCityId
-        ) {
-
-            updateCityUI(
-                null,
-                "正在获取当前位置并识别服务城市..."
-            );
-
-        }
-
-
-        navigator.geolocation
-            .getCurrentPosition(
-
-                position => {
-
-                    customerLatitude =
-                        Number(
-                            position.coords.latitude
+                    quantity =
+                        Math.max(
+                            1,
+                            quantity
                         );
-
-
-                    customerLongitude =
-                        Number(
-                            position.coords.longitude
-                        );
-
-
-                    btn.disabled =
-                        false;
-
-
-                    btn.textContent =
-                        "重新获取当前位置";
-
-
-                    detectNearestCity();
-
 
                     renderMerchants();
 
                     updateMapPlaceholder();
 
-                },
+                    updateAll();
+                };
 
-
-                error => {
-
-                    console.warn(
-                        "geolocation",
-                        error
-                    );
-
-
-                    btn.disabled =
-                        false;
-
-
-                    btn.textContent =
-                        "再次尝试定位";
-
-
-                    locationFailed(
-                        automatic
-                    );
-
-                },
-
-
-                {
-                    enableHighAccuracy:
-                        true,
-
-                    timeout:
-                        10000,
-
-                    maximumAge:
-                        60000
-                }
-
+            box.appendChild(
+                card
             );
+        }
+    );
+}
 
+
+/* =========================================================
+   定位
+========================================================= */
+
+function requestLocation(
+    automatic
+){
+
+    if(
+        !navigator.geolocation
+    ){
+
+        locationFailed(
+            automatic
+        );
+
+        return;
     }
 
+    const btn =
+        document.getElementById(
+            "locateBtn"
+        );
+
+    btn.disabled =
+        true;
+
+    btn.textContent =
+        "正在获取位置...";
+
+    if(!selectedCityId){
+
+        updateCityUI(
+            null,
+            "正在获取当前位置并识别服务城市..."
+        );
+    }
+
+    navigator.geolocation
+        .getCurrentPosition(
+
+            position=>{
+
+                customerLatitude =
+                    Number(
+                        position.coords.latitude
+                    );
+
+                customerLongitude =
+                    Number(
+                        position.coords.longitude
+                    );
+
+                btn.disabled =
+                    false;
+
+                btn.textContent =
+                    "重新获取当前位置";
+
+                detectNearestCity();
+
+                renderMerchants();
+
+                updateMapPlaceholder();
+            },
+
+            error=>{
+
+                console.warn(
+                    "geolocation",
+                    error
+                );
+
+                btn.disabled =
+                    false;
+
+                btn.textContent =
+                    "再次尝试定位";
+
+                locationFailed(
+                    automatic
+                );
+            },
+
+            {
+                enableHighAccuracy:true,
+                timeout:10000,
+                maximumAge:60000
+            }
+        );
+}
 
 
-    function locationFailed(
-        automatic
-    ) {
+function locationFailed(
+    automatic
+){
 
-        if (!selectedCityId) {
+    if(!selectedCityId){
+
+        updateCityUI(
+            null,
+            "无法自动识别城市，请在下面手动选择城市。"
+        );
+    }
+
+    if(!automatic){
+
+        toast(
+            "定位失败，请手动选择城市"
+        );
+    }
+}
+
+
+function detectNearestCity(){
+
+    if(
+        customerLatitude === null ||
+        customerLongitude === null
+    ){
+        return;
+    }
+
+    const merchantLocations =
+        orderOptions
+            .filter(
+                item=>{
+
+                    const lat =
+                        Number(
+                            item.latitude
+                        );
+
+                    const lng =
+                        Number(
+                            item.longitude
+                        );
+
+                    return(
+                        Number.isFinite(lat) &&
+                        Number.isFinite(lng)
+                    );
+                }
+            )
+            .map(
+                item=>({
+                    city_id:item.city_id,
+
+                    distance:
+                        haversineDistance(
+                            customerLatitude,
+                            customerLongitude,
+                            Number(
+                                item.latitude
+                            ),
+                            Number(
+                                item.longitude
+                            )
+                        )
+                })
+            )
+            .sort(
+                (a,b)=>
+                    a.distance -
+                    b.distance
+            );
+
+    if(!merchantLocations.length){
+
+        if(!selectedCityId){
 
             updateCityUI(
                 null,
-                "无法自动识别城市，请在下面手动选择城市。"
+                "位置获取成功，但暂时无法自动识别城市，请手动选择。"
             );
-
         }
 
-
-        if (!automatic) {
-
-            toast(
-                "定位失败，请手动选择城市"
-            );
-
-        }
-
+        return;
     }
 
+    const nearest =
+        merchantLocations[0];
+
+    setCity(
+        nearest.city_id,
+        false,
+        `已根据当前位置自动识别为 ${getCityName(
+            nearest.city_id
+        )}。`
+    );
+
+    toast(
+        `已自动识别：${getCityName(
+            nearest.city_id
+        )}`
+    );
+}
 
 
-    function detectNearestCity() {
+/* =========================================================
+   地图占位
+========================================================= */
 
-        if (
-            customerLatitude === null
-            ||
-            customerLongitude === null
-        ) {
+function updateMapPlaceholder(){
 
-            return;
-
-        }
-
-
-        const merchantLocations =
-            orderOptions
-                .filter(
-                    item => {
-
-                        const lat =
-                            Number(
-                                item.latitude
-                            );
-
-
-                        const lng =
-                            Number(
-                                item.longitude
-                            );
-
-
-                        return (
-                            Number.isFinite(lat)
-                            &&
-                            Number.isFinite(lng)
-                        );
-
-                    }
-                )
-                .map(
-                    item => {
-
-                        return {
-                            city_id:
-                                item.city_id,
-
-                            distance:
-                                haversineDistance(
-                                    customerLatitude,
-                                    customerLongitude,
-                                    Number(
-                                        item.latitude
-                                    ),
-                                    Number(
-                                        item.longitude
-                                    )
-                                )
-                        };
-
-                    }
-                )
-                .sort(
-                    (
-                        a,
-                        b
-                    ) =>
-                        a.distance
-                        -
-                        b.distance
-                );
-
-
-        if (!merchantLocations.length) {
-
-            if (!selectedCityId) {
-
-                updateCityUI(
-                    null,
-                    "位置获取成功，但暂时无法自动识别城市，请手动选择。"
-                );
-
-            }
-
-
-            return;
-
-        }
-
-
-        const nearest =
-            merchantLocations[0];
-
-
-        setCity(
-            nearest.city_id,
-            false,
-            `已根据当前位置自动识别为 ${getCityName(
-                nearest.city_id
-            )}。`
+    const text =
+        document.getElementById(
+            "mapText"
         );
 
+    if(selectedOption){
 
-        toast(
-            `已自动识别：${getCityName(
-                nearest.city_id
-            )}`
-        );
+        text.innerHTML =
+            `
+            已选择：
+            ${escapeHtml(
+                selectedOption.merchant_name
+            )}
+            <br>
 
+            ${escapeHtml(
+                selectedOption.address ||
+                "地址暂未完善"
+            )}
+            <br>
+
+            百度地图 AK 获取后将在这里显示地图和导航。
+            `;
+
+        return;
     }
 
+    if(
+        customerLatitude !== null &&
+        customerLongitude !== null
+    ){
 
-
-    /* ========================================================
-       地图占位
-    ======================================================== */
-
-    function updateMapPlaceholder() {
-
-        const text =
-            document.getElementById(
-                "mapText"
-            );
-
-
-        if (selectedOption) {
-
-            text.innerHTML = `
-                已选择：${escapeHtml(
-                    selectedOption.merchant_name
-                )}<br>
-
-                ${escapeHtml(
-                    selectedOption.address
-                    ||
-                    "地址暂未完善"
-                )}<br>
-
-                百度地图 AK 获取后将在这里显示地图和导航。
+        text.innerHTML =
+            `
+            已获取当前位置。<br>
+            商户将按照距离优先排序。
             `;
 
+        return;
+    }
 
-            return;
-
-        }
-
-
-        if (
-            customerLatitude !== null
-            &&
-            customerLongitude !== null
-        ) {
-
-            text.innerHTML = `
-                已获取当前位置。<br>
-                商户将按照距离优先排序。
-            `;
+    text.innerHTML =
+        `
+        百度地图 AK 正在审批中。<br>
+        当前先使用定位、距离和商户地址。
+        `;
+}
 
 
-            return;
+/* =========================================================
+   距离
+========================================================= */
 
-        }
+function calculateOptionDistance(
+    option
+){
+
+    if(
+        customerLatitude === null ||
+        customerLongitude === null
+    ){
+        return null;
+    }
+
+    const lat =
+        Number(
+            option.latitude
+        );
+
+    const lng =
+        Number(
+            option.longitude
+        );
+
+    if(
+        !Number.isFinite(lat) ||
+        !Number.isFinite(lng)
+    ){
+        return null;
+    }
+
+    return haversineDistance(
+        customerLatitude,
+        customerLongitude,
+        lat,
+        lng
+    );
+}
 
 
-        text.innerHTML = `
-            百度地图 AK 正在审批中。<br>
-            当前先使用定位、距离和商户地址。
+function haversineDistance(
+    lat1,
+    lon1,
+    lat2,
+    lon2
+){
+
+    const R =
+        6371;
+
+    const dLat =
+        toRad(
+            lat2 -
+            lat1
+        );
+
+    const dLon =
+        toRad(
+            lon2 -
+            lon1
+        );
+
+    const a =
+        Math.sin(dLat/2) *
+        Math.sin(dLat/2)
+        +
+        Math.cos(toRad(lat1)) *
+        Math.cos(toRad(lat2)) *
+        Math.sin(dLon/2) *
+        Math.sin(dLon/2);
+
+    const c =
+        2 *
+        Math.atan2(
+            Math.sqrt(a),
+            Math.sqrt(1-a)
+        );
+
+    return R*c;
+}
+
+
+function toRad(
+    value
+){
+    return(
+        value *
+        Math.PI /
+        180
+    );
+}
+
+
+function formatDistance(
+    km
+){
+
+    if(km < 1){
+
+        return(
+            `${Math.round(
+                km*1000
+            )} 米`
+        );
+    }
+
+    return(
+        `${km.toFixed(1)} 公里`
+    );
+}
+
+
+/* =========================================================
+   数量
+========================================================= */
+
+function changeQuantity(
+    change
+){
+
+    const next =
+        quantity +
+        change;
+
+    if(
+        next < 1 ||
+        next > 999
+    ){
+        return;
+    }
+
+    quantity =
+        next;
+
+    updateAll();
+}
+
+
+/* =========================================================
+   推荐来源
+========================================================= */
+
+function renderSourceOptions(){
+
+    const merchantSelect =
+        document.getElementById(
+            "sourceMerchantSelect"
+        );
+
+    const consultantSelect =
+        document.getElementById(
+            "sourceConsultantSelect"
+        );
+
+    merchantSelect.innerHTML =
+        `
+        <option value="">
+            请选择推荐商户
+        </option>
         `;
 
-    }
+    consultantSelect.innerHTML =
+        `
+        <option value="">
+            请选择健康顾问
+        </option>
+        `;
 
-
-
-    /* ========================================================
-       距离
-    ======================================================== */
-
-    function calculateOptionDistance(
-        option
-    ) {
-
-        if (
-            customerLatitude === null
-            ||
-            customerLongitude === null
-        ) {
-
-            return null;
-
-        }
-
-
-        const lat =
-            Number(
-                option.latitude
-            );
-
-
-        const lng =
-            Number(
-                option.longitude
-            );
-
-
-        if (
-            !Number.isFinite(lat)
-            ||
-            !Number.isFinite(lng)
-        ) {
-
-            return null;
-
-        }
-
-
-        return haversineDistance(
-            customerLatitude,
-            customerLongitude,
-            lat,
-            lng
-        );
-
-    }
-
-
-
-    function haversineDistance(
-        lat1,
-        lon1,
-        lat2,
-        lon2
-    ) {
-
-        const R =
-            6371;
-
-
-        const dLat =
-            toRad(
-                lat2 - lat1
-            );
-
-
-        const dLon =
-            toRad(
-                lon2 - lon1
-            );
-
-
-        const a =
-            Math.sin(
-                dLat / 2
-            )
-            *
-            Math.sin(
-                dLat / 2
-            )
-            +
-            Math.cos(
-                toRad(lat1)
-            )
-            *
-            Math.cos(
-                toRad(lat2)
-            )
-            *
-            Math.sin(
-                dLon / 2
-            )
-            *
-            Math.sin(
-                dLon / 2
-            );
-
-
-        const c =
-            2
-            *
-            Math.atan2(
-                Math.sqrt(a),
-                Math.sqrt(
-                    1 - a
+    recommendationSources
+        .filter(
+            item=>
+                item.source_type ===
+                "merchant"
+        )
+        .sort(
+            (a,b)=>
+                Number(
+                    a.source_no || 0
                 )
-            );
+                -
+                Number(
+                    b.source_no || 0
+                )
+        )
+        .forEach(
+            item=>{
 
+                const option =
+                    document.createElement(
+                        "option"
+                    );
 
-        return R * c;
+                option.value =
+                    item.source_no;
 
-    }
+                option.textContent =
+                    `${item.source_no}｜${item.source_name}`;
 
-
-
-    function toRad(
-        value
-    ) {
-
-        return (
-            value
-            *
-            Math.PI
-            /
-            180
+                merchantSelect.appendChild(
+                    option
+                );
+            }
         );
 
-    }
+    recommendationSources
+        .filter(
+            item=>
+                item.source_type ===
+                "health_consultant"
+        )
+        .sort(
+            (a,b)=>
+                Number(
+                    a.source_no || 0
+                )
+                -
+                Number(
+                    b.source_no || 0
+                )
+        )
+        .forEach(
+            item=>{
 
-
-
-    function formatDistance(
-        km
-    ) {
-
-        if (km < 1) {
-
-            return `${Math.round(
-                km * 1000
-            )} 米`;
-
-        }
-
-
-        return `${km.toFixed(1)} 公里`;
-
-    }
-
-
-
-    /* ========================================================
-       数量
-    ======================================================== */
-
-    function changeQuantity(
-        change
-    ) {
-
-        const next =
-            quantity
-            +
-            change;
-
-
-        if (
-            next < 1
-            ||
-            next > 999
-        ) {
-
-            return;
-
-        }
-
-
-        quantity =
-            next;
-
-
-        updateAll();
-
-    }
-
-
-
-    /* ========================================================
-       推荐来源
-    ======================================================== */
-
-    function renderSourceOptions() {
-
-        const merchantSelect =
-            document.getElementById(
-                "sourceMerchantSelect"
-            );
-
-
-        const consultantSelect =
-            document.getElementById(
-                "sourceConsultantSelect"
-            );
-
-
-        merchantSelect.innerHTML =
-            `
-            <option value="">
-                请选择推荐商户
-            </option>
-            `;
-
-
-        consultantSelect.innerHTML =
-            `
-            <option value="">
-                请选择健康顾问
-            </option>
-            `;
-
-
-        recommendationSources
-            .filter(
-                item =>
-                    item.source_type
-                    ===
-                    "merchant"
-            )
-            .sort(
-                (
-                    a,
-                    b
-                ) =>
-                    Number(
-                        a.source_no
-                        ||
-                        0
-                    )
-                    -
-                    Number(
-                        b.source_no
-                        ||
-                        0
-                    )
-            )
-            .forEach(
-                item => {
-
-                    const option =
-                        document.createElement(
-                            "option"
-                        );
-
-
-                    option.value =
-                        item.source_no;
-
-
-                    option.textContent =
-                        `${item.source_no}｜${item.source_name}`;
-
-
-                    merchantSelect.appendChild(
-                        option
+                const option =
+                    document.createElement(
+                        "option"
                     );
 
-                }
-            );
+                option.value =
+                    item.source_no;
+
+                option.textContent =
+                    `${item.source_no}｜${item.source_name}`;
+
+                consultantSelect.appendChild(
+                    option
+                );
+            }
+        );
+}
 
 
-        recommendationSources
-            .filter(
-                item =>
-                    item.source_type
-                    ===
-                    "health_consultant"
-            )
-            .sort(
-                (
-                    a,
-                    b
-                ) =>
-                    Number(
-                        a.source_no
-                        ||
-                        0
-                    )
-                    -
-                    Number(
-                        b.source_no
-                        ||
-                        0
-                    )
-            )
-            .forEach(
-                item => {
+function chooseSourceType(
+    type
+){
 
-                    const option =
-                        document.createElement(
-                            "option"
-                        );
+    selectedSourceType =
+        type;
+
+    selectedSourceNo =
+        null;
+
+    document
+        .getElementById(
+            "sourceMerchantSelect"
+        )
+        .value =
+        "";
+
+    document
+        .getElementById(
+            "sourceConsultantSelect"
+        )
+        .value =
+        "";
+
+    [
+        [
+            "platform",
+            "sourcePlatformBtn"
+        ],
+        [
+            "merchant",
+            "sourceMerchantBtn"
+        ],
+        [
+            "health_consultant",
+            "sourceConsultantBtn"
+        ]
+    ]
+    .forEach(
+        item=>{
+
+            document
+                .getElementById(
+                    item[1]
+                )
+                .classList.toggle(
+                    "active",
+                    item[0] === type
+                );
+        }
+    );
+
+    document
+        .getElementById(
+            "sourceMerchantPicker"
+        )
+        .style.display =
+        type === "merchant"
+        ?
+        "block"
+        :
+        "none";
+
+    document
+        .getElementById(
+            "sourceConsultantPicker"
+        )
+        .style.display =
+        type === "health_consultant"
+        ?
+        "block"
+        :
+        "none";
+
+    updateSourceNote();
+
+    updateAll();
+}
 
 
-                    option.value =
-                        item.source_no;
+function sourceSelectionChanged(){
 
+    if(
+        selectedSourceType ===
+        "merchant"
+    ){
 
-                    option.textContent =
-                        `${item.source_no}｜${item.source_name}`;
-
-
-                    consultantSelect.appendChild(
-                        option
-                    );
-
-                }
-            );
-
-    }
-
-
-
-    function chooseSourceType(
-        type
-    ) {
-
-        selectedSourceType =
-            type;
-
+        const value =
+            document
+                .getElementById(
+                    "sourceMerchantSelect"
+                )
+                .value;
 
         selectedSourceNo =
+            value
+            ?
+            Number(value)
+            :
             null;
-
-
-        document
-            .getElementById(
-                "sourceMerchantSelect"
-            )
-            .value =
-            "";
-
-
-        document
-            .getElementById(
-                "sourceConsultantSelect"
-            )
-            .value =
-            "";
-
-
-        [
-            [
-                "platform",
-                "sourcePlatformBtn"
-            ],
-
-            [
-                "merchant",
-                "sourceMerchantBtn"
-            ],
-
-            [
-                "health_consultant",
-                "sourceConsultantBtn"
-            ]
-        ]
-            .forEach(
-                item => {
-
-                    document
-                        .getElementById(
-                            item[1]
-                        )
-                        .classList
-                        .toggle(
-                            "active",
-                            item[0]
-                            ===
-                            type
-                        );
-
-                }
-            );
-
-
-        document
-            .getElementById(
-                "sourceMerchantPicker"
-            )
-            .style
-            .display =
-            type === "merchant"
-                ?
-                "block"
-                :
-                "none";
-
-
-        document
-            .getElementById(
-                "sourceConsultantPicker"
-            )
-            .style
-            .display =
-            type ===
-            "health_consultant"
-                ?
-                "block"
-                :
-                "none";
-
-
-        updateSourceNote();
-
-        updateAll();
-
     }
 
+    if(
+        selectedSourceType ===
+        "health_consultant"
+    ){
 
+        const value =
+            document
+                .getElementById(
+                    "sourceConsultantSelect"
+                )
+                .value;
 
-    function sourceSelectionChanged() {
-
-        if (
-            selectedSourceType
-            ===
-            "merchant"
-        ) {
-
-            const value =
-                document
-                    .getElementById(
-                        "sourceMerchantSelect"
-                    )
-                    .value;
-
-
-            selectedSourceNo =
-                value
-                ?
-                Number(value)
-                :
-                null;
-
-        }
-
-
-        if (
-            selectedSourceType
-            ===
-            "health_consultant"
-        ) {
-
-            const value =
-                document
-                    .getElementById(
-                        "sourceConsultantSelect"
-                    )
-                    .value;
-
-
-            selectedSourceNo =
-                value
-                ?
-                Number(value)
-                :
-                null;
-
-        }
-
-
-        updateSourceNote();
-
-        updateAll();
-
+        selectedSourceNo =
+            value
+            ?
+            Number(value)
+            :
+            null;
     }
 
+    updateSourceNote();
+
+    updateAll();
+}
 
 
-    function getSelectedSource() {
+function getSelectedSource(){
 
-        if (
-            selectedSourceType
-            ===
-            "platform"
-        ) {
+    if(
+        selectedSourceType ===
+        "platform"
+    ){
 
-            return {
-                type:
-                    "platform",
-
-                no:
-                    null,
-
-                name:
-                    "平台"
-            };
-
-        }
-
-
-        const source =
-            recommendationSources.find(
-                item => {
-
-                    return (
-                        item.source_type
-                        ===
-                        selectedSourceType
-
-                        &&
-
-                        Number(
-                            item.source_no
-                        )
-                        ===
-                        Number(
-                            selectedSourceNo
-                        )
-                    );
-
-                }
-            );
-
-
-        if (!source) {
-
-            return null;
-
-        }
-
-
-        return {
-            type:
-                source.source_type,
-
-            no:
-                Number(
-                    source.source_no
-                ),
-
-            name:
-                source.source_name
+        return{
+            type:"platform",
+            no:null,
+            name:"平台"
         };
-
     }
 
-
-
-    function updateSourceNote() {
-
-        const note =
-            document.getElementById(
-                "sourceNote"
+    const source =
+        recommendationSources
+            .find(
+                item=>
+                    item.source_type ===
+                    selectedSourceType
+                    &&
+                    Number(item.source_no) ===
+                    Number(selectedSourceNo)
             );
 
+    if(!source){
+        return null;
+    }
 
-        const source =
-            getSelectedSource();
+    return{
+        type:
+            source.source_type,
 
+        no:
+            Number(
+                source.source_no
+            ),
 
-        if (
-            selectedSourceType
-            ===
-            "platform"
-        ) {
-
-            note.textContent =
-                "当前推荐来源：平台";
-
-
-            return;
-
-        }
-
-
-        if (!source) {
-
-            note.textContent =
-                selectedSourceType
-                ===
-                "merchant"
-                ?
-                "请选择推荐商户"
-                :
-                "请选择健康顾问";
+        name:
+            source.source_name
+    };
+}
 
 
-            return;
+function updateSourceNote(){
 
-        }
+    const note =
+        document.getElementById(
+            "sourceNote"
+        );
 
+    const source =
+        getSelectedSource();
+
+    if(
+        selectedSourceType ===
+        "platform"
+    ){
 
         note.textContent =
-            `当前推荐来源：${source.no}｜${source.name}`;
+            "当前推荐来源：平台";
 
+        return;
     }
 
+    if(!source){
+
+        note.textContent =
+            selectedSourceType ===
+            "merchant"
+            ?
+            "请选择推荐商户"
+            :
+            "请选择健康顾问";
+
+        return;
+    }
+
+    note.textContent =
+        `当前推荐来源：${source.no}｜${source.name}`;
+}
 
 
-    /* ========================================================
-       优惠计算
-    ======================================================== */
+/* =========================================================
+   优惠
+========================================================= */
 
-    function calculateDiscount() {
+function calculateDiscount(){
 
-        if (!selectedOption) {
+    if(!selectedOption){
 
-            return {
-                unitPrice:
-                    0,
-
-                subtotal:
-                    0,
-
-                rate:
-                    0,
-
-                discount:
-                    0,
-
-                payable:
-                    0
-            };
-
-        }
-
-
-        const unitPrice =
-            Number(
-                selectedOption.unit_price
-                ||
-                0
-            );
-
-
-        const subtotal =
-            round2(
-                unitPrice
-                *
-                quantity
-            );
-
-
-        let rate =
-            0;
-
-
-        if (
-            subtotal > 5000
-        ) {
-
-            rate =
-                0.10;
-
-        } else if (
-            subtotal > 3000
-        ) {
-
-            rate =
-                0.08;
-
-        } else if (
-            subtotal > 2000
-        ) {
-
-            rate =
-                0.05;
-
-        }
-
-
-        const discount =
-            round2(
-                subtotal
-                *
-                rate
-            );
-
-
-        const payable =
-            round2(
-                subtotal
-                -
-                discount
-            );
-
-
-        return {
-            unitPrice,
-            subtotal,
-            rate,
-            discount,
-            payable
+        return{
+            unitPrice:0,
+            subtotal:0,
+            rate:0,
+            discount:0,
+            payable:0
         };
-
     }
 
-
-
-    function round2(
-        value
-    ) {
-
-        return (
-            Math.round(
-                (
-                    Number(value)
-                    +
-                    Number.EPSILON
-                )
-                *
-                100
-            )
-            /
-            100
+    const unitPrice =
+        Number(
+            selectedOption.unit_price ||
+            0
         );
 
+    const subtotal =
+        round2(
+            unitPrice *
+            quantity
+        );
+
+    let rate =
+        0;
+
+    if(
+        subtotal > 5000
+    ){
+        rate = .10;
+    }
+    else if(
+        subtotal > 3000
+    ){
+        rate = .08;
+    }
+    else if(
+        subtotal > 2000
+    ){
+        rate = .05;
     }
 
+    const discount =
+        round2(
+            subtotal *
+            rate
+        );
+
+    const payable =
+        round2(
+            subtotal -
+            discount
+        );
+
+    return{
+        unitPrice,
+        subtotal,
+        rate,
+        discount,
+        payable
+    };
+}
 
 
-    /* ========================================================
-       页面整体刷新
-    ======================================================== */
+function round2(
+    value
+){
 
-    function updateAll() {
-
-        updateQuantity();
-
-        updateDiscount();
-
-        updateSummary();
-
-        updateSteps();
-
-        updateConfirmButton();
-
-    }
-
-
-
-    function updateQuantity() {
-
-        document
-            .getElementById(
-                "quantityNumber"
+    return(
+        Math.round(
+            (
+                Number(value) +
+                Number.EPSILON
             )
-            .textContent =
-            quantity;
-
-
-        const unitText =
-            document.getElementById(
-                "unitPriceText"
-            );
-
-
-        const detail =
-            document.getElementById(
-                "quantityDetail"
-            );
-
-
-        if (!selectedOption) {
-
-            unitText.textContent =
-                "请先选择服务项目和商户";
-
-
-            detail.textContent =
-                "请选择服务项目和商户后查看消费次数。";
-
-
-            return;
-
-        }
-
-
-        const defaultUses =
-            Math.max(
-                1,
-                Number(
-                    selectedOption
-                        .default_usage_count
-                    ||
-                    1
-                )
-            );
-
-
-        const totalUses =
-            defaultUses
             *
-            quantity;
+            100
+        )
+        /
+        100
+    );
+}
 
+
+/* =========================================================
+   更新界面
+========================================================= */
+
+function updateAll(){
+
+    updateQuantity();
+
+    updateDiscount();
+
+    updateSummary();
+
+    updateSteps();
+
+    updateConfirmButton();
+}
+
+
+function updateQuantity(){
+
+    document
+        .getElementById(
+            "quantityNumber"
+        )
+        .textContent =
+        quantity;
+
+    const unitText =
+        document.getElementById(
+            "unitPriceText"
+        );
+
+    const detail =
+        document.getElementById(
+            "quantityDetail"
+        );
+
+    if(!selectedOption){
 
         unitText.textContent =
-            `城市单价 ¥${formatMoney(
-                selectedOption.unit_price
-            )} / 份`;
-
+            "请先选择服务项目和商户";
 
         detail.textContent =
-            `每份包含 ${defaultUses} 次服务，当前购买 ${quantity} 份，共可核销 ${totalUses} 次。`;
+            "请选择服务项目和商户后查看消费次数。";
 
+        return;
     }
 
-
-
-    function updateDiscount() {
-
-        const calc =
-            calculateDiscount();
-
-
-        [
-            "tier5",
-            "tier8",
-            "tier10"
-        ]
-            .forEach(
-                id => {
-
-                    document
-                        .getElementById(id)
-                        .classList
-                        .remove(
-                            "active"
-                        );
-
-                }
-            );
-
-
-        let message =
-            "当前订单尚未达到优惠金额。";
-
-
-        if (
-            calc.rate === 0.05
-        ) {
-
-            document
-                .getElementById(
-                    "tier5"
-                )
-                .classList
-                .add(
-                    "active"
-                );
-
-
-            message =
-                `当前原价 ¥${formatMoney(
-                    calc.subtotal
-                )}，自动优惠5%，节省 ¥${formatMoney(
-                    calc.discount
-                )}。`;
-
-        }
-
-
-        if (
-            calc.rate === 0.08
-        ) {
-
-            document
-                .getElementById(
-                    "tier8"
-                )
-                .classList
-                .add(
-                    "active"
-                );
-
-
-            message =
-                `当前原价 ¥${formatMoney(
-                    calc.subtotal
-                )}，自动优惠8%，节省 ¥${formatMoney(
-                    calc.discount
-                )}。`;
-
-        }
-
-
-        if (
-            calc.rate === 0.10
-        ) {
-
-            document
-                .getElementById(
-                    "tier10"
-                )
-                .classList
-                .add(
-                    "active"
-                );
-
-
-            message =
-                `当前原价 ¥${formatMoney(
-                    calc.subtotal
-                )}，自动优惠10%，节省 ¥${formatMoney(
-                    calc.discount
-                )}。`;
-
-        }
-
-
-        if (
-            calc.subtotal > 0
-            &&
-            calc.rate === 0
-        ) {
-
-            if (
-                calc.subtotal <= 2000
-            ) {
-
-                message =
-                    `当前原价 ¥${formatMoney(
-                        calc.subtotal
-                    )}。超过 ¥2000 后可自动优惠5%。`;
-
-            }
-
-        }
-
-
-        document
-            .getElementById(
-                "discountCurrent"
+    const defaultUses =
+        Math.max(
+            1,
+            Number(
+                selectedOption.default_usage_count ||
+                1
             )
-            .textContent =
-            message;
-
-    }
-
-
-
-    function updateSummary() {
-
-        const source =
-            getSelectedSource();
-
-
-        const sourceText =
-            source
-            ?
-            (
-                source.no
-                ?
-                `${source.no}｜${source.name}`
-                :
-                source.name
-            )
-            :
-            "请选择";
-
-
-        const calc =
-            calculateDiscount();
-
-
-        const defaultUses =
-            selectedOption
-            ?
-            Math.max(
-                1,
-                Number(
-                    selectedOption
-                        .default_usage_count
-                    ||
-                    1
-                )
-            )
-            :
-            0;
-
-
-        const totalUses =
-            defaultUses
-            *
-            quantity;
-
-
-        document
-            .getElementById(
-                "summaryCity"
-            )
-            .textContent =
-            selectedCityId
-            ?
-            getCityName(
-                selectedCityId
-            )
-            :
-            "未选择";
-
-
-        document
-            .getElementById(
-                "summaryService"
-            )
-            .textContent =
-            selectedOption
-            ?
-            selectedOption.product_name
-            :
-            (
-                selectedProductId
-                ?
-                getSelectedProductName()
-                :
-                "未选择"
-            );
-
-
-        document
-            .getElementById(
-                "summaryMerchant"
-            )
-            .textContent =
-            selectedOption
-            ?
-            selectedOption.merchant_name
-            :
-            "未选择";
-
-
-        document
-            .getElementById(
-                "summaryAddress"
-            )
-            .textContent =
-            selectedOption
-            ?
-            (
-                selectedOption.address
-                ||
-                "地址暂未完善"
-            )
-            :
-            "--";
-
-
-        document
-            .getElementById(
-                "summaryUnitPrice"
-            )
-            .textContent =
-            selectedOption
-            ?
-            `¥${formatMoney(
-                selectedOption.unit_price
-            )}`
-            :
-            "--";
-
-
-        document
-            .getElementById(
-                "summaryQuantity"
-            )
-            .textContent =
-            quantity;
-
-
-        document
-            .getElementById(
-                "summaryUses"
-            )
-            .textContent =
-            selectedOption
-            ?
-            `${totalUses} 次`
-            :
-            "--";
-
-
-        document
-            .getElementById(
-                "summarySource"
-            )
-            .textContent =
-            sourceText;
-
-
-        document
-            .getElementById(
-                "summarySubtotal"
-            )
-            .textContent =
-            selectedOption
-            ?
-            `¥${formatMoney(
-                calc.subtotal
-            )}`
-            :
-            "¥--";
-
-
-        document
-            .getElementById(
-                "summaryDiscountRate"
-            )
-            .textContent =
-            `${Math.round(
-                calc.rate
-                *
-                100
-            )}%`;
-
-
-        document
-            .getElementById(
-                "summaryDiscountAmount"
-            )
-            .textContent =
-            `- ¥${formatMoney(
-                calc.discount
-            )}`;
-
-
-        document
-            .getElementById(
-                "summaryPayable"
-            )
-            .innerHTML =
-            selectedOption
-            ?
-            `<small>¥</small> ${formatMoney(
-                calc.payable
-            )}`
-            :
-            `<small>¥</small> --`;
-
-
-        document
-            .getElementById(
-                "bottomPrice"
-            )
-            .textContent =
-            selectedOption
-            ?
-            `¥${formatMoney(
-                calc.payable
-            )}`
-            :
-            "¥--";
-
-
-        document
-            .getElementById(
-                "bottomOldPrice"
-            )
-            .textContent =
-            (
-                selectedOption
-                &&
-                calc.discount > 0
-            )
-            ?
-            `¥${formatMoney(
-                calc.subtotal
-            )}`
-            :
-            "";
-
-    }
-
-
-
-    function getSelectedProductName() {
-
-        const product =
-            getCityProducts()
-                .find(
-                    item =>
-                        String(
-                            item.product_id
-                        )
-                        ===
-                        String(
-                            selectedProductId
-                        )
-                );
-
-
-        return (
-            product?.product_name
-            ||
-            "已选择"
         );
 
-    }
+    const totalUses =
+        defaultUses *
+        quantity;
+
+    unitText.textContent =
+        `城市单价 ¥${formatMoney(
+            selectedOption.unit_price
+        )} / 份`;
+
+    detail.textContent =
+        `每份包含 ${defaultUses} 次服务，当前购买 ${quantity} 份，共可核销 ${totalUses} 次。`;
+}
 
 
+function updateDiscount(){
 
-    function updateSteps() {
+    const calc =
+        calculateDiscount();
+
+    [
+        "tier5",
+        "tier8",
+        "tier10"
+    ]
+    .forEach(
+        id=>{
+
+            document
+                .getElementById(id)
+                .classList.remove(
+                    "active"
+                );
+        }
+    );
+
+    let message =
+        "当前订单尚未达到优惠金额。";
+
+    if(
+        calc.rate === .05
+    ){
 
         document
             .getElementById(
-                "step1"
+                "tier5"
             )
-            .classList
-            .add(
+            .classList.add(
                 "active"
             );
 
-
-        document
-            .getElementById(
-                "step2"
-            )
-            .classList
-            .toggle(
-                "active",
-                !!selectedProductId
-            );
-
-
-        document
-            .getElementById(
-                "step3"
-            )
-            .classList
-            .toggle(
-                "active",
-                !!selectedOption
-            );
-
-
-        const sourceOk =
-            selectedSourceType
-            ===
-            "platform"
-            ||
-            !!selectedSourceNo;
-
-
-        document
-            .getElementById(
-                "step4"
-            )
-            .classList
-            .toggle(
-                "active",
-                (
-                    !!selectedOption
-                    &&
-                    sourceOk
-                )
-            );
-
+        message =
+            `当前原价 ¥${formatMoney(calc.subtotal)}，自动优惠5%，节省 ¥${formatMoney(calc.discount)}。`;
     }
 
-
-
-    function updateConfirmButton() {
+    if(
+        calc.rate === .08
+    ){
 
         document
             .getElementById(
-                "confirmBtn"
+                "tier8"
             )
-            .disabled =
-            !canSubmitOrder();
-
-    }
-
-
-
-    function canSubmitOrder() {
-
-        if (
-            !selectedCityId
-            ||
-            !selectedOption
-            ||
-            quantity < 1
-        ) {
-
-            return false;
-
-        }
-
-
-        if (
-            selectedSourceType
-            !==
-            "platform"
-            &&
-            !selectedSourceNo
-        ) {
-
-            return false;
-
-        }
-
-
-        return true;
-
-    }
-
-
-
-    /* ========================================================
-       确认弹窗
-    ======================================================== */
-
-    function openConfirmModal() {
-
-        if (!canSubmitOrder()) {
-
-            toast(
-                "请先完成城市、服务、商户和推荐来源选择"
+            .classList.add(
+                "active"
             );
 
+        message =
+            `当前原价 ¥${formatMoney(calc.subtotal)}，自动优惠8%，节省 ¥${formatMoney(calc.discount)}。`;
+    }
 
-            return;
+    if(
+        calc.rate === .10
+    ){
 
-        }
-
-
-        const source =
-            getSelectedSource();
-
-
-        const calc =
-            calculateDiscount();
-
-
-        const uses =
-            Number(
-                selectedOption
-                    .default_usage_count
-                ||
-                1
+        document
+            .getElementById(
+                "tier10"
             )
-            *
-            quantity;
+            .classList.add(
+                "active"
+            );
+
+        message =
+            `当前原价 ¥${formatMoney(calc.subtotal)}，自动优惠10%，节省 ¥${formatMoney(calc.discount)}。`;
+    }
+
+    if(
+        calc.subtotal > 0 &&
+        calc.rate === 0
+    ){
+
+        message =
+            `当前原价 ¥${formatMoney(calc.subtotal)}。超过 ¥2000 后可自动优惠5%。`;
+    }
+
+    document
+        .getElementById(
+            "discountCurrent"
+        )
+        .textContent =
+        message;
+}
 
 
-        const sourceText =
+function updateSummary(){
+
+    const source =
+        getSelectedSource();
+
+    const sourceText =
+        source
+        ?
+        (
             source.no
             ?
             `${source.no}｜${source.name}`
             :
-            source.name;
-
-
-        document
-            .getElementById(
-                "modalSummary"
-            )
-            .innerHTML = `
-
-            <div class="modal-row">
-                <span>城市</span>
-
-                <span>
-                    ${escapeHtml(
-                        getCityName(
-                            selectedCityId
-                        )
-                    )}
-                </span>
-            </div>
-
-
-            <div class="modal-row">
-                <span>服务项目</span>
-
-                <span>
-                    ${escapeHtml(
-                        selectedOption
-                            .product_name
-                    )}
-                </span>
-            </div>
-
-
-            <div class="modal-row">
-                <span>服务商户</span>
-
-                <span>
-                    ${escapeHtml(
-                        selectedOption
-                            .merchant_name
-                    )}
-                </span>
-            </div>
-
-
-            <div class="modal-row">
-                <span>城市单价</span>
-
-                <span>
-                    ¥${formatMoney(
-                        calc.unitPrice
-                    )}
-                </span>
-            </div>
-
-
-            <div class="modal-row">
-                <span>数量</span>
-
-                <span>
-                    ${quantity}
-                </span>
-            </div>
-
-
-            <div class="modal-row">
-                <span>可消费次数</span>
-
-                <span>
-                    ${uses} 次
-                </span>
-            </div>
-
-
-            <div class="modal-row">
-                <span>推荐来源</span>
-
-                <span>
-                    ${escapeHtml(
-                        sourceText
-                    )}
-                </span>
-            </div>
-
-
-            <div class="modal-row">
-                <span>原价</span>
-
-                <span>
-                    ¥${formatMoney(
-                        calc.subtotal
-                    )}
-                </span>
-            </div>
-
-
-            <div class="modal-row">
-                <span>自动优惠</span>
-
-                <span>
-                    ${Math.round(
-                        calc.rate * 100
-                    )}%
-                    （-¥${formatMoney(
-                        calc.discount
-                    )}）
-                </span>
-            </div>
-
-
-            <div class="modal-row">
-                <span>应付金额</span>
-
-                <span style="color:#e94e82;font-size:16px;">
-                    ¥${formatMoney(
-                        calc.payable
-                    )}
-                </span>
-            </div>
-        `;
-
-
-        document
-            .getElementById(
-                "confirmModal"
-            )
-            .classList
-            .add(
-                "show"
-            );
-
-    }
-
-
-
-    function closeConfirmModal() {
-
-        if (submitting) {
-            return;
-        }
-
-
-        document
-            .getElementById(
-                "confirmModal"
-            )
-            .classList
-            .remove(
-                "show"
-            );
-
-    }
-
-
-
-    function maskClose(
-        event
-    ) {
-
-        if (
-            event.target.id
-            ===
-            "confirmModal"
-        ) {
-
-            closeConfirmModal();
-
-        }
-
-    }
-
-
-
-    /* ========================================================
-       创建订单
-       关键：使用数据库RPC
-    ======================================================== */
-
-    async function submitOrder() {
-
-        if (
-            submitting
-            ||
-            !canSubmitOrder()
-        ) {
-
-            return;
-
-        }
-
-
-        const source =
-            getSelectedSource();
-
-
-        if (!source) {
-
-            toast(
-                "请选择推荐来源"
-            );
-
-
-            return;
-
-        }
-
-
-        submitting =
-            true;
-
-
-        const btn =
-            document.getElementById(
-                "submitOrderBtn"
-            );
-
-
-        btn.disabled =
-            true;
-
-
-        btn.textContent =
-            "正在生成订单...";
-
-
-        try {
-
-            const {
-                data,
-                error
-            } =
-                await sb.rpc(
-                    "create_customer_order",
-                    {
-
-                        p_merchant_id:
-                            selectedOption
-                                .merchant_id,
-
-                        p_product_id:
-                            selectedOption
-                                .product_id,
-
-                        p_quantity:
-                            quantity,
-
-                        p_recommendation_source_type:
-                            source.type,
-
-                        p_recommendation_source_no:
-                            source.no,
-
-                        p_customer_longitude:
-                            customerLongitude,
-
-                        p_customer_latitude:
-                            customerLatitude,
-
-                        p_customer_coordinate_system:
-                            customerLongitude !== null
-                            ?
-                            "WGS84"
-                            :
-                            null
-
-                    }
-                );
-
-
-            if (error) {
-
-                throw error;
-
-            }
-
-
-            const result =
-                data
-                ||
-                {};
-
-
-            if (
-                !result.success
-                ||
-                !result.order_id
-            ) {
-
-                throw new Error(
-                    "订单创建失败"
-                );
-
-            }
-
-
-            toast(
-                `订单创建成功，应付 ¥${formatMoney(
-                    result.payable_amount
-                )}`
-            );
-
-
-            setTimeout(
-                () => {
-
-                    window.location.href =
-                        `./customer_order_detail.html?id=${encodeURIComponent(
-                            result.order_id
-                        )}`;
-
-                },
-                700
-            );
-
-
-        } catch (error) {
-
-            console.error(
-                "创建订单失败",
-                error
-            );
-
-
-            submitting =
-                false;
-
-
-            btn.disabled =
-                false;
-
-
-            btn.textContent =
-                "确认生成订单";
-
-
-            toast(
-                error?.message
-                ||
-                "订单创建失败，请稍后重试"
-            );
-
-        }
-
-    }
-
-
-
-    /* ========================================================
-       工具
-    ======================================================== */
-
-    function formatMoney(
-        value
-    ) {
-
-        const number =
-            Number(value);
-
-
-        if (
-            !Number.isFinite(
-                number
-            )
-        ) {
-
-            return "--";
-
-        }
-
-
-        return number
-            .toFixed(2)
-            .replace(
-                /\.00$/,
-                ""
-            );
-
-    }
-
-
-
-    function escapeHtml(
-        value
-    ) {
-
-        return String(
-            value
-            ??
-            ""
+            source.name
         )
-            .replaceAll(
-                "&",
-                "&amp;"
+        :
+        "请选择";
+
+    const calc =
+        calculateDiscount();
+
+    const defaultUses =
+        selectedOption
+        ?
+        Math.max(
+            1,
+            Number(
+                selectedOption.default_usage_count ||
+                1
             )
-            .replaceAll(
-                "<",
-                "&lt;"
-            )
-            .replaceAll(
-                ">",
-                "&gt;"
-            )
-            .replaceAll(
-                '"',
-                "&quot;"
-            )
-            .replaceAll(
-                "'",
-                "&#039;"
-            );
+        )
+        :
+        0;
 
-    }
+    const totalUses =
+        defaultUses *
+        quantity;
 
+    document
+        .getElementById(
+            "summaryCity"
+        )
+        .textContent =
+        selectedCityId
+        ?
+        getCityName(
+            selectedCityId
+        )
+        :
+        "未选择";
 
-
-    /* ========================================================
-       返回 / 登录
-    ======================================================== */
-
-    function goBack() {
-
-        window.location.href =
-            "./customer.html";
-
-    }
-
-
-
-    function goLogin() {
-
-        window.location.replace(
-            "./login.html"
+    document
+        .getElementById(
+            "summaryService"
+        )
+        .textContent =
+        selectedOption
+        ?
+        selectedOption.product_name
+        :
+        (
+            selectedProductId
+            ?
+            getSelectedProductName()
+            :
+            "未选择"
         );
 
-    }
+    document
+        .getElementById(
+            "summaryMerchant"
+        )
+        .textContent =
+        selectedOption
+        ?
+        selectedOption.merchant_name
+        :
+        "未选择";
+
+    document
+        .getElementById(
+            "summaryAddress"
+        )
+        .textContent =
+        selectedOption
+        ?
+        (
+            selectedOption.address ||
+            "地址暂未完善"
+        )
+        :
+        "--";
+
+    document
+        .getElementById(
+            "summaryUnitPrice"
+        )
+        .textContent =
+        selectedOption
+        ?
+        `¥${formatMoney(
+            selectedOption.unit_price
+        )}`
+        :
+        "--";
+
+    document
+        .getElementById(
+            "summaryQuantity"
+        )
+        .textContent =
+        quantity;
+
+    document
+        .getElementById(
+            "summaryUses"
+        )
+        .textContent =
+        selectedOption
+        ?
+        `${totalUses} 次`
+        :
+        "--";
+
+    document
+        .getElementById(
+            "summarySource"
+        )
+        .textContent =
+        sourceText;
+
+    document
+        .getElementById(
+            "summarySubtotal"
+        )
+        .textContent =
+        selectedOption
+        ?
+        `¥${formatMoney(
+            calc.subtotal
+        )}`
+        :
+        "¥--";
+
+    document
+        .getElementById(
+            "summaryDiscountRate"
+        )
+        .textContent =
+        `${Math.round(
+            calc.rate*100
+        )}%`;
+
+    document
+        .getElementById(
+            "summaryDiscountAmount"
+        )
+        .textContent =
+        `- ¥${formatMoney(
+            calc.discount
+        )}`;
+
+    document
+        .getElementById(
+            "summaryPayable"
+        )
+        .innerHTML =
+        selectedOption
+        ?
+        `<small>¥</small> ${formatMoney(calc.payable)}`
+        :
+        `<small>¥</small> --`;
+
+    document
+        .getElementById(
+            "bottomPrice"
+        )
+        .textContent =
+        selectedOption
+        ?
+        `¥${formatMoney(
+            calc.payable
+        )}`
+        :
+        "¥--";
+
+    document
+        .getElementById(
+            "bottomOldPrice"
+        )
+        .textContent =
+        (
+            selectedOption &&
+            calc.discount > 0
+        )
+        ?
+        `¥${formatMoney(
+            calc.subtotal
+        )}`
+        :
+        "";
+}
 
 
+function getSelectedProductName(){
 
-    async function forceLogout() {
-
-        try {
-
-            await sb.auth.signOut();
-
-        } catch (error) {
-
-            console.error(
-                error
+    const product =
+        getCityProducts()
+            .find(
+                item=>
+                    String(
+                        item.product_id
+                    ) ===
+                    String(
+                        selectedProductId
+                    )
             );
 
-        }
+    return(
+        product?.product_name ||
+        "已选择"
+    );
+}
 
 
-        goLogin();
+function updateSteps(){
 
+    document
+        .getElementById(
+            "step1"
+        )
+        .classList.add(
+            "active"
+        );
+
+    document
+        .getElementById(
+            "step2"
+        )
+        .classList.toggle(
+            "active",
+            !!selectedProductId
+        );
+
+    document
+        .getElementById(
+            "step3"
+        )
+        .classList.toggle(
+            "active",
+            !!selectedOption
+        );
+
+    const sourceOk =
+        selectedSourceType ===
+        "platform"
+        ||
+        !!selectedSourceNo;
+
+    document
+        .getElementById(
+            "step4"
+        )
+        .classList.toggle(
+            "active",
+            !!selectedOption &&
+            sourceOk
+        );
+}
+
+
+function updateConfirmButton(){
+
+    document
+        .getElementById(
+            "confirmBtn"
+        )
+        .disabled =
+        !canSubmitOrder();
+}
+
+
+function canSubmitOrder(){
+
+    if(
+        !selectedCityId ||
+        !selectedOption ||
+        quantity < 1
+    ){
+        return false;
     }
 
+    if(
+        selectedSourceType !==
+        "platform"
+        &&
+        !selectedSourceNo
+    ){
+        return false;
+    }
+
+    return true;
+}
 
 
-    /* ========================================================
-       10分钟无操作退出
-    ======================================================== */
+/* =========================================================
+   确认弹窗
+========================================================= */
 
-    function setupIdleLogout() {
+function openConfirmModal(){
 
-        [
-            "touchstart",
-            "touchmove",
-            "click",
-            "keydown",
-            "scroll"
-        ]
-            .forEach(
-                eventName => {
+    if(!canSubmitOrder()){
 
-                    document
-                        .addEventListener(
-                            eventName,
-                            resetIdleTimer,
-                            {
-                                passive:
-                                    true
-                            }
-                        );
+        toast(
+            "请先完成城市、服务、商户和推荐来源选择"
+        );
 
+        return;
+    }
+
+    const source =
+        getSelectedSource();
+
+    const calc =
+        calculateDiscount();
+
+    const uses =
+        Number(
+            selectedOption.default_usage_count ||
+            1
+        )
+        *
+        quantity;
+
+    const sourceText =
+        source.no
+        ?
+        `${source.no}｜${source.name}`
+        :
+        source.name;
+
+    document
+        .getElementById(
+            "modalSummary"
+        )
+        .innerHTML =
+        `
+        <div class="modal-row">
+            <span>城市</span>
+            <span>
+                ${escapeHtml(
+                    getCityName(
+                        selectedCityId
+                    )
+                )}
+            </span>
+        </div>
+
+        <div class="modal-row">
+            <span>服务项目</span>
+            <span>
+                ${escapeHtml(
+                    selectedOption.product_name
+                )}
+            </span>
+        </div>
+
+        <div class="modal-row">
+            <span>服务商户</span>
+            <span>
+                ${escapeHtml(
+                    selectedOption.merchant_name
+                )}
+            </span>
+        </div>
+
+        <div class="modal-row">
+            <span>城市单价</span>
+            <span>
+                ¥${formatMoney(
+                    calc.unitPrice
+                )}
+            </span>
+        </div>
+
+        <div class="modal-row">
+            <span>数量</span>
+            <span>${quantity}</span>
+        </div>
+
+        <div class="modal-row">
+            <span>可消费次数</span>
+            <span>${uses} 次</span>
+        </div>
+
+        <div class="modal-row">
+            <span>推荐来源</span>
+            <span>
+                ${escapeHtml(
+                    sourceText
+                )}
+            </span>
+        </div>
+
+        <div class="modal-row">
+            <span>原价</span>
+            <span>
+                ¥${formatMoney(
+                    calc.subtotal
+                )}
+            </span>
+        </div>
+
+        <div class="modal-row">
+            <span>自动优惠</span>
+            <span>
+                ${Math.round(
+                    calc.rate*100
+                )}%
+                （-¥${formatMoney(
+                    calc.discount
+                )}）
+            </span>
+        </div>
+
+        <div class="modal-row">
+            <span>应付金额</span>
+            <span
+                style="
+                    color:#e94e82;
+                    font-size:16px;
+                "
+            >
+                ¥${formatMoney(
+                    calc.payable
+                )}
+            </span>
+        </div>
+        `;
+
+    document
+        .getElementById(
+            "confirmModal"
+        )
+        .classList.add(
+            "show"
+        );
+}
+
+
+function closeConfirmModal(){
+
+    if(submitting){
+        return;
+    }
+
+    document
+        .getElementById(
+            "confirmModal"
+        )
+        .classList.remove(
+            "show"
+        );
+}
+
+
+function maskClose(
+    event
+){
+
+    if(
+        event.target.id ===
+        "confirmModal"
+    ){
+
+        closeConfirmModal();
+    }
+}
+
+
+/* =========================================================
+   创建订单
+========================================================= */
+
+async function submitOrder(){
+
+    if(
+        submitting ||
+        !canSubmitOrder()
+    ){
+        return;
+    }
+
+    const source =
+        getSelectedSource();
+
+    if(!source){
+
+        toast(
+            "请选择推荐来源"
+        );
+
+        return;
+    }
+
+    submitting =
+        true;
+
+    const btn =
+        document.getElementById(
+            "submitOrderBtn"
+        );
+
+    btn.disabled =
+        true;
+
+    btn.textContent =
+        "正在生成订单...";
+
+    try{
+
+        const{
+            data,
+            error
+        } =
+            await sb.rpc(
+                "create_customer_order",
+                {
+                    p_merchant_id:
+                        selectedOption.merchant_id,
+
+                    p_product_id:
+                        selectedOption.product_id,
+
+                    p_quantity:
+                        quantity,
+
+                    p_recommendation_source_type:
+                        source.type,
+
+                    p_recommendation_source_no:
+                        source.no,
+
+                    p_customer_longitude:
+                        customerLongitude,
+
+                    p_customer_latitude:
+                        customerLatitude,
+
+                    p_customer_coordinate_system:
+                        customerLongitude !== null
+                        ?
+                        "WGS84"
+                        :
+                        null
                 }
             );
 
-
-        resetIdleTimer();
-
-    }
-
-
-
-    function resetIdleTimer() {
-
-        clearTimeout(
-            idleTimer
-        );
-
-
-        idleTimer =
-            setTimeout(
-                async () => {
-
-                    toast(
-                        "长时间未操作，请重新登录"
-                    );
-
-
-                    await sb.auth.signOut();
-
-
-                    setTimeout(
-                        goLogin,
-                        500
-                    );
-
-                },
-                IDLE_LIMIT
-            );
-
-    }
-
-
-
-    /* ========================================================
-       Loading
-    ======================================================== */
-
-    function hideLoading() {
-
-        const mask =
-            document.getElementById(
-                "loadingMask"
-            );
-
-
-        if (!mask) {
-            return;
+        if(error){
+            throw error;
         }
 
+        const result =
+            data || {};
 
-        mask.style.transition =
-            "opacity .2s ease";
+        if(
+            !result.success ||
+            !result.order_id
+        ){
 
+            throw new Error(
+                "订单创建失败"
+            );
+        }
 
-        mask.style.opacity =
-            "0";
-
+        toast(
+            `订单创建成功，应付 ¥${formatMoney(
+                result.payable_amount
+            )}`
+        );
 
         setTimeout(
-            () => {
+            ()=>{
 
-                mask.style.display =
-                    "none";
-
+                window.location.href =
+                    `./customer_order_detail.html?id=${encodeURIComponent(
+                        result.order_id
+                    )}`;
             },
-            220
+            700
         );
 
+    }catch(error){
+
+        console.error(
+            "创建订单失败",
+            error
+        );
+
+        submitting =
+            false;
+
+        btn.disabled =
+            false;
+
+        btn.textContent =
+            "确认生成订单";
+
+        toast(
+            error?.message ||
+            "订单创建失败，请稍后重试"
+        );
+    }
+}
+
+
+/* =========================================================
+   工具
+========================================================= */
+
+function formatMoney(
+    value
+){
+
+    const number =
+        Number(value);
+
+    if(
+        !Number.isFinite(
+            number
+        )
+    ){
+        return "--";
     }
 
-
-
-    /* ========================================================
-       Toast
-    ======================================================== */
-
-    function toast(
-        message
-    ) {
-
-        const el =
-            document.getElementById(
-                "toast"
-            );
-
-
-        el.textContent =
-            message;
-
-
-        el.classList.add(
-            "show"
+    return number
+        .toFixed(2)
+        .replace(
+            /\.00$/,
+            ""
         );
+}
 
 
-        clearTimeout(
-            toast.timer
+function escapeHtml(
+    value
+){
+
+    return String(
+        value ?? ""
+    )
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
+}
+
+
+/* =========================================================
+   返回 / 登录
+========================================================= */
+
+function goBack(){
+
+    window.location.href =
+        "./customer.html";
+}
+
+
+function goLogin(){
+
+    window.location.replace(
+        "./login.html"
+    );
+}
+
+
+async function forceLogout(){
+
+    try{
+
+        await sb.auth.signOut();
+
+    }catch(error){
+
+        console.error(
+            error
         );
-
-
-        toast.timer =
-            setTimeout(
-                () => {
-
-                    el.classList.remove(
-                        "show"
-                    );
-
-                },
-                2500
-            );
-
     }
 
+    goLogin();
+}
+
+
+/* =========================================================
+   10分钟退出
+========================================================= */
+
+function setupIdleLogout(){
+
+    [
+        "touchstart",
+        "touchmove",
+        "click",
+        "keydown",
+        "scroll"
+    ]
+    .forEach(
+        eventName=>{
+
+            document
+                .addEventListener(
+                    eventName,
+                    resetIdleTimer,
+                    {
+                        passive:true
+                    }
+                );
+        }
+    );
+
+    resetIdleTimer();
+}
+
+
+function resetIdleTimer(){
+
+    clearTimeout(
+        idleTimer
+    );
+
+    idleTimer =
+        setTimeout(
+            async()=>{
+
+                toast(
+                    "长时间未操作，请重新登录"
+                );
+
+                await sb.auth.signOut();
+
+                setTimeout(
+                    goLogin,
+                    500
+                );
+            },
+            IDLE_LIMIT
+        );
+}
+
+
+/* =========================================================
+   Loading
+========================================================= */
+
+function hideLoading(){
+
+    const mask =
+        document.getElementById(
+            "loadingMask"
+        );
+
+    if(!mask){
+        return;
+    }
+
+    mask.style.transition =
+        "opacity .2s ease";
+
+    mask.style.opacity =
+        "0";
+
+    setTimeout(
+        ()=>{
+            mask.style.display =
+                "none";
+        },
+        220
+    );
+}
+
+
+/* =========================================================
+   Toast
+========================================================= */
+
+function toast(
+    message
+){
+
+    const el =
+        document.getElementById(
+            "toast"
+        );
+
+    el.textContent =
+        message;
+
+    el.classList.add(
+        "show"
+    );
+
+    clearTimeout(
+        toast.timer
+    );
+
+    toast.timer =
+        setTimeout(
+            ()=>{
+                el.classList.remove(
+                    "show"
+                );
+            },
+            2500
+        );
+}
 </script>
 
 </body>

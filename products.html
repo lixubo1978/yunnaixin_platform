@@ -56,6 +56,7 @@
     --gray-bg:#f1edef;
 
     --danger:#be3151;
+    --danger-bg:#fff2f5;
 
     --shadow:
         0 10px 30px
@@ -69,24 +70,15 @@
 ========================================================= */
 
 * {
-
     box-sizing:border-box;
-
-    -webkit-tap-highlight-color:
-        transparent;
-
+    -webkit-tap-highlight-color:transparent;
 }
-
 
 html,
 body {
-
     margin:0;
-
     min-height:100%;
-
 }
-
 
 body {
 
@@ -100,8 +92,7 @@ body {
             #faf8f9
         );
 
-    color:
-        var(--text);
+    color:var(--text);
 
     font-family:
         -apple-system,
@@ -112,33 +103,22 @@ body {
         Arial,
         sans-serif;
 
-    -webkit-font-smoothing:
-        antialiased;
-
+    -webkit-font-smoothing:antialiased;
 }
-
 
 button,
 input,
 select,
 textarea {
-
     font:inherit;
-
 }
-
 
 button {
-
     cursor:pointer;
-
 }
 
-
 .hidden {
-
     display:none !important;
-
 }
 
 
@@ -155,15 +135,12 @@ button {
         24px;
 
     position:sticky;
-
     top:0;
 
     z-index:1000;
 
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
 
     gap:15px;
@@ -176,29 +153,21 @@ button {
             .95
         );
 
-    backdrop-filter:
-        blur(16px);
-
-    -webkit-backdrop-filter:
-        blur(16px);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
 
     border-bottom:
         1px solid
         var(--border);
-
 }
-
 
 .brand {
 
     display:flex;
-
     align-items:center;
 
     gap:11px;
-
 }
-
 
 .brand img {
 
@@ -208,21 +177,15 @@ button {
     border-radius:12px;
 
     object-fit:contain;
-
 }
-
 
 .brand-title {
 
     font-size:18px;
-
     font-weight:750;
 
-    color:
-        var(--rose);
-
+    color:var(--rose);
 }
-
 
 .brand-sub {
 
@@ -230,22 +193,16 @@ button {
 
     font-size:11px;
 
-    color:
-        var(--text3);
-
+    color:var(--text3);
 }
-
 
 .top-actions {
 
     display:flex;
-
     align-items:center;
 
     gap:9px;
-
 }
-
 
 .back-button,
 .logout-button {
@@ -259,11 +216,8 @@ button {
     border-radius:12px;
 
     font-size:12px;
-
     font-weight:700;
-
 }
-
 
 .back-button {
 
@@ -273,11 +227,8 @@ button {
 
     background:#fff;
 
-    color:
-        var(--text2);
-
+    color:var(--text2);
 }
-
 
 .logout-button {
 
@@ -291,7 +242,6 @@ button {
             var(--pink-500),
             var(--pink-600)
         );
-
 }
 
 
@@ -302,13 +252,11 @@ button {
 .main {
 
     width:100%;
-
     max-width:1450px;
 
     margin:0 auto;
 
     padding:28px;
-
 }
 
 
@@ -346,11 +294,8 @@ button {
             #ffe1ec
         );
 
-    box-shadow:
-        var(--shadow);
-
+    box-shadow:var(--shadow);
 }
-
 
 .hero::after {
 
@@ -373,23 +318,17 @@ button {
             255,
             .30
         );
-
 }
-
 
 .hero-content {
 
     position:relative;
-
     z-index:2;
-
 }
-
 
 .hero-tag {
 
     display:inline-flex;
-
     align-items:center;
 
     min-height:27px;
@@ -410,15 +349,11 @@ button {
             .72
         );
 
-    color:
-        var(--pink-700);
+    color:var(--pink-700);
 
     font-size:10px;
-
     font-weight:750;
-
 }
-
 
 .hero h1 {
 
@@ -429,11 +364,8 @@ button {
 
     font-size:26px;
 
-    color:
-        var(--rose);
-
+    color:var(--rose);
 }
-
 
 .hero p {
 
@@ -445,9 +377,7 @@ button {
 
     line-height:1.8;
 
-    color:
-        #875064;
-
+    color:#875064;
 }
 
 
@@ -471,9 +401,7 @@ button {
     gap:12px;
 
     margin-bottom:18px;
-
 }
-
 
 .stat {
 
@@ -488,33 +416,24 @@ button {
     border-radius:16px;
 
     background:#fff;
-
 }
-
 
 .stat-label {
 
     font-size:10px;
 
-    color:
-        var(--text3);
-
+    color:var(--text3);
 }
-
 
 .stat-value {
 
     margin-top:7px;
 
     font-size:22px;
-
     font-weight:750;
 
-    color:
-        var(--rose);
-
+    color:var(--rose);
 }
-
 
 .stat-note {
 
@@ -522,9 +441,7 @@ button {
 
     font-size:10px;
 
-    color:
-        var(--text3);
-
+    color:var(--text3);
 }
 
 
@@ -552,7 +469,6 @@ button {
             65,
             .035
         );
-
 }
 
 
@@ -580,9 +496,7 @@ button {
     border-bottom:
         1px solid
         var(--border);
-
 }
-
 
 .input,
 .select {
@@ -604,22 +518,17 @@ button {
     background:#fff;
 
     outline:none;
-
 }
-
 
 .input:focus,
 .select:focus {
 
-    border-color:
-        var(--pink-300);
+    border-color:var(--pink-300);
 
     box-shadow:
         0 0 0 3px
         var(--pink-50);
-
 }
-
 
 .primary-button {
 
@@ -636,7 +545,6 @@ button {
     color:#fff;
 
     font-size:13px;
-
     font-weight:700;
 
     white-space:nowrap;
@@ -647,7 +555,6 @@ button {
             var(--pink-500),
             var(--pink-600)
         );
-
 }
 
 
@@ -656,11 +563,8 @@ button {
 ========================================================= */
 
 .table-scroll {
-
     overflow-x:auto;
-
 }
-
 
 table {
 
@@ -669,9 +573,7 @@ table {
     min-width:1150px;
 
     border-collapse:collapse;
-
 }
-
 
 th {
 
@@ -688,9 +590,7 @@ th {
     color:#837980;
 
     font-size:11px;
-
 }
-
 
 td {
 
@@ -705,30 +605,23 @@ td {
     font-size:12px;
 
     vertical-align:middle;
-
 }
-
 
 .number-cell {
 
-    color:
-        var(--pink-700);
+    color:var(--pink-700);
 
     font-weight:750;
 
     white-space:nowrap;
-
 }
-
 
 .service-name {
 
     font-size:13px;
 
     font-weight:700;
-
 }
-
 
 .service-code {
 
@@ -736,16 +629,12 @@ td {
 
     font-size:10px;
 
-    color:
-        var(--text3);
-
+    color:var(--text3);
 }
-
 
 .category-badge {
 
     display:inline-flex;
-
     align-items:center;
 
     min-height:27px;
@@ -756,45 +645,32 @@ td {
 
     border-radius:999px;
 
-    background:
-        var(--purple-bg);
+    background:var(--purple-bg);
 
-    color:
-        var(--purple);
+    color:var(--purple);
 
     font-size:10px;
-
     font-weight:700;
-
 }
-
 
 .description-text {
 
     max-width:420px;
 
-    color:
-        var(--text2);
+    color:var(--text2);
 
     line-height:1.65;
 
     word-break:break-word;
-
 }
-
 
 .description-empty {
-
-    color:
-        var(--text3);
-
+    color:var(--text3);
 }
-
 
 .badge {
 
     display:inline-flex;
-
     align-items:center;
 
     min-height:26px;
@@ -806,46 +682,32 @@ td {
     border-radius:999px;
 
     font-size:10px;
-
     font-weight:700;
-
 }
-
 
 .badge-active {
 
-    color:
-        var(--green);
+    color:var(--green);
 
-    background:
-        var(--green-bg);
-
+    background:var(--green-bg);
 }
-
 
 .badge-inactive {
 
-    color:
-        var(--gray);
+    color:var(--gray);
 
-    background:
-        var(--gray-bg);
-
+    background:var(--gray-bg);
 }
-
 
 .action-buttons {
 
     display:flex;
-
     align-items:center;
 
     gap:7px;
 
     flex-wrap:wrap;
-
 }
-
 
 .action {
 
@@ -864,46 +726,32 @@ td {
     background:#fff;
 
     font-size:11px;
-
     font-weight:700;
-
 }
-
 
 .edit-action {
 
-    color:
-        var(--pink-700);
+    color:var(--pink-700);
 
-    border-color:
-        var(--pink-200);
+    border-color:var(--pink-200);
 
-    background:
-        var(--pink-50);
-
+    background:var(--pink-50);
 }
-
 
 .danger-action {
 
-    color:
-        var(--danger);
+    color:var(--danger);
 
-    border-color:
-        #f2c8d5;
+    border-color:#f2c8d5;
 
-    background:
-        #fff7fa;
-
+    background:#fff7fa;
 }
-
 
 .action:disabled {
 
     opacity:.55;
 
     cursor:not-allowed;
-
 }
 
 
@@ -919,18 +767,14 @@ td {
 
     text-align:center;
 
-    color:
-        var(--text3);
-
+    color:var(--text3);
 }
-
 
 .empty-icon {
 
     margin-bottom:8px;
 
     font-size:34px;
-
 }
 
 
@@ -939,11 +783,8 @@ td {
 ========================================================= */
 
 .mobile-list {
-
     display:none;
-
 }
-
 
 .service-card {
 
@@ -958,46 +799,33 @@ td {
     border-radius:16px;
 
     background:#fff;
-
 }
-
 
 .service-card-head {
 
     display:flex;
-
     align-items:flex-start;
-
-    justify-content:
-        space-between;
+    justify-content:space-between;
 
     gap:10px;
-
 }
-
 
 .mobile-number {
 
     margin-bottom:4px;
 
-    color:
-        var(--pink-700);
+    color:var(--pink-700);
 
     font-size:11px;
-
     font-weight:750;
-
 }
-
 
 .mobile-name {
 
     font-size:15px;
 
     font-weight:750;
-
 }
-
 
 .mobile-code {
 
@@ -1005,18 +833,13 @@ td {
 
     font-size:10px;
 
-    color:
-        var(--text3);
-
+    color:var(--text3);
 }
-
 
 .mobile-category {
 
     margin-top:10px;
-
 }
-
 
 .mobile-description {
 
@@ -1026,20 +849,16 @@ td {
 
     border-radius:11px;
 
-    background:
-        #fcfafb;
+    background:#fcfafb;
 
-    color:
-        var(--text2);
+    color:var(--text2);
 
     font-size:12px;
 
     line-height:1.7;
 
     white-space:pre-wrap;
-
 }
-
 
 .mobile-info {
 
@@ -1049,21 +868,15 @@ td {
 
     border-radius:11px;
 
-    background:
-        var(--pink-50);
-
+    background:var(--pink-50);
 }
-
 
 .mobile-info-label {
 
     font-size:10px;
 
-    color:
-        var(--text3);
-
+    color:var(--text3);
 }
-
 
 .mobile-info-value {
 
@@ -1072,9 +885,7 @@ td {
     font-size:12px;
 
     font-weight:650;
-
 }
-
 
 .mobile-actions {
 
@@ -1087,21 +898,14 @@ td {
     gap:8px;
 
     margin-top:12px;
-
 }
-
 
 .mobile-actions.one {
-
     grid-template-columns:1fr;
-
 }
 
-
 .mobile-actions .action {
-
     min-height:47px;
-
 }
 
 
@@ -1122,7 +926,6 @@ td {
     padding:16px;
 
     align-items:center;
-
     justify-content:center;
 
     background:
@@ -1133,24 +936,18 @@ td {
             .45
         );
 
-    backdrop-filter:
-        blur(3px);
-
+    backdrop-filter:blur(3px);
 }
-
 
 .modal-mask.show {
-
     display:flex;
-
 }
-
 
 .modal {
 
     width:100%;
 
-    max-width:620px;
+    max-width:680px;
 
     max-height:92vh;
 
@@ -1168,16 +965,11 @@ td {
             32,
             .20
         );
-
 }
-
 
 .modal.small {
-
     max-width:500px;
-
 }
-
 
 .modal-head {
 
@@ -1188,9 +980,7 @@ td {
     z-index:2;
 
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
 
     gap:12px;
@@ -1204,18 +994,14 @@ td {
         var(--border);
 
     background:#fff;
-
 }
-
 
 .modal-title {
 
     font-size:18px;
 
     font-weight:750;
-
 }
-
 
 .modal-close {
 
@@ -1226,23 +1012,16 @@ td {
 
     border-radius:11px;
 
-    background:
-        var(--pink-50);
+    background:var(--pink-50);
 
-    color:
-        var(--pink-700);
+    color:var(--pink-700);
 
     font-size:20px;
-
 }
-
 
 .modal-body {
-
     padding:20px;
-
 }
-
 
 .info-box {
 
@@ -1252,25 +1031,18 @@ td {
 
     border-radius:13px;
 
-    background:
-        var(--pink-50);
+    background:var(--pink-50);
 
-    color:
-        var(--text2);
+    color:var(--text2);
 
     font-size:11px;
 
     line-height:1.75;
-
 }
-
 
 .form-group {
-
     margin-bottom:15px;
-
 }
-
 
 .form-label {
 
@@ -1279,22 +1051,14 @@ td {
     margin-bottom:7px;
 
     font-size:12px;
-
     font-weight:650;
 
-    color:
-        var(--text2);
-
+    color:var(--text2);
 }
-
 
 .required {
-
-    color:
-        var(--pink-600);
-
+    color:var(--pink-600);
 }
-
 
 .form-control {
 
@@ -1315,9 +1079,7 @@ td {
     background:#fff;
 
     outline:none;
-
 }
-
 
 textarea.form-control {
 
@@ -1328,31 +1090,23 @@ textarea.form-control {
     resize:vertical;
 
     line-height:1.7;
-
 }
-
 
 .form-control:focus {
 
-    border-color:
-        var(--pink-300);
+    border-color:var(--pink-300);
 
     box-shadow:
         0 0 0 3px
         var(--pink-50);
-
 }
-
 
 .form-control:disabled {
 
-    background:
-        #f5f2f4;
+    background:#f5f2f4;
 
     color:#999;
-
 }
-
 
 .form-hint {
 
@@ -1362,11 +1116,8 @@ textarea.form-control {
 
     line-height:1.6;
 
-    color:
-        var(--text3);
-
+    color:var(--text3);
 }
-
 
 .character-count {
 
@@ -1376,11 +1127,8 @@ textarea.form-control {
 
     font-size:10px;
 
-    color:
-        var(--text3);
-
+    color:var(--text3);
 }
-
 
 .category-row {
 
@@ -1391,9 +1139,7 @@ textarea.form-control {
         auto;
 
     gap:8px;
-
 }
-
 
 .new-category-button {
 
@@ -1409,20 +1155,272 @@ textarea.form-control {
 
     border-radius:12px;
 
-    background:
-        var(--pink-50);
+    background:var(--pink-50);
 
-    color:
-        var(--pink-700);
+    color:var(--pink-700);
 
     font-size:12px;
-
     font-weight:700;
 
     white-space:nowrap;
-
 }
 
+
+/* =========================================================
+   IMAGE UPLOAD
+========================================================= */
+
+.image-upload-box {
+
+    padding:14px;
+
+    border:
+        1px dashed
+        var(--pink-300);
+
+    border-radius:14px;
+
+    background:#fffafd;
+}
+
+.image-upload-button {
+
+    width:100%;
+
+    min-height:52px;
+
+    border:
+        1px solid
+        var(--pink-200);
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff7fa,
+            #ffeaf2
+        );
+
+    color:var(--pink-700);
+
+    font-size:13px;
+    font-weight:750;
+}
+
+.image-upload-button:hover {
+    background:var(--pink-100);
+}
+
+.image-input {
+    display:none;
+}
+
+.image-upload-summary {
+
+    margin-top:8px;
+
+    font-size:10px;
+
+    color:var(--text3);
+}
+
+.image-grid {
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap:10px;
+
+    margin-top:12px;
+}
+
+.image-card {
+
+    position:relative;
+
+    overflow:hidden;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:13px;
+
+    background:#fff;
+}
+
+.image-preview {
+
+    width:100%;
+
+    aspect-ratio:1 / 1;
+
+    display:block;
+
+    object-fit:cover;
+
+    background:#f7f5f6;
+}
+
+.image-main-badge {
+
+    position:absolute;
+
+    top:7px;
+    left:7px;
+
+    z-index:2;
+
+    padding:
+        4px
+        7px;
+
+    border-radius:999px;
+
+    background:
+        rgba(
+            232,
+            93,
+            143,
+            .92
+        );
+
+    color:#fff;
+
+    font-size:9px;
+    font-weight:750;
+}
+
+.image-new-badge {
+
+    position:absolute;
+
+    top:7px;
+    right:7px;
+
+    z-index:2;
+
+    padding:
+        4px
+        7px;
+
+    border-radius:999px;
+
+    background:
+        rgba(
+            40,
+            35,
+            41,
+            .76
+        );
+
+    color:#fff;
+
+    font-size:9px;
+    font-weight:700;
+}
+
+.image-card-actions {
+
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap:5px;
+
+    padding:7px;
+}
+
+.image-small-button {
+
+    min-height:36px;
+
+    padding:
+        0
+        6px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:8px;
+
+    background:#fff;
+
+    color:var(--text2);
+
+    font-size:10px;
+    font-weight:700;
+}
+
+.image-primary-button {
+
+    color:var(--pink-700);
+
+    border-color:var(--pink-200);
+
+    background:var(--pink-50);
+}
+
+.image-delete-button {
+
+    color:var(--danger);
+
+    border-color:#f2c8d5;
+
+    background:var(--danger-bg);
+}
+
+.image-file-info {
+
+    padding:
+        0
+        7px
+        7px;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    white-space:nowrap;
+
+    color:var(--text3);
+
+    font-size:9px;
+}
+
+.no-images {
+
+    padding:18px;
+
+    margin-top:10px;
+
+    border-radius:11px;
+
+    background:#faf8f9;
+
+    text-align:center;
+
+    color:var(--text3);
+
+    font-size:11px;
+}
+
+
+/* =========================================================
+   MODAL FOOTER
+========================================================= */
 
 .modal-footer {
 
@@ -1448,9 +1446,7 @@ textarea.form-control {
         var(--border);
 
     background:#fff;
-
 }
-
 
 .cancel-button,
 .save-button {
@@ -1460,9 +1456,7 @@ textarea.form-control {
     border-radius:12px;
 
     font-weight:700;
-
 }
-
 
 .cancel-button {
 
@@ -1471,9 +1465,7 @@ textarea.form-control {
         var(--border);
 
     background:#fff;
-
 }
-
 
 .save-button {
 
@@ -1487,14 +1479,10 @@ textarea.form-control {
             var(--pink-500),
             var(--pink-600)
         );
-
 }
 
-
 .save-button:disabled {
-
     opacity:.55;
-
 }
 
 
@@ -1511,10 +1499,9 @@ textarea.form-control {
     z-index:9000;
 
     right:18px;
-
     bottom:18px;
 
-    max-width:400px;
+    max-width:420px;
 
     padding:
         13px
@@ -1524,43 +1511,32 @@ textarea.form-control {
 
     font-size:13px;
 
-    box-shadow:
-        var(--shadow);
-
+    box-shadow:var(--shadow);
 }
-
 
 .toast.show {
-
     display:block;
-
 }
-
 
 .toast.success {
 
     color:#17664c;
 
     background:#effaf5;
-
 }
-
 
 .toast.error {
 
     color:#af294b;
 
     background:#fff0f4;
-
 }
-
 
 .toast.info {
 
     color:#665c62;
 
     background:#f8f5f7;
-
 }
 
 
@@ -1577,19 +1553,14 @@ textarea.form-control {
     z-index:9999;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     flex-direction:column;
 
     gap:12px;
 
     background:#fffafd;
-
 }
-
 
 .spinner {
 
@@ -1608,19 +1579,13 @@ textarea.form-control {
     animation:
         spin .8s
         linear infinite;
-
 }
-
 
 @keyframes spin {
 
     to {
-
-        transform:
-            rotate(360deg);
-
+        transform:rotate(360deg);
     }
-
 }
 
 
@@ -1632,20 +1597,11 @@ textarea.form-control {
 (max-width:1000px) {
 
     .stats {
-
-        grid-template-columns:
-            1fr
-            1fr;
-
+        grid-template-columns:1fr 1fr;
     }
 
-
     .toolbar {
-
-        grid-template-columns:
-            1fr
-            1fr;
-
+        grid-template-columns:1fr 1fr;
     }
 
 }
@@ -1667,38 +1623,25 @@ textarea.form-control {
             )
             11px
             5px;
-
     }
-
 
     .brand img {
 
         width:38px;
         height:38px;
-
     }
-
 
     .brand-title {
-
         font-size:16px;
-
     }
-
 
     .brand-sub {
-
         display:none;
-
     }
-
 
     .back-button {
-
         display:none;
-
     }
-
 
     .logout-button {
 
@@ -1709,9 +1652,7 @@ textarea.form-control {
             13px;
 
         font-size:11px;
-
     }
-
 
     .main {
 
@@ -1719,9 +1660,7 @@ textarea.form-control {
             14px
             11px
             28px;
-
     }
-
 
     .hero {
 
@@ -1732,52 +1671,35 @@ textarea.form-control {
         margin-bottom:13px;
 
         border-radius:18px;
-
     }
-
 
     .hero h1 {
-
         font-size:21px;
-
     }
-
 
     .hero p {
-
         font-size:12px;
-
     }
-
 
     .stats {
 
-        grid-template-columns:
-            1fr
-            1fr;
+        grid-template-columns:1fr 1fr;
 
         gap:8px;
 
         margin-bottom:12px;
-
     }
-
 
     .stat {
 
         min-height:92px;
 
         padding:14px;
-
     }
-
 
     .stat-value {
-
         font-size:20px;
-
     }
-
 
     .panel {
 
@@ -1786,9 +1708,7 @@ textarea.form-control {
         background:transparent;
 
         box-shadow:none;
-
     }
-
 
     .toolbar {
 
@@ -1796,34 +1716,22 @@ textarea.form-control {
 
         margin-bottom:11px;
 
-        grid-template-columns:
-            1fr;
+        grid-template-columns:1fr;
 
         border:0;
-
     }
-
 
     .primary-button {
-
         min-height:52px;
-
     }
-
 
     .table-scroll {
-
         display:none;
-
     }
-
 
     .mobile-list {
-
         display:block;
-
     }
-
 
     .empty {
 
@@ -1838,18 +1746,14 @@ textarea.form-control {
             var(--border);
 
         border-radius:16px;
-
     }
-
 
     .modal-mask {
 
         align-items:flex-end;
 
         padding:0;
-
     }
-
 
     .modal {
 
@@ -1862,24 +1766,19 @@ textarea.form-control {
             22px
             0
             0;
-
     }
-
 
     .category-row {
-
-        grid-template-columns:
-            1fr;
-
+        grid-template-columns:1fr;
     }
-
 
     .new-category-button {
-
         min-height:48px;
-
     }
 
+    .image-grid {
+        grid-template-columns:1fr 1fr;
+    }
 
     .modal-footer {
 
@@ -1890,14 +1789,11 @@ textarea.form-control {
                     safe-area-inset-bottom
                 )
             );
-
     }
-
 
     .toast {
 
         left:10px;
-
         right:10px;
 
         bottom:
@@ -1907,7 +1803,6 @@ textarea.form-control {
                     safe-area-inset-bottom
                 )
             );
-
     }
 
 }
@@ -1950,38 +1845,29 @@ textarea.form-control {
 
 <header class="topbar">
 
-
     <div class="brand">
-
 
         <img
             src="./logo.jpeg"
             alt="孕乃馨"
         >
 
-
         <div>
-
 
             <div class="brand-title">
                 服务项目
             </div>
 
-
             <div class="brand-sub">
                 孕乃馨平台标准服务项目
             </div>
 
-
         </div>
-
 
     </div>
 
 
-
     <div class="top-actions">
-
 
         <button
             class="back-button"
@@ -1990,7 +1876,6 @@ textarea.form-control {
             返回工作台
         </button>
 
-
         <button
             class="logout-button"
             onclick="logout()"
@@ -1998,9 +1883,7 @@ textarea.form-control {
             退出
         </button>
 
-
     </div>
-
 
 </header>
 
@@ -2015,29 +1898,24 @@ textarea.form-control {
 
 <section class="hero">
 
-
     <div class="hero-content">
-
 
         <div class="hero-tag">
             SERVICE CATALOG
         </div>
 
-
         <h1>
             平台标准服务项目
         </h1>
 
-
         <p>
             服务项目采用两层结构管理：第一层为服务项目类型，第二层为具体服务项目。
             同一个服务项目类型下面可以建立多个具体服务项目。
+            每个具体服务项目可上传多张标准图片，并指定一张主图。
             城市销售价格和商户分成规则均以具体服务项目为单位进行管理。
         </p>
 
-
     </div>
-
 
 </section>
 
@@ -2048,7 +1926,6 @@ textarea.form-control {
 ========================================================= -->
 
 <section class="stats">
-
 
     <div class="stat">
 
@@ -2117,7 +1994,6 @@ textarea.form-control {
 
     </div>
 
-
 </section>
 
 
@@ -2130,7 +2006,6 @@ textarea.form-control {
 
 
 <div class="toolbar">
-
 
     <input
         id="searchInput"
@@ -2182,7 +2057,6 @@ textarea.form-control {
         ＋ 创建服务项目
     </button>
 
-
 </div>
 
 
@@ -2193,12 +2067,9 @@ textarea.form-control {
 
 <div class="table-scroll">
 
-
 <table>
 
-
 <thead>
-
 
 <tr>
 
@@ -2232,7 +2103,6 @@ textarea.form-control {
 
 </tr>
 
-
 </thead>
 
 
@@ -2241,9 +2111,7 @@ textarea.form-control {
 >
 </tbody>
 
-
 </table>
-
 
 </div>
 
@@ -2260,7 +2128,6 @@ textarea.form-control {
 </div>
 
 
-
 <div
     id="emptyState"
     class="empty hidden"
@@ -2274,9 +2141,7 @@ textarea.form-control {
 
 </div>
 
-
 </section>
-
 
 </main>
 
@@ -2297,7 +2162,6 @@ textarea.form-control {
 
 <div class="modal-head">
 
-
     <div
         id="modalTitle"
         class="modal-title"
@@ -2305,14 +2169,12 @@ textarea.form-control {
         创建服务项目
     </div>
 
-
     <button
         class="modal-close"
         onclick="closeProductModal()"
     >
         ×
     </button>
-
 
 </div>
 
@@ -2335,7 +2197,7 @@ textarea.form-control {
 
         <br><br>
 
-        同一个类型下面可以建立多个具体服务项目。
+        每个具体服务项目可以上传多张图片，并指定一张主图。
 
     </div>
 
@@ -2344,7 +2206,6 @@ textarea.form-control {
     <!-- 类型 -->
 
     <div class="form-group">
-
 
         <label class="form-label">
 
@@ -2358,7 +2219,6 @@ textarea.form-control {
 
 
         <div class="category-row">
-
 
             <select
                 id="serviceCategory"
@@ -2380,14 +2240,12 @@ textarea.form-control {
                 ＋ 创建新类型
             </button>
 
-
         </div>
 
 
         <div class="form-hint">
             每个服务项目必须归属于一个服务项目类型。
         </div>
-
 
     </div>
 
@@ -2396,7 +2254,6 @@ textarea.form-control {
     <!-- 代码 -->
 
     <div class="form-group">
-
 
         <label class="form-label">
 
@@ -2421,7 +2278,6 @@ textarea.form-control {
             服务项目代码作为长期唯一索引，创建以后不允许修改。
         </div>
 
-
     </div>
 
 
@@ -2429,7 +2285,6 @@ textarea.form-control {
     <!-- 名称 -->
 
     <div class="form-group">
-
 
         <label class="form-label">
 
@@ -2449,7 +2304,6 @@ textarea.form-control {
             placeholder="例如：26天月嫂服务"
         >
 
-
     </div>
 
 
@@ -2457,7 +2311,6 @@ textarea.form-control {
     <!-- 详细说明 -->
 
     <div class="form-group">
-
 
         <label class="form-label">
 
@@ -2491,6 +2344,72 @@ textarea.form-control {
             0 / 3000
         </div>
 
+    </div>
+
+
+
+    <!-- =====================================================
+         多图片
+    ====================================================== -->
+
+    <div class="form-group">
+
+        <label class="form-label">
+            服务项目图片
+        </label>
+
+
+        <div class="image-upload-box">
+
+            <input
+                id="imageInput"
+                class="image-input"
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                multiple
+                onchange="handleImageSelection(event)"
+            >
+
+
+            <button
+                type="button"
+                class="image-upload-button"
+                onclick="openImagePicker()"
+            >
+                ＋ 选择图片
+            </button>
+
+
+            <div
+                id="imageUploadSummary"
+                class="image-upload-summary"
+            >
+                最多10张。上传前自动压缩为 WebP，最长边1280px。
+            </div>
+
+
+            <div
+                id="imagePreviewGrid"
+                class="image-grid"
+            >
+            </div>
+
+
+            <div
+                id="noImages"
+                class="no-images"
+            >
+                暂未选择图片
+            </div>
+
+        </div>
+
+
+        <div class="form-hint">
+
+            支持 JPG、PNG、WebP。第一张图片默认作为主图，也可以手动修改主图。
+
+        </div>
 
     </div>
 
@@ -2500,7 +2419,6 @@ textarea.form-control {
 
 
 <div class="modal-footer">
-
 
     <button
         class="cancel-button"
@@ -2518,12 +2436,9 @@ textarea.form-control {
         创建服务项目
     </button>
 
-
 </div>
 
-
 </div>
-
 
 </div>
 
@@ -2544,11 +2459,9 @@ textarea.form-control {
 
 <div class="modal-head">
 
-
     <div class="modal-title">
         创建服务项目类型
     </div>
-
 
     <button
         class="modal-close"
@@ -2557,13 +2470,11 @@ textarea.form-control {
         ×
     </button>
 
-
 </div>
 
 
 
 <div class="modal-body">
-
 
     <div class="info-box">
 
@@ -2592,9 +2503,7 @@ textarea.form-control {
     </div>
 
 
-
     <div class="form-group">
-
 
         <label class="form-label">
 
@@ -2614,13 +2523,10 @@ textarea.form-control {
             placeholder="例如：月嫂服务"
         >
 
-
     </div>
 
 
-
     <div class="form-group">
-
 
         <label class="form-label">
             类型说明
@@ -2634,16 +2540,13 @@ textarea.form-control {
             placeholder="可填写该类型的总体说明"
         ></textarea>
 
-
     </div>
-
 
 </div>
 
 
 
 <div class="modal-footer">
-
 
     <button
         class="cancel-button"
@@ -2661,12 +2564,9 @@ textarea.form-control {
         保存类型
     </button>
 
-
 </div>
 
-
 </div>
-
 
 </div>
 
@@ -2731,6 +2631,22 @@ const HOME_PAGE =
     "./wholemanagement.html";
 
 
+const IMAGE_BUCKET =
+    "service-project-images";
+
+
+const MAX_IMAGES =
+    10;
+
+
+const IMAGE_MAX_SIDE =
+    1280;
+
+
+const IMAGE_QUALITY =
+    0.82;
+
+
 
 /* =========================================================
    DATA
@@ -2760,6 +2676,31 @@ let editingProductId =
     null;
 
 
+/*
+    已经保存在数据库里的图片
+*/
+
+let existingImages =
+    [];
+
+
+/*
+    用户本次新选择但还没有上传的图片
+*/
+
+let pendingImages =
+    [];
+
+
+/*
+    pendingImages 中哪一张是主图
+    使用 localId 判断
+*/
+
+let pendingPrimaryId =
+    null;
+
+
 
 /* =========================================================
    INIT
@@ -2767,9 +2708,7 @@ let editingProductId =
 
 async function initialize() {
 
-
     try {
-
 
         const {
 
@@ -2785,39 +2724,29 @@ async function initialize() {
             .getSession();
 
 
-
         if (
             sessionError
             ||
             !session
         ) {
 
-
             location.replace(
                 LOGIN_PAGE
             );
 
-
             return;
-
         }
-
 
 
         currentUser =
             session.user;
 
 
-
         await verifyAccess();
-
-
 
         await loadCategories();
 
-
         await loadProducts();
-
 
 
         document.getElementById(
@@ -2825,11 +2754,8 @@ async function initialize() {
         ).style.display =
             "none";
 
-
     }
-
     catch(error) {
-
 
         console.error(
             error
@@ -2847,9 +2773,7 @@ async function initialize() {
             ||
             "服务项目页面加载失败。"
         );
-
     }
-
 }
 
 
@@ -2859,7 +2783,6 @@ async function initialize() {
 ========================================================= */
 
 async function verifyAccess() {
-
 
     const {
 
@@ -2890,20 +2813,16 @@ async function verifyAccess() {
         .maybeSingle();
 
 
-
     if (
         error
         ||
         !profile
     ) {
 
-
         throw new Error(
             "无法读取当前管理账号资料。"
         );
-
     }
-
 
 
     if (
@@ -2911,17 +2830,19 @@ async function verifyAccess() {
         "active"
     ) {
 
-
         await supabaseClient.auth
             .signOut();
+
+
+        location.replace(
+            LOGIN_PAGE
+        );
 
 
         throw new Error(
             "当前账号已经停用。"
         );
-
     }
-
 
 
     if (
@@ -2932,7 +2853,6 @@ async function verifyAccess() {
             profile.role
         )
     ) {
-
 
         alert(
             "当前账号没有服务项目管理权限。"
@@ -2947,14 +2867,11 @@ async function verifyAccess() {
         throw new Error(
             "没有服务项目管理权限。"
         );
-
     }
-
 
 
     currentProfile =
         profile;
-
 }
 
 
@@ -2964,7 +2881,6 @@ async function verifyAccess() {
 ========================================================= */
 
 async function loadCategories() {
-
 
     const {
 
@@ -2997,17 +2913,13 @@ async function loadCategories() {
         );
 
 
-
     if (error) {
-
 
         throw new Error(
             "服务项目类型读取失败：" +
             error.message
         );
-
     }
-
 
 
     categories =
@@ -3016,15 +2928,11 @@ async function loadCategories() {
         [];
 
 
-
     fillCategorySelect();
-
 
     fillCategoryFilter();
 
-
     renderStats();
-
 }
 
 
@@ -3034,7 +2942,6 @@ async function loadCategories() {
 ========================================================= */
 
 async function loadProducts() {
-
 
     const {
 
@@ -3060,17 +2967,13 @@ async function loadProducts() {
         );
 
 
-
     if (error) {
-
 
         throw new Error(
             "服务项目数据读取失败：" +
             error.message
         );
-
     }
-
 
 
     products =
@@ -3079,12 +2982,9 @@ async function loadProducts() {
         [];
 
 
-
     renderStats();
 
-
     renderProducts();
-
 }
 
 
@@ -3097,12 +2997,10 @@ function fillCategorySelect(
     selectedId = null
 ) {
 
-
     const select =
         document.getElementById(
             "serviceCategory"
         );
-
 
 
     select.innerHTML =
@@ -3111,7 +3009,6 @@ function fillCategorySelect(
             请选择服务项目类型
         </option>
         `;
-
 
 
     categories
@@ -3127,7 +3024,6 @@ function fillCategorySelect(
     .forEach(
 
         item => {
-
 
             const option =
                 document.createElement(
@@ -3151,12 +3047,9 @@ function fillCategorySelect(
                 String(item.id)
             ) {
 
-
                 option.selected =
                     true;
-
             }
-
 
 
             select.appendChild(
@@ -3166,7 +3059,6 @@ function fillCategorySelect(
         }
 
     );
-
 }
 
 
@@ -3177,17 +3069,14 @@ function fillCategorySelect(
 
 function fillCategoryFilter() {
 
-
     const select =
         document.getElementById(
             "categoryFilter"
         );
 
 
-
     const current =
         select.value;
-
 
 
     select.innerHTML =
@@ -3198,11 +3087,9 @@ function fillCategoryFilter() {
         `;
 
 
-
     categories.forEach(
 
         item => {
-
 
             const option =
                 document.createElement(
@@ -3228,7 +3115,6 @@ function fillCategoryFilter() {
                 `${item.category_name}（已失效）`;
 
 
-
             select.appendChild(
                 option
             );
@@ -3236,7 +3122,6 @@ function fillCategoryFilter() {
         }
 
     );
-
 
 
     if (
@@ -3248,12 +3133,9 @@ function fillCategoryFilter() {
         )
     ) {
 
-
         select.value =
             current;
-
     }
-
 }
 
 
@@ -3263,7 +3145,6 @@ function fillCategoryFilter() {
 ========================================================= */
 
 function renderStats() {
-
 
     document.getElementById(
         "statCategories"
@@ -3278,12 +3159,10 @@ function renderStats() {
         ).length;
 
 
-
     document.getElementById(
         "statTotal"
     ).textContent =
         products.length;
-
 
 
     document.getElementById(
@@ -3299,7 +3178,6 @@ function renderStats() {
         ).length;
 
 
-
     document.getElementById(
         "statInactive"
     ).textContent =
@@ -3311,7 +3189,6 @@ function renderStats() {
                 "inactive"
 
         ).length;
-
 }
 
 
@@ -3322,7 +3199,6 @@ function renderStats() {
 
 function renderProducts() {
 
-
     const keyword =
         document.getElementById(
             "searchInput"
@@ -3332,12 +3208,10 @@ function renderProducts() {
         .toLowerCase();
 
 
-
     const categoryId =
         document.getElementById(
             "categoryFilter"
         ).value;
-
 
 
     const status =
@@ -3346,12 +3220,10 @@ function renderProducts() {
         ).value;
 
 
-
     const list =
         products.filter(
 
             item => {
-
 
                 if (
                     categoryId
@@ -3365,11 +3237,8 @@ function renderProducts() {
                     )
                 ) {
 
-
                     return false;
-
                 }
-
 
 
                 if (
@@ -3379,18 +3248,14 @@ function renderProducts() {
                     status
                 ) {
 
-
                     return false;
-
                 }
-
 
 
                 const category =
                     getCategory(
                         item.category_id
                     );
-
 
 
                 const text =
@@ -3405,15 +3270,12 @@ function renderProducts() {
                     .toLowerCase();
 
 
-
                 return text.includes(
                     keyword
                 );
-
             }
 
         );
-
 
 
     const tbody =
@@ -3434,7 +3296,6 @@ function renderProducts() {
         );
 
 
-
     tbody.innerHTML =
         "";
 
@@ -3443,18 +3304,15 @@ function renderProducts() {
         "";
 
 
-
     empty.classList.toggle(
         "hidden",
         list.length > 0
     );
 
 
-
     list.forEach(
 
         item => {
-
 
             const category =
                 getCategory(
@@ -3466,7 +3324,6 @@ function renderProducts() {
                 getDescription(
                     item
                 );
-
 
 
             tbody.insertAdjacentHTML(
@@ -3574,7 +3431,6 @@ function renderProducts() {
             );
 
 
-
             mobile.insertAdjacentHTML(
 
                 "beforeend",
@@ -3662,11 +3518,9 @@ function renderProducts() {
 
                     <div class="mobile-info">
 
-
                         <div class="mobile-info-label">
                             创建时间
                         </div>
-
 
                         <div class="mobile-info-value">
 
@@ -3675,7 +3529,6 @@ function renderProducts() {
                             )}
 
                         </div>
-
 
                     </div>
 
@@ -3693,7 +3546,6 @@ function renderProducts() {
         }
 
     );
-
 }
 
 
@@ -3706,12 +3558,10 @@ function serviceActionButtons(
     item
 ) {
 
-
     if (
         item.status ===
         "inactive"
     ) {
-
 
         return `
             <div class="action-buttons">
@@ -3725,9 +3575,7 @@ function serviceActionButtons(
 
             </div>
         `;
-
     }
-
 
 
     return `
@@ -3749,7 +3597,6 @@ function serviceActionButtons(
 
         </div>
     `;
-
 }
 
 
@@ -3758,12 +3605,10 @@ function mobileServiceButtons(
     item
 ) {
 
-
     if (
         item.status ===
         "inactive"
     ) {
-
 
         return `
             <div class="mobile-actions one">
@@ -3777,9 +3622,7 @@ function mobileServiceButtons(
 
             </div>
         `;
-
     }
-
 
 
     return `
@@ -3801,7 +3644,6 @@ function mobileServiceButtons(
 
         </div>
     `;
-
 }
 
 
@@ -3812,7 +3654,6 @@ function mobileServiceButtons(
 
 function openCreateModal() {
 
-
     productMode =
         "create";
 
@@ -3821,9 +3662,10 @@ function openCreateModal() {
         null;
 
 
-
     resetProductForm();
 
+
+    resetImageState();
 
 
     document.getElementById(
@@ -3832,12 +3674,10 @@ function openCreateModal() {
         "创建服务项目";
 
 
-
     document.getElementById(
         "productCode"
     ).disabled =
         false;
-
 
 
     document.getElementById(
@@ -3846,13 +3686,14 @@ function openCreateModal() {
         "创建服务项目";
 
 
+    renderImagePreviews();
+
 
     document.getElementById(
         "productModal"
     ).classList.add(
         "show"
     );
-
 }
 
 
@@ -3861,10 +3702,9 @@ function openCreateModal() {
    EDIT SERVICE
 ========================================================= */
 
-function editService(
+async function editService(
     id
 ) {
-
 
     const item =
         products.find(
@@ -3881,14 +3721,9 @@ function editService(
         );
 
 
-
     if (!item) {
-
-
         return;
-
     }
-
 
 
     if (
@@ -3896,17 +3731,13 @@ function editService(
         "active"
     ) {
 
-
         showToast(
             "已失效服务项目不能编辑。",
             "error"
         );
 
-
         return;
-
     }
-
 
 
     productMode =
@@ -3919,9 +3750,9 @@ function editService(
         );
 
 
-
     resetProductForm();
 
+    resetImageState();
 
 
     document.getElementById(
@@ -3930,11 +3761,9 @@ function editService(
         `编辑服务项目 ${formatServiceNo(item)}`;
 
 
-
     fillCategorySelect(
         item.category_id
     );
-
 
 
     document.getElementById(
@@ -3945,12 +3774,10 @@ function editService(
         );
 
 
-
     document.getElementById(
         "productCode"
     ).disabled =
         true;
-
 
 
     document.getElementById(
@@ -3961,7 +3788,6 @@ function editService(
         );
 
 
-
     document.getElementById(
         "productDescription"
     ).value =
@@ -3970,9 +3796,7 @@ function editService(
         );
 
 
-
     updateDescriptionCount();
-
 
 
     document.getElementById(
@@ -3981,13 +3805,39 @@ function editService(
         "保存修改";
 
 
-
     document.getElementById(
         "productModal"
     ).classList.add(
         "show"
     );
 
+
+    /*
+        打开编辑窗口后读取已有图片
+    */
+
+    try {
+
+        await loadExistingImages(
+            id
+        );
+
+
+        renderImagePreviews();
+
+    }
+    catch(error) {
+
+        console.error(
+            error
+        );
+
+
+        showToast(
+            "服务项目资料已打开，但图片读取失败。",
+            "error"
+        );
+    }
 }
 
 
@@ -3998,13 +3848,14 @@ function editService(
 
 function closeProductModal() {
 
-
     document.getElementById(
         "productModal"
     ).classList.remove(
         "show"
     );
 
+
+    revokePendingObjectUrls();
 
 
     productMode =
@@ -4014,6 +3865,8 @@ function closeProductModal() {
     editingProductId =
         null;
 
+
+    resetImageState();
 }
 
 
@@ -4024,9 +3877,7 @@ function closeProductModal() {
 
 function resetProductForm() {
 
-
     fillCategorySelect();
-
 
 
     document.getElementById(
@@ -4041,12 +3892,10 @@ function resetProductForm() {
         false;
 
 
-
     document.getElementById(
         "productName"
     ).value =
         "";
-
 
 
     document.getElementById(
@@ -4055,9 +3904,13 @@ function resetProductForm() {
         "";
 
 
+    document.getElementById(
+        "imageInput"
+    ).value =
+        "";
+
 
     updateDescriptionCount();
-
 }
 
 
@@ -4068,19 +3921,1552 @@ function resetProductForm() {
 
 function updateDescriptionCount() {
 
-
     const value =
         document.getElementById(
             "productDescription"
         ).value;
 
 
-
     document.getElementById(
         "descriptionCount"
     ).textContent =
         `${value.length} / 3000`;
+}
 
+
+
+/* =========================================================
+   IMAGE STATE
+========================================================= */
+
+function resetImageState() {
+
+    revokePendingObjectUrls();
+
+
+    existingImages =
+        [];
+
+
+    pendingImages =
+        [];
+
+
+    pendingPrimaryId =
+        null;
+
+
+    const input =
+        document.getElementById(
+            "imageInput"
+        );
+
+
+    if (input) {
+
+        input.value =
+            "";
+    }
+}
+
+
+
+function revokePendingObjectUrls() {
+
+    pendingImages.forEach(
+
+        item => {
+
+            if (
+                item.previewUrl
+            ) {
+
+                URL.revokeObjectURL(
+                    item.previewUrl
+                );
+            }
+
+        }
+
+    );
+}
+
+
+
+/* =========================================================
+   IMAGE PICKER
+========================================================= */
+
+function openImagePicker() {
+
+    const total =
+        existingImages.length
+        +
+        pendingImages.length;
+
+
+    if (
+        total >=
+        MAX_IMAGES
+    ) {
+
+        showToast(
+            `每个服务项目最多上传 ${MAX_IMAGES} 张图片。`,
+            "error"
+        );
+
+        return;
+    }
+
+
+    document.getElementById(
+        "imageInput"
+    ).click();
+}
+
+
+
+/* =========================================================
+   SELECT IMAGES
+========================================================= */
+
+async function handleImageSelection(
+    event
+) {
+
+    const files =
+        Array.from(
+            event.target.files
+            ||
+            []
+        );
+
+
+    if (
+        files.length ===
+        0
+    ) {
+
+        return;
+    }
+
+
+    const currentTotal =
+        existingImages.length
+        +
+        pendingImages.length;
+
+
+    const remaining =
+        MAX_IMAGES
+        -
+        currentTotal;
+
+
+    if (
+        remaining <=
+        0
+    ) {
+
+        showToast(
+            `每个服务项目最多上传 ${MAX_IMAGES} 张图片。`,
+            "error"
+        );
+
+        event.target.value =
+            "";
+
+        return;
+    }
+
+
+    const selectedFiles =
+        files.slice(
+            0,
+            remaining
+        );
+
+
+    if (
+        files.length >
+        remaining
+    ) {
+
+        showToast(
+            `最多还能选择 ${remaining} 张图片，多余图片已忽略。`,
+            "info"
+        );
+    }
+
+
+    for (
+        const file
+        of selectedFiles
+    ) {
+
+        if (
+            ![
+                "image/jpeg",
+                "image/png",
+                "image/webp"
+            ].includes(
+                file.type
+            )
+        ) {
+
+            showToast(
+                `${file.name} 不是支持的图片格式。`,
+                "error"
+            );
+
+            continue;
+        }
+
+
+        try {
+
+            const compressed =
+                await compressImageToWebP(
+                    file
+                );
+
+
+            const localId =
+                createLocalId();
+
+
+            pendingImages.push({
+
+                localId,
+
+                originalName:
+                    file.name,
+
+                blob:
+                    compressed,
+
+                previewUrl:
+                    URL.createObjectURL(
+                        compressed
+                    ),
+
+                isPrimary:
+                    false
+
+            });
+
+        }
+        catch(error) {
+
+            console.error(
+                "图片压缩失败：",
+                error
+            );
+
+
+            showToast(
+                `${file.name} 图片处理失败。`,
+                "error"
+            );
+        }
+    }
+
+
+    /*
+        如果整个项目目前没有主图，
+        第一张新图片自动设为主图
+    */
+
+    const hasExistingPrimary =
+        existingImages.some(
+            item =>
+                item.is_primary
+        );
+
+
+    const hasPendingPrimary =
+        pendingImages.some(
+            item =>
+                item.isPrimary
+        );
+
+
+    if (
+        !hasExistingPrimary
+        &&
+        !hasPendingPrimary
+        &&
+        pendingImages.length >
+        0
+    ) {
+
+        pendingImages[0].isPrimary =
+            true;
+
+
+        pendingPrimaryId =
+            pendingImages[0].localId;
+    }
+
+
+    event.target.value =
+        "";
+
+
+    renderImagePreviews();
+}
+
+
+
+/* =========================================================
+   IMAGE COMPRESS
+========================================================= */
+
+async function compressImageToWebP(
+    file
+) {
+
+    const imageBitmap =
+        await createImageBitmap(
+            file
+        );
+
+
+    let width =
+        imageBitmap.width;
+
+
+    let height =
+        imageBitmap.height;
+
+
+    const maxSide =
+        Math.max(
+            width,
+            height
+        );
+
+
+    if (
+        maxSide >
+        IMAGE_MAX_SIDE
+    ) {
+
+        const ratio =
+            IMAGE_MAX_SIDE
+            /
+            maxSide;
+
+
+        width =
+            Math.round(
+                width * ratio
+            );
+
+
+        height =
+            Math.round(
+                height * ratio
+            );
+    }
+
+
+    const canvas =
+        document.createElement(
+            "canvas"
+        );
+
+
+    canvas.width =
+        width;
+
+
+    canvas.height =
+        height;
+
+
+    const context =
+        canvas.getContext(
+            "2d"
+        );
+
+
+    context.drawImage(
+
+        imageBitmap,
+
+        0,
+        0,
+
+        width,
+        height
+
+    );
+
+
+    imageBitmap.close();
+
+
+    let quality =
+        IMAGE_QUALITY;
+
+
+    let blob =
+        await canvasToWebPBlob(
+            canvas,
+            quality
+        );
+
+
+    /*
+        Storage限制单张2MB。
+        如果压缩后仍然太大，就继续降低质量。
+    */
+
+    while (
+        blob.size >
+        1.9 * 1024 * 1024
+        &&
+        quality >
+        0.52
+    ) {
+
+        quality -=
+            0.08;
+
+
+        blob =
+            await canvasToWebPBlob(
+                canvas,
+                quality
+            );
+    }
+
+
+    if (
+        blob.size >
+        2 * 1024 * 1024
+    ) {
+
+        throw new Error(
+            "图片压缩后仍超过2MB"
+        );
+    }
+
+
+    return blob;
+}
+
+
+
+function canvasToWebPBlob(
+    canvas,
+    quality
+) {
+
+    return new Promise(
+
+        (
+            resolve,
+            reject
+        ) => {
+
+            canvas.toBlob(
+
+                blob => {
+
+                    if (!blob) {
+
+                        reject(
+                            new Error(
+                                "图片转换失败"
+                            )
+                        );
+
+                        return;
+                    }
+
+
+                    resolve(
+                        blob
+                    );
+
+                },
+
+                "image/webp",
+
+                quality
+
+            );
+
+        }
+
+    );
+}
+
+
+
+/* =========================================================
+   EXISTING IMAGES
+========================================================= */
+
+async function loadExistingImages(
+    productId
+) {
+
+    const {
+
+        data,
+
+        error
+
+    } =
+
+    await supabaseClient
+
+        .from(
+            "service_project_images"
+        )
+
+        .select(`
+            id,
+            product_id,
+            storage_path,
+            file_name,
+            sort_order,
+            is_primary,
+            status,
+            created_at
+        `)
+
+        .eq(
+            "product_id",
+            Number(
+                productId
+            )
+        )
+
+        .eq(
+            "status",
+            "active"
+        )
+
+        .order(
+            "sort_order",
+            {
+                ascending:true
+            }
+        );
+
+
+    if (error) {
+
+        throw error;
+    }
+
+
+    existingImages =
+        (data || [])
+        .map(
+
+            item => {
+
+                const {
+
+                    data:urlData
+
+                } =
+
+                supabaseClient.storage
+
+                    .from(
+                        IMAGE_BUCKET
+                    )
+
+                    .getPublicUrl(
+                        item.storage_path
+                    );
+
+
+                return {
+
+                    ...item,
+
+                    publicUrl:
+                        urlData?.publicUrl
+                        ||
+                        ""
+
+                };
+
+            }
+
+        );
+}
+
+
+
+/* =========================================================
+   RENDER IMAGE PREVIEWS
+========================================================= */
+
+function renderImagePreviews() {
+
+    const grid =
+        document.getElementById(
+            "imagePreviewGrid"
+        );
+
+
+    const empty =
+        document.getElementById(
+            "noImages"
+        );
+
+
+    const summary =
+        document.getElementById(
+            "imageUploadSummary"
+        );
+
+
+    grid.innerHTML =
+        "";
+
+
+    const total =
+        existingImages.length
+        +
+        pendingImages.length;
+
+
+    empty.classList.toggle(
+        "hidden",
+        total > 0
+    );
+
+
+    summary.textContent =
+        `当前 ${total}/${MAX_IMAGES} 张。上传前自动压缩为 WebP，最长边 ${IMAGE_MAX_SIDE}px。`;
+
+
+    /*
+        已上传图片
+    */
+
+    existingImages.forEach(
+
+        item => {
+
+            grid.insertAdjacentHTML(
+
+                "beforeend",
+
+                `
+                <div class="image-card">
+
+                    ${
+                        item.is_primary
+                        ?
+                        `
+                        <div class="image-main-badge">
+                            主图
+                        </div>
+                        `
+                        :
+                        ""
+                    }
+
+
+                    <img
+                        class="image-preview"
+                        src="${escapeHtml(item.publicUrl)}"
+                        alt="服务项目图片"
+                    >
+
+
+                    <div class="image-card-actions">
+
+                        <button
+                            type="button"
+                            class="
+                                image-small-button
+                                image-primary-button
+                            "
+                            onclick="setExistingPrimary(${Number(item.id)})"
+                            ${item.is_primary ? "disabled" : ""}
+                        >
+                            ${
+                                item.is_primary
+                                ?
+                                "当前主图"
+                                :
+                                "设为主图"
+                            }
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="
+                                image-small-button
+                                image-delete-button
+                            "
+                            onclick="deleteExistingImage(${Number(item.id)})"
+                        >
+                            删除
+                        </button>
+
+                    </div>
+
+
+                    <div class="image-file-info">
+                        ${escapeHtml(item.file_name || "已上传图片")}
+                    </div>
+
+                </div>
+                `
+
+            );
+
+        }
+
+    );
+
+
+    /*
+        尚未上传的新图片
+    */
+
+    pendingImages.forEach(
+
+        item => {
+
+            grid.insertAdjacentHTML(
+
+                "beforeend",
+
+                `
+                <div class="image-card">
+
+                    ${
+                        item.isPrimary
+                        ?
+                        `
+                        <div class="image-main-badge">
+                            主图
+                        </div>
+                        `
+                        :
+                        ""
+                    }
+
+
+                    <div class="image-new-badge">
+                        待上传
+                    </div>
+
+
+                    <img
+                        class="image-preview"
+                        src="${escapeHtml(item.previewUrl)}"
+                        alt="待上传图片"
+                    >
+
+
+                    <div class="image-card-actions">
+
+                        <button
+                            type="button"
+                            class="
+                                image-small-button
+                                image-primary-button
+                            "
+                            onclick="setPendingPrimary('${item.localId}')"
+                            ${item.isPrimary ? "disabled" : ""}
+                        >
+                            ${
+                                item.isPrimary
+                                ?
+                                "当前主图"
+                                :
+                                "设为主图"
+                            }
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="
+                                image-small-button
+                                image-delete-button
+                            "
+                            onclick="removePendingImage('${item.localId}')"
+                        >
+                            移除
+                        </button>
+
+                    </div>
+
+
+                    <div class="image-file-info">
+                        ${escapeHtml(item.originalName)}
+                    </div>
+
+                </div>
+                `
+
+            );
+
+        }
+
+    );
+}
+
+
+
+/* =========================================================
+   PENDING PRIMARY
+========================================================= */
+
+function setPendingPrimary(
+    localId
+) {
+
+    /*
+        先取消待上传图片主图
+    */
+
+    pendingImages.forEach(
+
+        item => {
+
+            item.isPrimary =
+                item.localId ===
+                localId;
+
+        }
+
+    );
+
+
+    pendingPrimaryId =
+        localId;
+
+
+    /*
+        如果正在编辑已有服务项目，
+        后面上传时会自动取消旧主图。
+    */
+
+    renderImagePreviews();
+}
+
+
+
+/* =========================================================
+   REMOVE PENDING IMAGE
+========================================================= */
+
+function removePendingImage(
+    localId
+) {
+
+    const index =
+        pendingImages.findIndex(
+
+            item =>
+                item.localId ===
+                localId
+
+        );
+
+
+    if (
+        index <
+        0
+    ) {
+
+        return;
+    }
+
+
+    const removed =
+        pendingImages[
+            index
+        ];
+
+
+    if (
+        removed.previewUrl
+    ) {
+
+        URL.revokeObjectURL(
+            removed.previewUrl
+        );
+    }
+
+
+    const wasPrimary =
+        removed.isPrimary;
+
+
+    pendingImages.splice(
+        index,
+        1
+    );
+
+
+    if (
+        wasPrimary
+    ) {
+
+        pendingPrimaryId =
+            null;
+
+
+        /*
+            如果没有已有主图，
+            则自动将剩余第一张设为主图
+        */
+
+        const existingPrimary =
+            existingImages.some(
+                item =>
+                    item.is_primary
+            );
+
+
+        if (
+            !existingPrimary
+            &&
+            pendingImages.length >
+            0
+        ) {
+
+            pendingImages[0].isPrimary =
+                true;
+
+
+            pendingPrimaryId =
+                pendingImages[0].localId;
+        }
+    }
+
+
+    renderImagePreviews();
+}
+
+
+
+/* =========================================================
+   EXISTING PRIMARY
+========================================================= */
+
+async function setExistingPrimary(
+    imageId
+) {
+
+    if (
+        !editingProductId
+    ) {
+
+        return;
+    }
+
+
+    try {
+
+        /*
+            先全部取消主图
+        */
+
+        const {
+
+            error:clearError
+
+        } =
+
+        await supabaseClient
+
+            .from(
+                "service_project_images"
+            )
+
+            .update({
+                is_primary:false
+            })
+
+            .eq(
+                "product_id",
+                Number(
+                    editingProductId
+                )
+            )
+
+            .eq(
+                "status",
+                "active"
+            );
+
+
+        if (clearError) {
+
+            throw clearError;
+        }
+
+
+        /*
+            再设当前图片主图
+        */
+
+        const {
+
+            error:setError
+
+        } =
+
+        await supabaseClient
+
+            .from(
+                "service_project_images"
+            )
+
+            .update({
+                is_primary:true
+            })
+
+            .eq(
+                "id",
+                Number(
+                    imageId
+                )
+            );
+
+
+        if (setError) {
+
+            throw setError;
+        }
+
+
+        /*
+            新选择但未上传的图片取消主图状态
+        */
+
+        pendingImages.forEach(
+
+            item => {
+
+                item.isPrimary =
+                    false;
+
+            }
+
+        );
+
+
+        pendingPrimaryId =
+            null;
+
+
+        await loadExistingImages(
+            editingProductId
+        );
+
+
+        renderImagePreviews();
+
+
+        showToast(
+            "主图设置成功。",
+            "success"
+        );
+
+    }
+    catch(error) {
+
+        console.error(
+            error
+        );
+
+
+        showToast(
+            error.message
+            ||
+            "主图设置失败。",
+            "error"
+        );
+    }
+}
+
+
+
+/* =========================================================
+   DELETE EXISTING IMAGE
+========================================================= */
+
+async function deleteExistingImage(
+    imageId
+) {
+
+    const image =
+        existingImages.find(
+
+            item =>
+                Number(
+                    item.id
+                )
+                ===
+                Number(
+                    imageId
+                )
+
+        );
+
+
+    if (!image) {
+
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            "确定删除这张图片吗？"
+        );
+
+
+    if (!confirmed) {
+
+        return;
+    }
+
+
+    try {
+
+        /*
+            先删除Storage
+        */
+
+        const {
+
+            error:storageError
+
+        } =
+
+        await supabaseClient.storage
+
+            .from(
+                IMAGE_BUCKET
+            )
+
+            .remove([
+                image.storage_path
+            ]);
+
+
+        if (storageError) {
+
+            throw storageError;
+        }
+
+
+        /*
+            再删除数据库记录
+        */
+
+        const {
+
+            error:dbError
+
+        } =
+
+        await supabaseClient
+
+            .from(
+                "service_project_images"
+            )
+
+            .delete()
+
+            .eq(
+                "id",
+                Number(
+                    imageId
+                )
+            );
+
+
+        if (dbError) {
+
+            throw dbError;
+        }
+
+
+        const wasPrimary =
+            image.is_primary;
+
+
+        await loadExistingImages(
+            editingProductId
+        );
+
+
+        /*
+            如果删除的是主图，
+            并且还有剩余图片，
+            自动将第一张设成主图。
+        */
+
+        if (
+            wasPrimary
+            &&
+            existingImages.length >
+            0
+        ) {
+
+            await setExistingPrimary(
+                existingImages[0].id
+            );
+
+
+            return;
+        }
+
+
+        renderImagePreviews();
+
+
+        showToast(
+            "图片已经删除。",
+            "success"
+        );
+
+    }
+    catch(error) {
+
+        console.error(
+            error
+        );
+
+
+        showToast(
+            error.message
+            ||
+            "图片删除失败。",
+            "error"
+        );
+    }
+}
+
+
+
+/* =========================================================
+   UPLOAD PENDING IMAGES
+========================================================= */
+
+async function uploadPendingImages(
+    productId
+) {
+
+    if (
+        pendingImages.length ===
+        0
+    ) {
+
+        return;
+    }
+
+
+    /*
+        是否有新图片指定为主图
+    */
+
+    const newPrimary =
+        pendingImages.find(
+            item =>
+                item.isPrimary
+        );
+
+
+    /*
+        如果新图片要作为主图，
+        先把原有图片主图取消。
+    */
+
+    if (
+        newPrimary
+    ) {
+
+        const {
+
+            error:clearError
+
+        } =
+
+        await supabaseClient
+
+            .from(
+                "service_project_images"
+            )
+
+            .update({
+                is_primary:false
+            })
+
+            .eq(
+                "product_id",
+                Number(
+                    productId
+                )
+            )
+
+            .eq(
+                "status",
+                "active"
+            );
+
+
+        if (clearError) {
+
+            throw clearError;
+        }
+    }
+
+
+    const currentExistingCount =
+        existingImages.length;
+
+
+    let uploadedCount =
+        0;
+
+
+    for (
+        let index = 0;
+        index < pendingImages.length;
+        index++
+    ) {
+
+        const item =
+            pendingImages[
+                index
+            ];
+
+
+        const fileName =
+            createStorageFileName(
+                index
+            );
+
+
+        const storagePath =
+            `${productId}/${fileName}`;
+
+
+        /*
+            上传Storage
+        */
+
+        const {
+
+            error:uploadError
+
+        } =
+
+        await supabaseClient.storage
+
+            .from(
+                IMAGE_BUCKET
+            )
+
+            .upload(
+
+                storagePath,
+
+                item.blob,
+
+                {
+
+                    contentType:
+                        "image/webp",
+
+                    upsert:false,
+
+                    cacheControl:
+                        "3600"
+
+                }
+
+            );
+
+
+        if (uploadError) {
+
+            throw new Error(
+                `图片上传失败：${uploadError.message}`
+            );
+        }
+
+
+        /*
+            写数据库
+        */
+
+        const {
+
+            error:dbError
+
+        } =
+
+        await supabaseClient
+
+            .from(
+                "service_project_images"
+            )
+
+            .insert({
+
+                product_id:
+                    Number(
+                        productId
+                    ),
+
+                storage_path:
+                    storagePath,
+
+                file_name:
+                    item.originalName,
+
+                sort_order:
+                    currentExistingCount
+                    +
+                    index
+                    +
+                    1,
+
+                is_primary:
+                    item.isPrimary,
+
+                status:
+                    "active",
+
+                created_by:
+                    currentUser.id
+
+            });
+
+
+        if (dbError) {
+
+            /*
+                数据表写失败，
+                尝试回滚刚上传的Storage图片
+            */
+
+            await supabaseClient.storage
+
+                .from(
+                    IMAGE_BUCKET
+                )
+
+                .remove([
+                    storagePath
+                ]);
+
+
+            throw new Error(
+                `图片记录保存失败：${dbError.message}`
+            );
+        }
+
+
+        uploadedCount++;
+    }
+
+
+    /*
+        如果新建项目第一次上传，
+        但因为某种原因没有任何主图，
+        自动把第一张设主图。
+    */
+
+    const {
+
+        data:primaryCheck,
+
+        error:primaryError
+
+    } =
+
+    await supabaseClient
+
+        .from(
+            "service_project_images"
+        )
+
+        .select(`
+            id,
+            is_primary
+        `)
+
+        .eq(
+            "product_id",
+            Number(
+                productId
+            )
+        )
+
+        .eq(
+            "status",
+            "active"
+        )
+
+        .order(
+            "sort_order",
+            {
+                ascending:true
+            }
+        );
+
+
+    if (primaryError) {
+
+        throw primaryError;
+    }
+
+
+    if (
+        primaryCheck
+        &&
+        primaryCheck.length >
+        0
+        &&
+        !primaryCheck.some(
+            item =>
+                item.is_primary
+        )
+    ) {
+
+        await supabaseClient
+
+            .from(
+                "service_project_images"
+            )
+
+            .update({
+                is_primary:true
+            })
+
+            .eq(
+                "id",
+                primaryCheck[0].id
+            );
+    }
+
+
+    return uploadedCount;
 }
 
 
@@ -4091,21 +5477,16 @@ function updateDescriptionCount() {
 
 async function saveProduct() {
 
-
     if (
         productMode ===
         "edit"
     ) {
 
-
         return updateService();
-
     }
 
 
-
     return createService();
-
 }
 
 
@@ -4115,7 +5496,6 @@ async function saveProduct() {
 ========================================================= */
 
 async function createService() {
-
 
     const categoryId =
         Number(
@@ -4127,7 +5507,6 @@ async function createService() {
         null;
 
 
-
     const code =
         document.getElementById(
             "productCode"
@@ -4135,7 +5514,6 @@ async function createService() {
         .value
         .trim()
         .toUpperCase();
-
 
 
     const name =
@@ -4146,7 +5524,6 @@ async function createService() {
         .trim();
 
 
-
     const description =
         document.getElementById(
             "productDescription"
@@ -4155,27 +5532,21 @@ async function createService() {
         .trim();
 
 
-
     if (!categoryId) {
-
 
         showToast(
             "请选择服务项目类型。",
             "error"
         );
 
-
         return;
-
     }
-
 
 
     const category =
         getCategory(
             categoryId
         );
-
 
 
     if (
@@ -4185,62 +5556,46 @@ async function createService() {
         "active"
     ) {
 
-
         showToast(
             "所选服务项目类型已经无效。",
             "error"
         );
 
-
         return;
-
     }
 
 
-
     if (!code) {
-
 
         showToast(
             "请输入服务项目代码。",
             "error"
         );
 
-
         return;
-
     }
 
 
-
     if (!name) {
-
 
         showToast(
             "请输入服务项目名称。",
             "error"
         );
 
-
         return;
-
     }
 
 
-
     if (!description) {
-
 
         showToast(
             "请输入服务项目详细说明。",
             "error"
         );
 
-
         return;
-
     }
-
 
 
     const duplicateCode =
@@ -4257,29 +5612,23 @@ async function createService() {
         );
 
 
-
     if (
         duplicateCode
     ) {
-
 
         showToast(
             "该服务项目代码已经存在。",
             "error"
         );
 
-
         return;
-
     }
-
 
 
     const button =
         document.getElementById(
             "saveProductButton"
         );
-
 
 
     button.disabled =
@@ -4290,11 +5639,20 @@ async function createService() {
         "正在创建...";
 
 
+    let createdProductId =
+        null;
+
 
     try {
 
+        /*
+            第一步：
+            创建服务项目
+        */
 
         const {
+
+            data,
 
             error
 
@@ -4326,24 +5684,53 @@ async function createService() {
                 status:
                     "active"
 
-            });
+            })
 
+            .select(`
+                id
+            `)
+
+            .single();
 
 
         if (error) {
 
-
             throw error;
-
         }
 
 
+        createdProductId =
+            data.id;
+
+
+        /*
+            第二步：
+            上传图片
+        */
+
+        if (
+            pendingImages.length >
+            0
+        ) {
+
+            button.textContent =
+                "正在上传图片...";
+
+
+            await uploadPendingImages(
+                createdProductId
+            );
+        }
+
 
         showToast(
+            pendingImages.length > 0
+            ?
+            "服务项目和图片创建成功。"
+            :
             "服务项目创建成功。",
             "success"
         );
-
 
 
         closeProductModal();
@@ -4351,30 +5738,47 @@ async function createService() {
 
         await loadProducts();
 
-
     }
-
     catch(error) {
-
 
         console.error(
             error
         );
 
 
+        if (
+            createdProductId
+        ) {
 
-        showToast(
-            error.message
-            ||
-            "服务项目创建失败。",
-            "error"
-        );
+            showToast(
+                "服务项目已经建立，但图片上传未全部完成：" +
+                (
+                    error.message
+                    ||
+                    "未知错误"
+                ),
+                "error"
+            );
 
+
+            closeProductModal();
+
+
+            await loadProducts();
+
+        }
+        else {
+
+            showToast(
+                error.message
+                ||
+                "服务项目创建失败。",
+                "error"
+            );
+        }
 
     }
-
     finally {
-
 
         button.disabled =
             false;
@@ -4382,9 +5786,7 @@ async function createService() {
 
         button.textContent =
             "创建服务项目";
-
     }
-
 }
 
 
@@ -4394,7 +5796,6 @@ async function createService() {
 ========================================================= */
 
 async function updateService() {
-
 
     const item =
         products.find(
@@ -4411,20 +5812,15 @@ async function updateService() {
         );
 
 
-
     if (!item) {
-
 
         showToast(
             "没有找到该服务项目。",
             "error"
         );
 
-
         return;
-
     }
-
 
 
     const categoryId =
@@ -4437,14 +5833,12 @@ async function updateService() {
         null;
 
 
-
     const name =
         document.getElementById(
             "productName"
         )
         .value
         .trim();
-
 
 
     const description =
@@ -4455,57 +5849,43 @@ async function updateService() {
         .trim();
 
 
-
     if (!categoryId) {
-
 
         showToast(
             "请选择服务项目类型。",
             "error"
         );
 
-
         return;
-
     }
 
 
-
     if (!name) {
-
 
         showToast(
             "请输入服务项目名称。",
             "error"
         );
 
-
         return;
-
     }
 
 
-
     if (!description) {
-
 
         showToast(
             "请输入服务项目详细说明。",
             "error"
         );
 
-
         return;
-
     }
-
 
 
     const button =
         document.getElementById(
             "saveProductButton"
         );
-
 
 
     button.disabled =
@@ -4516,9 +5896,11 @@ async function updateService() {
         "正在保存...";
 
 
-
     try {
 
+        /*
+            更新服务项目资料
+        */
 
         const {
 
@@ -4556,14 +5938,29 @@ async function updateService() {
             );
 
 
-
         if (error) {
 
-
             throw error;
-
         }
 
+
+        /*
+            上传本次新增图片
+        */
+
+        if (
+            pendingImages.length >
+            0
+        ) {
+
+            button.textContent =
+                "正在上传图片...";
+
+
+            await uploadPendingImages(
+                editingProductId
+            );
+        }
 
 
         showToast(
@@ -4572,22 +5969,17 @@ async function updateService() {
         );
 
 
-
         closeProductModal();
 
 
         await loadProducts();
 
-
     }
-
     catch(error) {
-
 
         console.error(
             error
         );
-
 
 
         showToast(
@@ -4597,11 +5989,8 @@ async function updateService() {
             "error"
         );
 
-
     }
-
     finally {
-
 
         button.disabled =
             false;
@@ -4609,9 +5998,7 @@ async function updateService() {
 
         button.textContent =
             "保存修改";
-
     }
-
 }
 
 
@@ -4623,7 +6010,6 @@ async function updateService() {
 async function invalidateService(
     id
 ) {
-
 
     const item =
         products.find(
@@ -4640,26 +6026,17 @@ async function invalidateService(
         );
 
 
-
     if (!item) {
-
-
         return;
-
     }
-
 
 
     if (
         item.status !==
         "active"
     ) {
-
-
         return;
-
     }
-
 
 
     const confirmed =
@@ -4671,23 +6048,17 @@ async function invalidateService(
 
             `对应城市销售价格和商户分成规则也将停止继续使用。\n` +
 
-            `历史订单数据不会删除。`
+            `历史订单和服务项目图片不会物理删除。`
 
         );
 
 
-
     if (!confirmed) {
-
-
         return;
-
     }
 
 
-
     try {
-
 
         const {
 
@@ -4716,14 +6087,9 @@ async function invalidateService(
             );
 
 
-
         if (error) {
-
-
             throw error;
-
         }
-
 
 
         showToast(
@@ -4732,19 +6098,14 @@ async function invalidateService(
         );
 
 
-
         await loadProducts();
 
-
     }
-
     catch(error) {
-
 
         console.error(
             error
         );
-
 
 
         showToast(
@@ -4753,9 +6114,7 @@ async function invalidateService(
             "操作失败。",
             "error"
         );
-
     }
-
 }
 
 
@@ -4765,7 +6124,6 @@ async function invalidateService(
 ========================================================= */
 
 function openCategoryModal() {
-
 
     document.getElementById(
         "categoryName"
@@ -4779,26 +6137,22 @@ function openCategoryModal() {
         "";
 
 
-
     document.getElementById(
         "categoryModal"
     ).classList.add(
         "show"
     );
-
 }
 
 
 
 function closeCategoryModal() {
 
-
     document.getElementById(
         "categoryModal"
     ).classList.remove(
         "show"
     );
-
 }
 
 
@@ -4809,14 +6163,12 @@ function closeCategoryModal() {
 
 async function saveCategory() {
 
-
     const name =
         document.getElementById(
             "categoryName"
         )
         .value
         .trim();
-
 
 
     const description =
@@ -4827,20 +6179,15 @@ async function saveCategory() {
         .trim();
 
 
-
     if (!name) {
-
 
         showToast(
             "请输入服务项目类型名称。",
             "error"
         );
 
-
         return;
-
     }
-
 
 
     const duplicate =
@@ -4861,29 +6208,23 @@ async function saveCategory() {
         );
 
 
-
     if (
         duplicate
     ) {
-
 
         showToast(
             "该服务项目类型已经存在。",
             "error"
         );
 
-
         return;
-
     }
-
 
 
     const button =
         document.getElementById(
             "saveCategoryButton"
         );
-
 
 
     button.disabled =
@@ -4894,9 +6235,7 @@ async function saveCategory() {
         "保存中...";
 
 
-
     try {
-
 
         const {
 
@@ -4942,18 +6281,12 @@ async function saveCategory() {
             .single();
 
 
-
         if (error) {
-
-
             throw error;
-
         }
 
 
-
         await loadCategories();
-
 
 
         fillCategorySelect(
@@ -4961,9 +6294,7 @@ async function saveCategory() {
         );
 
 
-
         closeCategoryModal();
-
 
 
         showToast(
@@ -4971,16 +6302,12 @@ async function saveCategory() {
             "success"
         );
 
-
     }
-
     catch(error) {
-
 
         console.error(
             error
         );
-
 
 
         showToast(
@@ -4990,11 +6317,8 @@ async function saveCategory() {
             "error"
         );
 
-
     }
-
     finally {
-
 
         button.disabled =
             false;
@@ -5002,29 +6326,65 @@ async function saveCategory() {
 
         button.textContent =
             "保存类型";
-
     }
-
 }
 
 
 
 /* =========================================================
-   HELPERS
+   IMAGE HELPERS
+========================================================= */
+
+function createLocalId() {
+
+    return (
+        Date.now().toString(36)
+        +
+        "-"
+        +
+        Math.random()
+            .toString(36)
+            .slice(2)
+    );
+}
+
+
+
+function createStorageFileName(
+    index
+) {
+
+    const timestamp =
+        Date.now();
+
+
+    const random =
+        Math.random()
+            .toString(36)
+            .slice(
+                2,
+                10
+            );
+
+
+    return (
+        `${timestamp}-${index}-${random}.webp`
+    );
+}
+
+
+
+/* =========================================================
+   GENERAL HELPERS
 ========================================================= */
 
 function getCategory(
     id
 ) {
 
-
     if (!id) {
-
-
         return null;
-
     }
-
 
 
     return (
@@ -5047,7 +6407,6 @@ function getCategory(
         null
 
     );
-
 }
 
 
@@ -5055,7 +6414,6 @@ function getCategory(
 function getServiceName(
     item
 ) {
-
 
     return (
 
@@ -5066,7 +6424,6 @@ function getServiceName(
         "未命名服务项目"
 
     );
-
 }
 
 
@@ -5074,7 +6431,6 @@ function getServiceName(
 function getServiceCode(
     item
 ) {
-
 
     return (
 
@@ -5085,7 +6441,6 @@ function getServiceCode(
         ""
 
     );
-
 }
 
 
@@ -5094,7 +6449,6 @@ function getDescription(
     item
 ) {
 
-
     return (
 
         item?.description
@@ -5102,7 +6456,6 @@ function getDescription(
         ""
 
     );
-
 }
 
 
@@ -5110,7 +6463,6 @@ function getDescription(
 function formatServiceNo(
     item
 ) {
-
 
     if (
         !item
@@ -5122,11 +6474,8 @@ function formatServiceNo(
         undefined
     ) {
 
-
         return "-";
-
     }
-
 
 
     return String(
@@ -5136,7 +6485,6 @@ function formatServiceNo(
         3,
         "0"
     );
-
 }
 
 
@@ -5145,21 +6493,17 @@ function statusBadge(
     status
 ) {
 
-
     if (
         status ===
         "active"
     ) {
-
 
         return `
             <span class="badge badge-active">
                 正常
             </span>
         `;
-
     }
-
 
 
     return `
@@ -5167,7 +6511,6 @@ function statusBadge(
             已失效
         </span>
     `;
-
 }
 
 
@@ -5177,7 +6520,6 @@ function truncateText(
     length
 ) {
 
-
     const text =
         String(
             value
@@ -5186,17 +6528,13 @@ function truncateText(
         );
 
 
-
     if (
         text.length <=
         length
     ) {
 
-
         return text;
-
     }
-
 
 
     return (
@@ -5207,7 +6545,6 @@ function truncateText(
         +
         "…"
     );
-
 }
 
 
@@ -5216,14 +6553,9 @@ function formatDate(
     value
 ) {
 
-
     if (!value) {
-
-
         return "-";
-
     }
-
 
 
     const date =
@@ -5232,25 +6564,20 @@ function formatDate(
         );
 
 
-
     if (
         Number.isNaN(
             date.getTime()
         )
     ) {
 
-
         return "-";
-
     }
-
 
 
     return date
         .toLocaleDateString(
             "zh-CN"
         );
-
 }
 
 
@@ -5258,7 +6585,6 @@ function formatDate(
 function escapeHtml(
     value
 ) {
-
 
     return String(
         value
@@ -5290,7 +6616,6 @@ function escapeHtml(
         /'/g,
         "&#039;"
     );
-
 }
 
 
@@ -5307,22 +6632,18 @@ function showToast(
     type="info"
 ) {
 
-
     const toast =
         document.getElementById(
             "toast"
         );
 
 
-
     toast.textContent =
         text;
 
 
-
     toast.className =
         `toast show ${type}`;
-
 
 
     clearTimeout(
@@ -5330,23 +6651,19 @@ function showToast(
     );
 
 
-
     toastTimer =
         setTimeout(
 
             () => {
 
-
                 toast.className =
                     "toast";
-
 
             },
 
             3500
 
         );
-
 }
 
 
@@ -5357,10 +6674,8 @@ function showToast(
 
 function goHome() {
 
-
     location.href =
         HOME_PAGE;
-
 }
 
 
@@ -5371,44 +6686,33 @@ function goHome() {
 
 async function logout() {
 
-
     if (
         !confirm(
             "确定退出登录吗？"
         )
     ) {
 
-
         return;
-
     }
-
 
 
     try {
 
-
         await supabaseClient.auth
             .signOut();
 
-
     }
-
     catch(error) {
-
 
         console.error(
             error
         );
-
     }
-
 
 
     location.replace(
         LOGIN_PAGE
     );
-
 }
 
 
@@ -5422,11 +6726,9 @@ let idleTimer;
 
 function resetIdle() {
 
-
     clearTimeout(
         idleTimer
     );
-
 
 
     idleTimer =
@@ -5434,25 +6736,18 @@ function resetIdle() {
 
             async () => {
 
-
                 try {
-
 
                     await supabaseClient.auth
                         .signOut();
 
-
                 }
-
                 catch(error) {
-
 
                     console.error(
                         error
                     );
-
                 }
-
 
 
                 alert(
@@ -5460,18 +6755,15 @@ function resetIdle() {
                 );
 
 
-
                 location.replace(
                     LOGIN_PAGE
                 );
-
 
             },
 
             10 * 60 * 1000
 
         );
-
 }
 
 
@@ -5486,7 +6778,6 @@ function resetIdle() {
 .forEach(
 
     eventName => {
-
 
         document.addEventListener(
 
@@ -5519,17 +6810,14 @@ supabaseClient.auth
             session
         ) => {
 
-
             if (
                 event ===
                 "SIGNED_OUT"
             ) {
 
-
                 location.replace(
                     LOGIN_PAGE
                 );
-
             }
 
         }
@@ -5548,9 +6836,7 @@ document.addEventListener(
 
     () => {
 
-
         resetIdle();
-
 
         initialize();
 

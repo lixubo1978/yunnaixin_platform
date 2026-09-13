@@ -7,12 +7,7 @@
 
 <meta
     name="viewport"
-    content="
-        width=device-width,
-        initial-scale=1.0,
-        maximum-scale=1.0,
-        viewport-fit=cover
-    "
+    content="width=device-width,initial-scale=1.0,maximum-scale=1.0,viewport-fit=cover"
 >
 
 <meta name="theme-color" content="#fff7fa">
@@ -116,8 +111,7 @@ button {
 
     backdrop-filter:blur(16px);
 
-    border-bottom:
-        1px solid var(--border);
+    border-bottom:1px solid var(--border);
 }
 
 .brand {
@@ -155,7 +149,9 @@ button {
 .logout-button {
     min-height:44px;
     padding:0 15px;
+
     border-radius:12px;
+
     font-size:13px;
     font-weight:650;
 }
@@ -202,6 +198,7 @@ button {
 
 .heading p {
     margin:7px 0 0;
+
     color:var(--text2);
     font-size:13px;
     line-height:1.7;
@@ -214,24 +211,29 @@ button {
 
 .tabs {
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:repeat(3,1fr);
     gap:6px;
 
-    max-width:520px;
+    max-width:720px;
 
     padding:5px;
     margin-bottom:20px;
 
     border-radius:16px;
+
     background:#f1ecef;
 }
 
 .tab {
     min-height:50px;
+
     border:0;
     border-radius:12px;
+
     background:transparent;
+
     color:#7b7077;
+
     font-weight:650;
 }
 
@@ -253,6 +255,7 @@ button {
     display:grid;
     grid-template-columns:repeat(4,1fr);
     gap:13px;
+
     margin-bottom:18px;
 }
 
@@ -313,8 +316,7 @@ button {
 
     gap:10px;
 
-    border-bottom:
-        1px solid var(--border);
+    border-bottom:1px solid var(--border);
 }
 
 .input,
@@ -360,13 +362,16 @@ button {
 
 table {
     width:100%;
-    min-width:1180px;
+    min-width:1120px;
+
     border-collapse:collapse;
 }
 
 th {
     padding:13px 12px;
+
     background:#fcfafb;
+
     color:#837980;
     text-align:left;
     font-size:11px;
@@ -375,8 +380,11 @@ th {
 
 td {
     padding:14px 12px;
+
     border-top:1px solid #f1eaee;
+
     font-size:13px;
+
     vertical-align:middle;
 }
 
@@ -399,9 +407,12 @@ td {
 .badge {
     display:inline-flex;
     align-items:center;
+
     min-height:26px;
     padding:4px 9px;
+
     border-radius:999px;
+
     font-size:11px;
     font-weight:650;
 }
@@ -429,6 +440,11 @@ td {
 .badge-merchant {
     color:#a16428;
     background:#fff6e9;
+}
+
+.badge-consultant {
+    color:#356f86;
+    background:#eef8fc;
 }
 
 .status-active {
@@ -486,7 +502,9 @@ td {
 
 .empty {
     padding:55px 20px;
+
     text-align:center;
+
     color:var(--text3);
 }
 
@@ -518,7 +536,9 @@ td {
 
 .mobile-number {
     margin-bottom:5px;
+
     color:var(--pink-700);
+
     font-size:12px;
     font-weight:750;
 }
@@ -530,6 +550,7 @@ td {
 
 .mobile-card-email {
     margin-top:3px;
+
     font-size:11px;
     color:var(--text3);
 }
@@ -544,7 +565,9 @@ td {
 
 .mobile-info {
     padding:10px;
+
     border-radius:11px;
+
     background:var(--pink-50);
 }
 
@@ -555,6 +578,7 @@ td {
 
 .mobile-info-value {
     margin-top:3px;
+
     font-size:12px;
     font-weight:650;
 }
@@ -563,6 +587,7 @@ td {
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:8px;
+
     margin-top:12px;
 }
 
@@ -628,8 +653,7 @@ td {
 
     background:#fff;
 
-    border-bottom:
-        1px solid var(--border);
+    border-bottom:1px solid var(--border);
 }
 
 .modal-title {
@@ -660,6 +684,7 @@ td {
 
 .form-label {
     display:block;
+
     margin-bottom:7px;
 
     font-size:12px;
@@ -675,12 +700,14 @@ td {
 .form-control {
     width:100%;
     min-height:50px;
+
     padding:0 13px;
 
     border:1px solid #e3dce0;
     border-radius:12px;
 
     background:#fff;
+
     outline:none;
 }
 
@@ -710,14 +737,15 @@ td {
 
     background:#fff;
 
-    border-top:
-        1px solid var(--border);
+    border-top:1px solid var(--border);
 }
 
 .cancel-button,
 .save-button {
     min-height:50px;
+
     border-radius:12px;
+
     font-weight:700;
 }
 
@@ -728,6 +756,7 @@ td {
 
 .save-button {
     border:0;
+
     color:#fff;
 
     background:
@@ -815,14 +844,15 @@ td {
 
     border-radius:50%;
 
-    animation:
-        spin .8s linear infinite;
+    animation:spin .8s linear infinite;
 }
 
 @keyframes spin {
+
     to {
         transform:rotate(360deg);
     }
+
 }
 
 
@@ -851,7 +881,9 @@ td {
 
     .logout-button {
         min-height:42px;
+
         padding:0 13px;
+
         font-size:11px;
     }
 
@@ -864,12 +896,14 @@ td {
     }
 
     .tabs {
-        max-width:none;
         width:100%;
+        max-width:none;
     }
 
     .tab {
         min-height:52px;
+        padding:0 5px;
+        font-size:12px;
     }
 
     .stats {
@@ -888,15 +922,20 @@ td {
 
     .panel {
         padding:0;
+
         background:transparent;
+
         border:0;
+
         box-shadow:none;
     }
 
     .panel-toolbar {
         padding:0;
         margin-bottom:12px;
+
         grid-template-columns:1fr;
+
         border:0;
     }
 
@@ -915,12 +954,15 @@ td {
 
     .empty {
         padding:35px 15px;
+
         background:#fff;
+
         border-radius:16px;
     }
 
     .modal-mask {
         align-items:flex-end;
+
         padding:0;
     }
 
@@ -953,20 +995,30 @@ td {
                 env(safe-area-inset-bottom)
             );
     }
+
 }
 
 </style>
 
 </head>
 
+
 <body>
 
 
-<div id="loading" class="loading">
+<div
+    id="loading"
+    class="loading"
+>
 
     <div class="spinner"></div>
 
-    <div style="color:#756a71;font-size:13px;">
+    <div
+        style="
+            color:#756a71;
+            font-size:13px;
+        "
+    >
         正在验证管理权限...
     </div>
 
@@ -1020,6 +1072,7 @@ td {
 
 <main class="main">
 
+
 <section class="heading">
 
     <h1>
@@ -1027,8 +1080,8 @@ td {
     </h1>
 
     <p>
-        公司管理人员和商户账号均由平台统一创建。<br>
-        商户只能选择平台已经开通的服务区域。
+        公司人员、商户和健康顾问均由平台统一创建。<br>
+        三类账号编号彼此独立，均从100开始递增。
     </p>
 
 </section>
@@ -1049,20 +1102,33 @@ td {
         class="tab"
         onclick="openMerchantTab()"
     >
-        商户/个人/健康顾问授权
+        商户授权
+    </button>
+
+    <button
+        id="consultantTab"
+        class="tab"
+        onclick="openConsultantTab()"
+    >
+        健康顾问
     </button>
 
 </div>
 
 
-<!-- 公司人员 -->
+<!-- =======================================================
+     公司人员
+======================================================= -->
 
 <section id="staffSection">
 
 <div class="stats">
 
     <div class="stat">
-        <div class="stat-title">创始人</div>
+
+        <div class="stat-title">
+            创始人
+        </div>
 
         <div
             id="founderCount"
@@ -1077,10 +1143,12 @@ td {
         >
             最多2人
         </div>
+
     </div>
 
 
     <div class="stat">
+
         <div class="stat-title">
             平台管理
         </div>
@@ -1091,10 +1159,12 @@ td {
         >
             0
         </div>
+
     </div>
 
 
     <div class="stat">
+
         <div class="stat-title">
             省级管理员
         </div>
@@ -1105,10 +1175,12 @@ td {
         >
             0
         </div>
+
     </div>
 
 
     <div class="stat">
+
         <div class="stat-title">
             市级管理员
         </div>
@@ -1119,6 +1191,7 @@ td {
         >
             0
         </div>
+
     </div>
 
 </div>
@@ -1141,12 +1214,31 @@ td {
         class="select"
         onchange="renderStaff()"
     >
-        <option value="">全部角色</option>
-        <option value="founder">创始人</option>
-        <option value="platform_admin">平台管理员</option>
-        <option value="platform_staff">平台员工</option>
-        <option value="province_admin">省管理员</option>
-        <option value="city_admin">市管理员</option>
+
+        <option value="">
+            全部角色
+        </option>
+
+        <option value="founder">
+            创始人
+        </option>
+
+        <option value="platform_admin">
+            平台管理员
+        </option>
+
+        <option value="platform_staff">
+            平台员工
+        </option>
+
+        <option value="province_admin">
+            省管理员
+        </option>
+
+        <option value="city_admin">
+            市管理员
+        </option>
+
     </select>
 
     <button
@@ -1205,7 +1297,9 @@ td {
 </section>
 
 
-<!-- 商户 -->
+<!-- =======================================================
+     商户
+======================================================= -->
 
 <section
     id="merchantSection"
@@ -1215,6 +1309,7 @@ td {
 <div class="stats">
 
     <div class="stat">
+
         <div class="stat-title">
             商户总数
         </div>
@@ -1225,10 +1320,12 @@ td {
         >
             0
         </div>
+
     </div>
 
 
     <div class="stat">
+
         <div class="stat-title">
             机构商户
         </div>
@@ -1239,10 +1336,12 @@ td {
         >
             0
         </div>
+
     </div>
 
 
     <div class="stat">
+
         <div class="stat-title">
             个人商户
         </div>
@@ -1253,10 +1352,12 @@ td {
         >
             0
         </div>
+
     </div>
 
 
     <div class="stat">
+
         <div class="stat-title">
             正常使用
         </div>
@@ -1267,6 +1368,7 @@ td {
         >
             0
         </div>
+
     </div>
 
 </div>
@@ -1289,9 +1391,19 @@ td {
         class="select"
         onchange="renderMerchants()"
     >
-        <option value="">全部商户</option>
-        <option value="organization">机构</option>
-        <option value="individual">个人</option>
+
+        <option value="">
+            全部商户
+        </option>
+
+        <option value="organization">
+            机构
+        </option>
+
+        <option value="individual">
+            个人
+        </option>
+
     </select>
 
     <button
@@ -1347,10 +1459,175 @@ td {
 
 </section>
 
+
+<!-- =======================================================
+     健康顾问
+======================================================= -->
+
+<section
+    id="consultantSection"
+    class="hidden"
+>
+
+<div class="stats">
+
+    <div class="stat">
+
+        <div class="stat-title">
+            健康顾问总数
+        </div>
+
+        <div
+            id="consultantTotal"
+            class="stat-number"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-title">
+            正常使用
+        </div>
+
+        <div
+            id="consultantActive"
+            class="stat-number"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-title">
+            已设为无效
+        </div>
+
+        <div
+            id="consultantInactive"
+            class="stat-number"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-title">
+            已覆盖服务区域
+        </div>
+
+        <div
+            id="consultantAreaTotal"
+            class="stat-number"
+        >
+            0
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-toolbar">
+
+    <input
+        id="consultantSearch"
+        class="input"
+        type="search"
+        placeholder="搜索编号、姓名、手机号或邮箱"
+        oninput="renderConsultants()"
+    >
+
+    <select
+        id="consultantStatusFilter"
+        class="select"
+        onchange="renderConsultants()"
+    >
+
+        <option value="">
+            全部状态
+        </option>
+
+        <option value="active">
+            正常
+        </option>
+
+        <option value="inactive">
+            无效
+        </option>
+
+    </select>
+
+    <button
+        class="primary-button"
+        onclick="openConsultantModal()"
+    >
+        ＋ 创建健康顾问
+    </button>
+
+</div>
+
+
+<div class="table-scroll">
+
+<table>
+
+<thead>
+
+<tr>
+    <th>编号</th>
+    <th>健康顾问</th>
+    <th>联系电话</th>
+    <th>已开通服务区域</th>
+    <th>状态</th>
+    <th>操作</th>
+</tr>
+
+</thead>
+
+<tbody id="consultantTable"></tbody>
+
+</table>
+
+</div>
+
+
+<div
+    id="consultantMobileList"
+    class="mobile-list"
+>
+</div>
+
+
+<div
+    id="consultantEmpty"
+    class="empty hidden"
+>
+    暂无健康顾问。
+</div>
+
+</div>
+
+</section>
+
+
 </main>
 
 
-<!-- 公司人员 Modal -->
+<!-- =======================================================
+     公司人员 Modal
+======================================================= -->
 
 <div
     id="staffModal"
@@ -1379,6 +1656,7 @@ td {
 
 
 <div class="modal-body">
+
 
 <div class="form-group">
 
@@ -1579,7 +1857,9 @@ td {
 </div>
 
 
-<!-- 商户 Modal -->
+<!-- =======================================================
+     商户 Modal
+======================================================= -->
 
 <div
     id="merchantModal"
@@ -1736,11 +2016,6 @@ td {
         id="merchantServiceArea"
         class="form-control"
     >
-
-        <option value="">
-            请选择已开通服务区域
-        </option>
-
     </select>
 
     <div class="form-hint">
@@ -1767,6 +2042,162 @@ td {
         onclick="saveMerchant()"
     >
         创建并授权
+    </button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =======================================================
+     健康顾问 Modal
+======================================================= -->
+
+<div
+    id="consultantModal"
+    class="modal-mask"
+>
+
+<div class="modal">
+
+<div class="modal-head">
+
+    <div
+        id="consultantModalTitle"
+        class="modal-title"
+    >
+        创建健康顾问
+    </div>
+
+    <button
+        class="modal-close"
+        onclick="closeConsultantModal()"
+    >
+        ×
+    </button>
+
+</div>
+
+
+<div class="modal-body">
+
+
+<div class="form-group">
+
+    <label class="form-label">
+        健康顾问姓名
+        <span class="required">*</span>
+    </label>
+
+    <input
+        id="consultantName"
+        class="form-control"
+        maxlength="100"
+        placeholder="请输入健康顾问姓名"
+    >
+
+</div>
+
+
+<div
+    id="consultantEmailGroup"
+    class="form-group"
+>
+
+    <label class="form-label">
+        登录邮箱
+        <span class="required">*</span>
+    </label>
+
+    <input
+        id="consultantEmail"
+        class="form-control"
+        type="email"
+        autocomplete="off"
+        placeholder="请输入登录邮箱"
+    >
+
+</div>
+
+
+<div
+    id="consultantPasswordGroup"
+    class="form-group"
+>
+
+    <label class="form-label">
+        初始密码
+        <span class="required">*</span>
+    </label>
+
+    <input
+        id="consultantPassword"
+        class="form-control"
+        type="password"
+        autocomplete="new-password"
+        placeholder="至少8位"
+    >
+
+</div>
+
+
+<div class="form-group">
+
+    <label class="form-label">
+        联系电话
+        <span class="required">*</span>
+    </label>
+
+    <input
+        id="consultantPhone"
+        class="form-control"
+        type="tel"
+        inputmode="tel"
+        placeholder="请输入联系电话"
+    >
+
+</div>
+
+
+<div class="form-group">
+
+    <label class="form-label">
+        已开通服务区域
+        <span class="required">*</span>
+    </label>
+
+    <select
+        id="consultantServiceArea"
+        class="form-control"
+    >
+    </select>
+
+    <div class="form-hint">
+        健康顾问必须绑定平台已经开通的服务区域。
+    </div>
+
+</div>
+
+</div>
+
+
+<div class="modal-footer">
+
+    <button
+        class="cancel-button"
+        onclick="closeConsultantModal()"
+    >
+        取消
+    </button>
+
+    <button
+        id="saveConsultantButton"
+        class="save-button"
+        onclick="saveConsultant()"
+    >
+        创建账号
     </button>
 
 </div>
@@ -1807,6 +2238,7 @@ const supabaseClient =
         }
     );
 
+
 const LOGIN_PAGE =
     "./login.html";
 
@@ -1814,29 +2246,33 @@ const HOME_PAGE =
     "./wholemanagement.html";
 
 
-let currentUser = null;
+const STAFF_ROLES = [
+    "founder",
+    "platform_admin",
+    "platform_staff",
+    "province_admin",
+    "city_admin"
+];
 
+
+let currentUser = null;
 let currentProfile = null;
 
 let founderCount = 0;
-
 let canCreateFounder = false;
 
 let staffList = [];
-
 let merchantList = [];
-
-let merchantProfileMap = {};
+let consultantList = [];
 
 let assignmentList = [];
 
 let provinces = [];
-
 let cities = [];
-
 let districts = [];
 
 let serviceAreas = [];
+
 
 let staffMode =
     "create";
@@ -1846,6 +2282,7 @@ let editingStaffId =
 
 let staffRecreatedFrom =
     null;
+
 
 let merchantMode =
     "create";
@@ -1857,13 +2294,14 @@ let merchantRecreatedFrom =
     null;
 
 
-const STAFF_ROLES = [
-    "founder",
-    "platform_admin",
-    "platform_staff",
-    "province_admin",
-    "city_admin"
-];
+let consultantMode =
+    "create";
+
+let editingConsultantId =
+    null;
+
+let consultantRecreatedFrom =
+    null;
 
 
 /* =========================================================
@@ -1937,6 +2375,22 @@ async function initialize() {
 
 
         if (
+            profile.status !==
+            "active"
+        ) {
+
+            await supabaseClient.auth
+                .signOut();
+
+            location.replace(
+                LOGIN_PAGE
+            );
+
+            return;
+        }
+
+
+        if (
             ![
                 "founder",
                 "platform_admin"
@@ -1965,7 +2419,8 @@ async function initialize() {
         await Promise.all([
             loadFounderState(),
             loadStaff(),
-            loadMerchants()
+            loadMerchants(),
+            loadConsultants()
         ]);
 
 
@@ -2089,21 +2544,27 @@ async function loadRegions() {
 
     const provinceResult =
         await supabaseClient
+
             .from("provinces")
+
             .select(`
                 id,
                 province_name
             `)
+
             .eq(
                 "status",
                 "active"
             )
+
             .order(
                 "province_name"
             );
 
 
-    if (provinceResult.error) {
+    if (
+        provinceResult.error
+    ) {
         throw provinceResult.error;
     }
 
@@ -2114,22 +2575,28 @@ async function loadRegions() {
 
     const cityResult =
         await supabaseClient
+
             .from("cities")
+
             .select(`
                 id,
                 province_id,
                 city_name
             `)
+
             .eq(
                 "status",
                 "active"
             )
+
             .order(
                 "city_name"
             );
 
 
-    if (cityResult.error) {
+    if (
+        cityResult.error
+    ) {
         throw cityResult.error;
     }
 
@@ -2140,22 +2607,28 @@ async function loadRegions() {
 
     const districtResult =
         await supabaseClient
+
             .from("districts")
+
             .select(`
                 id,
                 city_id,
                 district_name
             `)
+
             .eq(
                 "status",
                 "active"
             )
+
             .order(
                 "district_name"
             );
 
 
-    if (districtResult.error) {
+    if (
+        districtResult.error
+    ) {
         throw districtResult.error;
     }
 
@@ -2169,7 +2642,7 @@ async function loadRegions() {
 
 
 /* =========================================================
-   已开通服务区域
+   服务区域
 ========================================================= */
 
 async function loadServiceAreas() {
@@ -2213,7 +2686,13 @@ async function loadServiceAreas() {
         data || [];
 
 
-    fillServiceAreaSelect();
+    fillServiceAreaSelect(
+        "merchantServiceArea"
+    );
+
+    fillServiceAreaSelect(
+        "consultantServiceArea"
+    );
 }
 
 
@@ -2222,13 +2701,19 @@ async function loadServiceAreas() {
 ========================================================= */
 
 function fillServiceAreaSelect(
+    selectId,
     selectedId = null
 ) {
 
     const select =
         document.getElementById(
-            "merchantServiceArea"
+            selectId
         );
+
+
+    if (!select) {
+        return;
+    }
 
 
     select.innerHTML =
@@ -2260,7 +2745,9 @@ function fillServiceAreaSelect(
                     value="${area.id}"
                     ${selected}
                 >
-                    ${escapeHtml(serviceAreaLabel(area))}
+                    ${escapeHtml(
+                        serviceAreaLabel(area)
+                    )}
                 </option>
                 `
             );
@@ -2270,7 +2757,7 @@ function fillServiceAreaSelect(
 
 
 /* =========================================================
-   服务区域显示名称
+   服务区域显示
 ========================================================= */
 
 function serviceAreaLabel(area) {
@@ -2322,10 +2809,6 @@ function serviceAreaLabel(area) {
 }
 
 
-/* =========================================================
-   通过ID找服务区域
-========================================================= */
-
 function getServiceAreaById(id) {
 
     if (!id) {
@@ -2345,10 +2828,6 @@ function getServiceAreaById(id) {
 }
 
 
-/* =========================================================
-   兼容旧商户
-========================================================= */
-
 function findServiceAreaForMerchant(
     item
 ) {
@@ -2366,19 +2845,30 @@ function findServiceAreaForMerchant(
             x => {
 
                 const sameProvince =
-                    String(x.province_id) ===
-                    String(item.province_id);
+                    String(
+                        x.province_id
+                    )
+                    ===
+                    String(
+                        item.province_id
+                    );
 
 
                 const sameCity =
-                    String(x.city_id) ===
-                    String(item.city_id);
+                    String(
+                        x.city_id
+                    )
+                    ===
+                    String(
+                        item.city_id
+                    );
 
 
                 const sameDistrict =
                     String(
                         x.district_id || ""
-                    ) ===
+                    )
+                    ===
                     String(
                         item.district_id || ""
                     );
@@ -2412,7 +2902,7 @@ async function loadStaff() {
 
         .select(`
             id,
-            account_no,
+            staff_no,
             full_name,
             login_email,
             role,
@@ -2428,14 +2918,16 @@ async function loadStaff() {
         )
 
         .order(
-            "account_no",
+            "staff_no",
             {
                 ascending:true
             }
         );
 
 
-    if (result.error) {
+    if (
+        result.error
+    ) {
         throw result.error;
     }
 
@@ -2461,7 +2953,9 @@ async function loadStaff() {
         `);
 
 
-    if (assignmentResult.error) {
+    if (
+        assignmentResult.error
+    ) {
         throw assignmentResult.error;
     }
 
@@ -2509,58 +3003,22 @@ async function loadMerchants() {
         `)
 
         .order(
-            "created_at",
+            "record_no",
             {
-                ascending:false
+                ascending:true
             }
         );
 
 
-    if (result.error) {
+    if (
+        result.error
+    ) {
         throw result.error;
     }
 
 
     merchantList =
         result.data || [];
-
-
-    const merchantProfiles =
-        await supabaseClient
-
-        .from("profiles")
-
-        .select(`
-            id,
-            account_no,
-            status
-        `)
-
-        .eq(
-            "role",
-            "merchant"
-        );
-
-
-    if (merchantProfiles.error) {
-        throw merchantProfiles.error;
-    }
-
-
-    merchantProfileMap =
-        {};
-
-
-    (merchantProfiles.data || [])
-        .forEach(
-            item => {
-
-                merchantProfileMap[
-                    item.id
-                ] =
-                    item;
-            }
-        );
 
 
     renderMerchantStats();
@@ -2570,60 +3028,137 @@ async function loadMerchants() {
 
 
 /* =========================================================
+   健康顾问
+========================================================= */
+
+async function loadConsultants() {
+
+    const result =
+        await supabaseClient
+
+        .from(
+            "health_consultants"
+        )
+
+        .select(`
+            id,
+            auth_user_id,
+            consultant_no,
+            consultant_name,
+            phone,
+            email,
+            service_area_id,
+            status,
+            recreated_from,
+            created_by,
+            created_at,
+            updated_at,
+            invalidated_at,
+            invalidated_by
+        `)
+
+        .order(
+            "consultant_no",
+            {
+                ascending:true
+            }
+        );
+
+
+    if (
+        result.error
+    ) {
+        throw result.error;
+    }
+
+
+    consultantList =
+        result.data || [];
+
+
+    renderConsultantStats();
+
+    renderConsultants();
+}
+
+
+/* =========================================================
    Tabs
 ========================================================= */
 
 function openStaffTab() {
 
-    document.getElementById(
-        "staffTab"
-    ).classList.add(
-        "active"
-    );
-
-    document.getElementById(
-        "merchantTab"
-    ).classList.remove(
-        "active"
-    );
-
-    document.getElementById(
-        "staffSection"
-    ).classList.remove(
-        "hidden"
-    );
-
-    document.getElementById(
-        "merchantSection"
-    ).classList.add(
-        "hidden"
+    activateTab(
+        "staff"
     );
 }
 
 
 function openMerchantTab() {
 
+    activateTab(
+        "merchant"
+    );
+}
+
+
+function openConsultantTab() {
+
+    activateTab(
+        "consultant"
+    );
+}
+
+
+function activateTab(type) {
+
+    const map = {
+        staff:[
+            "staffTab",
+            "staffSection"
+        ],
+
+        merchant:[
+            "merchantTab",
+            "merchantSection"
+        ],
+
+        consultant:[
+            "consultantTab",
+            "consultantSection"
+        ]
+    };
+
+
+    Object.values(map)
+        .forEach(
+            ([tabId,sectionId]) => {
+
+                document.getElementById(
+                    tabId
+                ).classList.remove(
+                    "active"
+                );
+
+                document.getElementById(
+                    sectionId
+                ).classList.add(
+                    "hidden"
+                );
+            }
+        );
+
+
     document.getElementById(
-        "merchantTab"
+        map[type][0]
     ).classList.add(
         "active"
     );
 
-    document.getElementById(
-        "staffTab"
-    ).classList.remove(
-        "active"
-    );
 
     document.getElementById(
-        "merchantSection"
+        map[type][1]
     ).classList.remove(
-        "hidden"
-    );
-
-    document.getElementById(
-        "staffSection"
-    ).classList.add(
         "hidden"
     );
 }
@@ -2705,7 +3240,8 @@ function renderStaff() {
 
                 if (
                     role &&
-                    item.role !== role
+                    item.role !==
+                    role
                 ) {
                     return false;
                 }
@@ -2713,7 +3249,7 @@ function renderStaff() {
 
                 const text =
                     `
-                    ${formatAccountNo(item.account_no)}
+                    ${formatAccountNo(item.staff_no)}
                     ${item.full_name || ""}
                     ${item.login_email || ""}
                     `
@@ -2800,17 +3336,23 @@ function renderStaff() {
                 <tr>
 
                     <td class="number-cell">
-                        ${formatAccountNo(item.account_no)}
+                        ${formatAccountNo(item.staff_no)}
                     </td>
 
                     <td>
 
                         <div class="person-name">
-                            ${escapeHtml(item.full_name || "未命名")}
+                            ${escapeHtml(
+                                item.full_name ||
+                                "未命名"
+                            )}
                         </div>
 
                         <div class="person-email">
-                            ${escapeHtml(item.login_email || "-")}
+                            ${escapeHtml(
+                                item.login_email ||
+                                "-"
+                            )}
                         </div>
 
                     </td>
@@ -2869,15 +3411,21 @@ function renderStaff() {
                         <div>
 
                             <div class="mobile-number">
-                                编号 ${formatAccountNo(item.account_no)}
+                                编号 ${formatAccountNo(item.staff_no)}
                             </div>
 
                             <div class="mobile-card-name">
-                                ${escapeHtml(item.full_name || "未命名")}
+                                ${escapeHtml(
+                                    item.full_name ||
+                                    "未命名"
+                                )}
                             </div>
 
                             <div class="mobile-card-email">
-                                ${escapeHtml(item.login_email || "-")}
+                                ${escapeHtml(
+                                    item.login_email ||
+                                    "-"
+                                )}
                             </div>
 
                         </div>
@@ -2890,7 +3438,11 @@ function renderStaff() {
                     <div class="mobile-card-info">
 
                         <div class="mobile-info">
-                            <div class="mobile-info-label">省份</div>
+
+                            <div class="mobile-info-label">
+                                省份
+                            </div>
+
                             <div class="mobile-info-value">
                                 ${escapeHtml(
                                     staffProvinceText(
@@ -2899,10 +3451,16 @@ function renderStaff() {
                                     )
                                 )}
                             </div>
+
                         </div>
 
+
                         <div class="mobile-info">
-                            <div class="mobile-info-label">城市</div>
+
+                            <div class="mobile-info-label">
+                                城市
+                            </div>
+
                             <div class="mobile-info-value">
                                 ${escapeHtml(
                                     staffCityText(
@@ -2911,10 +3469,16 @@ function renderStaff() {
                                     )
                                 )}
                             </div>
+
                         </div>
 
+
                         <div class="mobile-info">
-                            <div class="mobile-info-label">区 / 县</div>
+
+                            <div class="mobile-info-label">
+                                区 / 县
+                            </div>
+
                             <div class="mobile-info-value">
                                 ${escapeHtml(
                                     staffDistrictText(
@@ -2923,16 +3487,24 @@ function renderStaff() {
                                     )
                                 )}
                             </div>
+
                         </div>
 
+
                         <div class="mobile-info">
-                            <div class="mobile-info-label">状态</div>
+
+                            <div class="mobile-info-label">
+                                状态
+                            </div>
+
                             <div class="mobile-info-value">
                                 ${statusText(item.status)}
                             </div>
+
                         </div>
 
                     </div>
+
 
                     ${mobileStaffButtons(item)}
 
@@ -3021,12 +3593,6 @@ function renderMerchants() {
                 }
 
 
-                const accountNo =
-                    merchantProfileMap[
-                        item.auth_user_id
-                    ]?.account_no;
-
-
                 const area =
                     getServiceAreaById(
                         item.service_area_id
@@ -3035,7 +3601,7 @@ function renderMerchants() {
 
                 const text =
                     `
-                    ${formatAccountNo(accountNo)}
+                    ${formatAccountNo(item.record_no)}
                     ${item.merchant_code || ""}
                     ${item.merchant_name || ""}
                     ${item.contact_name || ""}
@@ -3084,12 +3650,6 @@ function renderMerchants() {
     list.forEach(
         item => {
 
-            const accountNo =
-                merchantProfileMap[
-                    item.auth_user_id
-                ]?.account_no;
-
-
             const area =
                 getServiceAreaById(
                     item.service_area_id
@@ -3102,18 +3662,24 @@ function renderMerchants() {
                 serviceAreaLabel(area)
                 :
                 (
-                    provinceName(item.province_id)
+                    provinceName(
+                        item.province_id
+                    )
                     +
                     " · "
                     +
-                    cityName(item.city_id)
+                    cityName(
+                        item.city_id
+                    )
                     +
                     " · "
                     +
                     (
                         item.district_id
                         ?
-                        districtName(item.district_id)
+                        districtName(
+                            item.district_id
+                        )
                         :
                         "全市"
                     )
@@ -3126,23 +3692,32 @@ function renderMerchants() {
                 <tr>
 
                     <td class="number-cell">
-                        ${formatAccountNo(accountNo)}
+                        ${formatAccountNo(item.record_no)}
                     </td>
 
                     <td>
 
                         <div class="person-name">
-                            ${escapeHtml(item.merchant_name || "-")}
+                            ${escapeHtml(
+                                item.merchant_name ||
+                                "-"
+                            )}
                         </div>
 
                         <div class="person-email">
-                            ${escapeHtml(item.merchant_code || "-")}
+                            ${escapeHtml(
+                                item.email ||
+                                item.merchant_code ||
+                                "-"
+                            )}
                         </div>
 
                     </td>
 
                     <td>
-                        ${merchantTypeText(item.merchant_type)}
+                        ${merchantTypeText(
+                            item.merchant_type
+                        )}
                     </td>
 
                     <td>
@@ -3150,7 +3725,9 @@ function renderMerchants() {
                     </td>
 
                     <td>
-                        ${certificationText(item.certification_status)}
+                        ${certificationText(
+                            item.certification_status
+                        )}
                     </td>
 
                     <td>
@@ -3176,21 +3753,30 @@ function renderMerchants() {
                         <div>
 
                             <div class="mobile-number">
-                                编号 ${formatAccountNo(accountNo)}
+                                编号 ${formatAccountNo(item.record_no)}
                             </div>
 
                             <div class="mobile-card-name">
-                                ${escapeHtml(item.merchant_name || "-")}
+                                ${escapeHtml(
+                                    item.merchant_name ||
+                                    "-"
+                                )}
                             </div>
 
                             <div class="mobile-card-email">
-                                ${escapeHtml(item.merchant_code || "-")}
+                                ${escapeHtml(
+                                    item.email ||
+                                    item.merchant_code ||
+                                    "-"
+                                )}
                             </div>
 
                         </div>
 
                         <span class="badge badge-merchant">
-                            ${merchantTypeText(item.merchant_type)}
+                            ${merchantTypeText(
+                                item.merchant_type
+                            )}
                         </span>
 
                     </div>
@@ -3237,11 +3823,325 @@ function renderMerchants() {
 
 
 /* =========================================================
-   人员按钮
+   健康顾问统计
+========================================================= */
 
-   创始人：
-   不显示编辑
-   不显示设为无效
+function renderConsultantStats() {
+
+    document.getElementById(
+        "consultantTotal"
+    ).textContent =
+        consultantList.length;
+
+
+    document.getElementById(
+        "consultantActive"
+    ).textContent =
+        consultantList.filter(
+            x =>
+                x.status ===
+                "active"
+        ).length;
+
+
+    document.getElementById(
+        "consultantInactive"
+    ).textContent =
+        consultantList.filter(
+            x =>
+                x.status ===
+                "inactive"
+        ).length;
+
+
+    const areaIds =
+        new Set(
+            consultantList
+                .filter(
+                    x =>
+                        x.status ===
+                        "active"
+                        &&
+                        x.service_area_id
+                )
+                .map(
+                    x =>
+                        String(
+                            x.service_area_id
+                        )
+                )
+        );
+
+
+    document.getElementById(
+        "consultantAreaTotal"
+    ).textContent =
+        areaIds.size;
+}
+
+
+/* =========================================================
+   健康顾问列表
+========================================================= */
+
+function renderConsultants() {
+
+    const keyword =
+        document.getElementById(
+            "consultantSearch"
+        )
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    const status =
+        document.getElementById(
+            "consultantStatusFilter"
+        ).value;
+
+
+    const list =
+        consultantList.filter(
+            item => {
+
+                if (
+                    status &&
+                    item.status !==
+                    status
+                ) {
+                    return false;
+                }
+
+
+                const area =
+                    getServiceAreaById(
+                        item.service_area_id
+                    );
+
+
+                const text =
+                    `
+                    ${formatAccountNo(item.consultant_no)}
+                    ${item.consultant_name || ""}
+                    ${item.phone || ""}
+                    ${item.email || ""}
+                    ${area ? serviceAreaLabel(area) : ""}
+                    `
+                    .toLowerCase();
+
+
+                return text.includes(
+                    keyword
+                );
+            }
+        );
+
+
+    const tbody =
+        document.getElementById(
+            "consultantTable"
+        );
+
+
+    const mobile =
+        document.getElementById(
+            "consultantMobileList"
+        );
+
+
+    const empty =
+        document.getElementById(
+            "consultantEmpty"
+        );
+
+
+    tbody.innerHTML = "";
+
+    mobile.innerHTML = "";
+
+
+    empty.classList.toggle(
+        "hidden",
+        list.length > 0
+    );
+
+
+    list.forEach(
+        item => {
+
+            const area =
+                getServiceAreaById(
+                    item.service_area_id
+                );
+
+
+            const areaText =
+                area
+                ?
+                serviceAreaLabel(area)
+                :
+                "-";
+
+
+            tbody.insertAdjacentHTML(
+                "beforeend",
+                `
+                <tr>
+
+                    <td class="number-cell">
+                        ${formatAccountNo(
+                            item.consultant_no
+                        )}
+                    </td>
+
+                    <td>
+
+                        <div class="person-name">
+                            ${escapeHtml(
+                                item.consultant_name ||
+                                "-"
+                            )}
+                        </div>
+
+                        <div class="person-email">
+                            ${escapeHtml(
+                                item.email ||
+                                "-"
+                            )}
+                        </div>
+
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            item.phone ||
+                            "-"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            areaText
+                        )}
+                    </td>
+
+                    <td>
+                        ${statusBadge(
+                            item.status
+                        )}
+                    </td>
+
+                    <td>
+                        ${consultantActionButtons(item)}
+                    </td>
+
+                </tr>
+                `
+            );
+
+
+            mobile.insertAdjacentHTML(
+                "beforeend",
+                `
+                <div class="mobile-card">
+
+                    <div class="mobile-card-head">
+
+                        <div>
+
+                            <div class="mobile-number">
+                                编号 ${formatAccountNo(item.consultant_no)}
+                            </div>
+
+                            <div class="mobile-card-name">
+                                ${escapeHtml(
+                                    item.consultant_name ||
+                                    "-"
+                                )}
+                            </div>
+
+                            <div class="mobile-card-email">
+                                ${escapeHtml(
+                                    item.email ||
+                                    "-"
+                                )}
+                            </div>
+
+                        </div>
+
+                        <span class="badge badge-consultant">
+                            健康顾问
+                        </span>
+
+                    </div>
+
+
+                    <div class="mobile-card-info">
+
+                        <div class="mobile-info">
+
+                            <div class="mobile-info-label">
+                                联系电话
+                            </div>
+
+                            <div class="mobile-info-value">
+                                ${escapeHtml(
+                                    item.phone ||
+                                    "-"
+                                )}
+                            </div>
+
+                        </div>
+
+
+                        <div class="mobile-info">
+
+                            <div class="mobile-info-label">
+                                状态
+                            </div>
+
+                            <div class="mobile-info-value">
+                                ${statusText(
+                                    item.status
+                                )}
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="mobile-info"
+                            style="grid-column:1 / -1;"
+                        >
+
+                            <div class="mobile-info-label">
+                                服务区域
+                            </div>
+
+                            <div class="mobile-info-value">
+                                ${escapeHtml(
+                                    areaText
+                                )}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    ${mobileConsultantButtons(item)}
+
+                </div>
+                `
+            );
+        }
+    );
+}
+
+
+/* =========================================================
+   公司人员按钮
 ========================================================= */
 
 function staffActionButtons(item) {
@@ -3253,9 +4153,7 @@ function staffActionButtons(item) {
 
         return `
             <div class="action-buttons">
-                <span class="no-action">
-                    -
-                </span>
+                <span class="no-action">-</span>
             </div>
         `;
     }
@@ -3309,7 +4207,6 @@ function mobileStaffButtons(item) {
         item.role ===
         "founder"
     ) {
-
         return "";
     }
 
@@ -3449,7 +4346,99 @@ function mobileMerchantButtons(item) {
 
 
 /* =========================================================
-   创建人员
+   健康顾问按钮
+========================================================= */
+
+function consultantActionButtons(item) {
+
+    if (
+        item.status ===
+        "inactive"
+    ) {
+
+        return `
+            <div class="action-buttons">
+
+                <button
+                    class="action recreate-action"
+                    onclick="recreateConsultant('${item.id}')"
+                >
+                    重新添加
+                </button>
+
+            </div>
+        `;
+    }
+
+
+    return `
+        <div class="action-buttons">
+
+            <button
+                class="action edit-action"
+                onclick="editConsultant('${item.id}')"
+            >
+                编辑
+            </button>
+
+            <button
+                class="action danger-action"
+                onclick="invalidateConsultant('${item.id}')"
+            >
+                设为无效
+            </button>
+
+        </div>
+    `;
+}
+
+
+function mobileConsultantButtons(item) {
+
+    if (
+        item.status ===
+        "inactive"
+    ) {
+
+        return `
+            <div class="mobile-actions one">
+
+                <button
+                    class="action recreate-action"
+                    onclick="recreateConsultant('${item.id}')"
+                >
+                    重新添加
+                </button>
+
+            </div>
+        `;
+    }
+
+
+    return `
+        <div class="mobile-actions">
+
+            <button
+                class="action edit-action"
+                onclick="editConsultant('${item.id}')"
+            >
+                编辑
+            </button>
+
+            <button
+                class="action danger-action"
+                onclick="invalidateConsultant('${item.id}')"
+            >
+                设为无效
+            </button>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   公司人员 Modal
 ========================================================= */
 
 async function openStaffModal() {
@@ -3509,10 +4498,6 @@ async function openStaffModal() {
 }
 
 
-/* =========================================================
-   编辑人员
-========================================================= */
-
 function editStaff(id) {
 
     const item =
@@ -3526,8 +4511,6 @@ function editStaff(id) {
         return;
     }
 
-
-    /* 创始人禁止编辑 */
 
     if (
         item.role ===
@@ -3569,7 +4552,7 @@ function editStaff(id) {
     document.getElementById(
         "staffModalTitle"
     ).textContent =
-        `编辑人员 ${formatAccountNo(item.account_no)}`;
+        `编辑人员 ${formatAccountNo(item.staff_no)}`;
 
 
     document.getElementById(
@@ -3596,7 +4579,6 @@ function editStaff(id) {
         ).value =
             assignment.province_id;
 
-
         staffProvinceChanged();
     }
 
@@ -3609,7 +4591,6 @@ function editStaff(id) {
             "staffCity"
         ).value =
             assignment.city_id;
-
 
         staffCityChanged();
     }
@@ -3645,10 +4626,6 @@ function editStaff(id) {
 }
 
 
-/* =========================================================
-   重新添加人员
-========================================================= */
-
 function recreateStaff(id) {
 
     const item =
@@ -3662,8 +4639,6 @@ function recreateStaff(id) {
         return;
     }
 
-
-    /* 创始人禁止重新添加 */
 
     if (
         item.role ===
@@ -3702,7 +4677,7 @@ function recreateStaff(id) {
     document.getElementById(
         "staffModalTitle"
     ).textContent =
-        `重新添加人员 ${formatAccountNo(item.account_no)}`;
+        `重新添加人员 ${formatAccountNo(item.staff_no)}`;
 
 
     document.getElementById(
@@ -3776,18 +4751,16 @@ function recreateStaff(id) {
 }
 
 
-/* =========================================================
-   保存人员
-========================================================= */
-
 async function saveStaff() {
 
     if (
         staffMode ===
         "edit"
     ) {
+
         return updateStaff();
     }
+
 
     return createStaff();
 }
@@ -3843,10 +4816,12 @@ async function createStaff() {
 
 
     if (!name) {
+
         showToast(
             "请输入姓名。",
             "error"
         );
+
         return;
     }
 
@@ -3854,45 +4829,55 @@ async function createStaff() {
     if (
         !isEmail(email)
     ) {
+
         showToast(
             "请输入正确邮箱。",
             "error"
         );
+
         return;
     }
 
 
     if (
-        password.length < 8
+        password.length <
+        8
     ) {
+
         showToast(
             "初始密码至少8位。",
             "error"
         );
+
         return;
     }
 
 
     if (!role) {
+
         showToast(
             "请选择身份。",
             "error"
         );
+
         return;
     }
 
 
     if (
-        role === "founder"
+        role ===
+        "founder"
         &&
         !canCreateFounder
         &&
         !staffRecreatedFrom
     ) {
+
         showToast(
             "系统已经存在2位创始人。",
             "error"
         );
+
         return;
     }
 
@@ -3903,10 +4888,12 @@ async function createStaff() {
         &&
         !provinceId
     ) {
+
         showToast(
             "请选择管理省份。",
             "error"
         );
+
         return;
     }
 
@@ -3916,14 +4903,17 @@ async function createStaff() {
         "city_admin"
         &&
         (
-            !provinceId ||
+            !provinceId
+            ||
             !cityId
         )
     ) {
+
         showToast(
             "请选择管理省份和城市。",
             "error"
         );
+
         return;
     }
 
@@ -3952,6 +4942,7 @@ async function createStaff() {
             "create-system-user",
             {
                 body:{
+
                     action:
                         staffMode ===
                         "recreate"
@@ -3993,7 +4984,10 @@ async function createStaff() {
         }
 
 
-        if (data?.error) {
+        if (
+            data?.error
+        ) {
+
             throw new Error(
                 data.error
             );
@@ -4045,10 +5039,6 @@ async function createStaff() {
     }
 }
 
-
-/* =========================================================
-   更新人员
-========================================================= */
 
 async function updateStaff() {
 
@@ -4107,10 +5097,12 @@ async function updateStaff() {
 
 
     if (!name) {
+
         showToast(
             "请输入姓名。",
             "error"
         );
+
         return;
     }
 
@@ -4139,6 +5131,7 @@ async function updateStaff() {
             "create-system-user",
             {
                 body:{
+
                     action:
                         "update",
 
@@ -4171,7 +5164,10 @@ async function updateStaff() {
         }
 
 
-        if (data?.error) {
+        if (
+            data?.error
+        ) {
+
             throw new Error(
                 data.error
             );
@@ -4208,10 +5204,6 @@ async function updateStaff() {
 }
 
 
-/* =========================================================
-   人员设无效
-========================================================= */
-
 async function invalidateStaff(id) {
 
     const item =
@@ -4225,8 +5217,6 @@ async function invalidateStaff(id) {
         return;
     }
 
-
-    /* 创始人禁止设无效 */
 
     if (
         item.role ===
@@ -4262,6 +5252,7 @@ async function invalidateStaff(id) {
             "create-system-user",
             {
                 body:{
+
                     action:
                         "invalidate",
 
@@ -4280,7 +5271,10 @@ async function invalidateStaff(id) {
         }
 
 
-        if (data?.error) {
+        if (
+            data?.error
+        ) {
+
             throw new Error(
                 data.error
             );
@@ -4311,7 +5305,7 @@ async function invalidateStaff(id) {
 
 
 /* =========================================================
-   打开创建商户
+   商户 Modal
 ========================================================= */
 
 function openMerchantModal() {
@@ -4354,16 +5348,13 @@ function openMerchantModal() {
 }
 
 
-/* =========================================================
-   编辑商户
-========================================================= */
-
 function editMerchant(id) {
 
     const item =
         merchantList.find(
             x =>
-                x.id === id
+                String(x.id) ===
+                String(id)
         );
 
 
@@ -4376,7 +5367,7 @@ function editMerchant(id) {
         "edit";
 
     editingMerchantId =
-        id;
+        item.id;
 
     merchantRecreatedFrom =
         null;
@@ -4388,11 +5379,7 @@ function editMerchant(id) {
     document.getElementById(
         "merchantModalTitle"
     ).textContent =
-        `编辑商户 ${formatAccountNo(
-            merchantProfileMap[
-                item.auth_user_id
-            ]?.account_no
-        )}`;
+        `编辑商户 ${formatAccountNo(item.record_no)}`;
 
 
     document.getElementById(
@@ -4419,14 +5406,11 @@ function editMerchant(id) {
         item.phone || "";
 
 
-    const serviceAreaId =
+    fillServiceAreaSelect(
+        "merchantServiceArea",
         findServiceAreaForMerchant(
             item
-        );
-
-
-    fillServiceAreaSelect(
-        serviceAreaId
+        )
     );
 
 
@@ -4449,16 +5433,13 @@ function editMerchant(id) {
 }
 
 
-/* =========================================================
-   重新添加商户
-========================================================= */
-
 function recreateMerchant(id) {
 
     const item =
         merchantList.find(
             x =>
-                x.id === id
+                String(x.id) ===
+                String(id)
         );
 
 
@@ -4474,7 +5455,7 @@ function recreateMerchant(id) {
         null;
 
     merchantRecreatedFrom =
-        id;
+        item.id;
 
 
     resetMerchantForm();
@@ -4483,7 +5464,7 @@ function recreateMerchant(id) {
     document.getElementById(
         "merchantModalTitle"
     ).textContent =
-        "重新添加商户";
+        `重新添加商户 ${formatAccountNo(item.record_no)}`;
 
 
     document.getElementById(
@@ -4510,14 +5491,11 @@ function recreateMerchant(id) {
         item.phone || "";
 
 
-    const serviceAreaId =
+    fillServiceAreaSelect(
+        "merchantServiceArea",
         findServiceAreaForMerchant(
             item
-        );
-
-
-    fillServiceAreaSelect(
-        serviceAreaId
+        )
     );
 
 
@@ -4540,10 +5518,6 @@ function recreateMerchant(id) {
 }
 
 
-/* =========================================================
-   保存商户
-========================================================= */
-
 async function saveMerchant() {
 
     if (
@@ -4558,10 +5532,6 @@ async function saveMerchant() {
     return createMerchant();
 }
 
-
-/* =========================================================
-   创建商户
-========================================================= */
 
 async function createMerchant() {
 
@@ -4641,7 +5611,8 @@ async function createMerchant() {
 
 
     if (
-        password.length < 8
+        password.length <
+        8
     ) {
 
         showToast(
@@ -4653,7 +5624,9 @@ async function createMerchant() {
     }
 
 
-    if (!serviceAreaId) {
+    if (
+        !serviceAreaId
+    ) {
 
         showToast(
             "请选择已开通服务区域。",
@@ -4688,6 +5661,7 @@ async function createMerchant() {
             "create-system-user",
             {
                 body:{
+
                     action:
                         merchantMode ===
                         "recreate"
@@ -4729,7 +5703,10 @@ async function createMerchant() {
         }
 
 
-        if (data?.error) {
+        if (
+            data?.error
+        ) {
+
             throw new Error(
                 data.error
             );
@@ -4748,7 +5725,6 @@ async function createMerchant() {
 
 
         closeMerchantModal();
-
 
         await loadMerchants();
 
@@ -4778,10 +5754,6 @@ async function createMerchant() {
     }
 }
 
-
-/* =========================================================
-   更新商户
-========================================================= */
 
 async function updateMerchant() {
 
@@ -4867,6 +5839,7 @@ async function updateMerchant() {
             "create-system-user",
             {
                 body:{
+
                     action:
                         "update",
 
@@ -4899,7 +5872,10 @@ async function updateMerchant() {
         }
 
 
-        if (data?.error) {
+        if (
+            data?.error
+        ) {
+
             throw new Error(
                 data.error
             );
@@ -4913,7 +5889,6 @@ async function updateMerchant() {
 
 
         closeMerchantModal();
-
 
         await loadMerchants();
 
@@ -4937,16 +5912,13 @@ async function updateMerchant() {
 }
 
 
-/* =========================================================
-   商户无效
-========================================================= */
-
 async function invalidateMerchant(id) {
 
     const item =
         merchantList.find(
             x =>
-                x.id === id
+                String(x.id) ===
+                String(id)
         );
 
 
@@ -4975,6 +5947,7 @@ async function invalidateMerchant(id) {
             "create-system-user",
             {
                 body:{
+
                     action:
                         "invalidate",
 
@@ -4982,7 +5955,7 @@ async function invalidateMerchant(id) {
                         "merchant",
 
                     record_id:
-                        id
+                        item.id
                 }
             }
         );
@@ -4993,7 +5966,10 @@ async function invalidateMerchant(id) {
         }
 
 
-        if (data?.error) {
+        if (
+            data?.error
+        ) {
+
             throw new Error(
                 data.error
             );
@@ -5007,6 +5983,654 @@ async function invalidateMerchant(id) {
 
 
         await loadMerchants();
+
+    }
+    catch(error) {
+
+        showToast(
+            error.message ||
+            "操作失败。",
+            "error"
+        );
+    }
+}
+
+
+/* =========================================================
+   健康顾问 Modal
+========================================================= */
+
+function openConsultantModal() {
+
+    consultantMode =
+        "create";
+
+    editingConsultantId =
+        null;
+
+    consultantRecreatedFrom =
+        null;
+
+
+    resetConsultantForm();
+
+
+    document.getElementById(
+        "consultantModalTitle"
+    ).textContent =
+        "创建健康顾问";
+
+
+    setConsultantLoginFieldsVisible(
+        true
+    );
+
+
+    document.getElementById(
+        "saveConsultantButton"
+    ).textContent =
+        "创建账号";
+
+
+    document.getElementById(
+        "consultantModal"
+    ).classList.add(
+        "show"
+    );
+}
+
+
+function editConsultant(id) {
+
+    const item =
+        consultantList.find(
+            x =>
+                String(x.id) ===
+                String(id)
+        );
+
+
+    if (!item) {
+        return;
+    }
+
+
+    consultantMode =
+        "edit";
+
+    editingConsultantId =
+        item.id;
+
+    consultantRecreatedFrom =
+        null;
+
+
+    resetConsultantForm();
+
+
+    document.getElementById(
+        "consultantModalTitle"
+    ).textContent =
+        `编辑健康顾问 ${formatAccountNo(item.consultant_no)}`;
+
+
+    document.getElementById(
+        "consultantName"
+    ).value =
+        item.consultant_name || "";
+
+
+    document.getElementById(
+        "consultantPhone"
+    ).value =
+        item.phone || "";
+
+
+    fillServiceAreaSelect(
+        "consultantServiceArea",
+        item.service_area_id
+    );
+
+
+    setConsultantLoginFieldsVisible(
+        false
+    );
+
+
+    document.getElementById(
+        "saveConsultantButton"
+    ).textContent =
+        "保存修改";
+
+
+    document.getElementById(
+        "consultantModal"
+    ).classList.add(
+        "show"
+    );
+}
+
+
+function recreateConsultant(id) {
+
+    const item =
+        consultantList.find(
+            x =>
+                String(x.id) ===
+                String(id)
+        );
+
+
+    if (!item) {
+        return;
+    }
+
+
+    consultantMode =
+        "recreate";
+
+    editingConsultantId =
+        null;
+
+    consultantRecreatedFrom =
+        item.id;
+
+
+    resetConsultantForm();
+
+
+    document.getElementById(
+        "consultantModalTitle"
+    ).textContent =
+        `重新添加健康顾问 ${formatAccountNo(item.consultant_no)}`;
+
+
+    document.getElementById(
+        "consultantName"
+    ).value =
+        item.consultant_name || "";
+
+
+    document.getElementById(
+        "consultantPhone"
+    ).value =
+        item.phone || "";
+
+
+    fillServiceAreaSelect(
+        "consultantServiceArea",
+        item.service_area_id
+    );
+
+
+    setConsultantLoginFieldsVisible(
+        true
+    );
+
+
+    document.getElementById(
+        "saveConsultantButton"
+    ).textContent =
+        "生成新记录";
+
+
+    document.getElementById(
+        "consultantModal"
+    ).classList.add(
+        "show"
+    );
+}
+
+
+async function saveConsultant() {
+
+    if (
+        consultantMode ===
+        "edit"
+    ) {
+
+        return updateConsultant();
+    }
+
+
+    return createConsultant();
+}
+
+
+async function createConsultant() {
+
+    const name =
+        document.getElementById(
+            "consultantName"
+        )
+        .value
+        .trim();
+
+
+    const email =
+        document.getElementById(
+            "consultantEmail"
+        )
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    const password =
+        document.getElementById(
+            "consultantPassword"
+        ).value;
+
+
+    const phone =
+        document.getElementById(
+            "consultantPhone"
+        )
+        .value
+        .trim();
+
+
+    const serviceAreaId =
+        valueOrNull(
+            "consultantServiceArea"
+        );
+
+
+    if (!name) {
+
+        showToast(
+            "请输入健康顾问姓名。",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if (
+        !isEmail(email)
+    ) {
+
+        showToast(
+            "请输入正确的健康顾问登录邮箱。",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if (
+        password.length <
+        8
+    ) {
+
+        showToast(
+            "初始密码至少8位。",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if (!phone) {
+
+        showToast(
+            "请输入健康顾问联系电话。",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if (
+        !serviceAreaId
+    ) {
+
+        showToast(
+            "请选择已开通服务区域。",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const button =
+        document.getElementById(
+            "saveConsultantButton"
+        );
+
+
+    button.disabled =
+        true;
+
+    button.textContent =
+        "正在处理...";
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient.functions
+        .invoke(
+            "create-system-user",
+            {
+                body:{
+
+                    action:
+                        consultantMode ===
+                        "recreate"
+                        ?
+                        "recreate"
+                        :
+                        "create",
+
+                    account_type:
+                        "health_consultant",
+
+                    recreated_from:
+                        consultantRecreatedFrom,
+
+                    consultant_name:
+                        name,
+
+                    email,
+
+                    password,
+
+                    phone,
+
+                    service_area_id:
+                        serviceAreaId
+                }
+            }
+        );
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        if (
+            data?.error
+        ) {
+
+            throw new Error(
+                data.error
+            );
+        }
+
+
+        showToast(
+            consultantMode ===
+            "recreate"
+            ?
+            "新的健康顾问记录已创建。"
+            :
+            "健康顾问账号创建成功。",
+            "success"
+        );
+
+
+        closeConsultantModal();
+
+        await loadConsultants();
+
+    }
+    catch(error) {
+
+        console.error(error);
+
+        showToast(
+            error.message ||
+            "健康顾问创建失败。",
+            "error"
+        );
+    }
+    finally {
+
+        button.disabled =
+            false;
+
+        button.textContent =
+            consultantMode ===
+            "recreate"
+            ?
+            "生成新记录"
+            :
+            "创建账号";
+    }
+}
+
+
+async function updateConsultant() {
+
+    const name =
+        document.getElementById(
+            "consultantName"
+        )
+        .value
+        .trim();
+
+
+    const phone =
+        document.getElementById(
+            "consultantPhone"
+        )
+        .value
+        .trim();
+
+
+    const serviceAreaId =
+        valueOrNull(
+            "consultantServiceArea"
+        );
+
+
+    if (!name) {
+
+        showToast(
+            "请输入健康顾问姓名。",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if (!phone) {
+
+        showToast(
+            "请输入健康顾问联系电话。",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if (
+        !serviceAreaId
+    ) {
+
+        showToast(
+            "请选择已开通服务区域。",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const button =
+        document.getElementById(
+            "saveConsultantButton"
+        );
+
+
+    button.disabled =
+        true;
+
+    button.textContent =
+        "正在保存...";
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient.functions
+        .invoke(
+            "create-system-user",
+            {
+                body:{
+
+                    action:
+                        "update",
+
+                    account_type:
+                        "health_consultant",
+
+                    record_id:
+                        editingConsultantId,
+
+                    consultant_name:
+                        name,
+
+                    phone,
+
+                    service_area_id:
+                        serviceAreaId
+                }
+            }
+        );
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        if (
+            data?.error
+        ) {
+
+            throw new Error(
+                data.error
+            );
+        }
+
+
+        showToast(
+            "健康顾问资料已更新。",
+            "success"
+        );
+
+
+        closeConsultantModal();
+
+        await loadConsultants();
+
+    }
+    catch(error) {
+
+        showToast(
+            error.message ||
+            "保存失败。",
+            "error"
+        );
+    }
+    finally {
+
+        button.disabled =
+            false;
+
+        button.textContent =
+            "保存修改";
+    }
+}
+
+
+async function invalidateConsultant(id) {
+
+    const item =
+        consultantList.find(
+            x =>
+                String(x.id) ===
+                String(id)
+        );
+
+
+    if (!item) {
+        return;
+    }
+
+
+    if (
+        !confirm(
+            `确定将“${item.consultant_name || "该健康顾问"}”设为无效吗？\n\n一旦设为无效将不能恢复。如需重新合作，必须重新添加并生成新编号。`
+        )
+    ) {
+        return;
+    }
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient.functions
+        .invoke(
+            "create-system-user",
+            {
+                body:{
+
+                    action:
+                        "invalidate",
+
+                    account_type:
+                        "health_consultant",
+
+                    record_id:
+                        item.id
+                }
+            }
+        );
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        if (
+            data?.error
+        ) {
+
+            throw new Error(
+                data.error
+            );
+        }
+
+
+        showToast(
+            "健康顾问已设为无效。",
+            "success"
+        );
+
+
+        await loadConsultants();
 
     }
     catch(error) {
@@ -5095,7 +6719,7 @@ function staffRoleChanged() {
 
 
 /* =========================================================
-   公司人员省份下拉
+   公司人员省市区下拉
 ========================================================= */
 
 function fillStaffProvinceSelect() {
@@ -5121,7 +6745,9 @@ function fillStaffProvinceSelect() {
                 "beforeend",
                 `
                 <option value="${province.id}">
-                    ${escapeHtml(province.province_name)}
+                    ${escapeHtml(
+                        province.province_name
+                    )}
                 </option>
                 `
             );
@@ -5205,8 +6831,13 @@ function fillCitySelect(
     cities
         .filter(
             city =>
-                String(city.province_id) ===
-                String(provinceId)
+                String(
+                    city.province_id
+                )
+                ===
+                String(
+                    provinceId
+                )
         )
         .forEach(
             city => {
@@ -5215,7 +6846,9 @@ function fillCitySelect(
                     "beforeend",
                     `
                     <option value="${city.id}">
-                        ${escapeHtml(city.city_name)}
+                        ${escapeHtml(
+                            city.city_name
+                        )}
                     </option>
                     `
                 );
@@ -5247,8 +6880,13 @@ function fillDistrictSelect(
     districts
         .filter(
             item =>
-                String(item.city_id) ===
-                String(cityId)
+                String(
+                    item.city_id
+                )
+                ===
+                String(
+                    cityId
+                )
         )
         .forEach(
             item => {
@@ -5257,7 +6895,9 @@ function fillDistrictSelect(
                     "beforeend",
                     `
                     <option value="${item.id}">
-                        ${escapeHtml(item.district_name)}
+                        ${escapeHtml(
+                            item.district_name
+                        )}
                     </option>
                     `
                 );
@@ -5267,7 +6907,7 @@ function fillDistrictSelect(
 
 
 /* =========================================================
-   表单
+   表单重置
 ========================================================= */
 
 function resetStaffForm() {
@@ -5341,9 +6981,47 @@ function resetMerchantForm() {
         "";
 
 
-    fillServiceAreaSelect();
+    fillServiceAreaSelect(
+        "merchantServiceArea"
+    );
 }
 
+
+function resetConsultantForm() {
+
+    document.getElementById(
+        "consultantName"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "consultantEmail"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "consultantPassword"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "consultantPhone"
+    ).value =
+        "";
+
+
+    fillServiceAreaSelect(
+        "consultantServiceArea"
+    );
+}
+
+
+/* =========================================================
+   登录字段显示
+========================================================= */
 
 function setStaffLoginFieldsVisible(
     visible
@@ -5387,8 +7065,29 @@ function setMerchantLoginFieldsVisible(
 }
 
 
+function setConsultantLoginFieldsVisible(
+    visible
+) {
+
+    document.getElementById(
+        "consultantEmailGroup"
+    ).classList.toggle(
+        "hidden",
+        !visible
+    );
+
+
+    document.getElementById(
+        "consultantPasswordGroup"
+    ).classList.toggle(
+        "hidden",
+        !visible
+    );
+}
+
+
 /* =========================================================
-   Modal
+   Modal关闭
 ========================================================= */
 
 function closeStaffModal() {
@@ -5411,6 +7110,16 @@ function closeMerchantModal() {
 }
 
 
+function closeConsultantModal() {
+
+    document.getElementById(
+        "consultantModal"
+    ).classList.remove(
+        "show"
+    );
+}
+
+
 /* =========================================================
    Helpers
 ========================================================= */
@@ -5422,6 +7131,7 @@ function formatAccountNo(value) {
         value === undefined ||
         value === ""
     ) {
+
         return "-";
     }
 
@@ -5437,7 +7147,9 @@ function formatAccountNo(value) {
 function valueOrNull(id) {
 
     const element =
-        document.getElementById(id);
+        document.getElementById(
+            id
+        );
 
 
     if (!element) {
@@ -5461,7 +7173,8 @@ function roleText(role) {
 
     const map = {
 
-        founder:"创始人",
+        founder:
+            "创始人",
 
         platform_admin:
             "平台管理员",
@@ -5474,6 +7187,7 @@ function roleText(role) {
 
         city_admin:
             "市管理员"
+
     };
 
 
@@ -5491,6 +7205,7 @@ function roleBadge(role) {
         role ===
         "founder"
     ) {
+
         className =
             "badge-founder";
     }
@@ -5500,6 +7215,7 @@ function roleBadge(role) {
         role ===
         "province_admin"
     ) {
+
         className =
             "badge-province";
     }
@@ -5509,6 +7225,7 @@ function roleBadge(role) {
         role ===
         "city_admin"
     ) {
+
         className =
             "badge-city";
     }
@@ -5516,7 +7233,9 @@ function roleBadge(role) {
 
     return `
         <span class="badge ${className}">
-            ${escapeHtml(roleText(role))}
+            ${escapeHtml(
+                roleText(role)
+            )}
         </span>
     `;
 }
@@ -5547,9 +7266,16 @@ function statusBadge(status) {
 function statusText(status) {
 
     return {
-        active:"正常",
-        inactive:"无效",
-        suspended:"停用"
+
+        active:
+            "正常",
+
+        inactive:
+            "无效",
+
+        suspended:
+            "停用"
+
     }[status] || status;
 }
 
@@ -5568,10 +7294,19 @@ function merchantTypeText(type) {
 function certificationText(value) {
 
     return {
-        pending:"待认证",
-        approved:"已认证",
-        rejected:"未通过",
-        suspended:"已暂停"
+
+        pending:
+            "待认证",
+
+        approved:
+            "已认证",
+
+        rejected:
+            "未通过",
+
+        suspended:
+            "已暂停"
+
     }[value] || value || "-";
 }
 
@@ -5647,6 +7382,7 @@ function staffProvinceText(
             role
         )
     ) {
+
         return "全国";
     }
 
@@ -5668,6 +7404,7 @@ function staffCityText(
             role
         )
     ) {
+
         return "全国";
     }
 
@@ -5676,6 +7413,7 @@ function staffCityText(
         role ===
         "platform_staff"
     ) {
+
         return "按页面权限";
     }
 
@@ -5684,6 +7422,7 @@ function staffCityText(
         role ===
         "province_admin"
     ) {
+
         return "本省全部城市";
     }
 
@@ -5707,6 +7446,7 @@ function staffDistrictText(
             role
         )
     ) {
+
         return "-";
     }
 
@@ -5727,11 +7467,26 @@ function escapeHtml(value) {
     return String(
         value ?? ""
     )
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 }
 
 

@@ -58,9 +58,6 @@
     --red:#c63d5b;
     --red-bg:#fff1f4;
 
-    --blue:#426b9d;
-    --blue-bg:#eef5ff;
-
     --purple:#78518e;
     --purple-bg:#f6effa;
 
@@ -468,7 +465,7 @@ button {
 
     grid-template-columns:
         repeat(
-            4,
+            3,
             minmax(
                 0,
                 1fr
@@ -556,7 +553,7 @@ table {
 
     width:100%;
 
-    min-width:2050px;
+    min-width:1900px;
 
     border-collapse:collapse;
 
@@ -636,62 +633,6 @@ td {
     color:var(--orange);
 
     font-weight:700;
-
-}
-
-
-.not-applicable {
-
-    color:var(--text3);
-
-    font-size:10px;
-
-}
-
-
-/* =========================================================
-   RULE TYPE
-========================================================= */
-
-.rule-type {
-
-    display:inline-flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    min-height:28px;
-
-    padding:
-        4px
-        9px;
-
-    border-radius:999px;
-
-    font-size:9px;
-
-    font-weight:750;
-
-    white-space:nowrap;
-
-}
-
-
-.rule-type-standard {
-
-    color:var(--blue);
-
-    background:var(--blue-bg);
-
-}
-
-
-.rule-type-health {
-
-    color:var(--purple);
-
-    background:var(--purple-bg);
 
 }
 
@@ -907,13 +848,6 @@ td {
     font-size:12px;
 
     font-weight:650;
-
-}
-
-
-.rule-card-type {
-
-    margin-top:7px;
 
 }
 
@@ -1366,10 +1300,8 @@ td {
     .toolbar {
 
         grid-template-columns:
-            repeat(
-                2,
-                1fr
-            );
+            1fr
+            1fr;
 
     }
 
@@ -1668,9 +1600,10 @@ td {
 
 
     <p>
-        每个商户、每个服务项目分别建立“普通规则”和“有健康顾问规则”。
-        两类规则独立实行历史版本管理。规则一旦定义后不能直接修改；
-        如需调整，必须先将原规则设为无效，再建立下一版本。
+        每个商户、每个有效服务项目只保留一套统一分成规则。
+        新商户或新服务项目建立后，系统自动生成一条未定义规则。
+        规则定义后不能直接修改；如需调整，必须先将原规则设为无效，
+        系统自动建立下一版本，历史规则永久保留。
     </p>
 
 
@@ -1803,27 +1736,6 @@ td {
 
 
     <select
-        id="typeFilter"
-        class="select"
-        onchange="renderRules()"
-    >
-
-        <option value="">
-            全部规则类型
-        </option>
-
-        <option value="standard">
-            普通规则
-        </option>
-
-        <option value="health_consultant">
-            有健康顾问规则
-        </option>
-
-    </select>
-
-
-    <select
         id="ruleFilter"
         class="select"
         onchange="renderRules()"
@@ -1879,8 +1791,6 @@ td {
     <th>服务区域</th>
 
     <th>服务项目</th>
-
-    <th>规则类型</th>
 
     <th>版本</th>
 
@@ -2007,7 +1917,8 @@ td {
 
         <br>
 
-        如果以后需要修改，请使用“设为无效”，旧版本将继续保留。
+        如果以后需要修改，请使用“设为无效”，旧版本永久保留，
+        系统自动建立下一版本未定义规则。
 
     </div>
 
@@ -2093,13 +2004,9 @@ td {
 
 
 
-    <!-- =====================================================
-         HEALTH CONSULTANT
-    ====================================================== -->
-
     <div
         id="healthConsultantPanel"
-        class="health-panel hidden"
+        class="health-panel"
     >
 
         <div class="health-panel-title">
@@ -2713,7 +2620,7 @@ async function loadBaseData() {
 
 
 /* =========================================================
-   06. LOAD RULES
+   06. LOAD UNIFIED RULES
 ========================================================= */
 
 
@@ -2744,6 +2651,7 @@ async function loadRules() {
             store_ratio,
             operator_ratio,
             health_consultant_ratio,
+            health_consultant_id,
             health_consultant_name,
             health_consultant_phone,
             status,
@@ -2757,6 +2665,11 @@ async function loadRules() {
             invalidated_at
         `)
 
+        .eq(
+            "rule_type",
+            "health_consultant"
+        )
+
         .order(
             "merchant_id",
             {
@@ -2766,13 +2679,6 @@ async function loadRules() {
 
         .order(
             "product_id",
-            {
-                ascending:true
-            }
-        )
-
-        .order(
-            "rule_type",
             {
                 ascending:true
             }
@@ -3080,84 +2986,7 @@ function productName(
 
 
 /* =========================================================
-   09. RULE TYPE
-========================================================= */
-
-
-function isHealthRule(
-    rule
-) {
-
-
-    return (
-        rule?.rule_type ===
-        "health_consultant"
-    );
-
-}
-
-
-
-function ruleTypeText(
-    rule
-) {
-
-
-    return isHealthRule(
-        rule
-    )
-        ?
-        "有健康顾问"
-        :
-        "普通规则";
-
-}
-
-
-
-function ruleTypeBadge(
-    rule
-) {
-
-
-    if (
-        isHealthRule(
-            rule
-        )
-    ) {
-
-
-        return `
-            <span
-                class="
-                    rule-type
-                    rule-type-health
-                "
-            >
-                有健康顾问
-            </span>
-        `;
-
-    }
-
-
-    return `
-        <span
-            class="
-                rule-type
-                rule-type-standard
-            "
-        >
-            普通规则
-        </span>
-    `;
-
-}
-
-
-
-/* =========================================================
-   10. CITY
+   09. CITY
 ========================================================= */
 
 
@@ -3311,7 +3140,7 @@ function areaText(
 
 
 /* =========================================================
-   11. CITY PRICE
+   10. CITY PRICE
 ========================================================= */
 
 
@@ -3353,7 +3182,7 @@ function cityPrice(
 
 
 /* =========================================================
-   12. RULE VALUES
+   11. RULE VALUES
 ========================================================= */
 
 
@@ -3379,7 +3208,7 @@ function ruleValues(
 ) {
 
 
-    const baseValues = [
+    return [
 
         rule.tax_rate,
 
@@ -3387,34 +3216,15 @@ function ruleValues(
 
         rule.store_ratio,
 
-        rule.operator_ratio
+        rule.operator_ratio,
+
+        rule.health_consultant_ratio,
+
+        rule.health_consultant_name,
+
+        rule.health_consultant_phone
 
     ];
-
-
-    if (
-        isHealthRule(
-            rule
-        )
-    ) {
-
-
-        return [
-
-            ...baseValues,
-
-            rule.health_consultant_ratio,
-
-            rule.health_consultant_name,
-
-            rule.health_consultant_phone
-
-        ];
-
-    }
-
-
-    return baseValues;
 
 }
 
@@ -3521,7 +3331,7 @@ function ruleStateText(
 
 
 /* =========================================================
-   13. MODIFIED BY
+   12. MODIFIED BY
 ========================================================= */
 
 
@@ -3607,7 +3417,7 @@ function modifierName(
 
 
 /* =========================================================
-   14. MODIFIED TIME
+   13. MODIFIED TIME
 ========================================================= */
 
 
@@ -3658,7 +3468,7 @@ function modifiedTime(
 
 
 /* =========================================================
-   15. FORMAT
+   14. FORMAT
 ========================================================= */
 
 
@@ -3719,93 +3529,6 @@ function formatTextValue(
             ${escapeHtml(value)}
         </span>
     `;
-
-}
-
-
-
-function formatHealthPercent(
-    rule
-) {
-
-
-    if (
-        !isHealthRule(
-            rule
-        )
-    ) {
-
-
-        return `
-            <span class="not-applicable">
-                不适用
-            </span>
-        `;
-
-    }
-
-
-    return formatPercent(
-        rule.health_consultant_ratio
-    );
-
-}
-
-
-
-function formatHealthName(
-    rule
-) {
-
-
-    if (
-        !isHealthRule(
-            rule
-        )
-    ) {
-
-
-        return `
-            <span class="not-applicable">
-                不适用
-            </span>
-        `;
-
-    }
-
-
-    return formatTextValue(
-        rule.health_consultant_name
-    );
-
-}
-
-
-
-function formatHealthPhone(
-    rule
-) {
-
-
-    if (
-        !isHealthRule(
-            rule
-        )
-    ) {
-
-
-        return `
-            <span class="not-applicable">
-                不适用
-            </span>
-        `;
-
-    }
-
-
-    return formatTextValue(
-        rule.health_consultant_phone
-    );
 
 }
 
@@ -3962,7 +3685,7 @@ function escapeHtml(
 
 
 /* =========================================================
-   16. CITY FILTER
+   15. CITY FILTER
 ========================================================= */
 
 
@@ -4084,7 +3807,7 @@ function buildCityFilter() {
 
 
 /* =========================================================
-   17. MERCHANT FILTER
+   16. MERCHANT FILTER
 ========================================================= */
 
 
@@ -4222,7 +3945,7 @@ function cityChanged() {
 
 
 /* =========================================================
-   18. FILTER RULES
+   17. FILTER RULES
 ========================================================= */
 
 
@@ -4241,12 +3964,6 @@ function getFilteredRules() {
         ).value;
 
 
-    const typeFilter =
-        document.getElementById(
-            "typeFilter"
-        ).value;
-
-
     const filter =
         document.getElementById(
             "ruleFilter"
@@ -4256,6 +3973,22 @@ function getFilteredRules() {
     return rules.filter(
 
         rule => {
+
+
+            /*
+             * 双保险：
+             * 即使后端读取条件以后被修改，
+             * 页面也永远只处理统一的 health_consultant 规则。
+             */
+            if (
+                rule.rule_type !==
+                "health_consultant"
+            ) {
+
+
+                return false;
+
+            }
 
 
             const merchant =
@@ -4315,19 +4048,6 @@ function getFilteredRules() {
                 String(
                     merchantId
                 )
-            ) {
-
-
-                return false;
-
-            }
-
-
-            if (
-                typeFilter
-                &&
-                rule.rule_type !==
-                typeFilter
             ) {
 
 
@@ -4411,15 +4131,25 @@ function getFilteredRules() {
 
 
 /* =========================================================
-   19. STATS
+   18. STATS
 ========================================================= */
 
 
 function renderStats() {
 
 
-    const active =
+    const unifiedRules =
         rules.filter(
+
+            rule =>
+                rule.rule_type ===
+                "health_consultant"
+
+        );
+
+
+    const active =
+        unifiedRules.filter(
 
             rule =>
                 rule.status ===
@@ -4429,7 +4159,7 @@ function renderStats() {
 
 
     const history =
-        rules.filter(
+        unifiedRules.filter(
 
             rule =>
                 rule.status ===
@@ -4497,7 +4227,7 @@ function renderStats() {
 
 
 /* =========================================================
-   20. ACTION
+   19. ACTION
 ========================================================= */
 
 
@@ -4554,7 +4284,7 @@ function desktopAction(
 
 
 /* =========================================================
-   21. RENDER
+   20. RENDER
 ========================================================= */
 
 
@@ -4687,13 +4417,6 @@ function renderRules() {
 
 
                     <td>
-                        ${ruleTypeBadge(
-                            rule
-                        )}
-                    </td>
-
-
-                    <td>
                         V${escapeHtml(
                             rule.version_no
                             ??
@@ -4740,22 +4463,22 @@ function renderRules() {
 
 
                     <td>
-                        ${formatHealthPercent(
-                            rule
+                        ${formatPercent(
+                            rule.health_consultant_ratio
                         )}
                     </td>
 
 
                     <td>
-                        ${formatHealthName(
-                            rule
+                        ${formatTextValue(
+                            rule.health_consultant_name
                         )}
                     </td>
 
 
                     <td>
-                        ${formatHealthPhone(
-                            rule
+                        ${formatTextValue(
+                            rule.health_consultant_phone
                         )}
                     </td>
 
@@ -4827,7 +4550,7 @@ function renderRules() {
 
 
 /* =========================================================
-   22. MOBILE CARD
+   21. MOBILE CARD
 ========================================================= */
 
 
@@ -4891,69 +4614,6 @@ function mobileRuleCard(
     }
 
 
-    let healthHtml =
-        "";
-
-
-    if (
-        isHealthRule(
-            rule
-        )
-    ) {
-
-
-        healthHtml =
-            `
-
-            <div class="mobile-item">
-
-                <div class="mobile-label">
-                    健康顾问比例
-                </div>
-
-                <div class="mobile-value">
-                    ${formatPercent(
-                        rule.health_consultant_ratio
-                    )}
-                </div>
-
-            </div>
-
-
-            <div class="mobile-item">
-
-                <div class="mobile-label">
-                    健康顾问姓名
-                </div>
-
-                <div class="mobile-value">
-                    ${formatTextValue(
-                        rule.health_consultant_name
-                    )}
-                </div>
-
-            </div>
-
-
-            <div class="mobile-item mobile-item-wide">
-
-                <div class="mobile-label">
-                    健康顾问电话
-                </div>
-
-                <div class="mobile-value">
-                    ${formatTextValue(
-                        rule.health_consultant_phone
-                    )}
-                </div>
-
-            </div>
-
-            `;
-
-    }
-
-
     return `
         <div class="rule-card">
 
@@ -4978,13 +4638,6 @@ function mobileRuleCard(
                             productName(
                                 product
                             )
-                        )}
-                    </div>
-
-
-                    <div class="rule-card-type">
-                        ${ruleTypeBadge(
-                            rule
                         )}
                     </div>
 
@@ -5137,7 +4790,49 @@ function mobileRuleCard(
                 </div>
 
 
-                ${healthHtml}
+                <div class="mobile-item">
+
+                    <div class="mobile-label">
+                        健康顾问比例
+                    </div>
+
+                    <div class="mobile-value">
+                        ${formatPercent(
+                            rule.health_consultant_ratio
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="mobile-item">
+
+                    <div class="mobile-label">
+                        健康顾问姓名
+                    </div>
+
+                    <div class="mobile-value">
+                        ${formatTextValue(
+                            rule.health_consultant_name
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="mobile-item mobile-item-wide">
+
+                    <div class="mobile-label">
+                        健康顾问电话
+                    </div>
+
+                    <div class="mobile-value">
+                        ${formatTextValue(
+                            rule.health_consultant_phone
+                        )}
+                    </div>
+
+                </div>
 
 
                 <div class="mobile-item">
@@ -5188,7 +4883,7 @@ function mobileRuleCard(
 
 
 /* =========================================================
-   23. OPEN DEFINE
+   22. OPEN DEFINE
 ========================================================= */
 
 
@@ -5217,6 +4912,22 @@ function openDefineModal(
 
         showToast(
             "没有找到该规则。"
+        );
+
+
+        return;
+
+    }
+
+
+    if (
+        rule.rule_type !==
+        "health_consultant"
+    ) {
+
+
+        showToast(
+            "该记录不是当前统一规则。"
         );
 
 
@@ -5284,8 +4995,6 @@ function openDefineModal(
 
         `${productName(product)} · ` +
 
-        `${ruleTypeText(rule)} · ` +
-
         `V${rule.version_no || 1}`;
 
 
@@ -5332,19 +5041,6 @@ function openDefineModal(
 
 
     document.getElementById(
-        "healthConsultantPanel"
-    ).classList.toggle(
-
-        "hidden",
-
-        !isHealthRule(
-            rule
-        )
-
-    );
-
-
-    document.getElementById(
         "defineModal"
     ).classList.remove(
         "hidden"
@@ -5355,7 +5051,7 @@ function openDefineModal(
 
 
 /* =========================================================
-   24. CLOSE DEFINE
+   23. CLOSE DEFINE
 ========================================================= */
 
 
@@ -5396,7 +5092,7 @@ function modalBackgroundClick(
 
 
 /* =========================================================
-   25. PARSE
+   24. PARSE
 ========================================================= */
 
 
@@ -5505,7 +5201,7 @@ function parseRequiredText(
 
 
 /* =========================================================
-   26. SAVE FIRST DEFINITION
+   25. SAVE FIRST DEFINITION
 ========================================================= */
 
 
@@ -5541,6 +5237,9 @@ async function saveDefinition() {
     if (
         !rule
         ||
+        rule.rule_type !==
+        "health_consultant"
+        ||
         rule.status !==
         "active"
         ||
@@ -5568,16 +5267,11 @@ async function saveDefinition() {
 
     let operator;
 
-    let healthRatio =
-        null;
+    let healthRatio;
 
+    let healthName;
 
-    let healthName =
-        null;
-
-
-    let healthPhone =
-        null;
+    let healthPhone;
 
 
     try {
@@ -5611,36 +5305,27 @@ async function saveDefinition() {
             );
 
 
-        if (
-            isHealthRule(
-                rule
-            )
-        ) {
+        healthRatio =
+            parseRequiredPercent(
+                "healthRatioInput",
+                "健康顾问比例"
+            );
 
 
-            healthRatio =
-                parseRequiredPercent(
-                    "healthRatioInput",
-                    "健康顾问比例"
-                );
+        healthName =
+            parseRequiredText(
+                "healthNameInput",
+                "健康顾问姓名",
+                100
+            );
 
 
-            healthName =
-                parseRequiredText(
-                    "healthNameInput",
-                    "健康顾问姓名",
-                    100
-                );
-
-
-            healthPhone =
-                parseRequiredText(
-                    "healthPhoneInput",
-                    "健康顾问电话号码",
-                    50
-                );
-
-        }
+        healthPhone =
+            parseRequiredText(
+                "healthPhoneInput",
+                "健康顾问电话号码",
+                50
+            );
 
 
     }
@@ -5661,7 +5346,7 @@ async function saveDefinition() {
     const confirmed =
         confirm(
 
-            `确认定义这条${ruleTypeText(rule)}吗？\n\n` +
+            "确认定义这条统一分成规则吗？\n\n" +
 
             "保存后该版本将不再允许直接修改。\n" +
 
@@ -5714,6 +5399,18 @@ async function saveDefinition() {
                 operator,
 
 
+            health_consultant_ratio:
+                healthRatio,
+
+
+            health_consultant_name:
+                healthName,
+
+
+            health_consultant_phone:
+                healthPhone,
+
+
             updated_by:
                 currentUser.id,
 
@@ -5726,47 +5423,15 @@ async function saveDefinition() {
         };
 
 
-        if (
-            isHealthRule(
-                rule
-            )
-        ) {
+        const {
 
+            data,
 
-            updateData.health_consultant_ratio =
-                healthRatio;
+            error
 
+        } =
 
-            updateData.health_consultant_name =
-                healthName;
-
-
-            updateData.health_consultant_phone =
-                healthPhone;
-
-        }
-
-
-        else {
-
-
-            updateData.health_consultant_ratio =
-                null;
-
-
-            updateData.health_consultant_name =
-                null;
-
-
-            updateData.health_consultant_phone =
-                null;
-
-        }
-
-
-        let query =
-
-            supabaseClient
+        await supabaseClient
 
             .from(
                 "merchant_product_rules"
@@ -5790,9 +5455,7 @@ async function saveDefinition() {
 
             .eq(
                 "rule_type",
-                rule.rule_type
-                ||
-                "standard"
+                "health_consultant"
             )
 
             .is(
@@ -5813,48 +5476,26 @@ async function saveDefinition() {
             .is(
                 "operator_ratio",
                 null
-            );
-
-
-        if (
-            isHealthRule(
-                rule
             )
-        ) {
 
+            .is(
+                "health_consultant_ratio",
+                null
+            )
 
-            query =
-                query
+            .is(
+                "health_consultant_name",
+                null
+            )
 
-                .is(
-                    "health_consultant_ratio",
-                    null
-                )
+            .is(
+                "health_consultant_phone",
+                null
+            )
 
-                .is(
-                    "health_consultant_name",
-                    null
-                )
-
-                .is(
-                    "health_consultant_phone",
-                    null
-                );
-
-        }
-
-
-        const {
-
-            data,
-
-            error
-
-        } =
-
-        await query.select(`
-            id
-        `);
+            .select(`
+                id
+            `);
 
 
         if (error) {
@@ -5893,7 +5534,7 @@ async function saveDefinition() {
 
 
         showToast(
-            "分成规则定义成功。"
+            "统一分成规则定义成功。"
         );
 
 
@@ -5936,7 +5577,7 @@ async function saveDefinition() {
 
 
 /* =========================================================
-   27. INVALIDATE
+   26. INVALIDATE
 ========================================================= */
 
 
@@ -5961,6 +5602,22 @@ async function invalidateRule(
 
 
     if (!rule) {
+
+
+        return;
+
+    }
+
+
+    if (
+        rule.rule_type !==
+        "health_consultant"
+    ) {
+
+
+        showToast(
+            "该记录不是当前统一规则。"
+        );
 
 
         return;
@@ -6022,13 +5679,11 @@ async function invalidateRule(
 
             `服务项目：${productName(product)}\n` +
 
-            `规则类型：${ruleTypeText(rule)}\n` +
-
             `版本：V${rule.version_no || 1}\n\n` +
 
             `旧规则将永久保留。\n` +
 
-            `系统随后会自动建立该规则类型的下一版本。`
+            `系统随后会自动建立下一版本未定义规则。`
 
         );
 
@@ -6131,7 +5786,7 @@ async function invalidateRule(
 
 
 /* =========================================================
-   28. TOAST
+   27. TOAST
 ========================================================= */
 
 
@@ -6185,7 +5840,7 @@ function showToast(
 
 
 /* =========================================================
-   29. HOME
+   28. HOME
 ========================================================= */
 
 
@@ -6200,7 +5855,7 @@ function goHome() {
 
 
 /* =========================================================
-   30. LOGOUT
+   29. LOGOUT
 ========================================================= */
 
 
@@ -6247,7 +5902,7 @@ async function logout() {
 
 
 /* =========================================================
-   31. IDLE
+   30. IDLE
 ========================================================= */
 
 
@@ -6338,7 +5993,7 @@ function resetIdle() {
 
 
 /* =========================================================
-   32. AUTH WATCH
+   31. AUTH WATCH
 ========================================================= */
 
 
@@ -6371,7 +6026,7 @@ supabaseClient.auth
 
 
 /* =========================================================
-   33. START
+   32. START
 ========================================================= */
 
 

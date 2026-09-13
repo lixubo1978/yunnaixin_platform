@@ -581,6 +581,8 @@ td {
 
     font-size:12px;
     font-weight:650;
+
+    word-break:break-all;
 }
 
 .mobile-actions {
@@ -676,6 +678,24 @@ td {
 
 .modal-body {
     padding:20px;
+}
+
+.form-section-title {
+    margin:
+        8px
+        0
+        16px;
+
+    padding-top:8px;
+
+    color:var(--pink-700);
+
+    font-size:13px;
+    font-weight:750;
+
+    border-top:
+        1px solid
+        var(--border);
 }
 
 .form-group {
@@ -1382,7 +1402,7 @@ td {
         id="merchantSearch"
         class="input"
         type="search"
-        placeholder="搜索编号、商户名称、代码或联系人"
+        placeholder="搜索编号、商户名称、联系人、税号"
         oninput="renderMerchants()"
     >
 
@@ -1545,7 +1565,7 @@ td {
         id="consultantSearch"
         class="input"
         type="search"
-        placeholder="搜索编号、姓名、手机号或邮箱"
+        placeholder="搜索编号、姓名、手机号、个体户名称或税号"
         oninput="renderConsultants()"
     >
 
@@ -2024,6 +2044,62 @@ td {
 
 </div>
 
+
+<div class="form-section-title">
+    结算与税务资料
+</div>
+
+
+<div class="form-group">
+
+    <label class="form-label">
+        开户行
+    </label>
+
+    <input
+        id="merchantBankName"
+        class="form-control"
+        maxlength="200"
+        placeholder="例如：中国工商银行南通分行"
+    >
+
+</div>
+
+
+<div class="form-group">
+
+    <label class="form-label">
+        银行账号
+    </label>
+
+    <input
+        id="merchantBankAccount"
+        class="form-control"
+        maxlength="100"
+        inputmode="numeric"
+        autocomplete="off"
+        placeholder="请输入银行账号"
+    >
+
+</div>
+
+
+<div class="form-group">
+
+    <label class="form-label">
+        税号
+    </label>
+
+    <input
+        id="merchantTaxNo"
+        class="form-control"
+        maxlength="100"
+        autocomplete="off"
+        placeholder="请输入统一社会信用代码或税号"
+    >
+
+</div>
+
 </div>
 
 
@@ -2177,6 +2253,78 @@ td {
     <div class="form-hint">
         健康顾问必须绑定平台已经开通的服务区域。
     </div>
+
+</div>
+
+
+<div class="form-section-title">
+    个体户与结算资料
+</div>
+
+
+<div class="form-group">
+
+    <label class="form-label">
+        个体户名称
+    </label>
+
+    <input
+        id="consultantIndividualBusinessName"
+        class="form-control"
+        maxlength="200"
+        placeholder="请输入个体工商户名称"
+    >
+
+</div>
+
+
+<div class="form-group">
+
+    <label class="form-label">
+        开户行
+    </label>
+
+    <input
+        id="consultantBankName"
+        class="form-control"
+        maxlength="200"
+        placeholder="例如：中国工商银行南通分行"
+    >
+
+</div>
+
+
+<div class="form-group">
+
+    <label class="form-label">
+        银行账号
+    </label>
+
+    <input
+        id="consultantBankAccount"
+        class="form-control"
+        maxlength="100"
+        inputmode="numeric"
+        autocomplete="off"
+        placeholder="请输入银行账号"
+    >
+
+</div>
+
+
+<div class="form-group">
+
+    <label class="form-label">
+        税号
+    </label>
+
+    <input
+        id="consultantTaxNo"
+        class="form-control"
+        maxlength="100"
+        autocomplete="off"
+        placeholder="请输入统一社会信用代码或税号"
+    >
 
 </div>
 
@@ -2995,6 +3143,9 @@ async function loadMerchants() {
             contact_name,
             phone,
             email,
+            bank_name,
+            bank_account,
+            tax_no,
             certification_status,
             status,
             recreated_from,
@@ -3048,6 +3199,10 @@ async function loadConsultants() {
             phone,
             email,
             service_area_id,
+            individual_business_name,
+            bank_name,
+            bank_account,
+            tax_no,
             status,
             recreated_from,
             created_by,
@@ -3606,6 +3761,9 @@ function renderMerchants() {
                     ${item.merchant_name || ""}
                     ${item.contact_name || ""}
                     ${item.email || ""}
+                    ${item.bank_name || ""}
+                    ${item.bank_account || ""}
+                    ${item.tax_no || ""}
                     ${area ? serviceAreaLabel(area) : ""}
                     `
                     .toLowerCase();
@@ -3926,6 +4084,10 @@ function renderConsultants() {
                     ${item.consultant_name || ""}
                     ${item.phone || ""}
                     ${item.email || ""}
+                    ${item.individual_business_name || ""}
+                    ${item.bank_name || ""}
+                    ${item.bank_account || ""}
+                    ${item.tax_no || ""}
                     ${area ? serviceAreaLabel(area) : ""}
                     `
                     .toLowerCase();
@@ -5406,6 +5568,24 @@ function editMerchant(id) {
         item.phone || "";
 
 
+    document.getElementById(
+        "merchantBankName"
+    ).value =
+        item.bank_name || "";
+
+
+    document.getElementById(
+        "merchantBankAccount"
+    ).value =
+        item.bank_account || "";
+
+
+    document.getElementById(
+        "merchantTaxNo"
+    ).value =
+        item.tax_no || "";
+
+
     fillServiceAreaSelect(
         "merchantServiceArea",
         findServiceAreaForMerchant(
@@ -5489,6 +5669,24 @@ function recreateMerchant(id) {
         "merchantPhone"
     ).value =
         item.phone || "";
+
+
+    document.getElementById(
+        "merchantBankName"
+    ).value =
+        item.bank_name || "";
+
+
+    document.getElementById(
+        "merchantBankAccount"
+    ).value =
+        item.bank_account || "";
+
+
+    document.getElementById(
+        "merchantTaxNo"
+    ).value =
+        item.tax_no || "";
 
 
     fillServiceAreaSelect(
@@ -5584,6 +5782,30 @@ async function createMerchant() {
         valueOrNull(
             "merchantServiceArea"
         );
+
+
+    const bankName =
+        document.getElementById(
+            "merchantBankName"
+        )
+        .value
+        .trim();
+
+
+    const bankAccount =
+        document.getElementById(
+            "merchantBankAccount"
+        )
+        .value
+        .trim();
+
+
+    const taxNo =
+        document.getElementById(
+            "merchantTaxNo"
+        )
+        .value
+        .trim();
 
 
     if (!merchantName) {
@@ -5692,7 +5914,16 @@ async function createMerchant() {
                     phone,
 
                     service_area_id:
-                        serviceAreaId
+                        serviceAreaId,
+
+                    bank_name:
+                        bankName,
+
+                    bank_account:
+                        bankAccount,
+
+                    tax_no:
+                        taxNo
                 }
             }
         );
@@ -5793,6 +6024,30 @@ async function updateMerchant() {
         );
 
 
+    const bankName =
+        document.getElementById(
+            "merchantBankName"
+        )
+        .value
+        .trim();
+
+
+    const bankAccount =
+        document.getElementById(
+            "merchantBankAccount"
+        )
+        .value
+        .trim();
+
+
+    const taxNo =
+        document.getElementById(
+            "merchantTaxNo"
+        )
+        .value
+        .trim();
+
+
     if (!merchantName) {
 
         showToast(
@@ -5861,7 +6116,16 @@ async function updateMerchant() {
                     phone,
 
                     service_area_id:
-                        serviceAreaId
+                        serviceAreaId,
+
+                    bank_name:
+                        bankName,
+
+                    bank_account:
+                        bankAccount,
+
+                    tax_no:
+                        taxNo
                 }
             }
         );
@@ -6086,6 +6350,30 @@ function editConsultant(id) {
         item.phone || "";
 
 
+    document.getElementById(
+        "consultantIndividualBusinessName"
+    ).value =
+        item.individual_business_name || "";
+
+
+    document.getElementById(
+        "consultantBankName"
+    ).value =
+        item.bank_name || "";
+
+
+    document.getElementById(
+        "consultantBankAccount"
+    ).value =
+        item.bank_account || "";
+
+
+    document.getElementById(
+        "consultantTaxNo"
+    ).value =
+        item.tax_no || "";
+
+
     fillServiceAreaSelect(
         "consultantServiceArea",
         item.service_area_id
@@ -6155,6 +6443,30 @@ function recreateConsultant(id) {
         "consultantPhone"
     ).value =
         item.phone || "";
+
+
+    document.getElementById(
+        "consultantIndividualBusinessName"
+    ).value =
+        item.individual_business_name || "";
+
+
+    document.getElementById(
+        "consultantBankName"
+    ).value =
+        item.bank_name || "";
+
+
+    document.getElementById(
+        "consultantBankAccount"
+    ).value =
+        item.bank_account || "";
+
+
+    document.getElementById(
+        "consultantTaxNo"
+    ).value =
+        item.tax_no || "";
 
 
     fillServiceAreaSelect(
@@ -6234,6 +6546,38 @@ async function createConsultant() {
         valueOrNull(
             "consultantServiceArea"
         );
+
+
+    const individualBusinessName =
+        document.getElementById(
+            "consultantIndividualBusinessName"
+        )
+        .value
+        .trim();
+
+
+    const bankName =
+        document.getElementById(
+            "consultantBankName"
+        )
+        .value
+        .trim();
+
+
+    const bankAccount =
+        document.getElementById(
+            "consultantBankAccount"
+        )
+        .value
+        .trim();
+
+
+    const taxNo =
+        document.getElementById(
+            "consultantTaxNo"
+        )
+        .value
+        .trim();
 
 
     if (!name) {
@@ -6347,7 +6691,19 @@ async function createConsultant() {
                     phone,
 
                     service_area_id:
-                        serviceAreaId
+                        serviceAreaId,
+
+                    individual_business_name:
+                        individualBusinessName,
+
+                    bank_name:
+                        bankName,
+
+                    bank_account:
+                        bankAccount,
+
+                    tax_no:
+                        taxNo
                 }
             }
         );
@@ -6434,6 +6790,38 @@ async function updateConsultant() {
         );
 
 
+    const individualBusinessName =
+        document.getElementById(
+            "consultantIndividualBusinessName"
+        )
+        .value
+        .trim();
+
+
+    const bankName =
+        document.getElementById(
+            "consultantBankName"
+        )
+        .value
+        .trim();
+
+
+    const bankAccount =
+        document.getElementById(
+            "consultantBankAccount"
+        )
+        .value
+        .trim();
+
+
+    const taxNo =
+        document.getElementById(
+            "consultantTaxNo"
+        )
+        .value
+        .trim();
+
+
     if (!name) {
 
         showToast(
@@ -6509,7 +6897,19 @@ async function updateConsultant() {
                     phone,
 
                     service_area_id:
-                        serviceAreaId
+                        serviceAreaId,
+
+                    individual_business_name:
+                        individualBusinessName,
+
+                    bank_name:
+                        bankName,
+
+                    bank_account:
+                        bankAccount,
+
+                    tax_no:
+                        taxNo
                 }
             }
         );
@@ -6981,6 +7381,24 @@ function resetMerchantForm() {
         "";
 
 
+    document.getElementById(
+        "merchantBankName"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "merchantBankAccount"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "merchantTaxNo"
+    ).value =
+        "";
+
+
     fillServiceAreaSelect(
         "merchantServiceArea"
     );
@@ -7009,6 +7427,30 @@ function resetConsultantForm() {
 
     document.getElementById(
         "consultantPhone"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "consultantIndividualBusinessName"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "consultantBankName"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "consultantBankAccount"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "consultantTaxNo"
     ).value =
         "";
 

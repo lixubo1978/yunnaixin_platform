@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 
@@ -57,6 +56,7 @@
     --gray-bg:#f1edef;
 
     --danger:#c83355;
+    --danger-bg:#fff0f4;
 
     --shadow:
         0 10px 30px
@@ -198,8 +198,6 @@ button {
 
     gap:11px;
 
-    min-width:0;
-
 }
 
 
@@ -208,9 +206,6 @@ button {
     width:42px;
 
     height:42px;
-
-    flex:
-        0 0 42px;
 
     border-radius:12px;
 
@@ -278,7 +273,7 @@ button {
         1px solid
         var(--border);
 
-    background:#ffffff;
+    background:#fff;
 
     color:
         var(--text2);
@@ -290,7 +285,7 @@ button {
 
     border:0;
 
-    color:#ffffff;
+    color:#fff;
 
     background:
         linear-gradient(
@@ -310,7 +305,7 @@ button {
 
     width:100%;
 
-    max-width:1450px;
+    max-width:1600px;
 
     margin:
         0 auto;
@@ -325,10 +320,6 @@ button {
 ========================================================= */
 
 .hero {
-
-    position:relative;
-
-    overflow:hidden;
 
     padding:
         27px
@@ -360,49 +351,13 @@ button {
 }
 
 
-.hero::after {
-
-    content:"";
-
-    position:absolute;
-
-    width:190px;
-
-    height:190px;
-
-    right:-60px;
-
-    top:-75px;
-
-    border-radius:50%;
-
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            .30
-        );
-
-}
-
-
-.hero-content {
-
-    position:relative;
-
-    z-index:2;
-
-}
-
-
 .hero-tag {
 
     display:inline-flex;
 
-    align-items:center;
-
     min-height:27px;
+
+    align-items:center;
 
     padding:
         3px
@@ -449,7 +404,7 @@ button {
 
     margin:0;
 
-    max-width:920px;
+    max-width:1050px;
 
     font-size:13px;
 
@@ -471,7 +426,7 @@ button {
 
     grid-template-columns:
         repeat(
-            4,
+            5,
             minmax(
                 0,
                 1fr
@@ -497,7 +452,7 @@ button {
 
     border-radius:16px;
 
-    background:#ffffff;
+    background:#fff;
 
 }
 
@@ -548,15 +503,15 @@ button {
 
     grid-template-columns:
         minmax(
-            260px,
-            1.2fr
+            250px,
+            1fr
         )
         minmax(
             220px,
             1fr
         )
         minmax(
-            220px,
+            200px,
             1fr
         );
 
@@ -572,7 +527,7 @@ button {
 
     border-radius:17px;
 
-    background:#ffffff;
+    background:#fff;
 
 }
 
@@ -594,12 +549,9 @@ button {
 
     border-radius:11px;
 
-    background:#ffffff;
+    background:#fff;
 
     outline:none;
-
-    color:
-        var(--text);
 
 }
 
@@ -644,7 +596,7 @@ button {
 
     border-radius:15px;
 
-    background:#ffffff;
+    background:#fff;
 
 }
 
@@ -683,7 +635,7 @@ button {
 
 
 /* =========================================================
-   TABLE
+   PANEL / TABLE
 ========================================================= */
 
 .panel {
@@ -696,7 +648,7 @@ button {
 
     border-radius:18px;
 
-    background:#ffffff;
+    background:#fff;
 
 }
 
@@ -712,7 +664,7 @@ table {
 
     width:100%;
 
-    min-width:1050px;
+    min-width:1500px;
 
     border-collapse:
         collapse;
@@ -724,7 +676,7 @@ th {
 
     padding:
         13px
-        14px;
+        12px;
 
     text-align:left;
 
@@ -736,7 +688,7 @@ th {
     color:
         #837980;
 
-    font-size:11px;
+    font-size:10px;
 
 }
 
@@ -744,32 +696,32 @@ th {
 td {
 
     padding:
-        15px
-        14px;
+        14px
+        12px;
 
     border-top:
         1px solid
         #f1eaee;
 
-    font-size:12px;
+    font-size:11px;
 
     vertical-align:middle;
 
 }
 
 
-.product-name {
+.service-name {
 
-    font-weight:700;
+    font-weight:750;
 
 }
 
 
-.product-code {
+.service-code {
 
     margin-top:3px;
 
-    font-size:10px;
+    font-size:9px;
 
     color:
         var(--text3);
@@ -777,41 +729,11 @@ td {
 }
 
 
-.product-type {
-
-    display:inline-flex;
-
-    align-items:center;
-
-    min-height:25px;
-
-    padding:
-        3px
-        8px;
-
-    border-radius:999px;
-
-    background:
-        var(--pink-50);
-
-    color:
-        var(--pink-700);
-
-    font-size:10px;
-
-    font-weight:700;
-
-}
-
-
 .price-defined {
 
-    font-size:14px;
+    font-size:13px;
 
     font-weight:750;
-
-    color:
-        var(--text);
 
 }
 
@@ -857,14 +779,16 @@ td {
 
     border-radius:999px;
 
-    font-size:10px;
+    font-size:9px;
 
-    font-weight:700;
+    font-weight:750;
+
+    white-space:nowrap;
 
 }
 
 
-.badge-active {
+.badge-defined {
 
     background:
         var(--green-bg);
@@ -875,7 +799,18 @@ td {
 }
 
 
-.badge-inactive {
+.badge-undefined {
+
+    background:
+        var(--yellow-bg);
+
+    color:
+        var(--yellow);
+
+}
+
+
+.badge-history {
 
     background:
         var(--gray-bg);
@@ -886,7 +821,18 @@ td {
 }
 
 
-.action {
+.version {
+
+    font-weight:750;
+
+    color:
+        var(--pink-700);
+
+}
+
+
+.action-define,
+.action-invalidate {
 
     min-height:39px;
 
@@ -894,11 +840,22 @@ td {
         0
         12px;
 
+    border-radius:10px;
+
+    font-size:10px;
+
+    font-weight:750;
+
+    white-space:nowrap;
+
+}
+
+
+.action-define {
+
     border:
         1px solid
         var(--pink-200);
-
-    border-radius:10px;
 
     background:
         var(--pink-50);
@@ -906,17 +863,20 @@ td {
     color:
         var(--pink-700);
 
-    font-size:11px;
-
-    font-weight:700;
-
 }
 
 
-.action:hover {
+.action-invalidate {
+
+    border:
+        1px solid
+        #efc4d0;
 
     background:
-        var(--pink-100);
+        var(--danger-bg);
+
+    color:
+        var(--danger);
 
 }
 
@@ -926,7 +886,7 @@ td {
     color:
         var(--text3);
 
-    font-size:11px;
+    font-size:10px;
 
 }
 
@@ -959,7 +919,7 @@ td {
 
 
 /* =========================================================
-   MOBILE CARDS
+   MOBILE
 ========================================================= */
 
 .mobile-list {
@@ -981,7 +941,7 @@ td {
 
     border-radius:16px;
 
-    background:#ffffff;
+    background:#fff;
 
 }
 
@@ -1015,10 +975,10 @@ td {
 
     margin-top:3px;
 
+    font-size:10px;
+
     color:
         var(--text3);
-
-    font-size:10px;
 
 }
 
@@ -1032,8 +992,6 @@ td {
         1fr;
 
     gap:8px;
-
-    margin-bottom:12px;
 
 }
 
@@ -1052,7 +1010,7 @@ td {
 
 .price-info-label {
 
-    font-size:10px;
+    font-size:9px;
 
     color:
         var(--text3);
@@ -1064,9 +1022,12 @@ td {
 
     margin-top:3px;
 
-    font-size:12px;
+    font-size:11px;
 
-    font-weight:700;
+    font-weight:650;
+
+    word-break:
+        break-word;
 
 }
 
@@ -1077,22 +1038,11 @@ td {
 
     min-height:47px;
 
-    border:
-        1px solid
-        var(--pink-200);
+    margin-top:11px;
 
     border-radius:12px;
 
-    background:
-        linear-gradient(
-            135deg,
-            var(--pink-500),
-            var(--pink-600)
-        );
-
-    color:#ffffff;
-
-    font-weight:700;
+    font-weight:750;
 
 }
 
@@ -1150,7 +1100,7 @@ td {
 
     border-radius:20px;
 
-    background:#ffffff;
+    background:#fff;
 
     box-shadow:
         0 25px 70px
@@ -1166,12 +1116,6 @@ td {
 
 .modal-head {
 
-    position:sticky;
-
-    top:0;
-
-    z-index:2;
-
     display:flex;
 
     align-items:center;
@@ -1184,8 +1128,6 @@ td {
     padding:
         18px
         20px;
-
-    background:#ffffff;
 
     border-bottom:
         1px solid
@@ -1266,6 +1208,27 @@ td {
 }
 
 
+.modal-warning {
+
+    margin-bottom:15px;
+
+    padding:12px;
+
+    border-radius:12px;
+
+    background:
+        var(--yellow-bg);
+
+    color:
+        #8c611b;
+
+    font-size:10px;
+
+    line-height:1.7;
+
+}
+
+
 .form-group {
 
     margin-bottom:15px;
@@ -1279,12 +1242,12 @@ td {
 
     margin-bottom:7px;
 
-    color:
-        var(--text2);
-
     font-size:12px;
 
     font-weight:650;
+
+    color:
+        var(--text2);
 
 }
 
@@ -1306,8 +1269,6 @@ td {
     border-radius:12px;
 
     outline:none;
-
-    background:#ffffff;
 
     font-size:16px;
 
@@ -1332,8 +1293,6 @@ td {
 
     font-size:10px;
 
-    line-height:1.6;
-
     color:
         var(--text3);
 
@@ -1341,10 +1300,6 @@ td {
 
 
 .modal-footer {
-
-    position:sticky;
-
-    bottom:0;
 
     display:grid;
 
@@ -1358,8 +1313,6 @@ td {
         15px
         20px
         20px;
-
-    background:#ffffff;
 
     border-top:
         1px solid
@@ -1386,7 +1339,7 @@ td {
         1px solid
         var(--border);
 
-    background:#ffffff;
+    background:#fff;
 
 }
 
@@ -1395,7 +1348,7 @@ td {
 
     border:0;
 
-    color:#ffffff;
+    color:#fff;
 
     background:
         linear-gradient(
@@ -1430,7 +1383,7 @@ td {
 
     bottom:18px;
 
-    max-width:400px;
+    max-width:420px;
 
     padding:
         13px
@@ -1438,7 +1391,7 @@ td {
 
     border-radius:12px;
 
-    font-size:13px;
+    font-size:12px;
 
     box-shadow:
         var(--shadow);
@@ -1546,21 +1499,15 @@ td {
 ========================================================= */
 
 @media
-(max-width:1000px) {
+(max-width:1100px) {
 
     .stats {
 
         grid-template-columns:
-            1fr
-            1fr;
-
-    }
-
-
-    .toolbar {
-
-        grid-template-columns:
-            1fr;
+            repeat(
+                2,
+                1fr
+            );
 
     }
 
@@ -1592,8 +1539,6 @@ td {
         width:38px;
 
         height:38px;
-
-        flex-basis:38px;
 
     }
 
@@ -1627,8 +1572,6 @@ td {
             0
             13px;
 
-        font-size:11px;
-
     }
 
 
@@ -1650,21 +1593,12 @@ td {
 
         margin-bottom:13px;
 
-        border-radius:18px;
-
     }
 
 
     .hero h1 {
 
         font-size:21px;
-
-    }
-
-
-    .hero p {
-
-        font-size:12px;
 
     }
 
@@ -1677,37 +1611,31 @@ td {
 
         gap:8px;
 
-        margin-bottom:12px;
-
     }
 
 
     .stat {
 
-        min-height:92px;
+        min-height:90px;
 
-        padding:14px;
+        padding:13px;
 
     }
 
 
     .stat-value {
 
-        font-size:20px;
+        font-size:19px;
 
     }
 
 
     .toolbar {
 
-        padding:10px;
-
         grid-template-columns:
             1fr;
 
-        gap:8px;
-
-        margin-bottom:11px;
+        padding:10px;
 
     }
 
@@ -1717,8 +1645,6 @@ td {
         align-items:flex-start;
 
         flex-direction:column;
-
-        padding:13px;
 
     }
 
@@ -1909,33 +1835,24 @@ td {
 <main class="main">
 
 
-<!-- =========================================================
-     HERO
-========================================================= -->
-
 <section class="hero">
 
 
-    <div class="hero-content">
-
-
-        <div class="hero-tag">
-            CITY SALES PRICE
-        </div>
-
-
-        <h1>
-            城市销售价格
-        </h1>
-
-
-        <p>
-            平台统一建立产品名录，各个已开通服务城市分别定义本地销售价格。
-            新开通城市的产品销售价格初始为“未定义”，由有权限的管理人员根据当地市场情况填写。
-        </p>
-
-
+    <div class="hero-tag">
+        CITY SALES PRICE
     </div>
+
+
+    <h1>
+        城市销售价格
+    </h1>
+
+
+    <p>
+        城市销售价格实行历史版本管理。
+        新记录初始为“未定义”；价格一旦定义后不能直接修改。
+        如需调整，必须先将原价格设为无效，系统永久保留原价格，并自动生成下一版本的未定义价格记录。
+    </p>
 
 
 </section>
@@ -1968,7 +1885,7 @@ td {
     <div class="stat">
 
         <div class="stat-label">
-            当前城市产品
+            当前城市服务项目
         </div>
 
         <div
@@ -1984,7 +1901,7 @@ td {
     <div class="stat">
 
         <div class="stat-label">
-            已定义销售价
+            当前已定义价格
         </div>
 
         <div
@@ -2000,7 +1917,7 @@ td {
     <div class="stat">
 
         <div class="stat-label">
-            未定义销售价
+            当前未定义价格
         </div>
 
         <div
@@ -2010,8 +1927,24 @@ td {
             0
         </div>
 
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-label">
+            历史价格记录
+        </div>
+
+        <div
+            id="statHistory"
+            class="stat-value"
+        >
+            0
+        </div>
+
         <div class="stat-note">
-            需要本地管理人员定义
+            已失效版本永久保留
         </div>
 
     </div>
@@ -2045,7 +1978,7 @@ td {
         id="searchInput"
         class="input"
         type="search"
-        placeholder="搜索产品名称或产品编号"
+        placeholder="搜索服务项目名称或编号"
         oninput="renderPrices()"
     >
 
@@ -2056,16 +1989,24 @@ td {
         onchange="renderPrices()"
     >
 
-        <option value="">
-            全部价格状态
+        <option value="active">
+            当前有效价格
         </option>
 
         <option value="undefined">
-            未定义
+            当前未定义
         </option>
 
         <option value="defined">
-            已定义
+            当前已定义
+        </option>
+
+        <option value="history">
+            历史已失效价格
+        </option>
+
+        <option value="all">
+            全部版本
         </option>
 
     </select>
@@ -2117,86 +2058,94 @@ td {
 
 
 <!-- =========================================================
-     PANEL
+     TABLE
 ========================================================= -->
 
 <section class="panel">
 
 
-    <div class="table-scroll">
+<div class="table-scroll">
 
 
-        <table>
+<table>
 
 
-            <thead>
+<thead>
 
 
-                <tr>
+<tr>
 
-                    <th>
-                        产品
-                    </th>
+    <th>
+        服务项目
+    </th>
 
-                    <th>
-                        产品类型
-                    </th>
+    <th>
+        城市
+    </th>
 
-                    <th>
-                        城市
-                    </th>
+    <th>
+        版本
+    </th>
 
-                    <th>
-                        销售价格
-                    </th>
+    <th>
+        销售价格
+    </th>
 
-                    <th>
-                        价格状态
-                    </th>
+    <th>
+        修改人
+    </th>
 
-                    <th>
-                        操作
-                    </th>
+    <th>
+        修改时间
+    </th>
 
-                </tr>
+    <th>
+        状态
+    </th>
 
+    <th>
+        操作
+    </th>
 
-            </thead>
-
-
-            <tbody
-                id="priceTable"
-            >
-            </tbody>
-
-
-        </table>
+</tr>
 
 
+</thead>
+
+
+<tbody
+    id="priceTable"
+>
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+
+<div
+    id="mobileList"
+    class="mobile-list"
+>
+</div>
+
+
+
+<div
+    id="emptyState"
+    class="empty"
+>
+
+    <div class="empty-icon">
+        💗
     </div>
 
+    请选择一个已经开展业务的城市
 
-
-    <div
-        id="mobileList"
-        class="mobile-list"
-    >
-    </div>
-
-
-
-    <div
-        id="emptyState"
-        class="empty"
-    >
-
-        <div class="empty-icon">
-            💗
-        </div>
-
-        请选择一个已经开展业务的城市
-
-    </div>
+</div>
 
 
 </section>
@@ -2207,7 +2156,7 @@ td {
 
 
 <!-- =========================================================
-     PRICE MODAL
+     DEFINE PRICE MODAL
 ========================================================= -->
 
 <div
@@ -2264,6 +2213,17 @@ td {
     </div>
 
 
+    <div class="modal-warning">
+
+        当前版本只能定义一次。
+
+        <br>
+
+        保存后不能直接修改。如以后需要调整销售价格，请先将当前价格“设为无效”，系统会自动生成下一版本的未定义价格。
+
+    </div>
+
+
 
     <div class="form-group">
 
@@ -2285,7 +2245,7 @@ td {
 
 
         <div class="form-hint">
-            留空表示“未定义”。金额不能小于0。
+            必须填写大于或等于0的金额。
         </div>
 
 
@@ -2312,7 +2272,7 @@ td {
         class="save-button"
         onclick="savePrice()"
     >
-        保存价格
+        确认定义
     </button>
 
 
@@ -2338,7 +2298,7 @@ td {
 
 
 /* =========================================================
-   01. Supabase
+   01. SUPABASE
 ========================================================= */
 
 
@@ -2420,6 +2380,10 @@ let cityPrices =
     [];
 
 
+let managementProfiles =
+    [];
+
+
 let currentCityId =
     null;
 
@@ -2428,12 +2392,16 @@ let currentRows =
     [];
 
 
-let editingProductId =
+let definingPriceId =
     null;
 
 
 let canEditPrice =
     false;
+
+
+let profilesMap =
+    new Map();
 
 
 
@@ -2496,7 +2464,9 @@ async function initialize() {
 
             loadServiceAreas(),
 
-            loadProducts()
+            loadProducts(),
+
+            loadManagementProfiles()
 
         ]);
 
@@ -2557,16 +2527,32 @@ async function initialize() {
 
 
 
+            const cityIds =
+                [
+                    ...new Set(
+
+                        accessible.map(
+
+                            area =>
+                                String(
+                                    area.city_id
+                                )
+
+                        )
+
+                    )
+                ];
+
+
+
             if (
-                accessible.length ===
+                cityIds.length ===
                 1
             ) {
 
 
                 const cityId =
-                    String(
-                        accessible[0].city_id
-                    );
+                    cityIds[0];
 
 
                 document.getElementById(
@@ -2672,6 +2658,15 @@ async function verifyAccess() {
     ) {
 
 
+        await supabaseClient.auth
+            .signOut();
+
+
+        location.replace(
+            LOGIN_PAGE
+        );
+
+
         throw new Error(
             "无法读取当前管理账号资料。"
         );
@@ -2688,6 +2683,11 @@ async function verifyAccess() {
 
         await supabaseClient.auth
             .signOut();
+
+
+        location.replace(
+            LOGIN_PAGE
+        );
 
 
         throw new Error(
@@ -2719,18 +2719,13 @@ async function verifyAccess() {
     ) {
 
 
-        alert(
-            "当前账号没有城市销售价格页面访问权限。"
-        );
-
-
         location.replace(
             HOME_PAGE
         );
 
 
         throw new Error(
-            "没有访问权限"
+            "当前账号没有城市销售价格页面访问权限。"
         );
 
     }
@@ -2816,17 +2811,6 @@ async function verifyAccess() {
 
     }
 
-
-
-    /*
-        1.0版本价格编辑权限：
-
-        founder
-        platform_admin
-        city_admin
-
-        省管理员只查看
-    */
 
 
     canEditPrice =
@@ -3054,7 +3038,97 @@ async function loadProducts() {
 
 
 /* =========================================================
-   08. ACCESSIBLE CITIES
+   08. MODIFIER PROFILES
+========================================================= */
+
+
+async function loadManagementProfiles() {
+
+
+    const {
+
+        data,
+
+        error
+
+    } =
+
+    await supabaseClient
+
+        .from(
+            "profiles"
+        )
+
+        .select(`
+            id,
+            full_name,
+            login_email,
+            role,
+            status
+        `);
+
+
+
+    /*
+        如果当前RLS不允许读取全部profiles，
+        不影响城市价格功能。
+        修改人会退化显示为“平台管理人员”。
+    */
+
+    if (error) {
+
+
+        console.warn(
+            "读取修改人资料受限：",
+            error
+        );
+
+
+        managementProfiles =
+            [];
+
+
+        profilesMap =
+            new Map();
+
+
+        return;
+
+    }
+
+
+
+    managementProfiles =
+        data
+        ||
+        [];
+
+
+    profilesMap =
+        new Map(
+
+            managementProfiles.map(
+
+                item => [
+
+                    String(
+                        item.id
+                    ),
+
+                    item
+
+                ]
+
+            )
+
+        );
+
+}
+
+
+
+/* =========================================================
+   09. ACCESSIBLE AREAS
 ========================================================= */
 
 
@@ -3140,6 +3214,11 @@ function getAccessibleServiceAreas() {
 
 
 
+/* =========================================================
+   10. ACCESSIBLE CITY IDS
+========================================================= */
+
+
 function accessibleCityIds() {
 
 
@@ -3163,38 +3242,26 @@ function accessibleCityIds() {
 
 
 /* =========================================================
-   09. BUILD ACCESS
+   11. CITY STATS
 ========================================================= */
 
 
 function buildAccessibleCities() {
 
 
-    const areas =
-        getAccessibleServiceAreas();
-
-
-
     document.getElementById(
         "statCities"
     ).textContent =
-        new Set(
 
-            areas.map(
-                item =>
-                    String(
-                        item.city_id
-                    )
-            )
-
-        ).size;
+        accessibleCityIds()
+        .size;
 
 }
 
 
 
 /* =========================================================
-   10. CITY FILTER
+   12. CITY FILTER
 ========================================================= */
 
 
@@ -3216,17 +3283,13 @@ function fillCityFilter() {
 
 
 
-    const areas =
-        getAccessibleServiceAreas();
-
-
-
     const used =
         new Set();
 
 
 
-    areas.forEach(
+    getAccessibleServiceAreas()
+    .forEach(
 
         area => {
 
@@ -3257,19 +3320,6 @@ function fillCityFilter() {
 
 
 
-            const province =
-                provinceName(
-                    area.province_id
-                );
-
-
-            const city =
-                cityName(
-                    area.city_id
-                );
-
-
-
             const option =
                 document.createElement(
                     "option"
@@ -3281,7 +3331,9 @@ function fillCityFilter() {
 
 
             option.textContent =
-                `${formatNo(area.area_no)}｜${province} · ${city}`;
+
+                `${formatNo(area.area_no)}｜${provinceName(area.province_id)} · ${cityName(area.city_id)}`;
+
 
 
             select.appendChild(
@@ -3297,32 +3349,32 @@ function fillCityFilter() {
 
 
 /* =========================================================
-   11. CITY CHANGED
+   13. CITY CHANGE
 ========================================================= */
 
 
 async function cityChanged() {
 
 
-    const value =
+    const cityId =
         document.getElementById(
             "cityFilter"
         ).value;
 
 
 
-    if (!value) {
+    if (!cityId) {
 
 
         currentCityId =
             null;
 
 
-        currentRows =
+        cityPrices =
             [];
 
 
-        cityPrices =
+        currentRows =
             [];
 
 
@@ -3346,7 +3398,7 @@ async function cityChanged() {
 
 
     await selectCity(
-        value
+        cityId
     );
 
 }
@@ -3354,7 +3406,7 @@ async function cityChanged() {
 
 
 /* =========================================================
-   12. SELECT CITY
+   14. SELECT CITY
 ========================================================= */
 
 
@@ -3374,7 +3426,7 @@ async function selectCity(
 
 
         showToast(
-            "当前账号没有该城市的价格管理权限。",
+            "当前账号没有该城市访问权限。",
             "error"
         );
 
@@ -3399,7 +3451,6 @@ async function selectCity(
     buildCurrentRows();
 
 
-
     renderCurrentCity();
 
 
@@ -3413,7 +3464,7 @@ async function selectCity(
 
 
 /* =========================================================
-   13. LOAD CITY PRICES
+   15. LOAD PRICE HISTORY
 ========================================================= */
 
 
@@ -3450,10 +3501,19 @@ async function loadCityPrices() {
         )
 
         .select(`
+            id,
             city_id,
             product_id,
             price,
-            status
+            status,
+            version_no,
+            previous_price_id,
+            created_by,
+            created_at,
+            updated_by,
+            updated_at,
+            invalidated_by,
+            invalidated_at
         `)
 
         .eq(
@@ -3461,6 +3521,20 @@ async function loadCityPrices() {
             Number(
                 currentCityId
             )
+        )
+
+        .order(
+            "product_id",
+            {
+                ascending:true
+            }
+        )
+
+        .order(
+            "version_no",
+            {
+                ascending:false
+            }
         );
 
 
@@ -3484,30 +3558,76 @@ async function loadCityPrices() {
 
 
 /* =========================================================
-   14. BUILD ROWS
+   16. BUILD CURRENT ROWS
 ========================================================= */
 
 
 function buildCurrentRows() {
 
 
-    const priceMap =
-        new Map();
+    const rows =
+        [];
 
 
 
-    cityPrices.forEach(
+    products.forEach(
 
-        item => {
+        product => {
 
 
-            priceMap.set(
+            const histories =
+                cityPrices
 
-                String(
-                    item.product_id
-                ),
+                .filter(
 
-                item
+                    price =>
+                        String(
+                            price.product_id
+                        )
+                        ===
+                        String(
+                            product.id
+                        )
+
+                )
+
+                .sort(
+
+                    (
+                        a,
+                        b
+                    ) =>
+
+                        Number(
+                            b.version_no
+                            ||
+                            1
+                        )
+                        -
+                        Number(
+                            a.version_no
+                            ||
+                            1
+                        )
+
+                );
+
+
+
+            histories.forEach(
+
+                priceRow => {
+
+
+                    rows.push({
+
+                        product,
+
+                        priceRow
+
+                    });
+
+                }
 
             );
 
@@ -3518,40 +3638,14 @@ function buildCurrentRows() {
 
 
     currentRows =
-        products.map(
-
-            product => {
-
-
-                const priceRow =
-                    priceMap.get(
-                        String(
-                            product.id
-                        )
-                    )
-                    ||
-                    null;
-
-
-
-                return {
-
-                    product,
-
-                    priceRow
-
-                };
-
-            }
-
-        );
+        rows;
 
 }
 
 
 
 /* =========================================================
-   15. CURRENT CITY
+   17. CURRENT CITY
 ========================================================= */
 
 
@@ -3607,24 +3701,11 @@ function renderCurrentCity() {
 
 
 
-    let note =
-        "";
+    let note;
 
 
 
     if (
-        currentProfile.role ===
-        "city_admin"
-    ) {
-
-
-        note =
-            "您负责本城市销售价格维护";
-
-    }
-
-
-    else if (
         currentProfile.role ===
         "province_admin"
     ) {
@@ -3636,11 +3717,23 @@ function renderCurrentCity() {
     }
 
 
+    else if (
+        currentProfile.role ===
+        "city_admin"
+    ) {
+
+
+        note =
+            "本市价格实行历史版本管理，已定义价格不能直接修改";
+
+    }
+
+
     else {
 
 
         note =
-            "平台管理人员可维护该城市销售价格";
+            "价格实行历史版本管理，调整价格必须先设为无效";
 
     }
 
@@ -3656,7 +3749,151 @@ function renderCurrentCity() {
 
 
 /* =========================================================
-   16. RENDER
+   18. FILTERED ROWS
+========================================================= */
+
+
+function getFilteredRows() {
+
+
+    const keyword =
+        document.getElementById(
+            "searchInput"
+        )
+        .value
+        .trim()
+        .toLowerCase();
+
+
+
+    const filter =
+        document.getElementById(
+            "priceFilter"
+        ).value;
+
+
+
+    return currentRows.filter(
+
+        row => {
+
+
+            const product =
+                row.product;
+
+
+            const priceRow =
+                row.priceRow;
+
+
+
+            const text =
+                `
+                ${getProductName(product)}
+                ${getProductCode(product)}
+                `
+                .toLowerCase();
+
+
+
+            if (
+                keyword
+                &&
+                !text.includes(
+                    keyword
+                )
+            ) {
+
+
+                return false;
+
+            }
+
+
+
+            const defined =
+                isPriceDefined(
+                    priceRow
+                );
+
+
+
+            if (
+                filter ===
+                "active"
+            ) {
+
+
+                return (
+                    priceRow.status ===
+                    "active"
+                );
+
+            }
+
+
+
+            if (
+                filter ===
+                "undefined"
+            ) {
+
+
+                return (
+                    priceRow.status ===
+                    "active"
+                    &&
+                    !defined
+                );
+
+            }
+
+
+
+            if (
+                filter ===
+                "defined"
+            ) {
+
+
+                return (
+                    priceRow.status ===
+                    "active"
+                    &&
+                    defined
+                );
+
+            }
+
+
+
+            if (
+                filter ===
+                "history"
+            ) {
+
+
+                return (
+                    priceRow.status ===
+                    "inactive"
+                );
+
+            }
+
+
+
+            return true;
+
+        }
+
+    );
+
+}
+
+
+
+/* =========================================================
+   19. RENDER
 ========================================================= */
 
 
@@ -3717,109 +3954,8 @@ function renderPrices() {
 
 
 
-    const keyword =
-        document.getElementById(
-            "searchInput"
-        )
-        .value
-        .trim()
-        .toLowerCase();
-
-
-
-    const priceFilter =
-        document.getElementById(
-            "priceFilter"
-        ).value;
-
-
-
     const rows =
-        currentRows.filter(
-
-            row => {
-
-
-                const name =
-                    getProductName(
-                        row.product
-                    );
-
-
-                const code =
-                    getProductCode(
-                        row.product
-                    );
-
-
-                const text =
-                    `${name} ${code}`
-                    .toLowerCase();
-
-
-
-                if (
-                    keyword
-                    &&
-                    !text.includes(
-                        keyword
-                    )
-                ) {
-
-
-                    return false;
-
-                }
-
-
-
-                const price =
-                    row.priceRow?.price;
-
-
-
-                const isDefined =
-                    price !== null
-                    &&
-                    price !== undefined
-                    &&
-                    price !== "";
-
-
-
-                if (
-                    priceFilter ===
-                    "defined"
-                    &&
-                    !isDefined
-                ) {
-
-
-                    return false;
-
-                }
-
-
-
-                if (
-                    priceFilter ===
-                    "undefined"
-                    &&
-                    isDefined
-                ) {
-
-
-                    return false;
-
-                }
-
-
-
-                return true;
-
-            }
-
-        );
+        getFilteredRows();
 
 
 
@@ -3837,10 +3973,10 @@ function renderPrices() {
         empty.innerHTML =
             `
             <div class="empty-icon">
-                📦
+                📋
             </div>
 
-            暂无符合条件的产品价格
+            暂无符合条件的城市销售价格
             `;
 
 
@@ -3853,13 +3989,6 @@ function renderPrices() {
     empty.classList.add(
         "hidden"
     );
-
-
-
-    const city =
-        cityName(
-            currentCityId
-        );
 
 
 
@@ -3876,27 +4005,22 @@ function renderPrices() {
                 row.priceRow;
 
 
-
-            const price =
-                priceRow?.price
-                ??
-                null;
-
+            const city =
+                cityName(
+                    currentCityId
+                );
 
 
             const defined =
-                price !== null
-                &&
-                price !== undefined
-                &&
-                price !== "";
+                isPriceDefined(
+                    priceRow
+                );
 
 
-
-            const status =
-                priceRow?.status
-                ||
-                "active";
+            const statusHtml =
+                getPriceStatusHtml(
+                    priceRow
+                );
 
 
 
@@ -3905,13 +4029,12 @@ function renderPrices() {
                 "beforeend",
 
                 `
-
                 <tr>
 
 
                     <td>
 
-                        <div class="product-name">
+                        <div class="service-name">
                             ${escapeHtml(
                                 getProductName(
                                     product
@@ -3919,7 +4042,7 @@ function renderPrices() {
                             )}
                         </div>
 
-                        <div class="product-code">
+                        <div class="service-code">
                             ${escapeHtml(
                                 getProductCode(
                                     product
@@ -3931,87 +4054,61 @@ function renderPrices() {
 
 
                     <td>
-
-                        <span class="product-type">
-                            ${escapeHtml(
-                                getProductTypeText(
-                                    product
-                                )
-                            )}
-                        </span>
-
-                    </td>
-
-
-                    <td>
                         ${escapeHtml(city)}
                     </td>
 
 
-                    <td>
+                    <td class="version">
+                        V${escapeHtml(
+                            priceRow.version_no
+                            ||
+                            1
+                        )}
+                    </td>
 
-                        ${
-                            formatPrice(
-                                price
+
+                    <td>
+                        ${formatPrice(
+                            priceRow.price
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            getModifierName(
+                                priceRow
                             )
-                        }
+                        )}
+                    </td>
 
+
+                    <td>
+                        ${escapeHtml(
+                            getModifiedTime(
+                                priceRow
+                            )
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${statusHtml}
                     </td>
 
 
                     <td>
 
-                        ${
+                        ${renderDesktopAction(
+                            priceRow,
+                            product,
                             defined
-                            ?
-                            `
-                            <span class="badge badge-active">
-                                已定义
-                            </span>
-                            `
-                            :
-                            `
-                            <span class="badge badge-inactive">
-                                未定义
-                            </span>
-                            `
-                        }
-
-                    </td>
-
-
-                    <td>
-
-                        ${
-                            canEditPrice
-                            ?
-                            `
-                            <button
-                                class="action"
-                                onclick="openPriceModal(${Number(product.id)})"
-                            >
-                                ${
-                                    defined
-                                    ?
-                                    "修改价格"
-                                    :
-                                    "定义价格"
-                                }
-                            </button>
-                            `
-                            :
-                            `
-                            <span class="readonly-text">
-                                仅查看
-                            </span>
-                            `
-                        }
+                        )}
 
                     </td>
 
 
                 </tr>
-
                 `
 
             );
@@ -4022,151 +4119,11 @@ function renderPrices() {
 
                 "beforeend",
 
-                `
-
-                <div class="price-card">
-
-
-                    <div class="price-card-head">
-
-
-                        <div>
-
-
-                            <div class="price-card-name">
-                                ${escapeHtml(
-                                    getProductName(
-                                        product
-                                    )
-                                )}
-                            </div>
-
-
-                            <div class="price-card-code">
-                                ${escapeHtml(
-                                    getProductCode(
-                                        product
-                                    )
-                                )}
-                            </div>
-
-
-                        </div>
-
-
-                        <span class="product-type">
-                            ${escapeHtml(
-                                getProductTypeText(
-                                    product
-                                )
-                            )}
-                        </span>
-
-
-                    </div>
-
-
-
-                    <div class="price-grid">
-
-
-                        <div class="price-info">
-
-                            <div class="price-info-label">
-                                城市
-                            </div>
-
-                            <div class="price-info-value">
-                                ${escapeHtml(city)}
-                            </div>
-
-                        </div>
-
-
-                        <div class="price-info">
-
-                            <div class="price-info-label">
-                                销售价格
-                            </div>
-
-                            <div class="price-info-value">
-                                ${formatPrice(price)}
-                            </div>
-
-                        </div>
-
-
-                        <div class="price-info">
-
-                            <div class="price-info-label">
-                                价格状态
-                            </div>
-
-                            <div class="price-info-value">
-                                ${
-                                    defined
-                                    ?
-                                    "已定义"
-                                    :
-                                    "未定义"
-                                }
-                            </div>
-
-                        </div>
-
-
-                        <div class="price-info">
-
-                            <div class="price-info-label">
-                                数据状态
-                            </div>
-
-                            <div class="price-info-value">
-                                ${
-                                    status ===
-                                    "active"
-                                    ?
-                                    "有效"
-                                    :
-                                    "无效"
-                                }
-                            </div>
-
-                        </div>
-
-
-                    </div>
-
-
-                    ${
-                        canEditPrice
-                        ?
-                        `
-                        <button
-                            class="mobile-action"
-                            onclick="openPriceModal(${Number(product.id)})"
-                        >
-                            ${
-                                defined
-                                ?
-                                "修改销售价格"
-                                :
-                                "定义销售价格"
-                            }
-                        </button>
-                        `
-                        :
-                        `
-                        <div class="readonly-text">
-                            当前账号仅可查看该城市销售价格
-                        </div>
-                        `
-                    }
-
-
-                </div>
-
-                `
+                renderMobileCard(
+                    priceRow,
+                    product,
+                    city
+                )
 
             );
 
@@ -4179,7 +4136,375 @@ function renderPrices() {
 
 
 /* =========================================================
-   17. STATS
+   20. DESKTOP ACTION
+========================================================= */
+
+
+function renderDesktopAction(
+    priceRow,
+    product,
+    defined
+) {
+
+
+    if (
+        priceRow.status ===
+        "inactive"
+    ) {
+
+
+        return `
+            <span class="readonly-text">
+                历史记录
+            </span>
+        `;
+
+    }
+
+
+
+    if (
+        !canEditPrice
+    ) {
+
+
+        return `
+            <span class="readonly-text">
+                仅查看
+            </span>
+        `;
+
+    }
+
+
+
+    if (!defined) {
+
+
+        return `
+            <button
+                class="action-define"
+                onclick="openPriceModal(${Number(priceRow.id)})"
+            >
+                定义价格
+            </button>
+        `;
+
+    }
+
+
+
+    return `
+        <button
+            class="action-invalidate"
+            onclick="invalidatePrice(${Number(priceRow.id)})"
+        >
+            设为无效
+        </button>
+    `;
+
+}
+
+
+
+/* =========================================================
+   21. MOBILE CARD
+========================================================= */
+
+
+function renderMobileCard(
+    priceRow,
+    product,
+    city
+) {
+
+
+    const defined =
+        isPriceDefined(
+            priceRow
+        );
+
+
+    let action =
+        "";
+
+
+
+    if (
+        priceRow.status ===
+        "active"
+        &&
+        canEditPrice
+        &&
+        !defined
+    ) {
+
+
+        action =
+            `
+            <button
+                class="
+                    mobile-action
+                    action-define
+                "
+                onclick="openPriceModal(${Number(priceRow.id)})"
+            >
+                定义销售价格
+            </button>
+            `;
+
+    }
+
+
+    else if (
+        priceRow.status ===
+        "active"
+        &&
+        canEditPrice
+        &&
+        defined
+    ) {
+
+
+        action =
+            `
+            <button
+                class="
+                    mobile-action
+                    action-invalidate
+                "
+                onclick="invalidatePrice(${Number(priceRow.id)})"
+            >
+                设为无效并生成新版本
+            </button>
+            `;
+
+    }
+
+
+
+    return `
+        <div class="price-card">
+
+
+            <div class="price-card-head">
+
+
+                <div>
+
+
+                    <div class="price-card-name">
+                        ${escapeHtml(
+                            getProductName(
+                                product
+                            )
+                        )}
+                    </div>
+
+
+                    <div class="price-card-code">
+                        ${escapeHtml(
+                            getProductCode(
+                                product
+                            )
+                        )}
+                    </div>
+
+
+                </div>
+
+
+                ${getPriceStatusHtml(
+                    priceRow
+                )}
+
+
+            </div>
+
+
+
+            <div class="price-grid">
+
+
+                <div class="price-info">
+
+                    <div class="price-info-label">
+                        城市
+                    </div>
+
+                    <div class="price-info-value">
+                        ${escapeHtml(city)}
+                    </div>
+
+                </div>
+
+
+                <div class="price-info">
+
+                    <div class="price-info-label">
+                        版本
+                    </div>
+
+                    <div class="price-info-value">
+                        V${escapeHtml(
+                            priceRow.version_no
+                            ||
+                            1
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="price-info">
+
+                    <div class="price-info-label">
+                        销售价格
+                    </div>
+
+                    <div class="price-info-value">
+                        ${formatPrice(
+                            priceRow.price
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="price-info">
+
+                    <div class="price-info-label">
+                        修改人
+                    </div>
+
+                    <div class="price-info-value">
+                        ${escapeHtml(
+                            getModifierName(
+                                priceRow
+                            )
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="price-info">
+
+                    <div class="price-info-label">
+                        修改时间
+                    </div>
+
+                    <div class="price-info-value">
+                        ${escapeHtml(
+                            getModifiedTime(
+                                priceRow
+                            )
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="price-info">
+
+                    <div class="price-info-label">
+                        状态
+                    </div>
+
+                    <div class="price-info-value">
+
+                        ${
+                            priceRow.status ===
+                            "inactive"
+
+                            ?
+
+                            "历史已失效"
+
+                            :
+
+                            (
+                                defined
+                                ?
+                                "已定义"
+                                :
+                                "未定义"
+                            )
+                        }
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            ${action}
+
+
+        </div>
+    `;
+
+}
+
+
+
+/* =========================================================
+   22. STATUS
+========================================================= */
+
+
+function getPriceStatusHtml(
+    priceRow
+) {
+
+
+    if (
+        priceRow.status ===
+        "inactive"
+    ) {
+
+
+        return `
+            <span class="badge badge-history">
+                历史无效
+            </span>
+        `;
+
+    }
+
+
+
+    if (
+        isPriceDefined(
+            priceRow
+        )
+    ) {
+
+
+        return `
+            <span class="badge badge-defined">
+                已定义
+            </span>
+        `;
+
+    }
+
+
+
+    return `
+        <span class="badge badge-undefined">
+            未定义
+        </span>
+    `;
+
+}
+
+
+
+/* =========================================================
+   23. STATS
 ========================================================= */
 
 
@@ -4209,36 +4534,54 @@ function updateCityStats() {
             0;
 
 
+        document.getElementById(
+            "statHistory"
+        ).textContent =
+            0;
+
+
         return;
 
     }
 
 
 
-    const total =
-        currentRows.length;
+    const activeRows =
+        currentRows.filter(
+
+            row =>
+                row.priceRow.status ===
+                "active"
+
+        );
 
 
 
     const defined =
+        activeRows.filter(
+
+            row =>
+                isPriceDefined(
+                    row.priceRow
+                )
+
+        ).length;
+
+
+
+    const undefinedCount =
+        activeRows.length
+        -
+        defined;
+
+
+
+    const history =
         currentRows.filter(
 
-            row => {
-
-
-                const price =
-                    row.priceRow?.price;
-
-
-                return (
-                    price !== null
-                    &&
-                    price !== undefined
-                    &&
-                    price !== ""
-                );
-
-            }
+            row =>
+                row.priceRow.status ===
+                "inactive"
 
         ).length;
 
@@ -4247,7 +4590,19 @@ function updateCityStats() {
     document.getElementById(
         "statProducts"
     ).textContent =
-        total;
+
+        new Set(
+
+            activeRows.map(
+
+                row =>
+                    String(
+                        row.product.id
+                    )
+
+            )
+
+        ).size;
 
 
 
@@ -4261,19 +4616,26 @@ function updateCityStats() {
     document.getElementById(
         "statUndefined"
     ).textContent =
-        total - defined;
+        undefinedCount;
+
+
+
+    document.getElementById(
+        "statHistory"
+    ).textContent =
+        history;
 
 }
 
 
 
 /* =========================================================
-   18. OPEN MODAL
+   24. OPEN DEFINE MODAL
 ========================================================= */
 
 
 function openPriceModal(
-    productId
+    priceId
 ) {
 
 
@@ -4283,7 +4645,38 @@ function openPriceModal(
 
 
         showToast(
-            "当前账号没有销售价格修改权限。",
+            "当前账号没有销售价格定义权限。",
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+
+    const priceRow =
+        cityPrices.find(
+
+            item =>
+                Number(
+                    item.id
+                )
+                ===
+                Number(
+                    priceId
+                )
+
+        );
+
+
+
+    if (!priceRow) {
+
+
+        showToast(
+            "没有找到价格记录。",
             "error"
         );
 
@@ -4295,12 +4688,13 @@ function openPriceModal(
 
 
     if (
-        !currentCityId
+        priceRow.status !==
+        "active"
     ) {
 
 
         showToast(
-            "请先选择城市。",
+            "历史价格不能重新定义。",
             "error"
         );
 
@@ -4311,27 +4705,15 @@ function openPriceModal(
 
 
 
-    const row =
-        currentRows.find(
-
-            item =>
-                Number(
-                    item.product.id
-                )
-                ===
-                Number(
-                    productId
-                )
-
-        );
-
-
-
-    if (!row) {
+    if (
+        isPriceDefined(
+            priceRow
+        )
+    ) {
 
 
         showToast(
-            "没有找到该产品。",
+            "该价格已经定义。如需调整，请先设为无效。",
             "error"
         );
 
@@ -4342,9 +4724,25 @@ function openPriceModal(
 
 
 
-    editingProductId =
+    definingPriceId =
         Number(
-            productId
+            priceId
+        );
+
+
+
+    const product =
+        products.find(
+
+            item =>
+                String(
+                    item.id
+                )
+                ===
+                String(
+                    priceRow.product_id
+                )
+
         );
 
 
@@ -4353,7 +4751,7 @@ function openPriceModal(
         "modalProductName"
     ).textContent =
         getProductName(
-            row.product
+            product
         );
 
 
@@ -4362,24 +4760,13 @@ function openPriceModal(
         "modalProductCity"
     ).textContent =
 
-        `${cityName(currentCityId)} · 当前销售价格：${
-            row.priceRow?.price === null
-            ||
-            row.priceRow?.price === undefined
-            ?
-            "未定义"
-            :
-            "¥" + Number(row.priceRow.price).toFixed(2)
-        }`;
+        `${cityName(priceRow.city_id)} · V${priceRow.version_no || 1} · 当前价格未定义`;
 
 
 
     document.getElementById(
         "priceInput"
     ).value =
-
-        row.priceRow?.price
-        ??
         "";
 
 
@@ -4395,14 +4782,14 @@ function openPriceModal(
 
 
 /* =========================================================
-   19. CLOSE MODAL
+   25. CLOSE MODAL
 ========================================================= */
 
 
 function closePriceModal() {
 
 
-    editingProductId =
+    definingPriceId =
         null;
 
 
@@ -4417,7 +4804,7 @@ function closePriceModal() {
 
 
 /* =========================================================
-   20. SAVE
+   26. DEFINE PRICE
 ========================================================= */
 
 
@@ -4429,12 +4816,6 @@ async function savePrice() {
     ) {
 
 
-        showToast(
-            "当前账号没有价格修改权限。",
-            "error"
-        );
-
-
         return;
 
     }
@@ -4442,9 +4823,7 @@ async function savePrice() {
 
 
     if (
-        !currentCityId
-        ||
-        editingProductId ===
+        definingPriceId ===
         null
     ) {
 
@@ -4464,42 +4843,69 @@ async function savePrice() {
 
 
 
-    let price =
-        null;
-
-
-
     if (
-        raw !==
+        raw ===
         ""
     ) {
 
 
-        price =
-            Number(
-                raw
-            );
+        showToast(
+            "请输入销售价格。",
+            "error"
+        );
+
+
+        return;
+
+    }
 
 
 
-        if (
-            !Number.isFinite(
-                price
-            )
-            ||
-            price < 0
-        ) {
+    const price =
+        Number(
+            raw
+        );
 
 
-            showToast(
-                "销售价格必须是大于或等于0的数字。",
-                "error"
-            );
+
+    if (
+        !Number.isFinite(
+            price
+        )
+        ||
+        price < 0
+    ) {
 
 
-            return;
+        showToast(
+            "销售价格必须是大于或等于0的数字。",
+            "error"
+        );
 
-        }
+
+        return;
+
+    }
+
+
+
+    const confirmed =
+        confirm(
+
+            `确定将销售价格定义为 ¥${price.toFixed(2)} 吗？\n\n` +
+
+            `保存后该版本不能直接修改。\n` +
+
+            `以后如需调整，只能先设为无效，再生成新的价格版本。`
+
+        );
+
+
+
+    if (!confirmed) {
+
+
+        return;
 
     }
 
@@ -4523,155 +4929,69 @@ async function savePrice() {
     try {
 
 
-        /*
-            先尝试更新现有城市价格记录
-        */
-
-
         const {
 
-            data:updateData,
+            data,
 
-            error:updateError
+            error
 
         } =
 
         await supabaseClient
 
-            .from(
-                "city_prices"
-            )
+            .rpc(
+                "define_city_price",
+                {
 
-            .update({
+                    p_price_id:
+                        Number(
+                            definingPriceId
+                        ),
 
-                price:
-                    price,
+                    p_price:
+                        price
 
-                status:
-                    "active"
-
-            })
-
-            .eq(
-                "city_id",
-                Number(
-                    currentCityId
-                )
-            )
-
-            .eq(
-                "product_id",
-                Number(
-                    editingProductId
-                )
-            )
-
-            .select(`
-                city_id,
-                product_id,
-                price,
-                status
-            `);
+                }
+            );
 
 
 
-        if (
-            updateError
-        ) {
+        if (error) {
 
 
-            throw updateError;
+            throw error;
 
         }
 
 
 
-        /*
-            理论上开通城市后已经自动建立city_prices。
-            如果数据库中意外缺失，则补建一条。
-        */
-
-
         if (
-            !updateData
-            ||
-            updateData.length ===
-            0
+            !data?.success
         ) {
 
 
-            const {
-
-                error:insertError
-
-            } =
-
-            await supabaseClient
-
-                .from(
-                    "city_prices"
-                )
-
-                .insert({
-
-                    city_id:
-                        Number(
-                            currentCityId
-                        ),
-
-                    product_id:
-                        Number(
-                            editingProductId
-                        ),
-
-                    price:
-                        price,
-
-                    status:
-                        "active"
-
-                });
-
-
-
-            if (
-                insertError
-            ) {
-
-
-                throw insertError;
-
-            }
+            throw new Error(
+                data?.error
+                ||
+                "价格定义失败。"
+            );
 
         }
-
-
-
-        showToast(
-            price ===
-            null
-            ?
-            "销售价格已设为未定义。"
-            :
-            "城市销售价格已保存。",
-            "success"
-        );
 
 
 
         closePriceModal();
 
 
-        await loadCityPrices();
+
+        await refreshCurrentCity();
 
 
-        buildCurrentRows();
 
-
-        renderPrices();
-
-
-        updateCityStats();
+        showToast(
+            "城市销售价格定义成功。",
+            "success"
+        );
 
 
     }
@@ -4680,7 +5000,6 @@ async function savePrice() {
 
 
         console.error(
-            "保存城市价格失败：",
             error
         );
 
@@ -4688,7 +5007,7 @@ async function savePrice() {
         showToast(
             error.message
             ||
-            "销售价格保存失败。",
+            "销售价格定义失败。",
             "error"
         );
 
@@ -4703,7 +5022,7 @@ async function savePrice() {
 
 
         button.textContent =
-            "保存价格";
+            "确认定义";
 
     }
 
@@ -4712,7 +5031,435 @@ async function savePrice() {
 
 
 /* =========================================================
-   21. PRODUCT HELPERS
+   27. INVALIDATE
+========================================================= */
+
+
+async function invalidatePrice(
+    priceId
+) {
+
+
+    if (
+        !canEditPrice
+    ) {
+
+
+        showToast(
+            "当前账号没有价格管理权限。",
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+
+    const priceRow =
+        cityPrices.find(
+
+            item =>
+                Number(
+                    item.id
+                )
+                ===
+                Number(
+                    priceId
+                )
+
+        );
+
+
+
+    if (!priceRow) {
+
+
+        return;
+
+    }
+
+
+
+    if (
+        priceRow.status !==
+        "active"
+    ) {
+
+
+        showToast(
+            "该价格已经是历史记录。",
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+
+    if (
+        !isPriceDefined(
+            priceRow
+        )
+    ) {
+
+
+        showToast(
+            "当前价格尚未定义，无需设为无效。",
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+
+    const product =
+        products.find(
+
+            item =>
+                String(
+                    item.id
+                )
+                ===
+                String(
+                    priceRow.product_id
+                )
+
+        );
+
+
+
+    const confirmed =
+        confirm(
+
+            `确定将该城市销售价格设为无效吗？\n\n` +
+
+            `服务项目：${getProductName(product)}\n` +
+
+            `城市：${cityName(priceRow.city_id)}\n` +
+
+            `版本：V${priceRow.version_no || 1}\n` +
+
+            `价格：¥${Number(priceRow.price).toFixed(2)}\n\n` +
+
+            `原价格将永久保留为历史记录。\n` +
+
+            `系统会自动生成下一版本的“未定义”价格。`
+
+        );
+
+
+
+    if (!confirmed) {
+
+
+        return;
+
+    }
+
+
+
+    try {
+
+
+        const {
+
+            data,
+
+            error
+
+        } =
+
+        await supabaseClient
+
+            .rpc(
+                "invalidate_city_price",
+                {
+
+                    p_price_id:
+                        Number(
+                            priceId
+                        )
+
+                }
+            );
+
+
+
+        if (error) {
+
+
+            throw error;
+
+        }
+
+
+
+        if (
+            !data?.success
+        ) {
+
+
+            throw new Error(
+                data?.error
+                ||
+                "价格设为无效失败。"
+            );
+
+        }
+
+
+
+        await refreshCurrentCity();
+
+
+
+        showToast(
+
+            `原价格已设为无效，V${data.version_no} 未定义价格已自动建立。`,
+
+            "success"
+
+        );
+
+
+    }
+
+    catch(error) {
+
+
+        console.error(
+            error
+        );
+
+
+        showToast(
+            error.message
+            ||
+            "操作失败。",
+            "error"
+        );
+
+    }
+
+}
+
+
+
+/* =========================================================
+   28. REFRESH
+========================================================= */
+
+
+async function refreshCurrentCity() {
+
+
+    await loadCityPrices();
+
+
+    buildCurrentRows();
+
+
+    renderPrices();
+
+
+    updateCityStats();
+
+}
+
+
+
+/* =========================================================
+   29. PRICE STATE
+========================================================= */
+
+
+function isPriceDefined(
+    priceRow
+) {
+
+
+    return (
+
+        priceRow?.price !==
+        null
+
+        &&
+
+        priceRow?.price !==
+        undefined
+
+        &&
+
+        priceRow?.price !==
+        ""
+
+    );
+
+}
+
+
+
+/* =========================================================
+   30. MODIFIER
+========================================================= */
+
+
+function getModifierId(
+    priceRow
+) {
+
+
+    if (
+        priceRow.status ===
+        "inactive"
+    ) {
+
+
+        return (
+
+            priceRow.invalidated_by
+            ??
+            priceRow.updated_by
+            ??
+            null
+
+        );
+
+    }
+
+
+
+    return (
+        priceRow.updated_by
+        ??
+        null
+    );
+
+}
+
+
+
+function getModifierName(
+    priceRow
+) {
+
+
+    const id =
+        getModifierId(
+            priceRow
+        );
+
+
+
+    if (!id) {
+
+
+        return (
+            isPriceDefined(
+                priceRow
+            )
+            ?
+            "平台管理人员"
+            :
+            "-"
+        );
+
+    }
+
+
+
+    const profile =
+        profilesMap.get(
+            String(
+                id
+            )
+        );
+
+
+
+    if (!profile) {
+
+
+        return "平台管理人员";
+
+    }
+
+
+
+    return (
+
+        profile.full_name
+        ||
+        profile.login_email
+        ||
+        "平台管理人员"
+
+    );
+
+}
+
+
+
+/* =========================================================
+   31. MODIFIED TIME
+========================================================= */
+
+
+function getModifiedTime(
+    priceRow
+) {
+
+
+    if (
+        priceRow.status ===
+        "inactive"
+    ) {
+
+
+        return formatDateTime(
+
+            priceRow.invalidated_at
+            ??
+            priceRow.updated_at
+
+        );
+
+    }
+
+
+
+    if (
+        !isPriceDefined(
+            priceRow
+        )
+        &&
+        !priceRow.updated_by
+    ) {
+
+
+        return "-";
+
+    }
+
+
+
+    return formatDateTime(
+        priceRow.updated_at
+    );
+
+}
+
+
+
+/* =========================================================
+   32. PRODUCT
 ========================================================= */
 
 
@@ -4724,7 +5471,7 @@ function getProductName(
     if (!product) {
 
 
-        return "未知产品";
+        return "未知服务项目";
 
     }
 
@@ -4736,7 +5483,7 @@ function getProductName(
         ||
         product.name
         ||
-        "未命名产品"
+        "未命名服务项目"
 
     );
 
@@ -4764,7 +5511,7 @@ function getProductCode(
         ||
         product.code
         ||
-        `P${String(product.id).padStart(3,"0")}`
+        `S${String(product.id).padStart(3,"0")}`
 
     );
 
@@ -4772,71 +5519,14 @@ function getProductCode(
 
 
 
-function getProductTypeText(
-    product
-) {
-
-
-    const type =
-
-        product?.product_type
-        ??
-        product?.type
-        ??
-        "";
-
-
-
-    if (
-        type ===
-        "service"
-    ) {
-
-
-        return "服务类";
-
-    }
-
-
-
-    if (
-        type ===
-        "physical"
-        ||
-        type ===
-        "physical_goods"
-    ) {
-
-
-        return "实物类";
-
-    }
-
-
-
-    return "标准产品";
-
-}
-
-
-
 /* =========================================================
-   22. REGION HELPERS
+   33. REGIONS
 ========================================================= */
 
 
 function provinceName(
     id
 ) {
-
-
-    if (!id) {
-
-
-        return "-";
-
-    }
-
 
 
     return (
@@ -4869,15 +5559,6 @@ function cityName(
 ) {
 
 
-    if (!id) {
-
-
-        return "-";
-
-    }
-
-
-
     return (
 
         cities.find(
@@ -4904,7 +5585,7 @@ function cityName(
 
 
 /* =========================================================
-   23. PRICE
+   34. FORMAT PRICE
 ========================================================= */
 
 
@@ -4942,21 +5623,6 @@ function formatPrice(
 
 
 
-    if (
-        Number.isNaN(
-            number
-        )
-    ) {
-
-
-        return escapeHtml(
-            value
-        );
-
-    }
-
-
-
     return `
         <span class="price-defined">
             ¥${number.toFixed(2)}
@@ -4968,7 +5634,74 @@ function formatPrice(
 
 
 /* =========================================================
-   24. FORMAT
+   35. FORMAT DATE
+========================================================= */
+
+
+function formatDateTime(
+    value
+) {
+
+
+    if (!value) {
+
+
+        return "-";
+
+    }
+
+
+
+    const date =
+        new Date(
+            value
+        );
+
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+
+        return "-";
+
+    }
+
+
+
+    return new Intl.DateTimeFormat(
+
+        "zh-CN",
+
+        {
+
+            year:"numeric",
+
+            month:"2-digit",
+
+            day:"2-digit",
+
+            hour:"2-digit",
+
+            minute:"2-digit",
+
+            hour12:false
+
+        }
+
+    ).format(
+        date
+    );
+
+}
+
+
+
+/* =========================================================
+   36. NUMBER
 ========================================================= */
 
 
@@ -4983,9 +5716,6 @@ function formatNo(
         ||
         value ===
         undefined
-        ||
-        value ===
-        ""
     ) {
 
 
@@ -5005,6 +5735,11 @@ function formatNo(
 
 }
 
+
+
+/* =========================================================
+   37. HTML SAFE
+========================================================= */
 
 
 function escapeHtml(
@@ -5048,7 +5783,7 @@ function escapeHtml(
 
 
 /* =========================================================
-   25. TOAST
+   38. TOAST
 ========================================================= */
 
 
@@ -5106,7 +5841,7 @@ function showToast(
 
 
 /* =========================================================
-   26. HOME
+   39. HOME
 ========================================================= */
 
 
@@ -5121,7 +5856,7 @@ function goHome() {
 
 
 /* =========================================================
-   27. LOGOUT
+   40. LOGOUT
 ========================================================= */
 
 
@@ -5170,7 +5905,7 @@ async function logout() {
 
 
 /* =========================================================
-   28. IDLE
+   41. IDLE
 ========================================================= */
 
 
@@ -5265,7 +6000,7 @@ function resetIdle() {
 
 
 /* =========================================================
-   29. AUTH WATCH
+   42. AUTH
 ========================================================= */
 
 
@@ -5298,7 +6033,7 @@ supabaseClient.auth
 
 
 /* =========================================================
-   30. START
+   43. START
 ========================================================= */
 
 

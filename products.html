@@ -49,6 +49,9 @@
     --green:#167b59;
     --green-bg:#edfaf4;
 
+    --purple:#72559a;
+    --purple-bg:#f6f0ff;
+
     --gray:#806f76;
     --gray-bg:#f1edef;
 
@@ -140,7 +143,7 @@ button {
 
 
 /* =========================================================
-   TOPBAR
+   TOP
 ========================================================= */
 
 .topbar {
@@ -161,8 +164,7 @@ button {
 
     align-items:center;
 
-    justify-content:
-        space-between;
+    justify-content:space-between;
 
     gap:15px;
 
@@ -303,8 +305,7 @@ button {
 
     max-width:1450px;
 
-    margin:
-        0 auto;
+    margin:0 auto;
 
     padding:28px;
 
@@ -438,7 +439,7 @@ button {
 
     margin:0;
 
-    max-width:980px;
+    max-width:1000px;
 
     font-size:13px;
 
@@ -460,7 +461,7 @@ button {
 
     grid-template-columns:
         repeat(
-            3,
+            4,
             minmax(
                 0,
                 1fr
@@ -565,10 +566,11 @@ button {
 
     grid-template-columns:
         minmax(
-            260px,
+            250px,
             1fr
         )
-        180px
+        190px
+        160px
         auto;
 
     gap:10px;
@@ -664,10 +666,9 @@ table {
 
     width:100%;
 
-    min-width:1050px;
+    min-width:1150px;
 
-    border-collapse:
-        collapse;
+    border-collapse:collapse;
 
 }
 
@@ -682,11 +683,9 @@ th {
 
     white-space:nowrap;
 
-    background:
-        #fffafb;
+    background:#fffafb;
 
-    color:
-        #837980;
+    color:#837980;
 
     font-size:11px;
 
@@ -743,17 +742,43 @@ td {
 }
 
 
+.category-badge {
+
+    display:inline-flex;
+
+    align-items:center;
+
+    min-height:27px;
+
+    padding:
+        4px
+        9px;
+
+    border-radius:999px;
+
+    background:
+        var(--purple-bg);
+
+    color:
+        var(--purple);
+
+    font-size:10px;
+
+    font-weight:700;
+
+}
+
+
 .description-text {
 
-    max-width:460px;
-
-    line-height:1.65;
+    max-width:420px;
 
     color:
         var(--text2);
 
-    word-break:
-        break-word;
+    line-height:1.65;
+
+    word-break:break-word;
 
 }
 
@@ -986,9 +1011,16 @@ td {
 }
 
 
+.mobile-category {
+
+    margin-top:10px;
+
+}
+
+
 .mobile-description {
 
-    margin-top:13px;
+    margin-top:10px;
 
     padding:11px;
 
@@ -1118,7 +1150,7 @@ td {
 
     width:100%;
 
-    max-width:600px;
+    max-width:620px;
 
     max-height:92vh;
 
@@ -1140,6 +1172,13 @@ td {
 }
 
 
+.modal.small {
+
+    max-width:500px;
+
+}
+
+
 .modal-head {
 
     position:sticky;
@@ -1152,8 +1191,7 @@ td {
 
     align-items:center;
 
-    justify-content:
-        space-between;
+    justify-content:space-between;
 
     gap:12px;
 
@@ -1283,10 +1321,9 @@ td {
 
 textarea.form-control {
 
-    min-height:160px;
+    min-height:150px;
 
-    padding:
-        13px;
+    padding:13px;
 
     resize:vertical;
 
@@ -1341,6 +1378,48 @@ textarea.form-control {
 
     color:
         var(--text3);
+
+}
+
+
+.category-row {
+
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        auto;
+
+    gap:8px;
+
+}
+
+
+.new-category-button {
+
+    min-height:50px;
+
+    padding:
+        0
+        13px;
+
+    border:
+        1px solid
+        var(--pink-200);
+
+    border-radius:12px;
+
+    background:
+        var(--pink-50);
+
+    color:
+        var(--pink-700);
+
+    font-size:12px;
+
+    font-weight:700;
+
+    white-space:nowrap;
 
 }
 
@@ -1515,7 +1594,6 @@ textarea.form-control {
 .spinner {
 
     width:38px;
-
     height:38px;
 
     border:
@@ -1551,7 +1629,7 @@ textarea.form-control {
 ========================================================= */
 
 @media
-(max-width:950px) {
+(max-width:1000px) {
 
     .stats {
 
@@ -1788,6 +1866,21 @@ textarea.form-control {
     }
 
 
+    .category-row {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .new-category-button {
+
+        min-height:48px;
+
+    }
+
+
     .modal-footer {
 
         padding-bottom:
@@ -1852,7 +1945,7 @@ textarea.form-control {
 
 
 <!-- =========================================================
-     TOPBAR
+     TOP
 ========================================================= -->
 
 <header class="topbar">
@@ -1937,10 +2030,9 @@ textarea.form-control {
 
 
         <p>
-            服务项目由孕乃馨平台统一建立，全国使用统一的服务项目索引。
-            新建服务项目后，所有已经开通的服务城市会自动建立对应销售价格记录，
-            所有有效商户也会自动建立对应分成规则记录。
-            服务项目停止使用时设为无效，历史记录继续保留。
+            服务项目采用两层结构管理：第一层为服务项目类型，第二层为具体服务项目。
+            同一个服务项目类型下面可以建立多个具体服务项目。
+            城市销售价格和商户分成规则均以具体服务项目为单位进行管理。
         </p>
 
 
@@ -1960,11 +2052,25 @@ textarea.form-control {
 
     <div class="stat">
 
+        <div class="stat-label">
+            服务项目类型
+        </div>
+
+        <div
+            id="statCategories"
+            class="stat-value"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat">
 
         <div class="stat-label">
             服务项目总数
         </div>
-
 
         <div
             id="statTotal"
@@ -1973,18 +2079,14 @@ textarea.form-control {
             0
         </div>
 
-
     </div>
-
 
 
     <div class="stat">
 
-
         <div class="stat-label">
             正常服务项目
         </div>
-
 
         <div
             id="statActive"
@@ -1993,18 +2095,14 @@ textarea.form-control {
             0
         </div>
 
-
     </div>
-
 
 
     <div class="stat">
 
-
         <div class="stat-label">
             已失效服务项目
         </div>
-
 
         <div
             id="statInactive"
@@ -2013,11 +2111,9 @@ textarea.form-control {
             0
         </div>
 
-
         <div class="stat-note">
             历史数据继续保留
         </div>
-
 
     </div>
 
@@ -2040,9 +2136,22 @@ textarea.form-control {
         id="searchInput"
         class="input"
         type="search"
-        placeholder="搜索服务项目编号、代码、名称或详细说明"
+        placeholder="搜索类型、服务项目名称、编号、代码或说明"
         oninput="renderProducts()"
     >
+
+
+    <select
+        id="categoryFilter"
+        class="select"
+        onchange="renderProducts()"
+    >
+
+        <option value="">
+            全部服务项目类型
+        </option>
+
+    </select>
 
 
     <select
@@ -2079,7 +2188,7 @@ textarea.form-control {
 
 
 <!-- =========================================================
-     DESKTOP
+     TABLE
 ========================================================= -->
 
 <div class="table-scroll">
@@ -2095,6 +2204,10 @@ textarea.form-control {
 
     <th>
         编号
+    </th>
+
+    <th>
+        服务项目类型
     </th>
 
     <th>
@@ -2170,7 +2283,7 @@ textarea.form-control {
 
 
 <!-- =========================================================
-     MODAL
+     SERVICE PROJECT MODAL
 ========================================================= -->
 
 <div
@@ -2210,27 +2323,77 @@ textarea.form-control {
 
     <div class="info-box">
 
-        服务项目是全国统一的标准业务项目。
+        服务项目采用两层结构：
 
         <br><br>
 
-        新建服务项目后，系统自动：
+        第一层：服务项目类型，例如“月嫂服务”“产后康复”。
 
         <br>
 
-        1. 给所有已经开通的服务城市建立销售价格记录，初始价格为“未定义”。
+        第二层：具体服务项目，例如“26天月嫂服务”“42天月嫂服务”。
 
-        <br>
+        <br><br>
 
-        2. 给所有有效商户建立对应分成规则记录，税率、平台比例、门店比例及操作人员比例初始均为“未定义”。
-
-        <br>
-
-        3. 服务项目停止使用时只设为无效，不删除历史业务记录。
+        同一个类型下面可以建立多个具体服务项目。
 
     </div>
 
 
+
+    <!-- 类型 -->
+
+    <div class="form-group">
+
+
+        <label class="form-label">
+
+            服务项目类型
+
+            <span class="required">
+                *
+            </span>
+
+        </label>
+
+
+        <div class="category-row">
+
+
+            <select
+                id="serviceCategory"
+                class="form-control"
+            >
+
+                <option value="">
+                    请选择服务项目类型
+                </option>
+
+            </select>
+
+
+            <button
+                type="button"
+                class="new-category-button"
+                onclick="openCategoryModal()"
+            >
+                ＋ 创建新类型
+            </button>
+
+
+        </div>
+
+
+        <div class="form-hint">
+            每个服务项目必须归属于一个服务项目类型。
+        </div>
+
+
+    </div>
+
+
+
+    <!-- 代码 -->
 
     <div class="form-group">
 
@@ -2250,18 +2413,20 @@ textarea.form-control {
             id="productCode"
             class="form-control"
             maxlength="50"
-            placeholder="例如：SRV001"
+            placeholder="例如：YS026"
         >
 
 
         <div class="form-hint">
-            项目代码作为长期唯一索引，创建后不允许修改。
+            服务项目代码作为长期唯一索引，创建以后不允许修改。
         </div>
 
 
     </div>
 
 
+
+    <!-- 名称 -->
 
     <div class="form-group">
 
@@ -2281,13 +2446,15 @@ textarea.form-control {
             id="productName"
             class="form-control"
             maxlength="200"
-            placeholder="请输入服务项目名称"
+            placeholder="例如：26天月嫂服务"
         >
 
 
     </div>
 
 
+
+    <!-- 详细说明 -->
 
     <div class="form-group">
 
@@ -2307,13 +2474,13 @@ textarea.form-control {
             id="productDescription"
             class="form-control"
             maxlength="3000"
-            placeholder="请输入该服务项目的详细内容，例如服务内容、服务范围、服务流程、注意事项等。"
+            placeholder="请输入服务内容、服务范围、服务流程、注意事项等。"
             oninput="updateDescriptionCount()"
         ></textarea>
 
 
         <div class="form-hint">
-            此说明作为服务项目的标准说明，后续可在客户和商户相关页面中调用显示。
+            此说明作为该具体服务项目的标准说明。
         </div>
 
 
@@ -2363,6 +2530,149 @@ textarea.form-control {
 
 
 <!-- =========================================================
+     CATEGORY MODAL
+========================================================= -->
+
+<div
+    id="categoryModal"
+    class="modal-mask"
+>
+
+
+<div class="modal small">
+
+
+<div class="modal-head">
+
+
+    <div class="modal-title">
+        创建服务项目类型
+    </div>
+
+
+    <button
+        class="modal-close"
+        onclick="closeCategoryModal()"
+    >
+        ×
+    </button>
+
+
+</div>
+
+
+
+<div class="modal-body">
+
+
+    <div class="info-box">
+
+        服务项目类型是第一层目录。
+
+        <br><br>
+
+        例如：
+
+        <br>
+
+        月嫂服务
+
+        <br>
+
+        产后康复
+
+        <br>
+
+        催乳服务
+
+        <br><br>
+
+        一个类型下面可以继续建立多个具体服务项目。
+
+    </div>
+
+
+
+    <div class="form-group">
+
+
+        <label class="form-label">
+
+            服务项目类型名称
+
+            <span class="required">
+                *
+            </span>
+
+        </label>
+
+
+        <input
+            id="categoryName"
+            class="form-control"
+            maxlength="100"
+            placeholder="例如：月嫂服务"
+        >
+
+
+    </div>
+
+
+
+    <div class="form-group">
+
+
+        <label class="form-label">
+            类型说明
+        </label>
+
+
+        <textarea
+            id="categoryDescription"
+            class="form-control"
+            maxlength="1000"
+            placeholder="可填写该类型的总体说明"
+        ></textarea>
+
+
+    </div>
+
+
+</div>
+
+
+
+<div class="modal-footer">
+
+
+    <button
+        class="cancel-button"
+        onclick="closeCategoryModal()"
+    >
+        取消
+    </button>
+
+
+    <button
+        id="saveCategoryButton"
+        class="save-button"
+        onclick="saveCategory()"
+    >
+        保存类型
+    </button>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+<!-- =========================================================
      TOAST
 ========================================================= -->
 
@@ -2378,9 +2688,8 @@ textarea.form-control {
 
 
 /* =========================================================
-   01. SUPABASE
+   SUPABASE
 ========================================================= */
-
 
 const SUPABASE_URL =
     "https://qbuqjwpkltbjhlfbyjyb.supabase.co";
@@ -2424,9 +2733,8 @@ const HOME_PAGE =
 
 
 /* =========================================================
-   02. DATA
+   DATA
 ========================================================= */
-
 
 let currentUser =
     null;
@@ -2434,6 +2742,10 @@ let currentUser =
 
 let currentProfile =
     null;
+
+
+let categories =
+    [];
 
 
 let products =
@@ -2450,9 +2762,8 @@ let editingProductId =
 
 
 /* =========================================================
-   03. INIT
+   INIT
 ========================================================= */
-
 
 async function initialize() {
 
@@ -2501,6 +2812,10 @@ async function initialize() {
         await verifyAccess();
 
 
+
+        await loadCategories();
+
+
         await loadProducts();
 
 
@@ -2517,7 +2832,6 @@ async function initialize() {
 
 
         console.error(
-            "服务项目页面初始化失败：",
             error
         );
 
@@ -2541,9 +2855,8 @@ async function initialize() {
 
 
 /* =========================================================
-   04. ACCESS
+   ACCESS
 ========================================================= */
-
 
 async function verifyAccess() {
 
@@ -2647,9 +2960,78 @@ async function verifyAccess() {
 
 
 /* =========================================================
-   05. LOAD
+   LOAD CATEGORIES
 ========================================================= */
 
+async function loadCategories() {
+
+
+    const {
+
+        data,
+
+        error
+
+    } =
+
+    await supabaseClient
+
+        .from(
+            "service_categories"
+        )
+
+        .select(`
+            id,
+            category_name,
+            description,
+            status,
+            created_at,
+            updated_at
+        `)
+
+        .order(
+            "id",
+            {
+                ascending:true
+            }
+        );
+
+
+
+    if (error) {
+
+
+        throw new Error(
+            "服务项目类型读取失败：" +
+            error.message
+        );
+
+    }
+
+
+
+    categories =
+        data
+        ||
+        [];
+
+
+
+    fillCategorySelect();
+
+
+    fillCategoryFilter();
+
+
+    renderStats();
+
+}
+
+
+
+/* =========================================================
+   LOAD PRODUCTS
+========================================================= */
 
 async function loadProducts() {
 
@@ -2708,11 +3090,193 @@ async function loadProducts() {
 
 
 /* =========================================================
-   06. STATS
+   CATEGORY SELECT
 ========================================================= */
 
+function fillCategorySelect(
+    selectedId = null
+) {
+
+
+    const select =
+        document.getElementById(
+            "serviceCategory"
+        );
+
+
+
+    select.innerHTML =
+        `
+        <option value="">
+            请选择服务项目类型
+        </option>
+        `;
+
+
+
+    categories
+
+    .filter(
+
+        item =>
+            item.status ===
+            "active"
+
+    )
+
+    .forEach(
+
+        item => {
+
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                item.id;
+
+
+            option.textContent =
+                item.category_name;
+
+
+            if (
+                selectedId
+                &&
+                String(selectedId)
+                ===
+                String(item.id)
+            ) {
+
+
+                option.selected =
+                    true;
+
+            }
+
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+
+    );
+
+}
+
+
+
+/* =========================================================
+   CATEGORY FILTER
+========================================================= */
+
+function fillCategoryFilter() {
+
+
+    const select =
+        document.getElementById(
+            "categoryFilter"
+        );
+
+
+
+    const current =
+        select.value;
+
+
+
+    select.innerHTML =
+        `
+        <option value="">
+            全部服务项目类型
+        </option>
+        `;
+
+
+
+    categories.forEach(
+
+        item => {
+
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                item.id;
+
+
+            option.textContent =
+
+                item.status ===
+                "active"
+
+                ?
+
+                item.category_name
+
+                :
+
+                `${item.category_name}（已失效）`;
+
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+
+    );
+
+
+
+    if (
+        [...select.options]
+        .some(
+            option =>
+                option.value ===
+                current
+        )
+    ) {
+
+
+        select.value =
+            current;
+
+    }
+
+}
+
+
+
+/* =========================================================
+   STATS
+========================================================= */
 
 function renderStats() {
+
+
+    document.getElementById(
+        "statCategories"
+    ).textContent =
+
+        categories.filter(
+
+            item =>
+                item.status ===
+                "active"
+
+        ).length;
+
 
 
     document.getElementById(
@@ -2753,9 +3317,8 @@ function renderStats() {
 
 
 /* =========================================================
-   07. RENDER
+   RENDER PRODUCTS
 ========================================================= */
-
 
 function renderProducts() {
 
@@ -2767,6 +3330,13 @@ function renderProducts() {
         .value
         .trim()
         .toLowerCase();
+
+
+
+    const categoryId =
+        document.getElementById(
+            "categoryFilter"
+        ).value;
 
 
 
@@ -2784,6 +3354,25 @@ function renderProducts() {
 
 
                 if (
+                    categoryId
+                    &&
+                    String(
+                        item.category_id
+                    )
+                    !==
+                    String(
+                        categoryId
+                    )
+                ) {
+
+
+                    return false;
+
+                }
+
+
+
+                if (
                     status
                     &&
                     item.status !==
@@ -2797,6 +3386,13 @@ function renderProducts() {
 
 
 
+                const category =
+                    getCategory(
+                        item.category_id
+                    );
+
+
+
                 const text =
 
                     `
@@ -2804,6 +3400,7 @@ function renderProducts() {
                     ${getServiceCode(item)}
                     ${getServiceName(item)}
                     ${getDescription(item)}
+                    ${category?.category_name || ""}
                     `
                     .toLowerCase();
 
@@ -2859,6 +3456,12 @@ function renderProducts() {
         item => {
 
 
+            const category =
+                getCategory(
+                    item.category_id
+                );
+
+
             const description =
                 getDescription(
                     item
@@ -2871,19 +3474,27 @@ function renderProducts() {
                 "beforeend",
 
                 `
-
                 <tr>
 
-
                     <td class="number-cell">
-
                         ${formatServiceNo(item)}
-
                     </td>
 
 
                     <td>
 
+                        <span class="category-badge">
+                            ${escapeHtml(
+                                category?.category_name
+                                ||
+                                "未分类"
+                            )}
+                        </span>
+
+                    </td>
+
+
+                    <td>
 
                         <div class="service-name">
 
@@ -2906,7 +3517,6 @@ function renderProducts() {
 
                         </div>
 
-
                     </td>
 
 
@@ -2917,12 +3527,14 @@ function renderProducts() {
                             ?
                             `
                             <div class="description-text">
+
                                 ${escapeHtml(
                                     truncateText(
                                         description,
                                         160
                                     )
                                 )}
+
                             </div>
                             `
                             :
@@ -2937,34 +3549,26 @@ function renderProducts() {
 
 
                     <td>
-
                         ${statusBadge(
                             item.status
                         )}
-
                     </td>
 
 
                     <td>
-
                         ${formatDate(
                             item.created_at
                         )}
-
                     </td>
 
 
                     <td>
-
                         ${serviceActionButtons(
                             item
                         )}
-
                     </td>
 
-
                 </tr>
-
                 `
 
             );
@@ -2976,7 +3580,6 @@ function renderProducts() {
                 "beforeend",
 
                 `
-
                 <div class="service-card">
 
 
@@ -3025,6 +3628,22 @@ function renderProducts() {
 
 
 
+                    <div class="mobile-category">
+
+                        <span class="category-badge">
+
+                            ${escapeHtml(
+                                category?.category_name
+                                ||
+                                "未分类"
+                            )}
+
+                        </span>
+
+                    </div>
+
+
+
                     <div class="mobile-description">
 
                         ${
@@ -3043,15 +3662,20 @@ function renderProducts() {
 
                     <div class="mobile-info">
 
+
                         <div class="mobile-info-label">
                             创建时间
                         </div>
 
+
                         <div class="mobile-info-value">
+
                             ${formatDate(
                                 item.created_at
                             )}
+
                         </div>
+
 
                     </div>
 
@@ -3062,7 +3686,6 @@ function renderProducts() {
 
 
                 </div>
-
                 `
 
             );
@@ -3076,9 +3699,8 @@ function renderProducts() {
 
 
 /* =========================================================
-   08. BUTTONS
+   ACTION BUTTONS
 ========================================================= */
-
 
 function serviceActionButtons(
     item
@@ -3092,7 +3714,6 @@ function serviceActionButtons(
 
 
         return `
-
             <div class="action-buttons">
 
                 <button
@@ -3103,7 +3724,6 @@ function serviceActionButtons(
                 </button>
 
             </div>
-
         `;
 
     }
@@ -3111,9 +3731,7 @@ function serviceActionButtons(
 
 
     return `
-
         <div class="action-buttons">
-
 
             <button
                 class="action edit-action"
@@ -3122,7 +3740,6 @@ function serviceActionButtons(
                 编辑
             </button>
 
-
             <button
                 class="action danger-action"
                 onclick="invalidateService(${Number(item.id)})"
@@ -3130,9 +3747,7 @@ function serviceActionButtons(
                 设为无效
             </button>
 
-
         </div>
-
     `;
 
 }
@@ -3151,7 +3766,6 @@ function mobileServiceButtons(
 
 
         return `
-
             <div class="mobile-actions one">
 
                 <button
@@ -3162,7 +3776,6 @@ function mobileServiceButtons(
                 </button>
 
             </div>
-
         `;
 
     }
@@ -3170,9 +3783,7 @@ function mobileServiceButtons(
 
 
     return `
-
         <div class="mobile-actions">
-
 
             <button
                 class="action edit-action"
@@ -3181,7 +3792,6 @@ function mobileServiceButtons(
                 编辑
             </button>
 
-
             <button
                 class="action danger-action"
                 onclick="invalidateService(${Number(item.id)})"
@@ -3189,9 +3799,7 @@ function mobileServiceButtons(
                 设为无效
             </button>
 
-
         </div>
-
     `;
 
 }
@@ -3199,9 +3807,8 @@ function mobileServiceButtons(
 
 
 /* =========================================================
-   09. CREATE MODAL
+   CREATE SERVICE
 ========================================================= */
-
 
 function openCreateModal() {
 
@@ -3215,7 +3822,7 @@ function openCreateModal() {
 
 
 
-    resetForm();
+    resetProductForm();
 
 
 
@@ -3251,9 +3858,8 @@ function openCreateModal() {
 
 
 /* =========================================================
-   10. EDIT
+   EDIT SERVICE
 ========================================================= */
-
 
 function editService(
     id
@@ -3314,7 +3920,7 @@ function editService(
 
 
 
-    resetForm();
+    resetProductForm();
 
 
 
@@ -3322,6 +3928,12 @@ function editService(
         "modalTitle"
     ).textContent =
         `编辑服务项目 ${formatServiceNo(item)}`;
+
+
+
+    fillCategorySelect(
+        item.category_id
+    );
 
 
 
@@ -3381,9 +3993,8 @@ function editService(
 
 
 /* =========================================================
-   11. CLOSE
+   CLOSE PRODUCT MODAL
 ========================================================= */
-
 
 function closeProductModal() {
 
@@ -3408,11 +4019,14 @@ function closeProductModal() {
 
 
 /* =========================================================
-   12. RESET
+   PRODUCT FORM
 ========================================================= */
 
+function resetProductForm() {
 
-function resetForm() {
+
+    fillCategorySelect();
+
 
 
     document.getElementById(
@@ -3449,9 +4063,8 @@ function resetForm() {
 
 
 /* =========================================================
-   13. DESCRIPTION COUNT
+   DESCRIPTION
 ========================================================= */
-
 
 function updateDescriptionCount() {
 
@@ -3473,9 +4086,8 @@ function updateDescriptionCount() {
 
 
 /* =========================================================
-   14. SAVE
+   SAVE PRODUCT
 ========================================================= */
-
 
 async function saveProduct() {
 
@@ -3499,11 +4111,21 @@ async function saveProduct() {
 
 
 /* =========================================================
-   15. CREATE
+   CREATE SERVICE RECORD
 ========================================================= */
 
-
 async function createService() {
+
+
+    const categoryId =
+        Number(
+            document.getElementById(
+                "serviceCategory"
+            ).value
+        )
+        ||
+        null;
+
 
 
     const code =
@@ -3531,6 +4153,48 @@ async function createService() {
         )
         .value
         .trim();
+
+
+
+    if (!categoryId) {
+
+
+        showToast(
+            "请选择服务项目类型。",
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+
+    const category =
+        getCategory(
+            categoryId
+        );
+
+
+
+    if (
+        !category
+        ||
+        category.status !==
+        "active"
+    ) {
+
+
+        showToast(
+            "所选服务项目类型已经无效。",
+            "error"
+        );
+
+
+        return;
+
+    }
 
 
 
@@ -3644,6 +4308,9 @@ async function createService() {
 
             .insert({
 
+                category_id:
+                    categoryId,
+
                 product_code:
                     code,
 
@@ -3673,7 +4340,7 @@ async function createService() {
 
 
         showToast(
-            "服务项目创建成功，城市价格目录和商户分成规则已自动同步。",
+            "服务项目创建成功。",
             "success"
         );
 
@@ -3691,7 +4358,6 @@ async function createService() {
 
 
         console.error(
-            "创建服务项目失败：",
             error
         );
 
@@ -3724,9 +4390,8 @@ async function createService() {
 
 
 /* =========================================================
-   16. UPDATE
+   UPDATE SERVICE
 ========================================================= */
-
 
 async function updateService() {
 
@@ -3762,21 +4427,14 @@ async function updateService() {
 
 
 
-    if (
-        item.status !==
-        "active"
-    ) {
-
-
-        showToast(
-            "已失效服务项目不能修改。",
-            "error"
-        );
-
-
-        return;
-
-    }
+    const categoryId =
+        Number(
+            document.getElementById(
+                "serviceCategory"
+            ).value
+        )
+        ||
+        null;
 
 
 
@@ -3795,6 +4453,21 @@ async function updateService() {
         )
         .value
         .trim();
+
+
+
+    if (!categoryId) {
+
+
+        showToast(
+            "请选择服务项目类型。",
+            "error"
+        );
+
+
+        return;
+
+    }
 
 
 
@@ -3861,6 +4534,9 @@ async function updateService() {
 
             .update({
 
+                category_id:
+                    categoryId,
+
                 product_name:
                     name,
 
@@ -3909,7 +4585,6 @@ async function updateService() {
 
 
         console.error(
-            "修改服务项目失败：",
             error
         );
 
@@ -3942,9 +4617,8 @@ async function updateService() {
 
 
 /* =========================================================
-   17. INVALIDATE
+   INVALIDATE SERVICE
 ========================================================= */
-
 
 async function invalidateService(
     id
@@ -3997,7 +4671,7 @@ async function invalidateService(
 
             `对应城市销售价格和商户分成规则也将停止继续使用。\n` +
 
-            `历史订单及历史业务数据不会删除。`
+            `历史订单数据不会删除。`
 
         );
 
@@ -4068,7 +4742,6 @@ async function invalidateService(
 
 
         console.error(
-            "服务项目设为无效失败：",
             error
         );
 
@@ -4088,8 +4761,295 @@ async function invalidateService(
 
 
 /* =========================================================
-   18. DATA HELPERS
+   CATEGORY MODAL
 ========================================================= */
+
+function openCategoryModal() {
+
+
+    document.getElementById(
+        "categoryName"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "categoryDescription"
+    ).value =
+        "";
+
+
+
+    document.getElementById(
+        "categoryModal"
+    ).classList.add(
+        "show"
+    );
+
+}
+
+
+
+function closeCategoryModal() {
+
+
+    document.getElementById(
+        "categoryModal"
+    ).classList.remove(
+        "show"
+    );
+
+}
+
+
+
+/* =========================================================
+   SAVE CATEGORY
+========================================================= */
+
+async function saveCategory() {
+
+
+    const name =
+        document.getElementById(
+            "categoryName"
+        )
+        .value
+        .trim();
+
+
+
+    const description =
+        document.getElementById(
+            "categoryDescription"
+        )
+        .value
+        .trim();
+
+
+
+    if (!name) {
+
+
+        showToast(
+            "请输入服务项目类型名称。",
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+
+    const duplicate =
+        categories.some(
+
+            item =>
+                item.status ===
+                "active"
+
+                &&
+
+                item.category_name
+                .trim()
+                .toLowerCase()
+                ===
+                name.toLowerCase()
+
+        );
+
+
+
+    if (
+        duplicate
+    ) {
+
+
+        showToast(
+            "该服务项目类型已经存在。",
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+
+    const button =
+        document.getElementById(
+            "saveCategoryButton"
+        );
+
+
+
+    button.disabled =
+        true;
+
+
+    button.textContent =
+        "保存中...";
+
+
+
+    try {
+
+
+        const {
+
+            data,
+
+            error
+
+        } =
+
+        await supabaseClient
+
+            .from(
+                "service_categories"
+            )
+
+            .insert({
+
+                category_name:
+                    name,
+
+                description:
+                    description
+                    ||
+                    null,
+
+                status:
+                    "active",
+
+                created_by:
+                    currentUser.id
+
+            })
+
+            .select(`
+                id,
+                category_name,
+                description,
+                status,
+                created_at,
+                updated_at
+            `)
+
+            .single();
+
+
+
+        if (error) {
+
+
+            throw error;
+
+        }
+
+
+
+        await loadCategories();
+
+
+
+        fillCategorySelect(
+            data.id
+        );
+
+
+
+        closeCategoryModal();
+
+
+
+        showToast(
+            "服务项目类型创建成功。",
+            "success"
+        );
+
+
+    }
+
+    catch(error) {
+
+
+        console.error(
+            error
+        );
+
+
+
+        showToast(
+            error.message
+            ||
+            "服务项目类型创建失败。",
+            "error"
+        );
+
+
+    }
+
+    finally {
+
+
+        button.disabled =
+            false;
+
+
+        button.textContent =
+            "保存类型";
+
+    }
+
+}
+
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function getCategory(
+    id
+) {
+
+
+    if (!id) {
+
+
+        return null;
+
+    }
+
+
+
+    return (
+
+        categories.find(
+
+            item =>
+                String(
+                    item.id
+                )
+                ===
+                String(
+                    id
+                )
+
+        )
+
+        ||
+
+        null
+
+    );
+
+}
+
 
 
 function getServiceName(
@@ -4147,11 +5107,6 @@ function getDescription(
 
 
 
-/* =========================================================
-   19. NUMBER
-========================================================= */
-
-
 function formatServiceNo(
     item
 ) {
@@ -4160,9 +5115,11 @@ function formatServiceNo(
     if (
         !item
         ||
-        item.id === null
+        item.id ===
+        null
         ||
-        item.id === undefined
+        item.id ===
+        undefined
     ) {
 
 
@@ -4182,11 +5139,6 @@ function formatServiceNo(
 
 }
 
-
-
-/* =========================================================
-   20. STATUS
-========================================================= */
 
 
 function statusBadge(
@@ -4218,11 +5170,6 @@ function statusBadge(
 
 }
 
-
-
-/* =========================================================
-   21. TEXT
-========================================================= */
 
 
 function truncateText(
@@ -4263,11 +5210,6 @@ function truncateText(
 
 }
 
-
-
-/* =========================================================
-   22. DATE
-========================================================= */
 
 
 function formatDate(
@@ -4313,11 +5255,6 @@ function formatDate(
 
 
 
-/* =========================================================
-   23. HTML SAFE
-========================================================= */
-
-
 function escapeHtml(
     value
 ) {
@@ -4359,12 +5296,10 @@ function escapeHtml(
 
 
 /* =========================================================
-   24. TOAST
+   TOAST
 ========================================================= */
 
-
 let toastTimer;
-
 
 
 function showToast(
@@ -4417,9 +5352,8 @@ function showToast(
 
 
 /* =========================================================
-   25. HOME
+   HOME
 ========================================================= */
-
 
 function goHome() {
 
@@ -4432,9 +5366,8 @@ function goHome() {
 
 
 /* =========================================================
-   26. LOGOUT
+   LOGOUT
 ========================================================= */
-
 
 async function logout() {
 
@@ -4481,12 +5414,10 @@ async function logout() {
 
 
 /* =========================================================
-   27. 10 MINUTES
+   IDLE
 ========================================================= */
 
-
 let idleTimer;
-
 
 
 function resetIdle() {
@@ -4576,9 +5507,8 @@ function resetIdle() {
 
 
 /* =========================================================
-   28. AUTH
+   AUTH
 ========================================================= */
-
 
 supabaseClient.auth
 
@@ -4609,9 +5539,8 @@ supabaseClient.auth
 
 
 /* =========================================================
-   29. START
+   START
 ========================================================= */
-
 
 document.addEventListener(
 
@@ -4628,7 +5557,6 @@ document.addEventListener(
     }
 
 );
-
 
 </script>
 

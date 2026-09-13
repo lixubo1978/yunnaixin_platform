@@ -26,10 +26,6 @@
 
   <style>
 
-    /* =========================================================
-       全局品牌变量
-    ========================================================= */
-
     :root {
 
       --pink-50: #fff7fa;
@@ -68,10 +64,6 @@
 
     }
 
-
-    /* =========================================================
-       RESET
-    ========================================================= */
 
     * {
 
@@ -441,7 +433,7 @@
 
 
     /* =========================================================
-       主页面结构
+       页面结构
     ========================================================= */
 
     .page {
@@ -458,11 +450,6 @@
 
     }
 
-
-
-    /* =========================================================
-       桌面侧边栏
-    ========================================================= */
 
     .sidebar {
 
@@ -812,9 +799,6 @@
       font-weight:
         720;
 
-      letter-spacing:
-        0.2px;
-
       color:
         var(--rose-dark);
 
@@ -949,9 +933,6 @@
       color:
         var(--text-light);
 
-      letter-spacing:
-        0.5px;
-
     }
 
 
@@ -994,7 +975,7 @@
 
 
     /* =========================================================
-       功能标题
+       功能区
     ========================================================= */
 
     .section-heading {
@@ -1023,9 +1004,6 @@
       font-weight:
         720;
 
-      letter-spacing:
-        0.2px;
-
       color:
         var(--text-main);
 
@@ -1042,11 +1020,6 @@
 
     }
 
-
-
-    /* =========================================================
-       功能卡片
-    ========================================================= */
 
     .module-grid {
 
@@ -1194,17 +1167,6 @@
       font-size:
         22px;
 
-      box-shadow:
-        inset
-        0 0 0
-        1px
-        rgba(
-          232,
-          93,
-          143,
-          0.07
-        );
-
     }
 
 
@@ -1233,18 +1195,6 @@
 
       font-size:
         17px;
-
-      transition:
-        transform .18s ease;
-
-    }
-
-
-    .module-card:hover
-    .module-arrow {
-
-      transform:
-        translateX(3px);
 
     }
 
@@ -1366,11 +1316,6 @@
     }
 
 
-
-    /* =========================================================
-       手机底部导航
-    ========================================================= */
-
     .mobile-bottom-nav {
 
       display: none;
@@ -1418,7 +1363,7 @@
 
 
     /* =========================================================
-       手机端
+       手机
     ========================================================= */
 
     @media
@@ -1444,16 +1389,13 @@
           64px;
 
         padding:
-
           max(
             4px,
             env(
               safe-area-inset-top
             )
           )
-
           13px
-
           4px;
 
       }
@@ -1486,9 +1428,6 @@
         font-size:
           17px;
 
-        letter-spacing:
-          1px;
-
       }
 
 
@@ -1520,9 +1459,6 @@
           0
           14px;
 
-        border-radius:
-          12px;
-
         font-size:
           12px;
 
@@ -1533,9 +1469,6 @@
 
         display:
           block;
-
-        min-height:
-          auto;
 
       }
 
@@ -1575,21 +1508,10 @@
       }
 
 
-      .welcome-tag {
-
-        margin-bottom:
-          9px;
-
-      }
-
-
       .welcome h1 {
 
         font-size:
           21px;
-
-        line-height:
-          1.4;
 
       }
 
@@ -1598,9 +1520,6 @@
 
         font-size:
           13px;
-
-        line-height:
-          1.75;
 
       }
 
@@ -1634,31 +1553,6 @@
           16px
           14px;
 
-        border-radius:
-          16px;
-
-      }
-
-
-      .info-card::before {
-
-        top:
-          15px;
-
-        bottom:
-          15px;
-
-      }
-
-
-      .info-label {
-
-        margin-bottom:
-          9px;
-
-        font-size:
-          10px;
-
       }
 
 
@@ -1674,33 +1568,6 @@
 
         font-size:
           12px;
-
-      }
-
-
-      .section-heading {
-
-        align-items:
-          flex-end;
-
-        margin-bottom:
-          12px;
-
-      }
-
-
-      .section-title {
-
-        font-size:
-          18px;
-
-      }
-
-
-      .section-hint {
-
-        font-size:
-          10px;
 
       }
 
@@ -1727,50 +1594,6 @@
         padding:
           17px;
 
-        border-radius:
-          17px;
-
-      }
-
-
-      .module-top {
-
-        margin-bottom:
-          12px;
-
-      }
-
-
-      .module-icon {
-
-        width: 46px;
-        height: 46px;
-
-        flex-basis:
-          46px;
-
-      }
-
-
-      .module-name {
-
-        font-size:
-          15px;
-
-        margin-bottom:
-          5px;
-
-      }
-
-
-      .module-desc {
-
-        font-size:
-          12px;
-
-        line-height:
-          1.65;
-
       }
 
 
@@ -1790,11 +1613,8 @@
           70px;
 
         padding:
-
           7px
-
           10px
-
           max(
             7px,
             env(
@@ -1831,15 +1651,6 @@
         border-top:
           1px solid
           var(--border);
-
-        box-shadow:
-          0 -5px 24px
-          rgba(
-            102,
-            48,
-            71,
-            0.06
-          );
 
       }
 
@@ -1882,14 +1693,6 @@
       }
 
 
-      .mobile-nav-item:active {
-
-        background:
-          var(--pink-50);
-
-      }
-
-
       .mobile-nav-item.active {
 
         color:
@@ -1906,106 +1709,10 @@
         font-size:
           20px;
 
-        line-height:
-          1.2;
-
       }
 
     }
 
-
-
-    /* =========================================================
-       小屏手机
-    ========================================================= */
-
-    @media
-    (max-width: 390px) {
-
-
-      .main {
-
-        padding-left:
-          10px;
-
-        padding-right:
-          10px;
-
-      }
-
-
-      .welcome {
-
-        padding:
-          19px
-          17px;
-
-      }
-
-
-      .info-grid {
-
-        gap:
-          8px;
-
-      }
-
-
-      .info-card {
-
-        min-height:
-          94px;
-
-        padding:
-          14px
-          12px;
-
-      }
-
-
-      .info-small {
-
-        font-size:
-          11px;
-
-      }
-
-    }
-
-
-
-    /* =========================================================
-       大屏
-    ========================================================= */
-
-    @media
-    (min-width: 1440px) {
-
-
-      .main {
-
-        padding:
-          36px;
-
-      }
-
-
-      .module-grid {
-
-        gap:
-          20px;
-
-      }
-
-
-      .info-grid {
-
-        gap:
-          20px;
-
-      }
-
-    }
 
   </style>
 
@@ -2014,10 +1721,6 @@
 
 <body>
 
-
-<!-- =========================================================
-     加载
-========================================================= -->
 
 <div
   id="loadingMask"
@@ -2034,10 +1737,6 @@
 
 
 
-<!-- =========================================================
-     顶部导航
-========================================================= -->
-
 <header class="topbar">
 
 
@@ -2053,16 +1752,13 @@
 
     <div class="brand-text">
 
-
       <div class="brand-title">
         孕乃馨
       </div>
 
-
       <div class="brand-subtitle">
         全国业务管理平台
       </div>
-
 
     </div>
 
@@ -2070,12 +1766,10 @@
   </div>
 
 
-
   <div class="top-right">
 
 
     <div class="user-info">
-
 
       <div
         id="topUserName"
@@ -2084,14 +1778,12 @@
         -
       </div>
 
-
       <div
         id="topUserRole"
         class="user-role"
       >
         -
       </div>
-
 
     </div>
 
@@ -2112,17 +1804,12 @@
 
 
 
-<!-- =========================================================
-     页面
-========================================================= -->
-
 <div class="page">
 
 
-
-  <!-- =======================================================
+  <!-- =====================================================
        左侧菜单
-  ======================================================== -->
+  ====================================================== -->
 
   <aside class="sidebar">
 
@@ -2153,7 +1840,6 @@
 
 
     <a
-      id="menuAdmins"
       class="menu-item platform-only"
       href="admins.html"
     >
@@ -2168,7 +1854,6 @@
 
 
     <a
-      id="menuProducts"
       class="menu-item platform-only"
       href="products.html"
     >
@@ -2216,8 +1901,23 @@
     </a>
 
 
+    <!-- 健康顾问 -->
+
     <a
-      id="menuMerchantRules"
+      class="menu-item platform-only"
+      href="healthconsultant.html"
+    >
+
+      <span class="menu-icon">
+        🩺
+      </span>
+
+      健康顾问
+
+    </a>
+
+
+    <a
       class="menu-item platform-only"
       href="merchant_rules.html"
     >
@@ -2266,7 +1966,6 @@
 
 
     <a
-      id="menuRegions"
       class="menu-item platform-only"
       href="regions.html"
     >
@@ -2284,20 +1983,15 @@
 
 
 
-  <!-- =======================================================
+  <!-- =====================================================
        主内容
-  ======================================================== -->
+  ====================================================== -->
 
   <main class="main">
 
 
     <div class="content-wrap">
 
-
-
-      <!-- ===================================================
-           欢迎区
-      ==================================================== -->
 
       <section class="welcome">
 
@@ -2327,20 +2021,16 @@
 
 
 
-      <!-- ===================================================
-           登录身份信息
-      ==================================================== -->
+      <!-- 身份 -->
 
       <section class="info-grid">
 
 
         <div class="info-card">
 
-
           <div class="info-label">
             当前身份
           </div>
-
 
           <div
             id="cardRole"
@@ -2349,18 +2039,14 @@
             -
           </div>
 
-
         </div>
-
 
 
         <div class="info-card">
 
-
           <div class="info-label">
             管理省份
           </div>
-
 
           <div
             id="cardProvince"
@@ -2369,18 +2055,14 @@
             -
           </div>
 
-
         </div>
-
 
 
         <div class="info-card">
 
-
           <div class="info-label">
             管理城市
           </div>
-
 
           <div
             id="cardCity"
@@ -2389,18 +2071,14 @@
             -
           </div>
 
-
         </div>
-
 
 
         <div class="info-card">
 
-
           <div class="info-label">
             登录账户
           </div>
-
 
           <div
             id="cardEmail"
@@ -2409,7 +2087,6 @@
             -
           </div>
 
-
         </div>
 
 
@@ -2417,22 +2094,15 @@
 
 
 
-      <!-- ===================================================
-           管理功能
-      ==================================================== -->
-
       <div class="section-heading">
-
 
         <div class="section-title">
           管理功能
         </div>
 
-
         <div class="section-hint">
           点击进入相应模块
         </div>
-
 
       </div>
 
@@ -2441,29 +2111,22 @@
       <section class="module-grid">
 
 
-
-        <!-- =================================================
-             管理人员
-        ================================================== -->
+        <!-- 管理人员 -->
 
         <a
           class="module-card platform-only"
           href="admins.html"
         >
 
-
           <div class="module-top">
-
 
             <div class="module-icon">
               👤
             </div>
 
-
             <div class="module-arrow">
               ›
             </div>
-
 
           </div>
 
@@ -2477,33 +2140,26 @@
             创建和管理平台、省、市各级管理人员及辖区权限。
           </div>
 
-
         </a>
 
 
 
-        <!-- =================================================
-             服务项目目录
-        ================================================== -->
+        <!-- 服务项目 -->
 
         <a
           class="module-card platform-only"
           href="products.html"
         >
 
-
           <div class="module-top">
-
 
             <div class="module-icon">
               📦
             </div>
 
-
             <div class="module-arrow">
               ›
             </div>
-
 
           </div>
 
@@ -2517,33 +2173,26 @@
             建立全国唯一服务项目目录，所有城市统一使用平台产品索引。
           </div>
 
-
         </a>
 
 
 
-        <!-- =================================================
-             城市定价
-        ================================================== -->
+        <!-- 城市定价 -->
 
         <a
           class="module-card"
           href="cityprices.html"
         >
 
-
           <div class="module-top">
-
 
             <div class="module-icon">
               💗
             </div>
 
-
             <div class="module-arrow">
               ›
             </div>
-
 
           </div>
 
@@ -2557,33 +2206,26 @@
             查看辖区城市产品价格，市管理员维护本市个性化价格。
           </div>
 
-
         </a>
 
 
 
-        <!-- =================================================
-             商户管理
-        ================================================== -->
+        <!-- 商户管理 -->
 
         <a
           class="module-card"
           href="merchants.html"
         >
 
-
           <div class="module-top">
-
 
             <div class="module-icon">
               🏪
             </div>
 
-
             <div class="module-arrow">
               ›
             </div>
-
 
           </div>
 
@@ -2597,33 +2239,61 @@
             管理辖区内机构商户和个人服务者及认证资料。
           </div>
 
-
         </a>
 
 
 
         <!-- =================================================
-             分成规则
+             健康顾问
         ================================================== -->
+
+        <a
+          class="module-card platform-only"
+          href="healthconsultant.html"
+        >
+
+          <div class="module-top">
+
+            <div class="module-icon">
+              🩺
+            </div>
+
+            <div class="module-arrow">
+              ›
+            </div>
+
+          </div>
+
+
+          <div class="module-name">
+            健康顾问
+          </div>
+
+
+          <div class="module-desc">
+            查看健康顾问服务项目、关联商户及健康顾问分成比例。
+          </div>
+
+        </a>
+
+
+
+        <!-- 分成规则 -->
 
         <a
           class="module-card platform-only"
           href="merchant_rules.html"
         >
 
-
           <div class="module-top">
-
 
             <div class="module-icon">
               📊
             </div>
 
-
             <div class="module-arrow">
               ›
             </div>
-
 
           </div>
 
@@ -2634,36 +2304,29 @@
 
 
           <div class="module-desc">
-            查看并定义各商户不同产品的税率、平台比例、门店比例和操作人员比例。
+            查看并定义各商户不同服务项目的税率、平台比例、门店比例、操作人员比例及健康顾问比例。
           </div>
-
 
         </a>
 
 
 
-        <!-- =================================================
-             订单
-        ================================================== -->
+        <!-- 订单 -->
 
         <a
           class="module-card"
           href="orders.html"
         >
 
-
           <div class="module-top">
-
 
             <div class="module-icon">
               🧾
             </div>
 
-
             <div class="module-arrow">
               ›
             </div>
-
 
           </div>
 
@@ -2677,33 +2340,26 @@
             按城市、商户、客户和时间查询订单及业务数据。
           </div>
 
-
         </a>
 
 
 
-        <!-- =================================================
-             客户
-        ================================================== -->
+        <!-- 客户 -->
 
         <a
           class="module-card"
           href="customers.html"
         >
 
-
           <div class="module-top">
-
 
             <div class="module-icon">
               👥
             </div>
 
-
             <div class="module-arrow">
               ›
             </div>
-
 
           </div>
 
@@ -2717,33 +2373,26 @@
             查看辖区客户资料、消费记录及关联订单数据。
           </div>
 
-
         </a>
 
 
 
-        <!-- =================================================
-             服务区域
-        ================================================== -->
+        <!-- 服务区域 -->
 
         <a
           class="module-card platform-only"
           href="regions.html"
         >
 
-
           <div class="module-top">
-
 
             <div class="module-icon">
               🗺️
             </div>
 
-
             <div class="module-arrow">
               ›
             </div>
-
 
           </div>
 
@@ -2756,7 +2405,6 @@
           <div class="module-desc">
             管理全国省、市、区县三级行政区域基础数据。
           </div>
-
 
         </a>
 
@@ -2844,12 +2492,6 @@
 <script>
 
 
-/* ==========================================================
-   01.
-   Supabase
-========================================================== */
-
-
 const SUPABASE_URL =
   "https://qbuqjwpkltbjhlfbyjyb.supabase.co";
 
@@ -2883,22 +2525,14 @@ const supabaseClient =
 
 
 
-/* ==========================================================
-   02.
-   登录页
-========================================================== */
-
-
 const LOGIN_PAGE =
   "login.html";
 
 
 
 /* ==========================================================
-   03.
-   10分钟无操作自动退出
+   10分钟无操作退出
 ========================================================== */
-
 
 const IDLE_LIMIT =
   10 * 60 * 1000;
@@ -2909,7 +2543,6 @@ let idleTimer;
 
 
 function resetIdleTimer() {
-
 
   clearTimeout(
     idleTimer
@@ -2931,18 +2564,14 @@ function resetIdleTimer() {
 
 async function autoLogout() {
 
-
   try {
-
 
     await supabaseClient.auth
       .signOut();
 
-
   }
 
   catch (error) {
-
 
     console.error(
       "自动退出失败：",
@@ -2950,7 +2579,6 @@ async function autoLogout() {
     );
 
   }
-
 
 
   alert(
@@ -2965,11 +2593,6 @@ async function autoLogout() {
 
 
 
-/* ==========================================================
-   用户操作监听
-========================================================== */
-
-
 [
   "mousemove",
   "mousedown",
@@ -2981,7 +2604,6 @@ async function autoLogout() {
 .forEach(
 
   eventName => {
-
 
     document.addEventListener(
 
@@ -3002,38 +2624,29 @@ async function autoLogout() {
 
 
 /* ==========================================================
-   04.
    角色名称
 ========================================================== */
-
 
 function roleText(
   role
 ) {
 
-
   const map = {
-
 
     founder:
       "创始人",
 
-
     platform_admin:
       "平台管理员",
-
 
     platform_staff:
       "平台员工",
 
-
     province_admin:
       "省管理员",
 
-
     city_admin:
       "市管理员"
-
 
   };
 
@@ -3045,15 +2658,12 @@ function roleText(
 
 
 /* ==========================================================
-   05.
-   是否管理角色
+   管理角色
 ========================================================== */
-
 
 function isManagementRole(
   role
 ) {
-
 
   return [
 
@@ -3077,15 +2687,12 @@ function isManagementRole(
 
 
 /* ==========================================================
-   06.
-   平台高级管理人员
+   平台高级管理
 ========================================================== */
-
 
 function isPlatformManager(
   role
 ) {
-
 
   return [
 
@@ -3103,15 +2710,12 @@ function isPlatformManager(
 
 
 /* ==========================================================
-   07.
    菜单权限
 ========================================================== */
-
 
 function applyMenuPermissions(
   role
 ) {
-
 
   const platformItems =
     document.querySelectorAll(
@@ -3125,11 +2729,9 @@ function applyMenuPermissions(
     )
   ) {
 
-
     platformItems.forEach(
 
       element => {
-
 
         element.classList.add(
           "hidden"
@@ -3146,10 +2748,8 @@ function applyMenuPermissions(
 
 
 /* ==========================================================
-   08.
-   读取管理员辖区
+   管理辖区
 ========================================================== */
-
 
 async function loadAssignment(
   userId,
@@ -3163,17 +2763,13 @@ async function loadAssignment(
     role === "platform_admin"
   ) {
 
-
     return {
-
 
       provinceName:
         "全国",
 
-
       cityName:
         "全国"
-
 
     };
 
@@ -3186,17 +2782,13 @@ async function loadAssignment(
     "platform_staff"
   ) {
 
-
     return {
-
 
       provinceName:
         "按授权",
 
-
       cityName:
         "按授权"
-
 
     };
 
@@ -3241,7 +2833,6 @@ async function loadAssignment(
 
   if (error) {
 
-
     console.error(
       "读取辖区失败：",
       error
@@ -3250,14 +2841,11 @@ async function loadAssignment(
 
     return {
 
-
       provinceName:
         "未配置",
 
-
       cityName:
         "未配置"
-
 
     };
 
@@ -3267,17 +2855,13 @@ async function loadAssignment(
 
   if (!data) {
 
-
     return {
-
 
       provinceName:
         "未配置",
 
-
       cityName:
         "未配置"
-
 
     };
 
@@ -3297,7 +2881,6 @@ async function loadAssignment(
   if (
     data.province_id
   ) {
-
 
     const {
       data: province
@@ -3321,9 +2904,7 @@ async function loadAssignment(
       .maybeSingle();
 
 
-
     if (province) {
-
 
       provinceName =
         province.province_name;
@@ -3337,7 +2918,6 @@ async function loadAssignment(
   if (
     data.city_id
   ) {
-
 
     const {
       data: city
@@ -3361,9 +2941,7 @@ async function loadAssignment(
       .maybeSingle();
 
 
-
     if (city) {
-
 
       cityName =
         city.city_name;
@@ -3376,11 +2954,9 @@ async function loadAssignment(
 
   return {
 
-
     provinceName,
 
     cityName
-
 
   };
 
@@ -3389,10 +2965,8 @@ async function loadAssignment(
 
 
 /* ==========================================================
-   09.
    初始化
 ========================================================== */
-
 
 async function initializePage() {
 
@@ -3424,10 +2998,8 @@ async function initializePage() {
       !session
     ) {
 
-
       window.location.href =
         LOGIN_PAGE;
-
 
       return;
 
@@ -3481,7 +3053,6 @@ async function initializePage() {
       !profile
     ) {
 
-
       console.error(
         "读取profile失败：",
         profileError
@@ -3512,7 +3083,6 @@ async function initializePage() {
       "active"
     ) {
 
-
       await supabaseClient.auth
         .signOut();
 
@@ -3537,7 +3107,6 @@ async function initializePage() {
         profile.role
       )
     ) {
-
 
       await supabaseClient.auth
         .signOut();
@@ -3640,12 +3209,10 @@ async function initializePage() {
       "";
 
 
-
     if (
       profile.role ===
       "founder"
     ) {
-
 
       description =
 
@@ -3654,12 +3221,10 @@ async function initializePage() {
     }
 
 
-
     else if (
       profile.role ===
       "platform_admin"
     ) {
-
 
       description =
 
@@ -3668,12 +3233,10 @@ async function initializePage() {
     }
 
 
-
     else if (
       profile.role ===
       "province_admin"
     ) {
-
 
       description =
 
@@ -3682,12 +3245,10 @@ async function initializePage() {
     }
 
 
-
     else if (
       profile.role ===
       "city_admin"
     ) {
-
 
       description =
 
@@ -3696,9 +3257,7 @@ async function initializePage() {
     }
 
 
-
     else {
-
 
       description =
 
@@ -3731,7 +3290,6 @@ async function initializePage() {
 
   catch (error) {
 
-
     console.error(
       "页面初始化失败：",
       error
@@ -3753,10 +3311,8 @@ async function initializePage() {
 
 
 /* ==========================================================
-   10.
    手动退出
 ========================================================== */
-
 
 async function logout() {
 
@@ -3772,24 +3328,19 @@ async function logout() {
     !confirmLogout
   ) {
 
-
     return;
 
   }
 
 
-
   try {
-
 
     await supabaseClient.auth
       .signOut();
 
-
   }
 
   catch (error) {
-
 
     console.error(
       "退出登录失败：",
@@ -3797,7 +3348,6 @@ async function logout() {
     );
 
   }
-
 
 
   window.location.href =
@@ -3808,13 +3358,10 @@ async function logout() {
 
 
 /* ==========================================================
-   11.
    登录状态监听
 ========================================================== */
 
-
 supabaseClient.auth
-
   .onAuthStateChange(
 
     (
@@ -3822,12 +3369,10 @@ supabaseClient.auth
       session
     ) => {
 
-
       if (
         event ===
         "SIGNED_OUT"
       ) {
-
 
         window.location.href =
           LOGIN_PAGE;
@@ -3841,10 +3386,8 @@ supabaseClient.auth
 
 
 /* ==========================================================
-   12.
    启动
 ========================================================== */
-
 
 document.addEventListener(
 

@@ -320,7 +320,6 @@ button{
     font-size:11px;
     line-height:1.55;
     color:#a1818d;
-
     display:-webkit-box;
     -webkit-line-clamp:2;
     -webkit-box-orient:vertical;
@@ -357,8 +356,6 @@ button{
     background:#fff7e9;
     color:#b97823;
 }
-
-/* 新增：查看服务详情 */
 
 .service-detail-btn{
     min-height:25px;
@@ -490,7 +487,7 @@ button{
 }
 
 /* =========================================================
-   地图占位
+   地图
 ========================================================= */
 
 .map-placeholder{
@@ -547,11 +544,26 @@ button{
 }
 
 /* =========================================================
-   商户
+   选择商户
 ========================================================= */
 
+.merchant-select-title{
+    margin-top:18px;
+    margin-bottom:10px;
+    font-size:17px;
+    font-weight:900;
+    color:#573844;
+}
+
+.merchant-select-sub{
+    margin-top:3px;
+    font-size:11px;
+    font-weight:400;
+    color:#a6808f;
+}
+
 .merchant-list{
-    margin-top:12px;
+    margin-top:0;
     display:flex;
     flex-direction:column;
     gap:10px;
@@ -970,7 +982,7 @@ button{
 }
 
 /* =========================================================
-   通用底部弹窗
+   弹窗
 ========================================================= */
 
 .modal-mask{
@@ -1258,17 +1270,10 @@ button{
 
 </section>
 
-<!-- 商户 -->
+<!-- 地图 + 商户 -->
 <section class="section">
 
-    <div class="section-head">
-        <div>
-            <div class="section-title">服务商户</div>
-            <div class="section-sub">
-                仅显示已定义完整分成规则的实体商户
-            </div>
-        </div>
-    </div>
+    <!-- 已删除原来的“服务商户”标题 -->
 
     <div id="mapPlaceholder" class="map-placeholder">
 
@@ -1287,6 +1292,15 @@ button{
 
         </div>
 
+    </div>
+
+    <!-- 新增：商户选择标题 -->
+    <div class="merchant-select-title">
+        选择商户
+
+        <div class="merchant-select-sub">
+            请选择本次实际到店消费的商户
+        </div>
     </div>
 
     <div id="merchantList" class="merchant-list"></div>
@@ -1642,10 +1656,7 @@ button{
 
 </div>
 
-<!-- ======================================================
-     服务详情
-====================================================== -->
-
+<!-- 服务详情 -->
 <div
     id="serviceDetailModal"
     class="modal-mask"
@@ -1671,10 +1682,7 @@ button{
 
 </div>
 
-<!-- ======================================================
-     下单确认
-====================================================== -->
-
+<!-- 下单确认 -->
 <div
     id="confirmModal"
     class="modal-mask"
@@ -1735,7 +1743,6 @@ const sb =
         SUPABASE_ANON_KEY
     );
 
-
 let currentUser = null;
 let currentProfile = null;
 let currentCustomer = null;
@@ -1773,7 +1780,6 @@ document.addEventListener(
     "DOMContentLoaded",
     init
 );
-
 
 async function init(){
 
@@ -1937,7 +1943,7 @@ async function loadCustomer(){
 
 
 /* =========================================================
-   加载下单数据
+   加载数据
 ========================================================= */
 
 async function loadBaseData(){
@@ -2023,7 +2029,6 @@ function getAvailableCityIds(){
     ];
 }
 
-
 function getCityName(cityId){
 
     const city =
@@ -2039,7 +2044,6 @@ function getCityName(cityId){
         `城市 ${cityId}`
     );
 }
-
 
 function renderCitySelect(){
 
@@ -2105,7 +2109,6 @@ function renderCitySelect(){
     }
 }
 
-
 function manualCityChanged(){
 
     const value =
@@ -2140,7 +2143,6 @@ function manualCityChanged(){
         "已使用您手动选择的城市。"
     );
 }
-
 
 function setCity(
     cityId,
@@ -2189,7 +2191,6 @@ function setCity(
     }
 }
 
-
 function updateCityUI(
     cityId,
     message
@@ -2233,7 +2234,6 @@ function updateCityUI(
     );
 }
 
-
 function resetAfterCity(){
 
     selectedProductId =
@@ -2251,7 +2251,7 @@ function resetAfterCity(){
 
 
 /* =========================================================
-   当前城市可下单服务
+   当前城市服务
 ========================================================= */
 
 function getCityOptions(){
@@ -2266,7 +2266,6 @@ function getCityOptions(){
             String(selectedCityId)
     );
 }
-
 
 function getCityProducts(){
 
@@ -2585,7 +2584,6 @@ function openServiceDetail(
 
         </div>
 
-
         <div class="detail-block">
 
             <div class="detail-block-title">
@@ -2597,7 +2595,6 @@ ${escapeHtml(description)}
             </div>
 
         </div>
-
 
         <div class="detail-warning">
             请在下单前仔细核对服务内容、适用情况和消费次数是否与您的需求一致。
@@ -2614,7 +2611,6 @@ ${escapeHtml(description)}
         );
 }
 
-
 function closeServiceDetail(){
 
     document
@@ -2625,7 +2621,6 @@ function closeServiceDetail(){
             "show"
         );
 }
-
 
 function serviceDetailMaskClose(
     event
@@ -2706,7 +2701,6 @@ function getMerchantOptions(){
             }
         );
 }
-
 
 function renderMerchants(){
 
@@ -2974,7 +2968,6 @@ function requestLocation(
         );
 }
 
-
 function locationFailed(
     automatic
 ){
@@ -2994,7 +2987,6 @@ function locationFailed(
         );
     }
 }
-
 
 function detectNearestCity(){
 
@@ -3176,7 +3168,6 @@ function calculateOptionDistance(
     );
 }
 
-
 function haversineDistance(
     lat1,
     lon1,
@@ -3218,7 +3209,6 @@ function haversineDistance(
     return R*c;
 }
 
-
 function toRad(
     value
 ){
@@ -3228,7 +3218,6 @@ function toRad(
         180
     );
 }
-
 
 function formatDistance(
     km
@@ -3378,7 +3367,6 @@ function renderSourceOptions(){
         );
 }
 
-
 function chooseSourceType(
     type
 ){
@@ -3458,7 +3446,6 @@ function chooseSourceType(
     updateAll();
 }
 
-
 function sourceSelectionChanged(){
 
     if(
@@ -3506,7 +3493,6 @@ function sourceSelectionChanged(){
     updateAll();
 }
 
-
 function getSelectedSource(){
 
     if(
@@ -3549,7 +3535,6 @@ function getSelectedSource(){
             source.source_name
     };
 }
-
 
 function updateSourceNote(){
 
@@ -3659,7 +3644,6 @@ function calculateDiscount(){
     };
 }
 
-
 function round2(
     value
 ){
@@ -3695,7 +3679,6 @@ function updateAll(){
 
     updateConfirmButton();
 }
-
 
 function updateQuantity(){
 
@@ -3748,7 +3731,6 @@ function updateQuantity(){
     detail.textContent =
         `每份包含 ${defaultUses} 次服务，当前购买 ${quantity} 份，共可核销 ${totalUses} 次。`;
 }
-
 
 function updateDiscount(){
 
@@ -3838,7 +3820,6 @@ function updateDiscount(){
         .textContent =
         message;
 }
-
 
 function updateSummary(){
 
@@ -4043,7 +4024,6 @@ function updateSummary(){
         "";
 }
 
-
 function getSelectedProductName(){
 
     const product =
@@ -4063,7 +4043,6 @@ function getSelectedProductName(){
         "已选择"
     );
 }
-
 
 function updateSteps(){
 
@@ -4110,7 +4089,6 @@ function updateSteps(){
         );
 }
 
-
 function updateConfirmButton(){
 
     document
@@ -4120,7 +4098,6 @@ function updateConfirmButton(){
         .disabled =
         !canSubmitOrder();
 }
-
 
 function canSubmitOrder(){
 
@@ -4146,7 +4123,7 @@ function canSubmitOrder(){
 
 
 /* =========================================================
-   确认弹窗
+   确认订单
 ========================================================= */
 
 function openConfirmModal(){
@@ -4289,7 +4266,6 @@ function openConfirmModal(){
         );
 }
 
-
 function closeConfirmModal(){
 
     if(submitting){
@@ -4304,7 +4280,6 @@ function closeConfirmModal(){
             "show"
         );
 }
-
 
 function maskClose(
     event
@@ -4483,7 +4458,6 @@ function formatMoney(
         );
 }
 
-
 function escapeHtml(
     value
 ){
@@ -4524,14 +4498,12 @@ function goBack(){
         "./customer.html";
 }
 
-
 function goLogin(){
 
     window.location.replace(
         "./login.html"
     );
 }
-
 
 async function forceLogout(){
 
@@ -4579,7 +4551,6 @@ function setupIdleLogout(){
 
     resetIdleTimer();
 }
-
 
 function resetIdleTimer(){
 

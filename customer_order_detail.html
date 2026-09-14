@@ -2,16 +2,23 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
 
     <title>订单详情 - 孕乃馨</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+    <!-- 二维码 -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
     <style>
         * {
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         html,
@@ -43,7 +50,7 @@
             min-height: 100vh;
             margin: 0 auto;
             background: #fff8fb;
-            padding-bottom: 110px;
+            padding-bottom: 150px;
         }
 
         /* =========================
@@ -97,7 +104,7 @@
         }
 
         /* =========================
-           页面主体
+           主体
         ========================= */
 
         .content {
@@ -134,7 +141,7 @@
         }
 
         /* =========================
-           订单状态
+           状态
         ========================= */
 
         .status-card {
@@ -147,7 +154,9 @@
                     #f65f91 100%
                 );
             color: #ffffff;
-            box-shadow: 0 10px 30px rgba(238, 91, 139, 0.18);
+            box-shadow:
+                0 10px 30px
+                rgba(238, 91, 139, 0.18);
         }
 
         .status-label {
@@ -172,7 +181,9 @@
         .order-no-line {
             margin-top: 17px;
             padding-top: 14px;
-            border-top: 1px solid rgba(255,255,255,0.28);
+            border-top:
+                1px solid
+                rgba(255,255,255,0.28);
             display: flex;
             justify-content: space-between;
             gap: 12px;
@@ -186,6 +197,31 @@
         }
 
         /* =========================
+           通知
+        ========================= */
+
+        .paid-notice {
+            margin-top: 14px;
+            padding: 16px 18px;
+            border-radius: 18px;
+            background: #f1fff7;
+            border: 1px solid #ccefdc;
+        }
+
+        .paid-notice-title {
+            color: #268b58;
+            font-size: 16px;
+            font-weight: 900;
+        }
+
+        .paid-notice-text {
+            margin-top: 6px;
+            color: #6a8978;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* =========================
            卡片
         ========================= */
 
@@ -195,7 +231,9 @@
             background: #ffffff;
             border: 1px solid #f3dfe7;
             border-radius: 22px;
-            box-shadow: 0 7px 24px rgba(180, 90, 120, 0.05);
+            box-shadow:
+                0 7px 24px
+                rgba(180, 90, 120, 0.05);
         }
 
         .card-title {
@@ -222,7 +260,8 @@
             gap: 16px;
             min-height: 38px;
             padding: 8px 0;
-            border-bottom: 1px solid #f8edf1;
+            border-bottom:
+                1px solid #f8edf1;
         }
 
         .info-row:last-child {
@@ -251,7 +290,8 @@
 
         .usage-box {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns:
+                repeat(3, 1fr);
             gap: 9px;
         }
 
@@ -275,13 +315,88 @@
         }
 
         /* =========================
+           二维码入口
+        ========================= */
+
+        .qr-entry-card {
+            margin-top: 14px;
+            padding: 18px;
+            border-radius: 22px;
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff 0%,
+                    #fff6f9 100%
+                );
+            border: 1px solid #f2dbe4;
+            box-shadow:
+                0 8px 26px
+                rgba(210, 91, 135, 0.08);
+        }
+
+        .qr-entry-top {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+        .qr-entry-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 17px;
+            background: #ffedf4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 27px;
+            flex-shrink: 0;
+        }
+
+        .qr-entry-content {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .qr-entry-title {
+            font-size: 16px;
+            font-weight: 900;
+            color: #573844;
+        }
+
+        .qr-entry-desc {
+            margin-top: 5px;
+            font-size: 12px;
+            color: #9d7a87;
+            line-height: 1.6;
+        }
+
+        .qr-entry-btn {
+            width: 100%;
+            min-height: 48px;
+            margin-top: 15px;
+            border: 0;
+            border-radius: 15px;
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff719d,
+                    #f55d90
+                );
+            color: white;
+            font-size: 15px;
+            font-weight: 900;
+            cursor: pointer;
+        }
+
+        /* =========================
            金额
         ========================= */
 
         .amount-summary {
             margin-top: 10px;
             padding-top: 12px;
-            border-top: 1px dashed #efd7e0;
+            border-top:
+                1px dashed #efd7e0;
         }
 
         .payable-row {
@@ -304,31 +419,6 @@
         }
 
         /* =========================
-           支付成功提示
-        ========================= */
-
-        .paid-notice {
-            margin-top: 14px;
-            padding: 16px 18px;
-            border-radius: 18px;
-            background: #f1fff7;
-            border: 1px solid #ccefdc;
-        }
-
-        .paid-notice-title {
-            color: #268b58;
-            font-size: 16px;
-            font-weight: 900;
-        }
-
-        .paid-notice-text {
-            margin-top: 6px;
-            color: #6a8978;
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
-        /* =========================
            底部
         ========================= */
 
@@ -344,8 +434,10 @@
                 12px
                 16px
                 calc(12px + env(safe-area-inset-bottom));
-            background: rgba(255,255,255,0.97);
-            border-top: 1px solid #f2dce5;
+            background:
+                rgba(255,255,255,0.97);
+            border-top:
+                1px solid #f2dce5;
             backdrop-filter: blur(12px);
         }
 
@@ -364,7 +456,9 @@
             font-size: 16px;
             font-weight: 900;
             cursor: pointer;
-            box-shadow: 0 7px 20px rgba(239, 92, 142, 0.20);
+            box-shadow:
+                0 7px 20px
+                rgba(239, 92, 142, 0.20);
         }
 
         .primary-btn:disabled {
@@ -377,12 +471,144 @@
             width: 100%;
             min-height: 48px;
             margin-top: 9px;
-            border: 1px solid #f0d4df;
+            border:
+                1px solid #f0d4df;
             border-radius: 16px;
             background: #ffffff;
             color: #c65a7f;
             font-size: 15px;
             font-weight: 800;
+            cursor: pointer;
+        }
+
+        /* =========================
+           QR弹窗
+        ========================= */
+
+        .qr-mask {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background:
+                rgba(53, 38, 45, 0.58);
+            backdrop-filter: blur(7px);
+        }
+
+        .qr-modal {
+            width: 100%;
+            max-width: 390px;
+            max-height: 92vh;
+            overflow-y: auto;
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 24px 20px 20px;
+            box-shadow:
+                0 22px 60px
+                rgba(40, 20, 30, 0.25);
+        }
+
+        .qr-modal-title {
+            text-align: center;
+            font-size: 21px;
+            font-weight: 900;
+            color: #553843;
+        }
+
+        .qr-modal-subtitle {
+            margin-top: 7px;
+            text-align: center;
+            font-size: 12px;
+            color: #9c7a87;
+            line-height: 1.6;
+        }
+
+        .qr-box {
+            width: 245px;
+            max-width: 100%;
+            min-height: 245px;
+            margin: 22px auto 16px;
+            padding: 14px;
+            border-radius: 20px;
+            background: white;
+            border:
+                1px solid #f0dbe3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-box img,
+        .qr-box canvas {
+            max-width: 100% !important;
+            height: auto !important;
+        }
+
+        .qr-merchant {
+            text-align: center;
+            font-size: 15px;
+            font-weight: 900;
+            color: #543943;
+        }
+
+        .qr-order-no {
+            margin-top: 5px;
+            text-align: center;
+            font-size: 11px;
+            color: #ad8a96;
+            word-break: break-all;
+        }
+
+        .qr-usage {
+            margin-top: 16px;
+            display: grid;
+            grid-template-columns:
+                repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .qr-usage-item {
+            padding: 12px 4px;
+            border-radius: 14px;
+            background: #fff3f7;
+            text-align: center;
+        }
+
+        .qr-usage-value {
+            font-size: 19px;
+            font-weight: 900;
+            color: #ea5989;
+        }
+
+        .qr-usage-label {
+            margin-top: 4px;
+            font-size: 10px;
+            color: #a47d8b;
+        }
+
+        .qr-warning {
+            margin-top: 16px;
+            padding: 12px 14px;
+            border-radius: 14px;
+            background: #fff8e8;
+            color: #8c7040;
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .qr-close-btn {
+            width: 100%;
+            min-height: 48px;
+            margin-top: 17px;
+            border: none;
+            border-radius: 15px;
+            background: #ffedf4;
+            color: #d95b86;
+            font-size: 15px;
+            font-weight: 900;
             cursor: pointer;
         }
 
@@ -397,7 +623,9 @@
             }
 
             .page {
-                box-shadow: 0 0 35px rgba(90, 50, 70, 0.08);
+                box-shadow:
+                    0 0 35px
+                    rgba(90, 50, 70, 0.08);
             }
         }
     </style>
@@ -438,7 +666,6 @@
             id="loadingBox"
             class="loading-box"
         >
-
             <div class="loading-title">
                 正在读取订单
             </div>
@@ -446,7 +673,6 @@
             <div class="loading-text">
                 请稍候……
             </div>
-
         </div>
 
 
@@ -456,7 +682,6 @@
             id="errorBox"
             class="error-box hidden"
         >
-
             <div class="error-title">
                 无法读取订单
             </div>
@@ -467,11 +692,10 @@
             >
                 订单不存在或您没有查看权限。
             </div>
-
         </div>
 
 
-        <!-- 正常订单 -->
+        <!-- 正常内容 -->
 
         <div
             id="orderContent"
@@ -530,13 +754,54 @@
                 </div>
 
                 <div class="paid-notice-text">
-                    本订单已经完成支付，可以按照订单约定到商户使用服务。
+                    本订单已经完成支付，可以到指定商户使用服务。
                 </div>
 
             </section>
 
 
-            <!-- 服务 -->
+            <!-- 消费二维码入口 -->
+
+            <section
+                id="qrEntryCard"
+                class="qr-entry-card hidden"
+            >
+
+                <div class="qr-entry-top">
+
+                    <div class="qr-entry-icon">
+                        ▦
+                    </div>
+
+                    <div class="qr-entry-content">
+
+                        <div class="qr-entry-title">
+                            消费二维码
+                        </div>
+
+                        <div
+                            id="qrEntryDesc"
+                            class="qr-entry-desc"
+                        >
+                            到店消费时向商户出示二维码进行核销。
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button
+                    class="qr-entry-btn"
+                    type="button"
+                    onclick="openVerificationQR()"
+                >
+                    显示消费二维码
+                </button>
+
+            </section>
+
+
+            <!-- 服务信息 -->
 
             <section class="card">
 
@@ -710,7 +975,7 @@
             </section>
 
 
-            <!-- 使用次数 -->
+            <!-- 次数 -->
 
             <section class="card">
 
@@ -940,6 +1205,124 @@
 </div>
 
 
+<!-- =========================================================
+     消费二维码弹窗
+========================================================= -->
+
+<div
+    id="qrMask"
+    class="qr-mask hidden"
+    onclick="handleQRMaskClick(event)"
+>
+
+    <div
+        class="qr-modal"
+        onclick="event.stopPropagation()"
+    >
+
+        <div class="qr-modal-title">
+            消费二维码
+        </div>
+
+        <div class="qr-modal-subtitle">
+            请在到店消费时向当前订单指定商户出示
+        </div>
+
+
+        <div
+            id="qrCode"
+            class="qr-box"
+        ></div>
+
+
+        <div
+            id="qrMerchantName"
+            class="qr-merchant"
+        >
+            -
+        </div>
+
+
+        <div
+            id="qrOrderNo"
+            class="qr-order-no"
+        >
+            -
+        </div>
+
+
+        <div class="qr-usage">
+
+            <div class="qr-usage-item">
+
+                <div
+                    id="qrTotalUses"
+                    class="qr-usage-value"
+                >
+                    0
+                </div>
+
+                <div class="qr-usage-label">
+                    总次数
+                </div>
+
+            </div>
+
+
+            <div class="qr-usage-item">
+
+                <div
+                    id="qrUsedUses"
+                    class="qr-usage-value"
+                >
+                    0
+                </div>
+
+                <div class="qr-usage-label">
+                    已消费
+                </div>
+
+            </div>
+
+
+            <div class="qr-usage-item">
+
+                <div
+                    id="qrRemainingUses"
+                    class="qr-usage-value"
+                >
+                    0
+                </div>
+
+                <div class="qr-usage-label">
+                    剩余
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="qr-warning">
+            此二维码仅限本订单消费核销使用。
+            请勿截图转发给其他人。
+            每成功核销一次，系统自动扣减一次服务次数。
+        </div>
+
+
+        <button
+            class="qr-close-btn"
+            type="button"
+            onclick="closeVerificationQR()"
+        >
+            关闭
+        </button>
+
+    </div>
+
+</div>
+
+
 <script>
 
     /* =========================================================
@@ -948,6 +1331,7 @@
 
     const SUPABASE_URL =
         "https://qbuqjwpkltbjhlfbyjyb.supabase.co";
+
 
     const SUPABASE_ANON_KEY =
         "sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
@@ -961,7 +1345,7 @@
 
 
     /* =========================================================
-       全局变量
+       全局
     ========================================================= */
 
     let currentUser = null;
@@ -972,6 +1356,8 @@
 
     let paymentProcessing = false;
 
+    let qrRenderedToken = null;
+
 
     const IDLE_TIMEOUT =
         10 * 60 * 1000;
@@ -981,7 +1367,7 @@
 
 
     /* =========================================================
-       页面启动
+       初始化
     ========================================================= */
 
     document.addEventListener(
@@ -1061,6 +1447,23 @@
             );
 
 
+            /* =========================
+               customer.html传入showQR=1
+            ========================= */
+
+            if (
+                shouldAutoShowQR()
+                &&
+                canShowVerificationQR()
+            ) {
+
+                setTimeout(
+                    openVerificationQR,
+                    220
+                );
+            }
+
+
         } catch (error) {
 
             console.error(
@@ -1079,7 +1482,7 @@
 
 
     /* =========================================================
-       URL订单ID
+       URL
     ========================================================= */
 
     function getOrderId() {
@@ -1118,8 +1521,24 @@
     }
 
 
+    function shouldAutoShowQR() {
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        return (
+            params.get("showQR")
+            ===
+            "1"
+        );
+    }
+
+
     /* =========================================================
-       验证客户
+       客户验证
     ========================================================= */
 
     async function verifyCustomer() {
@@ -1177,7 +1596,9 @@
        加载订单
     ========================================================= */
 
-    async function loadOrder(orderId) {
+    async function loadOrder(
+        orderId
+    ) {
 
         const {
             data: order,
@@ -1190,38 +1611,55 @@
                     order_no,
                     customer_id,
                     merchant_id,
+
                     province_id,
                     city_id,
                     district_id,
+
                     total_amount,
+
                     order_status,
                     payment_status,
                     invoice_status,
+
                     created_at,
                     updated_at,
+
                     total_uses,
                     used_uses,
                     remaining_uses,
+
+                    verification_token,
+                    verification_activated_at,
+                    first_verified_at,
+                    last_verified_at,
+
                     recommendation_source_type,
                     recommendation_source_no,
                     recommendation_source_entity_id,
                     recommendation_source_name_snapshot,
+
                     merchant_no_snapshot,
                     merchant_name_snapshot,
                     merchant_address_snapshot,
                     merchant_longitude_snapshot,
                     merchant_latitude_snapshot,
                     merchant_coordinate_system_snapshot,
+
                     review_status,
+
                     paid_at,
                     completed_at,
+
                     subtotal_amount,
                     discount_rate,
                     discount_amount,
                     payable_amount,
+
                     payment_method,
                     payment_amount,
                     payment_confirmed_at,
+
                     wechat_transaction_id,
                     wechat_out_trade_no
                 `)
@@ -1260,7 +1698,7 @@
 
 
         /* =========================
-           订单明细
+           明细
         ========================= */
 
         const {
@@ -1359,7 +1797,7 @@
 
 
     /* =========================================================
-       渲染订单
+       渲染
     ========================================================= */
 
     function renderOrder() {
@@ -1372,9 +1810,7 @@
             currentOrderItem;
 
 
-        /* =========================
-           状态
-        ========================= */
+        /* 状态 */
 
         const status =
             getOrderStatusDisplay(
@@ -1401,9 +1837,7 @@
         );
 
 
-        /* =========================
-           服务
-        ========================= */
+        /* 服务 */
 
         setText(
             "productName",
@@ -1435,9 +1869,7 @@
         );
 
 
-        /* =========================
-           商户
-        ========================= */
+        /* 商户 */
 
         setText(
             "merchantName",
@@ -1449,20 +1881,20 @@
         setText(
             "merchantNo",
             order.merchant_no_snapshot
-            ?? "-"
+            ??
+            "-"
         );
 
 
         setText(
             "merchantAddress",
             order.merchant_address_snapshot
-            || "暂未填写"
+            ||
+            "暂未填写"
         );
 
 
-        /* =========================
-           推荐来源
-        ========================= */
+        /* 推荐 */
 
         setText(
             "recommendationName",
@@ -1506,9 +1938,7 @@
         }
 
 
-        /* =========================
-           次数
-        ========================= */
+        /* 次数 */
 
         setText(
             "totalUses",
@@ -1534,9 +1964,7 @@
         );
 
 
-        /* =========================
-           金额
-        ========================= */
+        /* 金额 */
 
         const subtotal =
             firstNumber(
@@ -1596,9 +2024,7 @@
         );
 
 
-        /* =========================
-           支付信息
-        ========================= */
+        /* 支付 */
 
         setText(
             "paymentStatus",
@@ -1617,7 +2043,9 @@
 
 
         if (
-            order.payment_status === "paid"
+            order.payment_status
+            ===
+            "paid"
         ) {
 
             const paidTime =
@@ -1668,11 +2096,297 @@
         }
 
 
-        /* =========================
-           支付按钮
-        ========================= */
+        renderQRCodeEntry();
 
         updatePayButton();
+    }
+
+
+    /* =========================================================
+       二维码入口
+    ========================================================= */
+
+    function canShowVerificationQR() {
+
+        if (!currentOrder) {
+
+            return false;
+        }
+
+
+        return (
+            currentOrder.payment_status
+            ===
+            "paid"
+
+            &&
+
+            Number(
+                currentOrder.remaining_uses
+                ??
+                0
+            ) > 0
+
+            &&
+
+            typeof
+            currentOrder.verification_token
+            ===
+            "string"
+
+            &&
+
+            currentOrder.verification_token
+                .trim()
+                .length >= 20
+        );
+    }
+
+
+    function renderQRCodeEntry() {
+
+        const card =
+            document.getElementById(
+                "qrEntryCard"
+            );
+
+
+        if (
+            canShowVerificationQR()
+        ) {
+
+            card.classList.remove(
+                "hidden"
+            );
+
+
+            setText(
+                "qrEntryDesc",
+                `当前剩余 ${numberOrZero(
+                    currentOrder.remaining_uses
+                )} 次服务，到店时向商户出示。`
+            );
+
+        } else {
+
+            card.classList.add(
+                "hidden"
+            );
+        }
+    }
+
+
+    /* =========================================================
+       打开二维码
+    ========================================================= */
+
+    function openVerificationQR() {
+
+        if (
+            !currentOrder
+        ) {
+
+            return;
+        }
+
+
+        if (
+            currentOrder.payment_status
+            !==
+            "paid"
+        ) {
+
+            alert(
+                "订单尚未支付，暂不能使用消费二维码。"
+            );
+
+            return;
+        }
+
+
+        if (
+            Number(
+                currentOrder.remaining_uses
+                ??
+                0
+            ) <= 0
+        ) {
+
+            alert(
+                "本订单的服务次数已经全部使用。"
+            );
+
+            return;
+        }
+
+
+        const token =
+            String(
+                currentOrder.verification_token
+                ??
+                ""
+            ).trim();
+
+
+        if (
+            token.length < 20
+        ) {
+
+            alert(
+                "消费二维码尚未生成，请稍后刷新订单。"
+            );
+
+            return;
+        }
+
+
+        setText(
+            "qrMerchantName",
+            currentOrder.merchant_name_snapshot
+            ||
+            "服务商户"
+        );
+
+
+        setText(
+            "qrOrderNo",
+            `订单号：${
+                currentOrder.order_no
+                ||
+                currentOrder.id
+            }`
+        );
+
+
+        setText(
+            "qrTotalUses",
+            numberOrZero(
+                currentOrder.total_uses
+            )
+        );
+
+
+        setText(
+            "qrUsedUses",
+            numberOrZero(
+                currentOrder.used_uses
+            )
+        );
+
+
+        setText(
+            "qrRemainingUses",
+            numberOrZero(
+                currentOrder.remaining_uses
+            )
+        );
+
+
+        document
+            .getElementById(
+                "qrMask"
+            )
+            .classList
+            .remove("hidden");
+
+
+        document.body.style.overflow =
+            "hidden";
+
+
+        renderQRCode(
+            token
+        );
+    }
+
+
+    /* =========================================================
+       二维码生成
+    ========================================================= */
+
+    function renderQRCode(
+        token
+    ) {
+
+        const container =
+            document.getElementById(
+                "qrCode"
+            );
+
+
+        if (
+            qrRenderedToken
+            ===
+            token
+
+            &&
+            container.children.length > 0
+        ) {
+
+            return;
+        }
+
+
+        container.innerHTML =
+            "";
+
+
+        qrRenderedToken =
+            token;
+
+
+        /*
+         * 二维码只保存安全随机Token。
+         * 不直接放order_id，
+         * 不包含客户个人资料。
+         */
+
+        new QRCode(
+            container,
+            {
+                text:
+                    token,
+
+                width:
+                    215,
+
+                height:
+                    215,
+
+                correctLevel:
+                    QRCode.CorrectLevel.H
+            }
+        );
+    }
+
+
+    function closeVerificationQR() {
+
+        document
+            .getElementById(
+                "qrMask"
+            )
+            .classList
+            .add("hidden");
+
+
+        document.body.style.overflow =
+            "";
+    }
+
+
+    function handleQRMaskClick(
+        event
+    ) {
+
+        if (
+            event.target.id
+            ===
+            "qrMask"
+        ) {
+
+            closeVerificationQR();
+        }
     }
 
 
@@ -1682,7 +2396,7 @@
 
     function updatePayButton() {
 
-        const payButton =
+        const button =
             document.getElementById(
                 "payButton"
             );
@@ -1690,30 +2404,66 @@
 
         if (
             currentOrder.payment_status
-            === "paid"
+            ===
+            "paid"
         ) {
 
-            payButton.textContent =
-                "已支付";
+            if (
+                Number(
+                    currentOrder.remaining_uses
+                    ??
+                    0
+                ) > 0
+                &&
+                currentOrder.verification_token
+            ) {
 
-            payButton.disabled =
-                true;
+                button.textContent =
+                    "显示消费二维码";
+
+                button.disabled =
+                    false;
+
+                button.onclick =
+                    openVerificationQR;
+
+            } else {
+
+                button.textContent =
+                    Number(
+                        currentOrder.remaining_uses
+                        ??
+                        0
+                    ) <= 0
+                    ?
+                    "服务已完成"
+                    :
+                    "已支付";
+
+                button.disabled =
+                    true;
+            }
+
 
             return;
         }
 
 
-        payButton.disabled =
+        button.textContent =
+            "去支付";
+
+
+        button.disabled =
             false;
 
 
-        payButton.textContent =
-            "去支付";
+        button.onclick =
+            simulatePayment;
     }
 
 
     /* =========================================================
-       开发环境模拟支付
+       模拟支付
     ========================================================= */
 
     async function simulatePayment() {
@@ -1730,7 +2480,8 @@
 
         if (
             currentOrder.payment_status
-            === "paid"
+            ===
+            "paid"
         ) {
 
             return;
@@ -1772,10 +2523,6 @@
 
         try {
 
-            /* =========================
-               调用数据库安全函数
-            ========================= */
-
             const {
                 data,
                 error
@@ -1814,20 +2561,12 @@
             }
 
 
-            /* =========================
-               成功提示
-            ========================= */
-
             alert(
                 "支付成功！\n\n" +
                 "当前为开发阶段模拟微信支付。\n" +
-                "数据库已经写入支付成功状态。"
+                "消费二维码已经激活。"
             );
 
-
-            /* =========================
-               重新读取订单
-            ========================= */
 
             await loadOrder(
                 currentOrder.id
@@ -1858,26 +2597,13 @@
                 false;
 
 
-            if (
-                currentOrder
-                &&
-                currentOrder.payment_status
-                !== "paid"
-            ) {
-
-                payButton.disabled =
-                    false;
-
-
-                payButton.textContent =
-                    "去支付";
-            }
+            updatePayButton();
         }
     }
 
 
     /* =========================================================
-       订单状态
+       状态
     ========================================================= */
 
     function getOrderStatusDisplay(
@@ -1892,9 +2618,27 @@
         ) {
 
             return {
-                title: "已完成",
+                title:
+                    "已完成",
+
                 description:
-                    "本订单已经完成。"
+                    "本订单的全部服务次数已经完成。"
+            };
+        }
+
+
+        if (
+            paymentStatus === "paid"
+            &&
+            orderStatus === "processing"
+        ) {
+
+            return {
+                title:
+                    "消费中",
+
+                description:
+                    "订单正在使用中，请凭消费二维码到商户继续核销。"
             };
         }
 
@@ -1904,9 +2648,11 @@
         ) {
 
             return {
-                title: "已支付",
+                title:
+                    "待消费",
+
                 description:
-                    "订单已经支付，请按照订单约定到商户使用服务。"
+                    "订单已经支付，可凭消费二维码到商户使用服务。"
             };
         }
 
@@ -1918,25 +2664,20 @@
             case "pending_payment":
 
                 return {
-                    title: "待支付",
+                    title:
+                        "待支付",
+
                     description:
                         "订单已经创建，请核对订单信息后完成支付。"
-                };
-
-
-            case "paid":
-
-                return {
-                    title: "已支付",
-                    description:
-                        "订单已经支付，请按照订单约定到商户使用服务。"
                 };
 
 
             case "confirmed":
 
                 return {
-                    title: "已确认",
+                    title:
+                        "已确认",
+
                     description:
                         "订单已经确认。"
                 };
@@ -1945,7 +2686,9 @@
             case "processing":
 
                 return {
-                    title: "服务中",
+                    title:
+                        "服务中",
+
                     description:
                         "订单正在服务过程中。"
                 };
@@ -1954,7 +2697,9 @@
             case "completed":
 
                 return {
-                    title: "已完成",
+                    title:
+                        "已完成",
+
                     description:
                         "本订单已经完成。"
                 };
@@ -1963,7 +2708,9 @@
             case "cancelled":
 
                 return {
-                    title: "已取消",
+                    title:
+                        "已取消",
+
                     description:
                         "本订单已经取消。"
                 };
@@ -1997,27 +2744,23 @@
         ) {
 
             case "unpaid":
-
                 return "未支付";
 
 
             case "paid":
-
                 return "已支付";
 
 
             case "partial_refund":
-
+            case "partially_refunded":
                 return "部分退款";
 
 
             case "refunded":
-
                 return "已退款";
 
 
             default:
-
                 return status || "-";
         }
     }
@@ -2036,18 +2779,15 @@
         ) {
 
             case "merchant":
-
                 return "商户推荐";
 
 
             case "health_consultant":
-
                 return "健康顾问";
 
 
             case "platform":
             default:
-
                 return "平台";
         }
     }
@@ -2267,13 +3007,26 @@
         return new Intl.DateTimeFormat(
             "zh-CN",
             {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit",
-                hour12: false
+                year:
+                    "numeric",
+
+                month:
+                    "2-digit",
+
+                day:
+                    "2-digit",
+
+                hour:
+                    "2-digit",
+
+                minute:
+                    "2-digit",
+
+                second:
+                    "2-digit",
+
+                hour12:
+                    false
             }
         ).format(date);
     }

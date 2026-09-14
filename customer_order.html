@@ -2,27 +2,39 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
+
 <meta
     name="viewport"
     content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
 >
+
 <meta name="theme-color" content="#fff5f8">
+
 <title>孕乃馨 - 服务下单</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<!-- 百度地图 JavaScript API -->
+<script
+    type="text/javascript"
+    src="https://api.map.baidu.com/api?v=3.0&ak=qm079iFrWCY799GxJSJEnfJWIhwnqqnK">
+</script>
+
 <style>
+
 *{
     box-sizing:border-box;
     -webkit-tap-highlight-color:transparent;
 }
 
-html,body{
+html,
+body{
     margin:0;
     padding:0;
     min-height:100%;
     background:#fff7fa;
     color:#493741;
+
     font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -34,10 +46,17 @@ html,body{
 }
 
 body{
-    padding-bottom:calc(110px + env(safe-area-inset-bottom));
+    padding-bottom:
+        calc(
+            110px
+            +
+            env(safe-area-inset-bottom)
+        );
 }
 
-button,input,select{
+button,
+input,
+select{
     font:inherit;
 }
 
@@ -49,7 +68,9 @@ button{
     width:100%;
     max-width:560px;
     min-height:100vh;
+
     margin:0 auto;
+
     background:
         linear-gradient(
             180deg,
@@ -63,38 +84,67 @@ button{
     height:env(safe-area-inset-top);
 }
 
+
 /* =========================================================
    顶部
 ========================================================= */
 
 .topbar{
     height:58px;
-    padding:8px 15px;
+
+    padding:
+        8px
+        15px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     gap:12px;
 }
 
 .back-btn{
     width:42px;
     height:42px;
+
     border:none;
+
     border-radius:15px;
-    background:rgba(255,255,255,.88);
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .88
+        );
+
     color:#72515f;
+
     font-size:23px;
+
     display:flex;
     align-items:center;
     justify-content:center;
-    box-shadow:0 6px 18px rgba(91,54,67,.07);
+
+    box-shadow:
+        0 6px 18px
+        rgba(
+            91,
+            54,
+            67,
+            .07
+        );
 }
 
 .top-title{
     flex:1;
+
     text-align:center;
+
     font-size:17px;
     font-weight:900;
+
     color:#563743;
 }
 
@@ -102,14 +152,22 @@ button{
     width:42px;
 }
 
+
 /* =========================================================
    步骤
 ========================================================= */
 
 .steps{
-    margin:5px 16px 0;
+    margin:
+        5px
+        16px
+        0;
+
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+
+    grid-template-columns:
+        repeat(4,1fr);
+
     gap:4px;
 }
 
@@ -120,26 +178,48 @@ button{
 .step-dot{
     width:25px;
     height:25px;
+
     margin:0 auto;
+
     border-radius:50%;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     background:#f3dbe4;
+
     color:#ae8393;
+
     font-size:11px;
     font-weight:900;
 }
 
 .step.active .step-dot{
-    background:linear-gradient(135deg,#ff719d,#ff9ab9);
+    background:
+        linear-gradient(
+            135deg,
+            #ff719d,
+            #ff9ab9
+        );
+
     color:white;
-    box-shadow:0 5px 15px rgba(238,91,138,.23);
+
+    box-shadow:
+        0 5px 15px
+        rgba(
+            238,
+            91,
+            138,
+            .23
+        );
 }
 
 .step-label{
     margin-top:5px;
+
     font-size:9px;
+
     color:#aa8794;
 }
 
@@ -148,58 +228,90 @@ button{
     font-weight:800;
 }
 
+
 /* =========================================================
    通用
 ========================================================= */
 
 .section{
-    margin:20px 16px 0;
+    margin:
+        20px
+        16px
+        0;
 }
 
 .section-head{
     margin-bottom:11px;
+
     display:flex;
     align-items:flex-start;
     justify-content:space-between;
+
     gap:10px;
 }
 
 .section-title{
     font-size:17px;
     font-weight:900;
+
     color:#573844;
 }
 
 .section-sub{
     margin-top:3px;
+
     font-size:11px;
+
     color:#a6808f;
 }
 
 .card{
     background:white;
+
     border-radius:22px;
-    box-shadow:0 8px 28px rgba(92,57,70,.07);
+
+    box-shadow:
+        0 8px 28px
+        rgba(
+            92,
+            57,
+            70,
+            .07
+        );
 }
 
 .field-label{
     margin-bottom:7px;
+
     font-size:11px;
     font-weight:800;
+
     color:#785866;
 }
 
 .select-control{
     width:100%;
     height:49px;
-    padding:0 12px;
-    border:1.5px solid #ead7df;
+
+    padding:
+        0
+        12px;
+
+    border:
+        1.5px solid
+        #ead7df;
+
     border-radius:15px;
+
     background:white;
+
     color:#5d424d;
+
     outline:none;
+
     font-size:13px;
 }
+
 
 /* =========================================================
    城市
@@ -212,18 +324,24 @@ button{
 .city-row{
     display:flex;
     align-items:flex-start;
+
     gap:12px;
 }
 
 .city-icon{
     width:42px;
     height:42px;
+
     flex-shrink:0;
+
     border-radius:15px;
+
     background:#fff0f5;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     font-size:21px;
 }
 
@@ -235,13 +353,16 @@ button{
 .city-title{
     font-size:14px;
     font-weight:900;
+
     color:#5d404c;
 }
 
 .city-status{
     margin-top:5px;
+
     font-size:11px;
     line-height:1.55;
+
     color:#9c7d89;
 }
 
@@ -255,15 +376,23 @@ button{
 
 .locate-btn{
     width:100%;
+
     min-height:44px;
+
     margin-top:10px;
+
     border:none;
+
     border-radius:15px;
+
     background:#fff0f5;
+
     color:#dc5f88;
+
     font-size:13px;
     font-weight:900;
 }
+
 
 /* =========================================================
    服务项目
@@ -272,35 +401,69 @@ button{
 .service-list{
     display:flex;
     flex-direction:column;
+
     gap:10px;
 }
 
 .service-card{
     width:100%;
-    border:2px solid transparent;
+
+    border:
+        2px solid
+        transparent;
+
     background:white;
+
     border-radius:21px;
+
     padding:15px;
+
     text-align:left;
+
     display:flex;
+
     gap:13px;
-    box-shadow:0 7px 24px rgba(93,58,71,.06);
+
+    box-shadow:
+        0 7px 24px
+        rgba(
+            93,
+            58,
+            71,
+            .06
+        );
 }
 
 .service-card.selected{
     border-color:#ff81aa;
-    background:linear-gradient(135deg,#fff 0%,#fff5f8 100%);
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff 0%,
+            #fff5f8 100%
+        );
 }
 
 .service-icon{
     width:50px;
     height:50px;
+
     flex-shrink:0;
+
     border-radius:17px;
-    background:linear-gradient(145deg,#fff0f5,#ffe4ed);
+
+    background:
+        linear-gradient(
+            145deg,
+            #fff0f5,
+            #ffe4ed
+        );
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     font-size:26px;
 }
 
@@ -312,63 +475,91 @@ button{
 .service-name{
     font-size:15px;
     font-weight:900;
+
     color:#593946;
 }
 
 .service-desc{
     margin-top:5px;
+
     font-size:11px;
     line-height:1.55;
+
     color:#a1818d;
+
     display:-webkit-box;
+
     -webkit-line-clamp:2;
     -webkit-box-orient:vertical;
+
     overflow:hidden;
 }
 
 .service-bottom{
     margin-top:10px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     gap:8px;
 }
 
 .service-tags{
     display:flex;
     flex-wrap:wrap;
+
     gap:6px;
 }
 
 .tag{
     min-height:25px;
-    padding:4px 8px;
+
+    padding:
+        4px
+        8px;
+
     border-radius:999px;
+
     display:inline-flex;
     align-items:center;
+
     background:#fff0f5;
+
     color:#dd5b87;
+
     font-size:10px;
     font-weight:800;
 }
 
 .price-tag{
     background:#fff7e9;
+
     color:#b97823;
 }
 
 .service-detail-btn{
     min-height:25px;
-    padding:4px 10px;
+
+    padding:
+        4px
+        10px;
+
     border-radius:999px;
+
     display:inline-flex;
     align-items:center;
     justify-content:center;
+
     background:#eef5ff;
+
     color:#4e79ad;
+
     font-size:10px;
     font-weight:900;
+
     cursor:pointer;
+
     user-select:none;
 }
 
@@ -379,47 +570,70 @@ button{
 .select-check{
     width:25px;
     height:25px;
+
     flex-shrink:0;
+
     border-radius:50%;
+
     background:#f3e8ec;
+
     color:#b28a99;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     font-size:13px;
     font-weight:900;
 }
 
-.service-card.selected .select-check{
+.service-card.selected
+.select-check{
     background:#ef6e99;
+
     color:white;
 }
 
+
 /* =========================================================
-   服务详情弹窗
+   服务详情
 ========================================================= */
 
 .service-detail-sheet{
     max-height:84vh;
+
     overflow-y:auto;
 }
 
 .detail-head{
     margin-top:15px;
+
     display:flex;
+
     gap:13px;
+
     align-items:flex-start;
 }
 
 .detail-icon{
     width:55px;
     height:55px;
+
     flex-shrink:0;
+
     border-radius:18px;
-    background:linear-gradient(145deg,#fff0f5,#ffe4ed);
+
+    background:
+        linear-gradient(
+            145deg,
+            #fff0f5,
+            #ffe4ed
+        );
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     font-size:28px;
 }
 
@@ -432,116 +646,262 @@ button{
     font-size:17px;
     line-height:1.45;
     font-weight:900;
+
     color:#563743;
 }
 
 .detail-tags{
     margin-top:8px;
+
     display:flex;
     flex-wrap:wrap;
+
     gap:6px;
 }
 
 .detail-block{
     margin-top:16px;
+
     padding:15px;
+
     border-radius:17px;
+
     background:#fff7fa;
 }
 
 .detail-block-title{
     font-size:13px;
     font-weight:900;
+
     color:#674653;
 }
 
 .detail-description{
     margin-top:9px;
+
     white-space:pre-wrap;
+
     word-break:break-word;
+
     color:#725965;
+
     font-size:12px;
     line-height:1.85;
 }
 
 .detail-warning{
     margin-top:14px;
-    padding:12px 13px;
+
+    padding:
+        12px
+        13px;
+
     border-radius:15px;
+
     background:#fff8e9;
+
     color:#8b692d;
+
     font-size:11px;
     line-height:1.7;
 }
 
 .detail-close-btn{
     width:100%;
+
     min-height:50px;
+
     margin-top:17px;
+
     border:none;
+
     border-radius:16px;
-    background:linear-gradient(135deg,#ff6e9d,#ff94b5);
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff6e9d,
+            #ff94b5
+        );
+
     color:white;
+
     font-size:13px;
     font-weight:900;
 }
 
+
 /* =========================================================
-   地图
+   百度地图
 ========================================================= */
 
-.map-placeholder{
-    min-height:170px;
-    border-radius:20px;
-    background:linear-gradient(145deg,#f9edf2,#f3f3f7);
+.map-shell{
     position:relative;
+
+    width:100%;
+    height:235px;
+
     overflow:hidden;
+
+    border-radius:22px;
+
+    background:#f4edf1;
+
+    box-shadow:
+        0 7px 24px
+        rgba(
+            94,
+            59,
+            72,
+            .06
+        );
+}
+
+#baiduMap{
+    width:100%;
+    height:100%;
+}
+
+.map-loading{
+    position:absolute;
+
+    inset:0;
+
+    z-index:10;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     padding:20px;
-    text-align:center;
-}
 
-.map-placeholder::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background-image:
+    background:
         linear-gradient(
-            rgba(255,255,255,.45) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(255,255,255,.45) 1px,
-            transparent 1px
+            145deg,
+            #f9edf2,
+            #f3f3f7
         );
-    background-size:25px 25px;
+
+    text-align:center;
+
+    transition:
+        opacity
+        .25s ease;
 }
 
-.map-content{
-    position:relative;
-    z-index:2;
+.map-loading.hidden{
+    opacity:0;
+
+    pointer-events:none;
 }
 
-.map-pin{
-    font-size:37px;
+.map-loading-icon{
+    font-size:34px;
 }
 
-.map-title{
-    margin-top:6px;
+.map-loading-title{
+    margin-top:7px;
+
     font-size:13px;
     font-weight:900;
+
     color:#765765;
 }
 
-.map-text{
+.map-loading-text{
     margin-top:5px;
+
     font-size:10px;
     line-height:1.55;
+
     color:#a38691;
 }
+
+.map-status{
+    position:absolute;
+
+    left:10px;
+    right:10px;
+    bottom:10px;
+
+    z-index:20;
+
+    pointer-events:none;
+
+    display:flex;
+    justify-content:center;
+}
+
+.map-status-text{
+    max-width:92%;
+
+    padding:
+        7px
+        11px;
+
+    border-radius:999px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .92
+        );
+
+    box-shadow:
+        0 3px 15px
+        rgba(
+            60,
+            40,
+            48,
+            .12
+        );
+
+    color:#795966;
+
+    font-size:10px;
+    font-weight:800;
+
+    text-align:center;
+}
+
+.map-legend{
+    margin-top:8px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:14px;
+
+    font-size:10px;
+
+    color:#9b7d89;
+}
+
+.legend-item{
+    display:flex;
+    align-items:center;
+
+    gap:5px;
+}
+
+.legend-dot{
+    width:10px;
+    height:10px;
+
+    border-radius:50%;
+}
+
+.legend-customer{
+    background:#3f82ef;
+}
+
+.legend-merchant{
+    background:#ef668f;
+}
+
 
 /* =========================================================
    选择商户
@@ -549,38 +909,61 @@ button{
 
 .merchant-select-title{
     margin-top:18px;
+
     margin-bottom:10px;
+
     font-size:17px;
     font-weight:900;
+
     color:#573844;
 }
 
 .merchant-select-sub{
     margin-top:3px;
+
     font-size:11px;
     font-weight:400;
+
     color:#a6808f;
 }
 
 .merchant-list{
     margin-top:0;
+
     display:flex;
     flex-direction:column;
+
     gap:10px;
 }
 
 .merchant-card{
     width:100%;
-    border:2px solid transparent;
+
+    border:
+        2px solid
+        transparent;
+
     background:white;
+
     border-radius:21px;
+
     padding:15px;
+
     text-align:left;
-    box-shadow:0 7px 24px rgba(94,59,72,.06);
+
+    box-shadow:
+        0 7px 24px
+        rgba(
+            94,
+            59,
+            72,
+            .06
+        );
 }
 
 .merchant-card.selected{
     border-color:#ff81aa;
+
     background:#fff9fb;
 }
 
@@ -588,57 +971,75 @@ button{
     display:flex;
     align-items:flex-start;
     justify-content:space-between;
+
     gap:10px;
 }
 
 .merchant-name{
     flex:1;
+
     min-width:0;
+
     font-size:15px;
     font-weight:900;
+
     color:#573844;
 }
 
 .merchant-no{
     flex-shrink:0;
-    padding:4px 8px;
+
+    padding:
+        4px
+        8px;
+
     border-radius:999px;
+
     background:#fff0f5;
+
     color:#da5b86;
+
     font-size:10px;
     font-weight:900;
 }
 
 .merchant-address{
     margin-top:8px;
+
     font-size:11px;
     line-height:1.55;
+
     color:#9b7a87;
 }
 
 .merchant-bottom{
     margin-top:11px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     gap:10px;
 }
 
 .distance{
     font-size:11px;
     font-weight:800;
+
     color:#6f8a78;
 }
 
 .merchant-price{
     font-size:17px;
     font-weight:900;
+
     color:#e35484;
 }
 
 .merchant-price small{
     font-size:10px;
 }
+
 
 /* =========================================================
    数量
@@ -652,58 +1053,79 @@ button{
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     gap:15px;
 }
 
 .quantity-title{
     font-size:14px;
     font-weight:900;
+
     color:#5b3e49;
 }
 
 .quantity-sub{
     margin-top:4px;
+
     font-size:10px;
+
     color:#a1838e;
 }
 
 .quantity-control{
     display:flex;
     align-items:center;
+
     gap:7px;
 }
 
 .quantity-btn{
     width:39px;
     height:39px;
+
     border:none;
+
     border-radius:13px;
+
     background:#fff0f5;
+
     color:#df5c89;
+
     font-size:22px;
     font-weight:800;
 }
 
 .quantity-number{
     min-width:43px;
+
     text-align:center;
+
     font-size:18px;
     font-weight:900;
+
     color:#573b46;
 }
 
 .quantity-detail{
     margin-top:13px;
-    padding:11px 12px;
+
+    padding:
+        11px
+        12px;
+
     border-radius:14px;
+
     background:#fff7fa;
+
     font-size:11px;
-    color:#8e6f7b;
     line-height:1.6;
+
+    color:#8e6f7b;
 }
 
+
 /* =========================================================
-   推荐来源
+   您是通过什么渠道了解我们的？
 ========================================================= */
 
 .source-card{
@@ -712,23 +1134,35 @@ button{
 
 .source-options{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+
+    grid-template-columns:
+        repeat(3,1fr);
+
     gap:8px;
 }
 
 .source-type-btn{
     min-height:48px;
-    border:1.5px solid #f0dce4;
+
+    border:
+        1.5px solid
+        #f0dce4;
+
     border-radius:15px;
+
     background:white;
+
     color:#8d6876;
+
     font-size:12px;
     font-weight:800;
 }
 
 .source-type-btn.active{
     border-color:#ff7da7;
+
     background:#fff0f5;
+
     color:#df5986;
 }
 
@@ -738,13 +1172,21 @@ button{
 
 .source-note{
     margin-top:10px;
-    padding:10px 11px;
+
+    padding:
+        10px
+        11px;
+
     border-radius:13px;
+
     background:#fff7fa;
+
     color:#9c7c88;
+
     font-size:10px;
     line-height:1.55;
 }
+
 
 /* =========================================================
    优惠
@@ -756,58 +1198,92 @@ button{
 
 .discount-head{
     padding:15px;
-    background:linear-gradient(135deg,#fff2f6,#fff9fb);
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff2f6,
+            #fff9fb
+        );
 }
 
 .discount-title{
     font-size:14px;
     font-weight:900;
+
     color:#613e4b;
 }
 
 .discount-sub{
     margin-top:4px;
+
     font-size:10px;
+
     color:#9b7a87;
 }
 
 .discount-grid{
-    padding:12px 15px 15px;
+    padding:
+        12px
+        15px
+        15px;
+
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+
+    grid-template-columns:
+        repeat(3,1fr);
+
     gap:8px;
 }
 
 .discount-tier{
-    padding:10px 5px;
+    padding:
+        10px
+        5px;
+
     border-radius:13px;
+
     background:#f8f2f4;
+
     text-align:center;
-    border:1.5px solid transparent;
+
+    border:
+        1.5px solid
+        transparent;
 }
 
 .discount-tier.active{
     border-color:#ff80aa;
+
     background:#fff0f5;
 }
 
 .discount-tier-title{
     font-size:10px;
+
     color:#9b7a87;
 }
 
 .discount-tier-rate{
     margin-top:4px;
+
     font-size:15px;
     font-weight:900;
+
     color:#df5a88;
 }
 
 .discount-current{
-    padding:0 15px 15px;
+    padding:
+        0
+        15px
+        15px;
+
     font-size:11px;
+
     color:#876a75;
 }
+
 
 /* =========================================================
    订单确认
@@ -819,10 +1295,13 @@ button{
 
 .summary-row{
     margin-top:11px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     gap:15px;
+
     font-size:12px;
 }
 
@@ -836,23 +1315,33 @@ button{
 
 .summary-value{
     max-width:70%;
+
     color:#5b404b;
+
     font-weight:800;
+
     text-align:right;
 }
 
 .summary-line{
     height:1px;
-    margin:14px 0;
+
+    margin:
+        14px
+        0;
+
     background:#f3e6eb;
 }
 
 .price-row{
     margin-top:10px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     gap:15px;
+
     font-size:12px;
 }
 
@@ -862,6 +1351,7 @@ button{
 
 .price-value{
     color:#5c414c;
+
     font-weight:800;
 }
 
@@ -871,20 +1361,24 @@ button{
 
 .final-row{
     margin-top:14px;
+
     display:flex;
     align-items:flex-end;
     justify-content:space-between;
+
     gap:12px;
 }
 
 .final-label{
     font-size:13px;
     font-weight:900;
+
     color:#72515f;
 }
 
 .final-price{
     color:#e94e82;
+
     font-size:29px;
     font-weight:900;
 }
@@ -893,24 +1387,42 @@ button{
     font-size:13px;
 }
 
+
 /* =========================================================
    空状态
 ========================================================= */
 
 .empty{
-    padding:25px 15px;
+    padding:
+        25px
+        15px;
+
     border-radius:20px;
+
     background:white;
+
     text-align:center;
+
     color:#a0808c;
+
     font-size:12px;
-    box-shadow:0 7px 24px rgba(94,59,72,.05);
+
+    box-shadow:
+        0 7px 24px
+        rgba(
+            94,
+            59,
+            72,
+            .05
+        );
 }
 
 .empty-icon{
     margin-bottom:8px;
+
     font-size:35px;
 }
+
 
 /* =========================================================
    底部
@@ -918,25 +1430,50 @@ button{
 
 .bottom-bar{
     position:fixed;
+
     left:50%;
     bottom:0;
-    transform:translateX(-50%);
+
+    transform:
+        translateX(-50%);
+
     width:100%;
     max-width:560px;
+
     z-index:100;
+
     padding:
         10px
         14px
-        calc(10px + env(safe-area-inset-bottom));
-    background:rgba(255,255,255,.97);
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
-    border-top:1px solid #f2e5ea;
+        calc(
+            10px
+            +
+            env(safe-area-inset-bottom)
+        );
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .97
+        );
+
+    backdrop-filter:
+        blur(18px);
+
+    -webkit-backdrop-filter:
+        blur(18px);
+
+    border-top:
+        1px solid
+        #f2e5ea;
 }
 
 .bottom-inner{
     display:flex;
     align-items:center;
+
     gap:12px;
 }
 
@@ -946,40 +1483,68 @@ button{
 
 .bottom-price-label{
     font-size:10px;
+
     color:#a4828f;
 }
 
 .bottom-old-price{
     min-height:14px;
+
     margin-top:2px;
+
     font-size:10px;
+
     color:#b6a0a9;
+
     text-decoration:line-through;
 }
 
 .bottom-price-value{
     margin-top:1px;
+
     font-size:23px;
     font-weight:900;
+
     color:#e85183;
 }
 
 .confirm-btn{
     flex:1;
+
     min-height:55px;
+
     border:none;
+
     border-radius:18px;
-    background:linear-gradient(135deg,#ff6d9b,#ff94b5);
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff6d9b,
+            #ff94b5
+        );
+
     color:white;
+
     font-size:15px;
     font-weight:900;
-    box-shadow:0 9px 24px rgba(236,83,132,.25);
+
+    box-shadow:
+        0 9px 24px
+        rgba(
+            236,
+            83,
+            132,
+            .25
+        );
 }
 
 .confirm-btn:disabled{
     opacity:.5;
+
     box-shadow:none;
 }
+
 
 /* =========================================================
    弹窗
@@ -987,12 +1552,22 @@ button{
 
 .modal-mask{
     position:fixed;
+
     inset:0;
+
     z-index:5000;
+
     display:none;
     align-items:flex-end;
     justify-content:center;
-    background:rgba(46,32,38,.38);
+
+    background:
+        rgba(
+            46,
+            32,
+            38,
+            .38
+        );
 }
 
 .modal-mask.show{
@@ -1002,41 +1577,63 @@ button{
 .modal-sheet{
     width:100%;
     max-width:560px;
+
     padding:
         20px
         18px
-        calc(20px + env(safe-area-inset-bottom));
-    border-radius:28px 28px 0 0;
+        calc(
+            20px
+            +
+            env(safe-area-inset-bottom)
+        );
+
+    border-radius:
+        28px
+        28px
+        0
+        0;
+
     background:white;
 }
 
 .modal-title{
     text-align:center;
+
     font-size:17px;
     font-weight:900;
+
     color:#553945;
 }
 
 .modal-desc{
     margin-top:8px;
+
     text-align:center;
+
     font-size:11px;
     line-height:1.6;
+
     color:#a1818e;
 }
 
 .modal-summary{
     margin-top:16px;
+
     padding:14px;
+
     border-radius:17px;
+
     background:#fff7fa;
 }
 
 .modal-row{
     margin-top:9px;
+
     display:flex;
     justify-content:space-between;
+
     gap:15px;
+
     font-size:12px;
 }
 
@@ -1050,34 +1647,52 @@ button{
 
 .modal-row span:last-child{
     color:#5c414c;
+
     font-weight:800;
+
     text-align:right;
 }
 
 .modal-actions{
     margin-top:17px;
+
     display:grid;
-    grid-template-columns:1fr 1.7fr;
+
+    grid-template-columns:
+        1fr
+        1.7fr;
+
     gap:9px;
 }
 
 .modal-btn{
     min-height:50px;
+
     border:none;
+
     border-radius:16px;
+
     font-size:13px;
     font-weight:900;
 }
 
 .modal-cancel{
     background:#f5edf0;
+
     color:#846673;
 }
 
 .modal-confirm{
-    background:linear-gradient(135deg,#ff6e9d,#ff94b5);
+    background:
+        linear-gradient(
+            135deg,
+            #ff6e9d,
+            #ff94b5
+        );
+
     color:white;
 }
+
 
 /* =========================================================
    Loading
@@ -1085,9 +1700,13 @@ button{
 
 .loading-mask{
     position:fixed;
+
     inset:0;
+
     z-index:9999;
+
     background:#fff7fa;
+
     display:flex;
     align-items:center;
     justify-content:center;
@@ -1099,19 +1718,34 @@ button{
 
 .loading-icon{
     font-size:42px;
-    animation:beat 1s ease-in-out infinite;
+
+    animation:
+        beat
+        1s
+        ease-in-out
+        infinite;
 }
 
 .loading-text{
     margin-top:10px;
+
     font-size:12px;
+
     color:#a27e8c;
 }
 
 @keyframes beat{
-    0%,100%{transform:scale(1)}
-    50%{transform:scale(1.13)}
+
+    0%,
+    100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.13);
+    }
 }
+
 
 /* =========================================================
    Toast
@@ -1119,104 +1753,249 @@ button{
 
 .toast{
     position:fixed;
+
     left:50%;
-    bottom:calc(115px + env(safe-area-inset-bottom));
-    transform:translate(-50%,20px);
+
+    bottom:
+        calc(
+            115px
+            +
+            env(safe-area-inset-bottom)
+        );
+
+    transform:
+        translate(
+            -50%,
+            20px
+        );
+
     z-index:10000;
-    max-width:calc(100vw - 46px);
-    padding:11px 15px;
+
+    max-width:
+        calc(
+            100vw
+            -
+            46px
+        );
+
+    padding:
+        11px
+        15px;
+
     border-radius:14px;
-    background:rgba(64,50,56,.94);
+
+    background:
+        rgba(
+            64,
+            50,
+            56,
+            .94
+        );
+
     color:white;
+
     text-align:center;
+
     font-size:12px;
     line-height:1.5;
+
     opacity:0;
+
     pointer-events:none;
+
     transition:.2s ease;
 }
 
 .toast.show{
     opacity:1;
-    transform:translate(-50%,0);
+
+    transform:
+        translate(
+            -50%,
+            0
+        );
 }
 
-@media(min-width:560px){
+@media(
+    min-width:560px
+){
+
     .app{
-        box-shadow:0 0 35px rgba(79,49,60,.08);
+        box-shadow:
+            0 0 35px
+            rgba(
+                79,
+                49,
+                60,
+                .08
+            );
     }
 }
+
 </style>
 </head>
 
 <body>
 
-<div id="loadingMask" class="loading-mask">
+
+<div
+    id="loadingMask"
+    class="loading-mask"
+>
+
     <div class="loading-box">
-        <div class="loading-icon">🌸</div>
-        <div class="loading-text">正在准备服务项目...</div>
+
+        <div class="loading-icon">
+            🌸
+        </div>
+
+        <div class="loading-text">
+            正在准备服务项目...
+        </div>
+
     </div>
+
 </div>
+
 
 <div class="app">
 
 <div class="safe-top"></div>
 
+
 <header class="topbar">
-    <button class="back-btn" onclick="goBack()">‹</button>
-    <div class="top-title">服务下单</div>
+
+    <button
+        class="back-btn"
+        onclick="goBack()"
+    >
+        ‹
+    </button>
+
+    <div class="top-title">
+        服务下单
+    </div>
+
     <div class="top-space"></div>
+
 </header>
 
+
+<!-- 步骤 -->
 <div class="steps">
 
-    <div id="step1" class="step active">
-        <div class="step-dot">1</div>
-        <div class="step-label">选服务</div>
+    <div
+        id="step1"
+        class="step active"
+    >
+
+        <div class="step-dot">
+            1
+        </div>
+
+        <div class="step-label">
+            选服务
+        </div>
+
     </div>
 
-    <div id="step2" class="step">
-        <div class="step-dot">2</div>
-        <div class="step-label">选商户</div>
+
+    <div
+        id="step2"
+        class="step"
+    >
+
+        <div class="step-dot">
+            2
+        </div>
+
+        <div class="step-label">
+            选商户
+        </div>
+
     </div>
 
-    <div id="step3" class="step">
-        <div class="step-dot">3</div>
-        <div class="step-label">推荐来源</div>
+
+    <div
+        id="step3"
+        class="step"
+    >
+
+        <div class="step-dot">
+            3
+        </div>
+
+        <div class="step-label">
+            推荐来源
+        </div>
+
     </div>
 
-    <div id="step4" class="step">
-        <div class="step-dot">4</div>
-        <div class="step-label">确认</div>
+
+    <div
+        id="step4"
+        class="step"
+    >
+
+        <div class="step-dot">
+            4
+        </div>
+
+        <div class="step-label">
+            确认
+        </div>
+
     </div>
 
 </div>
 
-<!-- 当前城市 -->
+
+<!-- =====================================================
+     当前城市
+===================================================== -->
+
 <section class="section">
 
     <div class="section-head">
+
         <div>
-            <div class="section-title">当前城市</div>
+
+            <div class="section-title">
+                当前城市
+            </div>
+
             <div class="section-sub">
                 自动识别失败时可以手动选择
             </div>
+
         </div>
+
     </div>
+
 
     <div class="card city-card">
 
         <div class="city-row">
 
-            <div class="city-icon">📍</div>
+            <div class="city-icon">
+                📍
+            </div>
+
 
             <div class="city-main">
 
-                <div id="currentCityTitle" class="city-title">
+                <div
+                    id="currentCityTitle"
+                    class="city-title"
+                >
                     正在识别当前位置
                 </div>
 
-                <div id="cityStatus" class="city-status">
+
+                <div
+                    id="cityStatus"
+                    class="city-status"
+                >
                     系统会尝试根据当前位置自动匹配已开通服务的城市。
                 </div>
 
@@ -1224,23 +2003,28 @@ button{
 
         </div>
 
+
         <div class="city-select-wrap">
 
             <div class="field-label">
                 手动选择城市
             </div>
 
+
             <select
                 id="citySelect"
                 class="select-control"
                 onchange="manualCityChanged()"
             >
+
                 <option value="">
                     请选择城市
                 </option>
+
             </select>
 
         </div>
+
 
         <button
             id="locateBtn"
@@ -1254,70 +2038,163 @@ button{
 
 </section>
 
-<!-- 服务 -->
+
+<!-- =====================================================
+     服务
+===================================================== -->
+
 <section class="section">
 
     <div class="section-head">
+
         <div>
-            <div class="section-title">选择服务</div>
+
+            <div class="section-title">
+                选择服务
+            </div>
+
             <div class="section-sub">
                 请查看详情并确认与您的需求匹配后再选择
             </div>
+
         </div>
+
     </div>
 
-    <div id="serviceList" class="service-list"></div>
+
+    <div
+        id="serviceList"
+        class="service-list"
+    ></div>
 
 </section>
 
-<!-- 地图 + 商户 -->
+
+<!-- =====================================================
+     百度地图 + 商户
+===================================================== -->
+
 <section class="section">
 
-    <!-- 已删除原来的“服务商户”标题 -->
+    <div class="map-shell">
 
-    <div id="mapPlaceholder" class="map-placeholder">
+        <div id="baiduMap"></div>
 
-        <div class="map-content">
 
-            <div class="map-pin">🗺️</div>
+        <div
+            id="mapLoading"
+            class="map-loading"
+        >
 
-            <div class="map-title">
-                商户地图
+            <div>
+
+                <div class="map-loading-icon">
+                    🗺️
+                </div>
+
+                <div class="map-loading-title">
+                    正在加载商户地图
+                </div>
+
+                <div
+                    id="mapLoadingText"
+                    class="map-loading-text"
+                >
+                    正在连接百度地图...
+                </div>
+
             </div>
 
-            <div id="mapText" class="map-text">
-                百度地图 AK 正在审批中。<br>
-                当前先使用定位、距离和商户地址。
+        </div>
+
+
+        <div class="map-status">
+
+            <div
+                id="mapStatusText"
+                class="map-status-text"
+            >
+                选择服务后将在地图显示可消费商户
             </div>
 
         </div>
 
     </div>
 
-    <!-- 新增：商户选择标题 -->
+
+    <div class="map-legend">
+
+        <div class="legend-item">
+
+            <span
+                class="
+                    legend-dot
+                    legend-customer
+                "
+            ></span>
+
+            我的位置
+
+        </div>
+
+
+        <div class="legend-item">
+
+            <span
+                class="
+                    legend-dot
+                    legend-merchant
+                "
+            ></span>
+
+            服务商户
+
+        </div>
+
+    </div>
+
+
     <div class="merchant-select-title">
+
         选择商户
 
         <div class="merchant-select-sub">
-            请选择本次实际到店消费的商户
+            可以点击地图标记，也可以在下面选择本次实际到店消费的商户
         </div>
+
     </div>
 
-    <div id="merchantList" class="merchant-list"></div>
+
+    <div
+        id="merchantList"
+        class="merchant-list"
+    ></div>
 
 </section>
 
-<!-- 数量 -->
+
+<!-- =====================================================
+     数量
+===================================================== -->
+
 <section class="section">
 
     <div class="section-head">
+
         <div>
-            <div class="section-title">购买数量</div>
+
+            <div class="section-title">
+                购买数量
+            </div>
+
             <div class="section-sub">
                 数量会同时影响总金额和可消费次数
             </div>
+
         </div>
+
     </div>
+
 
     <div class="card quantity-card">
 
@@ -1329,11 +2206,15 @@ button{
                     数量
                 </div>
 
-                <div id="unitPriceText" class="quantity-sub">
+                <div
+                    id="unitPriceText"
+                    class="quantity-sub"
+                >
                     请先选择服务项目和商户
                 </div>
 
             </div>
+
 
             <div class="quantity-control">
 
@@ -1344,9 +2225,14 @@ button{
                     −
                 </button>
 
-                <div id="quantityNumber" class="quantity-number">
+
+                <div
+                    id="quantityNumber"
+                    class="quantity-number"
+                >
                     1
                 </div>
+
 
                 <button
                     class="quantity-btn"
@@ -1359,7 +2245,11 @@ button{
 
         </div>
 
-        <div id="quantityDetail" class="quantity-detail">
+
+        <div
+            id="quantityDetail"
+            class="quantity-detail"
+        >
             请选择服务项目和商户后查看消费次数。
         </div>
 
@@ -1367,17 +2257,29 @@ button{
 
 </section>
 
-<!-- 推荐来源 -->
+
+<!-- =====================================================
+     推荐来源
+===================================================== -->
+
 <section class="section">
 
     <div class="section-head">
+
         <div>
-            <div class="section-title">推荐来源</div>
+
+            <div class="section-title">
+                推荐来源
+            </div>
+
             <div class="section-sub">
                 选填，不选择时默认为平台
             </div>
+
         </div>
+
     </div>
+
 
     <div class="card source-card">
 
@@ -1385,71 +2287,108 @@ button{
 
             <button
                 id="sourcePlatformBtn"
-                class="source-type-btn active"
-                onclick="chooseSourceType('platform')"
+                class="
+                    source-type-btn
+                    active
+                "
+                onclick="
+                    chooseSourceType(
+                        'platform'
+                    )
+                "
             >
                 平台
             </button>
 
+
             <button
                 id="sourceMerchantBtn"
                 class="source-type-btn"
-                onclick="chooseSourceType('merchant')"
+                onclick="
+                    chooseSourceType(
+                        'merchant'
+                    )
+                "
             >
                 商户推荐
             </button>
 
+
             <button
                 id="sourceConsultantBtn"
                 class="source-type-btn"
-                onclick="chooseSourceType('health_consultant')"
+                onclick="
+                    chooseSourceType(
+                        'health_consultant'
+                    )
+                "
             >
                 健康顾问
             </button>
 
         </div>
 
+
         <div
             id="sourceMerchantPicker"
             class="source-picker"
             style="display:none;"
         >
+
             <div class="field-label">
                 选择推荐商户
             </div>
 
+
             <select
                 id="sourceMerchantSelect"
                 class="select-control"
-                onchange="sourceSelectionChanged()"
+                onchange="
+                    sourceSelectionChanged()
+                "
             >
+
                 <option value="">
                     请选择推荐商户
                 </option>
+
             </select>
+
         </div>
+
 
         <div
             id="sourceConsultantPicker"
             class="source-picker"
             style="display:none;"
         >
+
             <div class="field-label">
                 选择推荐老师
             </div>
 
+
             <select
                 id="sourceConsultantSelect"
                 class="select-control"
-                onchange="sourceSelectionChanged()"
+                onchange="
+                    sourceSelectionChanged()
+                "
             >
+
                 <option value="">
                     请选择健康顾问
                 </option>
+
             </select>
+
         </div>
 
-        <div id="sourceNote" class="source-note">
+
+        <div
+            id="sourceNote"
+            class="source-note"
+        >
             当前推荐来源：平台
         </div>
 
@@ -1457,21 +2396,34 @@ button{
 
 </section>
 
-<!-- 自动优惠 -->
+
+<!-- =====================================================
+     自动优惠
+===================================================== -->
+
 <section class="section">
 
     <div class="section-head">
+
         <div>
-            <div class="section-title">自动优惠</div>
+
+            <div class="section-title">
+                自动优惠
+            </div>
+
             <div class="section-sub">
                 系统按照订单原价自动计算
             </div>
+
         </div>
+
     </div>
+
 
     <div class="card discount-card">
 
         <div class="discount-head">
+
             <div class="discount-title">
                 阶梯优惠
             </div>
@@ -1479,40 +2431,66 @@ button{
             <div class="discount-sub">
                 金额越高，系统自动使用对应优惠，无需领取优惠券。
             </div>
+
         </div>
+
 
         <div class="discount-grid">
 
-            <div id="tier5" class="discount-tier">
+            <div
+                id="tier5"
+                class="discount-tier"
+            >
+
                 <div class="discount-tier-title">
                     超过 ¥2000
                 </div>
+
                 <div class="discount-tier-rate">
                     优惠 5%
                 </div>
+
             </div>
 
-            <div id="tier8" class="discount-tier">
+
+            <div
+                id="tier8"
+                class="discount-tier"
+            >
+
                 <div class="discount-tier-title">
                     超过 ¥3000
                 </div>
+
                 <div class="discount-tier-rate">
                     优惠 8%
                 </div>
+
             </div>
 
-            <div id="tier10" class="discount-tier">
+
+            <div
+                id="tier10"
+                class="discount-tier"
+            >
+
                 <div class="discount-tier-title">
                     超过 ¥5000
                 </div>
+
                 <div class="discount-tier-rate">
                     优惠 10%
                 </div>
+
             </div>
 
         </div>
 
-        <div id="discountCurrent" class="discount-current">
+
+        <div
+            id="discountCurrent"
+            class="discount-current"
+        >
             当前订单尚未达到优惠金额。
         </div>
 
@@ -1520,88 +2498,219 @@ button{
 
 </section>
 
-<!-- 订单确认 -->
+
+<!-- =====================================================
+     订单确认
+===================================================== -->
+
 <section class="section">
 
     <div class="section-head">
+
         <div>
-            <div class="section-title">订单确认</div>
+
+            <div class="section-title">
+                订单确认
+            </div>
+
             <div class="section-sub">
                 最终金额由数据库再次核算
             </div>
+
         </div>
+
     </div>
+
 
     <div class="card summary-card">
 
         <div class="summary-row">
-            <span class="summary-label">当前城市</span>
-            <span id="summaryCity" class="summary-value">未选择</span>
+
+            <span class="summary-label">
+                当前城市
+            </span>
+
+            <span
+                id="summaryCity"
+                class="summary-value"
+            >
+                未选择
+            </span>
+
         </div>
 
-        <div class="summary-row">
-            <span class="summary-label">服务项目</span>
-            <span id="summaryService" class="summary-value">未选择</span>
-        </div>
 
         <div class="summary-row">
-            <span class="summary-label">服务商户</span>
-            <span id="summaryMerchant" class="summary-value">未选择</span>
+
+            <span class="summary-label">
+                服务项目
+            </span>
+
+            <span
+                id="summaryService"
+                class="summary-value"
+            >
+                未选择
+            </span>
+
         </div>
 
-        <div class="summary-row">
-            <span class="summary-label">商户地址</span>
-            <span id="summaryAddress" class="summary-value">--</span>
-        </div>
 
         <div class="summary-row">
-            <span class="summary-label">城市单价</span>
-            <span id="summaryUnitPrice" class="summary-value">--</span>
+
+            <span class="summary-label">
+                服务商户
+            </span>
+
+            <span
+                id="summaryMerchant"
+                class="summary-value"
+            >
+                未选择
+            </span>
+
         </div>
 
-        <div class="summary-row">
-            <span class="summary-label">购买数量</span>
-            <span id="summaryQuantity" class="summary-value">1</span>
-        </div>
 
         <div class="summary-row">
-            <span class="summary-label">可消费次数</span>
-            <span id="summaryUses" class="summary-value">--</span>
+
+            <span class="summary-label">
+                商户地址
+            </span>
+
+            <span
+                id="summaryAddress"
+                class="summary-value"
+            >
+                --
+            </span>
+
         </div>
 
+
         <div class="summary-row">
-            <span class="summary-label">推荐来源</span>
-            <span id="summarySource" class="summary-value">平台</span>
+
+            <span class="summary-label">
+                城市单价
+            </span>
+
+            <span
+                id="summaryUnitPrice"
+                class="summary-value"
+            >
+                --
+            </span>
+
         </div>
+
+
+        <div class="summary-row">
+
+            <span class="summary-label">
+                购买数量
+            </span>
+
+            <span
+                id="summaryQuantity"
+                class="summary-value"
+            >
+                1
+            </span>
+
+        </div>
+
+
+        <div class="summary-row">
+
+            <span class="summary-label">
+                可消费次数
+            </span>
+
+            <span
+                id="summaryUses"
+                class="summary-value"
+            >
+                --
+            </span>
+
+        </div>
+
+
+        <div class="summary-row">
+
+            <span class="summary-label">
+                推荐来源
+            </span>
+
+            <span
+                id="summarySource"
+                class="summary-value"
+            >
+                平台
+            </span>
+
+        </div>
+
 
         <div class="summary-line"></div>
 
-        <div class="price-row">
-            <span class="price-label">原价合计</span>
-            <span id="summarySubtotal" class="price-value">¥--</span>
-        </div>
 
         <div class="price-row">
-            <span class="price-label">优惠比例</span>
+
+            <span class="price-label">
+                原价合计
+            </span>
+
+            <span
+                id="summarySubtotal"
+                class="price-value"
+            >
+                ¥--
+            </span>
+
+        </div>
+
+
+        <div class="price-row">
+
+            <span class="price-label">
+                优惠比例
+            </span>
+
             <span
                 id="summaryDiscountRate"
-                class="price-value discount-value"
+                class="
+                    price-value
+                    discount-value
+                "
             >
                 0%
             </span>
+
         </div>
 
+
         <div class="price-row">
-            <span class="price-label">优惠金额</span>
+
+            <span class="price-label">
+                优惠金额
+            </span>
+
             <span
                 id="summaryDiscountAmount"
-                class="price-value discount-value"
+                class="
+                    price-value
+                    discount-value
+                "
             >
                 - ¥0
             </span>
+
         </div>
 
+
         <div class="summary-line"></div>
+
 
         <div class="final-row">
 
@@ -1609,8 +2718,18 @@ button{
                 应付金额
             </span>
 
-            <span id="summaryPayable" class="final-price">
-                <small>¥</small> --
+
+            <span
+                id="summaryPayable"
+                class="final-price"
+            >
+
+                <small>
+                    ¥
+                </small>
+
+                --
+
             </span>
 
         </div>
@@ -1621,7 +2740,11 @@ button{
 
 </div>
 
-<!-- 底部 -->
+
+<!-- =====================================================
+     底部确认
+===================================================== -->
+
 <div class="bottom-bar">
 
     <div class="bottom-inner">
@@ -1632,21 +2755,29 @@ button{
                 应付金额
             </div>
 
+
             <div
                 id="bottomOldPrice"
                 class="bottom-old-price"
             ></div>
 
-            <div id="bottomPrice" class="bottom-price-value">
+
+            <div
+                id="bottomPrice"
+                class="bottom-price-value"
+            >
                 ¥--
             </div>
 
         </div>
 
+
         <button
             id="confirmBtn"
             class="confirm-btn"
-            onclick="openConfirmModal()"
+            onclick="
+                openConfirmModal()
+            "
             disabled
         >
             确认订单
@@ -1656,24 +2787,43 @@ button{
 
 </div>
 
-<!-- 服务详情 -->
+
+<!-- =====================================================
+     服务详情弹窗
+===================================================== -->
+
 <div
     id="serviceDetailModal"
     class="modal-mask"
-    onclick="serviceDetailMaskClose(event)"
+    onclick="
+        serviceDetailMaskClose(
+            event
+        )
+    "
 >
 
-    <div class="modal-sheet service-detail-sheet">
+    <div
+        class="
+            modal-sheet
+            service-detail-sheet
+        "
+    >
 
         <div class="modal-title">
             服务详情
         </div>
 
-        <div id="serviceDetailContent"></div>
+
+        <div
+            id="serviceDetailContent"
+        ></div>
+
 
         <button
             class="detail-close-btn"
-            onclick="closeServiceDetail()"
+            onclick="
+                closeServiceDetail()
+            "
         >
             我已了解
         </button>
@@ -1682,11 +2832,19 @@ button{
 
 </div>
 
-<!-- 下单确认 -->
+
+<!-- =====================================================
+     下单确认
+===================================================== -->
+
 <div
     id="confirmModal"
     class="modal-mask"
-    onclick="maskClose(event)"
+    onclick="
+        maskClose(
+            event
+        )
+    "
 >
 
     <div class="modal-sheet">
@@ -1695,29 +2853,48 @@ button{
             确认提交订单
         </div>
 
+
         <div class="modal-desc">
-            请确认服务项目、商户和金额。<br>
+
+            请确认服务项目、商户和金额。
+
+            <br>
+
             实际订单金额将由数据库重新核算。
+
         </div>
+
 
         <div
             id="modalSummary"
             class="modal-summary"
         ></div>
 
+
         <div class="modal-actions">
 
             <button
-                class="modal-btn modal-cancel"
-                onclick="closeConfirmModal()"
+                class="
+                    modal-btn
+                    modal-cancel
+                "
+                onclick="
+                    closeConfirmModal()
+                "
             >
                 再检查一下
             </button>
 
+
             <button
                 id="submitOrderBtn"
-                class="modal-btn modal-confirm"
-                onclick="submitOrder()"
+                class="
+                    modal-btn
+                    modal-confirm
+                "
+                onclick="
+                    submitOrder()
+                "
             >
                 确认生成订单
             </button>
@@ -1728,14 +2905,26 @@ button{
 
 </div>
 
-<div id="toast" class="toast"></div>
+
+<div
+    id="toast"
+    class="toast"
+></div>
+
 
 <script>
+
+/* =========================================================
+   Supabase
+========================================================= */
+
 const SUPABASE_URL =
     "https://qbuqjwpkltbjhlfbyjyb.supabase.co";
 
+
 const SUPABASE_ANON_KEY =
     "sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
+
 
 const sb =
     window.supabase.createClient(
@@ -1743,33 +2932,115 @@ const sb =
         SUPABASE_ANON_KEY
     );
 
-let currentUser = null;
-let currentProfile = null;
-let currentCustomer = null;
 
-let orderOptions = [];
-let cities = [];
-let recommendationSources = [];
+/* =========================================================
+   全局
+========================================================= */
 
-let selectedCityId = null;
-let selectedProductId = null;
-let selectedMerchantId = null;
-let selectedOption = null;
+let currentUser =
+    null;
 
-let quantity = 1;
 
-let selectedSourceType = "platform";
-let selectedSourceNo = null;
+let currentProfile =
+    null;
 
-let customerLatitude = null;
-let customerLongitude = null;
 
-let submitting = false;
+let currentCustomer =
+    null;
+
+
+let orderOptions =
+    [];
+
+
+let cities =
+    [];
+
+
+let recommendationSources =
+    [];
+
+
+let selectedCityId =
+    null;
+
+
+let selectedProductId =
+    null;
+
+
+let selectedMerchantId =
+    null;
+
+
+let selectedOption =
+    null;
+
+
+let quantity =
+    1;
+
+
+let selectedSourceType =
+    "platform";
+
+
+let selectedSourceNo =
+    null;
+
+
+/*
+ * 浏览器GPS原始坐标
+ * WGS84
+ */
+let customerLatitude =
+    null;
+
+
+let customerLongitude =
+    null;
+
+
+/*
+ * 转换后的百度坐标
+ * BD09
+ */
+let customerBaiduLatitude =
+    null;
+
+
+let customerBaiduLongitude =
+    null;
+
+
+let submitting =
+    false;
+
+
+/* 百度地图 */
+
+let baiduMap =
+    null;
+
+
+let baiduMapReady =
+    false;
+
+
+let merchantMarkers =
+    [];
+
+
+let customerMarker =
+    null;
+
 
 const IDLE_LIMIT =
     10 * 60 * 1000;
 
-let idleTimer = null;
+
+let idleTimer =
+    null;
 
 
 /* =========================================================
@@ -1781,55 +3052,99 @@ document.addEventListener(
     init
 );
 
+
 async function init(){
 
     try{
 
         setupIdleLogout();
 
+
         const{
-            data:{session},
+            data:{
+                session
+            },
             error
         } =
             await sb.auth.getSession();
 
+
         if(
-            error ||
-            !session ||
+            error
+            ||
+            !session
+            ||
             !session.user
         ){
+
             goLogin();
+
             return;
+
         }
+
 
         currentUser =
             session.user;
 
+
         const allowed =
             await verifyCustomer();
 
-        if(!allowed){
+
+        if(
+            !allowed
+        ){
+
             return;
+
         }
 
+
         await loadCustomer();
+
+
         await loadBaseData();
 
+
         renderCitySelect();
+
+
         renderSourceOptions();
+
+
         renderServices();
+
+
         renderMerchants();
+
 
         updateAll();
 
+
+        /*
+         * 初始化百度地图
+         */
+        initBaiduMap();
+
+
         hideLoading();
 
+
+        /*
+         * 页面启动后自动申请定位
+         */
         setTimeout(
             ()=>{
-                requestLocation(true);
+
+                requestLocation(
+                    true
+                );
+
             },
-            350
+            500
         );
+
 
     }catch(error){
 
@@ -1838,12 +3153,16 @@ async function init(){
             error
         );
 
+
         hideLoading();
+
 
         toast(
             "页面加载失败，请稍后重试"
         );
+
     }
+
 }
 
 
@@ -1858,7 +3177,9 @@ async function verifyCustomer(){
         error
     } =
         await sb
-            .from("profiles")
+            .from(
+                "profiles"
+            )
             .select(`
                 id,
                 full_name,
@@ -1873,45 +3194,70 @@ async function verifyCustomer(){
             )
             .maybeSingle();
 
-    if(error || !data){
+
+    if(
+        error
+        ||
+        !data
+    ){
 
         await forceLogout();
 
+
         return false;
+
     }
 
+
     if(
-        data.status &&
-        data.status !== "active"
+        data.status
+        &&
+        data.status !==
+        "active"
     ){
 
         toast(
             "账号已停用"
         );
 
+
         setTimeout(
             forceLogout,
             800
         );
 
+
         return false;
+
     }
 
-    const isCustomer =
-        data.role === "customer" ||
-        data.user_type === "customer";
 
-    if(!isCustomer){
+    const isCustomer =
+        data.role ===
+        "customer"
+        ||
+        data.user_type ===
+        "customer";
+
+
+    if(
+        !isCustomer
+    ){
 
         await forceLogout();
 
+
         return false;
+
     }
+
 
     currentProfile =
         data;
 
+
     return true;
+
 }
 
 
@@ -1926,7 +3272,9 @@ async function loadCustomer(){
         error
     } =
         await sb
-            .from("customers")
+            .from(
+                "customers"
+            )
             .select("*")
             .eq(
                 "auth_user_id",
@@ -1934,16 +3282,21 @@ async function loadCustomer(){
             )
             .maybeSingle();
 
-    if(!error){
+
+    if(
+        !error
+    ){
 
         currentCustomer =
             data;
+
     }
+
 }
 
 
 /* =========================================================
-   加载数据
+   加载下单数据
 ========================================================= */
 
 async function loadBaseData(){
@@ -1955,57 +3308,1243 @@ async function loadBaseData(){
     ] =
         await Promise.all([
 
+
             sb
                 .from(
                     "customer_order_options"
                 )
                 .select("*"),
 
+
             sb
-                .from("cities")
+                .from(
+                    "cities"
+                )
                 .select("*"),
+
 
             sb
                 .from(
                     "recommendation_sources"
                 )
                 .select("*")
+
         ]);
 
-    if(optionResult.error){
+
+    if(
+        optionResult.error
+    ){
 
         console.error(
             "customer_order_options",
             optionResult.error
         );
 
+
         throw optionResult.error;
+
     }
 
-    if(cityResult.error){
+
+    if(
+        cityResult.error
+    ){
 
         console.error(
             "cities",
             cityResult.error
         );
+
     }
 
-    if(sourceResult.error){
+
+    if(
+        sourceResult.error
+    ){
 
         console.error(
             "recommendation_sources",
             sourceResult.error
         );
+
     }
 
+
     orderOptions =
-        optionResult.data || [];
+        optionResult.data
+        ||
+        [];
+
 
     cities =
-        cityResult.data || [];
+        cityResult.data
+        ||
+        [];
+
 
     recommendationSources =
-        sourceResult.data || [];
+        sourceResult.data
+        ||
+        [];
+
+}
+
+
+/* =========================================================
+   百度地图初始化
+========================================================= */
+
+function initBaiduMap(){
+
+    const loadingText =
+        document.getElementById(
+            "mapLoadingText"
+        );
+
+
+    /*
+     * 如果百度地图JS没有加载成功，
+     * 页面其它功能仍然正常。
+     */
+    if(
+        typeof BMap ===
+        "undefined"
+    ){
+
+        loadingText.textContent =
+            "百度地图加载失败，仍可通过商户列表手动选择。";
+
+
+        document
+            .getElementById(
+                "mapStatusText"
+            )
+            .textContent =
+            "地图暂不可用，请使用下方商户列表";
+
+
+        return;
+
+    }
+
+
+    try{
+
+        baiduMap =
+            new BMap.Map(
+                "baiduMap",
+                {
+                    coordsType:
+                        BMAP_COORD_BD09
+                }
+            );
+
+
+        /*
+         * 默认中国视角
+         */
+        const defaultPoint =
+            new BMap.Point(
+                116.404,
+                39.915
+            );
+
+
+        baiduMap.centerAndZoom(
+            defaultPoint,
+            5
+        );
+
+
+        baiduMap.enableScrollWheelZoom(
+            true
+        );
+
+
+        baiduMap.enableDragging();
+
+
+        /*
+         * 手机端缩放控件
+         */
+        try{
+
+            const navigation =
+                new BMap.NavigationControl(
+                    {
+                        anchor:
+                            BMAP_ANCHOR_TOP_RIGHT,
+
+                        type:
+                            BMAP_NAVIGATION_CONTROL_ZOOM
+                    }
+                );
+
+
+            baiduMap.addControl(
+                navigation
+            );
+
+        }catch(error){
+
+            console.warn(
+                "地图控件加载失败",
+                error
+            );
+
+        }
+
+
+        baiduMapReady =
+            true;
+
+
+        document
+            .getElementById(
+                "mapLoading"
+            )
+            .classList
+            .add(
+                "hidden"
+            );
+
+
+        document
+            .getElementById(
+                "mapStatusText"
+            )
+            .textContent =
+            "请选择服务项目查看可消费商户";
+
+
+        refreshMap();
+
+
+    }catch(error){
+
+        console.error(
+            "百度地图初始化失败",
+            error
+        );
+
+
+        loadingText.textContent =
+            "百度地图初始化失败，仍可使用下方商户列表。";
+
+    }
+
+}
+
+
+/* =========================================================
+   地图刷新
+========================================================= */
+
+function refreshMap(){
+
+    if(
+        !baiduMapReady
+        ||
+        !baiduMap
+    ){
+
+        return;
+
+    }
+
+
+    clearMerchantMarkers();
+
+
+    drawCustomerMarker();
+
+
+    const list =
+        getMapMerchantOptions();
+
+
+    const points =
+        [];
+
+
+    /*
+     * 客户位置加入地图视野
+     */
+    if(
+        customerBaiduLongitude !==
+        null
+        &&
+        customerBaiduLatitude !==
+        null
+    ){
+
+        points.push(
+            new BMap.Point(
+                customerBaiduLongitude,
+                customerBaiduLatitude
+            )
+        );
+
+    }
+
+
+    list.forEach(
+        item=>{
+
+            const point =
+                getMerchantMapPoint(
+                    item
+                );
+
+
+            if(
+                !point
+            ){
+
+                return;
+
+            }
+
+
+            points.push(
+                point
+            );
+
+
+            addMerchantMarker(
+                item,
+                point
+            );
+
+        }
+    );
+
+
+    /*
+     * 如果没有任何点，
+     * 尝试按城市定位。
+     */
+    if(
+        !points.length
+    ){
+
+        if(
+            selectedCityId
+        ){
+
+            baiduMap.centerAndZoom(
+                getCityName(
+                    selectedCityId
+                ),
+                12
+            );
+
+
+            document
+                .getElementById(
+                    "mapStatusText"
+                )
+                .textContent =
+                `${getCityName(
+                    selectedCityId
+                )}暂无带坐标的可显示商户`;
+
+        }
+
+
+        return;
+
+    }
+
+
+    /*
+     * 只有一个点
+     */
+    if(
+        points.length === 1
+    ){
+
+        baiduMap.centerAndZoom(
+            points[0],
+            15
+        );
+
+    }else{
+
+        /*
+         * 自动让所有点进入视野
+         */
+        try{
+
+            const viewport =
+                baiduMap.getViewport(
+                    points
+                );
+
+
+            baiduMap.centerAndZoom(
+                viewport.center,
+                Math.min(
+                    viewport.zoom,
+                    16
+                )
+            );
+
+        }catch(error){
+
+            baiduMap.centerAndZoom(
+                points[0],
+                13
+            );
+
+        }
+
+    }
+
+
+    if(
+        selectedOption
+    ){
+
+        document
+            .getElementById(
+                "mapStatusText"
+            )
+            .textContent =
+            `已选择：${selectedOption.merchant_name}`;
+
+    }else if(
+        selectedProductId
+    ){
+
+        document
+            .getElementById(
+                "mapStatusText"
+            )
+            .textContent =
+            `地图显示 ${list.length} 家可提供此服务的商户`;
+
+    }else{
+
+        document
+            .getElementById(
+                "mapStatusText"
+            )
+            .textContent =
+            "选择服务后显示可消费商户";
+
+    }
+
+}
+
+
+/* =========================================================
+   地图应该显示哪些商户
+========================================================= */
+
+function getMapMerchantOptions(){
+
+    /*
+     * 已选择服务：
+     * 只显示这个服务真正可以下单的商户。
+     */
+    if(
+        selectedCityId
+        &&
+        selectedProductId
+    ){
+
+        return getMerchantOptions();
+
+    }
+
+
+    /*
+     * 尚未选服务：
+     * 显示当前城市所有有效商户，
+     * 同一家商户去重。
+     */
+    if(
+        selectedCityId
+    ){
+
+        const map =
+            new Map();
+
+
+        getCityOptions()
+            .forEach(
+                item=>{
+
+                    const key =
+                        String(
+                            item.merchant_id
+                        );
+
+
+                    if(
+                        !map.has(
+                            key
+                        )
+                    ){
+
+                        map.set(
+                            key,
+                            item
+                        );
+
+                    }
+
+                }
+            );
+
+
+        return [
+            ...map.values()
+        ];
+
+    }
+
+
+    return [];
+
+}
+
+
+/* =========================================================
+   获取商户地图坐标
+========================================================= */
+
+function getMerchantMapPoint(
+    item
+){
+
+    const lat =
+        Number(
+            item.latitude
+        );
+
+
+    const lng =
+        Number(
+            item.longitude
+        );
+
+
+    if(
+        !Number.isFinite(
+            lat
+        )
+        ||
+        !Number.isFinite(
+            lng
+        )
+    ){
+
+        return null;
+
+    }
+
+
+    /*
+     * 数据库商户坐标目前标准为 BD09。
+     */
+    return new BMap.Point(
+        lng,
+        lat
+    );
+
+}
+
+
+/* =========================================================
+   商户Marker
+========================================================= */
+
+function addMerchantMarker(
+    item,
+    point
+){
+
+    if(
+        !baiduMapReady
+    ){
+
+        return;
+
+    }
+
+
+    const marker =
+        new BMap.Marker(
+            point
+        );
+
+
+    marker.__merchantId =
+        item.merchant_id;
+
+
+    baiduMap.addOverlay(
+        marker
+    );
+
+
+    merchantMarkers.push(
+        marker
+    );
+
+
+    /*
+     * 商户名称标签
+     */
+    try{
+
+        const label =
+            new BMap.Label(
+                escapeTextForMap(
+                    item.merchant_name
+                ),
+                {
+                    offset:
+                        new BMap.Size(
+                            18,
+                            -8
+                        )
+                }
+            );
+
+
+        label.setStyle({
+
+            color:
+                "#8b5065",
+
+            border:
+                "1px solid #ffd0df",
+
+            backgroundColor:
+                "#ffffff",
+
+            borderRadius:
+                "8px",
+
+            padding:
+                "3px 6px",
+
+            fontSize:
+                "10px",
+
+            boxShadow:
+                "0 2px 6px rgba(0,0,0,.08)"
+
+        });
+
+
+        marker.setLabel(
+            label
+        );
+
+    }catch(error){
+
+        console.warn(
+            "商户Label失败",
+            error
+        );
+
+    }
+
+
+    marker.addEventListener(
+        "click",
+        ()=>{
+
+            /*
+             * 如果尚未选择服务，
+             * 商户Marker只能展示信息，
+             * 不能直接作为订单商户，
+             * 因为还不知道服务项目。
+             */
+            if(
+                !selectedProductId
+            ){
+
+                openMerchantInfoWindow(
+                    item,
+                    point,
+                    false
+                );
+
+
+                toast(
+                    "请先选择服务项目"
+                );
+
+
+                return;
+
+            }
+
+
+            const actualOption =
+                getMerchantOptions()
+                    .find(
+                        row=>
+                            String(
+                                row.merchant_id
+                            )
+                            ===
+                            String(
+                                item.merchant_id
+                            )
+                    );
+
+
+            if(
+                !actualOption
+            ){
+
+                toast(
+                    "该商户不能提供当前服务"
+                );
+
+
+                return;
+
+            }
+
+
+            selectMerchant(
+                actualOption,
+                true
+            );
+
+
+            openMerchantInfoWindow(
+                actualOption,
+                point,
+                true
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   商户信息窗口
+========================================================= */
+
+function openMerchantInfoWindow(
+    item,
+    point,
+    selectable
+){
+
+    if(
+        !baiduMapReady
+    ){
+
+        return;
+
+    }
+
+
+    const name =
+        escapeHtml(
+            item.merchant_name
+            ||
+            "服务商户"
+        );
+
+
+    const address =
+        escapeHtml(
+            item.address
+            ||
+            "地址暂未完善"
+        );
+
+
+    const price =
+        item.unit_price !==
+        undefined
+        &&
+        item.unit_price !==
+        null
+        ?
+        `¥${formatMoney(
+            item.unit_price
+        )}`
+        :
+        "";
+
+
+    const html =
+        `
+        <div
+            style="
+                width:190px;
+                font-family:
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    'PingFang SC',
+                    'Microsoft YaHei',
+                    sans-serif;
+                padding:2px;
+            "
+        >
+
+            <div
+                style="
+                    font-size:14px;
+                    font-weight:800;
+                    color:#583945;
+                "
+            >
+                ${name}
+            </div>
+
+            <div
+                style="
+                    margin-top:6px;
+                    font-size:11px;
+                    line-height:1.5;
+                    color:#8e707b;
+                "
+            >
+                📍 ${address}
+            </div>
+
+            ${
+                price
+                ?
+                `
+                <div
+                    style="
+                        margin-top:7px;
+                        font-size:14px;
+                        font-weight:800;
+                        color:#e75585;
+                    "
+                >
+                    ${price}
+                </div>
+                `
+                :
+                ""
+            }
+
+            ${
+                selectable
+                ?
+                `
+                <div
+                    style="
+                        margin-top:7px;
+                        font-size:10px;
+                        color:#27855e;
+                        font-weight:700;
+                    "
+                >
+                    ✓ 已选择此商户
+                </div>
+                `
+                :
+                `
+                <div
+                    style="
+                        margin-top:7px;
+                        font-size:10px;
+                        color:#a07b88;
+                    "
+                >
+                    请先选择服务项目
+                </div>
+                `
+            }
+
+        </div>
+        `;
+
+
+    const infoWindow =
+        new BMap.InfoWindow(
+            html,
+            {
+                width:
+                    210,
+
+                title:
+                    ""
+            }
+        );
+
+
+    baiduMap.openInfoWindow(
+        infoWindow,
+        point
+    );
+
+}
+
+
+/* =========================================================
+   清除商户Marker
+========================================================= */
+
+function clearMerchantMarkers(){
+
+    if(
+        !baiduMapReady
+    ){
+
+        return;
+
+    }
+
+
+    merchantMarkers.forEach(
+        marker=>{
+
+            try{
+
+                baiduMap.removeOverlay(
+                    marker
+                );
+
+            }catch(error){
+
+                console.warn(
+                    error
+                );
+
+            }
+
+        }
+    );
+
+
+    merchantMarkers =
+        [];
+
+}
+
+
+/* =========================================================
+   客户位置Marker
+========================================================= */
+
+function drawCustomerMarker(){
+
+    if(
+        !baiduMapReady
+        ||
+        customerBaiduLongitude ===
+        null
+        ||
+        customerBaiduLatitude ===
+        null
+    ){
+
+        return;
+
+    }
+
+
+    if(
+        customerMarker
+    ){
+
+        try{
+
+            baiduMap.removeOverlay(
+                customerMarker
+            );
+
+        }catch(error){
+
+            console.warn(
+                error
+            );
+
+        }
+
+    }
+
+
+    const point =
+        new BMap.Point(
+            customerBaiduLongitude,
+            customerBaiduLatitude
+        );
+
+
+    customerMarker =
+        new BMap.Marker(
+            point
+        );
+
+
+    baiduMap.addOverlay(
+        customerMarker
+    );
+
+
+    try{
+
+        const label =
+            new BMap.Label(
+                "我的位置",
+                {
+                    offset:
+                        new BMap.Size(
+                            18,
+                            -8
+                        )
+                }
+            );
+
+
+        label.setStyle({
+
+            color:
+                "#2773d5",
+
+            border:
+                "1px solid #b8d6ff",
+
+            backgroundColor:
+                "#ffffff",
+
+            borderRadius:
+                "8px",
+
+            padding:
+                "3px 6px",
+
+            fontSize:
+                "10px",
+
+            fontWeight:
+                "700"
+
+        });
+
+
+        customerMarker.setLabel(
+            label
+        );
+
+    }catch(error){
+
+        console.warn(
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   地图定位到已选商户
+========================================================= */
+
+function focusMapOnMerchant(
+    item
+){
+
+    if(
+        !baiduMapReady
+    ){
+
+        return;
+
+    }
+
+
+    const point =
+        getMerchantMapPoint(
+            item
+        );
+
+
+    if(
+        !point
+    ){
+
+        return;
+
+    }
+
+
+    baiduMap.centerAndZoom(
+        point,
+        16
+    );
+
+
+    setTimeout(
+        ()=>{
+
+            openMerchantInfoWindow(
+                item,
+                point,
+                true
+            );
+
+        },
+        180
+    );
+
+}
+
+
+/* =========================================================
+   WGS84 → 百度BD09
+========================================================= */
+
+function convertCustomerToBaidu(
+    lng,
+    lat
+){
+
+    return new Promise(
+        resolve=>{
+
+            /*
+             * 百度地图没加载成功，
+             * 退回原始坐标，
+             * 不影响其它下单流程。
+             */
+            if(
+                typeof BMap ===
+                "undefined"
+            ){
+
+                customerBaiduLongitude =
+                    lng;
+
+
+                customerBaiduLatitude =
+                    lat;
+
+
+                resolve(
+                    false
+                );
+
+
+                return;
+
+            }
+
+
+            try{
+
+                const convertor =
+                    new BMap.Convertor();
+
+
+                const point =
+                    new BMap.Point(
+                        lng,
+                        lat
+                    );
+
+
+                /*
+                 * 1 = WGS84
+                 * 5 = BD09
+                 */
+                convertor.translate(
+                    [
+                        point
+                    ],
+                    1,
+                    5,
+                    result=>{
+
+                        if(
+                            result
+                            &&
+                            result.status ===
+                            0
+                            &&
+                            result.points
+                            &&
+                            result.points.length
+                        ){
+
+                            customerBaiduLongitude =
+                                Number(
+                                    result.points[0].lng
+                                );
+
+
+                            customerBaiduLatitude =
+                                Number(
+                                    result.points[0].lat
+                                );
+
+
+                            resolve(
+                                true
+                            );
+
+
+                            return;
+
+                        }
+
+
+                        /*
+                         * 转换失败时兜底
+                         */
+                        customerBaiduLongitude =
+                            lng;
+
+
+                        customerBaiduLatitude =
+                            lat;
+
+
+                        resolve(
+                            false
+                        );
+
+                    }
+                );
+
+
+            }catch(error){
+
+                console.error(
+                    "百度坐标转换失败",
+                    error
+                );
+
+
+                customerBaiduLongitude =
+                    lng;
+
+
+                customerBaiduLatitude =
+                    lat;
+
+
+                resolve(
+                    false
+                );
+
+            }
+
+        }
+    );
+
 }
 
 
@@ -2015,7 +4554,7 @@ async function loadBaseData(){
 
 function getAvailableCityIds(){
 
-    return[
+    return [
         ...new Set(
             orderOptions
                 .map(
@@ -2024,26 +4563,42 @@ function getAvailableCityIds(){
                             item.city_id
                         )
                 )
-                .filter(Boolean)
+                .filter(
+                    Boolean
+                )
         )
     ];
+
 }
 
-function getCityName(cityId){
+
+function getCityName(
+    cityId
+){
 
     const city =
         cities.find(
             item=>
-                String(item.id) ===
-                String(cityId)
+                String(
+                    item.id
+                )
+                ===
+                String(
+                    cityId
+                )
         );
 
-    return(
-        city?.city_name ||
-        city?.name ||
+
+    return (
+        city?.city_name
+        ||
+        city?.name
+        ||
         `城市 ${cityId}`
     );
+
 }
+
 
 function renderCitySelect(){
 
@@ -2052,6 +4607,7 @@ function renderCitySelect(){
             "citySelect"
         );
 
+
     select.innerHTML =
         `
         <option value="">
@@ -2059,21 +4615,36 @@ function renderCitySelect(){
         </option>
         `;
 
+
     const availableIds =
         getAvailableCityIds();
+
 
     availableIds
         .map(
             id=>({
+
                 id,
-                name:getCityName(id)
+
+                name:
+                    getCityName(
+                        id
+                    )
+
             })
         )
         .sort(
-            (a,b)=>
-                String(a.name)
+            (
+                a,
+                b
+            )=>
+                String(
+                    a.name
+                )
                     .localeCompare(
-                        String(b.name),
+                        String(
+                            b.name
+                        ),
                         "zh-CN"
                     )
         )
@@ -2085,20 +4656,29 @@ function renderCitySelect(){
                         "option"
                     );
 
+
                 option.value =
                     item.id;
+
 
                 option.textContent =
                     item.name;
 
+
                 select.appendChild(
                     option
                 );
+
             }
         );
 
+
+    /*
+     * 当前只有一个已开通城市时自动选中
+     */
     if(
-        availableIds.length === 1
+        availableIds.length ===
+        1
     ){
 
         setCity(
@@ -2106,8 +4686,11 @@ function renderCitySelect(){
             false,
             "当前仅有一个已开通城市，已自动选择。"
         );
+
     }
+
 }
+
 
 function manualCityChanged(){
 
@@ -2118,31 +4701,49 @@ function manualCityChanged(){
             )
             .value;
 
-    if(!value){
+
+    if(
+        !value
+    ){
 
         selectedCityId =
             null;
 
+
         resetAfterCity();
+
 
         updateCityUI(
             null,
             "请选择城市后继续下单。"
         );
 
+
         renderServices();
+
+
         renderMerchants();
+
+
         updateAll();
 
+
+        refreshMap();
+
+
         return;
+
     }
+
 
     setCity(
         value,
         true,
         "已使用您手动选择的城市。"
     );
+
 }
+
 
 function setCity(
     cityId,
@@ -2150,46 +4751,80 @@ function setCity(
     message
 ){
 
-    if(!cityId){
+    if(
+        !cityId
+    ){
+
         return;
+
     }
 
+
     const changed =
-        String(selectedCityId) !==
-        String(cityId);
+        String(
+            selectedCityId
+        )
+        !==
+        String(
+            cityId
+        );
+
 
     selectedCityId =
         cityId;
+
 
     document
         .getElementById(
             "citySelect"
         )
         .value =
-        String(cityId);
+        String(
+            cityId
+        );
 
-    if(changed){
+
+    if(
+        changed
+    ){
 
         resetAfterCity();
+
     }
+
 
     updateCityUI(
         cityId,
         message
     );
 
+
     renderServices();
+
+
     renderMerchants();
+
 
     updateAll();
 
-    if(isManual){
+
+    refreshMap();
+
+
+    if(
+        isManual
+    ){
 
         toast(
-            `当前城市：${getCityName(cityId)}`
+            `当前城市：${getCityName(
+                cityId
+            )}`
         );
+
     }
+
 }
+
 
 function updateCityUI(
     cityId,
@@ -2201,52 +4836,73 @@ function updateCityUI(
             "currentCityTitle"
         );
 
+
     const status =
         document.getElementById(
             "cityStatus"
         );
 
-    if(!cityId){
+
+    if(
+        !cityId
+    ){
 
         title.textContent =
             "尚未选择城市";
 
+
         status.textContent =
-            message ||
+            message
+            ||
             "请允许定位或手动选择城市。";
+
 
         status.classList.remove(
             "city-success"
         );
 
+
         return;
+
     }
 
+
     title.textContent =
-        getCityName(cityId);
+        getCityName(
+            cityId
+        );
+
 
     status.textContent =
-        message ||
+        message
+        ||
         "当前城市已确认。";
+
 
     status.classList.add(
         "city-success"
     );
+
 }
+
 
 function resetAfterCity(){
 
     selectedProductId =
         null;
 
+
     selectedMerchantId =
         null;
+
 
     selectedOption =
         null;
 
+
     quantity =
         1;
+
 }
 
 
@@ -2256,21 +4912,34 @@ function resetAfterCity(){
 
 function getCityOptions(){
 
-    if(!selectedCityId){
-        return[];
+    if(
+        !selectedCityId
+    ){
+
+        return [];
+
     }
+
 
     return orderOptions.filter(
         item=>
-            String(item.city_id) ===
-            String(selectedCityId)
+            String(
+                item.city_id
+            )
+            ===
+            String(
+                selectedCityId
+            )
     );
+
 }
+
 
 function getCityProducts(){
 
     const map =
         new Map();
+
 
     getCityOptions()
         .forEach(
@@ -2281,11 +4950,17 @@ function getCityProducts(){
                         item.product_id
                     );
 
-                if(!map.has(key)){
+
+                if(
+                    !map.has(
+                        key
+                    )
+                ){
 
                     map.set(
                         key,
                         {
+
                             product_id:
                                 item.product_id,
 
@@ -2297,7 +4972,8 @@ function getCityProducts(){
 
                             default_usage_count:
                                 Number(
-                                    item.default_usage_count ||
+                                    item.default_usage_count
+                                    ||
                                     1
                                 ),
 
@@ -2305,20 +4981,25 @@ function getCityProducts(){
                                 Number(
                                     item.unit_price
                                 )
+
                         }
                     );
+
                 }
+
             }
         );
 
-    return[
+
+    return [
         ...map.values()
     ];
+
 }
 
 
 /* =========================================================
-   服务列表
+   服务项目
 ========================================================= */
 
 function renderServices(){
@@ -2328,9 +5009,14 @@ function renderServices(){
             "serviceList"
         );
 
-    box.innerHTML = "";
 
-    if(!selectedCityId){
+    box.innerHTML =
+        "";
+
+
+    if(
+        !selectedCityId
+    ){
 
         box.innerHTML =
             `
@@ -2345,13 +5031,19 @@ function renderServices(){
             </div>
             `;
 
+
         return;
+
     }
+
 
     const list =
         getCityProducts();
 
-    if(!list.length){
+
+    if(
+        !list.length
+    ){
 
         box.innerHTML =
             `
@@ -2366,8 +5058,11 @@ function renderServices(){
             </div>
             `;
 
+
         return;
+
     }
+
 
     list.forEach(
         product=>{
@@ -2377,67 +5072,102 @@ function renderServices(){
                     "button"
                 );
 
+
             card.type =
                 "button";
+
 
             card.className =
                 "service-card";
 
+
             if(
-                String(selectedProductId) ===
-                String(product.product_id)
+                String(
+                    selectedProductId
+                )
+                ===
+                String(
+                    product.product_id
+                )
             ){
 
                 card.classList.add(
                     "selected"
                 );
+
             }
+
 
             const uses =
                 Number(
-                    product.default_usage_count ||
+                    product.default_usage_count
+                    ||
                     1
                 );
 
+
             card.innerHTML =
                 `
+
                 <div class="service-icon">
                     🌸
                 </div>
 
+
                 <div class="service-main">
 
                     <div class="service-name">
+
                         ${escapeHtml(
                             product.product_name
                         )}
+
                     </div>
 
+
                     <div class="service-desc">
+
                         ${escapeHtml(
-                            product.description ||
+                            product.description
+                            ||
                             "该服务项目暂无详细说明"
                         )}
+
                     </div>
+
 
                     <div class="service-bottom">
 
                         <div class="service-tags">
 
                             <span class="tag">
-                                ${uses} 次 / 份
+
+                                ${uses}
+                                次 / 份
+
                             </span>
 
-                            <span class="tag price-tag">
-                                城市价 ¥${formatMoney(
+
+                            <span
+                                class="
+                                    tag
+                                    price-tag
+                                "
+                            >
+
+                                城市价
+                                ¥${formatMoney(
                                     product.unit_price
                                 )}
+
                             </span>
+
 
                             <span
                                 class="service-detail-btn"
                                 onclick="
                                     event.stopPropagation();
+
                                     openServiceDetail(
                                         '${String(
                                             product.product_id
@@ -2450,6 +5180,7 @@ function renderServices(){
 
                         </div>
 
+
                         <span class="select-check">
                             ✓
                         </span>
@@ -2459,47 +5190,69 @@ function renderServices(){
                 </div>
                 `;
 
+
             card.onclick =
                 ()=>{
 
                     selectedProductId =
                         product.product_id;
 
+
                     selectedMerchantId =
                         null;
+
 
                     selectedOption =
                         null;
 
+
                     quantity =
                         1;
 
+
                     renderServices();
+
+
                     renderMerchants();
 
+
                     updateAll();
+
+
+                    refreshMap();
+
 
                     setTimeout(
                         ()=>{
 
                             document
-                                .getElementById(
-                                    "merchantList"
+                                .querySelector(
+                                    ".merchant-select-title"
                                 )
-                                ?.scrollIntoView({
-                                    behavior:"smooth",
-                                    block:"start"
-                                });
+                                ?.scrollIntoView(
+                                    {
+                                        behavior:
+                                            "smooth",
+
+                                        block:
+                                            "start"
+                                    }
+                                );
+
                         },
-                        150
+                        160
                     );
+
                 };
+
 
             box.appendChild(
                 card
             );
+
         }
     );
+
 }
 
 
@@ -2517,33 +5270,44 @@ function openServiceDetail(
                 item=>
                     String(
                         item.product_id
-                    ) ===
+                    )
+                    ===
                     String(
                         productId
                     )
             );
 
-    if(!product){
+
+    if(
+        !product
+    ){
 
         toast(
             "暂时无法读取服务详情"
         );
 
+
         return;
+
     }
+
 
     const uses =
         Math.max(
             1,
             Number(
-                product.default_usage_count ||
+                product.default_usage_count
+                ||
                 1
             )
         );
 
+
     const description =
-        product.description ||
+        product.description
+        ||
         "该服务项目暂未填写详细服务说明。请在确认下单前向平台或服务商户核实具体服务内容。";
+
 
     document
         .getElementById(
@@ -2551,31 +5315,48 @@ function openServiceDetail(
         )
         .innerHTML =
         `
+
         <div class="detail-head">
 
             <div class="detail-icon">
                 🌸
             </div>
 
+
             <div class="detail-main">
 
                 <div class="detail-name">
+
                     ${escapeHtml(
                         product.product_name
                     )}
+
                 </div>
+
 
                 <div class="detail-tags">
 
                     <span class="tag">
-                        ${uses} 次 / 份
+
+                        ${uses}
+                        次 / 份
+
                     </span>
 
-                    <span class="tag price-tag">
+
+                    <span
+                        class="
+                            tag
+                            price-tag
+                        "
+                    >
+
                         当前城市价
+
                         ¥${formatMoney(
                             product.unit_price
                         )}
+
                     </span>
 
                 </div>
@@ -2583,6 +5364,7 @@ function openServiceDetail(
             </div>
 
         </div>
+
 
         <div class="detail-block">
 
@@ -2590,26 +5372,37 @@ function openServiceDetail(
                 服务内容与说明
             </div>
 
+
             <div class="detail-description">
-${escapeHtml(description)}
+${escapeHtml(
+    description
+)}
             </div>
 
         </div>
 
+
         <div class="detail-warning">
+
             请在下单前仔细核对服务内容、适用情况和消费次数是否与您的需求一致。
+
             如果您对服务内容存在疑问，请确认清楚以后再提交订单，避免选择错误的服务项目。
+
         </div>
         `;
+
 
     document
         .getElementById(
             "serviceDetailModal"
         )
-        .classList.add(
+        .classList
+        .add(
             "show"
         );
+
 }
+
 
 function closeServiceDetail(){
 
@@ -2617,10 +5410,13 @@ function closeServiceDetail(){
         .getElementById(
             "serviceDetailModal"
         )
-        .classList.remove(
+        .classList
+        .remove(
             "show"
         );
+
 }
+
 
 function serviceDetailMaskClose(
     event
@@ -2632,7 +5428,9 @@ function serviceDetailMaskClose(
     ){
 
         closeServiceDetail();
+
     }
+
 }
 
 
@@ -2643,64 +5441,109 @@ function serviceDetailMaskClose(
 function getMerchantOptions(){
 
     if(
-        !selectedCityId ||
+        !selectedCityId
+        ||
         !selectedProductId
     ){
-        return[];
+
+        return [];
+
     }
+
 
     return orderOptions
         .filter(
             item=>
-                String(item.city_id) ===
-                String(selectedCityId)
+                String(
+                    item.city_id
+                )
+                ===
+                String(
+                    selectedCityId
+                )
                 &&
-                String(item.product_id) ===
-                String(selectedProductId)
+                String(
+                    item.product_id
+                )
+                ===
+                String(
+                    selectedProductId
+                )
         )
         .map(
             item=>({
+
                 ...item,
+
                 _distance:
                     calculateOptionDistance(
                         item
                     )
+
             })
         )
         .sort(
-            (a,b)=>{
+            (
+                a,
+                b
+            )=>{
 
                 if(
-                    a._distance === null &&
-                    b._distance === null
+                    a._distance ===
+                    null
+                    &&
+                    b._distance ===
+                    null
                 ){
 
-                    return(
+                    return (
                         Number(
-                            a.merchant_no || 0
+                            a.merchant_no
+                            ||
+                            0
                         )
                         -
                         Number(
-                            b.merchant_no || 0
+                            b.merchant_no
+                            ||
+                            0
                         )
                     );
+
                 }
 
-                if(a._distance === null){
+
+                if(
+                    a._distance ===
+                    null
+                ){
+
                     return 1;
+
                 }
 
-                if(b._distance === null){
+
+                if(
+                    b._distance ===
+                    null
+                ){
+
                     return -1;
+
                 }
 
-                return(
-                    a._distance -
+
+                return (
+                    a._distance
+                    -
                     b._distance
                 );
+
             }
         );
+
 }
+
 
 function renderMerchants(){
 
@@ -2709,9 +5552,14 @@ function renderMerchants(){
             "merchantList"
         );
 
-    box.innerHTML = "";
 
-    if(!selectedCityId){
+    box.innerHTML =
+        "";
+
+
+    if(
+        !selectedCityId
+    ){
 
         box.innerHTML =
             `
@@ -2726,10 +5574,15 @@ function renderMerchants(){
             </div>
             `;
 
+
         return;
+
     }
 
-    if(!selectedProductId){
+
+    if(
+        !selectedProductId
+    ){
 
         box.innerHTML =
             `
@@ -2744,13 +5597,19 @@ function renderMerchants(){
             </div>
             `;
 
+
         return;
+
     }
+
 
     const list =
         getMerchantOptions();
 
-    if(!list.length){
+
+    if(
+        !list.length
+    ){
 
         box.innerHTML =
             `
@@ -2765,8 +5624,11 @@ function renderMerchants(){
             </div>
             `;
 
+
         return;
+
     }
+
 
     list.forEach(
         item=>{
@@ -2776,24 +5638,35 @@ function renderMerchants(){
                     "button"
                 );
 
+
             card.type =
                 "button";
+
 
             card.className =
                 "merchant-card";
 
+
             if(
-                String(selectedMerchantId) ===
-                String(item.merchant_id)
+                String(
+                    selectedMerchantId
+                )
+                ===
+                String(
+                    item.merchant_id
+                )
             ){
 
                 card.classList.add(
                     "selected"
                 );
+
             }
 
+
             const distanceText =
-                item._distance !== null
+                item._distance !==
+                null
                 ?
                 formatDistance(
                     item._distance
@@ -2801,78 +5674,194 @@ function renderMerchants(){
                 :
                 "可手动选择";
 
+
             card.innerHTML =
                 `
+
                 <div class="merchant-head">
 
                     <div class="merchant-name">
+
                         ${escapeHtml(
                             item.merchant_name
                         )}
+
                     </div>
 
+
                     <div class="merchant-no">
+
                         编号
+
                         ${escapeHtml(
                             item.merchant_no
                         )}
+
                     </div>
 
                 </div>
 
+
                 <div class="merchant-address">
+
                     📍
+
                     ${escapeHtml(
-                        item.address ||
+                        item.address
+                        ||
                         "商户地址暂未完善"
                     )}
+
                 </div>
+
 
                 <div class="merchant-bottom">
 
                     <span class="distance">
+
                         ${escapeHtml(
                             distanceText
                         )}
+
                     </span>
 
+
                     <span class="merchant-price">
-                        <small>¥</small>
+
+                        <small>
+                            ¥
+                        </small>
+
                         ${formatMoney(
                             item.unit_price
                         )}
+
                     </span>
 
                 </div>
                 `;
 
+
             card.onclick =
                 ()=>{
 
-                    selectedMerchantId =
-                        item.merchant_id;
+                    selectMerchant(
+                        item,
+                        false
+                    );
 
-                    selectedOption =
-                        item;
-
-                    quantity =
-                        Math.max(
-                            1,
-                            quantity
-                        );
-
-                    renderMerchants();
-
-                    updateMapPlaceholder();
-
-                    updateAll();
                 };
+
 
             box.appendChild(
                 card
             );
+
         }
     );
+
+}
+
+
+/* =========================================================
+   统一商户选择
+   地图和列表都调用这个函数
+========================================================= */
+
+function selectMerchant(
+    item,
+    fromMap
+){
+
+    selectedMerchantId =
+        item.merchant_id;
+
+
+    selectedOption =
+        item;
+
+
+    quantity =
+        Math.max(
+            1,
+            quantity
+        );
+
+
+    renderMerchants();
+
+
+    updateAll();
+
+
+    refreshMap();
+
+
+    focusMapOnMerchant(
+        item
+    );
+
+
+    if(
+        fromMap
+    ){
+
+        /*
+         * 地图选商户后，
+         * 把对应商户卡片滚动到视野。
+         */
+        setTimeout(
+            ()=>{
+
+                const cards =
+                    [
+                        ...document
+                            .querySelectorAll(
+                                ".merchant-card"
+                            )
+                    ];
+
+
+                const index =
+                    getMerchantOptions()
+                        .findIndex(
+                            row=>
+                                String(
+                                    row.merchant_id
+                                )
+                                ===
+                                String(
+                                    item.merchant_id
+                                )
+                        );
+
+
+                if(
+                    index >=
+                    0
+                    &&
+                    cards[index]
+                ){
+
+                    cards[index]
+                        .scrollIntoView(
+                            {
+                                behavior:
+                                    "smooth",
+
+                                block:
+                                    "center"
+                            }
+                        );
+
+                }
+
+            },
+            150
+        );
+
+    }
+
 }
 
 
@@ -2892,55 +5881,87 @@ function requestLocation(
             automatic
         );
 
+
         return;
+
     }
+
 
     const btn =
         document.getElementById(
             "locateBtn"
         );
 
+
     btn.disabled =
         true;
+
 
     btn.textContent =
         "正在获取位置...";
 
-    if(!selectedCityId){
+
+    if(
+        !selectedCityId
+    ){
 
         updateCityUI(
             null,
             "正在获取当前位置并识别服务城市..."
         );
+
     }
+
 
     navigator.geolocation
         .getCurrentPosition(
 
-            position=>{
+            async position=>{
 
                 customerLatitude =
                     Number(
                         position.coords.latitude
                     );
 
+
                 customerLongitude =
                     Number(
                         position.coords.longitude
                     );
 
+
                 btn.disabled =
                     false;
+
 
                 btn.textContent =
                     "重新获取当前位置";
 
+
+                /*
+                 * GPS坐标转百度坐标
+                 */
+                await convertCustomerToBaidu(
+                    customerLongitude,
+                    customerLatitude
+                );
+
+
                 detectNearestCity();
+
 
                 renderMerchants();
 
-                updateMapPlaceholder();
+
+                refreshMap();
+
+
+                toast(
+                    "当前位置获取成功"
+                );
+
             },
+
 
             error=>{
 
@@ -2949,53 +5970,114 @@ function requestLocation(
                     error
                 );
 
+
                 btn.disabled =
                     false;
+
 
                 btn.textContent =
                     "再次尝试定位";
 
+
                 locationFailed(
                     automatic
                 );
+
             },
 
+
             {
-                enableHighAccuracy:true,
-                timeout:10000,
-                maximumAge:60000
+                enableHighAccuracy:
+                    true,
+
+                timeout:
+                    10000,
+
+                maximumAge:
+                    60000
             }
+
         );
+
 }
+
 
 function locationFailed(
     automatic
 ){
 
-    if(!selectedCityId){
+    if(
+        !selectedCityId
+    ){
 
         updateCityUI(
             null,
             "无法自动识别城市，请在下面手动选择城市。"
         );
+
     }
 
-    if(!automatic){
+
+    if(
+        baiduMapReady
+    ){
+
+        document
+            .getElementById(
+                "mapStatusText"
+            )
+            .textContent =
+            "无法获取您的位置，可手动选择城市和商户";
+
+    }
+
+
+    if(
+        !automatic
+    ){
 
         toast(
             "定位失败，请手动选择城市"
         );
+
     }
+
 }
+
+
+/* =========================================================
+   自动识别城市
+========================================================= */
 
 function detectNearestCity(){
 
+    /*
+     * 距离计算优先用已经转成BD09的坐标。
+     */
+    const customerLat =
+        customerBaiduLatitude
+        ??
+        customerLatitude;
+
+
+    const customerLng =
+        customerBaiduLongitude
+        ??
+        customerLongitude;
+
+
     if(
-        customerLatitude === null ||
-        customerLongitude === null
+        customerLat ===
+        null
+        ||
+        customerLng ===
+        null
     ){
+
         return;
+
     }
+
 
     const merchantLocations =
         orderOptions
@@ -3007,25 +6089,35 @@ function detectNearestCity(){
                             item.latitude
                         );
 
+
                     const lng =
                         Number(
                             item.longitude
                         );
 
-                    return(
-                        Number.isFinite(lat) &&
-                        Number.isFinite(lng)
+
+                    return (
+                        Number.isFinite(
+                            lat
+                        )
+                        &&
+                        Number.isFinite(
+                            lng
+                        )
                     );
+
                 }
             )
             .map(
                 item=>({
-                    city_id:item.city_id,
+
+                    city_id:
+                        item.city_id,
 
                     distance:
                         haversineDistance(
-                            customerLatitude,
-                            customerLongitude,
+                            customerLat,
+                            customerLng,
                             Number(
                                 item.latitude
                             ),
@@ -3033,29 +6125,47 @@ function detectNearestCity(){
                                 item.longitude
                             )
                         )
+
                 })
             )
             .sort(
-                (a,b)=>
-                    a.distance -
+                (
+                    a,
+                    b
+                )=>
+                    a.distance
+                    -
                     b.distance
             );
 
-    if(!merchantLocations.length){
 
-        if(!selectedCityId){
+    if(
+        !merchantLocations.length
+    ){
+
+        if(
+            !selectedCityId
+        ){
 
             updateCityUI(
                 null,
                 "位置获取成功，但暂时无法自动识别城市，请手动选择。"
             );
+
         }
 
+
+        refreshMap();
+
+
         return;
+
     }
+
 
     const nearest =
         merchantLocations[0];
+
 
     setCity(
         nearest.city_id,
@@ -3065,66 +6175,13 @@ function detectNearestCity(){
         )}。`
     );
 
+
     toast(
         `已自动识别：${getCityName(
             nearest.city_id
         )}`
     );
-}
 
-
-/* =========================================================
-   地图占位
-========================================================= */
-
-function updateMapPlaceholder(){
-
-    const text =
-        document.getElementById(
-            "mapText"
-        );
-
-    if(selectedOption){
-
-        text.innerHTML =
-            `
-            已选择：
-            ${escapeHtml(
-                selectedOption.merchant_name
-            )}
-            <br>
-
-            ${escapeHtml(
-                selectedOption.address ||
-                "地址暂未完善"
-            )}
-            <br>
-
-            百度地图 AK 获取后将在这里显示地图和导航。
-            `;
-
-        return;
-    }
-
-    if(
-        customerLatitude !== null &&
-        customerLongitude !== null
-    ){
-
-        text.innerHTML =
-            `
-            已获取当前位置。<br>
-            商户将按照距离优先排序。
-            `;
-
-        return;
-    }
-
-    text.innerHTML =
-        `
-        百度地图 AK 正在审批中。<br>
-        当前先使用定位、距离和商户地址。
-        `;
 }
 
 
@@ -3136,37 +6193,67 @@ function calculateOptionDistance(
     option
 ){
 
+    const customerLat =
+        customerBaiduLatitude
+        ??
+        customerLatitude;
+
+
+    const customerLng =
+        customerBaiduLongitude
+        ??
+        customerLongitude;
+
+
     if(
-        customerLatitude === null ||
-        customerLongitude === null
+        customerLat ===
+        null
+        ||
+        customerLng ===
+        null
     ){
+
         return null;
+
     }
+
 
     const lat =
         Number(
             option.latitude
         );
 
+
     const lng =
         Number(
             option.longitude
         );
 
+
     if(
-        !Number.isFinite(lat) ||
-        !Number.isFinite(lng)
+        !Number.isFinite(
+            lat
+        )
+        ||
+        !Number.isFinite(
+            lng
+        )
     ){
+
         return null;
+
     }
 
+
     return haversineDistance(
-        customerLatitude,
-        customerLongitude,
+        customerLat,
+        customerLng,
         lat,
         lng
     );
+
 }
+
 
 function haversineDistance(
     lat1,
@@ -3178,63 +6265,120 @@ function haversineDistance(
     const R =
         6371;
 
+
     const dLat =
         toRad(
-            lat2 -
+            lat2
+            -
             lat1
         );
 
+
     const dLon =
         toRad(
-            lon2 -
+            lon2
+            -
             lon1
         );
 
-    const a =
-        Math.sin(dLat/2) *
-        Math.sin(dLat/2)
-        +
-        Math.cos(toRad(lat1)) *
-        Math.cos(toRad(lat2)) *
-        Math.sin(dLon/2) *
-        Math.sin(dLon/2);
 
-    const c =
-        2 *
-        Math.atan2(
-            Math.sqrt(a),
-            Math.sqrt(1-a)
+    const a =
+        Math.sin(
+            dLat
+            /
+            2
+        )
+        *
+        Math.sin(
+            dLat
+            /
+            2
+        )
+        +
+        Math.cos(
+            toRad(
+                lat1
+            )
+        )
+        *
+        Math.cos(
+            toRad(
+                lat2
+            )
+        )
+        *
+        Math.sin(
+            dLon
+            /
+            2
+        )
+        *
+        Math.sin(
+            dLon
+            /
+            2
         );
 
-    return R*c;
+
+    const c =
+        2
+        *
+        Math.atan2(
+            Math.sqrt(
+                a
+            ),
+            Math.sqrt(
+                1
+                -
+                a
+            )
+        );
+
+
+    return R
+        *
+        c;
+
 }
+
 
 function toRad(
     value
 ){
-    return(
-        value *
-        Math.PI /
+
+    return (
+        value
+        *
+        Math.PI
+        /
         180
     );
+
 }
+
 
 function formatDistance(
     km
 ){
 
-    if(km < 1){
+    if(
+        km <
+        1
+    ){
 
-        return(
-            `${Math.round(
-                km*1000
-            )} 米`
-        );
+        return `${Math.round(
+            km
+            *
+            1000
+        )} 米`;
+
     }
 
-    return(
-        `${km.toFixed(1)} 公里`
-    );
+
+    return `${km.toFixed(
+        1
+    )} 公里`;
+
 }
 
 
@@ -3247,20 +6391,30 @@ function changeQuantity(
 ){
 
     const next =
-        quantity +
+        quantity
+        +
         change;
 
+
     if(
-        next < 1 ||
-        next > 999
+        next <
+        1
+        ||
+        next >
+        999
     ){
+
         return;
+
     }
+
 
     quantity =
         next;
 
+
     updateAll();
+
 }
 
 
@@ -3275,10 +6429,12 @@ function renderSourceOptions(){
             "sourceMerchantSelect"
         );
 
+
     const consultantSelect =
         document.getElementById(
             "sourceConsultantSelect"
         );
+
 
     merchantSelect.innerHTML =
         `
@@ -3287,12 +6443,14 @@ function renderSourceOptions(){
         </option>
         `;
 
+
     consultantSelect.innerHTML =
         `
         <option value="">
             请选择健康顾问
         </option>
         `;
+
 
     recommendationSources
         .filter(
@@ -3301,13 +6459,20 @@ function renderSourceOptions(){
                 "merchant"
         )
         .sort(
-            (a,b)=>
+            (
+                a,
+                b
+            )=>
                 Number(
-                    a.source_no || 0
+                    a.source_no
+                    ||
+                    0
                 )
                 -
                 Number(
-                    b.source_no || 0
+                    b.source_no
+                    ||
+                    0
                 )
         )
         .forEach(
@@ -3318,17 +6483,23 @@ function renderSourceOptions(){
                         "option"
                     );
 
+
                 option.value =
                     item.source_no;
+
 
                 option.textContent =
                     `${item.source_no}｜${item.source_name}`;
 
-                merchantSelect.appendChild(
-                    option
-                );
+
+                merchantSelect
+                    .appendChild(
+                        option
+                    );
+
             }
         );
+
 
     recommendationSources
         .filter(
@@ -3337,13 +6508,20 @@ function renderSourceOptions(){
                 "health_consultant"
         )
         .sort(
-            (a,b)=>
+            (
+                a,
+                b
+            )=>
                 Number(
-                    a.source_no || 0
+                    a.source_no
+                    ||
+                    0
                 )
                 -
                 Number(
-                    b.source_no || 0
+                    b.source_no
+                    ||
+                    0
                 )
         )
         .forEach(
@@ -3354,18 +6532,25 @@ function renderSourceOptions(){
                         "option"
                     );
 
+
                 option.value =
                     item.source_no;
+
 
                 option.textContent =
                     `${item.source_no}｜${item.source_name}`;
 
-                consultantSelect.appendChild(
-                    option
-                );
+
+                consultantSelect
+                    .appendChild(
+                        option
+                    );
+
             }
         );
+
 }
+
 
 function chooseSourceType(
     type
@@ -3374,8 +6559,10 @@ function chooseSourceType(
     selectedSourceType =
         type;
 
+
     selectedSourceNo =
         null;
+
 
     document
         .getElementById(
@@ -3384,6 +6571,7 @@ function chooseSourceType(
         .value =
         "";
 
+
     document
         .getElementById(
             "sourceConsultantSelect"
@@ -3391,60 +6579,78 @@ function chooseSourceType(
         .value =
         "";
 
+
     [
         [
             "platform",
             "sourcePlatformBtn"
         ],
+
         [
             "merchant",
             "sourceMerchantBtn"
         ],
+
         [
             "health_consultant",
             "sourceConsultantBtn"
         ]
-    ]
-    .forEach(
-        item=>{
 
-            document
-                .getElementById(
-                    item[1]
-                )
-                .classList.toggle(
-                    "active",
-                    item[0] === type
-                );
-        }
-    );
+    ]
+        .forEach(
+            item=>{
+
+                document
+                    .getElementById(
+                        item[1]
+                    )
+                    .classList
+                    .toggle(
+                        "active",
+                        item[0]
+                        ===
+                        type
+                    );
+
+            }
+        );
+
 
     document
         .getElementById(
             "sourceMerchantPicker"
         )
-        .style.display =
-        type === "merchant"
+        .style
+        .display =
+        type ===
+        "merchant"
         ?
         "block"
         :
         "none";
+
 
     document
         .getElementById(
             "sourceConsultantPicker"
         )
-        .style.display =
-        type === "health_consultant"
+        .style
+        .display =
+        type ===
+        "health_consultant"
         ?
         "block"
         :
         "none";
 
+
     updateSourceNote();
 
+
     updateAll();
+
 }
+
 
 function sourceSelectionChanged(){
 
@@ -3460,13 +6666,18 @@ function sourceSelectionChanged(){
                 )
                 .value;
 
+
         selectedSourceNo =
             value
             ?
-            Number(value)
+            Number(
+                value
+            )
             :
             null;
+
     }
+
 
     if(
         selectedSourceType ===
@@ -3480,18 +6691,26 @@ function sourceSelectionChanged(){
                 )
                 .value;
 
+
         selectedSourceNo =
             value
             ?
-            Number(value)
+            Number(
+                value
+            )
             :
             null;
+
     }
+
 
     updateSourceNote();
 
+
     updateAll();
+
 }
+
 
 function getSelectedSource(){
 
@@ -3500,12 +6719,21 @@ function getSelectedSource(){
         "platform"
     ){
 
-        return{
-            type:"platform",
-            no:null,
-            name:"平台"
+        return {
+
+            type:
+                "platform",
+
+            no:
+                null,
+
+            name:
+                "平台"
+
         };
+
     }
+
 
     const source =
         recommendationSources
@@ -3514,15 +6742,27 @@ function getSelectedSource(){
                     item.source_type ===
                     selectedSourceType
                     &&
-                    Number(item.source_no) ===
-                    Number(selectedSourceNo)
+                    Number(
+                        item.source_no
+                    )
+                    ===
+                    Number(
+                        selectedSourceNo
+                    )
             );
 
-    if(!source){
+
+    if(
+        !source
+    ){
+
         return null;
+
     }
 
-    return{
+
+    return {
+
         type:
             source.source_type,
 
@@ -3533,8 +6773,11 @@ function getSelectedSource(){
 
         name:
             source.source_name
+
     };
+
 }
+
 
 function updateSourceNote(){
 
@@ -3543,8 +6786,10 @@ function updateSourceNote(){
             "sourceNote"
         );
 
+
     const source =
         getSelectedSource();
+
 
     if(
         selectedSourceType ===
@@ -3554,10 +6799,15 @@ function updateSourceNote(){
         note.textContent =
             "当前推荐来源：平台";
 
+
         return;
+
     }
 
-    if(!source){
+
+    if(
+        !source
+    ){
 
         note.textContent =
             selectedSourceType ===
@@ -3567,11 +6817,15 @@ function updateSourceNote(){
             :
             "请选择健康顾问";
 
+
         return;
+
     }
+
 
     note.textContent =
         `当前推荐来源：${source.no}｜${source.name}`;
+
 }
 
 
@@ -3581,77 +6835,123 @@ function updateSourceNote(){
 
 function calculateDiscount(){
 
-    if(!selectedOption){
+    if(
+        !selectedOption
+    ){
 
-        return{
-            unitPrice:0,
-            subtotal:0,
-            rate:0,
-            discount:0,
-            payable:0
+        return {
+
+            unitPrice:
+                0,
+
+            subtotal:
+                0,
+
+            rate:
+                0,
+
+            discount:
+                0,
+
+            payable:
+                0
+
         };
+
     }
+
 
     const unitPrice =
         Number(
-            selectedOption.unit_price ||
+            selectedOption.unit_price
+            ||
             0
         );
 
+
     const subtotal =
         round2(
-            unitPrice *
+            unitPrice
+            *
             quantity
         );
+
 
     let rate =
         0;
 
+
     if(
-        subtotal > 5000
+        subtotal >
+        5000
     ){
-        rate = .10;
-    }
-    else if(
-        subtotal > 3000
+
+        rate =
+            .10;
+
+    }else if(
+        subtotal >
+        3000
     ){
-        rate = .08;
-    }
-    else if(
-        subtotal > 2000
+
+        rate =
+            .08;
+
+    }else if(
+        subtotal >
+        2000
     ){
-        rate = .05;
+
+        rate =
+            .05;
+
     }
+
 
     const discount =
         round2(
-            subtotal *
+            subtotal
+            *
             rate
         );
 
+
     const payable =
         round2(
-            subtotal -
+            subtotal
+            -
             discount
         );
 
-    return{
+
+    return {
+
         unitPrice,
+
         subtotal,
+
         rate,
+
         discount,
+
         payable
+
     };
+
 }
+
 
 function round2(
     value
 ){
 
-    return(
+    return (
         Math.round(
             (
-                Number(value) +
+                Number(
+                    value
+                )
+                +
                 Number.EPSILON
             )
             *
@@ -3660,25 +6960,32 @@ function round2(
         /
         100
     );
+
 }
 
 
 /* =========================================================
-   更新界面
+   UI更新
 ========================================================= */
 
 function updateAll(){
 
     updateQuantity();
 
+
     updateDiscount();
+
 
     updateSummary();
 
+
     updateSteps();
 
+
     updateConfirmButton();
+
 }
+
 
 function updateQuantity(){
 
@@ -3689,129 +6996,186 @@ function updateQuantity(){
         .textContent =
         quantity;
 
+
     const unitText =
         document.getElementById(
             "unitPriceText"
         );
+
 
     const detail =
         document.getElementById(
             "quantityDetail"
         );
 
-    if(!selectedOption){
+
+    if(
+        !selectedOption
+    ){
 
         unitText.textContent =
             "请先选择服务项目和商户";
 
+
         detail.textContent =
             "请选择服务项目和商户后查看消费次数。";
 
+
         return;
+
     }
+
 
     const defaultUses =
         Math.max(
             1,
             Number(
-                selectedOption.default_usage_count ||
+                selectedOption.default_usage_count
+                ||
                 1
             )
         );
 
+
     const totalUses =
-        defaultUses *
+        defaultUses
+        *
         quantity;
+
 
     unitText.textContent =
         `城市单价 ¥${formatMoney(
             selectedOption.unit_price
         )} / 份`;
 
+
     detail.textContent =
         `每份包含 ${defaultUses} 次服务，当前购买 ${quantity} 份，共可核销 ${totalUses} 次。`;
+
 }
+
 
 function updateDiscount(){
 
     const calc =
         calculateDiscount();
 
+
     [
         "tier5",
         "tier8",
         "tier10"
     ]
-    .forEach(
-        id=>{
+        .forEach(
+            id=>{
 
-            document
-                .getElementById(id)
-                .classList.remove(
-                    "active"
-                );
-        }
-    );
+                document
+                    .getElementById(
+                        id
+                    )
+                    .classList
+                    .remove(
+                        "active"
+                    );
+
+            }
+        );
+
 
     let message =
         "当前订单尚未达到优惠金额。";
 
+
     if(
-        calc.rate === .05
+        calc.rate ===
+        .05
     ){
 
         document
             .getElementById(
                 "tier5"
             )
-            .classList.add(
+            .classList
+            .add(
                 "active"
             );
 
+
         message =
-            `当前原价 ¥${formatMoney(calc.subtotal)}，自动优惠5%，节省 ¥${formatMoney(calc.discount)}。`;
+            `当前原价 ¥${formatMoney(
+                calc.subtotal
+            )}，自动优惠5%，节省 ¥${formatMoney(
+                calc.discount
+            )}。`;
+
     }
 
+
     if(
-        calc.rate === .08
+        calc.rate ===
+        .08
     ){
 
         document
             .getElementById(
                 "tier8"
             )
-            .classList.add(
+            .classList
+            .add(
                 "active"
             );
 
+
         message =
-            `当前原价 ¥${formatMoney(calc.subtotal)}，自动优惠8%，节省 ¥${formatMoney(calc.discount)}。`;
+            `当前原价 ¥${formatMoney(
+                calc.subtotal
+            )}，自动优惠8%，节省 ¥${formatMoney(
+                calc.discount
+            )}。`;
+
     }
 
+
     if(
-        calc.rate === .10
+        calc.rate ===
+        .10
     ){
 
         document
             .getElementById(
                 "tier10"
             )
-            .classList.add(
+            .classList
+            .add(
                 "active"
             );
 
+
         message =
-            `当前原价 ¥${formatMoney(calc.subtotal)}，自动优惠10%，节省 ¥${formatMoney(calc.discount)}。`;
+            `当前原价 ¥${formatMoney(
+                calc.subtotal
+            )}，自动优惠10%，节省 ¥${formatMoney(
+                calc.discount
+            )}。`;
+
     }
 
+
     if(
-        calc.subtotal > 0 &&
-        calc.rate === 0
+        calc.subtotal >
+        0
+        &&
+        calc.rate ===
+        0
     ){
 
         message =
-            `当前原价 ¥${formatMoney(calc.subtotal)}。超过 ¥2000 后可自动优惠5%。`;
+            `当前原价 ¥${formatMoney(
+                calc.subtotal
+            )}。超过 ¥2000 后可自动优惠5%。`;
+
     }
+
 
     document
         .getElementById(
@@ -3819,12 +7183,15 @@ function updateDiscount(){
         )
         .textContent =
         message;
+
 }
+
 
 function updateSummary(){
 
     const source =
         getSelectedSource();
+
 
     const sourceText =
         source
@@ -3839,8 +7206,10 @@ function updateSummary(){
         :
         "请选择";
 
+
     const calc =
         calculateDiscount();
+
 
     const defaultUses =
         selectedOption
@@ -3848,16 +7217,20 @@ function updateSummary(){
         Math.max(
             1,
             Number(
-                selectedOption.default_usage_count ||
+                selectedOption.default_usage_count
+                ||
                 1
             )
         )
         :
         0;
 
+
     const totalUses =
-        defaultUses *
+        defaultUses
+        *
         quantity;
+
 
     document
         .getElementById(
@@ -3871,6 +7244,7 @@ function updateSummary(){
         )
         :
         "未选择";
+
 
     document
         .getElementById(
@@ -3889,6 +7263,7 @@ function updateSummary(){
             "未选择"
         );
 
+
     document
         .getElementById(
             "summaryMerchant"
@@ -3900,6 +7275,7 @@ function updateSummary(){
         :
         "未选择";
 
+
     document
         .getElementById(
             "summaryAddress"
@@ -3908,11 +7284,13 @@ function updateSummary(){
         selectedOption
         ?
         (
-            selectedOption.address ||
+            selectedOption.address
+            ||
             "地址暂未完善"
         )
         :
         "--";
+
 
     document
         .getElementById(
@@ -3927,12 +7305,14 @@ function updateSummary(){
         :
         "--";
 
+
     document
         .getElementById(
             "summaryQuantity"
         )
         .textContent =
         quantity;
+
 
     document
         .getElementById(
@@ -3945,12 +7325,14 @@ function updateSummary(){
         :
         "--";
 
+
     document
         .getElementById(
             "summarySource"
         )
         .textContent =
         sourceText;
+
 
     document
         .getElementById(
@@ -3965,14 +7347,18 @@ function updateSummary(){
         :
         "¥--";
 
+
     document
         .getElementById(
             "summaryDiscountRate"
         )
         .textContent =
         `${Math.round(
-            calc.rate*100
+            calc.rate
+            *
+            100
         )}%`;
+
 
     document
         .getElementById(
@@ -3983,6 +7369,7 @@ function updateSummary(){
             calc.discount
         )}`;
 
+
     document
         .getElementById(
             "summaryPayable"
@@ -3990,9 +7377,12 @@ function updateSummary(){
         .innerHTML =
         selectedOption
         ?
-        `<small>¥</small> ${formatMoney(calc.payable)}`
+        `<small>¥</small> ${formatMoney(
+            calc.payable
+        )}`
         :
         `<small>¥</small> --`;
+
 
     document
         .getElementById(
@@ -4007,14 +7397,17 @@ function updateSummary(){
         :
         "¥--";
 
+
     document
         .getElementById(
             "bottomOldPrice"
         )
         .textContent =
         (
-            selectedOption &&
-            calc.discount > 0
+            selectedOption
+            &&
+            calc.discount >
+            0
         )
         ?
         `¥${formatMoney(
@@ -4022,7 +7415,9 @@ function updateSummary(){
         )}`
         :
         "";
+
 }
+
 
 function getSelectedProductName(){
 
@@ -4032,17 +7427,22 @@ function getSelectedProductName(){
                 item=>
                     String(
                         item.product_id
-                    ) ===
+                    )
+                    ===
                     String(
                         selectedProductId
                     )
             );
 
-    return(
-        product?.product_name ||
+
+    return (
+        product?.product_name
+        ||
         "已选择"
     );
+
 }
+
 
 function updateSteps(){
 
@@ -4050,27 +7450,33 @@ function updateSteps(){
         .getElementById(
             "step1"
         )
-        .classList.add(
+        .classList
+        .add(
             "active"
         );
+
 
     document
         .getElementById(
             "step2"
         )
-        .classList.toggle(
+        .classList
+        .toggle(
             "active",
             !!selectedProductId
         );
+
 
     document
         .getElementById(
             "step3"
         )
-        .classList.toggle(
+        .classList
+        .toggle(
             "active",
             !!selectedOption
         );
+
 
     const sourceOk =
         selectedSourceType ===
@@ -4078,16 +7484,21 @@ function updateSteps(){
         ||
         !!selectedSourceNo;
 
+
     document
         .getElementById(
             "step4"
         )
-        .classList.toggle(
+        .classList
+        .toggle(
             "active",
-            !!selectedOption &&
+            !!selectedOption
+            &&
             sourceOk
         );
+
 }
+
 
 function updateConfirmButton(){
 
@@ -4097,17 +7508,25 @@ function updateConfirmButton(){
         )
         .disabled =
         !canSubmitOrder();
+
 }
+
 
 function canSubmitOrder(){
 
     if(
-        !selectedCityId ||
-        !selectedOption ||
-        quantity < 1
+        !selectedCityId
+        ||
+        !selectedOption
+        ||
+        quantity <
+        1
     ){
+
         return false;
+
     }
+
 
     if(
         selectedSourceType !==
@@ -4115,10 +7534,14 @@ function canSubmitOrder(){
         &&
         !selectedSourceNo
     ){
+
         return false;
+
     }
 
+
     return true;
+
 }
 
 
@@ -4128,28 +7551,37 @@ function canSubmitOrder(){
 
 function openConfirmModal(){
 
-    if(!canSubmitOrder()){
+    if(
+        !canSubmitOrder()
+    ){
 
         toast(
             "请先完成城市、服务、商户和推荐来源选择"
         );
 
+
         return;
+
     }
+
 
     const source =
         getSelectedSource();
 
+
     const calc =
         calculateDiscount();
 
+
     const uses =
         Number(
-            selectedOption.default_usage_count ||
+            selectedOption.default_usage_count
+            ||
             1
         )
         *
         quantity;
+
 
     const sourceText =
         source.no
@@ -4158,14 +7590,20 @@ function openConfirmModal(){
         :
         source.name;
 
+
     document
         .getElementById(
             "modalSummary"
         )
         .innerHTML =
         `
+
         <div class="modal-row">
-            <span>城市</span>
+
+            <span>
+                城市
+            </span>
+
             <span>
                 ${escapeHtml(
                     getCityName(
@@ -4173,77 +7611,141 @@ function openConfirmModal(){
                     )
                 )}
             </span>
+
         </div>
 
+
         <div class="modal-row">
-            <span>服务项目</span>
+
+            <span>
+                服务项目
+            </span>
+
             <span>
                 ${escapeHtml(
                     selectedOption.product_name
                 )}
             </span>
+
         </div>
 
+
         <div class="modal-row">
-            <span>服务商户</span>
+
+            <span>
+                服务商户
+            </span>
+
             <span>
                 ${escapeHtml(
                     selectedOption.merchant_name
                 )}
             </span>
+
         </div>
 
+
         <div class="modal-row">
-            <span>城市单价</span>
+
+            <span>
+                城市单价
+            </span>
+
             <span>
                 ¥${formatMoney(
                     calc.unitPrice
                 )}
             </span>
+
         </div>
 
-        <div class="modal-row">
-            <span>数量</span>
-            <span>${quantity}</span>
-        </div>
 
         <div class="modal-row">
-            <span>可消费次数</span>
-            <span>${uses} 次</span>
+
+            <span>
+                数量
+            </span>
+
+            <span>
+                ${quantity}
+            </span>
+
         </div>
 
+
         <div class="modal-row">
-            <span>推荐来源</span>
+
+            <span>
+                可消费次数
+            </span>
+
+            <span>
+                ${uses}
+                次
+            </span>
+
+        </div>
+
+
+        <div class="modal-row">
+
+            <span>
+                推荐来源
+            </span>
+
             <span>
                 ${escapeHtml(
                     sourceText
                 )}
             </span>
+
         </div>
 
+
         <div class="modal-row">
-            <span>原价</span>
+
+            <span>
+                原价
+            </span>
+
             <span>
                 ¥${formatMoney(
                     calc.subtotal
                 )}
             </span>
+
         </div>
 
+
         <div class="modal-row">
-            <span>自动优惠</span>
+
             <span>
+                自动优惠
+            </span>
+
+            <span>
+
                 ${Math.round(
-                    calc.rate*100
+                    calc.rate
+                    *
+                    100
                 )}%
+
                 （-¥${formatMoney(
                     calc.discount
                 )}）
+
             </span>
+
         </div>
 
+
         <div class="modal-row">
-            <span>应付金额</span>
+
+            <span>
+                应付金额
+            </span>
+
             <span
                 style="
                     color:#e94e82;
@@ -4254,32 +7756,45 @@ function openConfirmModal(){
                     calc.payable
                 )}
             </span>
+
         </div>
         `;
 
+
     document
         .getElementById(
             "confirmModal"
         )
-        .classList.add(
+        .classList
+        .add(
             "show"
         );
+
 }
+
 
 function closeConfirmModal(){
 
-    if(submitting){
+    if(
+        submitting
+    ){
+
         return;
+
     }
+
 
     document
         .getElementById(
             "confirmModal"
         )
-        .classList.remove(
+        .classList
+        .remove(
             "show"
         );
+
 }
+
 
 function maskClose(
     event
@@ -4291,7 +7806,9 @@ function maskClose(
     ){
 
         closeConfirmModal();
+
     }
+
 }
 
 
@@ -4302,37 +7819,51 @@ function maskClose(
 async function submitOrder(){
 
     if(
-        submitting ||
+        submitting
+        ||
         !canSubmitOrder()
     ){
+
         return;
+
     }
+
 
     const source =
         getSelectedSource();
 
-    if(!source){
+
+    if(
+        !source
+    ){
 
         toast(
             "请选择推荐来源"
         );
 
+
         return;
+
     }
+
 
     submitting =
         true;
+
 
     const btn =
         document.getElementById(
             "submitOrderBtn"
         );
 
+
     btn.disabled =
         true;
 
+
     btn.textContent =
         "正在生成订单...";
+
 
     try{
 
@@ -4343,6 +7874,7 @@ async function submitOrder(){
             await sb.rpc(
                 "create_customer_order",
                 {
+
                     p_merchant_id:
                         selectedOption.merchant_id,
 
@@ -4358,6 +7890,10 @@ async function submitOrder(){
                     p_recommendation_source_no:
                         source.no,
 
+                    /*
+                     * 订单数据库仍保存浏览器获得的原始GPS坐标。
+                     * 坐标系统明确标记 WGS84。
+                     */
                     p_customer_longitude:
                         customerLongitude,
 
@@ -4365,36 +7901,51 @@ async function submitOrder(){
                         customerLatitude,
 
                     p_customer_coordinate_system:
-                        customerLongitude !== null
+                        customerLongitude !==
+                        null
                         ?
                         "WGS84"
                         :
                         null
+
                 }
             );
 
-        if(error){
-            throw error;
-        }
-
-        const result =
-            data || {};
 
         if(
-            !result.success ||
+            error
+        ){
+
+            throw error;
+
+        }
+
+
+        const result =
+            data
+            ||
+            {};
+
+
+        if(
+            !result.success
+            ||
             !result.order_id
         ){
 
             throw new Error(
                 "订单创建失败"
             );
+
         }
+
 
         toast(
             `订单创建成功，应付 ¥${formatMoney(
                 result.payable_amount
             )}`
         );
+
 
         setTimeout(
             ()=>{
@@ -4403,9 +7954,11 @@ async function submitOrder(){
                     `./customer_order_detail.html?id=${encodeURIComponent(
                         result.order_id
                     )}`;
+
             },
             700
         );
+
 
     }catch(error){
 
@@ -4414,20 +7967,27 @@ async function submitOrder(){
             error
         );
 
+
         submitting =
             false;
+
 
         btn.disabled =
             false;
 
+
         btn.textContent =
             "确认生成订单";
 
+
         toast(
-            error?.message ||
+            error?.message
+            ||
             "订单创建失败，请稍后重试"
         );
+
     }
+
 }
 
 
@@ -4440,51 +8000,85 @@ function formatMoney(
 ){
 
     const number =
-        Number(value);
+        Number(
+            value
+        );
+
 
     if(
         !Number.isFinite(
             number
         )
     ){
+
         return "--";
+
     }
 
+
     return number
-        .toFixed(2)
+        .toFixed(
+            2
+        )
         .replace(
             /\.00$/,
             ""
         );
+
 }
+
 
 function escapeHtml(
     value
 ){
 
     return String(
-        value ?? ""
+        value
+        ??
+        ""
     )
-    .replaceAll(
-        "&",
-        "&amp;"
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+/*
+ * 地图Label只需要纯文本，
+ * 不允许HTML。
+ */
+function escapeTextForMap(
+    value
+){
+
+    return String(
+        value
+        ??
+        ""
     )
-    .replaceAll(
-        "<",
-        "&lt;"
-    )
-    .replaceAll(
-        ">",
-        "&gt;"
-    )
-    .replaceAll(
-        '"',
-        "&quot;"
-    )
-    .replaceAll(
-        "'",
-        "&#039;"
-    );
+        .replace(
+            /[<>]/g,
+            ""
+        );
+
 }
 
 
@@ -4496,14 +8090,18 @@ function goBack(){
 
     window.location.href =
         "./customer.html";
+
 }
+
 
 function goLogin(){
 
     window.location.replace(
         "./login.html"
     );
+
 }
+
 
 async function forceLogout(){
 
@@ -4516,9 +8114,12 @@ async function forceLogout(){
         console.error(
             error
         );
+
     }
 
+
     goLogin();
+
 }
 
 
@@ -4535,28 +8136,34 @@ function setupIdleLogout(){
         "keydown",
         "scroll"
     ]
-    .forEach(
-        eventName=>{
+        .forEach(
+            eventName=>{
 
-            document
-                .addEventListener(
-                    eventName,
-                    resetIdleTimer,
-                    {
-                        passive:true
-                    }
-                );
-        }
-    );
+                document
+                    .addEventListener(
+                        eventName,
+                        resetIdleTimer,
+                        {
+                            passive:
+                                true
+                        }
+                    );
+
+            }
+        );
+
 
     resetIdleTimer();
+
 }
+
 
 function resetIdleTimer(){
 
     clearTimeout(
         idleTimer
     );
+
 
     idleTimer =
         setTimeout(
@@ -4566,15 +8173,19 @@ function resetIdleTimer(){
                     "长时间未操作，请重新登录"
                 );
 
+
                 await sb.auth.signOut();
+
 
                 setTimeout(
                     goLogin,
                     500
                 );
+
             },
             IDLE_LIMIT
         );
+
 }
 
 
@@ -4589,23 +8200,34 @@ function hideLoading(){
             "loadingMask"
         );
 
-    if(!mask){
+
+    if(
+        !mask
+    ){
+
         return;
+
     }
+
 
     mask.style.transition =
         "opacity .2s ease";
 
+
     mask.style.opacity =
         "0";
 
+
     setTimeout(
         ()=>{
+
             mask.style.display =
                 "none";
+
         },
         220
     );
+
 }
 
 
@@ -4622,27 +8244,35 @@ function toast(
             "toast"
         );
 
+
     el.textContent =
         message;
+
 
     el.classList.add(
         "show"
     );
 
+
     clearTimeout(
         toast.timer
     );
 
+
     toast.timer =
         setTimeout(
             ()=>{
+
                 el.classList.remove(
                     "show"
                 );
+
             },
             2500
         );
+
 }
+
 </script>
 
 </body>

@@ -1,1 +1,2056 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
+    <title>订单详情 - 孕乃馨</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            background: #fff8fb;
+            color: #3f3037;
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "PingFang SC",
+                "Microsoft YaHei",
+                Arial,
+                sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 520px;
+            min-height: 100vh;
+            margin: 0 auto;
+            background: #fff8fb;
+            padding-bottom: 110px;
+        }
+
+        /* =========================
+           顶部
+        ========================= */
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 62px;
+            padding:
+                calc(10px + env(safe-area-inset-top))
+                16px
+                10px;
+            background: rgba(255, 255, 255, 0.96);
+            border-bottom: 1px solid #f5dfe8;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-side {
+            width: 72px;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-side.right {
+            justify-content: flex-end;
+        }
+
+        .back-btn {
+            min-height: 42px;
+            border: 0;
+            background: transparent;
+            color: #d84f7d;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .header-title {
+            flex: 1;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 800;
+            color: #3f3037;
+        }
+
+        /* =========================
+           页面主体
+        ========================= */
+
+        .content {
+            padding: 16px;
+        }
+
+        .loading-box,
+        .error-box {
+            margin-top: 50px;
+            padding: 28px 20px;
+            text-align: center;
+            background: #ffffff;
+            border: 1px solid #f3dfe7;
+            border-radius: 22px;
+            box-shadow: 0 8px 30px rgba(180, 90, 120, 0.06);
+        }
+
+        .loading-title,
+        .error-title {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .loading-text,
+        .error-text {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #9a7b87;
+        }
+
+        .error-title {
+            color: #d94f7d;
+        }
+
+        /* =========================
+           订单状态
+        ========================= */
+
+        .status-card {
+            padding: 22px 20px;
+            border-radius: 24px;
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff7da7 0%,
+                    #f65f91 100%
+                );
+            color: #ffffff;
+            box-shadow: 0 10px 30px rgba(238, 91, 139, 0.18);
+        }
+
+        .status-label {
+            font-size: 13px;
+            opacity: 0.88;
+            margin-bottom: 7px;
+        }
+
+        .status-title {
+            font-size: 25px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .status-desc {
+            margin-top: 9px;
+            font-size: 13px;
+            line-height: 1.6;
+            opacity: 0.92;
+        }
+
+        .order-no-line {
+            margin-top: 17px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255,255,255,0.28);
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 13px;
+        }
+
+        .order-no-value {
+            font-weight: 800;
+            text-align: right;
+            word-break: break-all;
+        }
+
+        /* =========================
+           卡片
+        ========================= */
+
+        .card {
+            margin-top: 14px;
+            padding: 18px;
+            background: #ffffff;
+            border: 1px solid #f3dfe7;
+            border-radius: 22px;
+            box-shadow: 0 7px 24px rgba(180, 90, 120, 0.05);
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            font-size: 16px;
+            font-weight: 900;
+            color: #49343d;
+        }
+
+        .card-title-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #f36b99;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            min-height: 38px;
+            padding: 8px 0;
+            border-bottom: 1px solid #f8edf1;
+        }
+
+        .info-row:last-child {
+            border-bottom: 0;
+        }
+
+        .info-label {
+            flex-shrink: 0;
+            font-size: 14px;
+            color: #a1818d;
+        }
+
+        .info-value {
+            max-width: 68%;
+            font-size: 14px;
+            line-height: 1.55;
+            text-align: right;
+            font-weight: 700;
+            color: #4a343d;
+            word-break: break-word;
+        }
+
+        .price-value {
+            color: #ef5c8e;
+            font-size: 17px;
+            font-weight: 900;
+        }
+
+        .muted-value {
+            color: #a78c96;
+        }
+
+        /* =========================
+           次数
+        ========================= */
+
+        .usage-box {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 9px;
+        }
+
+        .usage-item {
+            padding: 15px 8px;
+            text-align: center;
+            background: #fff5f8;
+            border-radius: 16px;
+        }
+
+        .usage-number {
+            font-size: 21px;
+            font-weight: 900;
+            color: #ef5c8e;
+        }
+
+        .usage-label {
+            margin-top: 5px;
+            font-size: 12px;
+            color: #a1808c;
+        }
+
+        /* =========================
+           金额
+        ========================= */
+
+        .amount-summary {
+            margin-top: 10px;
+            padding-top: 12px;
+            border-top: 1px dashed #efd7e0;
+        }
+
+        .payable-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding-top: 10px;
+        }
+
+        .payable-label {
+            font-size: 16px;
+            font-weight: 900;
+        }
+
+        .payable-price {
+            font-size: 26px;
+            font-weight: 900;
+            color: #f25589;
+        }
+
+        /* =========================
+           底部按钮
+        ========================= */
+
+        .bottom-bar {
+            position: fixed;
+            left: 50%;
+            bottom: 0;
+            z-index: 30;
+            width: 100%;
+            max-width: 520px;
+            transform: translateX(-50%);
+            padding:
+                12px
+                16px
+                calc(12px + env(safe-area-inset-bottom));
+            background: rgba(255,255,255,0.97);
+            border-top: 1px solid #f2dce5;
+            backdrop-filter: blur(12px);
+        }
+
+        .primary-btn {
+            width: 100%;
+            min-height: 50px;
+            border: 0;
+            border-radius: 16px;
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff77a5,
+                    #f45d90
+                );
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 7px 20px rgba(239, 92, 142, 0.20);
+        }
+
+        .primary-btn:active {
+            transform: scale(0.99);
+        }
+
+        .secondary-btn {
+            width: 100%;
+            min-height: 48px;
+            margin-top: 9px;
+            border: 1px solid #f0d4df;
+            border-radius: 16px;
+            background: #ffffff;
+            color: #c65a7f;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (min-width: 700px) {
+
+            body {
+                background: #f8f2f5;
+            }
+
+            .page {
+                box-shadow: 0 0 35px rgba(90, 50, 70, 0.08);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <header class="header">
+
+        <div class="header-side">
+            <button
+                class="back-btn"
+                type="button"
+                onclick="goBack()"
+            >
+                ← 返回
+            </button>
+        </div>
+
+        <div class="header-title">
+            订单详情
+        </div>
+
+        <div class="header-side right"></div>
+
+    </header>
+
+
+    <main class="content">
+
+        <!-- 加载 -->
+        <div
+            id="loadingBox"
+            class="loading-box"
+        >
+            <div class="loading-title">
+                正在读取订单
+            </div>
+
+            <div class="loading-text">
+                请稍候……
+            </div>
+        </div>
+
+
+        <!-- 错误 -->
+        <div
+            id="errorBox"
+            class="error-box hidden"
+        >
+            <div class="error-title">
+                无法读取订单
+            </div>
+
+            <div
+                id="errorText"
+                class="error-text"
+            >
+                订单不存在或您没有查看权限。
+            </div>
+        </div>
+
+
+        <!-- 正常内容 -->
+        <div
+            id="orderContent"
+            class="hidden"
+        >
+
+            <!-- 状态 -->
+            <section class="status-card">
+
+                <div class="status-label">
+                    当前订单状态
+                </div>
+
+                <div
+                    id="orderStatusTitle"
+                    class="status-title"
+                >
+                    待支付
+                </div>
+
+                <div
+                    id="orderStatusDesc"
+                    class="status-desc"
+                >
+                    订单已经创建，请核对订单信息。
+                </div>
+
+                <div class="order-no-line">
+
+                    <span>
+                        订单号
+                    </span>
+
+                    <span
+                        id="orderNo"
+                        class="order-no-value"
+                    >
+                        -
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <!-- 服务信息 -->
+            <section class="card">
+
+                <div class="card-title">
+                    <span class="card-title-dot"></span>
+                    服务信息
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">
+                        服务项目
+                    </div>
+
+                    <div
+                        id="productName"
+                        class="info-value"
+                    >
+                        -
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">
+                        服务编号
+                    </div>
+
+                    <div
+                        id="productCode"
+                        class="info-value"
+                    >
+                        -
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">
+                        数量
+                    </div>
+
+                    <div
+                        id="quantity"
+                        class="info-value"
+                    >
+                        -
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">
+                        下单单价
+                    </div>
+
+                    <div
+                        id="unitPrice"
+                        class="info-value"
+                    >
+                        -
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- 商户 -->
+            <section class="card">
+
+                <div class="card-title">
+                    <span class="card-title-dot"></span>
+                    服务商户
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">
+                        商户
+                    </div>
+
+                    <div
+                        id="merchantName"
+                        class="info-value"
+                    >
+                        -
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">
+                        商户编号
+                    </div>
+
+                    <div
+                        id="merchantNo"
+                        class="info-value"
+                    >
+                        -
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">
+                        服务地址
+                    </div>
+
+                    <div
+                        id="merchantAddress"
+                        class="info-value"
+                    >
+                        -
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- 推荐来源 -->
+            <section class="card">
+
+                <div class="card-title">
+                    <span class="card-title-dot"></span>
+                    推荐来源
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">
+                        您通过什么渠道了解我们？
+                    </div>
+
+                    <div
+                        id="recommendationName"
+                        class="info-value"
+                    >
+                        平台
+                    </div>
+                </div>
+
+                <div
+                    id="recommendationNoRow"
+                    class="info-row hidden"
+                >
+                    <div class="info-label">
+                        推荐编号
+                    </div>
+
+                    <div
+                        id="recommendationNo"
+                        class="info-value"
+                    >
+                        -
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- 使用次数 -->
+            <section class="card">
+
+                <div class="card-title">
+                    <span class="card-title-dot"></span>
+                    服务次数
+                </div>
+
+                <div class="usage-box">
+
+                    <div class="usage-item">
+                        <div
+                            id="totalUses"
+                            class="usage-number"
+                        >
+                            0
+                        </div>
+
+                        <div class="usage-label">
+                            总次数
+                        </div>
+                    </div>
+
+                    <div class="usage-item">
+                        <div
+                            id="usedUses"
+                            class="usage-number"
+                        >
+                            0
+                        </div>
+
+                        <div class="usage-label">
+                            已使用
+                        </div>
+                    </div>
+
+                    <div class="usage-item">
+                        <div
+                            id="remainingUses"
+                            class="usage-number"
+                        >
+                            0
+                        </div>
+
+                        <div class="usage-label">
+                            剩余次数
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- 金额 -->
+            <section class="card">
+
+                <div class="card-title">
+                    <span class="card-title-dot"></span>
+                    订单金额
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">
+                        原价
+                    </div>
+
+                    <div
+                        id="subtotalAmount"
+                        class="info-value"
+                    >
+                        ¥0.00
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">
+                        优惠比例
+                    </div>
+
+                    <div
+                        id="discountRate"
+                        class="info-value"
+                    >
+                        0%
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">
+                        优惠金额
+                    </div>
+
+                    <div
+                        id="discountAmount"
+                        class="info-value"
+                    >
+                        -¥0.00
+                    </div>
+                </div>
+
+                <div class="amount-summary">
+
+                    <div class="payable-row">
+
+                        <div class="payable-label">
+                            应付金额
+                        </div>
+
+                        <div
+                            id="payableAmount"
+                            class="payable-price"
+                        >
+                            ¥0.00
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- 订单信息 -->
+            <section class="card">
+
+                <div class="card-title">
+                    <span class="card-title-dot"></span>
+                    订单信息
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">
+                        支付状态
+                    </div>
+
+                    <div
+                        id="paymentStatus"
+                        class="info-value"
+                    >
+                        未支付
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">
+                        下单时间
+                    </div>
+
+                    <div
+                        id="createdAt"
+                        class="info-value"
+                    >
+                        -
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <div
+        id="bottomBar"
+        class="bottom-bar hidden"
+    >
+
+        <button
+            id="payButton"
+            class="primary-btn"
+            type="button"
+            onclick="paymentNotOpen()"
+        >
+            去支付
+        </button>
+
+        <button
+            class="secondary-btn"
+            type="button"
+            onclick="goCustomerHome()"
+        >
+            返回客户中心
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+    /* =========================================================
+       Supabase
+    ========================================================= */
+
+    const SUPABASE_URL =
+        "https://qbuqjwpkltbjhlfbyjyb.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+        "sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
+
+    const supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
+        );
+
+
+    /* =========================================================
+       全局变量
+    ========================================================= */
+
+    let currentUser = null;
+    let currentOrder = null;
+    let currentOrderItem = null;
+
+    const IDLE_TIMEOUT = 10 * 60 * 1000;
+
+    let idleTimer = null;
+
+
+    /* =========================================================
+       页面启动
+    ========================================================= */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        initPage
+    );
+
+
+    async function initPage() {
+
+        try {
+
+            startIdleTimer();
+
+            const orderId = getOrderId();
+
+            if (!orderId) {
+
+                showError(
+                    "缺少订单编号，无法读取订单。"
+                );
+
+                return;
+            }
+
+
+            const {
+                data: sessionData,
+                error: sessionError
+            } =
+                await supabaseClient.auth.getSession();
+
+
+            if (sessionError) {
+
+                throw sessionError;
+            }
+
+
+            const session =
+                sessionData?.session;
+
+
+            if (!session?.user) {
+
+                redirectLogin();
+                return;
+            }
+
+
+            currentUser =
+                session.user;
+
+
+            const customerOK =
+                await verifyCustomer();
+
+
+            if (!customerOK) {
+
+                showError(
+                    "当前账号不是有效客户账号。"
+                );
+
+                return;
+            }
+
+
+            await loadOrder(orderId);
+
+
+        } catch (error) {
+
+            console.error(
+                "订单详情初始化失败：",
+                error
+            );
+
+            showError(
+                error?.message
+                ||
+                "订单详情加载失败。"
+            );
+        }
+    }
+
+
+    /* =========================================================
+       读取 URL 订单ID
+    ========================================================= */
+
+    function getOrderId() {
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const raw =
+            params.get("id");
+
+
+        if (!raw) {
+            return null;
+        }
+
+
+        const id =
+            Number(raw);
+
+
+        if (
+            !Number.isInteger(id)
+            ||
+            id <= 0
+        ) {
+            return null;
+        }
+
+
+        return id;
+    }
+
+
+    /* =========================================================
+       验证客户
+    ========================================================= */
+
+    async function verifyCustomer() {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("profiles")
+                .select(
+                    "id, role, user_type, status"
+                )
+                .eq(
+                    "id",
+                    currentUser.id
+                )
+                .maybeSingle();
+
+
+        if (error) {
+
+            console.error(
+                "读取 profiles 失败：",
+                error
+            );
+
+            return false;
+        }
+
+
+        if (!data) {
+            return false;
+        }
+
+
+        if (data.status !== "active") {
+            return false;
+        }
+
+
+        const isCustomer =
+            data.role === "customer"
+            ||
+            data.user_type === "customer";
+
+
+        return isCustomer;
+    }
+
+
+    /* =========================================================
+       加载订单
+    ========================================================= */
+
+    async function loadOrder(orderId) {
+
+        /*
+            这里明确同时限定：
+
+            id = 当前订单
+            customer_id = 当前登录客户
+
+            所以客户不能通过修改 URL 的 id
+            查看别人的订单。
+        */
+
+        const {
+            data: order,
+            error: orderError
+        } =
+            await supabaseClient
+                .from("orders")
+                .select(`
+                    id,
+                    order_no,
+                    customer_id,
+                    merchant_id,
+                    province_id,
+                    city_id,
+                    district_id,
+                    total_amount,
+                    order_status,
+                    payment_status,
+                    invoice_status,
+                    created_at,
+                    updated_at,
+                    total_uses,
+                    used_uses,
+                    remaining_uses,
+                    recommendation_source_type,
+                    recommendation_source_no,
+                    recommendation_source_entity_id,
+                    recommendation_source_name_snapshot,
+                    merchant_no_snapshot,
+                    merchant_name_snapshot,
+                    merchant_address_snapshot,
+                    merchant_longitude_snapshot,
+                    merchant_latitude_snapshot,
+                    merchant_coordinate_system_snapshot,
+                    review_status,
+                    paid_at,
+                    completed_at,
+                    subtotal_amount,
+                    discount_rate,
+                    discount_amount,
+                    payable_amount
+                `)
+                .eq(
+                    "id",
+                    orderId
+                )
+                .eq(
+                    "customer_id",
+                    currentUser.id
+                )
+                .maybeSingle();
+
+
+        if (orderError) {
+
+            throw new Error(
+                "读取订单失败：" +
+                orderError.message
+            );
+        }
+
+
+        if (!order) {
+
+            showError(
+                "订单不存在，或者该订单不属于当前登录客户。"
+            );
+
+            return;
+        }
+
+
+        currentOrder =
+            order;
+
+
+        /* =========================
+           读取订单明细
+        ========================= */
+
+        const {
+            data: items,
+            error: itemError
+        } =
+            await supabaseClient
+                .from("order_items")
+                .select(`
+                    id,
+                    order_id,
+                    product_id,
+                    product_code_snapshot,
+                    product_name_snapshot,
+                    product_type,
+                    quantity,
+                    unit_price,
+                    tax_rate,
+                    amount,
+                    created_at,
+                    city_price_id,
+                    original_amount,
+                    discounted_amount
+                `)
+                .eq(
+                    "order_id",
+                    orderId
+                )
+                .order(
+                    "id",
+                    {
+                        ascending: true
+                    }
+                );
+
+
+        if (itemError) {
+
+            throw new Error(
+                "读取订单项目失败：" +
+                itemError.message
+            );
+        }
+
+
+        if (
+            !items
+            ||
+            items.length === 0
+        ) {
+
+            throw new Error(
+                "订单已经存在，但没有找到订单明细。"
+            );
+        }
+
+
+        currentOrderItem =
+            items[0];
+
+
+        renderOrder();
+
+        document
+            .getElementById("loadingBox")
+            .classList
+            .add("hidden");
+
+        document
+            .getElementById("orderContent")
+            .classList
+            .remove("hidden");
+
+        document
+            .getElementById("bottomBar")
+            .classList
+            .remove("hidden");
+    }
+
+
+    /* =========================================================
+       显示订单
+    ========================================================= */
+
+    function renderOrder() {
+
+        const order =
+            currentOrder;
+
+        const item =
+            currentOrderItem;
+
+
+        /* =========================
+           状态
+        ========================= */
+
+        const status =
+            getOrderStatusDisplay(
+                order.order_status,
+                order.payment_status
+            );
+
+
+        setText(
+            "orderStatusTitle",
+            status.title
+        );
+
+        setText(
+            "orderStatusDesc",
+            status.description
+        );
+
+
+        setText(
+            "orderNo",
+            order.order_no || "-"
+        );
+
+
+        /* =========================
+           服务项目
+        ========================= */
+
+        setText(
+            "productName",
+            item.product_name_snapshot
+            ||
+            "-"
+        );
+
+        setText(
+            "productCode",
+            item.product_code_snapshot
+            ||
+            "-"
+        );
+
+        setText(
+            "quantity",
+            formatQuantity(
+                item.quantity
+            )
+        );
+
+        setText(
+            "unitPrice",
+            formatMoney(
+                item.unit_price
+            )
+        );
+
+
+        /* =========================
+           商户
+        ========================= */
+
+        setText(
+            "merchantName",
+            order.merchant_name_snapshot
+            ||
+            "-"
+        );
+
+        setText(
+            "merchantNo",
+            order.merchant_no_snapshot
+            ??
+            "-"
+        );
+
+        setText(
+            "merchantAddress",
+            order.merchant_address_snapshot
+            ||
+            "暂未填写"
+        );
+
+
+        /* =========================
+           推荐来源
+        ========================= */
+
+        setText(
+            "recommendationName",
+            order.recommendation_source_name_snapshot
+            ||
+            getRecommendationFallback(
+                order.recommendation_source_type
+            )
+        );
+
+
+        if (
+            order.recommendation_source_no
+            !== null
+            &&
+            order.recommendation_source_no
+            !== undefined
+        ) {
+
+            document
+                .getElementById(
+                    "recommendationNoRow"
+                )
+                .classList
+                .remove("hidden");
+
+
+            setText(
+                "recommendationNo",
+                order.recommendation_source_no
+            );
+
+        } else {
+
+            document
+                .getElementById(
+                    "recommendationNoRow"
+                )
+                .classList
+                .add("hidden");
+        }
+
+
+        /* =========================
+           使用次数
+        ========================= */
+
+        setText(
+            "totalUses",
+            numberOrZero(
+                order.total_uses
+            )
+        );
+
+        setText(
+            "usedUses",
+            numberOrZero(
+                order.used_uses
+            )
+        );
+
+        setText(
+            "remainingUses",
+            numberOrZero(
+                order.remaining_uses
+            )
+        );
+
+
+        /* =========================
+           金额
+        ========================= */
+
+        const subtotal =
+            firstNumber(
+                order.subtotal_amount,
+                item.original_amount,
+                item.amount,
+                order.total_amount
+            );
+
+
+        const discountAmount =
+            firstNumber(
+                order.discount_amount,
+                0
+            );
+
+
+        const payable =
+            firstNumber(
+                order.payable_amount,
+                item.discounted_amount,
+                order.total_amount,
+                subtotal
+            );
+
+
+        setText(
+            "subtotalAmount",
+            formatMoney(
+                subtotal
+            )
+        );
+
+
+        setText(
+            "discountRate",
+            formatDiscountRate(
+                order.discount_rate
+            )
+        );
+
+
+        setText(
+            "discountAmount",
+            "- " +
+            formatMoney(
+                discountAmount
+            )
+        );
+
+
+        setText(
+            "payableAmount",
+            formatMoney(
+                payable
+            )
+        );
+
+
+        /* =========================
+           支付
+        ========================= */
+
+        setText(
+            "paymentStatus",
+            getPaymentStatusText(
+                order.payment_status
+            )
+        );
+
+
+        setText(
+            "createdAt",
+            formatDateTime(
+                order.created_at
+            )
+        );
+
+
+        /* =========================
+           支付按钮
+        ========================= */
+
+        const payButton =
+            document.getElementById(
+                "payButton"
+            );
+
+
+        if (
+            order.payment_status === "paid"
+        ) {
+
+            payButton.textContent =
+                "已支付";
+
+            payButton.disabled =
+                true;
+
+            payButton.style.opacity =
+                "0.55";
+
+            payButton.style.cursor =
+                "default";
+
+        } else {
+
+            payButton.textContent =
+                "去支付";
+
+            payButton.disabled =
+                false;
+        }
+    }
+
+
+    /* =========================================================
+       订单状态显示
+    ========================================================= */
+
+    function getOrderStatusDisplay(
+        orderStatus,
+        paymentStatus
+    ) {
+
+        if (
+            paymentStatus === "paid"
+            &&
+            orderStatus === "completed"
+        ) {
+
+            return {
+                title: "已完成",
+                description:
+                    "本订单已经完成。"
+            };
+        }
+
+
+        if (
+            paymentStatus === "paid"
+        ) {
+
+            return {
+                title: "已支付",
+                description:
+                    "订单已经支付，请按照订单约定使用服务。"
+            };
+        }
+
+
+        switch (orderStatus) {
+
+            case "pending_payment":
+
+                return {
+                    title: "待支付",
+                    description:
+                        "订单已经创建，请核对订单信息后完成支付。"
+                };
+
+
+            case "confirmed":
+
+                return {
+                    title: "已确认",
+                    description:
+                        "订单已经确认。"
+                };
+
+
+            case "processing":
+
+                return {
+                    title: "服务中",
+                    description:
+                        "订单正在服务过程中。"
+                };
+
+
+            case "completed":
+
+                return {
+                    title: "已完成",
+                    description:
+                        "本订单已经完成。"
+                };
+
+
+            case "cancelled":
+
+                return {
+                    title: "已取消",
+                    description:
+                        "本订单已经取消。"
+                };
+
+
+            default:
+
+                return {
+                    title:
+                        orderStatus
+                        ||
+                        "订单已创建",
+
+                    description:
+                        "请查看订单详细信息。"
+                };
+        }
+    }
+
+
+    /* =========================================================
+       支付状态
+    ========================================================= */
+
+    function getPaymentStatusText(
+        status
+    ) {
+
+        switch (status) {
+
+            case "unpaid":
+                return "未支付";
+
+            case "paid":
+                return "已支付";
+
+            case "partial_refund":
+                return "部分退款";
+
+            case "refunded":
+                return "已退款";
+
+            default:
+                return status || "-";
+        }
+    }
+
+
+    /* =========================================================
+       推荐来源
+    ========================================================= */
+
+    function getRecommendationFallback(
+        type
+    ) {
+
+        switch (type) {
+
+            case "merchant":
+                return "商户推荐";
+
+            case "health_consultant":
+                return "健康顾问";
+
+            case "platform":
+            default:
+                return "平台";
+        }
+    }
+
+
+    /* =========================================================
+       金额格式
+    ========================================================= */
+
+    function formatMoney(value) {
+
+        const number =
+            Number(value);
+
+
+        if (
+            !Number.isFinite(number)
+        ) {
+
+            return "¥0.00";
+        }
+
+
+        return (
+            "¥" +
+            number.toFixed(2)
+        );
+    }
+
+
+    function formatDiscountRate(value) {
+
+        const number =
+            Number(value);
+
+
+        if (
+            !Number.isFinite(number)
+            ||
+            number <= 0
+        ) {
+
+            return "0%";
+        }
+
+
+        /*
+            兼容：
+
+            0.05  -> 5%
+            5     -> 5%
+        */
+
+        const percentage =
+            number <= 1
+            ?
+            number * 100
+            :
+            number;
+
+
+        return (
+            trimNumber(
+                percentage
+            )
+            +
+            "%"
+        );
+    }
+
+
+    function trimNumber(value) {
+
+        const number =
+            Number(value);
+
+
+        if (
+            Number.isInteger(number)
+        ) {
+
+            return String(number);
+        }
+
+
+        return number
+            .toFixed(2)
+            .replace(/\.?0+$/, "");
+    }
+
+
+    function firstNumber(...values) {
+
+        for (
+            const value of values
+        ) {
+
+            if (
+                value === null
+                ||
+                value === undefined
+                ||
+                value === ""
+            ) {
+                continue;
+            }
+
+
+            const number =
+                Number(value);
+
+
+            if (
+                Number.isFinite(number)
+            ) {
+
+                return number;
+            }
+        }
+
+
+        return 0;
+    }
+
+
+    function numberOrZero(value) {
+
+        const number =
+            Number(value);
+
+
+        if (
+            !Number.isFinite(number)
+        ) {
+
+            return 0;
+        }
+
+
+        return number;
+    }
+
+
+    function formatQuantity(value) {
+
+        const number =
+            Number(value);
+
+
+        if (
+            !Number.isFinite(number)
+        ) {
+
+            return "-";
+        }
+
+
+        return (
+            trimNumber(number)
+            +
+            " 份"
+        );
+    }
+
+
+    /* =========================================================
+       时间
+    ========================================================= */
+
+    function formatDateTime(value) {
+
+        if (!value) {
+            return "-";
+        }
+
+
+        const date =
+            new Date(value);
+
+
+        if (
+            Number.isNaN(
+                date.getTime()
+            )
+        ) {
+
+            return value;
+        }
+
+
+        return new Intl.DateTimeFormat(
+            "zh-CN",
+            {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: false
+            }
+        ).format(date);
+    }
+
+
+    /* =========================================================
+       DOM
+    ========================================================= */
+
+    function setText(
+        id,
+        value
+    ) {
+
+        const element =
+            document.getElementById(id);
+
+
+        if (!element) {
+            return;
+        }
+
+
+        element.textContent =
+            value === null
+            ||
+            value === undefined
+            ||
+            value === ""
+            ?
+            "-"
+            :
+            String(value);
+    }
+
+
+    /* =========================================================
+       错误
+    ========================================================= */
+
+    function showError(message) {
+
+        document
+            .getElementById("loadingBox")
+            .classList
+            .add("hidden");
+
+
+        document
+            .getElementById("orderContent")
+            .classList
+            .add("hidden");
+
+
+        document
+            .getElementById("bottomBar")
+            .classList
+            .add("hidden");
+
+
+        document
+            .getElementById("errorBox")
+            .classList
+            .remove("hidden");
+
+
+        setText(
+            "errorText",
+            message
+        );
+    }
+
+
+    /* =========================================================
+       返回
+    ========================================================= */
+
+    function goBack() {
+
+        if (
+            window.history.length > 1
+        ) {
+
+            window.history.back();
+
+        } else {
+
+            goCustomerHome();
+        }
+    }
+
+
+    function goCustomerHome() {
+
+        window.location.href =
+            "./customer.html";
+    }
+
+
+    /* =========================================================
+       支付
+       1.0 暂不接支付
+    ========================================================= */
+
+    function paymentNotOpen() {
+
+        alert(
+            "订单已经创建成功。\n\n1.0版本支付功能下一步接入。"
+        );
+    }
+
+
+    /* =========================================================
+       登录
+    ========================================================= */
+
+    function redirectLogin() {
+
+        const returnUrl =
+            encodeURIComponent(
+                window.location.href
+            );
+
+
+        window.location.href =
+            "./login.html?return=" +
+            returnUrl;
+    }
+
+
+    /* =========================================================
+       10分钟无操作退出
+    ========================================================= */
+
+    function startIdleTimer() {
+
+        resetIdleTimer();
+
+
+        [
+            "click",
+            "touchstart",
+            "keydown",
+            "scroll"
+        ].forEach(
+            eventName => {
+
+                window.addEventListener(
+                    eventName,
+                    resetIdleTimer,
+                    {
+                        passive: true
+                    }
+                );
+            }
+        );
+    }
+
+
+    function resetIdleTimer() {
+
+        if (idleTimer) {
+
+            clearTimeout(
+                idleTimer
+            );
+        }
+
+
+        idleTimer =
+            setTimeout(
+                logoutByIdle,
+                IDLE_TIMEOUT
+            );
+    }
+
+
+    async function logoutByIdle() {
+
+        try {
+
+            await supabaseClient
+                .auth
+                .signOut();
+
+        } catch (error) {
+
+            console.error(
+                "自动退出失败：",
+                error
+            );
+
+        } finally {
+
+            window.location.href =
+                "./login.html?reason=idle";
+        }
+    }
+</script>
+
+</body>
+</html>

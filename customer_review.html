@@ -2,7 +2,12 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    >
+
     <title>服务评价 - 孕乃馨</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -12,6 +17,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            -webkit-tap-highlight-color: transparent;
         }
 
         :root {
@@ -43,7 +49,8 @@
         }
 
         body {
-            padding-bottom: 30px;
+            padding-bottom:
+                calc(30px + env(safe-area-inset-bottom));
         }
 
         button,
@@ -53,7 +60,7 @@
         }
 
         button {
-            -webkit-tap-highlight-color: transparent;
+            cursor: pointer;
         }
 
         .app {
@@ -62,21 +69,36 @@
             min-height: 100vh;
             margin: 0 auto;
             background: var(--pink-soft);
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 0 30px rgba(0,0,0,.04);
         }
+
+        /* =========================
+           顶部
+        ========================= */
 
         .header {
             position: sticky;
             top: 0;
             z-index: 20;
-            height: 62px;
+
+            min-height: 62px;
+
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 16px;
-            background: rgba(255, 255, 255, 0.96);
-            border-bottom: 1px solid var(--border);
+
+            padding:
+                calc(8px + env(safe-area-inset-top))
+                16px
+                8px;
+
+            background: rgba(255,255,255,.96);
+
+            border-bottom:
+                1px solid var(--border);
+
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         .header-side {
@@ -91,51 +113,74 @@
 
         .back-btn {
             min-width: 48px;
-            height: 44px;
+            min-height: 44px;
+
             border: none;
             background: transparent;
+
             color: var(--pink-dark);
+
             font-size: 15px;
             font-weight: 700;
-            cursor: pointer;
         }
 
         .title {
             flex: 1;
+
             text-align: center;
+
             font-size: 18px;
             font-weight: 800;
+
             color: #543943;
         }
+
+        /* =========================
+           主体
+        ========================= */
 
         .content {
             padding: 16px;
         }
 
         .card {
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 18px;
             margin-bottom: 14px;
+
+            padding: 18px;
+
+            background: var(--white);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 20px;
+
             box-shadow: var(--shadow);
         }
 
         .card-title {
+            margin-bottom: 14px;
+
             font-size: 16px;
             font-weight: 800;
-            margin-bottom: 14px;
         }
 
         .order-number {
             display: inline-flex;
             align-items: center;
+
             min-height: 30px;
+
             padding: 4px 10px;
+
             margin-bottom: 14px;
+
             border-radius: 999px;
+
             background: var(--pink-light);
+
             color: var(--pink-dark);
+
             font-size: 12px;
             font-weight: 700;
         }
@@ -144,9 +189,14 @@
             display: flex;
             align-items: flex-start;
             justify-content: space-between;
+
             gap: 16px;
+
             padding: 8px 0;
-            border-bottom: 1px dashed #f3e5ea;
+
+            border-bottom:
+                1px dashed #f3e5ea;
+
             font-size: 14px;
         }
 
@@ -156,55 +206,77 @@
 
         .info-label {
             flex: 0 0 auto;
+
             color: var(--muted);
         }
 
         .info-value {
+            max-width: 68%;
+
             text-align: right;
+
             font-weight: 700;
+
             word-break: break-word;
         }
 
         .amount {
             color: var(--pink-dark);
+
             font-size: 17px;
         }
 
+        /* =========================
+           评分
+        ========================= */
+
         .rating-section {
             text-align: center;
+
             padding: 6px 0 4px;
         }
 
         .rating-title {
+            margin-bottom: 5px;
+
             font-size: 17px;
             font-weight: 800;
-            margin-bottom: 5px;
         }
 
         .rating-subtitle {
-            font-size: 13px;
-            color: var(--muted);
             margin-bottom: 16px;
+
+            font-size: 13px;
+
+            color: var(--muted);
         }
 
         .stars {
             display: flex;
             justify-content: center;
             align-items: center;
+
             gap: 8px;
+
             margin-bottom: 12px;
         }
 
         .star {
             width: 50px;
             height: 50px;
+
             border: none;
+
             background: transparent;
+
             color: #eadde2;
+
             font-size: 38px;
             line-height: 50px;
-            cursor: pointer;
-            transition: transform 0.15s ease, color 0.15s ease;
+
+            transition:
+                transform .15s ease,
+                color .15s ease;
         }
 
         .star.active {
@@ -212,22 +284,70 @@
         }
 
         .star:active {
-            transform: scale(0.88);
+            transform: scale(.88);
         }
 
         .rating-text {
             min-height: 24px;
+
             color: var(--pink-dark);
+
             font-size: 15px;
             font-weight: 800;
         }
 
+        /* =========================
+           标签
+        ========================= */
+
         .field-label {
             display: block;
+
             margin-bottom: 8px;
+
             font-size: 14px;
             font-weight: 800;
         }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 9px;
+
+            margin-top: 10px;
+        }
+
+        .tag {
+            min-height: 40px;
+
+            padding: 8px 13px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 999px;
+
+            background: #fff;
+
+            color: #735963;
+
+            font-size: 13px;
+        }
+
+        .tag.active {
+            background: var(--pink-light);
+
+            border-color: var(--pink);
+
+            color: var(--pink-dark);
+
+            font-weight: 700;
+        }
+
+        /* =========================
+           文本
+        ========================= */
 
         .textarea-wrap {
             position: relative;
@@ -235,79 +355,79 @@
 
         textarea {
             width: 100%;
+
             min-height: 130px;
+
             resize: vertical;
+
             padding: 14px;
             padding-bottom: 34px;
-            border: 1px solid var(--border);
+
+            border:
+                1px solid var(--border);
+
             border-radius: 16px;
+
             outline: none;
+
             background: #fffafb;
+
             color: var(--text);
+
             font-size: 15px;
             line-height: 1.6;
         }
 
         textarea:focus {
             border-color: var(--pink);
-            box-shadow: 0 0 0 3px rgba(255, 111, 159, 0.10);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(255,111,159,.10);
         }
 
         .counter {
             position: absolute;
+
             right: 12px;
             bottom: 10px;
+
             color: var(--muted);
+
             font-size: 12px;
         }
 
-        .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 9px;
-            margin-top: 10px;
-        }
-
-        .tag {
-            min-height: 40px;
-            padding: 8px 13px;
-            border: 1px solid var(--border);
-            border-radius: 999px;
-            background: #fff;
-            color: #735963;
-            font-size: 13px;
-            cursor: pointer;
-        }
-
-        .tag.active {
-            background: var(--pink-light);
-            border-color: var(--pink);
-            color: var(--pink-dark);
-            font-weight: 700;
-        }
+        /* =========================
+           匿名
+        ========================= */
 
         .anonymous-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
+
             gap: 14px;
         }
 
         .anonymous-title {
+            margin-bottom: 4px;
+
             font-size: 15px;
             font-weight: 800;
-            margin-bottom: 4px;
         }
 
         .anonymous-desc {
-            color: var(--muted);
             font-size: 12px;
             line-height: 1.5;
+
+            color: var(--muted);
         }
 
         .switch {
             position: relative;
+
             flex: 0 0 auto;
+
             width: 52px;
             height: 30px;
         }
@@ -319,23 +439,33 @@
         .slider {
             position: absolute;
             inset: 0;
+
             border-radius: 999px;
+
             background: #ddd;
-            cursor: pointer;
-            transition: 0.2s;
+
+            transition: .2s;
         }
 
         .slider::before {
             content: "";
+
             position: absolute;
+
             width: 24px;
             height: 24px;
+
             top: 3px;
             left: 3px;
+
             border-radius: 50%;
+
             background: white;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-            transition: 0.2s;
+
+            box-shadow:
+                0 2px 6px rgba(0,0,0,.15);
+
+            transition: .2s;
         }
 
         .switch input:checked + .slider {
@@ -346,92 +476,150 @@
             transform: translateX(22px);
         }
 
+        /* =========================
+           提交
+        ========================= */
+
         .submit-btn {
             width: 100%;
+
             min-height: 52px;
+
             border: none;
+
             border-radius: 16px;
-            background: linear-gradient(
-                135deg,
-                #ff77a6,
-                #ff6097
-            );
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff77a6,
+                    #ff6097
+                );
+
             color: white;
+
             font-size: 16px;
             font-weight: 800;
-            cursor: pointer;
-            box-shadow: 0 8px 18px rgba(255, 96, 151, 0.20);
+
+            box-shadow:
+                0 8px 18px
+                rgba(255,96,151,.20);
         }
 
         .submit-btn:disabled {
-            opacity: 0.55;
+            opacity: .55;
             cursor: not-allowed;
             box-shadow: none;
         }
 
         .tip {
             margin-top: 10px;
+
             color: var(--muted);
+
             font-size: 12px;
-            text-align: center;
             line-height: 1.6;
+
+            text-align: center;
         }
+
+        /* =========================
+           状态
+        ========================= */
 
         .state-box {
             padding: 50px 20px;
+
             text-align: center;
         }
 
         .state-icon {
-            font-size: 46px;
             margin-bottom: 14px;
+
+            font-size: 46px;
         }
 
         .state-title {
+            margin-bottom: 8px;
+
             font-size: 18px;
             font-weight: 800;
-            margin-bottom: 8px;
         }
 
         .state-desc {
+            margin-bottom: 20px;
+
             color: var(--muted);
+
             font-size: 14px;
             line-height: 1.7;
-            margin-bottom: 20px;
         }
 
         .state-btn {
             min-width: 150px;
             min-height: 46px;
+
             padding: 0 20px;
+
             border: none;
+
             border-radius: 14px;
+
             background: var(--pink);
+
             color: white;
+
             font-weight: 800;
-            cursor: pointer;
         }
+
+        /* =========================
+           Toast
+        ========================= */
 
         .toast {
             position: fixed;
+
             left: 50%;
-            bottom: 34px;
+
+            bottom:
+                calc(34px + env(safe-area-inset-bottom));
+
             z-index: 100;
-            max-width: calc(100% - 40px);
+
+            max-width:
+                calc(100% - 40px);
+
             padding: 12px 18px;
+
             border-radius: 12px;
-            background: rgba(55, 42, 47, 0.94);
+
+            background:
+                rgba(55,42,47,.94);
+
             color: white;
+
             font-size: 14px;
+            line-height: 1.5;
+
             text-align: center;
-            transform: translateX(-50%);
+
+            transform:
+                translateX(-50%)
+                translateY(15px);
+
             opacity: 0;
+
             pointer-events: none;
-            transition: 0.2s;
+
+            transition: .2s;
         }
 
         .toast.show {
             opacity: 1;
+
+            transform:
+                translateX(-50%)
+                translateY(0);
         }
 
         .hidden {
@@ -439,10 +627,25 @@
         }
 
         @media (max-width: 380px) {
+
             .star {
                 width: 44px;
                 height: 44px;
+
                 font-size: 34px;
+            }
+        }
+
+        @media (min-width: 600px) {
+
+            body {
+                background: #f6f0f3;
+            }
+
+            .app {
+                box-shadow:
+                    0 0 35px
+                    rgba(80,45,60,.08);
             }
         }
     </style>
@@ -458,6 +661,7 @@
 
             <button
                 class="back-btn"
+                type="button"
                 onclick="goBack()"
             >
                 ← 返回
@@ -475,6 +679,7 @@
 
 
     <!-- 加载 -->
+
     <main
         id="loadingState"
         class="state-box"
@@ -496,6 +701,7 @@
 
 
     <!-- 错误 -->
+
     <main
         id="errorState"
         class="state-box hidden"
@@ -519,15 +725,17 @@
 
         <button
             class="state-btn"
-            onclick="goOrders()"
+            type="button"
+            onclick="goCustomerHome()"
         >
-            返回我的订单
+            返回客户中心
         </button>
 
     </main>
 
 
     <!-- 已评价 -->
+
     <main
         id="completedState"
         class="state-box hidden"
@@ -547,19 +755,23 @@
 
         <button
             class="state-btn"
-            onclick="goOrders()"
+            type="button"
+            onclick="goCustomerHome()"
         >
-            返回我的订单
+            返回客户中心
         </button>
 
     </main>
 
 
     <!-- 评价主体 -->
+
     <main
         id="reviewPage"
         class="content hidden"
     >
+
+        <!-- 订单 -->
 
         <section class="card">
 
@@ -614,7 +826,7 @@
                     id="payableAmount"
                     class="info-value amount"
                 >
-                    ¥0
+                    ¥0.00
                 </div>
 
             </div>
@@ -623,6 +835,7 @@
 
 
         <!-- 星级 -->
+
         <section class="card">
 
             <div class="rating-section">
@@ -640,6 +853,7 @@
                     <button
                         class="star"
                         data-value="1"
+                        type="button"
                         onclick="setRating(1)"
                     >
                         ★
@@ -648,6 +862,7 @@
                     <button
                         class="star"
                         data-value="2"
+                        type="button"
                         onclick="setRating(2)"
                     >
                         ★
@@ -656,6 +871,7 @@
                     <button
                         class="star"
                         data-value="3"
+                        type="button"
                         onclick="setRating(3)"
                     >
                         ★
@@ -664,6 +880,7 @@
                     <button
                         class="star"
                         data-value="4"
+                        type="button"
                         onclick="setRating(4)"
                     >
                         ★
@@ -672,6 +889,7 @@
                     <button
                         class="star"
                         data-value="5"
+                        type="button"
                         onclick="setRating(5)"
                     >
                         ★
@@ -692,6 +910,7 @@
 
 
         <!-- 标签 -->
+
         <section class="card">
 
             <label class="field-label">
@@ -700,27 +919,57 @@
 
             <div class="tags">
 
-                <button class="tag" data-tag="服务专业" onclick="toggleTag(this)">
+                <button
+                    class="tag"
+                    type="button"
+                    data-tag="服务专业"
+                    onclick="toggleTag(this)"
+                >
                     服务专业
                 </button>
 
-                <button class="tag" data-tag="态度很好" onclick="toggleTag(this)">
+                <button
+                    class="tag"
+                    type="button"
+                    data-tag="态度很好"
+                    onclick="toggleTag(this)"
+                >
                     态度很好
                 </button>
 
-                <button class="tag" data-tag="耐心细致" onclick="toggleTag(this)">
+                <button
+                    class="tag"
+                    type="button"
+                    data-tag="耐心细致"
+                    onclick="toggleTag(this)"
+                >
                     耐心细致
                 </button>
 
-                <button class="tag" data-tag="环境整洁" onclick="toggleTag(this)">
+                <button
+                    class="tag"
+                    type="button"
+                    data-tag="环境整洁"
+                    onclick="toggleTag(this)"
+                >
                     环境整洁
                 </button>
 
-                <button class="tag" data-tag="准时守约" onclick="toggleTag(this)">
+                <button
+                    class="tag"
+                    type="button"
+                    data-tag="准时守约"
+                    onclick="toggleTag(this)"
+                >
                     准时守约
                 </button>
 
-                <button class="tag" data-tag="值得推荐" onclick="toggleTag(this)">
+                <button
+                    class="tag"
+                    type="button"
+                    data-tag="值得推荐"
+                    onclick="toggleTag(this)"
+                >
                     值得推荐
                 </button>
 
@@ -729,7 +978,8 @@
         </section>
 
 
-        <!-- 文字评价 -->
+        <!-- 内容 -->
+
         <section class="card">
 
             <label
@@ -761,6 +1011,7 @@
 
 
         <!-- 匿名 -->
+
         <section class="card">
 
             <div class="anonymous-row">
@@ -794,9 +1045,12 @@
         </section>
 
 
+        <!-- 提交 -->
+
         <button
             id="submitBtn"
             class="submit-btn"
+            type="button"
             onclick="submitReview()"
         >
             提交评价
@@ -825,18 +1079,20 @@
     const SUPABASE_URL =
         "https://qbuqjwpkltbjhlfbyjyb.supabase.co";
 
+
     const SUPABASE_ANON_KEY =
         "sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
 
+
     const db =
-        supabase.createClient(
+        window.supabase.createClient(
             SUPABASE_URL,
             SUPABASE_ANON_KEY
         );
 
 
     /* =========================================================
-       页面状态
+       全局
     ========================================================= */
 
     let currentUser = null;
@@ -854,6 +1110,13 @@
     let submitting = false;
 
 
+    const IDLE_LIMIT =
+        10 * 60 * 1000;
+
+
+    let idleTimer = null;
+
+
     /* =========================================================
        页面启动
     ========================================================= */
@@ -868,43 +1131,43 @@
 
         try {
 
+            setupIdleLogout();
+
             showLoading();
 
 
-            /* =========================
-               1. 登录状态
-            ========================= */
+            /* =================================================
+               1. 登录
+            ================================================= */
 
             const {
-                data: authData,
-                error: authError
+                data: {
+                    session
+                },
+                error: sessionError
             } =
-                await db.auth.getUser();
+                await db.auth.getSession();
 
 
             if (
-                authError
+                sessionError
                 ||
-                !authData
-                ||
-                !authData.user
+                !session?.user
             ) {
 
-                window.location.replace(
-                    "./login.html"
-                );
+                goLogin();
 
                 return;
             }
 
 
             currentUser =
-                authData.user;
+                session.user;
 
 
-            /* =========================
-               2. 当前客户
-            ========================= */
+            /* =================================================
+               2. 客户
+            ================================================= */
 
             const {
                 data: customer,
@@ -954,16 +1217,16 @@
                 customer;
 
 
-            /* =========================
-               3. 获取订单ID
+            /* =================================================
+               3. 订单编号
                
-               正式链接：
-               customer_review.html?order=16
-
-               同时兼容：
+               正式：
+               ?order=16
+               
+               兼容：
                ?order_id=16
                ?id=16
-            ========================= */
+            ================================================= */
 
             const params =
                 new URLSearchParams(
@@ -1002,9 +1265,9 @@
             }
 
 
-            /* =========================
-               4. 读取自己的订单
-            ========================= */
+            /* =================================================
+               4. 订单
+            ================================================= */
 
             const {
                 data: order,
@@ -1027,7 +1290,8 @@
                         payment_status,
                         review_status,
                         completed_at,
-                        created_at
+                        created_at,
+                        updated_at
                     `)
                     .eq(
                         "id",
@@ -1076,9 +1340,11 @@
                 order;
 
 
-            /* =========================
-               5. 是否已经评价
-            ========================= */
+            /* =================================================
+               5. 已评价检查
+               
+               reviews读取仍然可以走RLS。
+            ================================================= */
 
             const {
                 data: existingReview,
@@ -1121,6 +1387,8 @@
 
             if (
                 existingReview
+                ||
+                order.review_status === "completed"
             ) {
 
                 showCompleted();
@@ -1129,9 +1397,9 @@
             }
 
 
-            /* =========================
-               6. 必须完成后才能评价
-            ========================= */
+            /* =================================================
+               6. 必须completed
+            ================================================= */
 
             if (
                 !isOrderCompleted(
@@ -1141,16 +1409,16 @@
 
                 showError(
                     "订单暂时不能评价",
-                    "服务完成后才可以提交评价。"
+                    "服务全部完成后才可以提交评价。"
                 );
 
                 return;
             }
 
 
-            /* =========================
-               7. 读取服务项目
-            ========================= */
+            /* =================================================
+               7. 服务项目
+            ================================================= */
 
             const {
                 data: orderItems,
@@ -1176,8 +1444,7 @@
                     .order(
                         "id",
                         {
-                            ascending:
-                                true
+                            ascending: true
                         }
                     );
 
@@ -1199,15 +1466,15 @@
                 )
                 &&
                 orderItems.length > 0
+
                 ?
+
                 orderItems[0]
+
                 :
+
                 null;
 
-
-            /* =========================
-               8. 显示评价页
-            ========================= */
 
             renderOrder();
 
@@ -1217,7 +1484,7 @@
         } catch (error) {
 
             console.error(
-                "页面初始化异常：",
+                "评价页面初始化异常：",
                 error
             );
 
@@ -1233,7 +1500,7 @@
 
 
     /* =========================================================
-       订单是否完成
+       是否完成
     ========================================================= */
 
     function isOrderCompleted(
@@ -1247,6 +1514,15 @@
 
 
         if (
+            order.order_status ===
+            "completed"
+        ) {
+
+            return true;
+        }
+
+
+        if (
             order.completed_at
         ) {
 
@@ -1254,26 +1530,12 @@
         }
 
 
-        const status =
-            String(
-                order.order_status
-                ||
-                ""
-            ).toLowerCase();
-
-
-        return [
-            "completed",
-            "finished",
-            "done"
-        ].includes(
-            status
-        );
+        return false;
     }
 
 
     /* =========================================================
-       渲染订单
+       渲染
     ========================================================= */
 
     function renderOrder() {
@@ -1284,34 +1546,28 @@
             `#${currentOrder.id}`;
 
 
-        document
-            .getElementById(
-                "orderNo"
-            )
-            .textContent =
-            `订单号：${orderNo}`;
+        setText(
+            "orderNo",
+            `订单号：${orderNo}`
+        );
 
 
-        document
-            .getElementById(
-                "merchantName"
-            )
-            .textContent =
+        setText(
+            "merchantName",
             currentOrder
                 .merchant_name_snapshot
             ||
-            "服务商户";
+            "服务商户"
+        );
 
 
-        document
-            .getElementById(
-                "productName"
-            )
-            .textContent =
+        setText(
+            "productName",
             currentOrderItem
                 ?.product_name_snapshot
             ||
-            "服务项目";
+            "服务项目"
+        );
 
 
         const amount =
@@ -1324,19 +1580,17 @@
             );
 
 
-        document
-            .getElementById(
-                "payableAmount"
-            )
-            .textContent =
+        setText(
+            "payableAmount",
             money(
                 amount
-            );
+            )
+        );
     }
 
 
     /* =========================================================
-       星级
+       评分
     ========================================================= */
 
     function setRating(
@@ -1389,14 +1643,12 @@
         };
 
 
-        document
-            .getElementById(
-                "ratingText"
-            )
-            .textContent =
+        setText(
+            "ratingText",
             texts[rating]
             ||
-            "请选择评分";
+            "请选择评分"
+        );
     }
 
 
@@ -1463,17 +1715,21 @@
                 .value;
 
 
-        document
-            .getElementById(
-                "counter"
-            )
-            .textContent =
-            `${value.length} / 500`;
+        setText(
+            "counter",
+            `${value.length} / 500`
+        );
     }
 
 
     /* =========================================================
        提交评价
+       
+       重要：
+       不直接INSERT reviews。
+       
+       统一调用数据库：
+       submit_order_review()
     ========================================================= */
 
     async function submitReview() {
@@ -1487,11 +1743,9 @@
 
 
         if (
-            !currentUser
-            ||
-            !currentCustomer
-            ||
             !currentOrder
+            ||
+            !currentUser
         ) {
 
             toast(
@@ -1544,144 +1798,64 @@
 
         try {
 
-            /* 再次检查重复评价 */
+            /* =============================================
+               唯一正式入口：
+               SECURITY DEFINER RPC
+            ============================================= */
 
             const {
-                data: existingReview,
-                error: existingError
+                data,
+                error
             } =
-                await db
-                    .from("reviews")
-                    .select("id")
-                    .eq(
-                        "order_id",
-                        currentOrder.id
-                    )
-                    .eq(
-                        "customer_id",
-                        currentUser.id
-                    )
-                    .maybeSingle();
+                await db.rpc(
+                    "submit_order_review",
+                    {
+                        p_order_id:
+                            currentOrder.id,
+
+                        p_rating:
+                            rating,
+
+                        p_content:
+                            content
+                            ||
+                            null,
+
+                        p_tags:
+                            selectedTags.length
+                            ?
+                            selectedTags
+                            :
+                            null,
+
+                        p_is_anonymous:
+                            isAnonymous
+                    }
+                );
 
 
             if (
-                existingError
+                error
             ) {
 
-                throw existingError;
+                throw new Error(
+                    cleanErrorMessage(
+                        error.message
+                    )
+                );
             }
 
 
             if (
-                existingReview
+                !data
+                ||
+                data.success !== true
             ) {
 
-                showCompleted();
-
-                return;
-            }
-
-
-            /* 保存评价 */
-
-            const reviewPayload = {
-
-                order_id:
-                    currentOrder.id,
-
-                customer_id:
-                    currentUser.id,
-
-                merchant_id:
-                    currentOrder.merchant_id,
-
-                rating:
-                    rating,
-
-                content:
-                    content
+                throw new Error(
+                    data?.message
                     ||
-                    null,
-
-                tags:
-                    selectedTags.length
-                    ?
-                    selectedTags
-                    :
-                    null,
-
-                is_anonymous:
-                    isAnonymous,
-
-                status:
-                    "active",
-
-                merchant_no_snapshot:
-                    currentOrder
-                        .merchant_no_snapshot
-                    ??
-                    null,
-
-                merchant_name_snapshot:
-                    currentOrder
-                        .merchant_name_snapshot
-                    ??
-                    null
-            };
-
-
-            const {
-                error: insertError
-            } =
-                await db
-                    .from("reviews")
-                    .insert(
-                        reviewPayload
-                    );
-
-
-            if (
-                insertError
-            ) {
-
-                throw insertError;
-            }
-
-
-            /* 更新订单评价状态 */
-
-            const {
-                error: orderUpdateError
-            } =
-                await db
-                    .from("orders")
-                    .update({
-
-                        review_status:
-                            "completed",
-
-                        updated_at:
-                            new Date()
-                                .toISOString()
-
-                    })
-                    .eq(
-                        "id",
-                        currentOrder.id
-                    )
-                    .eq(
-                        "customer_id",
-                        currentUser.id
-                    );
-
-
-            if (
-                orderUpdateError
-            ) {
-
-                console.warn(
-                    "评价已保存，但订单评价状态更新失败：",
-                    orderUpdateError
+                    "评价提交失败"
                 );
             }
 
@@ -1690,6 +1864,12 @@
                 "评价提交成功，谢谢您的支持 🌷"
             );
 
+
+            /*
+             * 返回客户中心。
+             * customer.html重新读取orders后，
+             * 待评价数字自动减少。
+             */
 
             setTimeout(
                 () => {
@@ -1710,10 +1890,28 @@
             );
 
 
+            const message =
+                cleanErrorMessage(
+                    error?.message
+                    ||
+                    "评价提交失败，请重新尝试"
+                );
+
+
+            if (
+                message.includes(
+                    "已经评价"
+                )
+            ) {
+
+                showCompleted();
+
+                return;
+            }
+
+
             toast(
-                error?.message
-                ||
-                "评价提交失败，请重新尝试"
+                message
             );
 
 
@@ -1731,7 +1929,7 @@
 
 
     /* =========================================================
-       按钮状态
+       提交按钮
     ========================================================= */
 
     function setSubmitState(
@@ -1739,10 +1937,9 @@
     ) {
 
         const button =
-            document
-                .getElementById(
-                    "submitBtn"
-                );
+            document.getElementById(
+                "submitBtn"
+            );
 
 
         button.disabled =
@@ -1759,41 +1956,29 @@
 
 
     /* =========================================================
-       页面状态切换
+       状态显示
     ========================================================= */
 
     function hideAllStates() {
 
-        document
-            .getElementById(
-                "loadingState"
-            )
-            .classList
-            .add("hidden");
+        [
+            "loadingState",
+            "errorState",
+            "completedState",
+            "reviewPage"
+        ].forEach(
+            id => {
 
-
-        document
-            .getElementById(
-                "errorState"
-            )
-            .classList
-            .add("hidden");
-
-
-        document
-            .getElementById(
-                "completedState"
-            )
-            .classList
-            .add("hidden");
-
-
-        document
-            .getElementById(
-                "reviewPage"
-            )
-            .classList
-            .add("hidden");
+                document
+                    .getElementById(
+                        id
+                    )
+                    .classList
+                    .add(
+                        "hidden"
+                    );
+            }
+        );
     }
 
 
@@ -1807,7 +1992,9 @@
                 "loadingState"
             )
             .classList
-            .remove("hidden");
+            .remove(
+                "hidden"
+            );
     }
 
 
@@ -1821,7 +2008,9 @@
                 "reviewPage"
             )
             .classList
-            .remove("hidden");
+            .remove(
+                "hidden"
+            );
     }
 
 
@@ -1835,7 +2024,9 @@
                 "completedState"
             )
             .classList
-            .remove("hidden");
+            .remove(
+                "hidden"
+            );
     }
 
 
@@ -1847,24 +2038,20 @@
         hideAllStates();
 
 
-        document
-            .getElementById(
-                "errorTitle"
-            )
-            .textContent =
+        setText(
+            "errorTitle",
             title
             ||
-            "暂时无法评价";
+            "暂时无法评价"
+        );
 
 
-        document
-            .getElementById(
-                "errorDesc"
-            )
-            .textContent =
+        setText(
+            "errorDesc",
             description
             ||
-            "请稍后重新尝试。";
+            "请稍后重新尝试。"
+        );
 
 
         document
@@ -1872,7 +2059,79 @@
                 "errorState"
             )
             .classList
-            .remove("hidden");
+            .remove(
+                "hidden"
+            );
+    }
+
+
+    /* =========================================================
+       10分钟退出
+    ========================================================= */
+
+    function setupIdleLogout() {
+
+        [
+            "touchstart",
+            "touchmove",
+            "click",
+            "keydown",
+            "scroll"
+        ].forEach(
+            eventName => {
+
+                document.addEventListener(
+                    eventName,
+                    resetIdleTimer,
+                    {
+                        passive: true
+                    }
+                );
+            }
+        );
+
+
+        resetIdleTimer();
+    }
+
+
+    function resetIdleTimer() {
+
+        if (
+            idleTimer
+        ) {
+
+            clearTimeout(
+                idleTimer
+            );
+        }
+
+
+        idleTimer =
+            setTimeout(
+                logoutByIdle,
+                IDLE_LIMIT
+            );
+    }
+
+
+    async function logoutByIdle() {
+
+        try {
+
+            await db.auth.signOut();
+
+        } catch (error) {
+
+            console.error(
+                error
+            );
+
+        } finally {
+
+            window.location.href =
+                "./login.html?reason=idle";
+        }
     }
 
 
@@ -1880,8 +2139,7 @@
        Toast
     ========================================================= */
 
-    let toastTimer =
-        null;
+    let toastTimer = null;
 
 
     function toast(
@@ -1889,10 +2147,9 @@
     ) {
 
         const el =
-            document
-                .getElementById(
-                    "toast"
-                );
+            document.getElementById(
+                "toast"
+            );
 
 
         el.textContent =
@@ -1932,6 +2189,40 @@
        工具
     ========================================================= */
 
+    function setText(
+        id,
+        value
+    ) {
+
+        const el =
+            document.getElementById(
+                id
+            );
+
+
+        if (!el) {
+
+            return;
+        }
+
+
+        el.textContent =
+            (
+                value === null
+                ||
+                value === undefined
+                ||
+                value === ""
+            )
+            ?
+            "-"
+            :
+            String(
+                value
+            );
+    }
+
+
     function money(
         value
     ) {
@@ -1944,11 +2235,51 @@
             );
 
 
+        if (
+            !Number.isFinite(
+                number
+            )
+        ) {
+
+            return "¥0.00";
+        }
+
+
         return (
-            `¥${number.toFixed(2)}`
+            "¥"
+            +
+            number.toFixed(
+                2
+            )
         );
     }
 
+
+    function cleanErrorMessage(
+        message
+    ) {
+
+        let text =
+            String(
+                message
+                ||
+                "操作失败"
+            );
+
+
+        text =
+            text.split(
+                "\n"
+            )[0];
+
+
+        return text;
+    }
+
+
+    /* =========================================================
+       返回
+    ========================================================= */
 
     function goBack() {
 
@@ -1964,15 +2295,23 @@
 
         } else {
 
-            goOrders();
+            goCustomerHome();
         }
     }
 
 
-    function goOrders() {
+    function goCustomerHome() {
 
         window.location.href =
-            "./customer_orders.html";
+            "./customer.html";
+    }
+
+
+    function goLogin() {
+
+        window.location.replace(
+            "./login.html"
+        );
     }
 
 </script>

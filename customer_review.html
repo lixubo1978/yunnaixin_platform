@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -66,10 +65,6 @@
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.04);
         }
 
-        /* =========================
-           顶部
-        ========================= */
-
         .header {
             position: sticky;
             top: 0;
@@ -112,10 +107,6 @@
             font-weight: 800;
             color: #543943;
         }
-
-        /* =========================
-           主内容
-        ========================= */
 
         .content {
             padding: 16px;
@@ -179,10 +170,6 @@
             font-size: 17px;
         }
 
-        /* =========================
-           评分
-        ========================= */
-
         .rating-section {
             text-align: center;
             padding: 6px 0 4px;
@@ -235,10 +222,6 @@
             font-weight: 800;
         }
 
-        /* =========================
-           评价内容
-        ========================= */
-
         .field-label {
             display: block;
             margin-bottom: 8px;
@@ -278,10 +261,6 @@
             font-size: 12px;
         }
 
-        /* =========================
-           标签
-        ========================= */
-
         .tags {
             display: flex;
             flex-wrap: wrap;
@@ -306,10 +285,6 @@
             color: var(--pink-dark);
             font-weight: 700;
         }
-
-        /* =========================
-           匿名
-        ========================= */
 
         .anonymous-row {
             display: flex;
@@ -371,10 +346,6 @@
             transform: translateX(22px);
         }
 
-        /* =========================
-           提交
-        ========================= */
-
         .submit-btn {
             width: 100%;
             min-height: 52px;
@@ -405,10 +376,6 @@
             text-align: center;
             line-height: 1.6;
         }
-
-        /* =========================
-           状态
-        ========================= */
 
         .state-box {
             padding: 50px 20px;
@@ -444,10 +411,6 @@
             font-weight: 800;
             cursor: pointer;
         }
-
-        /* =========================
-           Toast
-        ========================= */
 
         .toast {
             position: fixed;
@@ -490,10 +453,16 @@
 <div class="app">
 
     <header class="header">
+
         <div class="header-side">
-            <button class="back-btn" onclick="goBack()">
+
+            <button
+                class="back-btn"
+                onclick="goBack()"
+            >
                 ← 返回
             </button>
+
         </div>
 
         <div class="title">
@@ -501,35 +470,72 @@
         </div>
 
         <div class="header-side right"></div>
+
     </header>
 
-    <!-- 加载状态 -->
-    <main id="loadingState" class="state-box">
-        <div class="state-icon">🌷</div>
-        <div class="state-title">正在读取订单</div>
+
+    <!-- 加载 -->
+    <main
+        id="loadingState"
+        class="state-box"
+    >
+
+        <div class="state-icon">
+            🌷
+        </div>
+
+        <div class="state-title">
+            正在读取订单
+        </div>
+
         <div class="state-desc">
             请稍候……
         </div>
+
     </main>
 
-    <!-- 错误状态 -->
-    <main id="errorState" class="state-box hidden">
-        <div class="state-icon">🌸</div>
 
-        <div id="errorTitle" class="state-title">
+    <!-- 错误 -->
+    <main
+        id="errorState"
+        class="state-box hidden"
+    >
+
+        <div class="state-icon">
+            🌸
+        </div>
+
+        <div
+            id="errorTitle"
+            class="state-title"
+        >
             暂时无法评价
         </div>
 
-        <div id="errorDesc" class="state-desc"></div>
+        <div
+            id="errorDesc"
+            class="state-desc"
+        ></div>
 
-        <button class="state-btn" onclick="goOrders()">
+        <button
+            class="state-btn"
+            onclick="goOrders()"
+        >
             返回我的订单
         </button>
+
     </main>
 
-    <!-- 已评价状态 -->
-    <main id="completedState" class="state-box hidden">
-        <div class="state-icon">💗</div>
+
+    <!-- 已评价 -->
+    <main
+        id="completedState"
+        class="state-box hidden"
+    >
+
+        <div class="state-icon">
+            💗
+        </div>
 
         <div class="state-title">
             这笔订单已经评价
@@ -539,15 +545,22 @@
             感谢您的评价与支持。
         </div>
 
-        <button class="state-btn" onclick="goOrders()">
+        <button
+            class="state-btn"
+            onclick="goOrders()"
+        >
             返回我的订单
         </button>
+
     </main>
 
-    <!-- 评价主体 -->
-    <main id="reviewPage" class="content hidden">
 
-        <!-- 订单 -->
+    <!-- 评价主体 -->
+    <main
+        id="reviewPage"
+        class="content hidden"
+    >
+
         <section class="card">
 
             <div class="card-title">
@@ -562,6 +575,7 @@
             </div>
 
             <div class="info-row">
+
                 <div class="info-label">
                     服务商户
                 </div>
@@ -572,9 +586,11 @@
                 >
                     -
                 </div>
+
             </div>
 
             <div class="info-row">
+
                 <div class="info-label">
                     服务项目
                 </div>
@@ -585,9 +601,11 @@
                 >
                     -
                 </div>
+
             </div>
 
             <div class="info-row">
+
                 <div class="info-label">
                     实付金额
                 </div>
@@ -598,9 +616,11 @@
                 >
                     ¥0
                 </div>
+
             </div>
 
         </section>
+
 
         <!-- 星级 -->
         <section class="card">
@@ -621,7 +641,6 @@
                         class="star"
                         data-value="1"
                         onclick="setRating(1)"
-                        aria-label="1星"
                     >
                         ★
                     </button>
@@ -630,7 +649,6 @@
                         class="star"
                         data-value="2"
                         onclick="setRating(2)"
-                        aria-label="2星"
                     >
                         ★
                     </button>
@@ -639,7 +657,6 @@
                         class="star"
                         data-value="3"
                         onclick="setRating(3)"
-                        aria-label="3星"
                     >
                         ★
                     </button>
@@ -648,7 +665,6 @@
                         class="star"
                         data-value="4"
                         onclick="setRating(4)"
-                        aria-label="4星"
                     >
                         ★
                     </button>
@@ -657,7 +673,6 @@
                         class="star"
                         data-value="5"
                         onclick="setRating(5)"
-                        aria-label="5星"
                     >
                         ★
                     </button>
@@ -675,6 +690,7 @@
 
         </section>
 
+
         <!-- 标签 -->
         <section class="card">
 
@@ -684,57 +700,34 @@
 
             <div class="tags">
 
-                <button
-                    class="tag"
-                    data-tag="服务专业"
-                    onclick="toggleTag(this)"
-                >
+                <button class="tag" data-tag="服务专业" onclick="toggleTag(this)">
                     服务专业
                 </button>
 
-                <button
-                    class="tag"
-                    data-tag="态度很好"
-                    onclick="toggleTag(this)"
-                >
+                <button class="tag" data-tag="态度很好" onclick="toggleTag(this)">
                     态度很好
                 </button>
 
-                <button
-                    class="tag"
-                    data-tag="耐心细致"
-                    onclick="toggleTag(this)"
-                >
+                <button class="tag" data-tag="耐心细致" onclick="toggleTag(this)">
                     耐心细致
                 </button>
 
-                <button
-                    class="tag"
-                    data-tag="环境整洁"
-                    onclick="toggleTag(this)"
-                >
+                <button class="tag" data-tag="环境整洁" onclick="toggleTag(this)">
                     环境整洁
                 </button>
 
-                <button
-                    class="tag"
-                    data-tag="准时守约"
-                    onclick="toggleTag(this)"
-                >
+                <button class="tag" data-tag="准时守约" onclick="toggleTag(this)">
                     准时守约
                 </button>
 
-                <button
-                    class="tag"
-                    data-tag="值得推荐"
-                    onclick="toggleTag(this)"
-                >
+                <button class="tag" data-tag="值得推荐" onclick="toggleTag(this)">
                     值得推荐
                 </button>
 
             </div>
 
         </section>
+
 
         <!-- 文字评价 -->
         <section class="card">
@@ -766,12 +759,14 @@
 
         </section>
 
+
         <!-- 匿名 -->
         <section class="card">
 
             <div class="anonymous-row">
 
                 <div>
+
                     <div class="anonymous-title">
                         匿名评价
                     </div>
@@ -779,6 +774,7 @@
                     <div class="anonymous-desc">
                         开启后，对外展示评价时不显示您的客户身份。
                     </div>
+
                 </div>
 
                 <label class="switch">
@@ -797,7 +793,7 @@
 
         </section>
 
-        <!-- 提交 -->
+
         <button
             id="submitBtn"
             class="submit-btn"
@@ -813,6 +809,7 @@
     </main>
 
 </div>
+
 
 <div
     id="toast"
@@ -831,10 +828,11 @@
     const SUPABASE_ANON_KEY =
         "sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
 
-    const db = supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-    );
+    const db =
+        supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
+        );
 
 
     /* =========================================================
@@ -872,19 +870,23 @@
 
             showLoading();
 
-            /* -------------------------
+
+            /* =========================
                1. 登录状态
-            ------------------------- */
+            ========================= */
 
             const {
                 data: authData,
                 error: authError
-            } = await db.auth.getUser();
+            } =
+                await db.auth.getUser();
 
 
             if (
-                authError ||
-                !authData ||
+                authError
+                ||
+                !authData
+                ||
                 !authData.user
             ) {
 
@@ -900,27 +902,29 @@
                 authData.user;
 
 
-            /* -------------------------
+            /* =========================
                2. 当前客户
-            ------------------------- */
+            ========================= */
 
             const {
                 data: customer,
                 error: customerError
-            } = await db
-                .from("customers")
-                .select(
-                    "id, customer_no, phone, nickname, status"
-                )
-                .eq(
-                    "id",
-                    currentUser.id
-                )
-                .maybeSingle();
+            } =
+                await db
+                    .from("customers")
+                    .select(
+                        "id, customer_no, phone, nickname, status"
+                    )
+                    .eq(
+                        "id",
+                        currentUser.id
+                    )
+                    .maybeSingle();
 
 
             if (
-                customerError ||
+                customerError
+                ||
                 !customer
             ) {
 
@@ -950,9 +954,16 @@
                 customer;
 
 
-            /* -------------------------
-               3. 获取 order_id
-            ------------------------- */
+            /* =========================
+               3. 获取订单ID
+               
+               正式链接：
+               customer_review.html?order=16
+
+               同时兼容：
+               ?order_id=16
+               ?id=16
+            ========================= */
 
             const params =
                 new URLSearchParams(
@@ -961,17 +972,23 @@
 
 
             const rawOrderId =
+                params.get("order")
+                ||
                 params.get("order_id")
                 ||
                 params.get("id");
 
 
             const orderId =
-                Number(rawOrderId);
+                Number(
+                    rawOrderId
+                );
 
 
             if (
-                !Number.isInteger(orderId)
+                !Number.isInteger(
+                    orderId
+                )
                 ||
                 orderId <= 0
             ) {
@@ -985,41 +1002,42 @@
             }
 
 
-            /* -------------------------
+            /* =========================
                4. 读取自己的订单
-            ------------------------- */
+            ========================= */
 
             const {
                 data: order,
                 error: orderError
-            } = await db
-                .from("orders")
-                .select(`
-                    id,
-                    order_no,
-                    customer_id,
-                    merchant_id,
-                    merchant_no_snapshot,
-                    merchant_name_snapshot,
-                    total_amount,
-                    subtotal_amount,
-                    discount_amount,
-                    payable_amount,
-                    order_status,
-                    payment_status,
-                    review_status,
-                    completed_at,
-                    created_at
-                `)
-                .eq(
-                    "id",
-                    orderId
-                )
-                .eq(
-                    "customer_id",
-                    currentUser.id
-                )
-                .maybeSingle();
+            } =
+                await db
+                    .from("orders")
+                    .select(`
+                        id,
+                        order_no,
+                        customer_id,
+                        merchant_id,
+                        merchant_no_snapshot,
+                        merchant_name_snapshot,
+                        total_amount,
+                        subtotal_amount,
+                        discount_amount,
+                        payable_amount,
+                        order_status,
+                        payment_status,
+                        review_status,
+                        completed_at,
+                        created_at
+                    `)
+                    .eq(
+                        "id",
+                        orderId
+                    )
+                    .eq(
+                        "customer_id",
+                        currentUser.id
+                    )
+                    .maybeSingle();
 
 
             if (
@@ -1030,6 +1048,7 @@
                     "读取订单失败：",
                     orderError
                 );
+
 
                 showError(
                     "订单读取失败",
@@ -1057,27 +1076,28 @@
                 order;
 
 
-            /* -------------------------
-               5. 判断是否已经评价
-            ------------------------- */
+            /* =========================
+               5. 是否已经评价
+            ========================= */
 
             const {
                 data: existingReview,
                 error: reviewCheckError
-            } = await db
-                .from("reviews")
-                .select(
-                    "id, rating, created_at"
-                )
-                .eq(
-                    "order_id",
-                    order.id
-                )
-                .eq(
-                    "customer_id",
-                    currentUser.id
-                )
-                .maybeSingle();
+            } =
+                await db
+                    .from("reviews")
+                    .select(
+                        "id, rating, created_at"
+                    )
+                    .eq(
+                        "order_id",
+                        order.id
+                    )
+                    .eq(
+                        "customer_id",
+                        currentUser.id
+                    )
+                    .maybeSingle();
 
 
             if (
@@ -1088,6 +1108,7 @@
                     "检查评价失败：",
                     reviewCheckError
                 );
+
 
                 showError(
                     "评价状态读取失败",
@@ -1108,12 +1129,14 @@
             }
 
 
-            /* -------------------------
-               6. 必须完成后评价
-            ------------------------- */
+            /* =========================
+               6. 必须完成后才能评价
+            ========================= */
 
             if (
-                !isOrderCompleted(order)
+                !isOrderCompleted(
+                    order
+                )
             ) {
 
                 showError(
@@ -1125,36 +1148,38 @@
             }
 
 
-            /* -------------------------
-               7. 读取订单项目
-            ------------------------- */
+            /* =========================
+               7. 读取服务项目
+            ========================= */
 
             const {
                 data: orderItems,
                 error: itemError
-            } = await db
-                .from("order_items")
-                .select(`
-                    id,
-                    order_id,
-                    product_id,
-                    product_code_snapshot,
-                    product_name_snapshot,
-                    product_type,
-                    quantity,
-                    unit_price,
-                    amount
-                `)
-                .eq(
-                    "order_id",
-                    order.id
-                )
-                .order(
-                    "id",
-                    {
-                        ascending: true
-                    }
-                );
+            } =
+                await db
+                    .from("order_items")
+                    .select(`
+                        id,
+                        order_id,
+                        product_id,
+                        product_code_snapshot,
+                        product_name_snapshot,
+                        product_type,
+                        quantity,
+                        unit_price,
+                        amount
+                    `)
+                    .eq(
+                        "order_id",
+                        order.id
+                    )
+                    .order(
+                        "id",
+                        {
+                            ascending:
+                                true
+                        }
+                    );
 
 
             if (
@@ -1165,20 +1190,24 @@
                     "读取订单项目失败：",
                     itemError
                 );
-
             }
 
 
             currentOrderItem =
-                Array.isArray(orderItems)
-                && orderItems.length > 0
-                    ? orderItems[0]
-                    : null;
+                Array.isArray(
+                    orderItems
+                )
+                &&
+                orderItems.length > 0
+                ?
+                orderItems[0]
+                :
+                null;
 
 
-            /* -------------------------
-               8. 显示页面
-            ------------------------- */
+            /* =========================
+               8. 显示评价页
+            ========================= */
 
             renderOrder();
 
@@ -1192,10 +1221,12 @@
                 error
             );
 
+
             showError(
                 "页面加载失败",
                 error?.message
-                || "请稍后重新尝试。"
+                ||
+                "请稍后重新尝试。"
             );
         }
     }
@@ -1205,26 +1236,29 @@
        订单是否完成
     ========================================================= */
 
-    function isOrderCompleted(order) {
+    function isOrderCompleted(
+        order
+    ) {
 
         if (!order) {
+
             return false;
         }
 
 
-        /*
-          兼容目前可能存在的订单状态命名。
-          completed_at 有值时也视为已经完成。
-        */
+        if (
+            order.completed_at
+        ) {
 
-        if (order.completed_at) {
             return true;
         }
 
 
         const status =
             String(
-                order.order_status || ""
+                order.order_status
+                ||
+                ""
             ).toLowerCase();
 
 
@@ -1232,7 +1266,9 @@
             "completed",
             "finished",
             "done"
-        ].includes(status);
+        ].includes(
+            status
+        );
     }
 
 
@@ -1244,27 +1280,38 @@
 
         const orderNo =
             currentOrder.order_no
-            || `#${currentOrder.id}`;
+            ||
+            `#${currentOrder.id}`;
 
 
-        document.getElementById(
-            "orderNo"
-        ).textContent =
+        document
+            .getElementById(
+                "orderNo"
+            )
+            .textContent =
             `订单号：${orderNo}`;
 
 
-        document.getElementById(
-            "merchantName"
-        ).textContent =
-            currentOrder.merchant_name_snapshot
-            || "服务商户";
+        document
+            .getElementById(
+                "merchantName"
+            )
+            .textContent =
+            currentOrder
+                .merchant_name_snapshot
+            ||
+            "服务商户";
 
 
-        document.getElementById(
-            "productName"
-        ).textContent =
-            currentOrderItem?.product_name_snapshot
-            || "服务项目";
+        document
+            .getElementById(
+                "productName"
+            )
+            .textContent =
+            currentOrderItem
+                ?.product_name_snapshot
+            ||
+            "服务项目";
 
 
         const amount =
@@ -1277,10 +1324,14 @@
             );
 
 
-        document.getElementById(
-            "payableAmount"
-        ).textContent =
-            money(amount);
+        document
+            .getElementById(
+                "payableAmount"
+            )
+            .textContent =
+            money(
+                amount
+            );
     }
 
 
@@ -1288,14 +1339,20 @@
        星级
     ========================================================= */
 
-    function setRating(value) {
+    function setRating(
+        value
+    ) {
 
         rating =
-            Number(value);
+            Number(
+                value
+            );
 
 
         document
-            .querySelectorAll(".star")
+            .querySelectorAll(
+                ".star"
+            )
             .forEach(
                 star => {
 
@@ -1314,19 +1371,32 @@
 
 
         const texts = {
-            1: "非常不满意",
-            2: "不太满意",
-            3: "基本满意",
-            4: "很满意",
-            5: "非常满意"
+
+            1:
+                "非常不满意",
+
+            2:
+                "不太满意",
+
+            3:
+                "基本满意",
+
+            4:
+                "很满意",
+
+            5:
+                "非常满意"
         };
 
 
-        document.getElementById(
-            "ratingText"
-        ).textContent =
+        document
+            .getElementById(
+                "ratingText"
+            )
+            .textContent =
             texts[rating]
-            || "请选择评分";
+            ||
+            "请选择评分";
     }
 
 
@@ -1334,25 +1404,32 @@
        标签
     ========================================================= */
 
-    function toggleTag(button) {
+    function toggleTag(
+        button
+    ) {
 
         const tag =
             button.dataset.tag;
 
 
         if (!tag) {
+
             return;
         }
 
 
         if (
-            selectedTags.includes(tag)
+            selectedTags.includes(
+                tag
+            )
         ) {
 
             selectedTags =
                 selectedTags.filter(
-                    item => item !== tag
+                    item =>
+                        item !== tag
                 );
+
 
             button.classList.remove(
                 "active"
@@ -1360,7 +1437,10 @@
 
         } else {
 
-            selectedTags.push(tag);
+            selectedTags.push(
+                tag
+            );
+
 
             button.classList.add(
                 "active"
@@ -1376,14 +1456,18 @@
     function updateCounter() {
 
         const value =
-            document.getElementById(
-                "reviewContent"
-            ).value;
+            document
+                .getElementById(
+                    "reviewContent"
+                )
+                .value;
 
 
-        document.getElementById(
-            "counter"
-        ).textContent =
+        document
+            .getElementById(
+                "counter"
+            )
+            .textContent =
             `${value.length} / 500`;
     }
 
@@ -1394,7 +1478,10 @@
 
     async function submitReview() {
 
-        if (submitting) {
+        if (
+            submitting
+        ) {
+
             return;
         }
 
@@ -1446,41 +1533,48 @@
                 .checked;
 
 
-        submitting = true;
+        submitting =
+            true;
 
-        setSubmitState(true);
+
+        setSubmitState(
+            true
+        );
 
 
         try {
 
-            /* -------------------------
-               再次检查是否已有评价
-               防止重复点击
-            ------------------------- */
+            /* 再次检查重复评价 */
 
             const {
                 data: existingReview,
                 error: existingError
-            } = await db
-                .from("reviews")
-                .select("id")
-                .eq(
-                    "order_id",
-                    currentOrder.id
-                )
-                .eq(
-                    "customer_id",
-                    currentUser.id
-                )
-                .maybeSingle();
+            } =
+                await db
+                    .from("reviews")
+                    .select("id")
+                    .eq(
+                        "order_id",
+                        currentOrder.id
+                    )
+                    .eq(
+                        "customer_id",
+                        currentUser.id
+                    )
+                    .maybeSingle();
 
 
-            if (existingError) {
+            if (
+                existingError
+            ) {
+
                 throw existingError;
             }
 
 
-            if (existingReview) {
+            if (
+                existingReview
+            ) {
 
                 showCompleted();
 
@@ -1488,9 +1582,7 @@
             }
 
 
-            /* -------------------------
-               创建评价
-            ------------------------- */
+            /* 保存评价 */
 
             const reviewPayload = {
 
@@ -1507,12 +1599,16 @@
                     rating,
 
                 content:
-                    content || null,
+                    content
+                    ||
+                    null,
 
                 tags:
                     selectedTags.length
-                        ? selectedTags
-                        : null,
+                    ?
+                    selectedTags
+                    :
+                    null,
 
                 is_anonymous:
                     isAnonymous,
@@ -1521,56 +1617,62 @@
                     "active",
 
                 merchant_no_snapshot:
-                    currentOrder.merchant_no_snapshot
-                    ?? null,
+                    currentOrder
+                        .merchant_no_snapshot
+                    ??
+                    null,
 
                 merchant_name_snapshot:
-                    currentOrder.merchant_name_snapshot
-                    ?? null
+                    currentOrder
+                        .merchant_name_snapshot
+                    ??
+                    null
             };
 
 
             const {
-                data: newReview,
                 error: insertError
-            } = await db
-                .from("reviews")
-                .insert(
-                    reviewPayload
-                )
-                .select(
-                    "id, order_id, rating, created_at"
-                )
-                .single();
+            } =
+                await db
+                    .from("reviews")
+                    .insert(
+                        reviewPayload
+                    );
 
 
-            if (insertError) {
+            if (
+                insertError
+            ) {
+
                 throw insertError;
             }
 
 
-            /* -------------------------
-               更新订单评价状态
-            ------------------------- */
+            /* 更新订单评价状态 */
 
             const {
                 error: orderUpdateError
-            } = await db
-                .from("orders")
-                .update({
-                    review_status:
-                        "completed",
-                    updated_at:
-                        new Date().toISOString()
-                })
-                .eq(
-                    "id",
-                    currentOrder.id
-                )
-                .eq(
-                    "customer_id",
-                    currentUser.id
-                );
+            } =
+                await db
+                    .from("orders")
+                    .update({
+
+                        review_status:
+                            "completed",
+
+                        updated_at:
+                            new Date()
+                                .toISOString()
+
+                    })
+                    .eq(
+                        "id",
+                        currentOrder.id
+                    )
+                    .eq(
+                        "customer_id",
+                        currentUser.id
+                    );
 
 
             if (
@@ -1593,7 +1695,7 @@
                 () => {
 
                     window.location.href =
-                        "./customer_orders.html";
+                        "./customer.html";
 
                 },
                 900
@@ -1610,15 +1712,20 @@
 
             toast(
                 error?.message
-                || "评价提交失败，请重新尝试"
+                ||
+                "评价提交失败，请重新尝试"
             );
 
 
         } finally {
 
-            submitting = false;
+            submitting =
+                false;
 
-            setSubmitState(false);
+
+            setSubmitState(
+                false
+            );
         }
     }
 
@@ -1627,12 +1734,15 @@
        按钮状态
     ========================================================= */
 
-    function setSubmitState(loading) {
+    function setSubmitState(
+        loading
+    ) {
 
         const button =
-            document.getElementById(
-                "submitBtn"
-            );
+            document
+                .getElementById(
+                    "submitBtn"
+                );
 
 
         button.disabled =
@@ -1641,8 +1751,10 @@
 
         button.textContent =
             loading
-                ? "正在提交评价..."
-                : "提交评价";
+            ?
+            "正在提交评价..."
+            :
+            "提交评价";
     }
 
 
@@ -1652,32 +1764,36 @@
 
     function hideAllStates() {
 
-        document.getElementById(
-            "loadingState"
-        ).classList.add(
-            "hidden"
-        );
+        document
+            .getElementById(
+                "loadingState"
+            )
+            .classList
+            .add("hidden");
 
 
-        document.getElementById(
-            "errorState"
-        ).classList.add(
-            "hidden"
-        );
+        document
+            .getElementById(
+                "errorState"
+            )
+            .classList
+            .add("hidden");
 
 
-        document.getElementById(
-            "completedState"
-        ).classList.add(
-            "hidden"
-        );
+        document
+            .getElementById(
+                "completedState"
+            )
+            .classList
+            .add("hidden");
 
 
-        document.getElementById(
-            "reviewPage"
-        ).classList.add(
-            "hidden"
-        );
+        document
+            .getElementById(
+                "reviewPage"
+            )
+            .classList
+            .add("hidden");
     }
 
 
@@ -1685,11 +1801,13 @@
 
         hideAllStates();
 
-        document.getElementById(
-            "loadingState"
-        ).classList.remove(
-            "hidden"
-        );
+
+        document
+            .getElementById(
+                "loadingState"
+            )
+            .classList
+            .remove("hidden");
     }
 
 
@@ -1697,11 +1815,13 @@
 
         hideAllStates();
 
-        document.getElementById(
-            "reviewPage"
-        ).classList.remove(
-            "hidden"
-        );
+
+        document
+            .getElementById(
+                "reviewPage"
+            )
+            .classList
+            .remove("hidden");
     }
 
 
@@ -1709,11 +1829,13 @@
 
         hideAllStates();
 
-        document.getElementById(
-            "completedState"
-        ).classList.remove(
-            "hidden"
-        );
+
+        document
+            .getElementById(
+                "completedState"
+            )
+            .classList
+            .remove("hidden");
     }
 
 
@@ -1725,25 +1847,32 @@
         hideAllStates();
 
 
-        document.getElementById(
-            "errorTitle"
-        ).textContent =
+        document
+            .getElementById(
+                "errorTitle"
+            )
+            .textContent =
             title
-            || "暂时无法评价";
+            ||
+            "暂时无法评价";
 
 
-        document.getElementById(
-            "errorDesc"
-        ).textContent =
+        document
+            .getElementById(
+                "errorDesc"
+            )
+            .textContent =
             description
-            || "请稍后重新尝试。";
+            ||
+            "请稍后重新尝试。";
 
 
-        document.getElementById(
-            "errorState"
-        ).classList.remove(
-            "hidden"
-        );
+        document
+            .getElementById(
+                "errorState"
+            )
+            .classList
+            .remove("hidden");
     }
 
 
@@ -1751,15 +1880,19 @@
        Toast
     ========================================================= */
 
-    let toastTimer = null;
+    let toastTimer =
+        null;
 
 
-    function toast(message) {
+    function toast(
+        message
+    ) {
 
         const el =
-            document.getElementById(
-                "toast"
-            );
+            document
+                .getElementById(
+                    "toast"
+                );
 
 
         el.textContent =
@@ -1771,7 +1904,9 @@
         );
 
 
-        if (toastTimer) {
+        if (
+            toastTimer
+        ) {
 
             clearTimeout(
                 toastTimer
@@ -1797,13 +1932,21 @@
        工具
     ========================================================= */
 
-    function money(value) {
+    function money(
+        value
+    ) {
 
         const number =
-            Number(value || 0);
+            Number(
+                value
+                ||
+                0
+            );
 
 
-        return `¥${number.toFixed(2)}`;
+        return (
+            `¥${number.toFixed(2)}`
+        );
     }
 
 
@@ -1831,6 +1974,7 @@
         window.location.href =
             "./customer_orders.html";
     }
+
 </script>
 
 </body>

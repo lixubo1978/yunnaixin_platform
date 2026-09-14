@@ -1,1 +1,1837 @@
 
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>服务评价 - 孕乃馨</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --pink: #ff6f9f;
+            --pink-dark: #ef4f87;
+            --pink-light: #fff0f5;
+            --pink-soft: #fff7fa;
+            --text: #4d3540;
+            --muted: #a08791;
+            --border: #f2dce5;
+            --white: #ffffff;
+            --yellow: #ffb84d;
+            --shadow: 0 8px 28px rgba(220, 90, 135, 0.10);
+        }
+
+        html,
+        body {
+            min-height: 100%;
+            background: #fff8fb;
+            color: var(--text);
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "PingFang SC",
+                "Microsoft YaHei",
+                "Helvetica Neue",
+                Arial,
+                sans-serif;
+        }
+
+        body {
+            padding-bottom: 30px;
+        }
+
+        button,
+        input,
+        textarea {
+            font: inherit;
+        }
+
+        button {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 520px;
+            min-height: 100vh;
+            margin: 0 auto;
+            background: var(--pink-soft);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.04);
+        }
+
+        /* =========================
+           顶部
+        ========================= */
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            height: 62px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            background: rgba(255, 255, 255, 0.96);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-side {
+            width: 76px;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-side.right {
+            justify-content: flex-end;
+        }
+
+        .back-btn {
+            min-width: 48px;
+            height: 44px;
+            border: none;
+            background: transparent;
+            color: var(--pink-dark);
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .title {
+            flex: 1;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 800;
+            color: #543943;
+        }
+
+        /* =========================
+           主内容
+        ========================= */
+
+        .content {
+            padding: 16px;
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 18px;
+            margin-bottom: 14px;
+            box-shadow: var(--shadow);
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 14px;
+        }
+
+        .order-number {
+            display: inline-flex;
+            align-items: center;
+            min-height: 30px;
+            padding: 4px 10px;
+            margin-bottom: 14px;
+            border-radius: 999px;
+            background: var(--pink-light);
+            color: var(--pink-dark);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 8px 0;
+            border-bottom: 1px dashed #f3e5ea;
+            font-size: 14px;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            flex: 0 0 auto;
+            color: var(--muted);
+        }
+
+        .info-value {
+            text-align: right;
+            font-weight: 700;
+            word-break: break-word;
+        }
+
+        .amount {
+            color: var(--pink-dark);
+            font-size: 17px;
+        }
+
+        /* =========================
+           评分
+        ========================= */
+
+        .rating-section {
+            text-align: center;
+            padding: 6px 0 4px;
+        }
+
+        .rating-title {
+            font-size: 17px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .rating-subtitle {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 16px;
+        }
+
+        .stars {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .star {
+            width: 50px;
+            height: 50px;
+            border: none;
+            background: transparent;
+            color: #eadde2;
+            font-size: 38px;
+            line-height: 50px;
+            cursor: pointer;
+            transition: transform 0.15s ease, color 0.15s ease;
+        }
+
+        .star.active {
+            color: #ffb545;
+        }
+
+        .star:active {
+            transform: scale(0.88);
+        }
+
+        .rating-text {
+            min-height: 24px;
+            color: var(--pink-dark);
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        /* =========================
+           评价内容
+        ========================= */
+
+        .field-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .textarea-wrap {
+            position: relative;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 130px;
+            resize: vertical;
+            padding: 14px;
+            padding-bottom: 34px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            outline: none;
+            background: #fffafb;
+            color: var(--text);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        textarea:focus {
+            border-color: var(--pink);
+            box-shadow: 0 0 0 3px rgba(255, 111, 159, 0.10);
+        }
+
+        .counter {
+            position: absolute;
+            right: 12px;
+            bottom: 10px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* =========================
+           标签
+        ========================= */
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-top: 10px;
+        }
+
+        .tag {
+            min-height: 40px;
+            padding: 8px 13px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: #fff;
+            color: #735963;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .tag.active {
+            background: var(--pink-light);
+            border-color: var(--pink);
+            color: var(--pink-dark);
+            font-weight: 700;
+        }
+
+        /* =========================
+           匿名
+        ========================= */
+
+        .anonymous-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .anonymous-title {
+            font-size: 15px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .anonymous-desc {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .switch {
+            position: relative;
+            flex: 0 0 auto;
+            width: 52px;
+            height: 30px;
+        }
+
+        .switch input {
+            display: none;
+        }
+
+        .slider {
+            position: absolute;
+            inset: 0;
+            border-radius: 999px;
+            background: #ddd;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .slider::before {
+            content: "";
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            top: 3px;
+            left: 3px;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            transition: 0.2s;
+        }
+
+        .switch input:checked + .slider {
+            background: var(--pink);
+        }
+
+        .switch input:checked + .slider::before {
+            transform: translateX(22px);
+        }
+
+        /* =========================
+           提交
+        ========================= */
+
+        .submit-btn {
+            width: 100%;
+            min-height: 52px;
+            border: none;
+            border-radius: 16px;
+            background: linear-gradient(
+                135deg,
+                #ff77a6,
+                #ff6097
+            );
+            color: white;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 8px 18px rgba(255, 96, 151, 0.20);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .tip {
+            margin-top: 10px;
+            color: var(--muted);
+            font-size: 12px;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           状态
+        ========================= */
+
+        .state-box {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .state-icon {
+            font-size: 46px;
+            margin-bottom: 14px;
+        }
+
+        .state-title {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .state-desc {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .state-btn {
+            min-width: 150px;
+            min-height: 46px;
+            padding: 0 20px;
+            border: none;
+            border-radius: 14px;
+            background: var(--pink);
+            color: white;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        /* =========================
+           Toast
+        ========================= */
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 34px;
+            z-index: 100;
+            max-width: calc(100% - 40px);
+            padding: 12px 18px;
+            border-radius: 12px;
+            background: rgba(55, 42, 47, 0.94);
+            color: white;
+            font-size: 14px;
+            text-align: center;
+            transform: translateX(-50%);
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.2s;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 380px) {
+            .star {
+                width: 44px;
+                height: 44px;
+                font-size: 34px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <header class="header">
+        <div class="header-side">
+            <button class="back-btn" onclick="goBack()">
+                ← 返回
+            </button>
+        </div>
+
+        <div class="title">
+            服务评价
+        </div>
+
+        <div class="header-side right"></div>
+    </header>
+
+    <!-- 加载状态 -->
+    <main id="loadingState" class="state-box">
+        <div class="state-icon">🌷</div>
+        <div class="state-title">正在读取订单</div>
+        <div class="state-desc">
+            请稍候……
+        </div>
+    </main>
+
+    <!-- 错误状态 -->
+    <main id="errorState" class="state-box hidden">
+        <div class="state-icon">🌸</div>
+
+        <div id="errorTitle" class="state-title">
+            暂时无法评价
+        </div>
+
+        <div id="errorDesc" class="state-desc"></div>
+
+        <button class="state-btn" onclick="goOrders()">
+            返回我的订单
+        </button>
+    </main>
+
+    <!-- 已评价状态 -->
+    <main id="completedState" class="state-box hidden">
+        <div class="state-icon">💗</div>
+
+        <div class="state-title">
+            这笔订单已经评价
+        </div>
+
+        <div class="state-desc">
+            感谢您的评价与支持。
+        </div>
+
+        <button class="state-btn" onclick="goOrders()">
+            返回我的订单
+        </button>
+    </main>
+
+    <!-- 评价主体 -->
+    <main id="reviewPage" class="content hidden">
+
+        <!-- 订单 -->
+        <section class="card">
+
+            <div class="card-title">
+                本次服务
+            </div>
+
+            <div
+                id="orderNo"
+                class="order-number"
+            >
+                订单
+            </div>
+
+            <div class="info-row">
+                <div class="info-label">
+                    服务商户
+                </div>
+
+                <div
+                    id="merchantName"
+                    class="info-value"
+                >
+                    -
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-label">
+                    服务项目
+                </div>
+
+                <div
+                    id="productName"
+                    class="info-value"
+                >
+                    -
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-label">
+                    实付金额
+                </div>
+
+                <div
+                    id="payableAmount"
+                    class="info-value amount"
+                >
+                    ¥0
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 星级 -->
+        <section class="card">
+
+            <div class="rating-section">
+
+                <div class="rating-title">
+                    您对本次服务满意吗？
+                </div>
+
+                <div class="rating-subtitle">
+                    点击星星进行评分
+                </div>
+
+                <div class="stars">
+
+                    <button
+                        class="star"
+                        data-value="1"
+                        onclick="setRating(1)"
+                        aria-label="1星"
+                    >
+                        ★
+                    </button>
+
+                    <button
+                        class="star"
+                        data-value="2"
+                        onclick="setRating(2)"
+                        aria-label="2星"
+                    >
+                        ★
+                    </button>
+
+                    <button
+                        class="star"
+                        data-value="3"
+                        onclick="setRating(3)"
+                        aria-label="3星"
+                    >
+                        ★
+                    </button>
+
+                    <button
+                        class="star"
+                        data-value="4"
+                        onclick="setRating(4)"
+                        aria-label="4星"
+                    >
+                        ★
+                    </button>
+
+                    <button
+                        class="star"
+                        data-value="5"
+                        onclick="setRating(5)"
+                        aria-label="5星"
+                    >
+                        ★
+                    </button>
+
+                </div>
+
+                <div
+                    id="ratingText"
+                    class="rating-text"
+                >
+                    请选择评分
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- 标签 -->
+        <section class="card">
+
+            <label class="field-label">
+                服务印象
+            </label>
+
+            <div class="tags">
+
+                <button
+                    class="tag"
+                    data-tag="服务专业"
+                    onclick="toggleTag(this)"
+                >
+                    服务专业
+                </button>
+
+                <button
+                    class="tag"
+                    data-tag="态度很好"
+                    onclick="toggleTag(this)"
+                >
+                    态度很好
+                </button>
+
+                <button
+                    class="tag"
+                    data-tag="耐心细致"
+                    onclick="toggleTag(this)"
+                >
+                    耐心细致
+                </button>
+
+                <button
+                    class="tag"
+                    data-tag="环境整洁"
+                    onclick="toggleTag(this)"
+                >
+                    环境整洁
+                </button>
+
+                <button
+                    class="tag"
+                    data-tag="准时守约"
+                    onclick="toggleTag(this)"
+                >
+                    准时守约
+                </button>
+
+                <button
+                    class="tag"
+                    data-tag="值得推荐"
+                    onclick="toggleTag(this)"
+                >
+                    值得推荐
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- 文字评价 -->
+        <section class="card">
+
+            <label
+                for="reviewContent"
+                class="field-label"
+            >
+                写下您的评价
+            </label>
+
+            <div class="textarea-wrap">
+
+                <textarea
+                    id="reviewContent"
+                    maxlength="500"
+                    placeholder="可以说说服务体验、专业程度、服务态度等……"
+                    oninput="updateCounter()"
+                ></textarea>
+
+                <div
+                    id="counter"
+                    class="counter"
+                >
+                    0 / 500
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- 匿名 -->
+        <section class="card">
+
+            <div class="anonymous-row">
+
+                <div>
+                    <div class="anonymous-title">
+                        匿名评价
+                    </div>
+
+                    <div class="anonymous-desc">
+                        开启后，对外展示评价时不显示您的客户身份。
+                    </div>
+                </div>
+
+                <label class="switch">
+
+                    <input
+                        id="anonymousSwitch"
+                        type="checkbox"
+                        checked
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+        </section>
+
+        <!-- 提交 -->
+        <button
+            id="submitBtn"
+            class="submit-btn"
+            onclick="submitReview()"
+        >
+            提交评价
+        </button>
+
+        <div class="tip">
+            每笔订单只能提交一次评价，请确认后提交。
+        </div>
+
+    </main>
+
+</div>
+
+<div
+    id="toast"
+    class="toast"
+></div>
+
+
+<script>
+    /* =========================================================
+       Supabase
+    ========================================================= */
+
+    const SUPABASE_URL =
+        "https://qbuqjwpkltbjhlfbyjyb.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+        "sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
+
+    const db = supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+
+    /* =========================================================
+       页面状态
+    ========================================================= */
+
+    let currentUser = null;
+
+    let currentCustomer = null;
+
+    let currentOrder = null;
+
+    let currentOrderItem = null;
+
+    let rating = 0;
+
+    let selectedTags = [];
+
+    let submitting = false;
+
+
+    /* =========================================================
+       页面启动
+    ========================================================= */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        initPage
+    );
+
+
+    async function initPage() {
+
+        try {
+
+            showLoading();
+
+            /* -------------------------
+               1. 登录状态
+            ------------------------- */
+
+            const {
+                data: authData,
+                error: authError
+            } = await db.auth.getUser();
+
+
+            if (
+                authError ||
+                !authData ||
+                !authData.user
+            ) {
+
+                window.location.replace(
+                    "./login.html"
+                );
+
+                return;
+            }
+
+
+            currentUser =
+                authData.user;
+
+
+            /* -------------------------
+               2. 当前客户
+            ------------------------- */
+
+            const {
+                data: customer,
+                error: customerError
+            } = await db
+                .from("customers")
+                .select(
+                    "id, customer_no, phone, nickname, status"
+                )
+                .eq(
+                    "id",
+                    currentUser.id
+                )
+                .maybeSingle();
+
+
+            if (
+                customerError ||
+                !customer
+            ) {
+
+                showError(
+                    "无法识别客户账户",
+                    "当前登录账户没有找到对应的客户资料，请重新登录。"
+                );
+
+                return;
+            }
+
+
+            if (
+                customer.status !== "active"
+            ) {
+
+                showError(
+                    "客户账户不可用",
+                    "当前客户账户已经不是有效状态。"
+                );
+
+                return;
+            }
+
+
+            currentCustomer =
+                customer;
+
+
+            /* -------------------------
+               3. 获取 order_id
+            ------------------------- */
+
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+
+            const rawOrderId =
+                params.get("order_id")
+                ||
+                params.get("id");
+
+
+            const orderId =
+                Number(rawOrderId);
+
+
+            if (
+                !Number.isInteger(orderId)
+                ||
+                orderId <= 0
+            ) {
+
+                showError(
+                    "没有找到订单",
+                    "当前页面缺少有效的订单编号。"
+                );
+
+                return;
+            }
+
+
+            /* -------------------------
+               4. 读取自己的订单
+            ------------------------- */
+
+            const {
+                data: order,
+                error: orderError
+            } = await db
+                .from("orders")
+                .select(`
+                    id,
+                    order_no,
+                    customer_id,
+                    merchant_id,
+                    merchant_no_snapshot,
+                    merchant_name_snapshot,
+                    total_amount,
+                    subtotal_amount,
+                    discount_amount,
+                    payable_amount,
+                    order_status,
+                    payment_status,
+                    review_status,
+                    completed_at,
+                    created_at
+                `)
+                .eq(
+                    "id",
+                    orderId
+                )
+                .eq(
+                    "customer_id",
+                    currentUser.id
+                )
+                .maybeSingle();
+
+
+            if (
+                orderError
+            ) {
+
+                console.error(
+                    "读取订单失败：",
+                    orderError
+                );
+
+                showError(
+                    "订单读取失败",
+                    orderError.message
+                );
+
+                return;
+            }
+
+
+            if (
+                !order
+            ) {
+
+                showError(
+                    "没有找到订单",
+                    "该订单不存在，或者不属于当前登录客户。"
+                );
+
+                return;
+            }
+
+
+            currentOrder =
+                order;
+
+
+            /* -------------------------
+               5. 判断是否已经评价
+            ------------------------- */
+
+            const {
+                data: existingReview,
+                error: reviewCheckError
+            } = await db
+                .from("reviews")
+                .select(
+                    "id, rating, created_at"
+                )
+                .eq(
+                    "order_id",
+                    order.id
+                )
+                .eq(
+                    "customer_id",
+                    currentUser.id
+                )
+                .maybeSingle();
+
+
+            if (
+                reviewCheckError
+            ) {
+
+                console.error(
+                    "检查评价失败：",
+                    reviewCheckError
+                );
+
+                showError(
+                    "评价状态读取失败",
+                    reviewCheckError.message
+                );
+
+                return;
+            }
+
+
+            if (
+                existingReview
+            ) {
+
+                showCompleted();
+
+                return;
+            }
+
+
+            /* -------------------------
+               6. 必须完成后评价
+            ------------------------- */
+
+            if (
+                !isOrderCompleted(order)
+            ) {
+
+                showError(
+                    "订单暂时不能评价",
+                    "服务完成后才可以提交评价。"
+                );
+
+                return;
+            }
+
+
+            /* -------------------------
+               7. 读取订单项目
+            ------------------------- */
+
+            const {
+                data: orderItems,
+                error: itemError
+            } = await db
+                .from("order_items")
+                .select(`
+                    id,
+                    order_id,
+                    product_id,
+                    product_code_snapshot,
+                    product_name_snapshot,
+                    product_type,
+                    quantity,
+                    unit_price,
+                    amount
+                `)
+                .eq(
+                    "order_id",
+                    order.id
+                )
+                .order(
+                    "id",
+                    {
+                        ascending: true
+                    }
+                );
+
+
+            if (
+                itemError
+            ) {
+
+                console.error(
+                    "读取订单项目失败：",
+                    itemError
+                );
+
+            }
+
+
+            currentOrderItem =
+                Array.isArray(orderItems)
+                && orderItems.length > 0
+                    ? orderItems[0]
+                    : null;
+
+
+            /* -------------------------
+               8. 显示页面
+            ------------------------- */
+
+            renderOrder();
+
+            showReviewPage();
+
+
+        } catch (error) {
+
+            console.error(
+                "页面初始化异常：",
+                error
+            );
+
+            showError(
+                "页面加载失败",
+                error?.message
+                || "请稍后重新尝试。"
+            );
+        }
+    }
+
+
+    /* =========================================================
+       订单是否完成
+    ========================================================= */
+
+    function isOrderCompleted(order) {
+
+        if (!order) {
+            return false;
+        }
+
+
+        /*
+          兼容目前可能存在的订单状态命名。
+          completed_at 有值时也视为已经完成。
+        */
+
+        if (order.completed_at) {
+            return true;
+        }
+
+
+        const status =
+            String(
+                order.order_status || ""
+            ).toLowerCase();
+
+
+        return [
+            "completed",
+            "finished",
+            "done"
+        ].includes(status);
+    }
+
+
+    /* =========================================================
+       渲染订单
+    ========================================================= */
+
+    function renderOrder() {
+
+        const orderNo =
+            currentOrder.order_no
+            || `#${currentOrder.id}`;
+
+
+        document.getElementById(
+            "orderNo"
+        ).textContent =
+            `订单号：${orderNo}`;
+
+
+        document.getElementById(
+            "merchantName"
+        ).textContent =
+            currentOrder.merchant_name_snapshot
+            || "服务商户";
+
+
+        document.getElementById(
+            "productName"
+        ).textContent =
+            currentOrderItem?.product_name_snapshot
+            || "服务项目";
+
+
+        const amount =
+            Number(
+                currentOrder.payable_amount
+                ??
+                currentOrder.total_amount
+                ??
+                0
+            );
+
+
+        document.getElementById(
+            "payableAmount"
+        ).textContent =
+            money(amount);
+    }
+
+
+    /* =========================================================
+       星级
+    ========================================================= */
+
+    function setRating(value) {
+
+        rating =
+            Number(value);
+
+
+        document
+            .querySelectorAll(".star")
+            .forEach(
+                star => {
+
+                    const starValue =
+                        Number(
+                            star.dataset.value
+                        );
+
+
+                    star.classList.toggle(
+                        "active",
+                        starValue <= rating
+                    );
+                }
+            );
+
+
+        const texts = {
+            1: "非常不满意",
+            2: "不太满意",
+            3: "基本满意",
+            4: "很满意",
+            5: "非常满意"
+        };
+
+
+        document.getElementById(
+            "ratingText"
+        ).textContent =
+            texts[rating]
+            || "请选择评分";
+    }
+
+
+    /* =========================================================
+       标签
+    ========================================================= */
+
+    function toggleTag(button) {
+
+        const tag =
+            button.dataset.tag;
+
+
+        if (!tag) {
+            return;
+        }
+
+
+        if (
+            selectedTags.includes(tag)
+        ) {
+
+            selectedTags =
+                selectedTags.filter(
+                    item => item !== tag
+                );
+
+            button.classList.remove(
+                "active"
+            );
+
+        } else {
+
+            selectedTags.push(tag);
+
+            button.classList.add(
+                "active"
+            );
+        }
+    }
+
+
+    /* =========================================================
+       字数
+    ========================================================= */
+
+    function updateCounter() {
+
+        const value =
+            document.getElementById(
+                "reviewContent"
+            ).value;
+
+
+        document.getElementById(
+            "counter"
+        ).textContent =
+            `${value.length} / 500`;
+    }
+
+
+    /* =========================================================
+       提交评价
+    ========================================================= */
+
+    async function submitReview() {
+
+        if (submitting) {
+            return;
+        }
+
+
+        if (
+            !currentUser
+            ||
+            !currentCustomer
+            ||
+            !currentOrder
+        ) {
+
+            toast(
+                "订单信息尚未准备完成"
+            );
+
+            return;
+        }
+
+
+        if (
+            rating < 1
+            ||
+            rating > 5
+        ) {
+
+            toast(
+                "请先选择1～5星评分"
+            );
+
+            return;
+        }
+
+
+        const content =
+            document
+                .getElementById(
+                    "reviewContent"
+                )
+                .value
+                .trim();
+
+
+        const isAnonymous =
+            document
+                .getElementById(
+                    "anonymousSwitch"
+                )
+                .checked;
+
+
+        submitting = true;
+
+        setSubmitState(true);
+
+
+        try {
+
+            /* -------------------------
+               再次检查是否已有评价
+               防止重复点击
+            ------------------------- */
+
+            const {
+                data: existingReview,
+                error: existingError
+            } = await db
+                .from("reviews")
+                .select("id")
+                .eq(
+                    "order_id",
+                    currentOrder.id
+                )
+                .eq(
+                    "customer_id",
+                    currentUser.id
+                )
+                .maybeSingle();
+
+
+            if (existingError) {
+                throw existingError;
+            }
+
+
+            if (existingReview) {
+
+                showCompleted();
+
+                return;
+            }
+
+
+            /* -------------------------
+               创建评价
+            ------------------------- */
+
+            const reviewPayload = {
+
+                order_id:
+                    currentOrder.id,
+
+                customer_id:
+                    currentUser.id,
+
+                merchant_id:
+                    currentOrder.merchant_id,
+
+                rating:
+                    rating,
+
+                content:
+                    content || null,
+
+                tags:
+                    selectedTags.length
+                        ? selectedTags
+                        : null,
+
+                is_anonymous:
+                    isAnonymous,
+
+                status:
+                    "active",
+
+                merchant_no_snapshot:
+                    currentOrder.merchant_no_snapshot
+                    ?? null,
+
+                merchant_name_snapshot:
+                    currentOrder.merchant_name_snapshot
+                    ?? null
+            };
+
+
+            const {
+                data: newReview,
+                error: insertError
+            } = await db
+                .from("reviews")
+                .insert(
+                    reviewPayload
+                )
+                .select(
+                    "id, order_id, rating, created_at"
+                )
+                .single();
+
+
+            if (insertError) {
+                throw insertError;
+            }
+
+
+            /* -------------------------
+               更新订单评价状态
+            ------------------------- */
+
+            const {
+                error: orderUpdateError
+            } = await db
+                .from("orders")
+                .update({
+                    review_status:
+                        "completed",
+                    updated_at:
+                        new Date().toISOString()
+                })
+                .eq(
+                    "id",
+                    currentOrder.id
+                )
+                .eq(
+                    "customer_id",
+                    currentUser.id
+                );
+
+
+            if (
+                orderUpdateError
+            ) {
+
+                console.warn(
+                    "评价已保存，但订单评价状态更新失败：",
+                    orderUpdateError
+                );
+            }
+
+
+            toast(
+                "评价提交成功，谢谢您的支持 🌷"
+            );
+
+
+            setTimeout(
+                () => {
+
+                    window.location.href =
+                        "./customer_orders.html";
+
+                },
+                900
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "提交评价失败：",
+                error
+            );
+
+
+            toast(
+                error?.message
+                || "评价提交失败，请重新尝试"
+            );
+
+
+        } finally {
+
+            submitting = false;
+
+            setSubmitState(false);
+        }
+    }
+
+
+    /* =========================================================
+       按钮状态
+    ========================================================= */
+
+    function setSubmitState(loading) {
+
+        const button =
+            document.getElementById(
+                "submitBtn"
+            );
+
+
+        button.disabled =
+            loading;
+
+
+        button.textContent =
+            loading
+                ? "正在提交评价..."
+                : "提交评价";
+    }
+
+
+    /* =========================================================
+       页面状态切换
+    ========================================================= */
+
+    function hideAllStates() {
+
+        document.getElementById(
+            "loadingState"
+        ).classList.add(
+            "hidden"
+        );
+
+
+        document.getElementById(
+            "errorState"
+        ).classList.add(
+            "hidden"
+        );
+
+
+        document.getElementById(
+            "completedState"
+        ).classList.add(
+            "hidden"
+        );
+
+
+        document.getElementById(
+            "reviewPage"
+        ).classList.add(
+            "hidden"
+        );
+    }
+
+
+    function showLoading() {
+
+        hideAllStates();
+
+        document.getElementById(
+            "loadingState"
+        ).classList.remove(
+            "hidden"
+        );
+    }
+
+
+    function showReviewPage() {
+
+        hideAllStates();
+
+        document.getElementById(
+            "reviewPage"
+        ).classList.remove(
+            "hidden"
+        );
+    }
+
+
+    function showCompleted() {
+
+        hideAllStates();
+
+        document.getElementById(
+            "completedState"
+        ).classList.remove(
+            "hidden"
+        );
+    }
+
+
+    function showError(
+        title,
+        description
+    ) {
+
+        hideAllStates();
+
+
+        document.getElementById(
+            "errorTitle"
+        ).textContent =
+            title
+            || "暂时无法评价";
+
+
+        document.getElementById(
+            "errorDesc"
+        ).textContent =
+            description
+            || "请稍后重新尝试。";
+
+
+        document.getElementById(
+            "errorState"
+        ).classList.remove(
+            "hidden"
+        );
+    }
+
+
+    /* =========================================================
+       Toast
+    ========================================================= */
+
+    let toastTimer = null;
+
+
+    function toast(message) {
+
+        const el =
+            document.getElementById(
+                "toast"
+            );
+
+
+        el.textContent =
+            message;
+
+
+        el.classList.add(
+            "show"
+        );
+
+
+        if (toastTimer) {
+
+            clearTimeout(
+                toastTimer
+            );
+        }
+
+
+        toastTimer =
+            setTimeout(
+                () => {
+
+                    el.classList.remove(
+                        "show"
+                    );
+
+                },
+                2800
+            );
+    }
+
+
+    /* =========================================================
+       工具
+    ========================================================= */
+
+    function money(value) {
+
+        const number =
+            Number(value || 0);
+
+
+        return `¥${number.toFixed(2)}`;
+    }
+
+
+    function goBack() {
+
+        if (
+            document.referrer
+            &&
+            document.referrer.includes(
+                window.location.hostname
+            )
+        ) {
+
+            history.back();
+
+        } else {
+
+            goOrders();
+        }
+    }
+
+
+    function goOrders() {
+
+        window.location.href =
+            "./customer_orders.html";
+    }
+</script>
+
+</body>
+</html>

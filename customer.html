@@ -50,6 +50,10 @@
             cursor: pointer;
         }
 
+        .hidden {
+            display: none !important;
+        }
+
         .app {
             width: 100%;
             max-width: 560px;
@@ -639,6 +643,232 @@
         }
 
         /* ================================
+           待评价窗口
+        ================================ */
+
+        .review-mask {
+            position: fixed;
+            inset: 0;
+            z-index: 5000;
+
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+
+            background: rgba(53,38,45,.45);
+
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .review-mask.show {
+            display: flex;
+        }
+
+        .review-sheet {
+            width: 100%;
+            max-width: 560px;
+            max-height: 78vh;
+
+            overflow-y: auto;
+
+            padding:
+                21px
+                17px
+                calc(20px + env(safe-area-inset-bottom));
+
+            border-radius:
+                28px
+                28px
+                0
+                0;
+
+            background: white;
+
+            box-shadow:
+                0 -10px 40px rgba(55,35,43,.13);
+        }
+
+        .review-sheet-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .review-sheet-title {
+            font-size: 18px;
+            font-weight: 900;
+            color: #543743;
+        }
+
+        .review-close {
+            width: 38px;
+            height: 38px;
+
+            flex-shrink: 0;
+
+            border: none;
+            border-radius: 50%;
+
+            background: #fff0f5;
+
+            color: #d85c86;
+
+            font-size: 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .review-sheet-desc {
+            margin-top: 6px;
+
+            font-size: 11px;
+            line-height: 1.6;
+
+            color: #a07e8b;
+        }
+
+        .review-list {
+            margin-top: 15px;
+
+            display: flex;
+            flex-direction: column;
+
+            gap: 10px;
+        }
+
+        .review-item {
+            padding: 15px;
+
+            border-radius: 18px;
+
+            background: #fff7fa;
+
+            border: 1px solid #f4dfe7;
+        }
+
+        .review-item-top {
+            display: flex;
+            justify-content: space-between;
+
+            gap: 10px;
+        }
+
+        .review-item-main {
+            min-width: 0;
+        }
+
+        .review-merchant {
+            font-size: 14px;
+            font-weight: 900;
+
+            color: #573a46;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .review-order-no {
+            margin-top: 4px;
+
+            font-size: 10px;
+
+            color: #aa8794;
+
+            word-break: break-all;
+        }
+
+        .review-star {
+            flex-shrink: 0;
+
+            font-size: 23px;
+        }
+
+        .review-info-row {
+            margin-top: 10px;
+
+            padding-top: 10px;
+
+            border-top: 1px solid #f2e2e8;
+
+            display: flex;
+            justify-content: space-between;
+
+            gap: 10px;
+
+            font-size: 11px;
+        }
+
+        .review-info-label {
+            color: #9c7b87;
+        }
+
+        .review-info-value {
+            color: #60424d;
+
+            font-weight: 700;
+
+            text-align: right;
+        }
+
+        .review-go-btn {
+            width: 100%;
+            min-height: 46px;
+
+            margin-top: 12px;
+
+            border: none;
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff719e,
+                    #ff92b2
+                );
+
+            color: white;
+
+            font-size: 13px;
+            font-weight: 900;
+        }
+
+        .review-empty {
+            padding: 28px 15px;
+
+            border-radius: 19px;
+
+            background: #fff7fa;
+
+            text-align: center;
+        }
+
+        .review-empty-icon {
+            font-size: 36px;
+        }
+
+        .review-empty-title {
+            margin-top: 8px;
+
+            font-size: 14px;
+            font-weight: 900;
+
+            color: #674653;
+        }
+
+        .review-empty-text {
+            margin-top: 5px;
+
+            font-size: 11px;
+
+            color: #9e7e8a;
+        }
+
+        /* ================================
            底部导航
         ================================ */
 
@@ -948,9 +1178,10 @@
             </button>
 
 
+            <!-- 修改：点击待评价打开窗口 -->
             <button
                 class="stat-card"
-                onclick="goPendingReviews()"
+                onclick="openPendingReviewWindow()"
             >
 
                 <div class="stat-icon">
@@ -1022,6 +1253,53 @@
         ></div>
 
     </section>
+
+</div>
+
+
+<!-- ========================================================
+     待评价窗口
+======================================================== -->
+
+<div
+    id="reviewMask"
+    class="review-mask"
+    onclick="reviewMaskClose(event)"
+>
+
+    <div
+        class="review-sheet"
+        onclick="event.stopPropagation()"
+    >
+
+        <div class="review-sheet-head">
+
+            <div class="review-sheet-title">
+                待评价订单
+            </div>
+
+            <button
+                class="review-close"
+                type="button"
+                onclick="closePendingReviewWindow()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="review-sheet-desc">
+            服务全部完成后，可对本次订单进行一次评价。
+        </div>
+
+
+        <div
+            id="pendingReviewList"
+            class="review-list"
+        ></div>
+
+    </div>
 
 </div>
 
@@ -1305,42 +1583,34 @@
 
     async function loadCustomerInfo() {
 
-        let customer = null;
+        /*
+         * 当前 customers.id 就是 auth.uid()
+         */
 
-
-        const byAuth =
+        const {
+            data,
+            error
+        } =
             await sb
                 .from("customers")
                 .select("*")
                 .eq(
-                    "auth_user_id",
+                    "id",
                     currentUser.id
                 )
                 .maybeSingle();
 
 
-        if (!byAuth.error) {
+        if (!error) {
 
-            customer =
-                byAuth.data;
+            currentCustomer =
+                data;
 
         }
 
 
-        /*
-         * 为兼容未来customers结构，
-         * 如果auth_user_id不存在，
-         * 页面仍然能够使用profiles。
-         */
-
-        currentCustomer =
-            customer;
-
-
         const name =
-            customer?.customer_name
-            ||
-            customer?.full_name
+            currentCustomer?.nickname
             ||
             currentProfile?.full_name
             ||
@@ -1354,7 +1624,7 @@
 
 
         const customerNo =
-            customer?.customer_no
+            currentCustomer?.customer_no
             ??
             currentProfile?.account_no
             ??
@@ -1379,11 +1649,7 @@
         const result =
             await sb
                 .from("orders")
-                .select(
-                    `
-                    *
-                    `
-                )
+                .select("*")
                 .eq(
                     "customer_id",
                     currentUser.id
@@ -1428,6 +1694,244 @@
 
 
     /* ========================================================
+       待评价订单
+    ======================================================== */
+
+    function getPendingReviewOrders() {
+
+        return currentOrders.filter(
+            order => {
+
+                return (
+                    order.order_status === "completed"
+                    &&
+                    order.review_status !== "completed"
+                );
+
+            }
+        );
+
+    }
+
+
+
+    function openPendingReviewWindow() {
+
+        const list =
+            getPendingReviewOrders();
+
+
+        renderPendingReviewList(
+            list
+        );
+
+
+        document
+            .getElementById(
+                "reviewMask"
+            )
+            .classList
+            .add("show");
+
+
+        document.body.style.overflow =
+            "hidden";
+
+    }
+
+
+
+    function closePendingReviewWindow() {
+
+        document
+            .getElementById(
+                "reviewMask"
+            )
+            .classList
+            .remove("show");
+
+
+        document.body.style.overflow =
+            "";
+
+    }
+
+
+
+    function reviewMaskClose(
+        event
+    ) {
+
+        if (
+            event.target.id ===
+            "reviewMask"
+        ) {
+
+            closePendingReviewWindow();
+
+        }
+
+    }
+
+
+
+    function renderPendingReviewList(
+        list
+    ) {
+
+        const box =
+            document.getElementById(
+                "pendingReviewList"
+            );
+
+
+        box.innerHTML =
+            "";
+
+
+        if (!list.length) {
+
+            box.innerHTML = `
+
+                <div class="review-empty">
+
+                    <div class="review-empty-icon">
+                        🌸
+                    </div>
+
+                    <div class="review-empty-title">
+                        暂无待评价订单
+                    </div>
+
+                    <div class="review-empty-text">
+                        服务全部完成后，待评价订单会显示在这里。
+                    </div>
+
+                </div>
+            `;
+
+
+            return;
+
+        }
+
+
+        list.forEach(
+            order => {
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                item.className =
+                    "review-item";
+
+
+                item.innerHTML = `
+
+                    <div class="review-item-top">
+
+                        <div class="review-item-main">
+
+                            <div class="review-merchant">
+                                ${escapeHtml(
+                                    order.merchant_name_snapshot
+                                    ||
+                                    "服务商户"
+                                )}
+                            </div>
+
+                            <div class="review-order-no">
+                                订单号：
+                                ${escapeHtml(
+                                    order.order_no
+                                    ||
+                                    order.id
+                                )}
+                            </div>
+
+                        </div>
+
+
+                        <div class="review-star">
+                            ⭐
+                        </div>
+
+                    </div>
+
+
+                    <div class="review-info-row">
+
+                        <span class="review-info-label">
+                            服务状态
+                        </span>
+
+                        <span class="review-info-value">
+                            已完成
+                        </span>
+
+                    </div>
+
+
+                    <div class="review-info-row">
+
+                        <span class="review-info-label">
+                            服务次数
+                        </span>
+
+                        <span class="review-info-value">
+                            ${Number(order.total_uses || 0)}
+                            次
+                        </span>
+
+                    </div>
+
+
+                    <div class="review-info-row">
+
+                        <span class="review-info-label">
+                            完成时间
+                        </span>
+
+                        <span class="review-info-value">
+                            ${escapeHtml(
+                                formatDateTime(
+                                    order.completed_at
+                                    ||
+                                    order.updated_at
+                                )
+                            )}
+                        </span>
+
+                    </div>
+
+
+                    <button
+                        class="review-go-btn"
+                        type="button"
+                        onclick="reviewOrder(
+                            '${safeId(order.id)}'
+                        )"
+                    >
+                        去评价
+                    </button>
+                `;
+
+
+                box.appendChild(
+                    item
+                );
+
+            }
+        );
+
+    }
+
+
+
+    /* ========================================================
        统计
     ======================================================== */
 
@@ -1462,17 +1966,8 @@
 
 
         const reviewCount =
-            currentOrders.filter(
-                order => {
-
-                    return (
-                        order.order_status === "completed"
-                        &&
-                        order.review_status !== "completed"
-                    );
-
-                }
-            ).length;
+            getPendingReviewOrders()
+                .length;
 
 
         document.getElementById(
@@ -1820,7 +2315,13 @@
         ) {
 
             return {
-                text: "已完成",
+                text:
+                    order.review_status === "completed"
+                    ?
+                    "已完成"
+                    :
+                    "待评价",
+
                 className:
                     "status-completed"
             };
@@ -1841,8 +2342,19 @@
         }
 
 
+        /*
+         * 兼容支付成功以后订单状态可能仍保持paid
+         */
         if (
             status === "paid"
+            ||
+            (
+                order.payment_status === "paid"
+                &&
+                Number(
+                    order.remaining_uses ?? 0
+                ) > 0
+            )
         ) {
 
             return {
@@ -1903,6 +2415,9 @@
             partially_refunded:
                 "部分退款",
 
+            partial_refund:
+                "部分退款",
+
             refunded:
                 "已退款"
 
@@ -1910,6 +2425,7 @@
 
 
         return map[status]
+            || status
             || "未支付";
 
     }
@@ -1956,22 +2472,20 @@
 
 
 
+    /*
+     * 兼容旧调用：
+     * 不再跳customer_orders，
+     * 直接打开待评价窗口。
+     */
     function goPendingReviews() {
 
-        window.location.href =
-            "./customer_orders.html?filter=review";
+        openPendingReviewWindow();
 
     }
 
 
 
     function goProfile() {
-
-        /*
-         * 1.0暂时仍停留客户首页。
-         * 后期建立customer_profile.html后
-         * 再跳转过去。
-         */
 
         toast(
             "个人中心将在下一阶段开放"
@@ -2003,6 +2517,11 @@
 
 
 
+    /*
+     * 正式评价页面：
+     *
+     * customer_review.html
+     */
     function reviewOrder(
         orderId
     ) {
@@ -2152,7 +2671,7 @@
 
         if (!value) {
 
-            return "";
+            return "-";
 
         }
 
@@ -2167,7 +2686,7 @@
             )
         ) {
 
-            return "";
+            return "-";
 
         }
 

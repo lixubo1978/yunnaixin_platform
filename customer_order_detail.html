@@ -245,16 +245,6 @@
             word-break: break-word;
         }
 
-        .price-value {
-            color: #ef5c8e;
-            font-size: 17px;
-            font-weight: 900;
-        }
-
-        .muted-value {
-            color: #a78c96;
-        }
-
         /* =========================
            次数
         ========================= */
@@ -314,7 +304,32 @@
         }
 
         /* =========================
-           底部按钮
+           支付成功提示
+        ========================= */
+
+        .paid-notice {
+            margin-top: 14px;
+            padding: 16px 18px;
+            border-radius: 18px;
+            background: #f1fff7;
+            border: 1px solid #ccefdc;
+        }
+
+        .paid-notice-title {
+            color: #268b58;
+            font-size: 16px;
+            font-weight: 900;
+        }
+
+        .paid-notice-text {
+            margin-top: 6px;
+            color: #6a8978;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           底部
         ========================= */
 
         .bottom-bar {
@@ -352,8 +367,10 @@
             box-shadow: 0 7px 20px rgba(239, 92, 142, 0.20);
         }
 
-        .primary-btn:active {
-            transform: scale(0.99);
+        .primary-btn:disabled {
+            cursor: default;
+            opacity: 0.58;
+            box-shadow: none;
         }
 
         .secondary-btn {
@@ -393,6 +410,7 @@
     <header class="header">
 
         <div class="header-side">
+
             <button
                 class="back-btn"
                 type="button"
@@ -400,6 +418,7 @@
             >
                 ← 返回
             </button>
+
         </div>
 
         <div class="header-title">
@@ -414,10 +433,12 @@
     <main class="content">
 
         <!-- 加载 -->
+
         <div
             id="loadingBox"
             class="loading-box"
         >
+
             <div class="loading-title">
                 正在读取订单
             </div>
@@ -425,14 +446,17 @@
             <div class="loading-text">
                 请稍候……
             </div>
+
         </div>
 
 
         <!-- 错误 -->
+
         <div
             id="errorBox"
             class="error-box hidden"
         >
+
             <div class="error-title">
                 无法读取订单
             </div>
@@ -443,16 +467,19 @@
             >
                 订单不存在或您没有查看权限。
             </div>
+
         </div>
 
 
-        <!-- 正常内容 -->
+        <!-- 正常订单 -->
+
         <div
             id="orderContent"
             class="hidden"
         >
 
             <!-- 状态 -->
+
             <section class="status-card">
 
                 <div class="status-label">
@@ -491,7 +518,26 @@
             </section>
 
 
-            <!-- 服务信息 -->
+            <!-- 支付成功提示 -->
+
+            <section
+                id="paidNotice"
+                class="paid-notice hidden"
+            >
+
+                <div class="paid-notice-title">
+                    ✓ 支付成功
+                </div>
+
+                <div class="paid-notice-text">
+                    本订单已经完成支付，可以按照订单约定到商户使用服务。
+                </div>
+
+            </section>
+
+
+            <!-- 服务 -->
+
             <section class="card">
 
                 <div class="card-title">
@@ -500,6 +546,7 @@
                 </div>
 
                 <div class="info-row">
+
                     <div class="info-label">
                         服务项目
                     </div>
@@ -510,9 +557,11 @@
                     >
                         -
                     </div>
+
                 </div>
 
                 <div class="info-row">
+
                     <div class="info-label">
                         服务编号
                     </div>
@@ -523,9 +572,11 @@
                     >
                         -
                     </div>
+
                 </div>
 
                 <div class="info-row">
+
                     <div class="info-label">
                         数量
                     </div>
@@ -536,9 +587,11 @@
                     >
                         -
                     </div>
+
                 </div>
 
                 <div class="info-row">
+
                     <div class="info-label">
                         下单单价
                     </div>
@@ -549,12 +602,14 @@
                     >
                         -
                     </div>
+
                 </div>
 
             </section>
 
 
             <!-- 商户 -->
+
             <section class="card">
 
                 <div class="card-title">
@@ -563,6 +618,7 @@
                 </div>
 
                 <div class="info-row">
+
                     <div class="info-label">
                         商户
                     </div>
@@ -573,9 +629,11 @@
                     >
                         -
                     </div>
+
                 </div>
 
                 <div class="info-row">
+
                     <div class="info-label">
                         商户编号
                     </div>
@@ -586,9 +644,11 @@
                     >
                         -
                     </div>
+
                 </div>
 
                 <div class="info-row">
+
                     <div class="info-label">
                         服务地址
                     </div>
@@ -599,12 +659,14 @@
                     >
                         -
                     </div>
+
                 </div>
 
             </section>
 
 
             <!-- 推荐来源 -->
+
             <section class="card">
 
                 <div class="card-title">
@@ -613,6 +675,7 @@
                 </div>
 
                 <div class="info-row">
+
                     <div class="info-label">
                         您通过什么渠道了解我们？
                     </div>
@@ -623,12 +686,14 @@
                     >
                         平台
                     </div>
+
                 </div>
 
                 <div
                     id="recommendationNoRow"
                     class="info-row hidden"
                 >
+
                     <div class="info-label">
                         推荐编号
                     </div>
@@ -639,12 +704,14 @@
                     >
                         -
                     </div>
+
                 </div>
 
             </section>
 
 
             <!-- 使用次数 -->
+
             <section class="card">
 
                 <div class="card-title">
@@ -655,6 +722,7 @@
                 <div class="usage-box">
 
                     <div class="usage-item">
+
                         <div
                             id="totalUses"
                             class="usage-number"
@@ -665,9 +733,11 @@
                         <div class="usage-label">
                             总次数
                         </div>
+
                     </div>
 
                     <div class="usage-item">
+
                         <div
                             id="usedUses"
                             class="usage-number"
@@ -678,9 +748,11 @@
                         <div class="usage-label">
                             已使用
                         </div>
+
                     </div>
 
                     <div class="usage-item">
+
                         <div
                             id="remainingUses"
                             class="usage-number"
@@ -691,6 +763,7 @@
                         <div class="usage-label">
                             剩余次数
                         </div>
+
                     </div>
 
                 </div>
@@ -699,6 +772,7 @@
 
 
             <!-- 金额 -->
+
             <section class="card">
 
                 <div class="card-title">
@@ -707,6 +781,7 @@
                 </div>
 
                 <div class="info-row">
+
                     <div class="info-label">
                         原价
                     </div>
@@ -717,9 +792,11 @@
                     >
                         ¥0.00
                     </div>
+
                 </div>
 
                 <div class="info-row">
+
                     <div class="info-label">
                         优惠比例
                     </div>
@@ -730,9 +807,11 @@
                     >
                         0%
                     </div>
+
                 </div>
 
                 <div class="info-row">
+
                     <div class="info-label">
                         优惠金额
                     </div>
@@ -741,8 +820,9 @@
                         id="discountAmount"
                         class="info-value"
                     >
-                        -¥0.00
+                        - ¥0.00
                     </div>
+
                 </div>
 
                 <div class="amount-summary">
@@ -768,6 +848,7 @@
 
 
             <!-- 订单信息 -->
+
             <section class="card">
 
                 <div class="card-title">
@@ -776,6 +857,7 @@
                 </div>
 
                 <div class="info-row">
+
                     <div class="info-label">
                         支付状态
                     </div>
@@ -786,9 +868,29 @@
                     >
                         未支付
                     </div>
+
+                </div>
+
+                <div
+                    id="paidAtRow"
+                    class="info-row hidden"
+                >
+
+                    <div class="info-label">
+                        支付时间
+                    </div>
+
+                    <div
+                        id="paidAt"
+                        class="info-value"
+                    >
+                        -
+                    </div>
+
                 </div>
 
                 <div class="info-row">
+
                     <div class="info-label">
                         下单时间
                     </div>
@@ -799,6 +901,7 @@
                     >
                         -
                     </div>
+
                 </div>
 
             </section>
@@ -807,6 +910,8 @@
 
     </main>
 
+
+    <!-- 底部 -->
 
     <div
         id="bottomBar"
@@ -817,7 +922,7 @@
             id="payButton"
             class="primary-btn"
             type="button"
-            onclick="paymentNotOpen()"
+            onclick="simulatePayment()"
         >
             去支付
         </button>
@@ -836,6 +941,7 @@
 
 
 <script>
+
     /* =========================================================
        Supabase
     ========================================================= */
@@ -845,6 +951,7 @@
 
     const SUPABASE_ANON_KEY =
         "sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
+
 
     const supabaseClient =
         window.supabase.createClient(
@@ -858,10 +965,17 @@
     ========================================================= */
 
     let currentUser = null;
+
     let currentOrder = null;
+
     let currentOrderItem = null;
 
-    const IDLE_TIMEOUT = 10 * 60 * 1000;
+    let paymentProcessing = false;
+
+
+    const IDLE_TIMEOUT =
+        10 * 60 * 1000;
+
 
     let idleTimer = null;
 
@@ -882,7 +996,10 @@
 
             startIdleTimer();
 
-            const orderId = getOrderId();
+
+            const orderId =
+                getOrderId();
+
 
             if (!orderId) {
 
@@ -898,7 +1015,9 @@
                 data: sessionData,
                 error: sessionError
             } =
-                await supabaseClient.auth.getSession();
+                await supabaseClient
+                    .auth
+                    .getSession();
 
 
             if (sessionError) {
@@ -914,6 +1033,7 @@
             if (!session?.user) {
 
                 redirectLogin();
+
                 return;
             }
 
@@ -936,7 +1056,9 @@
             }
 
 
-            await loadOrder(orderId);
+            await loadOrder(
+                orderId
+            );
 
 
         } catch (error) {
@@ -945,6 +1067,7 @@
                 "订单详情初始化失败：",
                 error
             );
+
 
             showError(
                 error?.message
@@ -956,7 +1079,7 @@
 
 
     /* =========================================================
-       读取 URL 订单ID
+       URL订单ID
     ========================================================= */
 
     function getOrderId() {
@@ -966,11 +1089,13 @@
                 window.location.search
             );
 
+
         const raw =
             params.get("id");
 
 
         if (!raw) {
+
             return null;
         }
 
@@ -984,6 +1109,7 @@
             ||
             id <= 0
         ) {
+
             return null;
         }
 
@@ -1026,22 +1152,24 @@
 
 
         if (!data) {
+
             return false;
         }
 
 
-        if (data.status !== "active") {
+        if (
+            data.status !== "active"
+        ) {
+
             return false;
         }
 
 
-        const isCustomer =
+        return (
             data.role === "customer"
             ||
-            data.user_type === "customer";
-
-
-        return isCustomer;
+            data.user_type === "customer"
+        );
     }
 
 
@@ -1050,16 +1178,6 @@
     ========================================================= */
 
     async function loadOrder(orderId) {
-
-        /*
-            这里明确同时限定：
-
-            id = 当前订单
-            customer_id = 当前登录客户
-
-            所以客户不能通过修改 URL 的 id
-            查看别人的订单。
-        */
 
         const {
             data: order,
@@ -1100,7 +1218,12 @@
                     subtotal_amount,
                     discount_rate,
                     discount_amount,
-                    payable_amount
+                    payable_amount,
+                    payment_method,
+                    payment_amount,
+                    payment_confirmed_at,
+                    wechat_transaction_id,
+                    wechat_out_trade_no
                 `)
                 .eq(
                     "id",
@@ -1137,7 +1260,7 @@
 
 
         /* =========================
-           读取订单明细
+           订单明细
         ========================= */
 
         const {
@@ -1201,31 +1324,49 @@
 
         renderOrder();
 
+
         document
-            .getElementById("loadingBox")
+            .getElementById(
+                "loadingBox"
+            )
             .classList
             .add("hidden");
 
+
         document
-            .getElementById("orderContent")
+            .getElementById(
+                "errorBox"
+            )
+            .classList
+            .add("hidden");
+
+
+        document
+            .getElementById(
+                "orderContent"
+            )
             .classList
             .remove("hidden");
 
+
         document
-            .getElementById("bottomBar")
+            .getElementById(
+                "bottomBar"
+            )
             .classList
             .remove("hidden");
     }
 
 
     /* =========================================================
-       显示订单
+       渲染订单
     ========================================================= */
 
     function renderOrder() {
 
         const order =
             currentOrder;
+
 
         const item =
             currentOrderItem;
@@ -1247,6 +1388,7 @@
             status.title
         );
 
+
         setText(
             "orderStatusDesc",
             status.description
@@ -1260,22 +1402,22 @@
 
 
         /* =========================
-           服务项目
+           服务
         ========================= */
 
         setText(
             "productName",
             item.product_name_snapshot
-            ||
-            "-"
+            || "-"
         );
+
 
         setText(
             "productCode",
             item.product_code_snapshot
-            ||
-            "-"
+            || "-"
         );
+
 
         setText(
             "quantity",
@@ -1283,6 +1425,7 @@
                 item.quantity
             )
         );
+
 
         setText(
             "unitPrice",
@@ -1299,22 +1442,21 @@
         setText(
             "merchantName",
             order.merchant_name_snapshot
-            ||
-            "-"
+            || "-"
         );
+
 
         setText(
             "merchantNo",
             order.merchant_no_snapshot
-            ??
-            "-"
+            ?? "-"
         );
+
 
         setText(
             "merchantAddress",
             order.merchant_address_snapshot
-            ||
-            "暂未填写"
+            || "暂未填写"
         );
 
 
@@ -1365,7 +1507,7 @@
 
 
         /* =========================
-           使用次数
+           次数
         ========================= */
 
         setText(
@@ -1375,12 +1517,14 @@
             )
         );
 
+
         setText(
             "usedUses",
             numberOrZero(
                 order.used_uses
             )
         );
+
 
         setText(
             "remainingUses",
@@ -1453,7 +1597,7 @@
 
 
         /* =========================
-           支付
+           支付信息
         ========================= */
 
         setText(
@@ -1472,9 +1616,71 @@
         );
 
 
+        if (
+            order.payment_status === "paid"
+        ) {
+
+            const paidTime =
+                order.paid_at
+                ||
+                order.payment_confirmed_at;
+
+
+            document
+                .getElementById(
+                    "paidAtRow"
+                )
+                .classList
+                .remove("hidden");
+
+
+            setText(
+                "paidAt",
+                formatDateTime(
+                    paidTime
+                )
+            );
+
+
+            document
+                .getElementById(
+                    "paidNotice"
+                )
+                .classList
+                .remove("hidden");
+
+        } else {
+
+            document
+                .getElementById(
+                    "paidAtRow"
+                )
+                .classList
+                .add("hidden");
+
+
+            document
+                .getElementById(
+                    "paidNotice"
+                )
+                .classList
+                .add("hidden");
+        }
+
+
         /* =========================
            支付按钮
         ========================= */
+
+        updatePayButton();
+    }
+
+
+    /* =========================================================
+       支付按钮
+    ========================================================= */
+
+    function updatePayButton() {
 
         const payButton =
             document.getElementById(
@@ -1483,7 +1689,8 @@
 
 
         if (
-            order.payment_status === "paid"
+            currentOrder.payment_status
+            === "paid"
         ) {
 
             payButton.textContent =
@@ -1492,25 +1699,185 @@
             payButton.disabled =
                 true;
 
-            payButton.style.opacity =
-                "0.55";
+            return;
+        }
 
-            payButton.style.cursor =
-                "default";
 
-        } else {
+        payButton.disabled =
+            false;
 
-            payButton.textContent =
-                "去支付";
 
-            payButton.disabled =
+        payButton.textContent =
+            "去支付";
+    }
+
+
+    /* =========================================================
+       开发环境模拟支付
+    ========================================================= */
+
+    async function simulatePayment() {
+
+        if (
+            paymentProcessing
+            ||
+            !currentOrder
+        ) {
+
+            return;
+        }
+
+
+        if (
+            currentOrder.payment_status
+            === "paid"
+        ) {
+
+            return;
+        }
+
+
+        const confirmed =
+            window.confirm(
+                "开发调试模式\n\n" +
+                "点击“确定”后，系统将模拟微信支付成功，" +
+                "并把本订单写入数据库为“已支付”。\n\n" +
+                "是否继续？"
+            );
+
+
+        if (!confirmed) {
+
+            return;
+        }
+
+
+        paymentProcessing =
+            true;
+
+
+        const payButton =
+            document.getElementById(
+                "payButton"
+            );
+
+
+        payButton.disabled =
+            true;
+
+
+        payButton.textContent =
+            "正在模拟支付...";
+
+
+        try {
+
+            /* =========================
+               调用数据库安全函数
+            ========================= */
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient
+                    .rpc(
+                        "dev_simulate_payment",
+                        {
+                            p_order_id:
+                                currentOrder.id
+                        }
+                    );
+
+
+            if (error) {
+
+                throw new Error(
+                    error.message
+                    ||
+                    "模拟支付失败"
+                );
+            }
+
+
+            if (
+                !data
+                ||
+                data.success !== true
+            ) {
+
+                throw new Error(
+                    data?.message
+                    ||
+                    "模拟支付没有成功"
+                );
+            }
+
+
+            /* =========================
+               成功提示
+            ========================= */
+
+            alert(
+                "支付成功！\n\n" +
+                "当前为开发阶段模拟微信支付。\n" +
+                "数据库已经写入支付成功状态。"
+            );
+
+
+            /* =========================
+               重新读取订单
+            ========================= */
+
+            await loadOrder(
+                currentOrder.id
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "模拟支付失败：",
+                error
+            );
+
+
+            alert(
+                "支付失败：\n\n" +
+                (
+                    error?.message
+                    ||
+                    "未知错误"
+                )
+            );
+
+
+        } finally {
+
+            paymentProcessing =
                 false;
+
+
+            if (
+                currentOrder
+                &&
+                currentOrder.payment_status
+                !== "paid"
+            ) {
+
+                payButton.disabled =
+                    false;
+
+
+                payButton.textContent =
+                    "去支付";
+            }
         }
     }
 
 
     /* =========================================================
-       订单状态显示
+       订单状态
     ========================================================= */
 
     function getOrderStatusDisplay(
@@ -1539,12 +1906,14 @@
             return {
                 title: "已支付",
                 description:
-                    "订单已经支付，请按照订单约定使用服务。"
+                    "订单已经支付，请按照订单约定到商户使用服务。"
             };
         }
 
 
-        switch (orderStatus) {
+        switch (
+            orderStatus
+        ) {
 
             case "pending_payment":
 
@@ -1552,6 +1921,15 @@
                     title: "待支付",
                     description:
                         "订单已经创建，请核对订单信息后完成支付。"
+                };
+
+
+            case "paid":
+
+                return {
+                    title: "已支付",
+                    description:
+                        "订单已经支付，请按照订单约定到商户使用服务。"
                 };
 
 
@@ -1614,21 +1992,32 @@
         status
     ) {
 
-        switch (status) {
+        switch (
+            status
+        ) {
 
             case "unpaid":
+
                 return "未支付";
 
+
             case "paid":
+
                 return "已支付";
 
+
             case "partial_refund":
+
                 return "部分退款";
 
+
             case "refunded":
+
                 return "已退款";
 
+
             default:
+
                 return status || "-";
         }
     }
@@ -1642,33 +2031,44 @@
         type
     ) {
 
-        switch (type) {
+        switch (
+            type
+        ) {
 
             case "merchant":
+
                 return "商户推荐";
 
+
             case "health_consultant":
+
                 return "健康顾问";
+
 
             case "platform":
             default:
+
                 return "平台";
         }
     }
 
 
     /* =========================================================
-       金额格式
+       金额
     ========================================================= */
 
-    function formatMoney(value) {
+    function formatMoney(
+        value
+    ) {
 
         const number =
             Number(value);
 
 
         if (
-            !Number.isFinite(number)
+            !Number.isFinite(
+                number
+            )
         ) {
 
             return "¥0.00";
@@ -1682,7 +2082,9 @@
     }
 
 
-    function formatDiscountRate(value) {
+    function formatDiscountRate(
+        value
+    ) {
 
         const number =
             Number(value);
@@ -1697,13 +2099,6 @@
             return "0%";
         }
 
-
-        /*
-            兼容：
-
-            0.05  -> 5%
-            5     -> 5%
-        */
 
         const percentage =
             number <= 1
@@ -1723,27 +2118,38 @@
     }
 
 
-    function trimNumber(value) {
+    function trimNumber(
+        value
+    ) {
 
         const number =
             Number(value);
 
 
         if (
-            Number.isInteger(number)
+            Number.isInteger(
+                number
+            )
         ) {
 
-            return String(number);
+            return String(
+                number
+            );
         }
 
 
         return number
             .toFixed(2)
-            .replace(/\.?0+$/, "");
+            .replace(
+                /\.?0+$/,
+                ""
+            );
     }
 
 
-    function firstNumber(...values) {
+    function firstNumber(
+        ...values
+    ) {
 
         for (
             const value of values
@@ -1756,6 +2162,7 @@
                 ||
                 value === ""
             ) {
+
                 continue;
             }
 
@@ -1765,7 +2172,9 @@
 
 
             if (
-                Number.isFinite(number)
+                Number.isFinite(
+                    number
+                )
             ) {
 
                 return number;
@@ -1777,14 +2186,18 @@
     }
 
 
-    function numberOrZero(value) {
+    function numberOrZero(
+        value
+    ) {
 
         const number =
             Number(value);
 
 
         if (
-            !Number.isFinite(number)
+            !Number.isFinite(
+                number
+            )
         ) {
 
             return 0;
@@ -1795,14 +2208,18 @@
     }
 
 
-    function formatQuantity(value) {
+    function formatQuantity(
+        value
+    ) {
 
         const number =
             Number(value);
 
 
         if (
-            !Number.isFinite(number)
+            !Number.isFinite(
+                number
+            )
         ) {
 
             return "-";
@@ -1810,7 +2227,9 @@
 
 
         return (
-            trimNumber(number)
+            trimNumber(
+                number
+            )
             +
             " 份"
         );
@@ -1821,9 +2240,12 @@
        时间
     ========================================================= */
 
-    function formatDateTime(value) {
+    function formatDateTime(
+        value
+    ) {
 
         if (!value) {
+
             return "-";
         }
 
@@ -1867,10 +2289,13 @@
     ) {
 
         const element =
-            document.getElementById(id);
+            document.getElementById(
+                id
+            );
 
 
         if (!element) {
+
             return;
         }
 
@@ -1892,28 +2317,38 @@
        错误
     ========================================================= */
 
-    function showError(message) {
+    function showError(
+        message
+    ) {
 
         document
-            .getElementById("loadingBox")
+            .getElementById(
+                "loadingBox"
+            )
             .classList
             .add("hidden");
 
 
         document
-            .getElementById("orderContent")
+            .getElementById(
+                "orderContent"
+            )
             .classList
             .add("hidden");
 
 
         document
-            .getElementById("bottomBar")
+            .getElementById(
+                "bottomBar"
+            )
             .classList
             .add("hidden");
 
 
         document
-            .getElementById("errorBox")
+            .getElementById(
+                "errorBox"
+            )
             .classList
             .remove("hidden");
 
@@ -1932,7 +2367,9 @@
     function goBack() {
 
         if (
-            window.history.length > 1
+            window.history.length
+            >
+            1
         ) {
 
             window.history.back();
@@ -1948,19 +2385,6 @@
 
         window.location.href =
             "./customer.html";
-    }
-
-
-    /* =========================================================
-       支付
-       1.0 暂不接支付
-    ========================================================= */
-
-    function paymentNotOpen() {
-
-        alert(
-            "订单已经创建成功。\n\n1.0版本支付功能下一步接入。"
-        );
     }
 
 
@@ -2013,7 +2437,9 @@
 
     function resetIdleTimer() {
 
-        if (idleTimer) {
+        if (
+            idleTimer
+        ) {
 
             clearTimeout(
                 idleTimer
@@ -2037,6 +2463,7 @@
                 .auth
                 .signOut();
 
+
         } catch (error) {
 
             console.error(
@@ -2044,12 +2471,14 @@
                 error
             );
 
+
         } finally {
 
             window.location.href =
                 "./login.html?reason=idle";
         }
     }
+
 </script>
 
 </body>

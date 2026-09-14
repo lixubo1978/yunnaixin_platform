@@ -25,7 +25,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-
 <style>
 
 * {
@@ -848,8 +847,8 @@ button {
 
     <div class="login-description">
 
-        使用手机号码登录。
-        已注册客户可通过短信验证码登录。
+        使用手机号码登录。首次登录会自动创建客户账号，
+        已有客户直接进入原账号。客户账号全国通用，不受城市限制。
 
     </div>
 
@@ -1338,7 +1337,7 @@ initializeSupabase();
 
 
 /* =========================================================
-   各角色登录成功后的页面
+   页面
 ========================================================= */
 
 const PAGE_PLATFORM =
@@ -1347,10 +1346,6 @@ const PAGE_PLATFORM =
 const PAGE_MERCHANT =
     './merchantplatform.html';
 
-/*
-健康顾问专用工作台。
-下一步我们建立这个页面。
-*/
 const PAGE_HEALTH_CONSULTANT =
     './healthconsultant.html';
 
@@ -1524,6 +1519,13 @@ async function sendOtp() {
 
                 options:{
 
+                    /*
+                     * 手机号不存在：
+                     * 自动创建Supabase Auth用户
+                     *
+                     * 手机号已经存在：
+                     * 直接向原用户发送登录验证码
+                     */
                     shouldCreateUser:
                         true
 
@@ -1665,13 +1667,63 @@ function updateOtpButton() {
 
 
 /* =========================================================
+   确保客户业务记录存在
+
+   全国唯一客户：
+   不按省、市、区县搜索或建立客户
+========================================================= */
+
+async function ensureCustomerRecord(
+    phone
+) {
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient.rpc(
+        'ensure_customer_record',
+        {
+            p_phone:
+                phone
+        }
+    );
+
+
+    if (error) {
+
+        console.error(
+            'ensure_customer_record失败：',
+            error
+        );
+
+        throw error;
+    }
+
+
+    if (
+        !data ||
+        data.success !== true
+    ) {
+
+        throw new Error(
+            '客户资料初始化失败。'
+        );
+    }
+
+
+    console.log(
+        '客户业务资料：',
+        data
+    );
+
+
+    return data;
+}
+
+
+/* =========================================================
    查询当前用户资料
-
-   当前正式依据：
-   profiles.role
-   profiles.status
-
-   不依赖 user_type 判断跳转
 ========================================================= */
 
 async function getCurrentProfile() {
@@ -1788,8 +1840,6 @@ function redirectByRole(
     );
 
 
-    /* 平台人员 */
-
     if (
         PLATFORM_ROLES.includes(
             role
@@ -1804,8 +1854,6 @@ function redirectByRole(
     }
 
 
-    /* 商户 */
-
     if (
         role ===
         'merchant'
@@ -1819,8 +1867,6 @@ function redirectByRole(
     }
 
 
-    /* 健康顾问 */
-
     if (
         role ===
         'health_consultant'
@@ -1833,8 +1879,6 @@ function redirectByRole(
         return;
     }
 
-
-    /* 客户 */
 
     if (
         role ===
@@ -1940,6 +1984,11 @@ async function customerLogin() {
 
     try {
 
+        /* =================================================
+           第一步：
+           手机验证码验证
+        ================================================= */
+
         const {
             data,
             error
@@ -1973,6 +2022,34 @@ async function customerLogin() {
         }
 
 
+        /* =================================================
+           第二步：
+           全国范围确保客户业务记录存在
+
+           已有客户：
+           返回原customers记录
+
+           新客户：
+           创建customers记录和customer_no
+        ================================================= */
+
+        const customerResult =
+            await ensureCustomerRecord(
+                phone
+            );
+
+
+        console.log(
+            '客户登录业务结果：',
+            customerResult
+        );
+
+
+        /* =================================================
+           第三步：
+           再次确认角色
+        ================================================= */
+
         const role =
             await getCurrentUserRole();
 
@@ -1987,13 +2064,43 @@ async function customerLogin() {
 
 
             throw new Error(
-                '该账号不是客户账号，请使用邮箱密码登录入口。'
+                '该手机账号不是客户账号，请使用商户 / 顾问 / 管理入口登录。'
             );
         }
 
 
-        window.location.replace(
-            PAGE_CUSTOMER
+        /* =================================================
+           第四步：
+           登录成功
+        ================================================= */
+
+        showMessage(
+
+            customerMessage,
+
+            customerResult.created
+                ?
+                `注册成功，您的客户编号为 ${customerResult.customer_no}。`
+                :
+                '登录成功。',
+
+            'success'
+
+        );
+
+
+        setTimeout(
+
+            function () {
+
+                window.location.replace(
+                    PAGE_CUSTOMER
+                );
+
+            },
+
+            350
+
         );
     }
 
@@ -2003,6 +2110,38 @@ async function customerLogin() {
             '客户登录失败：',
             error
         );
+
+
+        /*
+         * 如果业务记录初始化失败，
+         * 清除当前可能产生的Session。
+         */
+        try {
+
+            const {
+                data
+            } =
+            await supabaseClient.auth
+                .getSession();
+
+
+            if (
+                data &&
+                data.session
+            ) {
+
+                await supabaseClient.auth
+                    .signOut();
+            }
+
+        }
+
+        catch (signOutError) {
+
+            console.error(
+                signOutError
+            );
+        }
 
 
         showMessage(
@@ -2150,18 +2289,9 @@ async function businessLogin() {
         }
 
 
-        /*
-        从 profiles.role
-        判断正式角色
-        */
-
         const role =
             await getCurrentUserRole();
 
-
-        /*
-        平台角色
-        */
 
         if (
             PLATFORM_ROLES.includes(
@@ -2177,10 +2307,6 @@ async function businessLogin() {
         }
 
 
-        /*
-        商户
-        */
-
         if (
             role ===
             'merchant'
@@ -2194,10 +2320,6 @@ async function businessLogin() {
         }
 
 
-        /*
-        健康顾问
-        */
-
         if (
             role ===
             'health_consultant'
@@ -2210,10 +2332,6 @@ async function businessLogin() {
             return;
         }
 
-
-        /*
-        客户不能使用邮箱入口
-        */
 
         if (
             role ===
@@ -2246,10 +2364,6 @@ async function businessLogin() {
             error
         );
 
-
-        /*
-        出错后清除可能存在的Session
-        */
 
         try {
 
@@ -2428,6 +2542,34 @@ function getReadableError(
     ) {
 
         return '操作过于频繁，请稍后再试。';
+    }
+
+
+    if (
+        message.includes(
+            'already bound'
+        )
+        ||
+        message.includes(
+            '已经绑定'
+        )
+    ) {
+
+        return '该手机号已经绑定其他客户账号，请联系平台处理。';
+    }
+
+
+    if (
+        message.includes(
+            'customer'
+        )
+        &&
+        message.includes(
+            'permission'
+        )
+    ) {
+
+        return '客户资料初始化权限异常，请联系平台管理员。';
     }
 
 
@@ -2642,6 +2784,41 @@ async function autoRedirectExistingSession() {
         ) {
 
             return;
+        }
+
+
+        const user =
+            data.session.user;
+
+
+        /*
+         * 手机号用户：
+         * 自动确保customers记录存在。
+         *
+         * 这样即使客户过去已经登录过，
+         * 但旧数据库中没有customers记录，
+         * 也会在这里自动补齐。
+         */
+        if (
+            user &&
+            user.phone
+        ) {
+
+            try {
+
+                await ensureCustomerRecord(
+                    user.phone
+                );
+
+            }
+
+            catch (customerError) {
+
+                console.error(
+                    '自动补齐客户记录失败：',
+                    customerError
+                );
+            }
         }
 
 

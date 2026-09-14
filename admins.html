@@ -2176,20 +2176,11 @@ function roleLabel(role){
 
     return {
 
-        founder:
-            "创始人",
-
-        platform_admin:
-            "平台管理员",
-
-        platform_staff:
-            "平台员工",
-
-        province_admin:
-            "省管理员",
-
-        city_admin:
-            "市管理员"
+        founder:"创始人",
+        platform_admin:"平台管理员",
+        platform_staff:"平台员工",
+        province_admin:"省管理员",
+        city_admin:"市管理员"
 
     }[role] || role || "—";
 }
@@ -2240,31 +2231,46 @@ function merchantTypeLabel(type){
 
 function getProvinceName(id){
 
-    return provinces.find(
-        row =>
-            String(row.id) ===
-            String(id)
-    )?.province_name || "—";
+    const row =
+        provinces.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+    return row
+        ? row.province_name
+        : "";
 }
 
 
 function getCityName(id){
 
-    return cities.find(
-        row =>
-            String(row.id) ===
-            String(id)
-    )?.city_name || "—";
+    const row =
+        cities.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+    return row
+        ? row.city_name
+        : "";
 }
 
 
 function getDistrictName(id){
 
-    return districts.find(
-        row =>
-            String(row.id) ===
-            String(id)
-    )?.district_name || "—";
+    const row =
+        districts.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+    return row
+        ? row.district_name
+        : "";
 }
 
 
@@ -2280,26 +2286,108 @@ function getAssignment(userId){
 }
 
 
+/* =========================================================
+   服务区域名称
+   关键修复：
+   service_areas只保存ID时，
+   自动从provinces/cities/districts读取中文名称
+========================================================= */
+
 function serviceAreaLabel(area){
 
     if(!area){
         return "—";
     }
 
-    return [
 
-        area.area_code,
-        area.province_name,
-        area.city_name,
-        area.district_name,
+    const provinceName =
+        area.province_name
+        ||
+        getProvinceName(
+            area.province_id
+        );
+
+
+    const cityName =
+        area.city_name
+        ||
+        getCityName(
+            area.city_id
+        );
+
+
+    const districtName =
+        area.district_name
+        ||
+        getDistrictName(
+            area.district_id
+        );
+
+
+    const areaCode =
+        area.area_code
+        ||
+        area.area_no
+        ||
+        "";
+
+
+    const parts = [];
+
+
+    if(areaCode){
+        parts.push(
+            areaCode
+        );
+    }
+
+
+    if(provinceName){
+        parts.push(
+            provinceName
+        );
+    }
+
+
+    if(cityName){
+        parts.push(
+            cityName
+        );
+    }
+
+
+    if(districtName){
+        parts.push(
+            districtName
+        );
+    }
+
+
+    if(
+        parts.length === 0
+        &&
         area.area_name
+    ){
+        parts.push(
+            area.area_name
+        );
+    }
 
-    ]
-    .filter(Boolean)
-    .slice(0,4)
-    .join(" · ")
-    ||
-    "—";
+
+    if(
+        parts.length === 0
+    ){
+
+        return "服务区域 #" +
+            area.id;
+
+    }
+
+
+    return parts.join(
+        " · "
+    );
+
 }
 
 
@@ -2312,9 +2400,11 @@ function getServiceAreaName(id){
                 String(id)
         );
 
+
     return serviceAreaLabel(
         area
     );
+
 }
 
 
@@ -2350,8 +2440,7 @@ async function callSystemUser(
             "/functions/v1/create-system-user",
             {
 
-                method:
-                    "POST",
+                method:"POST",
 
                 headers:{
 
@@ -2411,8 +2500,6 @@ async function callSystemUser(
 
     return result;
 }
-
-
     /* 初始化 */
 
 async function initialize(){
@@ -2607,8 +2694,6 @@ function goHome(){
 }
 
 
-/* 10分钟退出 */
-
 function setupInactivityLogout(){
 
     const reset = () => {
@@ -2669,13 +2754,19 @@ function setupInactivityLogout(){
 
 async function loadAllData(){
 
+    /*
+        这里必须先加载省市区，
+        再生成服务区域名称。
+    */
+
+    await loadRegions();
+
     await Promise.all([
 
         loadProfiles(),
         loadMerchants(),
         loadConsultants(),
         loadAssignments(),
-        loadRegions(),
         loadServiceAreas()
 
     ]);
@@ -2903,21 +2994,20 @@ async function loadServiceAreas(){
 
 function populateServiceAreas(){
 
-    const html = [
-
+    const html =
         `<option value="">
             请选择服务区域
-        </option>`,
-
-        ...serviceAreas.map(
+        </option>`
+        +
+        serviceAreas.map(
             row => `
                 <option value="${row.id}">
-                    ${escapeHtml(serviceAreaLabel(row))}
+                    ${escapeHtml(
+                        serviceAreaLabel(row)
+                    )}
                 </option>
             `
-        )
-
-    ].join("");
+        ).join("");
 
 
     document.getElementById(
@@ -3113,15 +3203,15 @@ function renderStaff(){
                         </td>
 
                         <td>
-                            ${escapeHtml(getProvinceName(assignment?.province_id))}
+                            ${escapeHtml(getProvinceName(assignment?.province_id) || "—")}
                         </td>
 
                         <td>
-                            ${escapeHtml(getCityName(assignment?.city_id))}
+                            ${escapeHtml(getCityName(assignment?.city_id) || "—")}
                         </td>
 
                         <td>
-                            ${escapeHtml(getDistrictName(assignment?.district_id))}
+                            ${escapeHtml(getDistrictName(assignment?.district_id) || "—")}
                         </td>
 
                         <td>
@@ -3176,31 +3266,6 @@ function renderStaff(){
         "hidden",
         list.length > 0
     );
-
-
-    document.getElementById(
-        "staffMobileList"
-    ).innerHTML =
-        list.map(
-            row => `
-                <div class="mobile-card">
-
-                    <div class="mobile-number">
-                        ${escapeHtml(row.staff_no ?? "—")}
-                    </div>
-
-                    <div class="mobile-card-name">
-                        ${escapeHtml(row.full_name || "—")}
-                    </div>
-
-                    <div class="mobile-card-email">
-                        ${escapeHtml(row.login_email || row.email || "—")}
-                    </div>
-
-                </div>
-            `
-        )
-        .join("");
 
 }
 
@@ -3380,31 +3445,6 @@ function renderMerchants(){
         "hidden",
         list.length > 0
     );
-
-
-    document.getElementById(
-        "merchantMobileList"
-    ).innerHTML =
-        list.map(
-            row => `
-                <div class="mobile-card">
-
-                    <div class="mobile-number">
-                        ${escapeHtml(row.record_no ?? "—")}
-                    </div>
-
-                    <div class="mobile-card-name">
-                        ${escapeHtml(row.merchant_name || "—")}
-                    </div>
-
-                    <div class="mobile-card-email">
-                        ${escapeHtml(row.phone || row.contact_phone || "—")}
-                    </div>
-
-                </div>
-            `
-        )
-        .join("");
 
 }
 
@@ -3601,7 +3641,7 @@ function renderConsultants(){
 }
 
 
-/* Modal通用 */
+/* Modal */
 
 function openModal(id){
 
@@ -3624,8 +3664,6 @@ function closeModal(id){
 
 }
 
-
-/* 人员区域 */
 
 function populateProvinceSelect(){
 
@@ -3754,9 +3792,7 @@ function staffCityChanged(){
 
 function openStaffModal(){
 
-    editingStaffId =
-        null;
-
+    editingStaffId = null;
 
     document.getElementById(
         "staffModalTitle"
@@ -3777,22 +3813,17 @@ function openStaffModal(){
 
     document.getElementById(
         "staffRole"
-    ).value =
-        "";
+    ).value = "";
 
 
     document.getElementById(
         "staffEmailGroup"
-    ).classList.remove(
-        "hidden"
-    );
+    ).classList.remove("hidden");
 
 
     document.getElementById(
         "staffPasswordGroup"
-    ).classList.remove(
-        "hidden"
-    );
+    ).classList.remove("hidden");
 
 
     document.getElementById(
@@ -3802,7 +3833,6 @@ function openStaffModal(){
 
 
     populateProvinceSelect();
-
     staffRoleChanged();
 
     openModal(
@@ -3857,20 +3887,15 @@ function editStaff(id){
 
     document.getElementById(
         "staffEmailGroup"
-    ).classList.add(
-        "hidden"
-    );
+    ).classList.add("hidden");
 
 
     document.getElementById(
         "staffPasswordGroup"
-    ).classList.add(
-        "hidden"
-    );
+    ).classList.add("hidden");
 
 
     populateProvinceSelect();
-
     staffRoleChanged();
 
 
@@ -4007,39 +4032,6 @@ async function saveStaff(){
     }
 
 
-    if(
-        role === "province_admin"
-        &&
-        !provinceId
-    ){
-
-        showToast(
-            "请选择省份。",
-            "error"
-        );
-
-        return;
-    }
-
-
-    if(
-        role === "city_admin"
-        &&
-        (
-            !provinceId ||
-            !cityId
-        )
-    ){
-
-        showToast(
-            "请选择省份和城市。",
-            "error"
-        );
-
-        return;
-    }
-
-
     const button =
         document.getElementById(
             "saveStaffButton"
@@ -4060,8 +4052,7 @@ async function saveStaff(){
 
         await callSystemUser({
 
-            account_type:
-                "management",
+            account_type:"management",
 
             action:
                 editingStaffId
@@ -4071,8 +4062,7 @@ async function saveStaff(){
             record_id:
                 editingStaffId || undefined,
 
-            full_name:
-                name,
+            full_name:name,
 
             email:
                 editingStaffId
@@ -4109,14 +4099,6 @@ async function saveStaff(){
         });
 
 
-        showToast(
-            editingStaffId
-                ? "人员资料已更新。"
-                : "公司人员创建成功。",
-            "success"
-        );
-
-
         closeModal(
             "staffModal"
         );
@@ -4129,6 +4111,14 @@ async function saveStaff(){
 
 
         renderStaff();
+
+
+        showToast(
+            editingStaffId
+                ? "人员资料已更新。"
+                : "公司人员创建成功。",
+            "success"
+        );
 
     }
     catch(error){
@@ -4170,14 +4160,9 @@ async function invalidateStaff(id){
 
         await callSystemUser({
 
-            account_type:
-                "management",
-
-            action:
-                "invalidate",
-
-            record_id:
-                id
+            account_type:"management",
+            action:"invalidate",
+            record_id:id
 
         });
 
@@ -4189,6 +4174,7 @@ async function invalidateStaff(id){
 
 
         renderStaff();
+
 
         showToast(
             "已设为无效。",
@@ -4212,8 +4198,7 @@ async function invalidateStaff(id){
 
 function openMerchantModal(){
 
-    editingMerchantId =
-        null;
+    editingMerchantId = null;
 
 
     [
@@ -4243,22 +4228,17 @@ function openMerchantModal(){
 
     document.getElementById(
         "merchantServiceArea"
-    ).value =
-        "";
+    ).value = "";
 
 
     document.getElementById(
         "merchantEmailGroup"
-    ).classList.remove(
-        "hidden"
-    );
+    ).classList.remove("hidden");
 
 
     document.getElementById(
         "merchantPasswordGroup"
-    ).classList.remove(
-        "hidden"
-    );
+    ).classList.remove("hidden");
 
 
     document.getElementById(
@@ -4328,7 +4308,9 @@ function editMerchant(id){
     document.getElementById(
         "merchantServiceArea"
     ).value =
-        row.service_area_id || "";
+        String(
+            row.service_area_id || ""
+        );
 
 
     document.getElementById(
@@ -4369,16 +4351,12 @@ function editMerchant(id){
 
     document.getElementById(
         "merchantEmailGroup"
-    ).classList.add(
-        "hidden"
-    );
+    ).classList.add("hidden");
 
 
     document.getElementById(
         "merchantPasswordGroup"
-    ).classList.add(
-        "hidden"
-    );
+    ).classList.add("hidden");
 
 
     document.getElementById(
@@ -4528,7 +4506,7 @@ async function saveMerchant(){
     ){
 
         showToast(
-            "请输入正确经度，范围 -180 到 180。",
+            "请输入正确经度。",
             "error"
         );
 
@@ -4545,7 +4523,7 @@ async function saveMerchant(){
     ){
 
         showToast(
-            "请输入正确纬度，范围 -90 到 90。",
+            "请输入正确纬度。",
             "error"
         );
 
@@ -4591,8 +4569,7 @@ async function saveMerchant(){
 
         await callSystemUser({
 
-            account_type:
-                "merchant",
+            account_type:"merchant",
 
             action:
                 editingMerchantId
@@ -4633,8 +4610,7 @@ async function saveMerchant(){
 
             latitude,
 
-            coordinate_system:
-                "BD09",
+            coordinate_system:"BD09",
 
             bank_name:
                 bankName || null,
@@ -4705,14 +4681,9 @@ async function invalidateMerchant(id){
 
         await callSystemUser({
 
-            account_type:
-                "merchant",
-
-            action:
-                "invalidate",
-
-            record_id:
-                id
+            account_type:"merchant",
+            action:"invalidate",
+            record_id:id
 
         });
 
@@ -4762,8 +4733,7 @@ function updateConsultantPreview(){
 
 function openConsultantModal(){
 
-    editingConsultantId =
-        null;
+    editingConsultantId = null;
 
 
     [
@@ -4784,29 +4754,22 @@ function openConsultantModal(){
 
     document.getElementById(
         "consultantServiceArea"
-    ).value =
-        "";
+    ).value = "";
 
 
     document.getElementById(
         "consultantIdBox"
-    ).classList.add(
-        "hidden"
-    );
+    ).classList.add("hidden");
 
 
     document.getElementById(
         "consultantEmailGroup"
-    ).classList.remove(
-        "hidden"
-    );
+    ).classList.remove("hidden");
 
 
     document.getElementById(
         "consultantPasswordGroup"
-    ).classList.remove(
-        "hidden"
-    );
+    ).classList.remove("hidden");
 
 
     document.getElementById(
@@ -4851,9 +4814,7 @@ function editConsultant(id){
 
     document.getElementById(
         "consultantIdBox"
-    ).classList.remove(
-        "hidden"
-    );
+    ).classList.remove("hidden");
 
 
     document.getElementById(
@@ -4879,7 +4840,9 @@ function editConsultant(id){
     document.getElementById(
         "consultantServiceArea"
     ).value =
-        row.service_area_id || "";
+        String(
+            row.service_area_id || ""
+        );
 
 
     document.getElementById(
@@ -4908,16 +4871,12 @@ function editConsultant(id){
 
     document.getElementById(
         "consultantEmailGroup"
-    ).classList.add(
-        "hidden"
-    );
+    ).classList.add("hidden");
 
 
     document.getElementById(
         "consultantPasswordGroup"
-    ).classList.add(
-        "hidden"
-    );
+    ).classList.add("hidden");
 
 
     document.getElementById(
@@ -5174,8 +5133,7 @@ async function invalidateConsultant(id){
             account_type:
                 "health_consultant",
 
-            action:
-                "invalidate",
+            action:"invalidate",
 
             record_id:
                 Number(id)
@@ -5224,7 +5182,9 @@ async function invalidateConsultant(id){
             "click",
             event => {
 
-                if(event.target === el){
+                if(
+                    event.target === el
+                ){
 
                     closeModal(id);
 
@@ -5246,7 +5206,8 @@ sb.auth.onAuthStateChange(
     ) => {
 
         if(
-            event === "SIGNED_OUT"
+            event ===
+            "SIGNED_OUT"
         ){
 
             window.location.href =

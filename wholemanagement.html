@@ -48,6 +48,10 @@
       --surface: #ffffff;
       --background: #fbf9fa;
 
+      --danger: #e2263f;
+      --danger-dark: #b80f29;
+      --danger-light: #fff0f2;
+
       --shadow-soft:
         0 10px 30px
         rgba(120, 47, 78, 0.06);
@@ -601,6 +605,50 @@
     }
 
 
+    /* 投诉菜单 */
+
+    .complaint-menu-item {
+
+      color: #c51f39;
+
+      font-weight: 650;
+
+    }
+
+
+    .complaint-menu-badge {
+
+      margin-left: auto;
+
+      min-width: 22px;
+      height: 22px;
+
+      display: none;
+
+      align-items: center;
+      justify-content: center;
+
+      padding: 0 6px;
+
+      border-radius: 999px;
+
+      background: #e2263f;
+
+      color: #ffffff;
+
+      font-size: 10px;
+      font-weight: 800;
+
+    }
+
+
+    .complaint-menu-badge.show {
+
+      display: inline-flex;
+
+    }
+
+
 
     /* =========================================================
        主内容
@@ -631,6 +679,287 @@
       margin:
         0
         auto;
+
+    }
+
+
+
+    /* =========================================================
+       投诉红色报警条
+    ========================================================= */
+
+    .complaint-alert {
+
+      position: relative;
+
+      display: none;
+
+      width: 100%;
+
+      min-height: 62px;
+
+      margin-bottom: 18px;
+
+      padding:
+        13px
+        18px;
+
+      border:
+        2px solid
+        #ff4960;
+
+      border-radius:
+        16px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #d91532,
+          #f1344d
+        );
+
+      color: #ffffff;
+
+      text-decoration: none;
+
+      box-shadow:
+        0 9px 28px
+        rgba(
+          211,
+          23,
+          51,
+          0.28
+        );
+
+      overflow: hidden;
+
+      cursor: pointer;
+
+      animation:
+        complaintAlertFlash
+        1.15s
+        ease-in-out
+        infinite;
+
+    }
+
+
+    .complaint-alert.show {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 14px;
+
+    }
+
+
+    .complaint-alert::after {
+
+      content: "";
+
+      position: absolute;
+
+      width: 120px;
+      height: 120px;
+
+      right: -40px;
+      top: -45px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          .12
+        );
+
+    }
+
+
+    @keyframes complaintAlertFlash {
+
+      0%,
+      100% {
+
+        background:
+          linear-gradient(
+            135deg,
+            #c81731,
+            #e82d47
+          );
+
+        box-shadow:
+          0 8px 25px
+          rgba(
+            211,
+            23,
+            51,
+            .22
+          );
+
+      }
+
+      50% {
+
+        background:
+          linear-gradient(
+            135deg,
+            #f12c45,
+            #ff5064
+          );
+
+        box-shadow:
+          0 10px 34px
+          rgba(
+            225,
+            28,
+            55,
+            .48
+          );
+
+      }
+
+    }
+
+
+    .complaint-alert-icon {
+
+      position: relative;
+
+      z-index: 2;
+
+      width: 38px;
+      height: 38px;
+
+      flex: 0 0 38px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          .18
+        );
+
+      font-size: 20px;
+
+      animation:
+        complaintBellShake
+        .75s
+        ease-in-out
+        infinite;
+
+    }
+
+
+    @keyframes complaintBellShake {
+
+      0%,
+      100% {
+        transform: rotate(0deg);
+      }
+
+      25% {
+        transform: rotate(-8deg);
+      }
+
+      75% {
+        transform: rotate(8deg);
+      }
+
+    }
+
+
+    .complaint-alert-content {
+
+      position: relative;
+
+      z-index: 2;
+
+      flex: 1;
+
+      min-width: 0;
+
+    }
+
+
+    .complaint-alert-title {
+
+      font-size: 15px;
+
+      font-weight: 800;
+
+      line-height: 1.35;
+
+      letter-spacing: .3px;
+
+    }
+
+
+    .complaint-alert-desc {
+
+      margin-top: 2px;
+
+      font-size: 12px;
+
+      line-height: 1.45;
+
+      opacity: .94;
+
+    }
+
+
+    .complaint-alert-count {
+
+      position: relative;
+
+      z-index: 2;
+
+      min-width: 38px;
+      height: 38px;
+
+      flex: 0 0 auto;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      padding: 0 10px;
+
+      border-radius: 999px;
+
+      background: #ffffff;
+
+      color: #d31935;
+
+      font-size: 15px;
+
+      font-weight: 900;
+
+    }
+
+
+    .complaint-alert-arrow {
+
+      position: relative;
+
+      z-index: 2;
+
+      font-size: 24px;
+
+      font-weight: 300;
 
     }
 
@@ -1233,6 +1562,95 @@
     }
 
 
+    /* 投诉处理模块 */
+
+    .complaint-module {
+
+      border-color:
+        rgba(
+          226,
+          38,
+          63,
+          .22
+        );
+
+      background:
+        linear-gradient(
+          145deg,
+          #ffffff,
+          #fff8f9
+        );
+
+    }
+
+
+    .complaint-module .module-icon {
+
+      background:
+        #fff0f2;
+
+      color:
+        #d91e38;
+
+    }
+
+
+    .complaint-module .module-name {
+
+      color:
+        #b91630;
+
+    }
+
+
+    .complaint-module .module-arrow {
+
+      color:
+        #d91e38;
+
+      background:
+        #fff0f2;
+
+    }
+
+
+    .complaint-module-badge {
+
+      display: none;
+
+      margin-left: 8px;
+
+      padding:
+        2px
+        8px;
+
+      border-radius:
+        999px;
+
+      background:
+        #e2263f;
+
+      color:
+        #ffffff;
+
+      font-size:
+        10px;
+
+      font-weight:
+        800;
+
+      vertical-align: middle;
+
+    }
+
+
+    .complaint-module-badge.show {
+
+      display: inline-flex;
+
+    }
+
+
 
     /* =========================================================
        加载
@@ -1489,6 +1907,70 @@
           15px
           13px
           18px;
+
+      }
+
+
+      .complaint-alert {
+
+        min-height: 68px;
+
+        padding:
+          11px
+          12px;
+
+        gap: 9px;
+
+        border-radius:
+          14px;
+
+        margin-bottom:
+          13px;
+
+      }
+
+
+      .complaint-alert-icon {
+
+        width: 34px;
+        height: 34px;
+
+        flex-basis: 34px;
+
+        font-size: 18px;
+
+      }
+
+
+      .complaint-alert-title {
+
+        font-size: 13px;
+
+      }
+
+
+      .complaint-alert-desc {
+
+        font-size: 10.5px;
+
+      }
+
+
+      .complaint-alert-count {
+
+        min-width: 32px;
+        height: 32px;
+
+        padding: 0 8px;
+
+        font-size: 13px;
+
+      }
+
+
+      .complaint-alert-arrow {
+
+        display: none;
 
       }
 
@@ -1901,8 +2383,6 @@
     </a>
 
 
-    <!-- 健康顾问 -->
-
     <a
       class="menu-item platform-only"
       href="healthconsultant.html"
@@ -1959,6 +2439,29 @@
     </a>
 
 
+    <!-- 新增：投诉处理 -->
+
+    <a
+      class="menu-item complaint-menu-item"
+      href="complains.html"
+    >
+
+      <span class="menu-icon">
+        🚨
+      </span>
+
+      投诉处理
+
+      <span
+        id="complaintMenuBadge"
+        class="complaint-menu-badge"
+      >
+        0
+      </span>
+
+    </a>
+
+
 
     <div class="menu-title">
       地区管理
@@ -1980,10 +2483,7 @@
 
 
   </aside>
-
-
-
-  <!-- =====================================================
+    <!-- =====================================================
        主内容
   ====================================================== -->
 
@@ -1991,6 +2491,55 @@
 
 
     <div class="content-wrap">
+
+
+      <!-- =================================================
+           客户投诉报警
+           只有存在“平台尚未确认”的投诉才显示
+      ================================================== -->
+
+      <a
+        id="complaintAlert"
+        class="complaint-alert"
+        href="complains.html"
+        aria-label="进入投诉处理"
+      >
+
+        <div class="complaint-alert-icon">
+          🚨
+        </div>
+
+
+        <div class="complaint-alert-content">
+
+          <div class="complaint-alert-title">
+            客户投诉报警
+          </div>
+
+          <div
+            id="complaintAlertDesc"
+            class="complaint-alert-desc"
+          >
+            当前有客户投诉等待平台确认，点击立即处理
+          </div>
+
+        </div>
+
+
+        <div
+          id="complaintAlertCount"
+          class="complaint-alert-count"
+        >
+          0
+        </div>
+
+
+        <div class="complaint-alert-arrow">
+          ›
+        </div>
+
+      </a>
+
 
 
       <section class="welcome">
@@ -2243,9 +2792,7 @@
 
 
 
-        <!-- =================================================
-             健康顾问
-        ================================================== -->
+        <!-- 健康顾问 -->
 
         <a
           class="module-card platform-only"
@@ -2371,6 +2918,50 @@
 
           <div class="module-desc">
             查看辖区客户资料、消费记录及关联订单数据。
+          </div>
+
+        </a>
+
+
+
+        <!-- =================================================
+             新增：投诉处理
+        ================================================== -->
+
+        <a
+          class="module-card complaint-module"
+          href="complains.html"
+        >
+
+          <div class="module-top">
+
+            <div class="module-icon">
+              🚨
+            </div>
+
+            <div class="module-arrow">
+              ›
+            </div>
+
+          </div>
+
+
+          <div class="module-name">
+
+            投诉处理
+
+            <span
+              id="complaintModuleBadge"
+              class="complaint-module-badge"
+            >
+              0 条待确认
+            </span>
+
+          </div>
+
+
+          <div class="module-desc">
+            查看客户投诉、投诉图片及对应订单，处理平台投诉报警并查看商户确认状态。
           </div>
 
         </a>
@@ -2961,6 +3552,308 @@ async function loadAssignment(
   };
 
 }
+  /* ==========================================================
+   投诉报警显示
+========================================================== */
+
+function updateComplaintAlertUI(
+  count
+) {
+
+  const safeCount =
+    Math.max(
+      0,
+      Number(count) || 0
+    );
+
+
+  const alertBar =
+    document.getElementById(
+      "complaintAlert"
+    );
+
+
+  const alertCount =
+    document.getElementById(
+      "complaintAlertCount"
+    );
+
+
+  const alertDesc =
+    document.getElementById(
+      "complaintAlertDesc"
+    );
+
+
+  const menuBadge =
+    document.getElementById(
+      "complaintMenuBadge"
+    );
+
+
+  const moduleBadge =
+    document.getElementById(
+      "complaintModuleBadge"
+    );
+
+
+  if (
+    safeCount > 0
+  ) {
+
+    alertBar.classList.add(
+      "show"
+    );
+
+
+    alertCount.textContent =
+      safeCount > 99
+        ? "99+"
+        : String(safeCount);
+
+
+    alertDesc.textContent =
+      `当前有 ${safeCount} 条客户投诉等待平台确认，点击立即处理`;
+
+
+    menuBadge.textContent =
+      safeCount > 99
+        ? "99+"
+        : String(safeCount);
+
+
+    menuBadge.classList.add(
+      "show"
+    );
+
+
+    moduleBadge.textContent =
+      `${safeCount} 条待确认`;
+
+
+    moduleBadge.classList.add(
+      "show"
+    );
+
+  }
+
+  else {
+
+    alertBar.classList.remove(
+      "show"
+    );
+
+
+    menuBadge.classList.remove(
+      "show"
+    );
+
+
+    moduleBadge.classList.remove(
+      "show"
+    );
+
+  }
+
+}
+
+
+
+/* ==========================================================
+   读取平台待确认投诉数量
+
+   优先使用安全 RPC：
+   get_platform_complaint_alert_count()
+
+   下一步 complains.html 数据库读取接口建立后，
+   此处会直接使用 RPC。
+
+   为兼容当前阶段：
+   如果 RPC 尚未建立，则尝试直接读取投诉表。
+   如果 RLS 阻止读取，则不影响管理首页运行。
+========================================================== */
+
+async function loadComplaintAlert(
+  profile
+) {
+
+  /*
+   * 当前投诉“平台确认”RPC只允许：
+   * founder / platform_admin
+   *
+   * 因此当前首页报警也先只对这两个角色显示。
+   */
+  if (
+    !isPlatformManager(
+      profile.role
+    )
+  ) {
+
+    updateComplaintAlertUI(
+      0
+    );
+
+    return;
+  }
+
+
+  try {
+
+    /*
+     * 第一选择：
+     * 使用安全 RPC。
+     */
+    const {
+      data: rpcData,
+      error: rpcError
+    } =
+
+    await supabaseClient.rpc(
+      "get_platform_complaint_alert_count"
+    );
+
+
+    if (
+      !rpcError
+    ) {
+
+      let count =
+        0;
+
+
+      if (
+        typeof rpcData ===
+        "number"
+      ) {
+
+        count =
+          rpcData;
+
+      }
+
+      else if (
+        typeof rpcData ===
+        "string"
+      ) {
+
+        count =
+          Number(rpcData) || 0;
+
+      }
+
+      else if (
+        rpcData
+        &&
+        typeof rpcData ===
+        "object"
+      ) {
+
+        count =
+          Number(
+            rpcData.count
+            ??
+            rpcData.pending_count
+            ??
+            rpcData.alert_count
+            ??
+            0
+          );
+
+      }
+
+
+      updateComplaintAlertUI(
+        count
+      );
+
+
+      return;
+
+    }
+
+
+    /*
+     * RPC不存在时，
+     * 尝试直接读取。
+     */
+    console.warn(
+      "投诉报警RPC暂不可用，尝试直接读取：",
+      rpcError
+    );
+
+
+    const {
+      count,
+      error
+    } =
+
+    await supabaseClient
+
+      .from(
+        "customer_complaints"
+      )
+
+      .select(
+        "id",
+        {
+          count: "exact",
+          head: true
+        }
+      )
+
+      .eq(
+        "status",
+        "active"
+      )
+
+      .eq(
+        "platform_confirmed",
+        false
+      );
+
+
+    if (error) {
+
+      /*
+       * 投诉报警读取失败不能影响
+       * wholemanagement 首页。
+       */
+      console.warn(
+        "当前RLS暂未开放投诉报警读取：",
+        error
+      );
+
+
+      updateComplaintAlertUI(
+        0
+      );
+
+
+      return;
+    }
+
+
+    updateComplaintAlertUI(
+      count || 0
+    );
+
+  }
+
+  catch (error) {
+
+    console.warn(
+      "读取投诉报警失败：",
+      error
+    );
+
+
+    updateComplaintAlertUI(
+      0
+    );
+
+  }
+
+}
 
 
 
@@ -3276,6 +4169,18 @@ async function initializePage() {
 
     applyMenuPermissions(
       profile.role
+    );
+
+
+
+    /*
+     * 页面主体权限验证完成后，
+     * 再读取投诉报警。
+     *
+     * 报警读取失败不会阻塞首页。
+     */
+    await loadComplaintAlert(
+      profile
     );
 
 

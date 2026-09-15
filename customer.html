@@ -299,7 +299,7 @@
         }
 
         /* ================================
-           统计卡
+           统计
         ================================ */
 
         .section {
@@ -367,10 +367,6 @@
             font-weight: 600;
         }
 
-        /* ================================
-           服务说明
-        ================================ */
-
         .notice-card {
             margin-top: 14px;
             padding: 14px 15px;
@@ -394,10 +390,6 @@
             flex-shrink: 0;
         }
 
-        .notice-content {
-            min-width: 0;
-        }
-
         .notice-title {
             font-size: 13px;
             font-weight: 800;
@@ -412,7 +404,7 @@
         }
 
         /* ================================
-           订单卡
+           订单
         ================================ */
 
         .orders-list {
@@ -444,9 +436,6 @@
             font-size: 15px;
             font-weight: 900;
             color: #52343f;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         .order-time {
@@ -462,9 +451,6 @@
             border-radius: 999px;
             font-size: 10px;
             font-weight: 800;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .status-unpaid {
@@ -500,7 +486,6 @@
 
         .order-info-row {
             display: flex;
-            align-items: center;
             justify-content: space-between;
             gap: 12px;
             font-size: 12px;
@@ -526,7 +511,6 @@
 
         .usage-top {
             display: flex;
-            align-items: center;
             justify-content: space-between;
             gap: 10px;
             font-size: 11px;
@@ -553,14 +537,7 @@
         .progress-bar {
             height: 100%;
             border-radius: 20px;
-            background:
-                linear-gradient(
-                    90deg,
-                    #ff7ba4,
-                    #ff9abb
-                );
-            width: 0%;
-            transition: width .25s ease;
+            background: linear-gradient(90deg,#ff7ba4,#ff9abb);
         }
 
         .order-actions {
@@ -585,12 +562,7 @@
         }
 
         .order-btn-primary {
-            background:
-                linear-gradient(
-                    135deg,
-                    #ff719e,
-                    #ff91b2
-                );
+            background: linear-gradient(135deg,#ff719e,#ff91b2);
             color: white;
         }
 
@@ -603,8 +575,6 @@
             border-radius: 22px;
             padding: 30px 16px;
             text-align: center;
-            box-shadow:
-                0 8px 24px rgba(94, 59, 72, 0.06);
         }
 
         .empty-icon {
@@ -615,14 +585,12 @@
             margin-top: 9px;
             font-size: 15px;
             font-weight: 900;
-            color: #694654;
         }
 
         .empty-text {
             margin-top: 5px;
             font-size: 11px;
             color: #a48590;
-            line-height: 1.6;
         }
 
         .empty-btn {
@@ -631,15 +599,158 @@
             min-height: 45px;
             border: none;
             border-radius: 15px;
-            background:
-                linear-gradient(
-                    135deg,
-                    #ff719e,
-                    #ff91b2
-                );
+            background: linear-gradient(135deg,#ff719e,#ff91b2);
             color: white;
-            font-size: 13px;
             font-weight: 800;
+        }
+
+        /* =====================================================
+           ★ 首次客户资料完善窗口
+        ===================================================== */
+
+        .profile-mask {
+            position: fixed;
+            inset: 0;
+            z-index: 20000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+            background: rgba(54,38,45,.55);
+            backdrop-filter: blur(7px);
+            -webkit-backdrop-filter: blur(7px);
+        }
+
+        .profile-mask.show {
+            display: flex;
+        }
+
+        .profile-modal {
+            width: 100%;
+            max-width: 510px;
+            max-height: calc(100vh - 36px);
+            overflow-y: auto;
+            background: white;
+            border-radius: 27px;
+            padding: 22px 18px 20px;
+            box-shadow: 0 20px 60px rgba(61,37,47,.22);
+        }
+
+        .profile-icon {
+            width: 54px;
+            height: 54px;
+            margin: 0 auto;
+            border-radius: 19px;
+            background: linear-gradient(145deg,#ff719e,#ff9abb);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+        }
+
+        .profile-title {
+            margin-top: 12px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 900;
+            color: #553642;
+        }
+
+        .profile-desc {
+            margin: 7px auto 18px;
+            max-width: 400px;
+            text-align: center;
+            color: #9e7a88;
+            font-size: 11px;
+            line-height: 1.65;
+        }
+
+        .required-tip {
+            margin-bottom: 14px;
+            padding: 10px 12px;
+            border-radius: 13px;
+            background: #fff3f7;
+            color: #c45579;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-top: 13px;
+        }
+
+        .form-label {
+            margin-bottom: 7px;
+            font-size: 12px;
+            font-weight: 800;
+            color: #64434f;
+        }
+
+        .required {
+            color: #ec477a;
+        }
+
+        .optional {
+            color: #b79ba5;
+            font-weight: 500;
+            font-size: 10px;
+        }
+
+        .form-control {
+            width: 100%;
+            min-height: 48px;
+            border: 1px solid #eddce3;
+            border-radius: 15px;
+            outline: none;
+            padding: 11px 13px;
+            background: #fffafb;
+            color: #4f3942;
+            font-size: 13px;
+        }
+
+        .form-control:focus {
+            border-color: #f17da3;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(241,125,163,.09);
+        }
+
+        .form-control:disabled,
+        .form-control[readonly] {
+            color: #8f7680;
+            background: #f8f3f5;
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .profile-save-btn {
+            width: 100%;
+            min-height: 52px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 17px;
+            background: linear-gradient(135deg,#ff6e9c,#ff91b2);
+            color: white;
+            font-size: 15px;
+            font-weight: 900;
+            box-shadow: 0 9px 24px rgba(239,91,137,.20);
+        }
+
+        .profile-save-btn:disabled {
+            opacity: .55;
+            cursor: default;
+        }
+
+        .profile-security {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 10px;
+            line-height: 1.55;
+            color: #b1949f;
         }
 
         /* ================================
@@ -650,15 +761,10 @@
             position: fixed;
             inset: 0;
             z-index: 5000;
-
             display: none;
             align-items: flex-end;
             justify-content: center;
-
             background: rgba(53,38,45,.45);
-
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
         }
 
         .review-mask.show {
@@ -669,137 +775,80 @@
             width: 100%;
             max-width: 560px;
             max-height: 78vh;
-
             overflow-y: auto;
-
-            padding:
-                21px
-                17px
-                calc(20px + env(safe-area-inset-bottom));
-
-            border-radius:
-                28px
-                28px
-                0
-                0;
-
+            padding: 21px 17px calc(20px + env(safe-area-inset-bottom));
+            border-radius: 28px 28px 0 0;
             background: white;
-
-            box-shadow:
-                0 -10px 40px rgba(55,35,43,.13);
         }
 
         .review-sheet-head {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            gap: 12px;
+            align-items: center;
         }
 
         .review-sheet-title {
             font-size: 18px;
             font-weight: 900;
-            color: #543743;
         }
 
         .review-close {
             width: 38px;
             height: 38px;
-
-            flex-shrink: 0;
-
             border: none;
             border-radius: 50%;
-
             background: #fff0f5;
-
             color: #d85c86;
-
             font-size: 20px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .review-sheet-desc {
             margin-top: 6px;
-
             font-size: 11px;
-            line-height: 1.6;
-
             color: #a07e8b;
         }
 
         .review-list {
             margin-top: 15px;
-
             display: flex;
             flex-direction: column;
-
             gap: 10px;
         }
 
         .review-item {
             padding: 15px;
-
             border-radius: 18px;
-
             background: #fff7fa;
-
             border: 1px solid #f4dfe7;
         }
 
         .review-item-top {
             display: flex;
             justify-content: space-between;
-
             gap: 10px;
-        }
-
-        .review-item-main {
-            min-width: 0;
         }
 
         .review-merchant {
             font-size: 14px;
             font-weight: 900;
-
-            color: #573a46;
-
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
         }
 
         .review-order-no {
             margin-top: 4px;
-
             font-size: 10px;
-
             color: #aa8794;
-
-            word-break: break-all;
         }
 
         .review-star {
-            flex-shrink: 0;
-
             font-size: 23px;
         }
 
         .review-info-row {
             margin-top: 10px;
-
             padding-top: 10px;
-
             border-top: 1px solid #f2e2e8;
-
             display: flex;
             justify-content: space-between;
-
-            gap: 10px;
-
             font-size: 11px;
         }
 
@@ -808,68 +857,29 @@
         }
 
         .review-info-value {
-            color: #60424d;
-
             font-weight: 700;
-
-            text-align: right;
         }
 
         .review-go-btn {
             width: 100%;
             min-height: 46px;
-
             margin-top: 12px;
-
             border: none;
             border-radius: 15px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #ff719e,
-                    #ff92b2
-                );
-
+            background: linear-gradient(135deg,#ff719e,#ff92b2);
             color: white;
-
-            font-size: 13px;
             font-weight: 900;
         }
 
         .review-empty {
             padding: 28px 15px;
-
             border-radius: 19px;
-
             background: #fff7fa;
-
             text-align: center;
         }
 
-        .review-empty-icon {
-            font-size: 36px;
-        }
-
-        .review-empty-title {
-            margin-top: 8px;
-
-            font-size: 14px;
-            font-weight: 900;
-
-            color: #674653;
-        }
-
-        .review-empty-text {
-            margin-top: 5px;
-
-            font-size: 11px;
-
-            color: #9e7e8a;
-        }
-
         /* ================================
-           底部导航
+           底部
         ================================ */
 
         .bottom-nav {
@@ -880,16 +890,11 @@
             width: 100%;
             max-width: 560px;
             min-height: 72px;
-            padding:
-                8px
-                15px
-                calc(8px + env(safe-area-inset-bottom));
+            padding: 8px 15px calc(8px + env(safe-area-inset-bottom));
             background: rgba(255,255,255,.96);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
             border-top: 1px solid #f3e4ea;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3,1fr);
             z-index: 100;
         }
 
@@ -913,40 +918,30 @@
 
         .nav-icon {
             font-size: 22px;
-            line-height: 1;
         }
-
-        /* ================================
-           Toast
-        ================================ */
 
         .toast {
             position: fixed;
-            z-index: 9999;
+            z-index: 30000;
             left: 50%;
             bottom: calc(95px + env(safe-area-inset-bottom));
-            transform: translate(-50%, 20px);
+            transform: translate(-50%,20px);
             max-width: calc(100vw - 50px);
-            background: rgba(67, 53, 59, .94);
+            background: rgba(67,53,59,.94);
             color: white;
             padding: 11px 15px;
             border-radius: 13px;
             font-size: 12px;
-            line-height: 1.5;
             opacity: 0;
             pointer-events: none;
-            transition: .22s ease;
+            transition: .22s;
             text-align: center;
         }
 
         .toast.show {
             opacity: 1;
-            transform: translate(-50%, 0);
+            transform: translate(-50%,0);
         }
-
-        /* ================================
-           Loading
-        ================================ */
 
         .loading-mask {
             position: fixed;
@@ -974,20 +969,13 @@
         }
 
         @keyframes beat {
-            0%,100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.13);
-            }
+            0%,100% { transform: scale(1); }
+            50% { transform: scale(1.13); }
         }
 
-        @media (min-width: 560px) {
-            .app {
-                min-height: 100vh;
-                box-shadow:
-                    0 0 38px rgba(78, 48, 58, 0.08);
+        @media(max-width:420px) {
+            .location-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -995,20 +983,10 @@
 
 <body>
 
-<div
-    id="loadingMask"
-    class="loading-mask"
->
+<div id="loadingMask" class="loading-mask">
     <div class="loading-content">
-
-        <div class="loading-heart">
-            🌸
-        </div>
-
-        <div class="loading-text">
-            正在进入孕乃馨...
-        </div>
-
+        <div class="loading-heart">🌸</div>
+        <div class="loading-text">正在进入孕乃馨...</div>
     </div>
 </div>
 
@@ -1017,59 +995,35 @@
 
     <div class="top-safe"></div>
 
-
-    <!-- 顶部 -->
     <header class="topbar">
 
         <div class="brand-area">
-
-            <div class="logo">
-                ♡
-            </div>
+            <div class="logo">♡</div>
 
             <div class="brand-text">
-
-                <div class="brand-title">
-                    孕乃馨
-                </div>
-
-                <div class="brand-subtitle">
-                    安心服务 · 温暖相伴
-                </div>
-
+                <div class="brand-title">孕乃馨</div>
+                <div class="brand-subtitle">安心服务 · 温暖相伴</div>
             </div>
-
         </div>
 
-
-        <button
-            class="logout-btn"
-            onclick="logout()"
-        >
+        <button class="logout-btn" onclick="logout()">
             退出
         </button>
 
     </header>
 
 
-    <!-- 欢迎区域 -->
     <section class="hero">
 
         <div class="hero-label">
             欢迎回来
         </div>
 
-        <div
-            id="customerName"
-            class="hero-name"
-        >
+        <div id="customerName" class="hero-name">
             尊敬的客户
         </div>
 
-        <div
-            id="customerNo"
-            class="hero-number"
-        >
+        <div id="customerNo" class="hero-number">
             客户编号：--
         </div>
 
@@ -1081,13 +1035,9 @@
     </section>
 
 
-    <!-- 立即下单 -->
     <div class="primary-wrap">
 
-        <button
-            class="primary-order-btn"
-            onclick="goOrder()"
-        >
+        <button class="primary-order-btn" onclick="goOrder()">
 
             <div class="primary-left">
 
@@ -1096,131 +1046,58 @@
                 </div>
 
                 <div class="primary-text">
-
-                    <div class="primary-title">
-                        立即下单
-                    </div>
-
-                    <div class="primary-desc">
-                        选择服务、商户和推荐来源
-                    </div>
-
+                    <div class="primary-title">立即下单</div>
+                    <div class="primary-desc">选择服务、商户和推荐来源</div>
                 </div>
 
             </div>
 
-            <div class="primary-arrow">
-                ›
-            </div>
+            <div class="primary-arrow">›</div>
 
         </button>
 
     </div>
 
 
-    <!-- 我的服务 -->
     <section class="section">
 
         <div class="section-title-row">
-
-            <div class="section-title">
-                我的服务
-            </div>
-
+            <div class="section-title">我的服务</div>
         </div>
-
 
         <div class="stats-grid">
 
-            <button
-                class="stat-card"
-                onclick="goMyOrders()"
-            >
-
-                <div class="stat-icon">
-                    🧾
-                </div>
-
-                <div
-                    id="allOrderCount"
-                    class="stat-value"
-                >
-                    0
-                </div>
-
-                <div class="stat-label">
-                    我的订单
-                </div>
-
+            <button class="stat-card" onclick="goMyOrders()">
+                <div class="stat-icon">🧾</div>
+                <div id="allOrderCount" class="stat-value">0</div>
+                <div class="stat-label">我的订单</div>
             </button>
 
-
-            <button
-                class="stat-card"
-                onclick="goUsingOrders()"
-            >
-
-                <div class="stat-icon">
-                    🌸
-                </div>
-
-                <div
-                    id="usingOrderCount"
-                    class="stat-value"
-                >
-                    0
-                </div>
-
-                <div class="stat-label">
-                    待消费
-                </div>
-
+            <button class="stat-card" onclick="goUsingOrders()">
+                <div class="stat-icon">🌸</div>
+                <div id="usingOrderCount" class="stat-value">0</div>
+                <div class="stat-label">待消费</div>
             </button>
 
-
-            <!-- 修改：点击待评价打开窗口 -->
-            <button
-                class="stat-card"
-                onclick="openPendingReviewWindow()"
-            >
-
-                <div class="stat-icon">
-                    ⭐
-                </div>
-
-                <div
-                    id="reviewOrderCount"
-                    class="stat-value"
-                >
-                    0
-                </div>
-
-                <div class="stat-label">
-                    待评价
-                </div>
-
+            <button class="stat-card" onclick="openPendingReviewWindow()">
+                <div class="stat-icon">⭐</div>
+                <div id="reviewOrderCount" class="stat-value">0</div>
+                <div class="stat-label">待评价</div>
             </button>
 
         </div>
 
-
         <div class="notice-card">
 
-            <div class="notice-icon">
-                📍
-            </div>
+            <div class="notice-icon">📍</div>
 
-            <div class="notice-content">
-
-                <div class="notice-title">
-                    线下实体商户服务
-                </div>
+            <div>
+                <div class="notice-title">线下实体商户服务</div>
 
                 <div class="notice-text">
                     孕乃馨平台当前服务均在已认证实体商户场所完成，
                     不提供上门服务。下单时可查看商户地址和地图位置。
                 </div>
-
             </div>
 
         </div>
@@ -1228,7 +1105,6 @@
     </section>
 
 
-    <!-- 最近订单 -->
     <section class="section">
 
         <div class="section-title-row">
@@ -1237,36 +1113,241 @@
                 最近订单
             </div>
 
-            <button
-                class="section-link"
-                onclick="goMyOrders()"
-            >
+            <button class="section-link" onclick="goMyOrders()">
                 查看全部 ›
             </button>
 
         </div>
 
-
-        <div
-            id="recentOrders"
-            class="orders-list"
-        ></div>
+        <div id="recentOrders" class="orders-list"></div>
 
     </section>
 
 </div>
 
 
-<!-- ========================================================
-     待评价窗口
-======================================================== -->
+<!-- =========================================================
+     ★ 首次资料完善窗口
+========================================================= -->
+
+<div id="profileMask" class="profile-mask">
+
+    <div class="profile-modal">
+
+        <div class="profile-icon">
+            ♡
+        </div>
+
+        <div class="profile-title">
+            完善客户资料
+        </div>
+
+        <div class="profile-desc">
+            首次使用孕乃馨，请先完善基本资料。
+            姓名、所在省和所在市为必填信息。
+        </div>
+
+        <div class="required-tip">
+            带 <strong>*</strong> 的项目必须填写。手机号码由当前登录账号自动读取，无需再次输入。
+        </div>
+
+
+        <div class="form-group">
+
+            <div class="form-label">
+                客户姓名
+                <span class="required">*</span>
+            </div>
+
+            <input
+                id="profileRealName"
+                class="form-control"
+                type="text"
+                maxlength="100"
+                autocomplete="name"
+                placeholder="请输入您的姓名"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <div class="form-label">
+                手机号码
+            </div>
+
+            <input
+                id="profilePhone"
+                class="form-control"
+                type="text"
+                readonly
+                placeholder="自动读取登录手机号"
+            >
+
+        </div>
+
+
+        <div class="location-grid">
+
+            <div class="form-group">
+
+                <div class="form-label">
+                    所在省
+                    <span class="required">*</span>
+                </div>
+
+                <select
+                    id="profileProvince"
+                    class="form-control"
+                    onchange="handleProvinceChange()"
+                >
+                    <option value="">
+                        请选择省份
+                    </option>
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <div class="form-label">
+                    所在市
+                    <span class="required">*</span>
+                </div>
+
+                <select
+                    id="profileCity"
+                    class="form-control"
+                    disabled
+                >
+                    <option value="">
+                        请先选择省份
+                    </option>
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <div class="form-label">
+                详细地址
+                <span class="optional">选填</span>
+            </div>
+
+            <input
+                id="profileAddress"
+                class="form-control"
+                type="text"
+                maxlength="300"
+                placeholder="例如：街道、小区、门牌号"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <div class="form-label">
+                工作单位
+                <span class="optional">选填</span>
+            </div>
+
+            <input
+                id="profileWorkUnit"
+                class="form-control"
+                type="text"
+                maxlength="200"
+                placeholder="请输入工作单位"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <div class="form-label">
+                职业
+                <span class="optional">选填</span>
+            </div>
+
+            <input
+                id="profileOccupation"
+                class="form-control"
+                type="text"
+                maxlength="100"
+                placeholder="请输入职业"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <div class="form-label">
+                紧急联系人
+                <span class="optional">选填</span>
+            </div>
+
+            <input
+                id="profileEmergencyName"
+                class="form-control"
+                type="text"
+                maxlength="100"
+                placeholder="请输入紧急联系人姓名"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <div class="form-label">
+                紧急联系人电话
+                <span class="optional">选填</span>
+            </div>
+
+            <input
+                id="profileEmergencyPhone"
+                class="form-control"
+                type="tel"
+                maxlength="30"
+                placeholder="请输入紧急联系人电话"
+            >
+
+        </div>
+
+
+        <button
+            id="profileSaveBtn"
+            class="profile-save-btn"
+            type="button"
+            onclick="saveCustomerProfile()"
+        >
+            保存并进入
+        </button>
+
+
+        <div class="profile-security">
+            客户资料仅用于平台服务、订单管理及必要的客户联系。
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- 待评价窗口 -->
 
 <div
     id="reviewMask"
     class="review-mask"
     onclick="reviewMaskClose(event)"
 >
-
     <div
         class="review-sheet"
         onclick="event.stopPropagation()"
@@ -1288,1537 +1369,2044 @@
 
         </div>
 
-
         <div class="review-sheet-desc">
             服务全部完成后，可对本次订单进行一次评价。
         </div>
 
-
-        <div
-            id="pendingReviewList"
-            class="review-list"
-        ></div>
+        <div id="pendingReviewList" class="review-list"></div>
 
     </div>
-
 </div>
 
 
-<!-- 底部导航 -->
 <nav class="bottom-nav">
 
-    <button
-        class="nav-btn active"
-        onclick="goHome()"
-    >
-
-        <span class="nav-icon">
-            🏠
-        </span>
-
-        <span>
-            首页
-        </span>
-
+    <button class="nav-btn active" onclick="goHome()">
+        <span class="nav-icon">🏠</span>
+        <span>首页</span>
     </button>
 
-
-    <button
-        class="nav-btn"
-        onclick="goMyOrders()"
-    >
-
-        <span class="nav-icon">
-            🧾
-        </span>
-
-        <span>
-            订单
-        </span>
-
+    <button class="nav-btn" onclick="goMyOrders()">
+        <span class="nav-icon">🧾</span>
+        <span>订单</span>
     </button>
 
-
-    <button
-        class="nav-btn"
-        onclick="goProfile()"
-    >
-
-        <span class="nav-icon">
-            👤
-        </span>
-
-        <span>
-            我的
-        </span>
-
+    <button class="nav-btn" onclick="goProfile()">
+        <span class="nav-icon">👤</span>
+        <span>我的</span>
     </button>
 
 </nav>
 
 
-<div
-    id="toast"
-    class="toast"
-></div>
+<div id="toast" class="toast"></div>
 
 
 <script>
-    /* ========================================================
-       Supabase
-    ======================================================== */
 
-    const SUPABASE_URL =
-        "https://qbuqjwpkltbjhlfbyjyb.supabase.co";
+/* ============================================================
+   Supabase
+============================================================ */
 
-    const SUPABASE_ANON_KEY =
-        "sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
+const SUPABASE_URL =
+    "https://qbuqjwpkltbjhlfbyjyb.supabase.co";
 
+const SUPABASE_ANON_KEY =
+    "sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
 
-    const sb =
-        window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_ANON_KEY
-        );
-
-
-    /* ========================================================
-       全局
-    ======================================================== */
-
-    let currentUser = null;
-
-    let currentProfile = null;
-
-    let currentCustomer = null;
-
-    let currentOrders = [];
-
-
-    const IDLE_LIMIT =
-        10 * 60 * 1000;
-
-    let idleTimer = null;
-
-
-
-    /* ========================================================
-       初始化
-    ======================================================== */
-
-    document.addEventListener(
-        "DOMContentLoaded",
-        init
+const sb =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
     );
 
 
-    async function init() {
+/* ============================================================
+   全局
+============================================================ */
 
-        try {
+let currentUser = null;
+let currentProfile = null;
+let currentCustomer = null;
+let currentOrders = [];
 
-            setupIdleLogout();
+let provinces = [];
+let cities = [];
 
-            const {
-                data: {
-                    session
-                },
-                error
-            } =
-                await sb.auth.getSession();
+const IDLE_LIMIT =
+    10 * 60 * 1000;
 
-
-            if (
-                error
-                ||
-                !session
-                ||
-                !session.user
-            ) {
-
-                goLogin();
-                return;
-
-            }
+let idleTimer = null;
 
 
-            currentUser =
-                session.user;
+/* ============================================================
+   初始化
+============================================================ */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    init
+);
 
 
-            const allowed =
-                await verifyCustomerAccess();
+async function init() {
+
+    try {
+
+        setupIdleLogout();
+
+        const {
+            data: { session },
+            error
+        } =
+        await sb.auth.getSession();
 
 
-            if (!allowed) {
+        if (
+            error ||
+            !session ||
+            !session.user
+        ) {
 
-                return;
-
-            }
-
-
-            await loadCustomerInfo();
-
-            await loadOrders();
-
-
-            hideLoading();
-
-
-        } catch (error) {
-
-            console.error(
-                "customer init error:",
-                error
-            );
-
-            hideLoading();
-
-            toast(
-                "页面加载失败，请稍后重试"
-            );
-
+            goLogin();
+            return;
         }
+
+
+        currentUser =
+            session.user;
+
+
+        const allowed =
+            await verifyCustomerAccess();
+
+
+        if (!allowed) {
+            return;
+        }
+
+
+        await loadCustomerInfo();
+
+
+        /*
+         * ★ 先判断客户资料。
+         *
+         * 姓名、省、市缺任何一项，
+         * 都必须先完善资料。
+         */
+        const completed =
+            isCustomerProfileComplete();
+
+
+        if (!completed) {
+
+            await prepareCustomerProfileModal();
+
+            hideLoading();
+
+            showCustomerProfileModal();
+
+            /*
+             * 资料没完成之前，
+             * 不继续加载业务数据。
+             */
+            return;
+        }
+
+
+        await loadOrders();
+
+        hideLoading();
+
+
+    } catch (error) {
+
+        console.error(
+            "customer init error:",
+            error
+        );
+
+        hideLoading();
+
+        toast(
+            error?.message ||
+            "页面加载失败，请稍后重试"
+        );
 
     }
 
+}
 
 
-    /* ========================================================
-       客户权限
-    ======================================================== */
+/* ============================================================
+   客户权限
+============================================================ */
 
-    async function verifyCustomerAccess() {
+async function verifyCustomerAccess() {
+
+    const {
+        data,
+        error
+    } =
+    await sb
+        .from("profiles")
+        .select(`
+            id,
+            full_name,
+            role,
+            status,
+            user_type,
+            account_no
+        `)
+        .eq(
+            "id",
+            currentUser.id
+        )
+        .maybeSingle();
+
+
+    if (error || !data) {
+
+        console.error(error);
+
+        await forceLogout();
+
+        return false;
+    }
+
+
+    currentProfile =
+        data;
+
+
+    if (
+        data.status &&
+        data.status !== "active"
+    ) {
+
+        toast(
+            "当前账号已停用"
+        );
+
+        setTimeout(
+            forceLogout,
+            900
+        );
+
+        return false;
+    }
+
+
+    const isCustomer =
+        data.role === "customer" ||
+        data.user_type === "customer";
+
+
+    if (!isCustomer) {
+
+        await forceLogout();
+
+        return false;
+    }
+
+
+    return true;
+}
+
+
+/* ============================================================
+   客户资料
+============================================================ */
+
+async function loadCustomerInfo() {
+
+    const {
+        data,
+        error
+    } =
+    await sb
+        .from("customers")
+        .select("*")
+        .eq(
+            "id",
+            currentUser.id
+        )
+        .maybeSingle();
+
+
+    if (error) {
+
+        console.error(
+            "load customer:",
+            error
+        );
+
+        throw new Error(
+            "客户资料读取失败"
+        );
+    }
+
+
+    if (!data) {
+
+        throw new Error(
+            "没有找到客户资料"
+        );
+    }
+
+
+    currentCustomer =
+        data;
+
+
+    renderCustomerHeader();
+}
+
+
+function renderCustomerHeader() {
+
+    const name =
+        currentCustomer?.real_name ||
+        currentCustomer?.nickname ||
+        currentProfile?.full_name ||
+        "尊敬的客户";
+
+
+    document
+        .getElementById(
+            "customerName"
+        )
+        .textContent =
+        name;
+
+
+    const customerNo =
+        currentCustomer?.customer_no ??
+        currentProfile?.account_no ??
+        "--";
+
+
+    document
+        .getElementById(
+            "customerNo"
+        )
+        .textContent =
+        `客户编号：${formatNo(customerNo)}`;
+}
+
+
+/*
+ * ★ 真实字段检查
+ *
+ * 不单独相信 profile_completed。
+ * 姓名、省、市必须真实存在。
+ */
+function isCustomerProfileComplete() {
+
+    const name =
+        String(
+            currentCustomer?.real_name ||
+            currentCustomer?.nickname ||
+            ""
+        ).trim();
+
+
+    return (
+        !!name &&
+        currentCustomer?.province_id !== null &&
+        currentCustomer?.province_id !== undefined &&
+        currentCustomer?.city_id !== null &&
+        currentCustomer?.city_id !== undefined
+    );
+}
+
+
+/* ============================================================
+   首次资料窗口
+============================================================ */
+
+async function prepareCustomerProfileModal() {
+
+    /*
+     * 手机号优先使用 Auth。
+     * customers.phone 作为兼容备用。
+     */
+    const phone =
+        currentUser?.phone ||
+        currentCustomer?.phone ||
+        "";
+
+
+    document
+        .getElementById(
+            "profilePhone"
+        )
+        .value =
+        phone;
+
+
+    document
+        .getElementById(
+            "profileRealName"
+        )
+        .value =
+        currentCustomer?.real_name ||
+        currentCustomer?.nickname ||
+        currentProfile?.full_name ||
+        "";
+
+
+    document
+        .getElementById(
+            "profileAddress"
+        )
+        .value =
+        currentCustomer?.address ||
+        "";
+
+
+    document
+        .getElementById(
+            "profileWorkUnit"
+        )
+        .value =
+        currentCustomer?.work_unit ||
+        "";
+
+
+    document
+        .getElementById(
+            "profileOccupation"
+        )
+        .value =
+        currentCustomer?.occupation ||
+        "";
+
+
+    document
+        .getElementById(
+            "profileEmergencyName"
+        )
+        .value =
+        currentCustomer?.emergency_contact_name ||
+        "";
+
+
+    document
+        .getElementById(
+            "profileEmergencyPhone"
+        )
+        .value =
+        currentCustomer?.emergency_contact_phone ||
+        "";
+
+
+    await loadProvinceData();
+
+
+    /*
+     * 如果旧客户已经有 province_id，
+     * 自动恢复原来的省。
+     */
+    if (currentCustomer?.province_id) {
+
+        document
+            .getElementById(
+                "profileProvince"
+            )
+            .value =
+            String(
+                currentCustomer.province_id
+            );
+
+
+        await loadCityData(
+            currentCustomer.province_id
+        );
+
+
+        if (currentCustomer?.city_id) {
+
+            document
+                .getElementById(
+                    "profileCity"
+                )
+                .value =
+                String(
+                    currentCustomer.city_id
+                );
+        }
+    }
+}
+
+
+function showCustomerProfileModal() {
+
+    document
+        .getElementById(
+            "profileMask"
+        )
+        .classList
+        .add(
+            "show"
+        );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+
+    setTimeout(
+        () => {
+
+            const nameInput =
+                document.getElementById(
+                    "profileRealName"
+                );
+
+
+            if (
+                nameInput &&
+                !nameInput.value.trim()
+            ) {
+
+                nameInput.focus();
+            }
+
+        },
+        250
+    );
+}
+
+
+function closeCustomerProfileModal() {
+
+    /*
+     * 首次资料未完成时不允许关闭。
+     */
+    if (
+        !isCustomerProfileComplete()
+    ) {
+
+        return;
+    }
+
+
+    document
+        .getElementById(
+            "profileMask"
+        )
+        .classList
+        .remove(
+            "show"
+        );
+
+
+    document.body.style.overflow =
+        "";
+}
+
+
+/* ============================================================
+   读取省份
+============================================================ */
+
+async function loadProvinceData() {
+
+    const {
+        data,
+        error
+    } =
+    await sb
+        .from("provinces")
+        .select(`
+            id,
+            province_code,
+            province_name,
+            status
+        `)
+        .eq(
+            "status",
+            "active"
+        )
+        .order(
+            "province_code",
+            {
+                ascending: true
+            }
+        );
+
+
+    if (error) {
+
+        console.error(
+            "load provinces:",
+            error
+        );
+
+        throw new Error(
+            "省份数据读取失败"
+        );
+    }
+
+
+    provinces =
+        data || [];
+
+
+    const select =
+        document.getElementById(
+            "profileProvince"
+        );
+
+
+    select.innerHTML =
+        `<option value="">请选择省份</option>`;
+
+
+    provinces.forEach(
+        province => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                province.id;
+
+
+            option.textContent =
+                province.province_name;
+
+
+            select.appendChild(
+                option
+            );
+        }
+    );
+}
+
+
+/* ============================================================
+   省市联动
+============================================================ */
+
+async function handleProvinceChange() {
+
+    const provinceId =
+        document
+            .getElementById(
+                "profileProvince"
+            )
+            .value;
+
+
+    const citySelect =
+        document.getElementById(
+            "profileCity"
+        );
+
+
+    if (!provinceId) {
+
+        citySelect.innerHTML =
+            `<option value="">请先选择省份</option>`;
+
+        citySelect.disabled =
+            true;
+
+        return;
+    }
+
+
+    await loadCityData(
+        provinceId
+    );
+}
+
+
+async function loadCityData(
+    provinceId
+) {
+
+    const citySelect =
+        document.getElementById(
+            "profileCity"
+        );
+
+
+    citySelect.disabled =
+        true;
+
+
+    citySelect.innerHTML =
+        `<option value="">正在读取城市...</option>`;
+
+
+    const {
+        data,
+        error
+    } =
+    await sb
+        .from("cities")
+        .select(`
+            id,
+            province_id,
+            city_code,
+            city_name,
+            status
+        `)
+        .eq(
+            "province_id",
+            Number(provinceId)
+        )
+        .eq(
+            "status",
+            "active"
+        )
+        .order(
+            "city_code",
+            {
+                ascending: true
+            }
+        );
+
+
+    if (error) {
+
+        console.error(
+            "load cities:",
+            error
+        );
+
+
+        citySelect.innerHTML =
+            `<option value="">城市读取失败</option>`;
+
+
+        throw new Error(
+            "城市数据读取失败"
+        );
+    }
+
+
+    cities =
+        data || [];
+
+
+    citySelect.innerHTML =
+        `<option value="">请选择城市</option>`;
+
+
+    cities.forEach(
+        city => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                city.id;
+
+
+            option.textContent =
+                city.city_name;
+
+
+            citySelect.appendChild(
+                option
+            );
+        }
+    );
+
+
+    citySelect.disabled =
+        false;
+}
+
+
+/* ============================================================
+   保存客户资料
+============================================================ */
+
+async function saveCustomerProfile() {
+
+    const name =
+        document
+            .getElementById(
+                "profileRealName"
+            )
+            .value
+            .trim();
+
+
+    const provinceId =
+        document
+            .getElementById(
+                "profileProvince"
+            )
+            .value;
+
+
+    const cityId =
+        document
+            .getElementById(
+                "profileCity"
+            )
+            .value;
+
+
+    const address =
+        document
+            .getElementById(
+                "profileAddress"
+            )
+            .value
+            .trim();
+
+
+    const workUnit =
+        document
+            .getElementById(
+                "profileWorkUnit"
+            )
+            .value
+            .trim();
+
+
+    const occupation =
+        document
+            .getElementById(
+                "profileOccupation"
+            )
+            .value
+            .trim();
+
+
+    const emergencyName =
+        document
+            .getElementById(
+                "profileEmergencyName"
+            )
+            .value
+            .trim();
+
+
+    const emergencyPhone =
+        document
+            .getElementById(
+                "profileEmergencyPhone"
+            )
+            .value
+            .trim();
+
+
+    if (!name) {
+
+        toast(
+            "请填写客户姓名"
+        );
+
+        document
+            .getElementById(
+                "profileRealName"
+            )
+            .focus();
+
+        return;
+    }
+
+
+    if (!provinceId) {
+
+        toast(
+            "请选择所在省份"
+        );
+
+        document
+            .getElementById(
+                "profileProvince"
+            )
+            .focus();
+
+        return;
+    }
+
+
+    if (!cityId) {
+
+        toast(
+            "请选择所在城市"
+        );
+
+        document
+            .getElementById(
+                "profileCity"
+            )
+            .focus();
+
+        return;
+    }
+
+
+    const btn =
+        document.getElementById(
+            "profileSaveBtn"
+        );
+
+
+    btn.disabled =
+        true;
+
+
+    btn.textContent =
+        "正在保存...";
+
+
+    try {
 
         const {
             data,
             error
         } =
-            await sb
-                .from("profiles")
-                .select(
-                    `
-                    id,
-                    full_name,
-                    role,
-                    status,
-                    user_type,
-                    account_no
-                    `
-                )
-                .eq(
-                    "id",
-                    currentUser.id
-                )
-                .maybeSingle();
+        await sb.rpc(
+            "complete_customer_profile",
+            {
+                p_real_name:
+                    name,
+
+                p_province_id:
+                    Number(
+                        provinceId
+                    ),
+
+                p_city_id:
+                    Number(
+                        cityId
+                    ),
+
+                p_address:
+                    address || null,
+
+                p_work_unit:
+                    workUnit || null,
+
+                p_occupation:
+                    occupation || null,
+
+                p_emergency_contact_name:
+                    emergencyName || null,
+
+                p_emergency_contact_phone:
+                    emergencyPhone || null
+            }
+        );
 
 
         if (error) {
 
-            console.error(error);
-
-            await forceLogout();
-
-            return false;
-
+            throw error;
         }
-
-
-        if (!data) {
-
-            await forceLogout();
-
-            return false;
-
-        }
-
-
-        currentProfile =
-            data;
 
 
         if (
-            data.status
-            &&
-            data.status !== "active"
+            !data ||
+            data.success !== true
         ) {
 
-            toast(
-                "当前账号已停用"
+            throw new Error(
+                data?.message ||
+                "客户资料保存失败"
             );
-
-            setTimeout(
-                forceLogout,
-                900
-            );
-
-            return false;
-
         }
 
 
-        const isCustomer =
-            data.role === "customer"
-            ||
-            data.user_type === "customer";
+        toast(
+            "资料保存成功"
+        );
 
-
-        if (!isCustomer) {
-
-            await forceLogout();
-
-            return false;
-
-        }
-
-
-        return true;
-
-    }
-
-
-
-    /* ========================================================
-       客户资料
-    ======================================================== */
-
-    async function loadCustomerInfo() {
 
         /*
-         * 当前 customers.id 就是 auth.uid()
+         * 保存成功以后重新读取，
+         * 不依赖前端自己假定保存成功。
          */
-
-        const {
-            data,
-            error
-        } =
-            await sb
-                .from("customers")
-                .select("*")
-                .eq(
-                    "id",
-                    currentUser.id
-                )
-                .maybeSingle();
+        await loadCustomerInfo();
 
 
-        if (!error) {
+        if (
+            !isCustomerProfileComplete()
+        ) {
 
-            currentCustomer =
-                data;
-
-        }
-
-
-        const name =
-            currentCustomer?.nickname
-            ||
-            currentProfile?.full_name
-            ||
-            "尊敬的客户";
-
-
-        document.getElementById(
-            "customerName"
-        ).textContent =
-            name;
-
-
-        const customerNo =
-            currentCustomer?.customer_no
-            ??
-            currentProfile?.account_no
-            ??
-            "--";
-
-
-        document.getElementById(
-            "customerNo"
-        ).textContent =
-            `客户编号：${formatNo(customerNo)}`;
-
-    }
-
-
-
-    /* ========================================================
-       订单
-    ======================================================== */
-
-    async function loadOrders() {
-
-        const result =
-            await sb
-                .from("orders")
-                .select("*")
-                .eq(
-                    "customer_id",
-                    currentUser.id
-                )
-                .order(
-                    "created_at",
-                    {
-                        ascending: false
-                    }
-                )
-                .limit(100);
-
-
-        if (result.error) {
-
-            console.error(
-                "load orders:",
-                result.error
+            throw new Error(
+                "客户资料尚未完整保存"
             );
-
-            currentOrders = [];
-
-            renderStats();
-
-            renderRecentOrders();
-
-            return;
-
         }
 
 
-        currentOrders =
-            result.data || [];
+        closeCustomerProfileModal();
 
+
+        /*
+         * 现在才正式加载订单。
+         */
+        await loadOrders();
+
+
+    } catch (error) {
+
+        console.error(
+            "save customer profile:",
+            error
+        );
+
+
+        alert(
+            "资料保存失败：\n\n" +
+            (
+                error?.message ||
+                "未知错误"
+            )
+        );
+
+
+    } finally {
+
+        btn.disabled =
+            false;
+
+
+        btn.textContent =
+            "保存并进入";
+    }
+}
+
+
+/* ============================================================
+   订单
+============================================================ */
+
+async function loadOrders() {
+
+    const result =
+        await sb
+            .from("orders")
+            .select("*")
+            .eq(
+                "customer_id",
+                currentUser.id
+            )
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            )
+            .limit(100);
+
+
+    if (result.error) {
+
+        console.error(
+            "load orders:",
+            result.error
+        );
+
+        currentOrders = [];
 
         renderStats();
 
         renderRecentOrders();
 
+        return;
     }
 
 
+    currentOrders =
+        result.data || [];
 
-    /* ========================================================
-       待评价订单
-    ======================================================== */
 
-    function getPendingReviewOrders() {
+    renderStats();
 
-        return currentOrders.filter(
-            order => {
+    renderRecentOrders();
+}
 
-                return (
-                    order.order_status === "completed"
-                    &&
-                    order.review_status !== "completed"
-                );
 
-            }
-        );
+/* ============================================================
+   待评价
+============================================================ */
 
-    }
+function getPendingReviewOrders() {
 
-
-
-    function openPendingReviewWindow() {
-
-        const list =
-            getPendingReviewOrders();
-
-
-        renderPendingReviewList(
-            list
-        );
-
-
-        document
-            .getElementById(
-                "reviewMask"
-            )
-            .classList
-            .add("show");
-
-
-        document.body.style.overflow =
-            "hidden";
-
-    }
-
-
-
-    function closePendingReviewWindow() {
-
-        document
-            .getElementById(
-                "reviewMask"
-            )
-            .classList
-            .remove("show");
-
-
-        document.body.style.overflow =
-            "";
-
-    }
-
-
-
-    function reviewMaskClose(
-        event
-    ) {
-
-        if (
-            event.target.id ===
-            "reviewMask"
-        ) {
-
-            closePendingReviewWindow();
-
-        }
-
-    }
-
-
-
-    function renderPendingReviewList(
-        list
-    ) {
-
-        const box =
-            document.getElementById(
-                "pendingReviewList"
-            );
-
-
-        box.innerHTML =
-            "";
-
-
-        if (!list.length) {
-
-            box.innerHTML = `
-
-                <div class="review-empty">
-
-                    <div class="review-empty-icon">
-                        🌸
-                    </div>
-
-                    <div class="review-empty-title">
-                        暂无待评价订单
-                    </div>
-
-                    <div class="review-empty-text">
-                        服务全部完成后，待评价订单会显示在这里。
-                    </div>
-
-                </div>
-            `;
-
-
-            return;
-
-        }
-
-
-        list.forEach(
-            order => {
-
-                const item =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                item.className =
-                    "review-item";
-
-
-                item.innerHTML = `
-
-                    <div class="review-item-top">
-
-                        <div class="review-item-main">
-
-                            <div class="review-merchant">
-                                ${escapeHtml(
-                                    order.merchant_name_snapshot
-                                    ||
-                                    "服务商户"
-                                )}
-                            </div>
-
-                            <div class="review-order-no">
-                                订单号：
-                                ${escapeHtml(
-                                    order.order_no
-                                    ||
-                                    order.id
-                                )}
-                            </div>
-
-                        </div>
-
-
-                        <div class="review-star">
-                            ⭐
-                        </div>
-
-                    </div>
-
-
-                    <div class="review-info-row">
-
-                        <span class="review-info-label">
-                            服务状态
-                        </span>
-
-                        <span class="review-info-value">
-                            已完成
-                        </span>
-
-                    </div>
-
-
-                    <div class="review-info-row">
-
-                        <span class="review-info-label">
-                            服务次数
-                        </span>
-
-                        <span class="review-info-value">
-                            ${Number(order.total_uses || 0)}
-                            次
-                        </span>
-
-                    </div>
-
-
-                    <div class="review-info-row">
-
-                        <span class="review-info-label">
-                            完成时间
-                        </span>
-
-                        <span class="review-info-value">
-                            ${escapeHtml(
-                                formatDateTime(
-                                    order.completed_at
-                                    ||
-                                    order.updated_at
-                                )
-                            )}
-                        </span>
-
-                    </div>
-
-
-                    <button
-                        class="review-go-btn"
-                        type="button"
-                        onclick="reviewOrder(
-                            '${safeId(order.id)}'
-                        )"
-                    >
-                        去评价
-                    </button>
-                `;
-
-
-                box.appendChild(
-                    item
-                );
-
-            }
-        );
-
-    }
-
-
-
-    /* ========================================================
-       统计
-    ======================================================== */
-
-    function renderStats() {
-
-        const allCount =
-            currentOrders.length;
-
-
-        const usingCount =
-            currentOrders.filter(
-                order => {
-
-                    return (
-                        order.payment_status === "paid"
-                        &&
-                        Number(
-                            order.remaining_uses ?? 0
-                        ) > 0
-                        &&
-                        ![
-                            "cancelled",
-                            "refunded",
-                            "completed"
-                        ].includes(
-                            order.order_status
-                        )
-                    );
-
-                }
-            ).length;
-
-
-        const reviewCount =
-            getPendingReviewOrders()
-                .length;
-
-
-        document.getElementById(
-            "allOrderCount"
-        ).textContent =
-            allCount;
-
-
-        document.getElementById(
-            "usingOrderCount"
-        ).textContent =
-            usingCount;
-
-
-        document.getElementById(
-            "reviewOrderCount"
-        ).textContent =
-            reviewCount;
-
-    }
-
-
-
-    /* ========================================================
-       最近订单
-    ======================================================== */
-
-    function renderRecentOrders() {
-
-        const box =
-            document.getElementById(
-                "recentOrders"
-            );
-
-
-        box.innerHTML = "";
-
-
-        const list =
-            currentOrders.slice(
-                0,
-                3
-            );
-
-
-        if (!list.length) {
-
-            box.innerHTML = `
-                <div class="empty-state">
-
-                    <div class="empty-icon">
-                        🌷
-                    </div>
-
-                    <div class="empty-title">
-                        还没有订单
-                    </div>
-
-                    <div class="empty-text">
-                        选择适合您的服务项目，
-                        到已认证实体商户完成消费。
-                    </div>
-
-                    <button
-                        class="empty-btn"
-                        onclick="goOrder()"
-                    >
-                        立即下单
-                    </button>
-
-                </div>
-            `;
-
-            return;
-
-        }
-
-
-        list.forEach(
-            order => {
-
-                box.appendChild(
-                    createOrderCard(
-                        order
-                    )
-                );
-
-            }
-        );
-
-    }
-
-
-
-    function createOrderCard(order) {
-
-        const card =
-            document.createElement(
-                "div"
-            );
-
-
-        card.className =
-            "order-card";
-
-
-        const total =
-            Math.max(
-                1,
-                Number(
-                    order.total_uses ?? 1
-                )
-            );
-
-
-        const used =
-            Math.max(
-                0,
-                Number(
-                    order.used_uses ?? 0
-                )
-            );
-
-
-        const remaining =
-            Math.max(
-                0,
-                Number(
-                    order.remaining_uses
-                    ??
-                    total - used
-                )
-            );
-
-
-        const percentage =
-            Math.min(
-                100,
-                Math.max(
-                    0,
-                    (used / total) * 100
-                )
-            );
-
-
-        const status =
-            statusInfo(order);
-
-
-        const merchantName =
-            order.merchant_name_snapshot
-            ||
-            "服务商户";
-
-
-        const recommendation =
-            order.recommendation_source_name_snapshot
-            ||
-            "平台";
-
-
-        const created =
-            formatDateTime(
-                order.created_at
-            );
-
-
-        let actionHtml = "";
-
-
-        if (
-            order.payment_status === "paid"
-            &&
-            remaining > 0
-        ) {
-
-            actionHtml = `
-                <div class="order-actions">
-
-                    <button
-                        class="order-btn order-btn-light"
-                        onclick="openOrderDetail('${safeId(order.id)}')"
-                    >
-                        查看订单
-                    </button>
-
-                    <button
-                        class="order-btn order-btn-primary"
-                        onclick="showVerification('${safeId(order.id)}')"
-                    >
-                        消费二维码
-                    </button>
-
-                </div>
-            `;
-
-        } else if (
-            order.order_status === "completed"
-            &&
+    return currentOrders.filter(
+        order =>
+            order.order_status === "completed" &&
             order.review_status !== "completed"
-        ) {
+    );
+}
 
-            actionHtml = `
-                <div class="order-actions">
 
-                    <button
-                        class="order-btn order-btn-light"
-                        onclick="openOrderDetail('${safeId(order.id)}')"
-                    >
-                        查看订单
-                    </button>
+function openPendingReviewWindow() {
 
-                    <button
-                        class="order-btn order-btn-primary"
-                        onclick="reviewOrder('${safeId(order.id)}')"
-                    >
-                        去评价
-                    </button>
+    const list =
+        getPendingReviewOrders();
 
-                </div>
-            `;
 
-        } else {
+    renderPendingReviewList(
+        list
+    );
 
-            actionHtml = `
-                <div class="order-actions">
 
-                    <button
-                        class="order-btn order-btn-light"
-                        onclick="openOrderDetail('${safeId(order.id)}')"
-                    >
-                        查看订单
-                    </button>
-
-                </div>
-            `;
-
-        }
-
-
-        card.innerHTML = `
-
-            <div class="order-head">
-
-                <div class="order-merchant">
-
-                    <div class="order-merchant-name">
-                        ${escapeHtml(merchantName)}
-                    </div>
-
-                    <div class="order-time">
-                        ${escapeHtml(created)}
-                    </div>
-
-                </div>
-
-
-                <div class="
-                    status-badge
-                    ${status.className}
-                ">
-                    ${escapeHtml(status.text)}
-                </div>
-
-            </div>
-
-
-            <div class="order-line"></div>
-
-
-            <div class="order-info-row">
-
-                <span class="order-info-label">
-                    推荐来源
-                </span>
-
-                <span class="order-info-value">
-                    ${escapeHtml(recommendation)}
-                </span>
-
-            </div>
-
-
-            <div class="order-info-row">
-
-                <span class="order-info-label">
-                    支付状态
-                </span>
-
-                <span class="order-info-value">
-                    ${escapeHtml(paymentText(order.payment_status))}
-                </span>
-
-            </div>
-
-
-            <div class="usage-wrap">
-
-                <div class="usage-top">
-
-                    <span class="usage-title">
-                        消费进度
-                    </span>
-
-                    <span class="usage-number">
-                        已消费 ${used} 次 · 剩余 ${remaining} 次
-                    </span>
-
-                </div>
-
-                <div class="progress">
-
-                    <div
-                        class="progress-bar"
-                        style="width:${percentage}%"
-                    ></div>
-
-                </div>
-
-            </div>
-
-
-            ${actionHtml}
-        `;
-
-
-        return card;
-
-    }
-
-
-
-    /* ========================================================
-       状态文字
-    ======================================================== */
-
-    function statusInfo(order) {
-
-        const status =
-            order.order_status;
-
-
-        if (
-            status === "completed"
-        ) {
-
-            return {
-                text:
-                    order.review_status === "completed"
-                    ?
-                    "已完成"
-                    :
-                    "待评价",
-
-                className:
-                    "status-completed"
-            };
-
-        }
-
-
-        if (
-            status === "partially_used"
-        ) {
-
-            return {
-                text: "消费中",
-                className:
-                    "status-used"
-            };
-
-        }
-
-
-        /*
-         * 兼容支付成功以后订单状态可能仍保持paid
-         */
-        if (
-            status === "paid"
-            ||
-            (
-                order.payment_status === "paid"
-                &&
-                Number(
-                    order.remaining_uses ?? 0
-                ) > 0
-            )
-        ) {
-
-            return {
-                text: "待消费",
-                className:
-                    "status-paid"
-            };
-
-        }
-
-
-        if (
-            status === "cancelled"
-        ) {
-
-            return {
-                text: "已取消",
-                className:
-                    "status-cancelled"
-            };
-
-        }
-
-
-        if (
-            status === "refunded"
-        ) {
-
-            return {
-                text: "已退款",
-                className:
-                    "status-cancelled"
-            };
-
-        }
-
-
-        return {
-            text: "待付款",
-            className:
-                "status-unpaid"
-        };
-
-    }
-
-
-
-    function paymentText(status) {
-
-        const map = {
-
-            unpaid:
-                "未支付",
-
-            paid:
-                "已支付",
-
-            partially_refunded:
-                "部分退款",
-
-            partial_refund:
-                "部分退款",
-
-            refunded:
-                "已退款"
-
-        };
-
-
-        return map[status]
-            || status
-            || "未支付";
-
-    }
-
-
-
-    /* ========================================================
-       页面跳转
-    ======================================================== */
-
-    function goHome() {
-
-        window.location.href =
-            "./customer.html";
-
-    }
-
-
-
-    function goOrder() {
-
-        window.location.href =
-            "./customer_order.html";
-
-    }
-
-
-
-    function goMyOrders() {
-
-        window.location.href =
-            "./customer_orders.html";
-
-    }
-
-
-
-    function goUsingOrders() {
-
-        window.location.href =
-            "./customer_orders.html?filter=using";
-
-    }
-
-
-
-    /*
-     * 兼容旧调用：
-     * 不再跳customer_orders，
-     * 直接打开待评价窗口。
-     */
-    function goPendingReviews() {
-
-        openPendingReviewWindow();
-
-    }
-
-
-
-    function goProfile() {
-
-        toast(
-            "个人中心将在下一阶段开放"
-        );
-
-    }
-
-
-
-    function openOrderDetail(
-        orderId
-    ) {
-
-        window.location.href =
-            `./customer_order_detail.html?id=${encodeURIComponent(orderId)}`;
-
-    }
-
-
-
-    function showVerification(
-        orderId
-    ) {
-
-        window.location.href =
-            `./customer_order_detail.html?id=${encodeURIComponent(orderId)}&showQR=1`;
-
-    }
-
-
-
-    /*
-     * 正式评价页面：
-     *
-     * customer_review.html
-     */
-    function reviewOrder(
-        orderId
-    ) {
-
-        window.location.href =
-            `./customer_review.html?order=${encodeURIComponent(orderId)}`;
-
-    }
-
-
-
-    /* ========================================================
-       10分钟无操作退出
-    ======================================================== */
-
-    function setupIdleLogout() {
-
-        const events = [
-            "touchstart",
-            "touchmove",
-            "click",
-            "keydown",
-            "scroll"
-        ];
-
-
-        events.forEach(
-            eventName => {
-
-                document.addEventListener(
-                    eventName,
-                    resetIdleTimer,
-                    {
-                        passive: true
-                    }
-                );
-
-            }
-        );
-
-
-        resetIdleTimer();
-
-    }
-
-
-
-    function resetIdleTimer() {
-
-        clearTimeout(
-            idleTimer
-        );
-
-
-        idleTimer =
-            setTimeout(
-                async () => {
-
-                    toast(
-                        "长时间未操作，请重新登录"
-                    );
-
-                    await sb.auth.signOut();
-
-                    setTimeout(
-                        goLogin,
-                        500
-                    );
-
-                },
-                IDLE_LIMIT
-            );
-
-    }
-
-
-
-    /* ========================================================
-       退出
-    ======================================================== */
-
-    async function logout() {
-
-        await sb.auth.signOut();
-
-        goLogin();
-
-    }
-
-
-
-    async function forceLogout() {
-
-        try {
-
-            await sb.auth.signOut();
-
-        } catch (error) {
-
-            console.error(error);
-
-        }
-
-
-        goLogin();
-
-    }
-
-
-
-    function goLogin() {
-
-        window.location.replace(
-            "./login.html"
-        );
-
-    }
-
-
-
-    /* ========================================================
-       工具
-    ======================================================== */
-
-    function formatNo(value) {
-
-        if (
-            value === null
-            ||
-            value === undefined
-            ||
-            value === ""
-        ) {
-
-            return "--";
-
-        }
-
-
-        return String(value);
-
-    }
-
-
-
-    function formatDateTime(value) {
-
-        if (!value) {
-
-            return "-";
-
-        }
-
-
-        const date =
-            new Date(value);
-
-
-        if (
-            Number.isNaN(
-                date.getTime()
-            )
-        ) {
-
-            return "-";
-
-        }
-
-
-        return date.toLocaleString(
-            "zh-CN",
-            {
-                month: "2-digit",
-                day: "2-digit",
-                hour: "2-digit",
-                minute: "2-digit",
-                hour12: false
-            }
-        );
-
-    }
-
-
-
-    function safeId(value) {
-
-        return String(
-            value ?? ""
-        ).replace(
-            /'/g,
-            ""
-        );
-
-    }
-
-
-
-    function escapeHtml(value) {
-
-        return String(
-            value ?? ""
+    document
+        .getElementById(
+            "reviewMask"
         )
-            .replaceAll(
-                "&",
-                "&amp;"
-            )
-            .replaceAll(
-                "<",
-                "&lt;"
-            )
-            .replaceAll(
-                ">",
-                "&gt;"
-            )
-            .replaceAll(
-                '"',
-                "&quot;"
-            )
-            .replaceAll(
-                "'",
-                "&#039;"
-            );
-
-    }
-
-
-
-    function toast(message) {
-
-        const el =
-            document.getElementById(
-                "toast"
-            );
-
-
-        el.textContent =
-            message;
-
-
-        el.classList.add(
+        .classList
+        .add(
             "show"
         );
 
 
-        clearTimeout(
-            toast.timer
+    document.body.style.overflow =
+        "hidden";
+}
+
+
+function closePendingReviewWindow() {
+
+    document
+        .getElementById(
+            "reviewMask"
+        )
+        .classList
+        .remove(
+            "show"
         );
 
 
-        toast.timer =
-            setTimeout(
-                () => {
+    document.body.style.overflow =
+        "";
+}
 
-                    el.classList.remove(
-                        "show"
-                    );
 
-                },
-                2200
-            );
+function reviewMaskClose(event) {
 
+    if (
+        event.target.id ===
+        "reviewMask"
+    ) {
+
+        closePendingReviewWindow();
+    }
+}
+
+
+function renderPendingReviewList(list) {
+
+    const box =
+        document.getElementById(
+            "pendingReviewList"
+        );
+
+
+    box.innerHTML =
+        "";
+
+
+    if (!list.length) {
+
+        box.innerHTML = `
+            <div class="review-empty">
+                <div style="font-size:36px">🌸</div>
+                <div style="margin-top:8px;font-weight:900">
+                    暂无待评价订单
+                </div>
+                <div style="margin-top:5px;font-size:11px;color:#9e7e8a">
+                    服务全部完成后，待评价订单会显示在这里。
+                </div>
+            </div>
+        `;
+
+        return;
     }
 
 
+    list.forEach(
+        order => {
 
-    function hideLoading() {
+            const item =
+                document.createElement(
+                    "div"
+                );
 
-        const mask =
-            document.getElementById(
-                "loadingMask"
+
+            item.className =
+                "review-item";
+
+
+            item.innerHTML = `
+
+                <div class="review-item-top">
+
+                    <div>
+
+                        <div class="review-merchant">
+                            ${escapeHtml(
+                                order.merchant_name_snapshot ||
+                                "服务商户"
+                            )}
+                        </div>
+
+                        <div class="review-order-no">
+                            订单号：
+                            ${escapeHtml(
+                                order.order_no ||
+                                order.id
+                            )}
+                        </div>
+
+                    </div>
+
+                    <div class="review-star">
+                        ⭐
+                    </div>
+
+                </div>
+
+
+                <div class="review-info-row">
+
+                    <span class="review-info-label">
+                        服务状态
+                    </span>
+
+                    <span class="review-info-value">
+                        已完成
+                    </span>
+
+                </div>
+
+
+                <div class="review-info-row">
+
+                    <span class="review-info-label">
+                        服务次数
+                    </span>
+
+                    <span class="review-info-value">
+                        ${Number(order.total_uses || 0)} 次
+                    </span>
+
+                </div>
+
+
+                <div class="review-info-row">
+
+                    <span class="review-info-label">
+                        完成时间
+                    </span>
+
+                    <span class="review-info-value">
+                        ${escapeHtml(
+                            formatDateTime(
+                                order.completed_at ||
+                                order.updated_at
+                            )
+                        )}
+                    </span>
+
+                </div>
+
+
+                <button
+                    class="review-go-btn"
+                    onclick="reviewOrder('${safeId(order.id)}')"
+                >
+                    去评价
+                </button>
+            `;
+
+
+            box.appendChild(
+                item
             );
-
-
-        if (!mask) {
-            return;
         }
+    );
+}
 
 
-        mask.style.opacity =
-            "0";
+/* ============================================================
+   统计
+============================================================ */
+
+function renderStats() {
+
+    const allCount =
+        currentOrders.length;
 
 
-        mask.style.transition =
-            "opacity .22s ease";
+    const usingCount =
+        currentOrders.filter(
+            order =>
+                order.payment_status === "paid" &&
+                Number(
+                    order.remaining_uses ?? 0
+                ) > 0 &&
+                ![
+                    "cancelled",
+                    "refunded",
+                    "completed"
+                ].includes(
+                    order.order_status
+                )
+        ).length;
 
 
+    const reviewCount =
+        getPendingReviewOrders()
+        .length;
+
+
+    document
+        .getElementById(
+            "allOrderCount"
+        )
+        .textContent =
+        allCount;
+
+
+    document
+        .getElementById(
+            "usingOrderCount"
+        )
+        .textContent =
+        usingCount;
+
+
+    document
+        .getElementById(
+            "reviewOrderCount"
+        )
+        .textContent =
+        reviewCount;
+}
+
+
+/* ============================================================
+   最近订单
+============================================================ */
+
+function renderRecentOrders() {
+
+    const box =
+        document.getElementById(
+            "recentOrders"
+        );
+
+
+    box.innerHTML =
+        "";
+
+
+    const list =
+        currentOrders.slice(
+            0,
+            3
+        );
+
+
+    if (!list.length) {
+
+        box.innerHTML = `
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    🌷
+                </div>
+
+                <div class="empty-title">
+                    还没有订单
+                </div>
+
+                <div class="empty-text">
+                    选择适合您的服务项目，
+                    到已认证实体商户完成消费。
+                </div>
+
+                <button
+                    class="empty-btn"
+                    onclick="goOrder()"
+                >
+                    立即下单
+                </button>
+
+            </div>
+        `;
+
+        return;
+    }
+
+
+    list.forEach(
+        order => {
+
+            box.appendChild(
+                createOrderCard(
+                    order
+                )
+            );
+        }
+    );
+}
+
+
+function createOrderCard(order) {
+
+    const card =
+        document.createElement(
+            "div"
+        );
+
+
+    card.className =
+        "order-card";
+
+
+    const total =
+        Math.max(
+            1,
+            Number(
+                order.total_uses ?? 1
+            )
+        );
+
+
+    const used =
+        Math.max(
+            0,
+            Number(
+                order.used_uses ?? 0
+            )
+        );
+
+
+    const remaining =
+        Math.max(
+            0,
+            Number(
+                order.remaining_uses ??
+                total - used
+            )
+        );
+
+
+    const percentage =
+        Math.min(
+            100,
+            Math.max(
+                0,
+                (used / total) * 100
+            )
+        );
+
+
+    const status =
+        statusInfo(
+            order
+        );
+
+
+    const merchantName =
+        order.merchant_name_snapshot ||
+        "服务商户";
+
+
+    const recommendation =
+        order.recommendation_source_name_snapshot ||
+        "平台";
+
+
+    let actionHtml =
+        "";
+
+
+    if (
+        order.payment_status === "paid" &&
+        remaining > 0
+    ) {
+
+        actionHtml = `
+            <div class="order-actions">
+
+                <button
+                    class="order-btn order-btn-light"
+                    onclick="openOrderDetail('${safeId(order.id)}')"
+                >
+                    查看订单
+                </button>
+
+                <button
+                    class="order-btn order-btn-primary"
+                    onclick="showVerification('${safeId(order.id)}')"
+                >
+                    消费二维码
+                </button>
+
+            </div>
+        `;
+
+    } else if (
+        order.order_status === "completed" &&
+        order.review_status !== "completed"
+    ) {
+
+        actionHtml = `
+            <div class="order-actions">
+
+                <button
+                    class="order-btn order-btn-light"
+                    onclick="openOrderDetail('${safeId(order.id)}')"
+                >
+                    查看订单
+                </button>
+
+                <button
+                    class="order-btn order-btn-primary"
+                    onclick="reviewOrder('${safeId(order.id)}')"
+                >
+                    去评价
+                </button>
+
+            </div>
+        `;
+
+    } else {
+
+        actionHtml = `
+            <div class="order-actions">
+
+                <button
+                    class="order-btn order-btn-light"
+                    onclick="openOrderDetail('${safeId(order.id)}')"
+                >
+                    查看订单
+                </button>
+
+            </div>
+        `;
+    }
+
+
+    card.innerHTML = `
+
+        <div class="order-head">
+
+            <div class="order-merchant">
+
+                <div class="order-merchant-name">
+                    ${escapeHtml(merchantName)}
+                </div>
+
+                <div class="order-time">
+                    ${escapeHtml(
+                        formatDateTime(
+                            order.created_at
+                        )
+                    )}
+                </div>
+
+            </div>
+
+            <div class="status-badge ${status.className}">
+                ${escapeHtml(status.text)}
+            </div>
+
+        </div>
+
+
+        <div class="order-line"></div>
+
+
+        <div class="order-info-row">
+
+            <span class="order-info-label">
+                推荐来源
+            </span>
+
+            <span class="order-info-value">
+                ${escapeHtml(recommendation)}
+            </span>
+
+        </div>
+
+
+        <div class="order-info-row">
+
+            <span class="order-info-label">
+                支付状态
+            </span>
+
+            <span class="order-info-value">
+                ${escapeHtml(
+                    paymentText(
+                        order.payment_status
+                    )
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="usage-wrap">
+
+            <div class="usage-top">
+
+                <span class="usage-title">
+                    消费进度
+                </span>
+
+                <span class="usage-number">
+                    已消费 ${used} 次 · 剩余 ${remaining} 次
+                </span>
+
+            </div>
+
+            <div class="progress">
+                <div
+                    class="progress-bar"
+                    style="width:${percentage}%"
+                ></div>
+            </div>
+
+        </div>
+
+        ${actionHtml}
+    `;
+
+
+    return card;
+}
+
+
+/* ============================================================
+   状态
+============================================================ */
+
+function statusInfo(order) {
+
+    const status =
+        order.order_status;
+
+
+    if (status === "completed") {
+
+        return {
+            text:
+                order.review_status === "completed"
+                ? "已完成"
+                : "待评价",
+
+            className:
+                "status-completed"
+        };
+    }
+
+
+    if (status === "partially_used") {
+
+        return {
+            text: "消费中",
+            className: "status-used"
+        };
+    }
+
+
+    if (
+        status === "paid" ||
+        (
+            order.payment_status === "paid" &&
+            Number(
+                order.remaining_uses ?? 0
+            ) > 0
+        )
+    ) {
+
+        return {
+            text: "待消费",
+            className: "status-paid"
+        };
+    }
+
+
+    if (status === "cancelled") {
+
+        return {
+            text: "已取消",
+            className: "status-cancelled"
+        };
+    }
+
+
+    if (status === "refunded") {
+
+        return {
+            text: "已退款",
+            className: "status-cancelled"
+        };
+    }
+
+
+    return {
+        text: "待付款",
+        className: "status-unpaid"
+    };
+}
+
+
+function paymentText(status) {
+
+    const map = {
+        unpaid: "未支付",
+        paid: "已支付",
+        partially_refunded: "部分退款",
+        partial_refund: "部分退款",
+        refunded: "已退款"
+    };
+
+
+    return map[status] ||
+        status ||
+        "未支付";
+}
+
+
+/* ============================================================
+   页面跳转
+============================================================ */
+
+function goHome() {
+    window.location.href =
+        "./customer.html";
+}
+
+
+function goOrder() {
+
+    if (!isCustomerProfileComplete()) {
+
+        showCustomerProfileModal();
+
+        toast(
+            "请先完善客户资料"
+        );
+
+        return;
+    }
+
+
+    window.location.href =
+        "./customer_order.html";
+}
+
+
+function goMyOrders() {
+    window.location.href =
+        "./customer_orders.html";
+}
+
+
+function goUsingOrders() {
+    window.location.href =
+        "./customer_orders.html?filter=using";
+}
+
+
+function goPendingReviews() {
+    openPendingReviewWindow();
+}
+
+
+function goProfile() {
+    toast(
+        "个人中心将在下一阶段开放"
+    );
+}
+
+
+function openOrderDetail(orderId) {
+
+    window.location.href =
+        `./customer_order_detail.html?id=${encodeURIComponent(orderId)}`;
+}
+
+
+function showVerification(orderId) {
+
+    window.location.href =
+        `./customer_order_detail.html?id=${encodeURIComponent(orderId)}&showQR=1`;
+}
+
+
+function reviewOrder(orderId) {
+
+    window.location.href =
+        `./customer_review.html?order=${encodeURIComponent(orderId)}`;
+}
+
+
+/* ============================================================
+   10分钟无操作退出
+============================================================ */
+
+function setupIdleLogout() {
+
+    const events = [
+        "touchstart",
+        "touchmove",
+        "click",
+        "keydown",
+        "scroll"
+    ];
+
+
+    events.forEach(
+        eventName => {
+
+            document.addEventListener(
+                eventName,
+                resetIdleTimer,
+                {
+                    passive: true
+                }
+            );
+        }
+    );
+
+
+    resetIdleTimer();
+}
+
+
+function resetIdleTimer() {
+
+    clearTimeout(
+        idleTimer
+    );
+
+
+    idleTimer =
+        setTimeout(
+            async () => {
+
+                toast(
+                    "长时间未操作，请重新登录"
+                );
+
+                await sb.auth.signOut();
+
+                setTimeout(
+                    goLogin,
+                    500
+                );
+
+            },
+            IDLE_LIMIT
+        );
+}
+
+
+/* ============================================================
+   退出
+============================================================ */
+
+async function logout() {
+
+    await sb.auth.signOut();
+
+    goLogin();
+}
+
+
+async function forceLogout() {
+
+    try {
+
+        await sb.auth.signOut();
+
+    } catch (error) {
+
+        console.error(
+            error
+        );
+    }
+
+
+    goLogin();
+}
+
+
+function goLogin() {
+
+    window.location.replace(
+        "./login.html"
+    );
+}
+
+
+/* ============================================================
+   工具
+============================================================ */
+
+function formatNo(value) {
+
+    if (
+        value === null ||
+        value === undefined ||
+        value === ""
+    ) {
+
+        return "--";
+    }
+
+
+    return String(
+        value
+    );
+}
+
+
+function formatDateTime(value) {
+
+    if (!value) {
+        return "-";
+    }
+
+
+    const date =
+        new Date(
+            value
+        );
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return "-";
+    }
+
+
+    return date.toLocaleString(
+        "zh-CN",
+        {
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false
+        }
+    );
+}
+
+
+function safeId(value) {
+
+    return String(
+        value ?? ""
+    ).replace(
+        /'/g,
+        ""
+    );
+}
+
+
+function escapeHtml(value) {
+
+    return String(
+        value ?? ""
+    )
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+
+function toast(message) {
+
+    const el =
+        document.getElementById(
+            "toast"
+        );
+
+
+    el.textContent =
+        message;
+
+
+    el.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toast.timer
+    );
+
+
+    toast.timer =
         setTimeout(
             () => {
 
-                mask.style.display =
-                    "none";
+                el.classList.remove(
+                    "show"
+                );
 
             },
-            230
+            2200
+        );
+}
+
+
+function hideLoading() {
+
+    const mask =
+        document.getElementById(
+            "loadingMask"
         );
 
+
+    if (!mask) {
+        return;
     }
+
+
+    mask.style.opacity =
+        "0";
+
+
+    mask.style.transition =
+        "opacity .22s ease";
+
+
+    setTimeout(
+        () => {
+
+            mask.style.display =
+                "none";
+
+        },
+        230
+    );
+}
 
 </script>
 

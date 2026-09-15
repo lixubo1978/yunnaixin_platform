@@ -37,19 +37,18 @@ body {
         sans-serif;
 }
 
-button {
+button,
+textarea {
     font: inherit;
+}
+
+button {
     cursor: pointer;
 }
 
 .hidden {
     display: none !important;
 }
-
-
-/* ============================================================
-   页面
-============================================================ */
 
 .page {
     min-height: 100vh;
@@ -68,7 +67,6 @@ button {
 
 .topbar {
     height: 74px;
-
     position: sticky;
     top: 0;
     z-index: 50;
@@ -78,7 +76,6 @@ button {
     justify-content: center;
 
     background: rgba(255,255,255,.96);
-
     border-bottom: 1px solid #f3e3e8;
 
     backdrop-filter: blur(14px);
@@ -275,7 +272,7 @@ button {
 
 
 /* ============================================================
-   投诉记录标题
+   标题 / 筛选
 ============================================================ */
 
 .section-head {
@@ -294,11 +291,6 @@ button {
     font-weight: 900;
     color: #45373d;
 }
-
-
-/* ============================================================
-   筛选
-============================================================ */
 
 .filters {
     display: flex;
@@ -338,11 +330,6 @@ button {
     gap: 15px;
 }
 
-
-/* ============================================================
-   投诉卡
-============================================================ */
-
 .complaint-card {
     padding: 16px;
 
@@ -359,6 +346,11 @@ button {
 .complaint-card.resolved {
     border-color: #dcebe5;
 }
+
+
+/* ============================================================
+   卡片头
+============================================================ */
 
 .card-head {
     display: flex;
@@ -421,7 +413,7 @@ button {
 
 
 /* ============================================================
-   地区突出栏
+   地区
 ============================================================ */
 
 .region-bar {
@@ -453,7 +445,7 @@ button {
 
 
 /* ============================================================
-   信息网格
+   信息
 ============================================================ */
 
 .info-grid {
@@ -552,7 +544,7 @@ button {
 
 
 /* ============================================================
-   投诉内容
+   客户投诉内容
 ============================================================ */
 
 .content-box {
@@ -574,8 +566,8 @@ button {
 }
 
 .content-text {
-    margin-top: 16px;
-    padding-left: 44px;
+    margin-top: 14px;
+    padding: 0 34px;
 
     font-size: 12px;
     line-height: 1.7;
@@ -588,7 +580,153 @@ button {
 
 
 /* ============================================================
-   双方确认状态
+   处理结果
+============================================================ */
+
+.resolution-box {
+    margin-top: 11px;
+    padding: 13px;
+
+    border: 1px solid #efcfda;
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fffafd,
+            #fff5f8
+        );
+}
+
+.resolution-box.confirmed {
+    border-color: #cce8dc;
+    background: #f4fcf8;
+}
+
+.resolution-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.resolution-title {
+    font-size: 11px;
+    font-weight: 900;
+    color: #c44269;
+}
+
+.resolution-box.confirmed .resolution-title {
+    color: #25805c;
+}
+
+.resolution-required {
+    padding: 4px 8px;
+
+    border-radius: 999px;
+
+    background: #ffe9ef;
+    color: #d7395d;
+
+    font-size: 9px;
+    font-weight: 900;
+}
+
+.resolution-locked {
+    padding: 4px 8px;
+
+    border-radius: 999px;
+
+    background: #e3f5ed;
+    color: #26805d;
+
+    font-size: 9px;
+    font-weight: 900;
+}
+
+.resolution-tip {
+    margin-top: 7px;
+
+    font-size: 9px;
+    line-height: 1.5;
+
+    color: #aa8995;
+}
+
+.resolution-textarea {
+    width: 100%;
+    min-height: 125px;
+
+    margin-top: 10px;
+    padding: 12px 13px;
+
+    resize: vertical;
+
+    outline: none;
+
+    border: 1px solid #efd3dc;
+    border-radius: 12px;
+
+    background: white;
+
+    color: #503e45;
+
+    font-size: 12px;
+    line-height: 1.7;
+
+    transition: .2s;
+}
+
+.resolution-textarea:focus {
+    border-color: #e75b83;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(231, 91, 131, .08);
+}
+
+.resolution-textarea::placeholder {
+    color: #c1aab2;
+}
+
+.resolution-count {
+    margin-top: 6px;
+
+    text-align: right;
+
+    font-size: 9px;
+    color: #b39ba3;
+}
+
+.resolution-result {
+    margin-top: 11px;
+    padding: 13px;
+
+    min-height: 75px;
+
+    border-radius: 12px;
+
+    background: white;
+
+    color: #4e3d44;
+
+    font-size: 12px;
+    line-height: 1.75;
+
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.resolution-meta {
+    margin-top: 8px;
+
+    font-size: 9px;
+    color: #829b90;
+}
+
+
+/* ============================================================
+   双方确认
 ============================================================ */
 
 .confirm-grid {
@@ -625,7 +763,7 @@ button {
 
 
 /* ============================================================
-   操作
+   操作按钮
 ============================================================ */
 
 .actions {
@@ -668,11 +806,12 @@ button {
 
 .confirm-btn:disabled {
     opacity: .45;
+    cursor: default;
 }
 
 
 /* ============================================================
-   空
+   空状态
 ============================================================ */
 
 .empty {
@@ -778,6 +917,8 @@ button {
 
     display: block;
     object-fit: cover;
+
+    cursor: pointer;
 }
 
 .no-images {
@@ -918,8 +1059,25 @@ button {
     }
 
     .content-text {
-        padding-left: 0;
+        padding: 0;
         margin-top: 10px;
+    }
+
+    .confirm-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .action-btn {
+        width: 100%;
+    }
+
+    .resolution-textarea {
+        min-height: 150px;
     }
 }
 
@@ -929,6 +1087,7 @@ button {
 
 
 <body>
+
 
 <div
     id="loadingMask"
@@ -952,6 +1111,7 @@ button {
 
 
 <div class="page">
+
 
 <header class="topbar">
 
@@ -1022,7 +1182,7 @@ button {
 
 
         <div class="alert-desc">
-            平台确认和对应商户确认全部完成后，投诉报警自动结束。
+            平台填写处理结果并确认，对应商户也确认后，投诉报警自动结束。
         </div>
 
     </section>
@@ -1152,6 +1312,7 @@ button {
 
     </section>
 
+
 </div>
 
 </main>
@@ -1161,7 +1322,7 @@ button {
 
 
 <!-- ==========================================================
-     投诉图片弹窗
+     图片弹窗
 =========================================================== -->
 
 <div
@@ -1243,24 +1404,16 @@ const COMPLAINT_BUCKET =
    全局
 ============================================================ */
 
-let currentUser =
-    null;
+let currentUser = null;
 
+let complaints = [];
 
-let complaints =
-    [];
-
-
-let currentFilter =
-    "platform";
-
+let currentFilter = "platform";
 
 const IDLE_LIMIT =
     10 * 60 * 1000;
 
-
-let idleTimer =
-    null;
+let idleTimer = null;
 
 
 /* ============================================================
@@ -1305,9 +1458,7 @@ async function init() {
 
         await verifyPlatformAccess();
 
-
         await loadComplaints();
-
 
         hideLoading();
 
@@ -1426,7 +1577,6 @@ async function loadComplaints() {
             "get_platform_complaints:",
             error
         );
-
 
         throw error;
     }
@@ -1712,7 +1862,7 @@ function getComplaintStatus(
 
 
 /* ============================================================
-   渲染投诉
+   渲染
 ============================================================ */
 
 function renderComplaints() {
@@ -1770,7 +1920,7 @@ function renderComplaints() {
 
 
 /* ============================================================
-   单张投诉卡
+   投诉卡片
 ============================================================ */
 
 function createComplaintCard(
@@ -1857,6 +2007,133 @@ function createComplaintCard(
         );
 
 
+    const resolutionDetail =
+        complaint.resolution_detail
+        ||
+        "";
+
+
+    const resolutionId =
+        `resolution_${Number(
+            complaint.complaint_id
+        )}`;
+
+
+    const countId =
+        `resolution_count_${Number(
+            complaint.complaint_id
+        )}`;
+
+
+    let resolutionHtml =
+        "";
+
+
+    if (
+        complaint.platform_confirmed
+        ===
+        true
+    ) {
+
+        resolutionHtml =
+            `
+
+            <div class="resolution-box confirmed">
+
+                <div class="resolution-title-row">
+
+                    <div class="resolution-title">
+                        投诉处理结果详细说明
+                    </div>
+
+                    <div class="resolution-locked">
+                        ✓ 已锁定
+                    </div>
+
+                </div>
+
+
+                <div class="resolution-result">${
+                    escapeHtml(
+                        resolutionDetail
+                        ||
+                        "历史记录未填写处理结果"
+                    )
+                }</div>
+
+
+                <div class="resolution-meta">
+
+                    平台确认时间：
+                    ${
+                        escapeHtml(
+                            formatDateTime(
+                                complaint.platform_confirmed_at
+                            )
+                        )
+                    }
+
+                </div>
+
+            </div>
+
+            `;
+
+    } else {
+
+        resolutionHtml =
+            `
+
+            <div class="resolution-box">
+
+                <div class="resolution-title-row">
+
+                    <div class="resolution-title">
+                        投诉处理结果详细说明
+                    </div>
+
+                    <div class="resolution-required">
+                        平台确认前必填
+                    </div>
+
+                </div>
+
+
+                <div class="resolution-tip">
+                    请填写投诉调查情况、沟通过程、责任认定、退款/补偿情况及最终处理结果。平台确认后该内容将锁定。
+                </div>
+
+
+                <textarea
+                    id="${resolutionId}"
+                    class="resolution-textarea"
+                    maxlength="5000"
+                    placeholder="请详细填写本次投诉的调查情况、处理过程以及最终处理结果……"
+                    oninput="updateResolutionCount(
+                        ${Number(
+                            complaint.complaint_id
+                        )}
+                    )"
+                >${escapeHtml(
+                    resolutionDetail
+                )}</textarea>
+
+
+                <div
+                    id="${countId}"
+                    class="resolution-count"
+                >
+                    ${
+                        resolutionDetail.length
+                    } / 5000
+                </div>
+
+            </div>
+
+            `;
+    }
+
+
     card.innerHTML =
         `
 
@@ -1908,9 +2185,13 @@ function createComplaintCard(
 
             <span>
                 投诉发生地区：
-                ${escapeHtml(province)}
+                ${escapeHtml(
+                    province
+                )}
                 /
-                ${escapeHtml(city)}
+                ${escapeHtml(
+                    city
+                )}
             </span>
 
         </div>
@@ -2072,15 +2353,18 @@ function createComplaintCard(
                 客户投诉内容
             </div>
 
-            <div class="content-text">
-                ${escapeHtml(
+            <div class="content-text">${
+                escapeHtml(
                     complaint.complaint_content
                     ||
                     "-"
-                )}
-            </div>
+                )
+            }</div>
 
         </div>
+
+
+        ${resolutionHtml}
 
 
         <div class="confirm-grid">
@@ -2198,6 +2482,41 @@ function createComplaintCard(
 
 
 /* ============================================================
+   处理结果字符计数
+============================================================ */
+
+function updateResolutionCount(
+    complaintId
+) {
+
+    const textarea =
+        document.getElementById(
+            `resolution_${complaintId}`
+        );
+
+
+    const counter =
+        document.getElementById(
+            `resolution_count_${complaintId}`
+        );
+
+
+    if (
+        !textarea
+        ||
+        !counter
+    ) {
+
+        return;
+    }
+
+
+    counter.textContent =
+        `${textarea.value.length} / 5000`;
+}
+
+
+/* ============================================================
    平台确认
 ============================================================ */
 
@@ -2230,6 +2549,8 @@ async function confirmPlatformComplaint(
 
     if (
         complaint.platform_confirmed
+        ===
+        true
     ) {
 
         toast(
@@ -2240,21 +2561,72 @@ async function confirmPlatformComplaint(
     }
 
 
+    const textarea =
+        document.getElementById(
+            `resolution_${complaintId}`
+        );
+
+
+    if (!textarea) {
+
+        alert(
+            "没有找到投诉处理结果输入框"
+        );
+
+        return;
+    }
+
+
+    const resolutionDetail =
+        textarea.value.trim();
+
+
+    if (!resolutionDetail) {
+
+        alert(
+            "请先填写“投诉处理结果详细说明”，然后再进行平台确认。"
+        );
+
+
+        textarea.focus();
+
+        return;
+    }
+
+
+    if (
+        resolutionDetail.length
+        >
+        5000
+    ) {
+
+        alert(
+            "投诉处理结果不能超过5000个字符"
+        );
+
+        textarea.focus();
+
+        return;
+    }
+
+
     let message =
-        "确认平台已经收到并处理该客户投诉吗？";
+        "请确认本次投诉处理结果已经填写完整。\n\n平台确认后，处理结果将作为历史投诉记录保存。";
 
 
     if (
         complaint.merchant_confirmed
+        ===
+        true
     ) {
 
         message +=
-            "\n\n商户已经确认。本次平台确认后，双方确认完成，该投诉报警将自动结束。";
+            "\n\n商户已经确认。本次平台确认后，双方确认完成，投诉报警将自动结束。";
 
     } else {
 
         message +=
-            "\n\n商户尚未确认。平台确认后，该投诉仍会保留在“等待商户”中。";
+            "\n\n商户尚未确认。平台确认后，该投诉将进入“等待商户”状态。";
     }
 
 
@@ -2265,6 +2637,7 @@ async function confirmPlatformComplaint(
 
 
     if (!yes) {
+
         return;
     }
 
@@ -2281,12 +2654,16 @@ async function confirmPlatformComplaint(
                 p_complaint_id:
                     Number(
                         complaintId
-                    )
+                    ),
+
+                p_resolution_detail:
+                    resolutionDetail
             }
         );
 
 
         if (error) {
+
             throw error;
         }
 
@@ -2430,8 +2807,7 @@ async function showComplaintImages(
         }
 
 
-        const urls =
-            [];
+        const urls = [];
 
 
         for (
@@ -2522,11 +2898,7 @@ async function showComplaintImages(
 
 
 /* ============================================================
-   获取图片记录
-
-   优先调用平台专用RPC。
-   如果此前complains页面使用的是其他同名读取函数，
-   下面也做了兼容。
+   获取投诉图片记录
 ============================================================ */
 
 async function getComplaintImageRows(
@@ -2602,13 +2974,6 @@ async function getComplaintImageRows(
     }
 
 
-    /*
-       最后的兼容方案：
-       如果数据库已有允许平台读取
-       customer_complaint_images 的 RLS，
-       则直接读取。
-    */
-
     const {
         data,
         error
@@ -2653,6 +3018,10 @@ async function getComplaintImageRows(
         [];
 }
 
+
+/* ============================================================
+   图片弹窗
+============================================================ */
 
 function closeImageModal() {
 
@@ -2866,6 +3235,7 @@ function setText(
 
 
     if (!el) {
+
         return;
     }
 
@@ -2881,7 +3251,9 @@ function setText(
         ?
         "-"
         :
-        String(value);
+        String(
+            value
+        );
 }
 
 
@@ -2890,6 +3262,7 @@ function formatDateTime(
 ) {
 
     if (!value) {
+
         return "-";
     }
 
@@ -3044,6 +3417,7 @@ function hideLoading() {
 
 
     if (!mask) {
+
         return;
     }
 

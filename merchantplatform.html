@@ -3,1597 +3,1635 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+>
+
+<title>商户工作台 - 孕乃馨</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    background: #fff7fa;
+    color: #43363c;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "PingFang SC",
+        "Microsoft YaHei",
+        Arial,
+        sans-serif;
+}
+
+body {
+    padding-bottom: calc(88px + env(safe-area-inset-bottom));
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.app {
+    width: 100%;
+    max-width: 560px;
+    min-height: 100vh;
+    margin: 0 auto;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffe8f1 0px,
+            #fff7fa 290px,
+            #fff7fa 100%
+        );
+}
+
+
+/* =========================================================
+   顶部
+========================================================= */
+
+.safe-top {
+    height: env(safe-area-inset-top);
+}
+
+.topbar {
+    min-height: 62px;
+    padding: 9px 17px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.logo {
+    width: 43px;
+    height: 43px;
+    flex-shrink: 0;
+
+    border-radius: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
-    >
+    background:
+        linear-gradient(
+            145deg,
+            #ff6899,
+            #ff91b2
+        );
+
+    color: white;
+    font-size: 23px;
+
+    box-shadow:
+        0 7px 21px
+        rgba(244, 92, 140, .22);
+}
+
+.brand-text {
+    min-width: 0;
+}
+
+.brand-title {
+    font-size: 18px;
+    line-height: 1.2;
+    font-weight: 900;
+    color: #573846;
+}
+
+.brand-subtitle {
+    margin-top: 3px;
+    font-size: 11px;
+    color: #a37888;
+}
 
-    <title>商户工作台 - 孕乃馨</title>
+.logout-btn {
+    min-height: 40px;
+    padding: 8px 12px;
 
+    border: none;
+    border-radius: 14px;
 
-    <!-- =======================================================
-         Supabase
-    ======================================================== -->
+    background: rgba(255,255,255,.78);
+
+    color: #a15d76;
+    font-size: 13px;
+    font-weight: 800;
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    box-shadow:
+        0 4px 15px
+        rgba(85, 50, 65, .06);
+}
 
 
-    <style>
+/* =========================================================
+   投诉报警
+========================================================= */
 
-        /* =====================================================
-           基础
-        ====================================================== */
+.complaint-alert-wrap {
+    margin: 4px 16px 12px;
+}
 
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+.complaint-alert {
+    width: 100%;
+    min-height: 62px;
 
+    padding: 11px 13px;
 
-        html,
-        body {
-            margin: 0;
-            padding: 0;
+    border: 2px solid #ff8794;
+    border-radius: 17px;
 
-            min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-            background: #fff7fa;
+    gap: 10px;
 
-            color: #43363c;
+    background:
+        linear-gradient(
+            135deg,
+            #d71936,
+            #ef3d51
+        );
 
-            font-family:
-                -apple-system,
-                BlinkMacSystemFont,
-                "SF Pro Display",
-                "PingFang SC",
-                "Microsoft YaHei",
-                Arial,
-                sans-serif;
-        }
+    color: white;
 
+    box-shadow:
+        0 8px 24px
+        rgba(210, 25, 50, .25);
 
-        body {
-            padding-bottom:
-                calc(88px + env(safe-area-inset-bottom));
-        }
+    animation:
+        complaintFlash
+        1.15s
+        infinite;
+}
 
+@keyframes complaintFlash {
 
-        button,
-        input,
-        select,
-        textarea {
-            font: inherit;
-        }
+    0%,
+    100% {
+        opacity: 1;
+        box-shadow:
+            0 7px 20px
+            rgba(210, 25, 50, .20);
+    }
 
+    50% {
+        opacity: .70;
+        box-shadow:
+            0 9px 30px
+            rgba(210, 25, 50, .48);
+    }
+}
 
-        button {
-            cursor: pointer;
-        }
+.complaint-alert-left {
+    min-width: 0;
 
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
-        .hidden {
-            display: none !important;
-        }
+.complaint-alert-icon {
+    width: 38px;
+    height: 38px;
 
+    flex-shrink: 0;
 
-        .app {
-            width: 100%;
+    border-radius: 12px;
 
-            max-width: 560px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-            min-height: 100vh;
+    background: rgba(255,255,255,.17);
 
-            margin: 0 auto;
+    font-size: 20px;
+}
 
-            background:
-                linear-gradient(
-                    180deg,
-                    #ffe8f1 0px,
-                    #fff7fa 290px,
-                    #fff7fa 100%
-                );
-        }
+.complaint-alert-title {
+    font-size: 13px;
+    font-weight: 900;
+}
 
+.complaint-alert-text {
+    margin-top: 3px;
 
-        /* =====================================================
-           顶部
-        ====================================================== */
+    font-size: 10px;
+    line-height: 1.4;
 
-        .safe-top {
-            height:
-                env(safe-area-inset-top);
-        }
+    opacity: .94;
+}
 
+.complaint-alert-arrow {
+    width: 32px;
+    height: 32px;
 
-        .topbar {
-            min-height: 62px;
+    flex-shrink: 0;
 
-            padding:
-                9px 17px;
+    border-radius: 50%;
 
-            display: flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-            align-items: center;
+    background: rgba(255,255,255,.18);
 
-            justify-content: space-between;
-        }
+    font-size: 20px;
+}
 
 
-        .brand {
-            display: flex;
+/* =========================================================
+   商户主卡
+========================================================= */
 
-            align-items: center;
+.merchant-hero {
+    margin: 7px 16px 0;
+    padding: 21px 19px;
 
-            gap: 10px;
+    border-radius: 26px;
 
-            min-width: 0;
-        }
+    position: relative;
+    overflow: hidden;
 
+    color: white;
 
-        .logo {
-            width: 43px;
+    background:
+        linear-gradient(
+            135deg,
+            #f96193 0%,
+            #ff83aa 52%,
+            #ffa0bb 100%
+        );
 
-            height: 43px;
+    box-shadow:
+        0 13px 34px
+        rgba(230, 83, 130, .23);
+}
 
-            flex-shrink: 0;
+.merchant-hero::before {
+    content: "";
 
-            border-radius: 15px;
+    position: absolute;
 
-            display: flex;
+    width: 160px;
+    height: 160px;
 
-            align-items: center;
+    border-radius: 50%;
 
-            justify-content: center;
+    right: -70px;
+    top: -78px;
 
-            background:
-                linear-gradient(
-                    145deg,
-                    #ff6899,
-                    #ff91b2
-                );
+    background: rgba(255,255,255,.14);
+}
 
-            color: white;
+.merchant-hero::after {
+    content: "";
 
-            font-size: 23px;
+    position: absolute;
 
-            box-shadow:
-                0 7px 21px
-                rgba(244, 92, 140, .22);
-        }
+    width: 100px;
+    height: 100px;
 
+    border-radius: 50%;
 
-        .brand-text {
-            min-width: 0;
-        }
+    right: 35px;
+    bottom: -68px;
 
+    background: rgba(255,255,255,.09);
+}
 
-        .brand-title {
-            font-size: 18px;
+.hero-label {
+    position: relative;
+    z-index: 1;
 
-            line-height: 1.2;
+    font-size: 12px;
+    opacity: .88;
+}
 
-            font-weight: 900;
+.hero-name {
+    position: relative;
+    z-index: 1;
 
-            color: #573846;
-        }
+    margin-top: 5px;
 
+    font-size: 24px;
+    line-height: 1.35;
+    font-weight: 900;
 
-        .brand-subtitle {
-            margin-top: 3px;
+    word-break: break-word;
+}
 
-            font-size: 11px;
+.hero-meta {
+    position: relative;
+    z-index: 1;
 
-            color: #a37888;
-        }
+    margin-top: 10px;
 
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
 
-        .logout-btn {
-            min-height: 40px;
+.hero-tag {
+    min-height: 29px;
+    padding: 5px 10px;
 
-            padding:
-                8px 12px;
+    border-radius: 10px;
 
-            border: none;
+    display: inline-flex;
+    align-items: center;
 
-            border-radius: 14px;
+    background: rgba(255,255,255,.17);
 
-            background:
-                rgba(255,255,255,.78);
+    font-size: 11px;
+    font-weight: 800;
+}
 
-            color: #a15d76;
+.hero-desc {
+    position: relative;
+    z-index: 1;
 
-            font-size: 13px;
+    margin-top: 14px;
+    max-width: 90%;
 
-            font-weight: 800;
+    font-size: 11px;
+    line-height: 1.7;
 
-            box-shadow:
-                0 4px 15px
-                rgba(85, 50, 65, .06);
-        }
+    opacity: .92;
+}
 
 
-        /* =====================================================
-           商户主卡
-        ====================================================== */
+/* =========================================================
+   核销主按钮
+========================================================= */
 
-        .merchant-hero {
-            margin:
-                7px 16px 0;
+.verify-wrap {
+    margin: 17px 16px 0;
+}
 
-            padding:
-                21px 19px;
+.verify-main-btn {
+    width: 100%;
+    min-height: 72px;
 
-            border-radius: 26px;
+    padding: 12px 16px;
 
-            position: relative;
+    border: none;
+    border-radius: 23px;
 
-            overflow: hidden;
+    background: white;
 
-            color: white;
+    box-shadow:
+        0 9px 29px
+        rgba(93, 56, 72, .10);
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #f96193 0%,
-                    #ff83aa 52%,
-                    #ffa0bb 100%
-                );
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-            box-shadow:
-                0 13px 34px
-                rgba(230, 83, 130, .23);
-        }
+    gap: 12px;
+}
 
+.verify-main-left {
+    display: flex;
+    align-items: center;
+    gap: 13px;
 
-        .merchant-hero::before {
-            content: "";
+    min-width: 0;
+}
 
-            position: absolute;
+.verify-main-icon {
+    width: 49px;
+    height: 49px;
 
-            width: 160px;
+    flex-shrink: 0;
 
-            height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-            border-radius: 50%;
+    border-radius: 16px;
 
-            right: -70px;
+    background:
+        linear-gradient(
+            135deg,
+            #ffedf4,
+            #ffe2ec
+        );
 
-            top: -78px;
+    font-size: 25px;
+}
 
-            background:
-                rgba(255,255,255,.14);
-        }
+.verify-main-text {
+    text-align: left;
+}
 
+.verify-main-title {
+    font-size: 18px;
+    font-weight: 900;
+    color: #583946;
+}
 
-        .merchant-hero::after {
-            content: "";
+.verify-main-desc {
+    margin-top: 4px;
 
-            position: absolute;
+    font-size: 11px;
+    line-height: 1.5;
 
-            width: 100px;
+    color: #9e7a88;
+}
 
-            height: 100px;
+.verify-main-arrow {
+    width: 36px;
+    height: 36px;
 
-            border-radius: 50%;
+    flex-shrink: 0;
 
-            right: 35px;
+    border-radius: 50%;
 
-            bottom: -68px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-            background:
-                rgba(255,255,255,.09);
-        }
+    background: #ffedf4;
+    color: #dd5b88;
 
+    font-size: 21px;
+}
 
-        .hero-label {
-            position: relative;
 
-            z-index: 1;
+/* =========================================================
+   Section
+========================================================= */
 
-            font-size: 12px;
+.section {
+    margin: 22px 16px 0;
+}
 
-            opacity: .88;
-        }
+.section-head {
+    margin-bottom: 11px;
 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-        .hero-name {
-            position: relative;
+    gap: 10px;
+}
 
-            z-index: 1;
+.section-title {
+    font-size: 17px;
+    font-weight: 900;
+    color: #503640;
+}
 
-            margin-top: 5px;
+.section-link {
+    min-height: 38px;
+    padding: 6px 3px;
 
-            font-size: 24px;
+    border: none;
+    background: transparent;
 
-            line-height: 1.35;
+    color: #d96188;
 
-            font-weight: 900;
+    font-size: 12px;
+    font-weight: 800;
+}
 
-            word-break: break-word;
-        }
 
+/* =========================================================
+   统计
+========================================================= */
 
-        .hero-meta {
-            position: relative;
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
 
-            z-index: 1;
+.stat-card {
+    min-height: 99px;
 
-            margin-top: 10px;
+    padding: 14px 5px 10px;
 
-            display: flex;
+    border: none;
+    border-radius: 18px;
 
-            flex-wrap: wrap;
+    background: white;
 
-            gap: 7px;
-        }
+    text-align: center;
 
+    box-shadow:
+        0 6px 20px
+        rgba(90, 55, 70, .065);
+}
 
-        .hero-tag {
-            min-height: 29px;
+.stat-icon {
+    min-height: 24px;
+    font-size: 20px;
+}
 
-            padding:
-                5px 10px;
+.stat-value {
+    margin-top: 7px;
 
-            border-radius: 10px;
+    font-size: 21px;
+    line-height: 1;
 
-            display: inline-flex;
+    font-weight: 900;
 
-            align-items: center;
+    color: #e35788;
+}
 
-            background:
-                rgba(255,255,255,.17);
+.stat-label {
+    margin-top: 7px;
 
-            font-size: 11px;
+    font-size: 10px;
+    line-height: 1.3;
 
-            font-weight: 800;
-        }
+    color: #a17c89;
 
+    font-weight: 700;
+}
 
-        .hero-desc {
-            position: relative;
 
-            z-index: 1;
+/* =========================================================
+   快捷功能
+========================================================= */
 
-            margin-top: 14px;
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
 
-            max-width: 90%;
+.tool-card {
+    min-height: 95px;
+    padding: 14px;
 
-            font-size: 11px;
+    border: none;
+    border-radius: 20px;
 
-            line-height: 1.7;
+    background: white;
 
-            opacity: .92;
-        }
+    box-shadow:
+        0 7px 23px
+        rgba(90, 55, 70, .065);
 
+    text-align: left;
+}
 
-        /* =====================================================
-           核销主按钮
-        ====================================================== */
+.tool-icon {
+    width: 38px;
+    height: 38px;
 
-        .verify-wrap {
-            margin:
-                17px 16px 0;
-        }
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
+    border-radius: 13px;
 
-        .verify-main-btn {
-            width: 100%;
+    background: #fff0f5;
 
-            min-height: 72px;
+    font-size: 20px;
+}
 
-            padding:
-                12px 16px;
+.tool-title {
+    margin-top: 10px;
 
-            border: none;
+    font-size: 14px;
+    font-weight: 900;
 
-            border-radius: 23px;
+    color: #583b46;
+}
 
-            background: white;
+.tool-desc {
+    margin-top: 4px;
 
-            box-shadow:
-                0 9px 29px
-                rgba(93, 56, 72, .10);
+    font-size: 10px;
+    line-height: 1.5;
 
-            display: flex;
+    color: #a17e8b;
+}
 
-            align-items: center;
 
-            justify-content: space-between;
+/* =========================================================
+   投诉列表
+========================================================= */
 
-            gap: 12px;
-        }
+.complaints-list {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
 
+.complaint-card {
+    padding: 15px;
 
-        .verify-main-left {
-            display: flex;
+    border: 1px solid #ffd1d8;
+    border-radius: 20px;
 
-            align-items: center;
+    background: white;
 
-            gap: 13px;
+    box-shadow:
+        0 7px 23px
+        rgba(150, 40, 60, .08);
+}
 
-            min-width: 0;
-        }
+.complaint-card.active {
+    border-color: #f18a99;
+}
 
+.complaint-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 
-        .verify-main-icon {
-            width: 49px;
+    gap: 10px;
+}
 
-            height: 49px;
+.complaint-card-title {
+    font-size: 14px;
+    font-weight: 900;
+    color: #a71e34;
+}
 
-            flex-shrink: 0;
+.complaint-card-order {
+    margin-top: 4px;
 
-            display: flex;
+    font-size: 10px;
+    color: #a88791;
 
-            align-items: center;
+    word-break: break-all;
+}
 
-            justify-content: center;
+.complaint-badge {
+    flex-shrink: 0;
 
-            border-radius: 16px;
+    padding: 5px 9px;
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #ffedf4,
-                    #ffe2ec
-                );
+    border-radius: 999px;
 
-            font-size: 25px;
-        }
+    background: #fff0f2;
 
+    color: #c51f39;
 
-        .verify-main-text {
-            text-align: left;
-        }
+    font-size: 10px;
+    font-weight: 900;
+}
 
+.complaint-badge.done {
+    background: #eaf8f2;
+    color: #27805d;
+}
 
-        .verify-main-title {
-            font-size: 18px;
+.complaint-content {
+    margin-top: 11px;
 
-            font-weight: 900;
+    padding: 11px 12px;
 
-            color: #583946;
-        }
+    border-radius: 13px;
 
+    background: #fff7f8;
 
-        .verify-main-desc {
-            margin-top: 4px;
+    color: #69434b;
 
-            font-size: 11px;
+    font-size: 11px;
+    line-height: 1.65;
 
-            line-height: 1.5;
+    word-break: break-word;
+}
 
-            color: #9e7a88;
-        }
+.complaint-confirm-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 
+    gap: 7px;
 
-        .verify-main-arrow {
-            width: 36px;
+    margin-top: 10px;
+}
 
-            height: 36px;
+.confirm-state {
+    padding: 9px;
 
-            flex-shrink: 0;
+    border-radius: 11px;
 
-            border-radius: 50%;
+    font-size: 10px;
+    line-height: 1.5;
+}
 
-            display: flex;
+.confirm-state.yes {
+    background: #eaf8f2;
+    color: #27785a;
+}
 
-            align-items: center;
+.confirm-state.no {
+    background: #fff0f2;
+    color: #bd263d;
+}
 
-            justify-content: center;
+.complaint-actions {
+    display: flex;
+    gap: 8px;
 
-            background: #ffedf4;
+    margin-top: 11px;
+}
 
-            color: #dd5b88;
+.complaint-btn {
+    min-height: 43px;
 
-            font-size: 21px;
-        }
+    flex: 1;
 
+    border: none;
+    border-radius: 13px;
 
-        /* =====================================================
-           Section
-        ====================================================== */
+    font-size: 11px;
+    font-weight: 900;
+}
 
-        .section {
-            margin:
-                22px 16px 0;
-        }
+.complaint-btn-light {
+    background: #fff0f4;
+    color: #cc4c73;
+}
 
+.complaint-btn-confirm {
+    background:
+        linear-gradient(
+            135deg,
+            #e12842,
+            #c91d36
+        );
 
-        .section-head {
-            margin-bottom: 11px;
+    color: white;
+}
 
-            display: flex;
+.complaint-btn-confirm:disabled {
+    opacity: .48;
+}
 
-            align-items: center;
 
-            justify-content: space-between;
+/* =========================================================
+   订单
+========================================================= */
 
-            gap: 10px;
-        }
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
 
+.order-card {
+    padding: 15px;
 
-        .section-title {
-            font-size: 17px;
+    border-radius: 21px;
 
-            font-weight: 900;
+    background: white;
 
-            color: #503640;
-        }
+    box-shadow:
+        0 7px 23px
+        rgba(86, 53, 66, .065);
+}
 
+.order-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
 
-        .section-link {
-            min-height: 38px;
+    gap: 10px;
+}
 
-            padding:
-                6px 3px;
+.order-main {
+    min-width: 0;
+}
 
-            border: none;
+.order-product {
+    font-size: 15px;
+    line-height: 1.4;
 
-            background: transparent;
+    font-weight: 900;
+    color: #533743;
 
-            color: #d96188;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
-            font-size: 12px;
+.order-no {
+    margin-top: 4px;
 
-            font-weight: 800;
-        }
+    font-size: 10px;
+    color: #ae8a97;
 
+    word-break: break-all;
+}
 
-        /* =====================================================
-           统计
-        ====================================================== */
+.badge {
+    flex-shrink: 0;
 
-        .stats-grid {
-            display: grid;
+    min-height: 27px;
+    padding: 5px 9px;
 
-            grid-template-columns:
-                repeat(4, 1fr);
+    border-radius: 999px;
 
-            gap: 8px;
-        }
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
+    font-size: 10px;
+    font-weight: 900;
+}
 
-        .stat-card {
-            min-height: 99px;
+.badge-wait {
+    background: #eaf9f2;
+    color: #27845d;
+}
 
-            padding:
-                14px 5px 10px;
+.badge-processing {
+    background: #edf4ff;
+    color: #4b75af;
+}
 
-            border: none;
+.badge-completed {
+    background: #fff0f6;
+    color: #c05880;
+}
 
-            border-radius: 18px;
+.badge-unpaid {
+    background: #fff4df;
+    color: #bd7719;
+}
 
-            background: white;
+.badge-cancelled {
+    background: #f2f2f2;
+    color: #858585;
+}
 
-            text-align: center;
+.order-divider {
+    height: 1px;
+    margin: 12px 0;
+    background: #f5e9ee;
+}
 
-            box-shadow:
-                0 6px 20px
-                rgba(90, 55, 70, .065);
-        }
+.order-row {
+    margin-top: 7px;
 
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
 
-        .stat-icon {
-            min-height: 24px;
+    gap: 12px;
 
-            font-size: 20px;
-        }
+    font-size: 11px;
+    line-height: 1.5;
+}
 
+.order-label {
+    flex-shrink: 0;
+    color: #a17f8b;
+}
 
-        .stat-value {
-            margin-top: 7px;
+.order-value {
+    color: #624550;
+    font-weight: 700;
 
-            font-size: 21px;
+    text-align: right;
 
-            line-height: 1;
+    word-break: break-word;
+}
 
-            font-weight: 900;
+.usage-box {
+    margin-top: 12px;
+    padding: 11px 12px;
 
-            color: #e35788;
-        }
+    border-radius: 14px;
 
+    background: #fff7fa;
+}
 
-        .stat-label {
-            margin-top: 7px;
+.usage-head {
+    display: flex;
+    justify-content: space-between;
 
-            font-size: 10px;
+    gap: 10px;
 
-            line-height: 1.3;
+    font-size: 11px;
+}
 
-            color: #a17c89;
+.usage-label {
+    color: #775a65;
+    font-weight: 700;
+}
 
-            font-weight: 700;
-        }
+.usage-value {
+    color: #e45788;
+    font-weight: 900;
+}
 
+.progress {
+    height: 7px;
 
-        /* =====================================================
-           快捷功能
-        ====================================================== */
+    margin-top: 8px;
 
-        .tools-grid {
-            display: grid;
+    overflow: hidden;
 
-            grid-template-columns:
-                repeat(2, 1fr);
+    border-radius: 99px;
 
-            gap: 10px;
-        }
+    background: #f2dce5;
+}
 
+.progress-bar {
+    height: 100%;
+    width: 0;
 
-        .tool-card {
-            min-height: 95px;
+    border-radius: 99px;
 
-            padding:
-                14px;
+    background:
+        linear-gradient(
+            90deg,
+            #ff719d,
+            #ff98b6
+        );
+}
 
-            border: none;
+.order-actions {
+    margin-top: 13px;
 
-            border-radius: 20px;
+    display: flex;
+    gap: 8px;
+}
 
-            background: white;
+.order-btn {
+    min-height: 41px;
+    padding: 8px 11px;
 
-            box-shadow:
-                0 7px 23px
-                rgba(90, 55, 70, .065);
+    flex: 1;
 
-            text-align: left;
-        }
+    border: none;
+    border-radius: 13px;
 
+    font-size: 11px;
+    font-weight: 900;
+}
 
-        .tool-icon {
-            width: 38px;
+.order-btn-light {
+    background: #fff0f5;
+    color: #d95a85;
+}
 
-            height: 38px;
+.order-btn-primary {
+    background:
+        linear-gradient(
+            135deg,
+            #ff719d,
+            #f55f90
+        );
 
-            display: flex;
+    color: white;
+}
 
-            align-items: center;
 
-            justify-content: center;
+/* =========================================================
+   核销记录
+========================================================= */
 
-            border-radius: 13px;
+.verification-list {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
 
-            background: #fff0f5;
+.verification-item {
+    padding: 13px 14px;
 
-            font-size: 20px;
-        }
+    border-radius: 17px;
 
+    background: white;
 
-        .tool-title {
-            margin-top: 10px;
+    box-shadow:
+        0 5px 18px
+        rgba(85, 52, 65, .055);
+}
 
-            font-size: 14px;
+.verification-top {
+    display: flex;
+    justify-content: space-between;
 
-            font-weight: 900;
+    gap: 10px;
+}
 
-            color: #583b46;
-        }
+.verification-order {
+    font-size: 12px;
+    font-weight: 900;
+    color: #57404a;
+}
 
+.verification-success {
+    flex-shrink: 0;
 
-        .tool-desc {
-            margin-top: 4px;
+    color: #2c8a61;
 
-            font-size: 10px;
+    font-size: 10px;
+    font-weight: 900;
+}
 
-            line-height: 1.5;
+.verification-bottom {
+    margin-top: 7px;
 
-            color: #a17e8b;
-        }
+    display: flex;
+    justify-content: space-between;
 
+    gap: 10px;
 
-        /* =====================================================
-           订单
-        ====================================================== */
+    color: #a07f8b;
 
-        .orders-list {
-            display: flex;
+    font-size: 10px;
+}
 
-            flex-direction: column;
 
-            gap: 11px;
-        }
+/* =========================================================
+   商户资料
+========================================================= */
 
+.info-card {
+    padding: 16px;
 
-        .order-card {
-            padding:
-                15px;
+    border-radius: 21px;
 
-            border-radius: 21px;
+    background: white;
 
-            background: white;
+    box-shadow:
+        0 7px 22px
+        rgba(88, 54, 67, .06);
+}
 
-            box-shadow:
-                0 7px 23px
-                rgba(86, 53, 66, .065);
-        }
+.info-row {
+    min-height: 39px;
+    padding: 8px 0;
 
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
 
-        .order-top {
-            display: flex;
+    gap: 15px;
 
-            align-items: flex-start;
+    border-bottom: 1px solid #f6eaf0;
+}
 
-            justify-content: space-between;
+.info-row:last-child {
+    border-bottom: none;
+}
 
-            gap: 10px;
-        }
+.info-label {
+    flex-shrink: 0;
 
+    font-size: 11px;
+    color: #a17f8b;
+}
 
-        .order-main {
-            min-width: 0;
-        }
+.info-value {
+    max-width: 68%;
 
+    font-size: 11px;
+    line-height: 1.55;
 
-        .order-product {
-            font-size: 15px;
+    text-align: right;
 
-            line-height: 1.4;
+    color: #614650;
 
-            font-weight: 900;
+    font-weight: 700;
 
-            color: #533743;
+    word-break: break-word;
+}
 
-            white-space: nowrap;
+.coming-card {
+    padding: 15px;
 
-            overflow: hidden;
+    border-radius: 18px;
 
-            text-overflow: ellipsis;
-        }
+    display: flex;
+    gap: 11px;
+    align-items: flex-start;
 
+    background: #fff;
 
-        .order-no {
-            margin-top: 4px;
+    box-shadow:
+        0 6px 19px
+        rgba(88,53,67,.05);
+}
 
-            font-size: 10px;
+.coming-icon {
+    width: 36px;
+    height: 36px;
 
-            color: #ae8a97;
+    flex-shrink: 0;
 
-            word-break: break-all;
-        }
+    border-radius: 12px;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-        .badge {
-            flex-shrink: 0;
+    background: #fff2f6;
+}
 
-            min-height: 27px;
+.coming-title {
+    font-size: 13px;
+    font-weight: 900;
+    color: #60414c;
+}
 
-            padding:
-                5px 9px;
+.coming-text {
+    margin-top: 4px;
 
-            border-radius: 999px;
+    font-size: 10px;
+    line-height: 1.6;
 
-            display: inline-flex;
+    color: #9e7c88;
+}
 
-            align-items: center;
 
-            justify-content: center;
+/* =========================================================
+   空状态
+========================================================= */
 
-            font-size: 10px;
+.empty {
+    padding: 25px 15px;
 
-            font-weight: 900;
-        }
+    border-radius: 20px;
 
+    text-align: center;
 
-        .badge-wait {
-            background: #eaf9f2;
+    background: white;
 
-            color: #27845d;
-        }
+    box-shadow:
+        0 6px 20px
+        rgba(84,51,64,.05);
+}
 
+.empty-icon {
+    font-size: 35px;
+}
 
-        .badge-processing {
-            background: #edf4ff;
+.empty-title {
+    margin-top: 8px;
 
-            color: #4b75af;
-        }
+    font-size: 14px;
+    font-weight: 900;
 
+    color: #644550;
+}
 
-        .badge-completed {
-            background: #fff0f6;
+.empty-text {
+    margin-top: 5px;
 
-            color: #c05880;
-        }
+    font-size: 10px;
+    line-height: 1.6;
 
+    color: #a1828e;
+}
 
-        .badge-unpaid {
-            background: #fff4df;
 
-            color: #bd7719;
-        }
+/* =========================================================
+   底部导航
+========================================================= */
 
+.bottom-nav {
+    position: fixed;
 
-        .badge-cancelled {
-            background: #f2f2f2;
+    left: 50%;
+    bottom: 0;
 
-            color: #858585;
-        }
+    z-index: 100;
 
+    width: 100%;
+    max-width: 560px;
+    min-height: 72px;
 
-        .order-divider {
-            height: 1px;
+    transform: translateX(-50%);
 
-            margin:
-                12px 0;
+    padding:
+        7px 14px
+        calc(7px + env(safe-area-inset-bottom));
 
-            background: #f5e9ee;
-        }
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
 
+    background: rgba(255,255,255,.97);
 
-        .order-row {
-            margin-top: 7px;
+    border-top: 1px solid #f2e1e8;
 
-            display: flex;
+    backdrop-filter: blur(17px);
+}
 
-            align-items: flex-start;
+.nav-btn {
+    min-height: 55px;
 
-            justify-content: space-between;
+    border: none;
+    background: transparent;
 
-            gap: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-            font-size: 11px;
+    gap: 4px;
 
-            line-height: 1.5;
-        }
+    color: #ab8996;
 
+    font-size: 9px;
+    font-weight: 800;
+}
 
-        .order-label {
-            flex-shrink: 0;
+.nav-btn.active {
+    color: #ed608d;
+}
 
-            color: #a17f8b;
-        }
+.nav-icon {
+    font-size: 21px;
+    line-height: 1;
+}
 
 
-        .order-value {
-            color: #624550;
+/* =========================================================
+   Modal
+========================================================= */
 
-            font-weight: 700;
+.modal-mask {
+    position: fixed;
 
-            text-align: right;
+    inset: 0;
 
-            word-break: break-word;
-        }
+    z-index: 1000;
 
+    padding: 20px;
 
-        .usage-box {
-            margin-top: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-            padding:
-                11px 12px;
+    background: rgba(52, 37, 44, .56);
 
-            border-radius: 14px;
+    backdrop-filter: blur(6px);
+}
 
-            background: #fff7fa;
-        }
+.modal {
+    width: 100%;
+    max-width: 410px;
+    max-height: 88vh;
 
+    overflow-y: auto;
 
-        .usage-head {
-            display: flex;
+    padding: 21px 18px;
 
-            justify-content: space-between;
+    border-radius: 26px;
 
-            gap: 10px;
+    background: white;
 
-            font-size: 11px;
-        }
+    box-shadow:
+        0 20px 55px
+        rgba(35,20,27,.24);
+}
 
+.modal-title {
+    font-size: 18px;
+    font-weight: 900;
 
-        .usage-label {
-            color: #775a65;
+    color: #543b45;
 
-            font-weight: 700;
-        }
+    text-align: center;
+}
 
+.modal-order {
+    margin-top: 6px;
 
-        .usage-value {
-            color: #e45788;
+    text-align: center;
 
-            font-weight: 900;
-        }
+    font-size: 10px;
+    color: #aa8895;
+}
 
+.modal-info {
+    margin-top: 16px;
+}
 
-        .progress {
-            height: 7px;
+.modal-row {
+    padding: 9px 0;
 
-            margin-top: 8px;
+    display: flex;
+    justify-content: space-between;
 
-            overflow: hidden;
+    gap: 13px;
 
-            border-radius: 99px;
+    border-bottom: 1px solid #f5e9ee;
 
-            background: #f2dce5;
-        }
+    font-size: 11px;
+}
 
+.modal-row:last-child {
+    border-bottom: none;
+}
 
-        .progress-bar {
-            height: 100%;
+.modal-label {
+    color: #a17f8c;
+}
 
-            width: 0;
+.modal-value {
+    max-width: 68%;
 
-            border-radius: 99px;
+    text-align: right;
 
-            background:
-                linear-gradient(
-                    90deg,
-                    #ff719d,
-                    #ff98b6
-                );
-        }
+    color: #5f444f;
 
+    font-weight: 800;
 
-        .order-actions {
-            margin-top: 13px;
+    word-break: break-word;
+}
 
-            display: flex;
+.modal-close {
+    width: 100%;
+    min-height: 47px;
 
-            gap: 8px;
-        }
+    margin-top: 16px;
 
+    border: none;
+    border-radius: 14px;
 
-        .order-btn {
-            min-height: 41px;
+    background: #ffedf4;
 
-            padding:
-                8px 11px;
+    color: #d85984;
 
-            flex: 1;
+    font-weight: 900;
+}
 
-            border: none;
 
-            border-radius: 13px;
+/* =========================================================
+   投诉详情
+========================================================= */
 
-            font-size: 11px;
+.complaint-detail-content {
+    margin-top: 14px;
 
-            font-weight: 900;
-        }
+    padding: 13px;
 
+    border-radius: 14px;
 
-        .order-btn-light {
-            background: #fff0f5;
+    background: #fff5f7;
 
-            color: #d95a85;
-        }
+    border: 1px solid #f7d6dd;
+}
 
+.complaint-detail-label {
+    font-size: 10px;
+    font-weight: 900;
 
-        .order-btn-primary {
-            background:
-                linear-gradient(
-                    135deg,
-                    #ff719d,
-                    #f55f90
-                );
+    color: #a94358;
+}
 
-            color: white;
-        }
+.complaint-detail-text {
+    margin-top: 6px;
 
+    font-size: 12px;
+    line-height: 1.7;
 
-        /* =====================================================
-           核销记录
-        ====================================================== */
+    color: #604148;
 
-        .verification-list {
-            display: flex;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
 
-            flex-direction: column;
+.complaint-image-title {
+    margin-top: 16px;
 
-            gap: 9px;
-        }
+    font-size: 12px;
+    font-weight: 900;
 
+    color: #63444e;
+}
 
-        .verification-item {
-            padding:
-                13px 14px;
+.complaint-images {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
 
-            border-radius: 17px;
+    gap: 8px;
 
-            background: white;
+    margin-top: 9px;
+}
 
-            box-shadow:
-                0 5px 18px
-                rgba(85, 52, 65, .055);
-        }
+.complaint-image {
+    width: 100%;
 
+    aspect-ratio: 1 / 1;
 
-        .verification-top {
-            display: flex;
+    overflow: hidden;
 
-            justify-content: space-between;
+    border-radius: 12px;
 
-            gap: 10px;
-        }
+    background: #f5f1f3;
+}
 
+.complaint-image img {
+    width: 100%;
+    height: 100%;
 
-        .verification-order {
-            font-size: 12px;
+    object-fit: cover;
+    display: block;
+}
 
-            font-weight: 900;
+.complaint-modal-confirm {
+    width: 100%;
+    min-height: 48px;
 
-            color: #57404a;
-        }
+    margin-top: 12px;
 
+    border: none;
+    border-radius: 14px;
 
-        .verification-success {
-            flex-shrink: 0;
+    background:
+        linear-gradient(
+            135deg,
+            #e32943,
+            #c81c35
+        );
 
-            color: #2c8a61;
+    color: white;
 
-            font-size: 10px;
+    font-weight: 900;
+}
 
-            font-weight: 900;
-        }
+.complaint-modal-confirm:disabled {
+    opacity: .45;
+}
 
 
-        .verification-bottom {
-            margin-top: 7px;
+/* =========================================================
+   Toast
+========================================================= */
 
-            display: flex;
+.toast {
+    position: fixed;
 
-            justify-content: space-between;
+    left: 50%;
 
-            gap: 10px;
+    bottom:
+        calc(95px + env(safe-area-inset-bottom));
 
-            color: #a07f8b;
+    z-index: 9999;
 
-            font-size: 10px;
-        }
+    max-width: calc(100vw - 48px);
 
+    padding: 11px 15px;
 
-        /* =====================================================
-           商户资料
-        ====================================================== */
+    border-radius: 13px;
 
-        .info-card {
-            padding:
-                16px;
+    background: rgba(62,48,54,.94);
 
-            border-radius: 21px;
+    color: white;
 
-            background: white;
+    font-size: 11px;
+    line-height: 1.5;
 
-            box-shadow:
-                0 7px 22px
-                rgba(88, 54, 67, .06);
-        }
+    text-align: center;
 
+    opacity: 0;
 
-        .info-row {
-            min-height: 39px;
+    pointer-events: none;
 
-            padding:
-                8px 0;
+    transform:
+        translate(-50%, 18px);
 
-            display: flex;
+    transition: .2s ease;
+}
 
-            align-items: flex-start;
+.toast.show {
+    opacity: 1;
 
-            justify-content: space-between;
+    transform:
+        translate(-50%, 0);
+}
 
-            gap: 15px;
 
-            border-bottom:
-                1px solid #f6eaf0;
-        }
+/* =========================================================
+   Loading
+========================================================= */
 
+.loading-mask {
+    position: fixed;
 
-        .info-row:last-child {
-            border-bottom: none;
-        }
+    inset: 0;
 
+    z-index: 10000;
 
-        .info-label {
-            flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-            font-size: 11px;
+    background: #fff7fa;
+}
 
-            color: #a17f8b;
-        }
+.loading-inner {
+    text-align: center;
+}
 
+.loading-icon {
+    font-size: 43px;
 
-        .info-value {
-            max-width: 68%;
+    animation:
+        loadingPulse 1s
+        infinite ease-in-out;
+}
 
-            font-size: 11px;
+.loading-text {
+    margin-top: 10px;
 
-            line-height: 1.55;
+    font-size: 12px;
+    color: #a17686;
+}
 
-            text-align: right;
+@keyframes loadingPulse {
 
-            color: #614650;
+    0%,
+    100% {
+        transform: scale(1);
+    }
 
-            font-weight: 700;
+    50% {
+        transform: scale(1.12);
+    }
+}
 
-            word-break: break-word;
-        }
+@media (max-width: 390px) {
 
+    .stats-grid {
+        gap: 6px;
+    }
 
-        /* =====================================================
-           暂未开放
-        ====================================================== */
+    .stat-card {
+        padding-left: 3px;
+        padding-right: 3px;
+    }
 
-        .coming-card {
-            padding:
-                15px;
+    .stat-value {
+        font-size: 19px;
+    }
 
-            border-radius: 18px;
+    .stat-label {
+        font-size: 9px;
+    }
+}
 
-            display: flex;
+@media (min-width: 600px) {
 
-            gap: 11px;
+    body {
+        background: #f6f0f3;
+    }
 
-            align-items: flex-start;
+    .app {
+        box-shadow:
+            0 0 36px
+            rgba(80, 45, 60, .08);
+    }
+}
 
-            background: #fff;
-
-            box-shadow:
-                0 6px 19px
-                rgba(88,53,67,.05);
-        }
-
-
-        .coming-icon {
-            width: 36px;
-
-            height: 36px;
-
-            flex-shrink: 0;
-
-            border-radius: 12px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            background: #fff2f6;
-        }
-
-
-        .coming-title {
-            font-size: 13px;
-
-            font-weight: 900;
-
-            color: #60414c;
-        }
-
-
-        .coming-text {
-            margin-top: 4px;
-
-            font-size: 10px;
-
-            line-height: 1.6;
-
-            color: #9e7c88;
-        }
-
-
-        /* =====================================================
-           空状态
-        ====================================================== */
-
-        .empty {
-            padding:
-                25px 15px;
-
-            border-radius: 20px;
-
-            text-align: center;
-
-            background: white;
-
-            box-shadow:
-                0 6px 20px
-                rgba(84,51,64,.05);
-        }
-
-
-        .empty-icon {
-            font-size: 35px;
-        }
-
-
-        .empty-title {
-            margin-top: 8px;
-
-            font-size: 14px;
-
-            font-weight: 900;
-
-            color: #644550;
-        }
-
-
-        .empty-text {
-            margin-top: 5px;
-
-            font-size: 10px;
-
-            line-height: 1.6;
-
-            color: #a1828e;
-        }
-
-
-        /* =====================================================
-           底部导航
-        ====================================================== */
-
-        .bottom-nav {
-            position: fixed;
-
-            left: 50%;
-
-            bottom: 0;
-
-            z-index: 100;
-
-            width: 100%;
-
-            max-width: 560px;
-
-            min-height: 72px;
-
-            transform:
-                translateX(-50%);
-
-            padding:
-                7px 14px
-                calc(7px + env(safe-area-inset-bottom));
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(4, 1fr);
-
-            background:
-                rgba(255,255,255,.97);
-
-            border-top:
-                1px solid #f2e1e8;
-
-            backdrop-filter:
-                blur(17px);
-        }
-
-
-        .nav-btn {
-            min-height: 55px;
-
-            border: none;
-
-            background: transparent;
-
-            display: flex;
-
-            flex-direction: column;
-
-            align-items: center;
-
-            justify-content: center;
-
-            gap: 4px;
-
-            color: #ab8996;
-
-            font-size: 9px;
-
-            font-weight: 800;
-        }
-
-
-        .nav-btn.active {
-            color: #ed608d;
-        }
-
-
-        .nav-icon {
-            font-size: 21px;
-
-            line-height: 1;
-        }
-
-
-        /* =====================================================
-           Modal
-        ====================================================== */
-
-        .modal-mask {
-            position: fixed;
-
-            inset: 0;
-
-            z-index: 1000;
-
-            padding:
-                20px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            background:
-                rgba(52, 37, 44, .56);
-
-            backdrop-filter:
-                blur(6px);
-        }
-
-
-        .modal {
-            width: 100%;
-
-            max-width: 390px;
-
-            max-height: 88vh;
-
-            overflow-y: auto;
-
-            padding:
-                21px 18px;
-
-            border-radius: 26px;
-
-            background: white;
-
-            box-shadow:
-                0 20px 55px
-                rgba(35,20,27,.24);
-        }
-
-
-        .modal-title {
-            font-size: 18px;
-
-            font-weight: 900;
-
-            color: #543b45;
-
-            text-align: center;
-        }
-
-
-        .modal-order {
-            margin-top: 6px;
-
-            text-align: center;
-
-            font-size: 10px;
-
-            color: #aa8895;
-        }
-
-
-        .modal-info {
-            margin-top: 16px;
-        }
-
-
-        .modal-row {
-            padding:
-                9px 0;
-
-            display: flex;
-
-            justify-content: space-between;
-
-            gap: 13px;
-
-            border-bottom:
-                1px solid #f5e9ee;
-
-            font-size: 11px;
-        }
-
-
-        .modal-row:last-child {
-            border-bottom: none;
-        }
-
-
-        .modal-label {
-            color: #a17f8c;
-        }
-
-
-        .modal-value {
-            max-width: 68%;
-
-            text-align: right;
-
-            color: #5f444f;
-
-            font-weight: 800;
-
-            word-break: break-word;
-        }
-
-
-        .modal-close {
-            width: 100%;
-
-            min-height: 47px;
-
-            margin-top: 16px;
-
-            border: none;
-
-            border-radius: 14px;
-
-            background: #ffedf4;
-
-            color: #d85984;
-
-            font-weight: 900;
-        }
-
-
-        /* =====================================================
-           Toast
-        ====================================================== */
-
-        .toast {
-            position: fixed;
-
-            left: 50%;
-
-            bottom:
-                calc(95px + env(safe-area-inset-bottom));
-
-            z-index: 9999;
-
-            max-width:
-                calc(100vw - 48px);
-
-            padding:
-                11px 15px;
-
-            border-radius: 13px;
-
-            background:
-                rgba(62,48,54,.94);
-
-            color: white;
-
-            font-size: 11px;
-
-            line-height: 1.5;
-
-            text-align: center;
-
-            opacity: 0;
-
-            pointer-events: none;
-
-            transform:
-                translate(-50%, 18px);
-
-            transition:
-                .2s ease;
-        }
-
-
-        .toast.show {
-            opacity: 1;
-
-            transform:
-                translate(-50%, 0);
-        }
-
-
-        /* =====================================================
-           Loading
-        ====================================================== */
-
-        .loading-mask {
-            position: fixed;
-
-            inset: 0;
-
-            z-index: 10000;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            background: #fff7fa;
-        }
-
-
-        .loading-inner {
-            text-align: center;
-        }
-
-
-        .loading-icon {
-            font-size: 43px;
-
-            animation:
-                loadingPulse 1s
-                infinite ease-in-out;
-        }
-
-
-        .loading-text {
-            margin-top: 10px;
-
-            font-size: 12px;
-
-            color: #a17686;
-        }
-
-
-        @keyframes loadingPulse {
-
-            0%,
-            100% {
-                transform:
-                    scale(1);
-            }
-
-            50% {
-                transform:
-                    scale(1.12);
-            }
-        }
-
-
-        @media (max-width: 390px) {
-
-            .stats-grid {
-                gap: 6px;
-            }
-
-
-            .stat-card {
-                padding-left: 3px;
-
-                padding-right: 3px;
-            }
-
-
-            .stat-value {
-                font-size: 19px;
-            }
-
-
-            .stat-label {
-                font-size: 9px;
-            }
-        }
-
-
-        @media (min-width: 600px) {
-
-            body {
-                background: #f6f0f3;
-            }
-
-
-            .app {
-                box-shadow:
-                    0 0 36px
-                    rgba(80, 45, 60, .08);
-            }
-        }
-
-    </style>
+</style>
 
 </head>
 
 
 <body>
 
-
-<!-- =========================================================
-     Loading
-========================================================= -->
 
 <div
     id="loadingMask"
@@ -1618,652 +1656,716 @@
 
 <div class="app">
 
+<div class="safe-top"></div>
 
-    <div class="safe-top"></div>
 
+<header class="topbar">
 
-    <!-- =====================================================
-         顶部
-    ====================================================== -->
+    <div class="brand">
 
-    <header class="topbar">
+        <div class="logo">
+            ♡
+        </div>
 
-        <div class="brand">
+        <div class="brand-text">
 
-            <div class="logo">
-                ♡
+            <div class="brand-title">
+                孕乃馨
             </div>
 
-            <div class="brand-text">
+            <div class="brand-subtitle">
+                商户工作台
+            </div>
 
-                <div class="brand-title">
-                    孕乃馨
+        </div>
+
+    </div>
+
+
+    <button
+        class="logout-btn"
+        type="button"
+        onclick="logout()"
+    >
+        退出
+    </button>
+
+</header>
+
+
+
+<!-- =====================================================
+     投诉报警
+====================================================== -->
+
+<div
+    id="complaintAlertWrap"
+    class="complaint-alert-wrap hidden"
+>
+
+    <button
+        class="complaint-alert"
+        type="button"
+        onclick="showComplaintSection()"
+    >
+
+        <div class="complaint-alert-left">
+
+            <div class="complaint-alert-icon">
+                ⚠
+            </div>
+
+            <div>
+
+                <div class="complaint-alert-title">
+                    客户投诉报警
                 </div>
 
-                <div class="brand-subtitle">
-                    商户工作台
+                <div
+                    id="complaintAlertText"
+                    class="complaint-alert-text"
+                >
+                    有客户投诉需要处理
                 </div>
 
             </div>
 
         </div>
 
+        <div class="complaint-alert-arrow">
+            ›
+        </div>
 
-        <button
-            class="logout-btn"
-            type="button"
-            onclick="logout()"
+    </button>
+
+</div>
+
+
+
+<section class="merchant-hero">
+
+    <div class="hero-label">
+        当前登录商户
+    </div>
+
+    <div
+        id="merchantName"
+        class="hero-name"
+    >
+        商户
+    </div>
+
+
+    <div class="hero-meta">
+
+        <div
+            id="merchantNo"
+            class="hero-tag"
         >
-            退出
-        </button>
-
-    </header>
-
-
-
-    <!-- =====================================================
-         商户信息
-    ====================================================== -->
-
-    <section class="merchant-hero">
-
-        <div class="hero-label">
-            当前登录商户
+            商户编号：--
         </div>
 
         <div
-            id="merchantName"
-            class="hero-name"
+            id="listingStatus"
+            class="hero-tag"
         >
-            商户
+            状态：正常
         </div>
 
+    </div>
 
-        <div class="hero-meta">
 
-            <div
-                id="merchantNo"
-                class="hero-tag"
-            >
-                商户编号：--
+    <div class="hero-desc">
+        客户支付成功后，到店出示消费二维码。
+        商户每核销一次，系统自动扣减一次服务次数。
+    </div>
+
+</section>
+
+
+
+<div class="verify-wrap">
+
+    <button
+        class="verify-main-btn"
+        type="button"
+        onclick="goVerify()"
+    >
+
+        <div class="verify-main-left">
+
+            <div class="verify-main-icon">
+                ▦
             </div>
 
-            <div
-                id="listingStatus"
-                class="hero-tag"
-            >
-                状态：正常
+            <div class="verify-main-text">
+
+                <div class="verify-main-title">
+                    扫码核销
+                </div>
+
+                <div class="verify-main-desc">
+                    扫描客户消费二维码，每次核销 1 次服务
+                </div>
+
             </div>
 
         </div>
 
-
-        <div class="hero-desc">
-            客户支付成功后，到店出示消费二维码。
-            商户每核销一次，系统自动扣减一次服务次数。
+        <div class="verify-main-arrow">
+            ›
         </div>
 
-    </section>
+    </button>
+
+</div>
 
 
 
-    <!-- =====================================================
-         扫码核销
-    ====================================================== -->
+<section
+    id="homeSection"
+    class="section"
+>
 
-    <div class="verify-wrap">
+    <div class="section-head">
+
+        <div class="section-title">
+            今日概况
+        </div>
+
+    </div>
+
+
+    <div class="stats-grid">
+
 
         <button
-            class="verify-main-btn"
-            type="button"
-            onclick="goVerify()"
+            class="stat-card"
+            onclick="scrollToVerifications()"
         >
 
-            <div class="verify-main-left">
-
-                <div class="verify-main-icon">
-                    ▦
-                </div>
-
-                <div class="verify-main-text">
-
-                    <div class="verify-main-title">
-                        扫码核销
-                    </div>
-
-                    <div class="verify-main-desc">
-                        扫描客户消费二维码，每次核销 1 次服务
-                    </div>
-
-                </div>
-
+            <div class="stat-icon">
+                ✓
             </div>
 
-            <div class="verify-main-arrow">
-                ›
+            <div
+                id="todayVerificationCount"
+                class="stat-value"
+            >
+                0
+            </div>
+
+            <div class="stat-label">
+                今日核销
+            </div>
+
+        </button>
+
+
+        <button
+            class="stat-card"
+            onclick="showOrderFilter('waiting')"
+        >
+
+            <div class="stat-icon">
+                🌷
+            </div>
+
+            <div
+                id="waitingCount"
+                class="stat-value"
+            >
+                0
+            </div>
+
+            <div class="stat-label">
+                待服务
+            </div>
+
+        </button>
+
+
+        <button
+            class="stat-card"
+            onclick="showOrderFilter('processing')"
+        >
+
+            <div class="stat-icon">
+                🌸
+            </div>
+
+            <div
+                id="processingCount"
+                class="stat-value"
+            >
+                0
+            </div>
+
+            <div class="stat-label">
+                服务中
+            </div>
+
+        </button>
+
+
+        <button
+            class="stat-card"
+            onclick="showOrderFilter('completed')"
+        >
+
+            <div class="stat-icon">
+                ★
+            </div>
+
+            <div
+                id="completedCount"
+                class="stat-value"
+            >
+                0
+            </div>
+
+            <div class="stat-label">
+                已完成
             </div>
 
         </button>
 
     </div>
 
+</section>
 
 
-    <!-- =====================================================
-         今日概况
-    ====================================================== -->
 
-    <section
-        id="homeSection"
-        class="section"
-    >
+<section class="section">
 
-        <div class="section-head">
+    <div class="section-head">
 
-            <div class="section-title">
-                今日概况
+        <div class="section-title">
+            常用功能
+        </div>
+
+    </div>
+
+
+    <div class="tools-grid">
+
+
+        <button
+            class="tool-card"
+            type="button"
+            onclick="goVerify()"
+        >
+
+            <div class="tool-icon">
+                📷
             </div>
 
-        </div>
-
-
-        <div class="stats-grid">
-
-
-            <button
-                class="stat-card"
-                onclick="scrollToVerifications()"
-            >
-
-                <div class="stat-icon">
-                    ✓
-                </div>
-
-                <div
-                    id="todayVerificationCount"
-                    class="stat-value"
-                >
-                    0
-                </div>
-
-                <div class="stat-label">
-                    今日核销
-                </div>
-
-            </button>
-
-
-            <button
-                class="stat-card"
-                onclick="showOrderFilter('waiting')"
-            >
-
-                <div class="stat-icon">
-                    🌷
-                </div>
-
-                <div
-                    id="waitingCount"
-                    class="stat-value"
-                >
-                    0
-                </div>
-
-                <div class="stat-label">
-                    待服务
-                </div>
-
-            </button>
-
-
-            <button
-                class="stat-card"
-                onclick="showOrderFilter('processing')"
-            >
-
-                <div class="stat-icon">
-                    🌸
-                </div>
-
-                <div
-                    id="processingCount"
-                    class="stat-value"
-                >
-                    0
-                </div>
-
-                <div class="stat-label">
-                    服务中
-                </div>
-
-            </button>
-
-
-            <button
-                class="stat-card"
-                onclick="showOrderFilter('completed')"
-            >
-
-                <div class="stat-icon">
-                    ★
-                </div>
-
-                <div
-                    id="completedCount"
-                    class="stat-value"
-                >
-                    0
-                </div>
-
-                <div class="stat-label">
-                    已完成
-                </div>
-
-            </button>
-
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         快捷入口
-    ====================================================== -->
-
-    <section class="section">
-
-        <div class="section-head">
-
-            <div class="section-title">
-                常用功能
+            <div class="tool-title">
+                消费核销
             </div>
 
-        </div>
+            <div class="tool-desc">
+                扫客户二维码并扣减服务次数
+            </div>
+
+        </button>
 
 
-        <div class="tools-grid">
+        <button
+            class="tool-card"
+            type="button"
+            onclick="showOrdersSection()"
+        >
+
+            <div class="tool-icon">
+                🧾
+            </div>
+
+            <div class="tool-title">
+                服务订单
+            </div>
+
+            <div class="tool-desc">
+                查看待服务、服务中和已完成订单
+            </div>
+
+        </button>
 
 
-            <button
-                class="tool-card"
-                type="button"
-                onclick="goVerify()"
-            >
+        <button
+            class="tool-card"
+            type="button"
+            onclick="showComplaintSection()"
+        >
 
-                <div class="tool-icon">
-                    📷
-                </div>
+            <div class="tool-icon">
+                ⚠
+            </div>
 
-                <div class="tool-title">
-                    消费核销
-                </div>
-
-                <div class="tool-desc">
-                    扫客户二维码并扣减服务次数
-                </div>
-
-            </button>
-
-
-            <button
-                class="tool-card"
-                type="button"
-                onclick="showOrdersSection()"
-            >
-
-                <div class="tool-icon">
-                    🧾
-                </div>
-
-                <div class="tool-title">
-                    服务订单
-                </div>
-
-                <div class="tool-desc">
-                    查看待服务、服务中和已完成订单
-                </div>
-
-            </button>
-
-
-            <button
-                class="tool-card"
-                type="button"
-                onclick="showVerificationSection()"
-            >
-
-                <div class="tool-icon">
-                    ✓
-                </div>
-
-                <div class="tool-title">
-                    核销记录
-                </div>
-
-                <div class="tool-desc">
-                    查询最近的消费核销记录
-                </div>
-
-            </button>
-
-
-            <button
-                class="tool-card"
-                type="button"
-                onclick="showMerchantSection()"
-            >
-
-                <div class="tool-icon">
-                    🏪
-                </div>
-
-                <div class="tool-title">
-                    商户资料
-                </div>
-
-                <div class="tool-desc">
-                    查看当前商户基础资料和状态
-                </div>
-
-            </button>
-
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         最近订单
-    ====================================================== -->
-
-    <section
-        id="ordersSection"
-        class="section"
-    >
-
-        <div class="section-head">
+            <div class="tool-title">
+                投诉处理
+            </div>
 
             <div
-                id="ordersSectionTitle"
-                class="section-title"
+                id="complaintToolDesc"
+                class="tool-desc"
             >
-                最近服务订单
+                查看与处理客户投诉
             </div>
 
-
-            <button
-                class="section-link"
-                type="button"
-                onclick="showOrderFilter('all')"
-            >
-                全部订单
-            </button>
-
-        </div>
+        </button>
 
 
-        <div
-            id="ordersList"
-            class="orders-list"
-        ></div>
+        <button
+            class="tool-card"
+            type="button"
+            onclick="showVerificationSection()"
+        >
 
-    </section>
-
-
-
-    <!-- =====================================================
-         最近核销
-    ====================================================== -->
-
-    <section
-        id="verificationSection"
-        class="section"
-    >
-
-        <div class="section-head">
-
-            <div class="section-title">
-                最近核销
+            <div class="tool-icon">
+                ✓
             </div>
 
-        </div>
+            <div class="tool-title">
+                核销记录
+            </div>
+
+            <div class="tool-desc">
+                查询最近的消费核销记录
+            </div>
+
+        </button>
 
 
-        <div
-            id="verificationList"
-            class="verification-list"
-        ></div>
+        <button
+            class="tool-card"
+            type="button"
+            onclick="showMerchantSection()"
+        >
 
-    </section>
+            <div class="tool-icon">
+                🏪
+            </div>
 
-
-
-    <!-- =====================================================
-         商户资料
-    ====================================================== -->
-
-    <section
-        id="merchantSection"
-        class="section"
-    >
-
-        <div class="section-head">
-
-            <div class="section-title">
+            <div class="tool-title">
                 商户资料
             </div>
 
+            <div class="tool-desc">
+                查看当前商户基础资料和状态
+            </div>
+
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     投诉处理
+====================================================== -->
+
+<section
+    id="complaintSection"
+    class="section"
+>
+
+    <div class="section-head">
+
+        <div class="section-title">
+            投诉处理
         </div>
 
+        <button
+            class="section-link"
+            type="button"
+            onclick="loadComplaints(true)"
+        >
+            刷新
+        </button>
 
-        <div class="info-card">
-
-
-            <div class="info-row">
-
-                <div class="info-label">
-                    商户名称
-                </div>
-
-                <div
-                    id="profileMerchantName"
-                    class="info-value"
-                >
-                    -
-                </div>
-
-            </div>
+    </div>
 
 
-            <div class="info-row">
+    <div
+        id="complaintsList"
+        class="complaints-list"
+    ></div>
 
-                <div class="info-label">
-                    商户编号
-                </div>
-
-                <div
-                    id="profileMerchantNo"
-                    class="info-value"
-                >
-                    -
-                </div>
-
-            </div>
+</section>
 
 
-            <div class="info-row">
 
-                <div class="info-label">
-                    服务地址
-                </div>
+<section
+    id="ordersSection"
+    class="section"
+>
 
-                <div
-                    id="profileAddress"
-                    class="info-value"
-                >
-                    -
-                </div>
-
-            </div>
-
-
-            <div class="info-row">
-
-                <div class="info-label">
-                    商户状态
-                </div>
-
-                <div
-                    id="profileStatus"
-                    class="info-value"
-                >
-                    -
-                </div>
-
-            </div>
-
-
-            <div class="info-row">
-
-                <div class="info-label">
-                    上线状态
-                </div>
-
-                <div
-                    id="profileListingStatus"
-                    class="info-value"
-                >
-                    -
-                </div>
-
-            </div>
-
-
-        </div>
-
+    <div class="section-head">
 
         <div
-            style="margin-top:10px;"
-            class="coming-card"
+            id="ordersSectionTitle"
+            class="section-title"
         >
+            最近服务订单
+        </div>
 
-            <div class="coming-icon">
-                ¥
+
+        <button
+            class="section-link"
+            type="button"
+            onclick="showOrderFilter('all')"
+        >
+            全部订单
+        </button>
+
+    </div>
+
+
+    <div
+        id="ordersList"
+        class="orders-list"
+    ></div>
+
+</section>
+
+
+
+<section
+    id="verificationSection"
+    class="section"
+>
+
+    <div class="section-head">
+
+        <div class="section-title">
+            最近核销
+        </div>
+
+    </div>
+
+
+    <div
+        id="verificationList"
+        class="verification-list"
+    ></div>
+
+</section>
+
+
+
+<section
+    id="merchantSection"
+    class="section"
+>
+
+    <div class="section-head">
+
+        <div class="section-title">
+            商户资料
+        </div>
+
+    </div>
+
+
+    <div class="info-card">
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                商户名称
             </div>
 
-            <div>
-
-                <div class="coming-title">
-                    财务结算
-                </div>
-
-                <div class="coming-text">
-                    订单分成、商户结算、发票和提现功能将在后续结算模块统一接入。
-                    1.0版暂不在前端模拟财务数据。
-                </div>
-
+            <div
+                id="profileMerchantName"
+                class="info-value"
+            >
+                -
             </div>
 
         </div>
 
-    </section>
+
+        <div class="info-row">
+
+            <div class="info-label">
+                商户编号
+            </div>
+
+            <div
+                id="profileMerchantNo"
+                class="info-value"
+            >
+                -
+            </div>
+
+        </div>
 
 
+        <div class="info-row">
+
+            <div class="info-label">
+                服务地址
+            </div>
+
+            <div
+                id="profileAddress"
+                class="info-value"
+            >
+                -
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                商户状态
+            </div>
+
+            <div
+                id="profileStatus"
+                class="info-value"
+            >
+                -
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-label">
+                上线状态
+            </div>
+
+            <div
+                id="profileListingStatus"
+                class="info-value"
+            >
+                -
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div
+        style="margin-top:10px;"
+        class="coming-card"
+    >
+
+        <div class="coming-icon">
+            ¥
+        </div>
+
+        <div>
+
+            <div class="coming-title">
+                财务结算
+            </div>
+
+            <div class="coming-text">
+                订单分成、商户结算、发票和提现功能将在后续结算模块统一接入。
+                1.0版暂不在前端模拟财务数据。
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 
 </div>
 
 
 
-<!-- =========================================================
-     底部导航
-========================================================= -->
-
 <nav class="bottom-nav">
 
 
-    <button
-        id="navHome"
-        class="nav-btn active"
-        type="button"
-        onclick="goHomeSection()"
-    >
+<button
+    id="navHome"
+    class="nav-btn active"
+    type="button"
+    onclick="goHomeSection()"
+>
 
-        <span class="nav-icon">
-            🏠
-        </span>
+    <span class="nav-icon">
+        🏠
+    </span>
 
-        <span>
-            首页
-        </span>
+    <span>
+        首页
+    </span>
 
-    </button>
-
-
-    <button
-        id="navOrders"
-        class="nav-btn"
-        type="button"
-        onclick="showOrdersSection()"
-    >
-
-        <span class="nav-icon">
-            🧾
-        </span>
-
-        <span>
-            订单
-        </span>
-
-    </button>
+</button>
 
 
-    <button
-        id="navVerify"
-        class="nav-btn"
-        type="button"
-        onclick="goVerify()"
-    >
+<button
+    id="navOrders"
+    class="nav-btn"
+    type="button"
+    onclick="showOrdersSection()"
+>
 
-        <span class="nav-icon">
-            ▦
-        </span>
+    <span class="nav-icon">
+        🧾
+    </span>
 
-        <span>
-            核销
-        </span>
+    <span>
+        订单
+    </span>
 
-    </button>
+</button>
 
 
-    <button
-        id="navMerchant"
-        class="nav-btn"
-        type="button"
-        onclick="showMerchantSection()"
-    >
+<button
+    id="navVerify"
+    class="nav-btn"
+    type="button"
+    onclick="goVerify()"
+>
 
-        <span class="nav-icon">
-            🏪
-        </span>
+    <span class="nav-icon">
+        ▦
+    </span>
 
-        <span>
-            我的
-        </span>
+    <span>
+        核销
+    </span>
 
-    </button>
+</button>
 
+
+<button
+    id="navMerchant"
+    class="nav-btn"
+    type="button"
+    onclick="showMerchantSection()"
+>
+
+    <span class="nav-icon">
+        🏪
+    </span>
+
+    <span>
+        我的
+    </span>
+
+</button>
 
 </nav>
 
 
 
-<!-- =========================================================
-     订单详情 Modal
-========================================================= -->
+<!-- =====================================================
+     订单详情
+====================================================== -->
 
 <div
     id="orderModalMask"
@@ -2271,39 +2373,120 @@
     onclick="handleModalMask(event)"
 >
 
-    <div
-        class="modal"
-        onclick="event.stopPropagation()"
-    >
+<div
+    class="modal"
+    onclick="event.stopPropagation()"
+>
 
-        <div class="modal-title">
-            服务订单
+    <div class="modal-title">
+        服务订单
+    </div>
+
+    <div
+        id="modalOrderNo"
+        class="modal-order"
+    >
+        -
+    </div>
+
+    <div
+        id="modalInfo"
+        class="modal-info"
+    ></div>
+
+    <button
+        class="modal-close"
+        type="button"
+        onclick="closeOrderModal()"
+    >
+        关闭
+    </button>
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     投诉详情
+====================================================== -->
+
+<div
+    id="complaintModalMask"
+    class="modal-mask hidden"
+    onclick="handleComplaintModalMask(event)"
+>
+
+<div
+    class="modal"
+    onclick="event.stopPropagation()"
+>
+
+    <div class="modal-title">
+        客户投诉
+    </div>
+
+    <div
+        id="complaintModalOrder"
+        class="modal-order"
+    >
+        -
+    </div>
+
+
+    <div
+        id="complaintModalInfo"
+        class="modal-info"
+    ></div>
+
+
+    <div class="complaint-detail-content">
+
+        <div class="complaint-detail-label">
+            客户投诉内容
         </div>
 
-
         <div
-            id="modalOrderNo"
-            class="modal-order"
+            id="complaintModalContent"
+            class="complaint-detail-text"
         >
             -
         </div>
 
-
-        <div
-            id="modalInfo"
-            class="modal-info"
-        ></div>
-
-
-        <button
-            class="modal-close"
-            type="button"
-            onclick="closeOrderModal()"
-        >
-            关闭
-        </button>
-
     </div>
+
+
+    <div class="complaint-image-title">
+        投诉图片
+    </div>
+
+
+    <div
+        id="complaintModalImages"
+        class="complaint-images"
+    ></div>
+
+
+    <button
+        id="complaintConfirmButton"
+        class="complaint-modal-confirm"
+        type="button"
+        onclick="confirmCurrentComplaint()"
+    >
+        商户确认
+    </button>
+
+
+    <button
+        class="modal-close"
+        type="button"
+        onclick="closeComplaintModal()"
+    >
+        关闭
+    </button>
+
+</div>
 
 </div>
 
@@ -2318,1169 +2501,983 @@
 
 <script>
 
-    /* =========================================================
-       Supabase
-    ========================================================= */
+/* =========================================================
+   Supabase
+========================================================= */
 
-    const SUPABASE_URL =
-        "https://qbuqjwpkltbjhlfbyjyb.supabase.co";
-
-
-    const SUPABASE_ANON_KEY =
-        "sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
+const SUPABASE_URL =
+    "https://qbuqjwpkltbjhlfbyjyb.supabase.co";
 
 
-    const sb =
-        window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_ANON_KEY
-        );
+const SUPABASE_ANON_KEY =
+    "sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
 
 
-    /* =========================================================
-       全局
-    ========================================================= */
-
-    let currentUser =
-        null;
-
-
-    let currentMerchant =
-        null;
-
-
-    let currentOrders =
-        [];
-
-
-    let currentOrderItems =
-        [];
-
-
-    let currentVerifications =
-        [];
-
-
-    let currentOrderFilter =
-        "all";
-
-
-    const IDLE_LIMIT =
-        10 * 60 * 1000;
-
-
-    let idleTimer =
-        null;
-
-
-
-    /* =========================================================
-       初始化
-    ========================================================= */
-
-    document.addEventListener(
-        "DOMContentLoaded",
-        init
+const sb =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
     );
 
 
-    async function init() {
-
-        try {
-
-            setupIdleLogout();
+const COMPLAINT_BUCKET =
+    "customer-complaints";
 
 
-            /* ===============================================
-               Session
-            ================================================ */
+/* =========================================================
+   全局
+========================================================= */
 
-            const {
-                data: sessionData,
-                error: sessionError
-            } =
-                await sb.auth.getSession();
+let currentUser = null;
 
+let currentMerchant = null;
 
-            if (
-                sessionError
-                ||
-                !sessionData?.session?.user
-            ) {
+let currentOrders = [];
 
-                goLogin();
+let currentOrderItems = [];
 
-                return;
-            }
+let currentVerifications = [];
 
+let currentComplaints = [];
 
-            currentUser =
-                sessionData.session.user;
+let currentComplaint = null;
+
+let currentOrderFilter =
+    "all";
 
 
-            /* ===============================================
-               商户身份
-            ================================================ */
-
-            const merchantOK =
-                await loadMerchant();
+const IDLE_LIMIT =
+    10 * 60 * 1000;
 
 
-            if (!merchantOK) {
-
-                await rejectAccess();
-
-                return;
-            }
-
-
-            renderMerchant();
-
-
-            /* ===============================================
-               数据
-            ================================================ */
-
-            await loadOrders();
-
-            await loadVerifications();
-
-
-            renderStats();
-
-            renderOrders();
-
-            renderVerifications();
-
-
-            hideLoading();
-
-
-        } catch (error) {
-
-            console.error(
-                "merchant platform init:",
-                error
-            );
-
-
-            hideLoading();
-
-
-            toast(
-                error?.message
-                ||
-                "商户工作台加载失败"
-            );
-        }
-    }
+let idleTimer =
+    null;
 
 
 
-    /* =========================================================
-       商户身份
-    ========================================================= */
+/* =========================================================
+   初始化
+========================================================= */
 
-    async function loadMerchant() {
+document.addEventListener(
+    "DOMContentLoaded",
+    init
+);
 
-        /*
-         * 商户实际登录关系：
-         *
-         * merchants.auth_user_id
-         *      =
-         * auth.uid()
-         *
-         * merchants.id
-         * 是商户业务UUID，
-         * 不能直接拿来和auth.uid比较。
-         */
+
+async function init() {
+
+    try {
+
+        setupIdleLogout();
+
 
         const {
-            data,
-            error
+            data: sessionData,
+            error: sessionError
         } =
-            await sb
-                .from("merchants")
-                .select("*")
-                .eq(
-                    "auth_user_id",
-                    currentUser.id
-                )
-                .eq(
-                    "status",
-                    "active"
-                )
-                .maybeSingle();
+        await sb.auth.getSession();
 
 
-        if (error) {
+        if (
+            sessionError
+            ||
+            !sessionData?.session?.user
+        ) {
 
-            console.error(
-                "load merchant:",
-                error
-            );
+            goLogin();
 
-            return false;
+            return;
         }
 
 
-        if (!data) {
+        currentUser =
+            sessionData.session.user;
 
-            return false;
+
+        const merchantOK =
+            await loadMerchant();
+
+
+        if (!merchantOK) {
+
+            await rejectAccess();
+
+            return;
         }
 
 
-        currentMerchant =
-            data;
+        renderMerchant();
 
 
-        return true;
-    }
+        await Promise.all([
+            loadOrders(),
+            loadVerifications(),
+            loadComplaints(false)
+        ]);
 
 
+        renderStats();
 
-    async function rejectAccess() {
+        renderOrders();
+
+        renderVerifications();
+
+        renderComplaints();
 
         hideLoading();
 
 
-        alert(
-            "当前账号不是有效商户账号，无法进入商户工作台。"
+    } catch (error) {
+
+        console.error(
+            "merchant platform init:",
+            error
         );
 
 
-        try {
-
-            await sb.auth.signOut();
-
-        } catch (error) {
-
-            console.error(error);
-        }
+        hideLoading();
 
 
-        goLogin();
+        toast(
+            error?.message
+            ||
+            "商户工作台加载失败"
+        );
+    }
+}
+
+
+
+/* =========================================================
+   商户身份
+========================================================= */
+
+async function loadMerchant() {
+
+    const {
+        data,
+        error
+    } =
+    await sb
+        .from("merchants")
+        .select("*")
+        .eq(
+            "auth_user_id",
+            currentUser.id
+        )
+        .eq(
+            "status",
+            "active"
+        )
+        .maybeSingle();
+
+
+    if (error) {
+
+        console.error(
+            "load merchant:",
+            error
+        );
+
+        return false;
     }
 
 
-
-    /* =========================================================
-       显示商户
-    ========================================================= */
-
-    function renderMerchant() {
-
-        const name =
-            currentMerchant.merchant_name
-            ||
-            "商户";
-
-
-        const no =
-            firstNotEmpty(
-                currentMerchant.record_no,
-                currentMerchant.merchant_code,
-                "--"
-            );
-
-
-        const status =
-            merchantStatusText(
-                currentMerchant.status
-            );
-
-
-        const listing =
-            listingStatusText(
-                currentMerchant.listing_status
-            );
-
-
-        setText(
-            "merchantName",
-            name
-        );
-
-
-        setText(
-            "merchantNo",
-            `商户编号：${no}`
-        );
-
-
-        setText(
-            "listingStatus",
-            `上线状态：${listing}`
-        );
-
-
-        setText(
-            "profileMerchantName",
-            name
-        );
-
-
-        setText(
-            "profileMerchantNo",
-            no
-        );
-
-
-        setText(
-            "profileAddress",
-            currentMerchant.address
-            ||
-            "暂未填写"
-        );
-
-
-        setText(
-            "profileStatus",
-            status
-        );
-
-
-        setText(
-            "profileListingStatus",
-            listing
-        );
+    if (!data) {
+        return false;
     }
 
 
+    currentMerchant =
+        data;
 
-    /* =========================================================
-       订单
-    ========================================================= */
 
-    async function loadOrders() {
+    return true;
+}
+
+
+async function rejectAccess() {
+
+    hideLoading();
+
+
+    alert(
+        "当前账号不是有效商户账号，无法进入商户工作台。"
+    );
+
+
+    try {
+
+        await sb.auth.signOut();
+
+    } catch (error) {
+
+        console.error(error);
+    }
+
+
+    goLogin();
+}
+
+
+
+/* =========================================================
+   商户显示
+========================================================= */
+
+function renderMerchant() {
+
+    const name =
+        currentMerchant.merchant_name
+        ||
+        "商户";
+
+
+    const no =
+        firstNotEmpty(
+            currentMerchant.record_no,
+            currentMerchant.merchant_code,
+            "--"
+        );
+
+
+    const status =
+        merchantStatusText(
+            currentMerchant.status
+        );
+
+
+    const listing =
+        listingStatusText(
+            currentMerchant.listing_status
+        );
+
+
+    setText(
+        "merchantName",
+        name
+    );
+
+
+    setText(
+        "merchantNo",
+        `商户编号：${no}`
+    );
+
+
+    setText(
+        "listingStatus",
+        `上线状态：${listing}`
+    );
+
+
+    setText(
+        "profileMerchantName",
+        name
+    );
+
+
+    setText(
+        "profileMerchantNo",
+        no
+    );
+
+
+    setText(
+        "profileAddress",
+        currentMerchant.address
+        ||
+        "暂未填写"
+    );
+
+
+    setText(
+        "profileStatus",
+        status
+    );
+
+
+    setText(
+        "profileListingStatus",
+        listing
+    );
+}
+
+
+
+/* =========================================================
+   投诉
+========================================================= */
+
+async function loadComplaints(
+    showMessage = false
+) {
+
+    try {
 
         const {
             data,
             error
         } =
-            await sb
-                .from("orders")
-                .select("*")
-                .eq(
-                    "merchant_id",
-                    currentMerchant.id
-                )
-                .order(
-                    "created_at",
-                    {
-                        ascending:
-                            false
-                    }
-                )
-                .limit(
-                    200
-                );
+        await sb.rpc(
+            "get_merchant_complaints"
+        );
 
 
         if (error) {
-
-            console.error(
-                "load merchant orders:",
-                error
-            );
-
-
-            currentOrders =
-                [];
-
-
-            return;
+            throw error;
         }
 
 
-        currentOrders =
+        currentComplaints =
+            Array.isArray(data)
+            ?
             data
-            ||
+            :
             [];
 
 
-        await loadOrderItems();
-    }
+        renderComplaintAlert();
+
+        renderComplaints();
 
 
+        if (showMessage) {
 
-    async function loadOrderItems() {
-
-        const orderIds =
-            currentOrders
-                .map(
-                    order =>
-                        order.id
-                )
-                .filter(
-                    value =>
-                        value !== null
-                        &&
-                        value !== undefined
-                );
-
-
-        if (
-            !orderIds.length
-        ) {
-
-            currentOrderItems =
-                [];
-
-            return;
+            toast(
+                "投诉信息已刷新"
+            );
         }
 
 
-        const {
-            data,
+    } catch (error) {
+
+        console.error(
+            "load complaints:",
             error
-        } =
-            await sb
-                .from("order_items")
-                .select(`
-                    id,
-                    order_id,
-                    product_id,
-                    product_code_snapshot,
-                    product_name_snapshot,
-                    product_type,
-                    quantity,
-                    unit_price,
-                    amount,
-                    discounted_amount
-                `)
-                .in(
-                    "order_id",
-                    orderIds
-                );
+        );
 
 
-        if (error) {
-
-            console.error(
-                "load merchant order items:",
-                error
-            );
-
-
-            currentOrderItems =
-                [];
-
-            return;
-        }
-
-
-        currentOrderItems =
-            data
-            ||
+        currentComplaints =
             [];
-    }
 
 
+        renderComplaintAlert();
 
-    /* =========================================================
-       核销记录
-    ========================================================= */
-
-    async function loadVerifications() {
-
-        const {
-            data,
-            error
-        } =
-            await sb
-                .from(
-                    "order_verifications"
-                )
-                .select("*")
-                .eq(
-                    "merchant_id",
-                    currentMerchant.id
-                )
-                .order(
-                    "verified_at",
-                    {
-                        ascending:
-                            false
-                    }
-                )
-                .limit(
-                    100
-                );
+        renderComplaints();
 
 
-        if (error) {
+        if (showMessage) {
 
-            console.error(
-                "load verifications:",
-                error
+            toast(
+                error?.message
+                ||
+                "投诉读取失败"
             );
-
-
-            currentVerifications =
-                [];
-
-            return;
         }
-
-
-        currentVerifications =
-            data
-            ||
-            [];
     }
+}
 
 
+function getActiveComplaints() {
 
-    /* =========================================================
-       统计
-    ========================================================= */
-
-    function renderStats() {
-
-        const today =
-            new Date();
-
-
-        const todayStart =
-            new Date(
-                today.getFullYear(),
-                today.getMonth(),
-                today.getDate(),
-                0,
-                0,
-                0,
-                0
-            );
-
-
-        const todayVerificationCount =
-            currentVerifications.filter(
-                item => {
-
-                    const date =
-                        new Date(
-                            item.verified_at
-                        );
-
-
-                    return (
-                        !Number.isNaN(
-                            date.getTime()
-                        )
-                        &&
-                        date >=
-                        todayStart
-                        &&
-                        (
-                            !item.status
-                            ||
-                            item.status
-                            ===
-                            "success"
-                        )
-                    );
-                }
-            ).length;
-
-
-        const waitingCount =
-            currentOrders.filter(
-                isWaitingOrder
-            ).length;
-
-
-        const processingCount =
-            currentOrders.filter(
-                isProcessingOrder
-            ).length;
-
-
-        const completedCount =
-            currentOrders.filter(
-                order =>
-                    order.order_status
-                    ===
-                    "completed"
-            ).length;
-
-
-        setText(
-            "todayVerificationCount",
-            todayVerificationCount
-        );
-
-
-        setText(
-            "waitingCount",
-            waitingCount
-        );
-
-
-        setText(
-            "processingCount",
-            processingCount
-        );
-
-
-        setText(
-            "completedCount",
-            completedCount
-        );
-    }
-
-
-
-    function isWaitingOrder(
-        order
-    ) {
-
-        return (
-            order.payment_status
-            ===
-            "paid"
-
-            &&
-
-            Number(
-                order.remaining_uses
-                ??
-                0
-            ) > 0
-
-            &&
-
-            ![
-                "processing",
-                "completed",
-                "cancelled",
-                "refunded"
-            ].includes(
-                order.order_status
-            )
-        );
-    }
-
-
-
-    function isProcessingOrder(
-        order
-    ) {
-
-        return (
-            order.payment_status
-            ===
-            "paid"
-
-            &&
-
-            Number(
-                order.used_uses
-                ??
-                0
-            ) > 0
-
-            &&
-
-            Number(
-                order.remaining_uses
-                ??
-                0
-            ) > 0
-
-            &&
-
-            order.order_status
+    return currentComplaints.filter(
+        item =>
+            item.complaint_status
             !==
-            "completed"
+            "resolved"
+    );
+}
+
+
+function renderComplaintAlert() {
+
+    const active =
+        getActiveComplaints();
+
+
+    const wrap =
+        document.getElementById(
+            "complaintAlertWrap"
         );
+
+
+    const desc =
+        document.getElementById(
+            "complaintToolDesc"
+        );
+
+
+    if (!active.length) {
+
+        wrap.classList.add(
+            "hidden"
+        );
+
+
+        desc.textContent =
+            "当前没有待处理投诉";
+
+
+        return;
     }
 
 
-
-    /* =========================================================
-       订单筛选
-    ========================================================= */
-
-    function showOrderFilter(
-        filter
-    ) {
-
-        currentOrderFilter =
-            filter;
+    wrap.classList.remove(
+        "hidden"
+    );
 
 
-        const titleMap = {
-
-            all:
-                "全部服务订单",
-
-            waiting:
-                "待服务订单",
-
-            processing:
-                "服务中订单",
-
-            completed:
-                "已完成订单"
-
-        };
+    setText(
+        "complaintAlertText",
+        `当前有 ${active.length} 条客户投诉正在处理中，点击查看`
+    );
 
 
-        setText(
-            "ordersSectionTitle",
-            titleMap[filter]
-            ||
-            "服务订单"
+    desc.textContent =
+        `当前有 ${active.length} 条投诉正在处理`;
+}
+
+
+
+/* =========================================================
+   投诉列表
+========================================================= */
+
+function renderComplaints() {
+
+    const box =
+        document.getElementById(
+            "complaintsList"
         );
 
 
-        renderOrders();
+    if (!box) {
+        return;
+    }
 
 
-        activateNav(
-            "orders"
-        );
+    box.innerHTML =
+        "";
 
 
-        document
-            .getElementById(
-                "ordersSection"
-            )
-            .scrollIntoView(
-                {
-                    behavior:
-                        "smooth",
+    const list =
+        [...currentComplaints]
+        .sort(
+            (a, b) => {
 
-                    block:
-                        "start"
+                const aActive =
+                    a.complaint_status
+                    !==
+                    "resolved";
+
+                const bActive =
+                    b.complaint_status
+                    !==
+                    "resolved";
+
+
+                if (
+                    aActive
+                    !==
+                    bActive
+                ) {
+
+                    return aActive
+                        ? -1
+                        : 1;
                 }
-            );
-    }
 
 
-
-    function getFilteredOrders() {
-
-        switch (
-            currentOrderFilter
-        ) {
-
-            case "waiting":
-
-                return currentOrders.filter(
-                    isWaitingOrder
-                );
-
-
-            case "processing":
-
-                return currentOrders.filter(
-                    isProcessingOrder
-                );
-
-
-            case "completed":
-
-                return currentOrders.filter(
-                    order =>
-                        order.order_status
-                        ===
-                        "completed"
-                );
-
-
-            case "all":
-            default:
-
-                return currentOrders;
-        }
-    }
-
-
-
-    /* =========================================================
-       渲染订单
-    ========================================================= */
-
-    function renderOrders() {
-
-        const box =
-            document.getElementById(
-                "ordersList"
-            );
-
-
-        box.innerHTML =
-            "";
-
-
-        const list =
-            getFilteredOrders()
-                .slice(
-                    0,
-                    30
-                );
-
-
-        if (
-            !list.length
-        ) {
-
-            box.innerHTML =
-                `
-                <div class="empty">
-
-                    <div class="empty-icon">
-                        🌷
-                    </div>
-
-                    <div class="empty-title">
-                        暂无相关订单
-                    </div>
-
-                    <div class="empty-text">
-                        客户完成付款后，
-                        可服务订单会显示在这里。
-                    </div>
-
-                </div>
-                `;
-
-            return;
-        }
-
-
-        list.forEach(
-            order => {
-
-                box.appendChild(
-                    createOrderCard(
-                        order
-                    )
+                return (
+                    new Date(
+                        b.created_at
+                    ).getTime()
+                    -
+                    new Date(
+                        a.created_at
+                    ).getTime()
                 );
             }
+        )
+        .slice(
+            0,
+            20
         );
-    }
 
 
+    if (!list.length) {
 
-    function createOrderCard(
-        order
-    ) {
-
-        const card =
-            document.createElement(
-                "div"
-            );
-
-
-        card.className =
-            "order-card";
-
-
-        const item =
-            getFirstOrderItem(
-                order.id
-            );
-
-
-        const productName =
-            item?.product_name_snapshot
-            ||
-            "服务项目";
-
-
-        const total =
-            Math.max(
-                1,
-                Number(
-                    order.total_uses
-                    ??
-                    1
-                )
-            );
-
-
-        const used =
-            Math.max(
-                0,
-                Number(
-                    order.used_uses
-                    ??
-                    0
-                )
-            );
-
-
-        const remaining =
-            Math.max(
-                0,
-                Number(
-                    order.remaining_uses
-                    ??
-                    total - used
-                )
-            );
-
-
-        const progress =
-            Math.min(
-                100,
-                Math.max(
-                    0,
-                    used /
-                    total *
-                    100
-                )
-            );
-
-
-        const state =
-            orderStatusInfo(
-                order
-            );
-
-
-        const created =
-            formatDateTime(
-                order.created_at
-            );
-
-
-        const recommendation =
-            order.recommendation_source_name_snapshot
-            ||
-            "平台";
-
-
-        let actionButton =
-            "";
-
-
-        if (
-            order.payment_status
-            ===
-            "paid"
-
-            &&
-
-            remaining > 0
-        ) {
-
-            actionButton =
-                `
-                <button
-                    class="order-btn order-btn-primary"
-                    type="button"
-                    onclick="goVerify()"
-                >
-                    扫码核销
-                </button>
-                `;
-        }
-
-
-        card.innerHTML =
+        box.innerHTML =
             `
+            <div class="empty">
 
-            <div class="order-top">
-
-                <div class="order-main">
-
-                    <div class="order-product">
-                        ${escapeHtml(
-                            productName
-                        )}
-                    </div>
-
-                    <div class="order-no">
-                        订单号：
-                        ${escapeHtml(
-                            order.order_no
-                            ||
-                            order.id
-                        )}
-                    </div>
-
+                <div class="empty-icon">
+                    🌷
                 </div>
 
-
-                <span
-                    class="badge ${state.className}"
-                >
-                    ${escapeHtml(
-                        state.text
-                    )}
-                </span>
-
-            </div>
-
-
-            <div class="order-divider"></div>
-
-
-            <div class="order-row">
-
-                <span class="order-label">
-                    下单时间
-                </span>
-
-                <span class="order-value">
-                    ${escapeHtml(
-                        created
-                    )}
-                </span>
-
-            </div>
-
-
-            <div class="order-row">
-
-                <span class="order-label">
-                    支付状态
-                </span>
-
-                <span class="order-value">
-                    ${escapeHtml(
-                        paymentText(
-                            order.payment_status
-                        )
-                    )}
-                </span>
-
-            </div>
-
-
-            <div class="order-row">
-
-                <span class="order-label">
-                    推荐来源
-                </span>
-
-                <span class="order-value">
-                    ${escapeHtml(
-                        recommendation
-                    )}
-                </span>
-
-            </div>
-
-
-            <div class="order-row">
-
-                <span class="order-label">
-                    实付金额
-                </span>
-
-                <span class="order-value">
-                    ${escapeHtml(
-                        formatMoney(
-                            firstNumber(
-                                order.payment_amount,
-                                order.payable_amount,
-                                order.total_amount
-                            )
-                        )
-                    )}
-                </span>
-
-            </div>
-
-
-            <div class="usage-box">
-
-                <div class="usage-head">
-
-                    <span class="usage-label">
-                        服务进度
-                    </span>
-
-                    <span class="usage-value">
-                        已使用 ${used} 次 ·
-                        剩余 ${remaining} 次
-                    </span>
-
+                <div class="empty-title">
+                    暂无客户投诉
                 </div>
 
-
-                <div class="progress">
-
-                    <div
-                        class="progress-bar"
-                        style="width:${progress}%"
-                    ></div>
-
+                <div class="empty-text">
+                    当前没有客户投诉记录。
                 </div>
-
-            </div>
-
-
-            <div class="order-actions">
-
-                <button
-                    class="order-btn order-btn-light"
-                    type="button"
-                    onclick="showOrderDetail('${safeId(order.id)}')"
-                >
-                    查看详情
-                </button>
-
-                ${actionButton}
 
             </div>
             `;
 
-
-        return card;
+        return;
     }
 
 
+    list.forEach(
+        complaint => {
 
-    /* =========================================================
-       核销记录
-    ========================================================= */
+            const card =
+                document.createElement(
+                    "div"
+                );
 
-    function renderVerifications() {
 
-        const box =
-            document.getElementById(
-                "verificationList"
+            const resolved =
+                complaint.complaint_status
+                ===
+                "resolved";
+
+
+            card.className =
+                "complaint-card"
+                +
+                (
+                    resolved
+                    ?
+                    ""
+                    :
+                    " active"
+                );
+
+
+            const merchantState =
+                complaint.merchant_confirmed
+                ?
+                `
+                <div class="confirm-state yes">
+                    ✓ 商户已确认
+                    <br>
+                    ${escapeHtml(
+                        formatDateTime(
+                            complaint.merchant_confirmed_at
+                        )
+                    )}
+                </div>
+                `
+                :
+                `
+                <div class="confirm-state no">
+                    ⚠ 商户尚未确认
+                </div>
+                `;
+
+
+            const platformState =
+                complaint.platform_confirmed
+                ?
+                `
+                <div class="confirm-state yes">
+                    ✓ 平台已确认
+                    <br>
+                    ${escapeHtml(
+                        formatDateTime(
+                            complaint.platform_confirmed_at
+                        )
+                    )}
+                </div>
+                `
+                :
+                `
+                <div class="confirm-state no">
+                    ⚠ 平台尚未确认
+                </div>
+                `;
+
+
+            card.innerHTML =
+                `
+
+                <div class="complaint-card-top">
+
+                    <div>
+
+                        <div class="complaint-card-title">
+                            客户投诉
+                        </div>
+
+                        <div class="complaint-card-order">
+                            订单号：
+                            ${escapeHtml(
+                                complaint.order_no
+                                ||
+                                complaint.order_id
+                                ||
+                                "-"
+                            )}
+                        </div>
+
+                    </div>
+
+
+                    <span
+                        class="
+                            complaint-badge
+                            ${resolved ? "done" : ""}
+                        "
+                    >
+                        ${
+                            resolved
+                            ?
+                            "已处理完成"
+                            :
+                            "处理中"
+                        }
+                    </span>
+
+                </div>
+
+
+                <div class="complaint-content">
+                    ${escapeHtml(
+                        complaint.complaint_content
+                        ||
+                        "-"
+                    )}
+                </div>
+
+
+                <div class="complaint-confirm-grid">
+
+                    ${merchantState}
+
+                    ${platformState}
+
+                </div>
+
+
+                <div class="complaint-actions">
+
+                    <button
+                        class="complaint-btn complaint-btn-light"
+                        type="button"
+                        onclick="showComplaintDetail(${Number(
+                            complaint.complaint_id
+                        )})"
+                    >
+                        查看详情
+                    </button>
+
+
+                    <button
+                        class="complaint-btn complaint-btn-confirm"
+                        type="button"
+
+                        ${
+                            complaint.merchant_confirmed
+                            ?
+                            "disabled"
+                            :
+                            ""
+                        }
+
+                        onclick="confirmComplaint(${Number(
+                            complaint.complaint_id
+                        )})"
+                    >
+                        ${
+                            complaint.merchant_confirmed
+                            ?
+                            "商户已确认"
+                            :
+                            "商户确认"
+                        }
+                    </button>
+
+                </div>
+
+                `;
+
+
+            box.appendChild(
+                card
             );
+        }
+    );
+}
 
 
-        box.innerHTML =
-            "";
+
+/* =========================================================
+   投诉详情
+========================================================= */
+
+async function showComplaintDetail(
+    complaintId
+) {
+
+    const complaint =
+        currentComplaints.find(
+            item =>
+                Number(
+                    item.complaint_id
+                )
+                ===
+                Number(
+                    complaintId
+                )
+        );
 
 
-        const list =
-            currentVerifications.slice(
-                0,
-                10
-            );
+    if (!complaint) {
+
+        toast(
+            "没有找到投诉记录"
+        );
+
+        return;
+    }
 
 
-        if (
-            !list.length
-        ) {
+    currentComplaint =
+        complaint;
+
+
+    setText(
+        "complaintModalOrder",
+        `订单号：${
+            complaint.order_no
+            ||
+            complaint.order_id
+            ||
+            "-"
+        }`
+    );
+
+
+    const info =
+        document.getElementById(
+            "complaintModalInfo"
+        );
+
+
+    info.innerHTML =
+
+        createModalRow(
+            "投诉编号",
+            `#${complaint.complaint_id}`
+        )
+
+        +
+
+        createModalRow(
+            "客户",
+            complaint.customer_name
+            ||
+            "-"
+        )
+
+        +
+
+        createModalRow(
+            "客户编号",
+            complaint.customer_no
+            ||
+            "-"
+        )
+
+        +
+
+        createModalRow(
+            "客户手机",
+            complaint.customer_phone
+            ||
+            "-"
+        )
+
+        +
+
+        createModalRow(
+            "投诉时间",
+            formatDateTime(
+                complaint.created_at
+            )
+        )
+
+        +
+
+        createModalRow(
+            "平台状态",
+            complaint.platform_confirmed
+            ?
+            "平台已确认"
+            :
+            "平台尚未确认"
+        )
+
+        +
+
+        createModalRow(
+            "商户状态",
+            complaint.merchant_confirmed
+            ?
+            "商户已确认"
+            :
+            "商户尚未确认"
+        )
+
+        +
+
+        createModalRow(
+            "处理状态",
+            complaint.complaint_status
+            ===
+            "resolved"
+            ?
+            "已处理完成"
+            :
+            "处理中"
+        );
+
+
+    setText(
+        "complaintModalContent",
+        complaint.complaint_content
+        ||
+        "-"
+    );
+
+
+    const confirmButton =
+        document.getElementById(
+            "complaintConfirmButton"
+        );
+
+
+    if (
+        complaint.merchant_confirmed
+    ) {
+
+        confirmButton.disabled =
+            true;
+
+        confirmButton.textContent =
+            "商户已确认";
+
+    } else {
+
+        confirmButton.disabled =
+            false;
+
+        confirmButton.textContent =
+            "商户确认";
+
+    }
+
+
+    document
+        .getElementById(
+            "complaintModalMask"
+        )
+        .classList
+        .remove(
+            "hidden"
+        );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+
+    await loadComplaintImages(
+        complaint.complaint_id
+    );
+}
+
+
+
+/* =========================================================
+   投诉图片
+========================================================= */
+
+async function loadComplaintImages(
+    complaintId
+) {
+
+    const box =
+        document.getElementById(
+            "complaintModalImages"
+        );
+
+
+    box.innerHTML =
+        `
+        <div
+            style="
+                grid-column:1/-1;
+                padding:15px;
+                text-align:center;
+                color:#a48791;
+                font-size:10px;
+            "
+        >
+            正在读取图片...
+        </div>
+        `;
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+        await sb.rpc(
+            "get_merchant_complaint_images",
+            {
+                p_complaint_id:
+                    Number(
+                        complaintId
+                    )
+            }
+        );
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        const rows =
+            Array.isArray(data)
+            ?
+            data
+            :
+            [];
+
+
+        if (!rows.length) {
 
             box.innerHTML =
                 `
-                <div class="empty">
-
-                    <div class="empty-icon">
-                        ✓
-                    </div>
-
-                    <div class="empty-title">
-                        暂无核销记录
-                    </div>
-
-                    <div class="empty-text">
-                        商户完成客户消费核销后，
-                        记录会显示在这里。
-                    </div>
-
+                <div
+                    style="
+                        grid-column:1/-1;
+                        padding:15px;
+                        text-align:center;
+                        color:#a48791;
+                        font-size:10px;
+                    "
+                >
+                    客户没有上传投诉图片
                 </div>
                 `;
 
@@ -3488,1200 +3485,2328 @@
         }
 
 
-        list.forEach(
-            item => {
-
-                const div =
-                    document.createElement(
-                        "div"
-                    );
+        const images =
+            [];
 
 
-                div.className =
-                    "verification-item";
+        for (
+            const row
+            of rows
+        ) {
+
+            const {
+                data: signedData,
+                error: signedError
+            } =
+            await sb.storage
+                .from(
+                    COMPLAINT_BUCKET
+                )
+                .createSignedUrl(
+                    row.storage_path,
+                    600
+                );
 
 
-                const order =
-                    currentOrders.find(
-                        order =>
-                            String(
-                                order.id
-                            )
-                            ===
-                            String(
-                                item.order_id
-                            )
-                    );
+            if (
+                !signedError
+                &&
+                signedData?.signedUrl
+            ) {
 
-
-                const orderNo =
-                    order?.order_no
-                    ||
-                    item.order_id
-                    ||
-                    "-";
-
-
-                const sequence =
-                    firstNotEmpty(
-                        item.verification_no,
-                        item.used_uses_after,
-                        "-"
-                    );
-
-
-                div.innerHTML =
-                    `
-
-                    <div class="verification-top">
-
-                        <div class="verification-order">
-                            订单 ${escapeHtml(orderNo)}
-                        </div>
-
-                        <div class="verification-success">
-                            核销成功
-                        </div>
-
-                    </div>
-
-
-                    <div class="verification-bottom">
-
-                        <span>
-                            第 ${escapeHtml(sequence)} 次
-                        </span>
-
-                        <span>
-                            ${escapeHtml(
-                                formatDateTime(
-                                    item.verified_at
-                                )
-                            )}
-                        </span>
-
-                    </div>
-
-                    `;
-
-
-                box.appendChild(
-                    div
+                images.push(
+                    signedData.signedUrl
                 );
             }
-        );
-    }
+        }
 
 
+        if (!images.length) {
 
-    /* =========================================================
-       订单详情
-    ========================================================= */
-
-    function showOrderDetail(
-        orderId
-    ) {
-
-        const order =
-            currentOrders.find(
-                item =>
-                    String(
-                        item.id
-                    )
-                    ===
-                    String(
-                        orderId
-                    )
-            );
-
-
-        if (!order) {
-
-            toast(
-                "没有找到订单"
-            );
+            box.innerHTML =
+                `
+                <div
+                    style="
+                        grid-column:1/-1;
+                        padding:15px;
+                        text-align:center;
+                        color:#b82c42;
+                        font-size:10px;
+                    "
+                >
+                    暂时无法读取投诉图片
+                </div>
+                `;
 
             return;
         }
 
 
-        const item =
-            getFirstOrderItem(
-                order.id
-            );
+        box.innerHTML =
+            images
+            .map(
+                url =>
+                    `
+                    <div class="complaint-image">
+
+                        <img
+                            src="${escapeHtml(url)}"
+                            alt="投诉图片"
+                            onclick="window.open('${escapeHtml(url)}','_blank')"
+                        >
+
+                    </div>
+                    `
+            )
+            .join("");
 
 
-        const info =
-            document.getElementById(
-                "modalInfo"
-            );
+    } catch (error) {
 
-
-        setText(
-            "modalOrderNo",
-            `订单号：${
-                order.order_no
-                ||
-                order.id
-            }`
+        console.error(
+            "load complaint images:",
+            error
         );
 
 
-        info.innerHTML =
-            createModalRow(
-                "服务项目",
-                item?.product_name_snapshot
-                ||
-                "-"
-            )
+        box.innerHTML =
+            `
+            <div
+                style="
+                    grid-column:1/-1;
+                    padding:15px;
+                    text-align:center;
+                    color:#b82c42;
+                    font-size:10px;
+                "
+            >
+                图片读取失败
+            </div>
+            `;
+    }
+}
 
-            +
 
-            createModalRow(
-                "服务编号",
-                item?.product_code_snapshot
-                ||
-                "-"
-            )
 
-            +
+/* =========================================================
+   商户确认投诉
+========================================================= */
 
-            createModalRow(
-                "数量",
-                item?.quantity
-                ??
-                "-"
-            )
+async function confirmComplaint(
+    complaintId
+) {
 
-            +
-
-            createModalRow(
-                "支付状态",
-                paymentText(
-                    order.payment_status
+    const complaint =
+        currentComplaints.find(
+            item =>
+                Number(
+                    item.complaint_id
                 )
-            )
-
-            +
-
-            createModalRow(
-                "订单状态",
-                orderStatusInfo(
-                    order
-                ).text
-            )
-
-            +
-
-            createModalRow(
-                "总服务次数",
-                numberOrZero(
-                    order.total_uses
+                ===
+                Number(
+                    complaintId
                 )
-            )
-
-            +
-
-            createModalRow(
-                "已使用",
-                numberOrZero(
-                    order.used_uses
-                )
-            )
-
-            +
-
-            createModalRow(
-                "剩余次数",
-                numberOrZero(
-                    order.remaining_uses
-                )
-            )
-
-            +
-
-            createModalRow(
-                "推荐来源",
-                order.recommendation_source_name_snapshot
-                ||
-                "平台"
-            )
-
-            +
-
-            createModalRow(
-                "应付金额",
-                formatMoney(
-                    firstNumber(
-                        order.payable_amount,
-                        order.total_amount
-                    )
-                )
-            )
-
-            +
-
-            createModalRow(
-                "支付时间",
-                formatDateTime(
-                    order.paid_at
-                    ||
-                    order.payment_confirmed_at
-                )
-            )
-
-            +
-
-            createModalRow(
-                "下单时间",
-                formatDateTime(
-                    order.created_at
-                )
-            );
+        );
 
 
-        document
-            .getElementById(
-                "orderModalMask"
-            )
-            .classList
-            .remove(
-                "hidden"
-            );
+    if (!complaint) {
 
+        toast(
+            "没有找到投诉"
+        );
 
-        document.body.style.overflow =
-            "hidden";
+        return;
     }
 
 
-
-    function createModalRow(
-        label,
-        value
+    if (
+        complaint.merchant_confirmed
     ) {
 
-        return `
-            <div class="modal-row">
+        toast(
+            "商户已经确认过该投诉"
+        );
 
-                <span class="modal-label">
-                    ${escapeHtml(label)}
+        return;
+    }
+
+
+    const yes =
+        window.confirm(
+            "确认已经收到并处理该客户投诉吗？\n\n"
+            +
+            (
+                complaint.platform_confirmed
+                ?
+                "平台已经确认。本次商户确认后，双方确认完成，投诉报警将结束。"
+                :
+                "平台尚未确认。商户确认后，投诉仍会继续显示，直到平台也完成确认。"
+            )
+        );
+
+
+    if (!yes) {
+        return;
+    }
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+        await sb.rpc(
+            "confirm_merchant_complaint",
+            {
+                p_complaint_id:
+                    Number(
+                        complaintId
+                    )
+            }
+        );
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        if (
+            !data
+            ||
+            data.success
+            !==
+            true
+        ) {
+
+            throw new Error(
+                data?.message
+                ||
+                "商户确认失败"
+            );
+        }
+
+
+        alert(
+            data.message
+            ||
+            "商户确认成功"
+        );
+
+
+        await loadComplaints(
+            false
+        );
+
+
+        if (
+            currentComplaint
+            &&
+            Number(
+                currentComplaint.complaint_id
+            )
+            ===
+            Number(
+                complaintId
+            )
+        ) {
+
+            closeComplaintModal();
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "confirm complaint:",
+            error
+        );
+
+
+        alert(
+            "确认失败：\n\n"
+            +
+            (
+                error?.message
+                ||
+                "未知错误"
+            )
+        );
+    }
+}
+
+
+function confirmCurrentComplaint() {
+
+    if (!currentComplaint) {
+
+        toast(
+            "没有找到当前投诉"
+        );
+
+        return;
+    }
+
+
+    confirmComplaint(
+        currentComplaint.complaint_id
+    );
+}
+
+
+function closeComplaintModal() {
+
+    document
+        .getElementById(
+            "complaintModalMask"
+        )
+        .classList
+        .add(
+            "hidden"
+        );
+
+
+    document.body.style.overflow =
+        "";
+
+
+    currentComplaint =
+        null;
+}
+
+
+function handleComplaintModalMask(
+    event
+) {
+
+    if (
+        event.target.id
+        ===
+        "complaintModalMask"
+    ) {
+
+        closeComplaintModal();
+    }
+}
+
+
+function showComplaintSection() {
+
+    document
+        .getElementById(
+            "complaintSection"
+        )
+        .scrollIntoView(
+            {
+                behavior:
+                    "smooth",
+
+                block:
+                    "start"
+            }
+        );
+}
+
+
+
+/* =========================================================
+   订单
+========================================================= */
+
+async function loadOrders() {
+
+    const {
+        data,
+        error
+    } =
+    await sb
+        .from("orders")
+        .select("*")
+        .eq(
+            "merchant_id",
+            currentMerchant.id
+        )
+        .order(
+            "created_at",
+            {
+                ascending:
+                    false
+            }
+        )
+        .limit(
+            200
+        );
+
+
+    if (error) {
+
+        console.error(
+            "load merchant orders:",
+            error
+        );
+
+
+        currentOrders =
+            [];
+
+
+        return;
+    }
+
+
+    currentOrders =
+        data
+        ||
+        [];
+
+
+    await loadOrderItems();
+}
+
+
+async function loadOrderItems() {
+
+    const orderIds =
+        currentOrders
+        .map(
+            order =>
+                order.id
+        )
+        .filter(
+            value =>
+                value !== null
+                &&
+                value !== undefined
+        );
+
+
+    if (!orderIds.length) {
+
+        currentOrderItems =
+            [];
+
+        return;
+    }
+
+
+    const {
+        data,
+        error
+    } =
+    await sb
+        .from("order_items")
+        .select(`
+            id,
+            order_id,
+            product_id,
+            product_code_snapshot,
+            product_name_snapshot,
+            product_type,
+            quantity,
+            unit_price,
+            amount,
+            discounted_amount
+        `)
+        .in(
+            "order_id",
+            orderIds
+        );
+
+
+    if (error) {
+
+        console.error(
+            "load merchant order items:",
+            error
+        );
+
+
+        currentOrderItems =
+            [];
+
+        return;
+    }
+
+
+    currentOrderItems =
+        data
+        ||
+        [];
+}
+
+
+
+/* =========================================================
+   核销
+========================================================= */
+
+async function loadVerifications() {
+
+    const {
+        data,
+        error
+    } =
+    await sb
+        .from(
+            "order_verifications"
+        )
+        .select("*")
+        .eq(
+            "merchant_id",
+            currentMerchant.id
+        )
+        .order(
+            "verified_at",
+            {
+                ascending:
+                    false
+            }
+        )
+        .limit(
+            100
+        );
+
+
+    if (error) {
+
+        console.error(
+            "load verifications:",
+            error
+        );
+
+
+        currentVerifications =
+            [];
+
+        return;
+    }
+
+
+    currentVerifications =
+        data
+        ||
+        [];
+}
+
+
+
+/* =========================================================
+   统计
+========================================================= */
+
+function renderStats() {
+
+    const today =
+        new Date();
+
+
+    const todayStart =
+        new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate(),
+            0,
+            0,
+            0,
+            0
+        );
+
+
+    const todayVerificationCount =
+        currentVerifications.filter(
+            item => {
+
+                const date =
+                    new Date(
+                        item.verified_at
+                    );
+
+
+                return (
+                    !Number.isNaN(
+                        date.getTime()
+                    )
+                    &&
+                    date >=
+                    todayStart
+                    &&
+                    (
+                        !item.status
+                        ||
+                        item.status
+                        ===
+                        "success"
+                    )
+                );
+            }
+        ).length;
+
+
+    const waitingCount =
+        currentOrders.filter(
+            isWaitingOrder
+        ).length;
+
+
+    const processingCount =
+        currentOrders.filter(
+            isProcessingOrder
+        ).length;
+
+
+    const completedCount =
+        currentOrders.filter(
+            order =>
+                order.order_status
+                ===
+                "completed"
+        ).length;
+
+
+    setText(
+        "todayVerificationCount",
+        todayVerificationCount
+    );
+
+
+    setText(
+        "waitingCount",
+        waitingCount
+    );
+
+
+    setText(
+        "processingCount",
+        processingCount
+    );
+
+
+    setText(
+        "completedCount",
+        completedCount
+    );
+}
+
+
+function isWaitingOrder(
+    order
+) {
+
+    return (
+        order.payment_status
+        ===
+        "paid"
+
+        &&
+
+        Number(
+            order.remaining_uses
+            ??
+            0
+        ) > 0
+
+        &&
+
+        Number(
+            order.used_uses
+            ??
+            0
+        ) === 0
+
+        &&
+
+        ![
+            "completed",
+            "cancelled",
+            "refunded"
+        ].includes(
+            order.order_status
+        )
+    );
+}
+
+
+function isProcessingOrder(
+    order
+) {
+
+    return (
+        order.payment_status
+        ===
+        "paid"
+
+        &&
+
+        Number(
+            order.used_uses
+            ??
+            0
+        ) > 0
+
+        &&
+
+        Number(
+            order.remaining_uses
+            ??
+            0
+        ) > 0
+
+        &&
+
+        order.order_status
+        !==
+        "completed"
+    );
+}
+
+
+
+/* =========================================================
+   筛选
+========================================================= */
+
+function showOrderFilter(
+    filter
+) {
+
+    currentOrderFilter =
+        filter;
+
+
+    const titleMap = {
+
+        all:
+            "全部服务订单",
+
+        waiting:
+            "待服务订单",
+
+        processing:
+            "服务中订单",
+
+        completed:
+            "已完成订单"
+
+    };
+
+
+    setText(
+        "ordersSectionTitle",
+        titleMap[filter]
+        ||
+        "服务订单"
+    );
+
+
+    renderOrders();
+
+
+    activateNav(
+        "orders"
+    );
+
+
+    document
+        .getElementById(
+            "ordersSection"
+        )
+        .scrollIntoView(
+            {
+                behavior:
+                    "smooth",
+
+                block:
+                    "start"
+            }
+        );
+}
+
+
+function getFilteredOrders() {
+
+    switch (
+        currentOrderFilter
+    ) {
+
+        case "waiting":
+
+            return currentOrders.filter(
+                isWaitingOrder
+            );
+
+
+        case "processing":
+
+            return currentOrders.filter(
+                isProcessingOrder
+            );
+
+
+        case "completed":
+
+            return currentOrders.filter(
+                order =>
+                    order.order_status
+                    ===
+                    "completed"
+            );
+
+
+        default:
+
+            return currentOrders;
+    }
+}
+
+
+
+/* =========================================================
+   渲染订单
+========================================================= */
+
+function renderOrders() {
+
+    const box =
+        document.getElementById(
+            "ordersList"
+        );
+
+
+    box.innerHTML =
+        "";
+
+
+    const list =
+        getFilteredOrders()
+        .slice(
+            0,
+            30
+        );
+
+
+    if (!list.length) {
+
+        box.innerHTML =
+            `
+            <div class="empty">
+
+                <div class="empty-icon">
+                    🌷
+                </div>
+
+                <div class="empty-title">
+                    暂无相关订单
+                </div>
+
+                <div class="empty-text">
+                    客户完成付款后，可服务订单会显示在这里。
+                </div>
+
+            </div>
+            `;
+
+        return;
+    }
+
+
+    list.forEach(
+        order => {
+
+            box.appendChild(
+                createOrderCard(
+                    order
+                )
+            );
+        }
+    );
+}
+
+
+function createOrderCard(
+    order
+) {
+
+    const card =
+        document.createElement(
+            "div"
+        );
+
+
+    card.className =
+        "order-card";
+
+
+    const item =
+        getFirstOrderItem(
+            order.id
+        );
+
+
+    const productName =
+        item?.product_name_snapshot
+        ||
+        "服务项目";
+
+
+    const total =
+        Math.max(
+            1,
+            Number(
+                order.total_uses
+                ??
+                1
+            )
+        );
+
+
+    const used =
+        Math.max(
+            0,
+            Number(
+                order.used_uses
+                ??
+                0
+            )
+        );
+
+
+    const remaining =
+        Math.max(
+            0,
+            Number(
+                order.remaining_uses
+                ??
+                total - used
+            )
+        );
+
+
+    const progress =
+        Math.min(
+            100,
+            Math.max(
+                0,
+                used /
+                total *
+                100
+            )
+        );
+
+
+    const state =
+        orderStatusInfo(
+            order
+        );
+
+
+    const created =
+        formatDateTime(
+            order.created_at
+        );
+
+
+    const recommendation =
+        order.recommendation_source_name_snapshot
+        ||
+        "平台";
+
+
+    let actionButton =
+        "";
+
+
+    if (
+        order.payment_status
+        ===
+        "paid"
+
+        &&
+
+        remaining > 0
+    ) {
+
+        actionButton =
+            `
+            <button
+                class="order-btn order-btn-primary"
+                type="button"
+                onclick="goVerify()"
+            >
+                扫码核销
+            </button>
+            `;
+    }
+
+
+    card.innerHTML =
+        `
+
+        <div class="order-top">
+
+            <div class="order-main">
+
+                <div class="order-product">
+                    ${escapeHtml(
+                        productName
+                    )}
+                </div>
+
+                <div class="order-no">
+                    订单号：
+                    ${escapeHtml(
+                        order.order_no
+                        ||
+                        order.id
+                    )}
+                </div>
+
+            </div>
+
+
+            <span
+                class="badge ${state.className}"
+            >
+                ${escapeHtml(
+                    state.text
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="order-divider"></div>
+
+
+        <div class="order-row">
+
+            <span class="order-label">
+                下单时间
+            </span>
+
+            <span class="order-value">
+                ${escapeHtml(created)}
+            </span>
+
+        </div>
+
+
+        <div class="order-row">
+
+            <span class="order-label">
+                支付状态
+            </span>
+
+            <span class="order-value">
+                ${escapeHtml(
+                    paymentText(
+                        order.payment_status
+                    )
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="order-row">
+
+            <span class="order-label">
+                推荐来源
+            </span>
+
+            <span class="order-value">
+                ${escapeHtml(
+                    recommendation
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="order-row">
+
+            <span class="order-label">
+                实付金额
+            </span>
+
+            <span class="order-value">
+                ${escapeHtml(
+                    formatMoney(
+                        firstNumber(
+                            order.payment_amount,
+                            order.payable_amount,
+                            order.total_amount
+                        )
+                    )
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="usage-box">
+
+            <div class="usage-head">
+
+                <span class="usage-label">
+                    服务进度
                 </span>
 
-                <span class="modal-value">
-                    ${escapeHtml(
-                        value
-                        ??
-                        "-"
-                    )}
+                <span class="usage-value">
+                    已使用 ${used} 次 ·
+                    剩余 ${remaining} 次
                 </span>
 
             </div>
+
+
+            <div class="progress">
+
+                <div
+                    class="progress-bar"
+                    style="width:${progress}%"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <div class="order-actions">
+
+            <button
+                class="order-btn order-btn-light"
+                type="button"
+                onclick="showOrderDetail('${safeId(order.id)}')"
+            >
+                查看详情
+            </button>
+
+            ${actionButton}
+
+        </div>
         `;
+
+
+    return card;
+}
+
+
+
+/* =========================================================
+   核销记录渲染
+========================================================= */
+
+function renderVerifications() {
+
+    const box =
+        document.getElementById(
+            "verificationList"
+        );
+
+
+    box.innerHTML =
+        "";
+
+
+    const list =
+        currentVerifications.slice(
+            0,
+            10
+        );
+
+
+    if (!list.length) {
+
+        box.innerHTML =
+            `
+            <div class="empty">
+
+                <div class="empty-icon">
+                    ✓
+                </div>
+
+                <div class="empty-title">
+                    暂无核销记录
+                </div>
+
+                <div class="empty-text">
+                    商户完成客户消费核销后，记录会显示在这里。
+                </div>
+
+            </div>
+            `;
+
+        return;
     }
 
 
+    list.forEach(
+        item => {
 
-    function closeOrderModal() {
+            const div =
+                document.createElement(
+                    "div"
+                );
 
-        document
-            .getElementById(
-                "orderModalMask"
-            )
-            .classList
-            .add(
-                "hidden"
+
+            div.className =
+                "verification-item";
+
+
+            const order =
+                currentOrders.find(
+                    order =>
+                        String(
+                            order.id
+                        )
+                        ===
+                        String(
+                            item.order_id
+                        )
+                );
+
+
+            const orderNo =
+                order?.order_no
+                ||
+                item.order_id
+                ||
+                "-";
+
+
+            const sequence =
+                firstNotEmpty(
+                    item.verification_no,
+                    item.used_uses_after,
+                    "-"
+                );
+
+
+            div.innerHTML =
+                `
+
+                <div class="verification-top">
+
+                    <div class="verification-order">
+                        订单 ${escapeHtml(orderNo)}
+                    </div>
+
+                    <div class="verification-success">
+                        核销成功
+                    </div>
+
+                </div>
+
+
+                <div class="verification-bottom">
+
+                    <span>
+                        第 ${escapeHtml(sequence)} 次
+                    </span>
+
+                    <span>
+                        ${escapeHtml(
+                            formatDateTime(
+                                item.verified_at
+                            )
+                        )}
+                    </span>
+
+                </div>
+
+                `;
+
+
+            box.appendChild(
+                div
             );
-
-
-        document.body.style.overflow =
-            "";
-    }
-
-
-
-    function handleModalMask(
-        event
-    ) {
-
-        if (
-            event.target.id
-            ===
-            "orderModalMask"
-        ) {
-
-            closeOrderModal();
         }
-    }
+    );
+}
 
 
 
-    /* =========================================================
-       Order item
-    ========================================================= */
+/* =========================================================
+   订单详情
+========================================================= */
 
-    function getFirstOrderItem(
-        orderId
-    ) {
+function showOrderDetail(
+    orderId
+) {
 
-        return currentOrderItems.find(
+    const order =
+        currentOrders.find(
             item =>
                 String(
-                    item.order_id
+                    item.id
                 )
                 ===
                 String(
                     orderId
                 )
-        )
-        ||
-        null;
+        );
+
+
+    if (!order) {
+
+        toast(
+            "没有找到订单"
+        );
+
+        return;
     }
 
 
+    const item =
+        getFirstOrderItem(
+            order.id
+        );
 
-    /* =========================================================
-       状态
-    ========================================================= */
 
-    function orderStatusInfo(
-        order
+    const info =
+        document.getElementById(
+            "modalInfo"
+        );
+
+
+    setText(
+        "modalOrderNo",
+        `订单号：${
+            order.order_no
+            ||
+            order.id
+        }`
+    );
+
+
+    info.innerHTML =
+
+        createModalRow(
+            "服务项目",
+            item?.product_name_snapshot
+            ||
+            "-"
+        )
+
+        +
+
+        createModalRow(
+            "服务编号",
+            item?.product_code_snapshot
+            ||
+            "-"
+        )
+
+        +
+
+        createModalRow(
+            "数量",
+            item?.quantity
+            ??
+            "-"
+        )
+
+        +
+
+        createModalRow(
+            "支付状态",
+            paymentText(
+                order.payment_status
+            )
+        )
+
+        +
+
+        createModalRow(
+            "订单状态",
+            orderStatusInfo(
+                order
+            ).text
+        )
+
+        +
+
+        createModalRow(
+            "总服务次数",
+            numberOrZero(
+                order.total_uses
+            )
+        )
+
+        +
+
+        createModalRow(
+            "已使用",
+            numberOrZero(
+                order.used_uses
+            )
+        )
+
+        +
+
+        createModalRow(
+            "剩余次数",
+            numberOrZero(
+                order.remaining_uses
+            )
+        )
+
+        +
+
+        createModalRow(
+            "推荐来源",
+            order.recommendation_source_name_snapshot
+            ||
+            "平台"
+        )
+
+        +
+
+        createModalRow(
+            "应付金额",
+            formatMoney(
+                firstNumber(
+                    order.payable_amount,
+                    order.total_amount
+                )
+            )
+        )
+
+        +
+
+        createModalRow(
+            "支付时间",
+            formatDateTime(
+                order.paid_at
+                ||
+                order.payment_confirmed_at
+            )
+        )
+
+        +
+
+        createModalRow(
+            "下单时间",
+            formatDateTime(
+                order.created_at
+            )
+        );
+
+
+    document
+        .getElementById(
+            "orderModalMask"
+        )
+        .classList
+        .remove(
+            "hidden"
+        );
+
+
+    document.body.style.overflow =
+        "hidden";
+}
+
+
+function createModalRow(
+    label,
+    value
+) {
+
+    return `
+        <div class="modal-row">
+
+            <span class="modal-label">
+                ${escapeHtml(label)}
+            </span>
+
+            <span class="modal-value">
+                ${escapeHtml(
+                    value
+                    ??
+                    "-"
+                )}
+            </span>
+
+        </div>
+    `;
+}
+
+
+function closeOrderModal() {
+
+    document
+        .getElementById(
+            "orderModalMask"
+        )
+        .classList
+        .add(
+            "hidden"
+        );
+
+
+    document.body.style.overflow =
+        "";
+}
+
+
+function handleModalMask(
+    event
+) {
+
+    if (
+        event.target.id
+        ===
+        "orderModalMask"
     ) {
 
-        if (
-            order.order_status
+        closeOrderModal();
+    }
+}
+
+
+
+/* =========================================================
+   Order item
+========================================================= */
+
+function getFirstOrderItem(
+    orderId
+) {
+
+    return currentOrderItems.find(
+        item =>
+            String(
+                item.order_id
+            )
             ===
-            "completed"
-        ) {
-
-            return {
-
-                text:
-                    "已完成",
-
-                className:
-                    "badge-completed"
-            };
-        }
+            String(
+                orderId
+            )
+    )
+    ||
+    null;
+}
 
 
-        if (
-            order.payment_status
-            !==
-            "paid"
-        ) {
 
-            return {
+/* =========================================================
+   状态
+========================================================= */
 
-                text:
-                    "待付款",
+function orderStatusInfo(
+    order
+) {
 
-                className:
-                    "badge-unpaid"
-            };
-        }
-
-
-        if (
-            Number(
-                order.used_uses
-                ??
-                0
-            ) > 0
-
-            &&
-
-            Number(
-                order.remaining_uses
-                ??
-                0
-            ) > 0
-        ) {
-
-            return {
-
-                text:
-                    "服务中",
-
-                className:
-                    "badge-processing"
-            };
-        }
-
-
-        if (
-            order.order_status
-            ===
-            "cancelled"
-
-            ||
-            order.order_status
-            ===
-            "refunded"
-        ) {
-
-            return {
-
-                text:
-                    "已取消",
-
-                className:
-                    "badge-cancelled"
-            };
-        }
-
+    if (
+        order.order_status
+        ===
+        "completed"
+    ) {
 
         return {
-
             text:
-                "待服务",
+                "已完成",
 
             className:
-                "badge-wait"
+                "badge-completed"
         };
     }
 
 
-
-    function paymentText(
-        status
+    if (
+        order.payment_status
+        !==
+        "paid"
     ) {
 
-        const map = {
+        return {
+            text:
+                "待付款",
 
-            unpaid:
-                "未支付",
-
-            paid:
-                "已支付",
-
-            partially_refunded:
-                "部分退款",
-
-            partial_refund:
-                "部分退款",
-
-            refunded:
-                "已退款"
-
+            className:
+                "badge-unpaid"
         };
-
-
-        return (
-            map[status]
-            ||
-            status
-            ||
-            "-"
-        );
     }
 
 
+    if (
+        Number(
+            order.used_uses
+            ??
+            0
+        ) > 0
 
-    function merchantStatusText(
-        status
+        &&
+
+        Number(
+            order.remaining_uses
+            ??
+            0
+        ) > 0
     ) {
 
-        if (
-            status
-            ===
-            "active"
-        ) {
+        return {
+            text:
+                "服务中",
 
-            return "有效";
+            className:
+                "badge-processing"
+        };
+    }
+
+
+    if (
+        order.order_status
+        ===
+        "cancelled"
+
+        ||
+
+        order.order_status
+        ===
+        "refunded"
+    ) {
+
+        return {
+            text:
+                "已取消",
+
+            className:
+                "badge-cancelled"
+        };
+    }
+
+
+    return {
+        text:
+            "待服务",
+
+        className:
+            "badge-wait"
+    };
+}
+
+
+function paymentText(
+    status
+) {
+
+    const map = {
+
+        unpaid:
+            "未支付",
+
+        paid:
+            "已支付",
+
+        partially_refunded:
+            "部分退款",
+
+        partial_refund:
+            "部分退款",
+
+        refunded:
+            "已退款"
+
+    };
+
+
+    return (
+        map[status]
+        ||
+        status
+        ||
+        "-"
+    );
+}
+
+
+function merchantStatusText(
+    status
+) {
+
+    if (
+        status
+        ===
+        "active"
+    ) {
+
+        return "有效";
+    }
+
+
+    return (
+        status
+        ||
+        "-"
+    );
+}
+
+
+function listingStatusText(
+    status
+) {
+
+    const map = {
+
+        online:
+            "正常上线",
+
+        suspended:
+            "暂停上线",
+
+        offline:
+            "未上线",
+
+        inactive:
+            "无效"
+
+    };
+
+
+    if (!status) {
+
+        return "正常";
+    }
+
+
+    return (
+        map[status]
+        ||
+        status
+    );
+}
+
+
+
+/* =========================================================
+   页面导航
+========================================================= */
+
+function goVerify() {
+
+    window.location.href =
+        "./merchant_verify.html";
+}
+
+
+function goHomeSection() {
+
+    currentOrderFilter =
+        "all";
+
+
+    renderOrders();
+
+
+    activateNav(
+        "home"
+    );
+
+
+    window.scrollTo(
+        {
+            top:
+                0,
+
+            behavior:
+                "smooth"
         }
+    );
+}
 
 
-        return (
-            status
-            ||
-            "-"
-        );
-    }
+function showOrdersSection() {
+
+    currentOrderFilter =
+        "all";
 
 
-
-    function listingStatusText(
-        status
-    ) {
-
-        const map = {
-
-            online:
-                "正常上线",
-
-            suspended:
-                "暂停上线",
-
-            offline:
-                "未上线",
-
-            inactive:
-                "无效"
-
-        };
+    setText(
+        "ordersSectionTitle",
+        "全部服务订单"
+    );
 
 
-        if (!status) {
-
-            return "正常";
-        }
+    renderOrders();
 
 
-        return (
-            map[status]
-            ||
-            status
-        );
-    }
+    activateNav(
+        "orders"
+    );
 
 
-
-    /* =========================================================
-       页面导航
-    ========================================================= */
-
-    function goVerify() {
-
-        window.location.href =
-            "./merchant_verify.html";
-    }
-
-
-
-    function goHomeSection() {
-
-        currentOrderFilter =
-            "all";
-
-
-        renderOrders();
-
-
-        activateNav(
-            "home"
-        );
-
-
-        window.scrollTo(
+    document
+        .getElementById(
+            "ordersSection"
+        )
+        .scrollIntoView(
             {
-                top:
-                    0,
-
                 behavior:
-                    "smooth"
+                    "smooth",
+
+                block:
+                    "start"
             }
         );
-    }
+}
 
 
+function showVerificationSection() {
 
-    function showOrdersSection() {
-
-        currentOrderFilter =
-            "all";
-
-
-        setText(
-            "ordersSectionTitle",
-            "全部服务订单"
-        );
+    activateNav(
+        "verify"
+    );
 
 
-        renderOrders();
+    scrollToVerifications();
+}
 
 
-        activateNav(
-            "orders"
-        );
+function scrollToVerifications() {
 
+    document
+        .getElementById(
+            "verificationSection"
+        )
+        .scrollIntoView(
+            {
+                behavior:
+                    "smooth",
 
-        document
-            .getElementById(
-                "ordersSection"
-            )
-            .scrollIntoView(
-                {
-                    behavior:
-                        "smooth",
-
-                    block:
-                        "start"
-                }
-            );
-    }
-
-
-
-    function showVerificationSection() {
-
-        activateNav(
-            "verify"
-        );
-
-
-        scrollToVerifications();
-    }
-
-
-
-    function scrollToVerifications() {
-
-        document
-            .getElementById(
-                "verificationSection"
-            )
-            .scrollIntoView(
-                {
-                    behavior:
-                        "smooth",
-
-                    block:
-                        "start"
-                }
-            );
-    }
-
-
-
-    function showMerchantSection() {
-
-        activateNav(
-            "merchant"
-        );
-
-
-        document
-            .getElementById(
-                "merchantSection"
-            )
-            .scrollIntoView(
-                {
-                    behavior:
-                        "smooth",
-
-                    block:
-                        "start"
-                }
-            );
-    }
-
-
-
-    function activateNav(
-        target
-    ) {
-
-        [
-            "navHome",
-            "navOrders",
-            "navVerify",
-            "navMerchant"
-        ].forEach(
-            id => {
-
-                document
-                    .getElementById(
-                        id
-                    )
-                    .classList
-                    .remove(
-                        "active"
-                    );
+                block:
+                    "start"
             }
         );
+}
 
 
-        const map = {
+function showMerchantSection() {
 
-            home:
-                "navHome",
-
-            orders:
-                "navOrders",
-
-            verify:
-                "navVerify",
-
-            merchant:
-                "navMerchant"
-
-        };
+    activateNav(
+        "merchant"
+    );
 
 
-        const id =
-            map[target];
+    document
+        .getElementById(
+            "merchantSection"
+        )
+        .scrollIntoView(
+            {
+                behavior:
+                    "smooth",
+
+                block:
+                    "start"
+            }
+        );
+}
 
 
-        if (
-            id
-        ) {
+function activateNav(
+    target
+) {
+
+    [
+        "navHome",
+        "navOrders",
+        "navVerify",
+        "navMerchant"
+    ]
+    .forEach(
+        id => {
 
             document
                 .getElementById(
                     id
                 )
                 .classList
-                .add(
+                .remove(
                     "active"
                 );
         }
+    );
+
+
+    const map = {
+
+        home:
+            "navHome",
+
+        orders:
+            "navOrders",
+
+        verify:
+            "navVerify",
+
+        merchant:
+            "navMerchant"
+
+    };
+
+
+    const id =
+        map[target];
+
+
+    if (id) {
+
+        document
+            .getElementById(
+                id
+            )
+            .classList
+            .add(
+                "active"
+            );
+    }
+}
+
+
+
+/* =========================================================
+   10分钟无操作退出
+========================================================= */
+
+function setupIdleLogout() {
+
+    const events = [
+        "click",
+        "touchstart",
+        "touchmove",
+        "keydown",
+        "scroll"
+    ];
+
+
+    events.forEach(
+        eventName => {
+
+            document.addEventListener(
+                eventName,
+                resetIdleTimer,
+                {
+                    passive:
+                        true
+                }
+            );
+        }
+    );
+
+
+    resetIdleTimer();
+}
+
+
+function resetIdleTimer() {
+
+    if (idleTimer) {
+
+        clearTimeout(
+            idleTimer
+        );
     }
 
 
-
-    /* =========================================================
-       10分钟无操作退出
-    ========================================================= */
-
-    function setupIdleLogout() {
-
-        const events = [
-
-            "click",
-            "touchstart",
-            "touchmove",
-            "keydown",
-            "scroll"
-
-        ];
+    idleTimer =
+        setTimeout(
+            logoutByIdle,
+            IDLE_LIMIT
+        );
+}
 
 
-        events.forEach(
-            eventName => {
+async function logoutByIdle() {
 
-                document.addEventListener(
-                    eventName,
-                    resetIdleTimer,
-                    {
-                        passive:
-                            true
-                    }
-                );
-            }
+    try {
+
+        await sb.auth.signOut();
+
+    } catch (error) {
+
+        console.error(
+            "自动退出失败：",
+            error
+        );
+
+    } finally {
+
+        window.location.href =
+            "./login.html?reason=idle";
+    }
+}
+
+
+
+/* =========================================================
+   登出
+========================================================= */
+
+async function logout() {
+
+    try {
+
+        await sb.auth.signOut();
+
+    } catch (error) {
+
+        console.error(error);
+    }
+
+
+    goLogin();
+}
+
+
+function goLogin() {
+
+    window.location.replace(
+        "./login.html"
+    );
+}
+
+
+
+/* =========================================================
+   工具
+========================================================= */
+
+function setText(
+    id,
+    value
+) {
+
+    const el =
+        document.getElementById(
+            id
         );
 
 
-        resetIdleTimer();
+    if (!el) {
+        return;
     }
 
 
+    el.textContent =
+        (
+            value === null
+            ||
+            value === undefined
+            ||
+            value === ""
+        )
+        ?
+        "-"
+        :
+        String(value);
+}
 
-    function resetIdleTimer() {
+
+function firstNotEmpty(
+    ...values
+) {
+
+    for (
+        const value
+        of values
+    ) {
 
         if (
-            idleTimer
+            value !== null
+            &&
+            value !== undefined
+            &&
+            value !== ""
         ) {
 
-            clearTimeout(
-                idleTimer
-            );
-        }
-
-
-        idleTimer =
-            setTimeout(
-                logoutByIdle,
-                IDLE_LIMIT
-            );
-    }
-
-
-
-    async function logoutByIdle() {
-
-        try {
-
-            await sb.auth.signOut();
-
-        } catch (error) {
-
-            console.error(
-                "自动退出失败：",
-                error
-            );
-
-        } finally {
-
-            window.location.href =
-                "./login.html?reason=idle";
+            return value;
         }
     }
 
 
-
-    /* =========================================================
-       登出
-    ========================================================= */
-
-    async function logout() {
-
-        try {
-
-            await sb.auth.signOut();
-
-        } catch (error) {
-
-            console.error(
-                error
-            );
-        }
+    return null;
+}
 
 
-        goLogin();
-    }
+function firstNumber(
+    ...values
+) {
 
-
-
-    function goLogin() {
-
-        window.location.replace(
-            "./login.html"
-        );
-    }
-
-
-
-    /* =========================================================
-       工具
-    ========================================================= */
-
-    function setText(
-        id,
-        value
+    for (
+        const value
+        of values
     ) {
 
-        const el =
-            document.getElementById(
-                id
-            );
+        if (
+            value === null
+            ||
+            value === undefined
+            ||
+            value === ""
+        ) {
 
-
-        if (!el) {
-
-            return;
+            continue;
         }
 
 
-        el.textContent =
-            (
-                value === null
-                ||
-                value === undefined
-                ||
-                value === ""
+        const number =
+            Number(value);
+
+
+        if (
+            Number.isFinite(
+                number
             )
-            ?
-            "-"
-            :
-            String(
-                value
-            );
+        ) {
+
+            return number;
+        }
     }
 
 
+    return 0;
+}
 
-    function firstNotEmpty(
-        ...values
+
+function numberOrZero(
+    value
+) {
+
+    const number =
+        Number(value);
+
+
+    if (
+        !Number.isFinite(
+            number
+        )
     ) {
-
-        for (
-            const value
-            of values
-        ) {
-
-            if (
-                value !== null
-                &&
-                value !== undefined
-                &&
-                value !== ""
-            ) {
-
-                return value;
-            }
-        }
-
-
-        return null;
-    }
-
-
-
-    function firstNumber(
-        ...values
-    ) {
-
-        for (
-            const value
-            of values
-        ) {
-
-            if (
-                value === null
-                ||
-                value === undefined
-                ||
-                value === ""
-            ) {
-
-                continue;
-            }
-
-
-            const number =
-                Number(
-                    value
-                );
-
-
-            if (
-                Number.isFinite(
-                    number
-                )
-            ) {
-
-                return number;
-            }
-        }
-
 
         return 0;
     }
 
 
+    return number;
+}
 
-    function numberOrZero(
-        value
+
+function formatMoney(
+    value
+) {
+
+    const number =
+        Number(value);
+
+
+    if (
+        !Number.isFinite(
+            number
+        )
     ) {
 
-        const number =
-            Number(
-                value
-            );
+        return "¥0.00";
+    }
 
 
-        if (
-            !Number.isFinite(
-                number
-            )
-        ) {
+    return (
+        "¥"
+        +
+        number.toFixed(2)
+    );
+}
 
-            return 0;
+
+function formatDateTime(
+    value
+) {
+
+    if (!value) {
+        return "-";
+    }
+
+
+    const date =
+        new Date(value);
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return String(value);
+    }
+
+
+    return date.toLocaleString(
+        "zh-CN",
+        {
+            year:
+                "numeric",
+
+            month:
+                "2-digit",
+
+            day:
+                "2-digit",
+
+            hour:
+                "2-digit",
+
+            minute:
+                "2-digit",
+
+            hour12:
+                false
         }
+    );
+}
 
 
-        return number;
-    }
+function safeId(
+    value
+) {
 
-
-
-    function formatMoney(
+    return String(
         value
-    ) {
-
-        const number =
-            Number(
-                value
-            );
-
-
-        if (
-            !Number.isFinite(
-                number
-            )
-        ) {
-
-            return "¥0.00";
-        }
+        ??
+        ""
+    )
+    .replace(
+        /'/g,
+        ""
+    );
+}
 
 
-        return (
-            "¥"
-            +
-            number.toFixed(
-                2
-            )
-        );
-    }
+function escapeHtml(
+    value
+) {
 
-
-
-    function formatDateTime(
+    return String(
         value
-    ) {
-
-        if (!value) {
-
-            return "-";
-        }
-
-
-        const date =
-            new Date(
-                value
-            );
-
-
-        if (
-            Number.isNaN(
-                date.getTime()
-            )
-        ) {
-
-            return String(
-                value
-            );
-        }
-
-
-        return date.toLocaleString(
-            "zh-CN",
-            {
-                month:
-                    "2-digit",
-
-                day:
-                    "2-digit",
-
-                hour:
-                    "2-digit",
-
-                minute:
-                    "2-digit",
-
-                hour12:
-                    false
-            }
-        );
-    }
+        ??
+        ""
+    )
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
+}
 
 
+function toast(
+    message
+) {
 
-    function safeId(
-        value
-    ) {
-
-        return String(
-            value
-            ??
-            ""
-        )
-        .replace(
-            /'/g,
-            ""
-        );
-    }
-
-
-
-    function escapeHtml(
-        value
-    ) {
-
-        return String(
-            value
-            ??
-            ""
-        )
-        .replaceAll(
-            "&",
-            "&amp;"
-        )
-        .replaceAll(
-            "<",
-            "&lt;"
-        )
-        .replaceAll(
-            ">",
-            "&gt;"
-        )
-        .replaceAll(
-            '"',
-            "&quot;"
-        )
-        .replaceAll(
-            "'",
-            "&#039;"
-        );
-    }
-
-
-
-    function toast(
-        message
-    ) {
-
-        const el =
-            document.getElementById(
-                "toast"
-            );
-
-
-        el.textContent =
-            message;
-
-
-        el.classList.add(
-            "show"
+    const el =
+        document.getElementById(
+            "toast"
         );
 
 
-        clearTimeout(
-            toast.timer
-        );
+    el.textContent =
+        message;
 
 
-        toast.timer =
-            setTimeout(
-                () => {
-
-                    el.classList.remove(
-                        "show"
-                    );
-
-                },
-                2200
-            );
-    }
+    el.classList.add(
+        "show"
+    );
 
 
-
-    function hideLoading() {
-
-        const mask =
-            document.getElementById(
-                "loadingMask"
-            );
+    clearTimeout(
+        toast.timer
+    );
 
 
-        if (!mask) {
-
-            return;
-        }
-
-
-        mask.style.opacity =
-            "0";
-
-
-        mask.style.transition =
-            "opacity .20s ease";
-
-
+    toast.timer =
         setTimeout(
             () => {
 
-                mask.style.display =
-                    "none";
+                el.classList.remove(
+                    "show"
+                );
 
             },
-            220
+            2200
         );
+}
+
+
+function hideLoading() {
+
+    const mask =
+        document.getElementById(
+            "loadingMask"
+        );
+
+
+    if (!mask) {
+        return;
     }
 
-</script>
 
+    mask.style.opacity =
+        "0";
+
+
+    mask.style.transition =
+        "opacity .20s ease";
+
+
+    setTimeout(
+        () => {
+
+            mask.style.display =
+                "none";
+
+        },
+        220
+    );
+}
+
+
+/* =========================================================
+   Auth状态
+========================================================= */
+
+sb.auth.onAuthStateChange(
+    (
+        event,
+        session
+    ) => {
+
+        if (
+            event ===
+            "SIGNED_OUT"
+        ) {
+
+            goLogin();
+        }
+    }
+);
+
+</script>
 
 </body>
 

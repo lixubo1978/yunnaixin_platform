@@ -6,1339 +6,921 @@
 <meta charset="UTF-8">
 
 <meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
->
-
-<meta
-  name="theme-color"
-  content="#fff7fa"
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
 >
 
 <title>投诉处理 - 孕乃馨</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-
 <style>
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
-
-:root {
-
-  --pink: #e85d8f;
-  --pink-dark: #c84374;
-  --pink-light: #fff0f5;
-
-  --red: #df263f;
-  --red-dark: #b81931;
-  --red-light: #fff0f2;
-
-  --green: #23926b;
-  --green-light: #eaf8f2;
-
-  --orange: #d88821;
-  --orange-light: #fff5e6;
-
-  --blue: #4f7fae;
-  --blue-light: #eef5fb;
-
-  --text: #342d31;
-  --text-sub: #786d73;
-  --text-light: #a0979c;
-
-  --border: #eee2e7;
-
-  --white: #ffffff;
-
-  --shadow:
-    0 8px 25px
-    rgba(100, 40, 65, .07);
-
-}
-
 
 html,
 body {
-
-  width: 100%;
-  min-height: 100%;
-
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    background: #fff9fb;
+    color: #44383d;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "PingFang SC",
+        "Microsoft YaHei",
+        Arial,
+        sans-serif;
 }
-
-
-body {
-
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "PingFang SC",
-    "Microsoft YaHei",
-    "Segoe UI",
-    Arial,
-    sans-serif;
-
-  background:
-    #fbf8fa;
-
-  color:
-    var(--text);
-
-  min-height:
-    100vh;
-
-  min-height:
-    100dvh;
-
-}
-
-
-button,
-input,
-textarea {
-
-  font: inherit;
-
-}
-
 
 button {
-
-  cursor: pointer;
-
+    font: inherit;
+    cursor: pointer;
 }
-
 
 .hidden {
-
-  display: none !important;
-
+    display: none !important;
 }
 
 
+/* ============================================================
+   页面
+============================================================ */
 
-/* =========================================================
-   顶部
-========================================================= */
-
-.topbar {
-
-  position: sticky;
-
-  top: 0;
-
-  z-index: 100;
-
-  min-height: 68px;
-
-  display: grid;
-
-  grid-template-columns:
-    52px
-    1fr
-    52px;
-
-  align-items: center;
-
-  padding:
-    max(
-      6px,
-      env(safe-area-inset-top)
-    )
-    14px
-    6px;
-
-  background:
-    rgba(
-      255,
-      255,
-      255,
-      .96
-    );
-
-  backdrop-filter:
-    blur(16px);
-
-  border-bottom:
-    1px solid
-    var(--border);
-
+.page {
+    min-height: 100vh;
 }
-
-
-.back-btn,
-.refresh-btn {
-
-  width: 46px;
-  height: 46px;
-
-  border: 0;
-
-  border-radius: 14px;
-
-  background:
-    #fff5f8;
-
-  color:
-    var(--pink-dark);
-
-  font-size: 21px;
-
-  font-weight: 700;
-
-}
-
-
-.header-center {
-
-  text-align: center;
-
-}
-
-
-.header-title {
-
-  font-size: 18px;
-
-  font-weight: 800;
-
-}
-
-
-.header-subtitle {
-
-  margin-top: 2px;
-
-  color:
-    var(--text-light);
-
-  font-size: 10px;
-
-}
-
-
-
-/* =========================================================
-   主体
-========================================================= */
 
 .container {
-
-  width: 100%;
-
-  max-width: 1180px;
-
-  margin: 0 auto;
-
-  padding:
-    22px
-    18px
-    50px;
-
+    width: calc(100% - 32px);
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 
+/* ============================================================
+   顶栏
+============================================================ */
 
-/* =========================================================
-   报警概览
-========================================================= */
+.topbar {
+    height: 74px;
 
-.alert-summary {
+    position: sticky;
+    top: 0;
+    z-index: 50;
 
-  position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  overflow: hidden;
+    background: rgba(255,255,255,.96);
 
-  padding:
-    22px;
+    border-bottom: 1px solid #f3e3e8;
 
-  border-radius:
-    20px;
+    backdrop-filter: blur(14px);
+}
 
-  background:
-    linear-gradient(
-      135deg,
-      #d51d37,
-      #f14358
-    );
+.top-title {
+    text-align: center;
+}
 
-  color:
-    white;
+.top-title-main {
+    font-size: 18px;
+    font-weight: 900;
+    color: #4d3d43;
+}
 
-  box-shadow:
-    0 10px 30px
-    rgba(
-      210,
-      30,
-      55,
-      .20
-    );
+.top-title-sub {
+    margin-top: 4px;
+    font-size: 10px;
+    color: #ad949d;
+}
 
+.top-btn {
+    width: 44px;
+    height: 44px;
+
+    position: absolute;
+    top: 15px;
+
+    border: none;
+    border-radius: 15px;
+
+    background: #fff2f6;
+    color: #db5b83;
+
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.back-btn {
+    left: 16px;
+}
+
+.refresh-btn {
+    right: 16px;
 }
 
 
-.alert-summary::after {
+/* ============================================================
+   主区域
+============================================================ */
 
-  content: "";
-
-  position: absolute;
-
-  right: -45px;
-  top: -60px;
-
-  width: 150px;
-  height: 150px;
-
-  border-radius: 50%;
-
-  background:
-    rgba(
-      255,
-      255,
-      255,
-      .12
-    );
-
+.main {
+    padding: 20px 0 60px;
 }
 
 
-.alert-summary-title {
+/* ============================================================
+   红色报警总卡
+============================================================ */
 
-  position: relative;
+.alert-card {
+    position: relative;
+    overflow: hidden;
 
-  z-index: 2;
+    min-height: 116px;
+    padding: 22px;
 
-  font-size: 13px;
+    border-radius: 21px;
 
-  opacity: .95;
+    color: white;
 
+    background:
+        linear-gradient(
+            135deg,
+            #df1838,
+            #f33852
+        );
+
+    box-shadow:
+        0 12px 32px
+        rgba(211, 30, 60, .20);
 }
 
+.alert-card::after {
+    content: "";
 
-.alert-summary-number {
+    position: absolute;
 
-  position: relative;
+    width: 130px;
+    height: 130px;
 
-  z-index: 2;
+    right: -40px;
+    top: -55px;
 
-  margin-top: 4px;
+    border-radius: 50%;
 
-  font-size: 34px;
-
-  line-height: 1.2;
-
-  font-weight: 900;
-
+    background: rgba(255,255,255,.13);
 }
 
+.alert-title {
+    position: relative;
+    z-index: 2;
 
-.alert-summary-number span {
-
-  margin-left: 5px;
-
-  font-size: 13px;
-
-  font-weight: 600;
-
+    font-size: 13px;
+    font-weight: 900;
 }
 
+.alert-number-row {
+    position: relative;
+    z-index: 2;
 
-.alert-summary-desc {
+    margin-top: 8px;
 
-  position: relative;
-
-  z-index: 2;
-
-  margin-top: 7px;
-
-  font-size: 12px;
-
-  opacity: .92;
-
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
 }
 
-
-
-/* =========================================================
-   统计
-========================================================= */
-
-.stats {
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(
-      3,
-      1fr
-    );
-
-  gap: 12px;
-
-  margin-top: 14px;
-
+.alert-number {
+    font-size: 31px;
+    line-height: 1;
+    font-weight: 900;
 }
 
-
-.stat-card {
-
-  padding: 16px;
-
-  border:
-    1px solid
-    var(--border);
-
-  border-radius:
-    16px;
-
-  background:
-    white;
-
-  box-shadow:
-    var(--shadow);
-
+.alert-unit {
+    font-size: 12px;
+    font-weight: 900;
 }
 
-
-.stat-label {
-
-  color:
-    var(--text-light);
-
-  font-size: 11px;
-
-}
-
-
-.stat-value {
-
-  margin-top: 4px;
-
-  font-size: 23px;
-
-  font-weight: 850;
-
-}
-
-
-.stat-red {
-
-  color:
-    var(--red);
-
-}
-
-
-.stat-orange {
-
-  color:
-    var(--orange);
-
-}
-
-
-.stat-green {
-
-  color:
-    var(--green);
-
-}
-
-
-
-/* =========================================================
-   筛选
-========================================================= */
-
-.toolbar {
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content:
-    space-between;
-
-  gap: 12px;
-
-  margin:
-    25px
-    0
-    14px;
-
-}
-
-
-.toolbar-title {
-
-  font-size: 18px;
-
-  font-weight: 800;
-
-}
-
-
-.filters {
-
-  display: flex;
-
-  gap: 7px;
-
-  overflow-x: auto;
-
-  scrollbar-width: none;
-
-}
-
-
-.filters::-webkit-scrollbar {
-
-  display: none;
-
-}
-
-
-.filter-btn {
-
-  min-height: 42px;
-
-  padding:
-    0
-    15px;
-
-  border:
-    1px solid
-    var(--border);
-
-  border-radius:
-    12px;
-
-  background:
-    white;
-
-  color:
-    var(--text-sub);
-
-  font-size: 12px;
-
-  font-weight: 700;
-
-  white-space: nowrap;
-
-}
-
-
-.filter-btn.active {
-
-  border-color:
-    var(--pink);
-
-  background:
-    var(--pink);
-
-  color:
-    white;
-
-}
-
-
-
-/* =========================================================
-   投诉卡
-========================================================= */
-
-.complaint-card {
-
-  margin-bottom: 14px;
-
-  padding: 18px;
-
-  border:
-    1px solid
-    var(--border);
-
-  border-radius:
-    20px;
-
-  background:
-    white;
-
-  box-shadow:
-    var(--shadow);
-
-}
-
-
-.complaint-card.pending {
-
-  border:
-    1px solid
-    rgba(
-      223,
-      38,
-      63,
-      .35
-    );
-
-  box-shadow:
-    0 8px 28px
-    rgba(
-      210,
-      25,
-      50,
-      .09
-    );
-
-}
-
-
-.card-head {
-
-  display: flex;
-
-  align-items:
-    flex-start;
-
-  justify-content:
-    space-between;
-
-  gap: 14px;
-
-  padding-bottom: 13px;
-
-  border-bottom:
-    1px solid
-    #f4eaee;
-
-}
-
-
-.head-left {
-
-  min-width: 0;
-
-  flex: 1;
-
-}
-
-
-.merchant-name {
-
-  font-size: 16px;
-
-  font-weight: 850;
-
-}
-
-
-.order-no {
-
-  margin-top: 4px;
-
-  color:
-    var(--text-light);
-
-  font-size: 11px;
-
-  word-break:
-    break-all;
-
-}
-
-
-.status-badge {
-
-  flex-shrink: 0;
-
-  padding:
-    6px
-    10px;
-
-  border-radius:
-    999px;
-
-  font-size: 11px;
-
-  font-weight: 800;
-
-}
-
-
-.status-pending {
-
-  color:
-    #c21d36;
-
-  background:
-    #fff0f2;
-
-}
-
-
-.status-wait {
-
-  color:
-    #b86f11;
-
-  background:
-    #fff5e5;
-
-}
-
-
-.status-resolved {
-
-  color:
-    #27825f;
-
-  background:
-    #eaf8f2;
-
-}
-
-
-
-/* =========================================================
-   信息
-========================================================= */
-
-.info-grid {
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(
-      3,
-      1fr
-    );
-
-  gap: 9px;
-
-  margin-top: 14px;
-
-}
-
-
-.info-item {
-
-  padding:
-    11px
-    12px;
-
-  border-radius:
-    12px;
-
-  background:
-    #fcf9fa;
-
-}
-
-
-.info-label {
-
-  color:
-    var(--text-light);
-
-  font-size: 10px;
-
-}
-
-
-.info-text {
-
-  margin-top: 3px;
-
-  font-size: 12px;
-
-  font-weight: 700;
-
-  word-break:
-    break-word;
-
-}
-
-
-
-/* =========================================================
-   投诉内容
-========================================================= */
-
-.complaint-content {
-
-  margin-top: 14px;
-
-  padding:
-    14px;
-
-  border-radius:
-    14px;
-
-  background:
-    #fff7f9;
-
-  border:
-    1px solid
-    #f4dce4;
-
-}
-
-
-.content-label {
-
-  margin-bottom: 6px;
-
-  color:
-    #a64c69;
-
-  font-size: 11px;
-
-  font-weight: 800;
-
-}
-
-
-.content-text {
-
-  font-size: 13px;
-
-  line-height: 1.75;
-
-  white-space:
-    pre-wrap;
-
-  word-break:
-    break-word;
-
-}
-
-
-
-/* =========================================================
-   双确认状态
-========================================================= */
-
-.confirm-status {
-
-  display: grid;
-
-  grid-template-columns:
-    1fr
-    1fr;
-
-  gap: 8px;
-
-  margin-top: 13px;
-
-}
-
-
-.confirm-box {
-
-  padding:
-    11px;
-
-  border-radius:
-    12px;
-
-  font-size: 11px;
-
-  line-height: 1.5;
-
-}
-
-
-.confirmed {
-
-  color:
-    #26795b;
-
-  background:
-    var(--green-light);
-
-}
-
-
-.unconfirmed {
-
-  color:
-    #b51f37;
-
-  background:
-    var(--red-light);
-
-}
-
-
-
-/* =========================================================
-   操作
-========================================================= */
-
-.card-actions {
-
-  display: flex;
-
-  justify-content:
-    flex-end;
-
-  gap: 8px;
-
-  margin-top: 14px;
-
-}
-
-
-.secondary-btn,
-.confirm-btn {
-
-  min-height: 46px;
-
-  padding:
-    0
-    16px;
-
-  border-radius:
-    13px;
-
-  font-size: 12px;
-
-  font-weight: 800;
-
-}
-
-
-.secondary-btn {
-
-  border:
-    1px solid
-    #efdce3;
-
-  background:
-    white;
-
-  color:
-    var(--pink-dark);
-
-}
-
-
-.confirm-btn {
-
-  border: 0;
-
-  background:
-    linear-gradient(
-      135deg,
-      #e02640,
-      #c91834
-    );
-
-  color:
-    white;
-
-}
-
-
-.confirm-btn:disabled {
-
-  opacity: .5;
-
-  cursor: default;
-
-}
-
-
-
-/* =========================================================
-   空状态
-========================================================= */
-
-.state-box {
-
-  padding:
-    50px
-    20px;
-
-  border:
-    1px solid
-    var(--border);
-
-  border-radius:
-    20px;
-
-  background:
-    white;
-
-  text-align: center;
-
-  box-shadow:
-    var(--shadow);
-
-}
-
-
-.state-icon {
-
-  font-size: 42px;
-
-}
-
-
-.state-title {
-
-  margin-top: 9px;
-
-  font-size: 16px;
-
-  font-weight: 800;
-
-}
-
-
-.state-desc {
-
-  margin-top: 7px;
-
-  color:
-    var(--text-light);
-
-  font-size: 12px;
-
-}
-
-
-
-/* =========================================================
-   图片弹窗
-========================================================= */
-
-.modal-mask {
-
-  position: fixed;
-
-  inset: 0;
-
-  z-index: 1000;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  padding: 18px;
-
-  background:
-    rgba(
-      40,
-      29,
-      34,
-      .64
-    );
-
-  backdrop-filter:
-    blur(6px);
-
-}
-
-
-.modal {
-
-  width: 100%;
-
-  max-width: 720px;
-
-  max-height: 88vh;
-
-  overflow-y: auto;
-
-  padding: 20px;
-
-  border-radius:
-    20px;
-
-  background:
-    white;
-
-}
-
-
-.modal-head {
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content:
-    space-between;
-
-  gap: 10px;
-
-}
-
-
-.modal-title {
-
-  font-size: 18px;
-
-  font-weight: 850;
-
-}
-
-
-.close-btn {
-
-  width: 44px;
-  height: 44px;
-
-  border: 0;
-
-  border-radius:
-    12px;
-
-  background:
-    #f7f2f4;
-
-  color:
-    #806e76;
-
-  font-size: 23px;
-
-}
-
-
-.image-grid {
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(
-      3,
-      1fr
-    );
-
-  gap: 10px;
-
-  margin-top: 15px;
-
-}
-
-
-.image-item {
-
-  overflow: hidden;
-
-  aspect-ratio:
-    1 / 1;
-
-  border-radius:
-    13px;
-
-  background:
-    #f5f2f3;
-
-}
-
-
-.image-item img {
-
-  width: 100%;
-  height: 100%;
-
-  display: block;
-
-  object-fit: cover;
-
-  cursor: pointer;
-
-}
-
-
-
-/* =========================================================
-   Toast
-========================================================= */
-
-.toast {
-
-  position: fixed;
-
-  left: 50%;
-  bottom: 30px;
-
-  z-index: 2000;
-
-  transform:
-    translateX(-50%)
-    translateY(15px);
-
-  max-width:
-    calc(
-      100%
-      - 40px
-    );
-
-  padding:
-    11px
-    17px;
-
-  border-radius:
-    12px;
-
-  background:
-    rgba(
-      52,
-      45,
-      49,
-      .94
-    );
-
-  color:
-    white;
-
-  font-size: 12px;
-
-  text-align: center;
-
-  opacity: 0;
-
-  pointer-events: none;
-
-  transition: .22s;
-
-}
-
-
-.toast.show {
-
-  opacity: 1;
-
-  transform:
-    translateX(-50%)
-    translateY(0);
-
-}
-
-
-
-/* =========================================================
-   手机
-========================================================= */
-
-@media
-(max-width: 720px) {
-
-  .container {
-
-    padding:
-      14px
-      12px
-      35px;
-
-  }
-
-
-  .alert-summary {
-
-    padding: 18px;
-
-  }
-
-
-  .stats {
-
-    gap: 7px;
-
-  }
-
-
-  .stat-card {
-
-    padding:
-      13px
-      10px;
-
-  }
-
-
-  .stat-value {
-
-    font-size: 19px;
-
-  }
-
-
-  .toolbar {
-
-    display: block;
-
-  }
-
-
-  .filters {
+.alert-desc {
+    position: relative;
+    z-index: 2;
 
     margin-top: 10px;
 
-  }
+    font-size: 11px;
+    line-height: 1.5;
+    font-weight: 700;
+}
 
 
-  .complaint-card {
+/* ============================================================
+   统计
+============================================================ */
 
-    padding: 14px;
-
-  }
-
-
-  .info-grid {
-
-    grid-template-columns:
-      1fr
-      1fr;
-
-  }
-
-
-  .confirm-status {
-
-    grid-template-columns:
-      1fr;
-
-  }
-
-
-  .card-actions {
+.stats {
+    margin-top: 13px;
 
     display: grid;
+    grid-template-columns: repeat(3, 1fr);
 
-    grid-template-columns:
-      1fr
-      1fr;
+    gap: 11px;
+}
 
-  }
+.stat-card {
+    min-height: 70px;
+    padding: 13px 15px;
+
+    border: 1px solid #f3e4e9;
+    border-radius: 16px;
+
+    background: white;
+
+    box-shadow:
+        0 5px 17px
+        rgba(75, 50, 60, .04);
+}
+
+.stat-label {
+    font-size: 10px;
+    color: #aa949c;
+}
+
+.stat-value {
+    margin-top: 7px;
+
+    font-size: 20px;
+    line-height: 1;
+
+    font-weight: 900;
+}
+
+.stat-platform {
+    color: #e02a49;
+}
+
+.stat-merchant {
+    color: #e88a12;
+}
+
+.stat-done {
+    color: #1e9568;
+}
 
 
-  .secondary-btn,
-  .confirm-btn {
+/* ============================================================
+   投诉记录标题
+============================================================ */
 
+.section-head {
+    margin-top: 26px;
+    margin-bottom: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+}
+
+.section-title {
+    font-size: 17px;
+    font-weight: 900;
+    color: #45373d;
+}
+
+
+/* ============================================================
+   筛选
+============================================================ */
+
+.filters {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.filter-btn {
+    min-height: 38px;
+    padding: 7px 15px;
+
+    border: 1px solid #eee0e5;
+    border-radius: 12px;
+
+    background: white;
+    color: #69585f;
+
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.filter-btn.active {
+    border-color: #ec5b88;
+    background: #eb5a88;
+    color: white;
+}
+
+
+/* ============================================================
+   投诉列表
+============================================================ */
+
+.complaint-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+
+/* ============================================================
+   投诉卡
+============================================================ */
+
+.complaint-card {
+    padding: 16px;
+
+    border: 1px solid #ffb8c3;
+    border-radius: 20px;
+
+    background: white;
+
+    box-shadow:
+        0 7px 23px
+        rgba(110, 55, 70, .055);
+}
+
+.complaint-card.resolved {
+    border-color: #dcebe5;
+}
+
+.card-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    padding-bottom: 13px;
+
+    border-bottom: 1px solid #f5e7ec;
+}
+
+.merchant-name {
+    font-size: 17px;
+    line-height: 1.4;
+    font-weight: 900;
+    color: #49383f;
+}
+
+.order-no {
+    margin-top: 4px;
+
+    font-size: 10px;
+    color: #ad969e;
+
+    word-break: break-all;
+}
+
+.status-badge {
+    flex-shrink: 0;
+
+    min-height: 29px;
+    padding: 6px 11px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 999px;
+
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.status-platform {
+    background: #fff0f3;
+    color: #e32e4e;
+}
+
+.status-merchant {
+    background: #fff6e8;
+    color: #d78313;
+}
+
+.status-resolved {
+    background: #eaf8f2;
+    color: #27805d;
+}
+
+
+/* ============================================================
+   地区突出栏
+============================================================ */
+
+.region-bar {
+    margin-top: 12px;
+    padding: 10px 12px;
+
+    border-radius: 13px;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff0f5,
+            #fff7f9
+        );
+
+    color: #bd4f73;
+
+    font-size: 11px;
+    font-weight: 900;
+}
+
+.region-icon {
+    font-size: 16px;
+}
+
+
+/* ============================================================
+   信息网格
+============================================================ */
+
+.info-grid {
+    margin-top: 11px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 8px;
+}
+
+.info-box {
+    min-height: 55px;
+    padding: 9px 11px;
+
+    border-radius: 12px;
+
+    background: #fffafb;
+}
+
+.info-label {
+    font-size: 9px;
+    color: #ad969e;
+}
+
+.info-value {
+    margin-top: 5px;
+
+    font-size: 11px;
+    line-height: 1.45;
+
+    font-weight: 900;
+    color: #55434a;
+
+    word-break: break-word;
+}
+
+
+/* ============================================================
+   投诉人 / 商户联系人
+============================================================ */
+
+.people-grid {
+    margin-top: 8px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 8px;
+}
+
+.person-card {
+    padding: 12px;
+
+    border-radius: 13px;
+}
+
+.customer-card {
+    background: #fff6f8;
+}
+
+.merchant-card {
+    background: #fff9f2;
+}
+
+.person-title {
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.customer-card .person-title {
+    color: #d65076;
+}
+
+.merchant-card .person-title {
+    color: #c97a18;
+}
+
+.person-name {
+    margin-top: 7px;
+
+    font-size: 13px;
+    font-weight: 900;
+    color: #4f3d44;
+}
+
+.person-phone {
+    margin-top: 5px;
+
+    font-size: 11px;
+    font-weight: 800;
+    color: #6d565f;
+
+    word-break: break-all;
+}
+
+
+/* ============================================================
+   投诉内容
+============================================================ */
+
+.content-box {
+    margin-top: 11px;
+    padding: 13px;
+
+    min-height: 90px;
+
+    border: 1px solid #f7d8df;
+    border-radius: 14px;
+
+    background: #fff7f9;
+}
+
+.content-title {
+    font-size: 10px;
+    font-weight: 900;
+    color: #c95470;
+}
+
+.content-text {
+    margin-top: 16px;
+    padding-left: 44px;
+
+    font-size: 12px;
+    line-height: 1.7;
+
+    color: #564148;
+
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+
+/* ============================================================
+   双方确认状态
+============================================================ */
+
+.confirm-grid {
+    margin-top: 10px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 8px;
+}
+
+.confirm-box {
+    min-height: 36px;
+    padding: 9px 11px;
+
+    display: flex;
+    align-items: center;
+
+    border-radius: 11px;
+
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.confirm-no {
+    background: #fff0f2;
+    color: #d6314d;
+}
+
+.confirm-yes {
+    background: #eaf8f2;
+    color: #24805c;
+}
+
+
+/* ============================================================
+   操作
+============================================================ */
+
+.actions {
+    margin-top: 11px;
+
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.action-btn {
+    min-height: 42px;
+    padding: 8px 15px;
+
+    border-radius: 12px;
+
+    font-size: 11px;
+    font-weight: 900;
+}
+
+.image-btn {
+    border: 1px solid #f0d5dd;
+
+    background: white;
+    color: #cf5579;
+}
+
+.confirm-btn {
+    border: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dc1d3e,
+            #c91434
+        );
+
+    color: white;
+}
+
+.confirm-btn:disabled {
+    opacity: .45;
+}
+
+
+/* ============================================================
+   空
+============================================================ */
+
+.empty {
+    padding: 45px 20px;
+
+    border: 1px solid #f1e4e8;
+    border-radius: 20px;
+
+    background: white;
+
+    text-align: center;
+}
+
+.empty-icon {
+    font-size: 38px;
+}
+
+.empty-title {
+    margin-top: 10px;
+
+    font-size: 15px;
+    font-weight: 900;
+}
+
+.empty-text {
+    margin-top: 6px;
+
+    font-size: 11px;
+    color: #a88f98;
+}
+
+
+/* ============================================================
+   图片弹窗
+============================================================ */
+
+.modal-mask {
+    position: fixed;
+    inset: 0;
+
+    z-index: 1000;
+
+    padding: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(47, 35, 40, .60);
+
+    backdrop-filter: blur(5px);
+}
+
+.modal {
     width: 100%;
+    max-width: 620px;
+    max-height: 88vh;
 
-  }
+    overflow-y: auto;
+
+    padding: 20px;
+
+    border-radius: 22px;
+
+    background: white;
+}
+
+.modal-title {
+    font-size: 18px;
+    font-weight: 900;
+    color: #49383f;
+}
+
+.modal-sub {
+    margin-top: 5px;
+
+    font-size: 10px;
+    color: #aa929b;
+}
+
+.images-grid {
+    margin-top: 16px;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 10px;
+}
+
+.image-item {
+    overflow: hidden;
+
+    aspect-ratio: 1 / 1;
+
+    border-radius: 14px;
+
+    background: #f6f1f3;
+}
+
+.image-item img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+    object-fit: cover;
+}
+
+.no-images {
+    grid-column: 1 / -1;
+
+    padding: 30px 10px;
+
+    text-align: center;
+
+    color: #a58b94;
+    font-size: 11px;
+}
+
+.close-btn {
+    width: 100%;
+    min-height: 45px;
+
+    margin-top: 16px;
+
+    border: none;
+    border-radius: 13px;
+
+    background: #fff0f5;
+    color: #d6537c;
+
+    font-weight: 900;
+}
 
 
-  .image-grid {
+/* ============================================================
+   Loading
+============================================================ */
 
-    grid-template-columns:
-      repeat(
-        2,
-        1fr
-      );
+.loading-mask {
+    position: fixed;
+    inset: 0;
 
-  }
+    z-index: 5000;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #fff9fb;
+}
+
+.loading-inner {
+    text-align: center;
+}
+
+.loading-icon {
+    font-size: 40px;
+}
+
+.loading-text {
+    margin-top: 9px;
+
+    color: #a88e97;
+    font-size: 11px;
+}
+
+
+/* ============================================================
+   Toast
+============================================================ */
+
+.toast {
+    position: fixed;
+
+    left: 50%;
+    bottom: 35px;
+
+    z-index: 9999;
+
+    max-width: calc(100vw - 40px);
+
+    padding: 11px 16px;
+
+    border-radius: 12px;
+
+    background: rgba(57,45,50,.95);
+    color: white;
+
+    font-size: 11px;
+
+    opacity: 0;
+    pointer-events: none;
+
+    transform: translate(-50%, 15px);
+
+    transition: .2s;
+}
+
+.toast.show {
+    opacity: 1;
+
+    transform: translate(-50%, 0);
+}
+
+
+/* ============================================================
+   手机
+============================================================ */
+
+@media (max-width: 700px) {
+
+    .container {
+        width: calc(100% - 22px);
+    }
+
+    .main {
+        padding-top: 12px;
+    }
+
+    .stats {
+        gap: 6px;
+    }
+
+    .stat-card {
+        padding: 11px 9px;
+    }
+
+    .section-head {
+        display: block;
+    }
+
+    .filters {
+        margin-top: 10px;
+        justify-content: flex-start;
+    }
+
+    .info-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .people-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .content-text {
+        padding-left: 0;
+        margin-top: 10px;
+    }
 }
 
 </style>
@@ -1348,1669 +930,2142 @@ button {
 
 <body>
 
+<div
+    id="loadingMask"
+    class="loading-mask"
+>
+
+    <div class="loading-inner">
+
+        <div class="loading-icon">
+            🌸
+        </div>
+
+        <div class="loading-text">
+            正在读取投诉信息...
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<div class="page">
 
 <header class="topbar">
 
-  <button
-    class="back-btn"
-    type="button"
-    onclick="goBack()"
-  >
-    ‹
-  </button>
+    <button
+        class="top-btn back-btn"
+        type="button"
+        onclick="goBack()"
+    >
+        ‹
+    </button>
 
 
-  <div class="header-center">
+    <div class="top-title">
 
-    <div class="header-title">
-      投诉处理
+        <div class="top-title-main">
+            投诉处理
+        </div>
+
+        <div class="top-title-sub">
+            平台客户投诉管理中心
+        </div>
+
     </div>
 
-    <div class="header-subtitle">
-      平台客户投诉管理中心
-    </div>
 
-  </div>
-
-
-  <button
-    class="refresh-btn"
-    type="button"
-    onclick="loadComplaints()"
-  >
-    ↻
-  </button>
+    <button
+        class="top-btn refresh-btn"
+        type="button"
+        onclick="refreshPage()"
+    >
+        ↻
+    </button>
 
 </header>
 
 
 
-<main class="container">
+<main class="main">
+
+<div class="container">
 
 
-  <section class="alert-summary">
+    <!-- ======================================================
+         报警总览
+    ======================================================= -->
 
-    <div class="alert-summary-title">
-      平台待确认投诉
-    </div>
+    <section class="alert-card">
 
-    <div class="alert-summary-number">
-
-      <span
-        id="pendingNumber"
-        style="
-          margin-left:0;
-          font-size:34px;
-        "
-      >
-        0
-      </span>
-
-      <span>
-        条
-      </span>
-
-    </div>
-
-    <div class="alert-summary-desc">
-      平台确认和对应商户确认全部完成后，投诉报警自动结束。
-    </div>
-
-  </section>
+        <div class="alert-title">
+            平台待确认投诉
+        </div>
 
 
+        <div class="alert-number-row">
 
-  <section class="stats">
+            <div
+                id="alertCount"
+                class="alert-number"
+            >
+                0
+            </div>
 
+            <div class="alert-unit">
+                条
+            </div>
 
-    <div class="stat-card">
-
-      <div class="stat-label">
-        平台待确认
-      </div>
-
-      <div
-        id="platformPending"
-        class="stat-value stat-red"
-      >
-        0
-      </div>
-
-    </div>
+        </div>
 
 
-    <div class="stat-card">
+        <div class="alert-desc">
+            平台确认和对应商户确认全部完成后，投诉报警自动结束。
+        </div>
 
-      <div class="stat-label">
-        等待商户
-      </div>
-
-      <div
-        id="merchantPending"
-        class="stat-value stat-orange"
-      >
-        0
-      </div>
-
-    </div>
-
-
-    <div class="stat-card">
-
-      <div class="stat-label">
-        已处理完成
-      </div>
-
-      <div
-        id="resolvedNumber"
-        class="stat-value stat-green"
-      >
-        0
-      </div>
-
-    </div>
-
-
-  </section>
+    </section>
 
 
 
-  <section class="toolbar">
+    <!-- ======================================================
+         统计
+    ======================================================= -->
+
+    <section class="stats">
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                平台待确认
+            </div>
+
+            <div
+                id="platformCount"
+                class="stat-value stat-platform"
+            >
+                0
+            </div>
+
+        </div>
 
 
-    <div class="toolbar-title">
-      投诉记录
-    </div>
+        <div class="stat-card">
+
+            <div class="stat-label">
+                等待商户
+            </div>
+
+            <div
+                id="merchantCount"
+                class="stat-value stat-merchant"
+            >
+                0
+            </div>
+
+        </div>
 
 
-    <div class="filters">
+        <div class="stat-card">
 
+            <div class="stat-label">
+                已处理完成
+            </div>
 
-      <button
-        class="filter-btn active"
-        data-filter="pending"
-        onclick="setFilter('pending',this)"
-      >
-        待我确认
-      </button>
+            <div
+                id="resolvedCount"
+                class="stat-value stat-done"
+            >
+                0
+            </div>
 
+        </div>
 
-      <button
-        class="filter-btn"
-        data-filter="merchant"
-        onclick="setFilter('merchant',this)"
-      >
-        等待商户
-      </button>
-
-
-      <button
-        class="filter-btn"
-        data-filter="resolved"
-        onclick="setFilter('resolved',this)"
-      >
-        已完成
-      </button>
-
-
-      <button
-        class="filter-btn"
-        data-filter="all"
-        onclick="setFilter('all',this)"
-      >
-        全部
-      </button>
-
-
-    </div>
-
-  </section>
+    </section>
 
 
 
-  <section id="complaintList">
+    <!-- ======================================================
+         投诉记录
+    ======================================================= -->
 
-    <div class="state-box">
+    <section>
 
-      <div class="state-icon">
-        ⏳
-      </div>
+        <div class="section-head">
 
-      <div class="state-title">
-        正在读取投诉
-      </div>
+            <div class="section-title">
+                投诉记录
+            </div>
 
-    </div>
 
-  </section>
+            <div class="filters">
 
+                <button
+                    id="filterPlatform"
+                    class="filter-btn active"
+                    type="button"
+                    onclick="setFilter('platform')"
+                >
+                    待我确认
+                </button>
+
+
+                <button
+                    id="filterMerchant"
+                    class="filter-btn"
+                    type="button"
+                    onclick="setFilter('merchant')"
+                >
+                    等待商户
+                </button>
+
+
+                <button
+                    id="filterResolved"
+                    class="filter-btn"
+                    type="button"
+                    onclick="setFilter('resolved')"
+                >
+                    已完成
+                </button>
+
+
+                <button
+                    id="filterAll"
+                    class="filter-btn"
+                    type="button"
+                    onclick="setFilter('all')"
+                >
+                    全部
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="complaintList"
+            class="complaint-list"
+        ></div>
+
+    </section>
+
+</div>
 
 </main>
-
-
-
-<!-- =====================================================
-     图片弹窗
-====================================================== -->
-
-<div
-  id="imageModal"
-  class="modal-mask hidden"
-  onclick="handleMask(event)"
->
-
-  <div
-    class="modal"
-    onclick="event.stopPropagation()"
-  >
-
-
-    <div class="modal-head">
-
-      <div class="modal-title">
-        投诉图片
-      </div>
-
-      <button
-        class="close-btn"
-        type="button"
-        onclick="closeImages()"
-      >
-        ×
-      </button>
-
-    </div>
-
-
-    <div
-      id="imageGrid"
-      class="image-grid"
-    ></div>
-
-
-  </div>
 
 </div>
 
 
+
+<!-- ==========================================================
+     投诉图片弹窗
+=========================================================== -->
+
 <div
-  id="toast"
-  class="toast"
+    id="imageModal"
+    class="modal-mask hidden"
+    onclick="handleModalMask(event)"
+>
+
+    <div
+        class="modal"
+        onclick="event.stopPropagation()"
+    >
+
+        <div class="modal-title">
+            投诉图片
+        </div>
+
+        <div
+            id="modalOrderNo"
+            class="modal-sub"
+        >
+            -
+        </div>
+
+
+        <div
+            id="imagesGrid"
+            class="images-grid"
+        ></div>
+
+
+        <button
+            class="close-btn"
+            type="button"
+            onclick="closeImageModal()"
+        >
+            关闭
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<div
+    id="toast"
+    class="toast"
 ></div>
 
 
 
 <script>
 
-/* =========================================================
+/* ============================================================
    Supabase
-========================================================= */
+============================================================ */
 
 const SUPABASE_URL =
-  "https://qbuqjwpkltbjhlfbyjyb.supabase.co";
+    "https://qbuqjwpkltbjhlfbyjyb.supabase.co";
 
 
 const SUPABASE_ANON_KEY =
-  "sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
+    "sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
 
 
 const sb =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-  );
-
-
-const LOGIN_PAGE =
-  "login.html";
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
 
 
 const COMPLAINT_BUCKET =
-  "customer-complaints";
+    "customer-complaints";
 
 
-let currentUser = null;
+/* ============================================================
+   全局
+============================================================ */
 
-let currentProfile = null;
+let currentUser =
+    null;
 
-let allComplaints = [];
+
+let complaints =
+    [];
+
 
 let currentFilter =
-  "pending";
+    "platform";
 
-
-
-/* =========================================================
-   10分钟无操作退出
-========================================================= */
 
 const IDLE_LIMIT =
-  10 * 60 * 1000;
+    10 * 60 * 1000;
 
 
-let idleTimer;
+let idleTimer =
+    null;
 
 
-function resetIdleTimer() {
+/* ============================================================
+   初始化
+============================================================ */
 
-  clearTimeout(
-    idleTimer
-  );
-
-
-  idleTimer =
-    setTimeout(
-      autoLogout,
-      IDLE_LIMIT
-    );
-
-}
+document.addEventListener(
+    "DOMContentLoaded",
+    init
+);
 
 
-async function autoLogout() {
+async function init() {
 
-  try {
+    try {
 
-    await sb.auth.signOut();
-
-  }
-  catch (error) {
-
-    console.error(error);
-
-  }
+        setupIdleLogout();
 
 
-  alert(
-    "由于10分钟未操作，系统已自动退出。"
-  );
+        const {
+            data,
+            error
+        } =
+        await sb.auth.getSession();
 
 
-  window.location.replace(
-    LOGIN_PAGE
-  );
+        if (
+            error
+            ||
+            !data?.session?.user
+        ) {
 
-}
+            goLogin();
+
+            return;
+        }
 
 
-[
-  "mousemove",
-  "mousedown",
-  "keydown",
-  "touchstart",
-  "scroll",
-  "click"
-]
-.forEach(eventName => {
+        currentUser =
+            data.session.user;
 
-  document.addEventListener(
-    eventName,
-    resetIdleTimer,
-    {
-      passive: true
+
+        await verifyPlatformAccess();
+
+
+        await loadComplaints();
+
+
+        hideLoading();
+
+
+    } catch (error) {
+
+        console.error(
+            error
+        );
+
+
+        hideLoading();
+
+
+        alert(
+            error?.message
+            ||
+            "投诉处理页面加载失败"
+        );
     }
-  );
-
-});
-
-
-
-/* =========================================================
-   工具
-========================================================= */
-
-function escapeHtml(value) {
-
-  return String(
-    value ?? ""
-  )
-  .replace(
-    /&/g,
-    "&amp;"
-  )
-  .replace(
-    /</g,
-    "&lt;"
-  )
-  .replace(
-    />/g,
-    "&gt;"
-  )
-  .replace(
-    /"/g,
-    "&quot;"
-  )
-  .replace(
-    /'/g,
-    "&#039;"
-  );
-
 }
 
 
-function formatDate(value) {
-
-  if (!value) {
-    return "-";
-  }
-
-
-  const d =
-    new Date(value);
-
-
-  if (
-    Number.isNaN(
-      d.getTime()
-    )
-  ) {
-
-    return "-";
-
-  }
-
-
-  return d.toLocaleString(
-    "zh-CN",
-    {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false
-    }
-  );
-
-}
-
-
-function showToast(message) {
-
-  const toast =
-    document.getElementById(
-      "toast"
-    );
-
-
-  toast.textContent =
-    message;
-
-
-  toast.classList.add(
-    "show"
-  );
-
-
-  clearTimeout(
-    showToast.timer
-  );
-
-
-  showToast.timer =
-    setTimeout(() => {
-
-      toast.classList.remove(
-        "show"
-      );
-
-    }, 2500);
-
-}
-
-
-function goBack() {
-
-  window.location.href =
-    "wholemanagement.html";
-
-}
-
-
-
-/* =========================================================
+/* ============================================================
    权限
-========================================================= */
+============================================================ */
 
-function allowedRole(role) {
+async function verifyPlatformAccess() {
 
-  return [
-    "founder",
-    "platform_admin"
-  ].includes(role);
+    const {
+        data,
+        error
+    } =
+    await sb
+        .from("profiles")
+        .select(`
+            id,
+            role,
+            status
+        `)
+        .eq(
+            "id",
+            currentUser.id
+        )
+        .maybeSingle();
 
+
+    if (
+        error
+        ||
+        !data
+    ) {
+
+        throw new Error(
+            "无法确认平台账号权限"
+        );
+    }
+
+
+    if (
+        data.status
+        !==
+        "active"
+    ) {
+
+        throw new Error(
+            "当前平台账号已失效"
+        );
+    }
+
+
+    if (
+        ![
+            "founder",
+            "platform_admin"
+        ].includes(
+            data.role
+        )
+    ) {
+
+        alert(
+            "当前账号没有投诉处理权限"
+        );
+
+
+        window.location.replace(
+            "./wholemanagement.html"
+        );
+
+
+        throw new Error(
+            "无投诉处理权限"
+        );
+    }
 }
 
 
-async function requireLogin() {
-
-  const {
-    data: {
-      session
-    },
-    error
-  } =
-  await sb.auth.getSession();
-
-
-  if (
-    error ||
-    !session ||
-    !session.user
-  ) {
-
-    window.location.replace(
-      LOGIN_PAGE
-    );
-
-    return false;
-
-  }
-
-
-  currentUser =
-    session.user;
-
-
-  const {
-    data: profile,
-    error: profileError
-  } =
-  await sb
-    .from("profiles")
-    .select(`
-      id,
-      full_name,
-      role,
-      status
-    `)
-    .eq(
-      "id",
-      currentUser.id
-    )
-    .maybeSingle();
-
-
-  if (
-    profileError ||
-    !profile ||
-    profile.status !== "active" ||
-    !allowedRole(profile.role)
-  ) {
-
-    await sb.auth.signOut();
-
-
-    alert(
-      "当前账号没有投诉处理权限。"
-    );
-
-
-    window.location.replace(
-      LOGIN_PAGE
-    );
-
-
-    return false;
-
-  }
-
-
-  currentProfile =
-    profile;
-
-
-  return true;
-
-}
-
-
-
-/* =========================================================
+/* ============================================================
    读取投诉
-========================================================= */
+============================================================ */
 
 async function loadComplaints() {
 
-  try {
-
     const {
-      data,
-      error
+        data,
+        error
     } =
     await sb.rpc(
-      "get_platform_complaints"
+        "get_platform_complaints"
     );
 
 
     if (error) {
-      throw error;
+
+        console.error(
+            "get_platform_complaints:",
+            error
+        );
+
+
+        throw error;
     }
 
 
-    allComplaints =
-      Array.isArray(data)
-        ? data
-        : [];
+    complaints =
+        Array.isArray(data)
+        ?
+        data
+        :
+        [];
 
 
-    updateStats();
+    renderStats();
 
     renderComplaints();
+}
 
-  }
-  catch (error) {
 
-    console.error(
-      "读取投诉失败：",
-      error
+/* ============================================================
+   统计
+============================================================ */
+
+function renderStats() {
+
+    const platformPending =
+        complaints.filter(
+            item =>
+                item.complaint_status
+                !==
+                "resolved"
+
+                &&
+
+                item.platform_confirmed
+                !==
+                true
+        ).length;
+
+
+    const merchantPending =
+        complaints.filter(
+            item =>
+                item.complaint_status
+                !==
+                "resolved"
+
+                &&
+
+                item.platform_confirmed
+                ===
+                true
+
+                &&
+
+                item.merchant_confirmed
+                !==
+                true
+        ).length;
+
+
+    const resolved =
+        complaints.filter(
+            item =>
+                item.complaint_status
+                ===
+                "resolved"
+        ).length;
+
+
+    setText(
+        "alertCount",
+        platformPending
     );
 
 
-    document.getElementById(
-      "complaintList"
-    ).innerHTML = `
+    setText(
+        "platformCount",
+        platformPending
+    );
 
-      <div class="state-box">
 
-        <div class="state-icon">
-          ⚠️
-        </div>
+    setText(
+        "merchantCount",
+        merchantPending
+    );
 
-        <div class="state-title">
-          投诉读取失败
-        </div>
 
-        <div class="state-desc">
-          ${escapeHtml(
-            error?.message ||
-            "请稍后重试"
-          )}
-        </div>
-
-      </div>
-
-    `;
-
-  }
-
+    setText(
+        "resolvedCount",
+        resolved
+    );
 }
 
 
-
-/* =========================================================
-   统计
-========================================================= */
-
-function updateStats() {
-
-  const platformPending =
-    allComplaints.filter(
-      item =>
-        item.platform_confirmed
-        !== true
-    ).length;
-
-
-  const merchantPending =
-    allComplaints.filter(
-      item =>
-        item.platform_confirmed
-        === true
-        &&
-        item.merchant_confirmed
-        !== true
-    ).length;
-
-
-  const resolved =
-    allComplaints.filter(
-      item =>
-        item.platform_confirmed
-        === true
-        &&
-        item.merchant_confirmed
-        === true
-    ).length;
-
-
-  document.getElementById(
-    "pendingNumber"
-  ).textContent =
-    platformPending;
-
-
-  document.getElementById(
-    "platformPending"
-  ).textContent =
-    platformPending;
-
-
-  document.getElementById(
-    "merchantPending"
-  ).textContent =
-    merchantPending;
-
-
-  document.getElementById(
-    "resolvedNumber"
-  ).textContent =
-    resolved;
-
-}
-
-
-
-/* =========================================================
+/* ============================================================
    筛选
-========================================================= */
+============================================================ */
 
 function setFilter(
-  filter,
-  button
+    filter
 ) {
 
-  currentFilter =
-    filter;
+    currentFilter =
+        filter;
 
 
-  document
-    .querySelectorAll(
-      ".filter-btn"
-    )
-    .forEach(item => {
+    [
+        "filterPlatform",
+        "filterMerchant",
+        "filterResolved",
+        "filterAll"
+    ]
+    .forEach(
+        id => {
 
-      item.classList.remove(
-        "active"
-      );
-
-    });
-
-
-  button.classList.add(
-    "active"
-  );
+            document
+                .getElementById(id)
+                .classList
+                .remove(
+                    "active"
+                );
+        }
+    );
 
 
-  renderComplaints();
+    const map = {
 
+        platform:
+            "filterPlatform",
+
+        merchant:
+            "filterMerchant",
+
+        resolved:
+            "filterResolved",
+
+        all:
+            "filterAll"
+
+    };
+
+
+    document
+        .getElementById(
+            map[filter]
+        )
+        .classList
+        .add(
+            "active"
+        );
+
+
+    renderComplaints();
 }
 
 
-function filteredComplaints() {
+function getFilteredComplaints() {
 
-  switch (
-    currentFilter
-  ) {
+    switch (
+        currentFilter
+    ) {
 
-    case "pending":
+        case "platform":
 
-      return allComplaints.filter(
-        item =>
-          item.platform_confirmed
-          !== true
-      );
+            return complaints.filter(
+                item =>
+                    item.complaint_status
+                    !==
+                    "resolved"
 
+                    &&
 
-    case "merchant":
-
-      return allComplaints.filter(
-        item =>
-          item.platform_confirmed
-          === true
-          &&
-          item.merchant_confirmed
-          !== true
-      );
+                    item.platform_confirmed
+                    !==
+                    true
+            );
 
 
-    case "resolved":
+        case "merchant":
 
-      return allComplaints.filter(
-        item =>
-          item.platform_confirmed
-          === true
-          &&
-          item.merchant_confirmed
-          === true
-      );
+            return complaints.filter(
+                item =>
+                    item.complaint_status
+                    !==
+                    "resolved"
+
+                    &&
+
+                    item.platform_confirmed
+                    ===
+                    true
+
+                    &&
+
+                    item.merchant_confirmed
+                    !==
+                    true
+            );
 
 
-    default:
+        case "resolved":
 
-      return allComplaints;
+            return complaints.filter(
+                item =>
+                    item.complaint_status
+                    ===
+                    "resolved"
+            );
 
-  }
 
+        default:
+
+            return complaints;
+    }
 }
 
 
-
-/* =========================================================
+/* ============================================================
    投诉状态
-========================================================= */
+============================================================ */
 
-function complaintStatus(item) {
+function getComplaintStatus(
+    complaint
+) {
 
-  if (
-    item.platform_confirmed === true
-    &&
-    item.merchant_confirmed === true
-  ) {
+    if (
+        complaint.complaint_status
+        ===
+        "resolved"
+    ) {
+
+        return {
+            text:
+                "已处理完成",
+
+            className:
+                "status-resolved"
+        };
+    }
+
+
+    if (
+        complaint.platform_confirmed
+        !==
+        true
+    ) {
+
+        return {
+            text:
+                "平台待确认",
+
+            className:
+                "status-platform"
+        };
+    }
+
+
+    if (
+        complaint.merchant_confirmed
+        !==
+        true
+    ) {
+
+        return {
+            text:
+                "等待商户",
+
+            className:
+                "status-merchant"
+        };
+    }
+
 
     return {
-      text:
-        "已处理完成",
-      cls:
-        "status-resolved"
+        text:
+            "处理中",
+
+        className:
+            "status-platform"
     };
-
-  }
-
-
-  if (
-    item.platform_confirmed === true
-  ) {
-
-    return {
-      text:
-        "等待商户",
-      cls:
-        "status-wait"
-    };
-
-  }
-
-
-  return {
-    text:
-      "平台待确认",
-    cls:
-      "status-pending"
-  };
-
 }
 
 
-
-/* =========================================================
-   渲染
-========================================================= */
+/* ============================================================
+   渲染投诉
+============================================================ */
 
 function renderComplaints() {
 
-  const list =
-    document.getElementById(
-      "complaintList"
+    const box =
+        document.getElementById(
+            "complaintList"
+        );
+
+
+    box.innerHTML =
+        "";
+
+
+    const list =
+        getFilteredComplaints();
+
+
+    if (!list.length) {
+
+        box.innerHTML =
+            `
+            <div class="empty">
+
+                <div class="empty-icon">
+                    🌷
+                </div>
+
+                <div class="empty-title">
+                    当前没有相关投诉
+                </div>
+
+                <div class="empty-text">
+                    暂时没有符合当前筛选条件的投诉记录。
+                </div>
+
+            </div>
+            `;
+
+        return;
+    }
+
+
+    list.forEach(
+        complaint => {
+
+            box.appendChild(
+                createComplaintCard(
+                    complaint
+                )
+            );
+        }
     );
+}
 
 
-  const rows =
-    filteredComplaints();
+/* ============================================================
+   单张投诉卡
+============================================================ */
+
+function createComplaintCard(
+    complaint
+) {
+
+    const card =
+        document.createElement(
+            "div"
+        );
 
 
-  if (
-    rows.length === 0
-  ) {
-
-    list.innerHTML = `
-
-      <div class="state-box">
-
-        <div class="state-icon">
-          🌷
-        </div>
-
-        <div class="state-title">
-          当前没有投诉
-        </div>
-
-        <div class="state-desc">
-          当前分类暂无需要处理的客户投诉。
-        </div>
-
-      </div>
-
-    `;
+    const resolved =
+        complaint.complaint_status
+        ===
+        "resolved";
 
 
-    return;
-
-  }
-
-
-  list.innerHTML =
-    rows.map(item => {
-
-
-      const status =
-        complaintStatus(item);
-
-
-      const pending =
-        item.platform_confirmed
-        !== true;
+    card.className =
+        "complaint-card"
+        +
+        (
+            resolved
+            ?
+            " resolved"
+            :
+            ""
+        );
 
 
-      return `
-
-        <article
-          class="
-            complaint-card
-            ${pending ? "pending" : ""}
-          "
-        >
+    const status =
+        getComplaintStatus(
+            complaint
+        );
 
 
-          <div class="card-head">
+    const province =
+        complaint.province_name
+        ||
+        "-";
 
 
-            <div class="head-left">
+    const city =
+        complaint.city_name
+        ||
+        "-";
 
-              <div class="merchant-name">
-                ${escapeHtml(
-                  item.merchant_name ||
-                  "商户"
-                )}
-              </div>
 
-              <div class="order-no">
-                订单号：
-                ${escapeHtml(
-                  item.order_no ||
-                  item.order_id ||
-                  "-"
-                )}
-              </div>
+    const customerName =
+        complaint.customer_name
+        ||
+        (
+            complaint.customer_no
+            ?
+            `客户 #${complaint.customer_no}`
+            :
+            "-"
+        );
+
+
+    const customerPhone =
+        complaint.customer_phone
+        ||
+        "-";
+
+
+    const merchantContactName =
+        complaint.merchant_contact_name
+        ||
+        "未填写";
+
+
+    const merchantContactPhone =
+        complaint.merchant_contact_phone
+        ||
+        "未填写";
+
+
+    const imageCount =
+        Number(
+            complaint.image_count
+            ||
+            0
+        );
+
+
+    card.innerHTML =
+        `
+
+        <div class="card-head">
+
+            <div>
+
+                <div class="merchant-name">
+                    ${escapeHtml(
+                        complaint.merchant_name
+                        ||
+                        "商户"
+                    )}
+                </div>
+
+                <div class="order-no">
+                    订单号：
+                    ${escapeHtml(
+                        complaint.order_no
+                        ||
+                        complaint.order_id
+                        ||
+                        "-"
+                    )}
+                </div>
 
             </div>
 
 
             <span
-              class="
-                status-badge
-                ${status.cls}
-              "
+                class="
+                    status-badge
+                    ${status.className}
+                "
             >
-              ${status.text}
+                ${escapeHtml(
+                    status.text
+                )}
             </span>
 
-
-          </div>
-
+        </div>
 
 
-          <div class="info-grid">
+        <div class="region-bar">
+
+            <span class="region-icon">
+                📍
+            </span>
+
+            <span>
+                投诉发生地区：
+                ${escapeHtml(province)}
+                /
+                ${escapeHtml(city)}
+            </span>
+
+        </div>
 
 
-            <div class="info-item">
-
-              <div class="info-label">
-                投诉编号
-              </div>
-
-              <div class="info-text">
-                #${escapeHtml(
-                  item.complaint_id
-                )}
-              </div>
-
-            </div>
+        <div class="info-grid">
 
 
-            <div class="info-item">
+            <div class="info-box">
 
-              <div class="info-label">
-                客户
-              </div>
+                <div class="info-label">
+                    投诉编号
+                </div>
 
-              <div class="info-text">
-                ${escapeHtml(
-                  item.customer_name ||
-                  "-"
-                )}
-              </div>
+                <div class="info-value">
+                    #${escapeHtml(
+                        complaint.complaint_id
+                    )}
+                </div>
 
             </div>
 
 
-            <div class="info-item">
+            <div class="info-box">
 
-              <div class="info-label">
-                客户编号
-              </div>
+                <div class="info-label">
+                    客户编号
+                </div>
 
-              <div class="info-text">
-                ${escapeHtml(
-                  item.customer_no ||
-                  "-"
-                )}
-              </div>
-
-            </div>
-
-
-            <div class="info-item">
-
-              <div class="info-label">
-                客户手机
-              </div>
-
-              <div class="info-text">
-                ${escapeHtml(
-                  item.customer_phone ||
-                  "-"
-                )}
-              </div>
+                <div class="info-value">
+                    ${escapeHtml(
+                        complaint.customer_no
+                        ||
+                        "-"
+                    )}
+                </div>
 
             </div>
 
 
-            <div class="info-item">
+            <div class="info-box">
 
-              <div class="info-label">
-                商户编号
-              </div>
+                <div class="info-label">
+                    商户编号
+                </div>
 
-              <div class="info-text">
-                ${escapeHtml(
-                  item.merchant_no ||
-                  "-"
-                )}
-              </div>
-
-            </div>
-
-
-            <div class="info-item">
-
-              <div class="info-label">
-                投诉时间
-              </div>
-
-              <div class="info-text">
-                ${escapeHtml(
-                  formatDate(
-                    item.created_at
-                  )
-                )}
-              </div>
+                <div class="info-value">
+                    ${escapeHtml(
+                        complaint.merchant_no
+                        ||
+                        "-"
+                    )}
+                </div>
 
             </div>
 
 
-          </div>
+            <div class="info-box">
+
+                <div class="info-label">
+                    投诉时间
+                </div>
+
+                <div class="info-value">
+                    ${escapeHtml(
+                        formatDateTime(
+                            complaint.created_at
+                        )
+                    )}
+                </div>
+
+            </div>
 
 
+            <div class="info-box">
 
-          <div class="complaint-content">
+                <div class="info-label">
+                    省
+                </div>
 
-            <div class="content-label">
-              客户投诉内容
+                <div class="info-value">
+                    ${escapeHtml(
+                        province
+                    )}
+                </div>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <div class="info-label">
+                    市
+                </div>
+
+                <div class="info-value">
+                    ${escapeHtml(
+                        city
+                    )}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="people-grid">
+
+
+            <div class="person-card customer-card">
+
+                <div class="person-title">
+                    投诉人
+                </div>
+
+                <div class="person-name">
+                    ${escapeHtml(
+                        customerName
+                    )}
+                </div>
+
+                <div class="person-phone">
+                    电话：
+                    ${escapeHtml(
+                        customerPhone
+                    )}
+                </div>
+
+            </div>
+
+
+            <div class="person-card merchant-card">
+
+                <div class="person-title">
+                    商户联系人
+                </div>
+
+                <div class="person-name">
+                    ${escapeHtml(
+                        merchantContactName
+                    )}
+                </div>
+
+                <div class="person-phone">
+                    电话：
+                    ${escapeHtml(
+                        merchantContactPhone
+                    )}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="content-box">
+
+            <div class="content-title">
+                客户投诉内容
             </div>
 
             <div class="content-text">
-              ${escapeHtml(
-                item.complaint_content ||
-                "-"
-              )}
+                ${escapeHtml(
+                    complaint.complaint_content
+                    ||
+                    "-"
+                )}
             </div>
 
-          </div>
-
-
-
-          <div class="confirm-status">
-
-
-            <div
-              class="
-                confirm-box
-                ${
-                  item.platform_confirmed
-                  ? "confirmed"
-                  : "unconfirmed"
-                }
-              "
-            >
-
-              ${
-                item.platform_confirmed
-
-                ? `
-                  ✓ 平台已确认
-                  <br>
-                  ${escapeHtml(
-                    formatDate(
-                      item.platform_confirmed_at
-                    )
-                  )}
-                `
-
-                : `
-                  ⚠ 平台尚未确认
-                `
-              }
-
-            </div>
-
-
-            <div
-              class="
-                confirm-box
-                ${
-                  item.merchant_confirmed
-                  ? "confirmed"
-                  : "unconfirmed"
-                }
-              "
-            >
-
-              ${
-                item.merchant_confirmed
-
-                ? `
-                  ✓ 商户已确认
-                  <br>
-                  ${escapeHtml(
-                    formatDate(
-                      item.merchant_confirmed_at
-                    )
-                  )}
-                `
-
-                : `
-                  ⚠ 商户尚未确认
-                `
-              }
-
-            </div>
-
-
-          </div>
-
-
-
-          <div class="card-actions">
-
-
-            <button
-              class="secondary-btn"
-              type="button"
-              onclick="
-                showImages(
-                  ${Number(
-                    item.complaint_id
-                  )}
-                )
-              "
-            >
-              查看图片
-              ${
-                Number(
-                  item.image_count || 0
-                ) > 0
-
-                ? `（${Number(
-                    item.image_count
-                  )}）`
-
-                : ""
-              }
-            </button>
-
-
-            <button
-              class="confirm-btn"
-              type="button"
-
-              ${
-                item.platform_confirmed
-                ? "disabled"
-                : ""
-              }
-
-              onclick="
-                confirmComplaint(
-                  ${Number(
-                    item.complaint_id
-                  )}
-                )
-              "
-            >
-
-              ${
-                item.platform_confirmed
-                  ? "平台已确认"
-                  : "平台确认"
-              }
-
-            </button>
-
-
-          </div>
-
-
-        </article>
-
-      `;
-
-    }).join("");
-
-}
-
-
-
-/* =========================================================
-   平台确认
-========================================================= */
-
-async function confirmComplaint(
-  complaintId
-) {
-
-  const complaint =
-    allComplaints.find(
-      item =>
-        Number(
-          item.complaint_id
-        )
-        ===
-        Number(
-          complaintId
-        )
-    );
-
-
-  if (!complaint) {
-
-    showToast(
-      "没有找到该投诉。"
-    );
-
-    return;
-
-  }
-
-
-  if (
-    complaint.platform_confirmed
-  ) {
-
-    showToast(
-      "平台已经确认过该投诉。"
-    );
-
-    return;
-
-  }
-
-
-  const confirmed =
-    window.confirm(
-
-      "确认已经收到并处理该客户投诉吗？\n\n" +
-
-      "平台确认后，该投诉仍会保留记录。" +
-
-      (
-        complaint.merchant_confirmed
-
-        ? "\n商户已经确认，本次确认后投诉报警将结束。"
-
-        : "\n目前商户尚未确认，投诉将继续等待商户确认。"
-      )
-
-    );
-
-
-  if (!confirmed) {
-    return;
-  }
-
-
-  try {
-
-
-    const {
-      data,
-      error
-    } =
-    await sb.rpc(
-      "confirm_platform_complaint",
-      {
-        p_complaint_id:
-          Number(
-            complaintId
-          )
-      }
-    );
-
-
-    if (error) {
-      throw error;
-    }
-
-
-    if (
-      !data ||
-      data.success !== true
-    ) {
-
-      throw new Error(
-        data?.message ||
-        "平台确认失败"
-      );
-
-    }
-
-
-    alert(
-      data.message ||
-      "平台确认成功"
-    );
-
-
-    await loadComplaints();
-
-
-  }
-  catch (error) {
-
-    console.error(
-      "平台确认投诉失败：",
-      error
-    );
-
-
-    alert(
-      "确认失败：\n\n" +
-      (
-        error?.message ||
-        "未知错误"
-      )
-    );
-
-  }
-
-}
-
-
-
-/* =========================================================
-   查看投诉图片
-========================================================= */
-
-async function showImages(
-  complaintId
-) {
-
-  const grid =
-    document.getElementById(
-      "imageGrid"
-    );
-
-
-  grid.innerHTML = `
-
-    <div
-      style="
-        grid-column:1/-1;
-        padding:30px;
-        text-align:center;
-        color:#9a9095;
-      "
-    >
-      正在读取图片...
-    </div>
-
-  `;
-
-
-  document.getElementById(
-    "imageModal"
-  ).classList.remove(
-    "hidden"
-  );
-
-
-  document.body.style.overflow =
-    "hidden";
-
-
-  try {
-
-
-    const {
-      data,
-      error
-    } =
-    await sb.rpc(
-      "get_platform_complaint_images",
-      {
-        p_complaint_id:
-          Number(
-            complaintId
-          )
-      }
-    );
-
-
-    if (error) {
-      throw error;
-    }
-
-
-    const rows =
-      Array.isArray(data)
-        ? data
-        : [];
-
-
-    if (
-      rows.length === 0
-    ) {
-
-      grid.innerHTML = `
-
-        <div
-          style="
-            grid-column:1/-1;
-            padding:35px;
-            text-align:center;
-            color:#9a9095;
-          "
-        >
-          该投诉没有上传图片
         </div>
 
-      `;
+
+        <div class="confirm-grid">
 
 
-      return;
+            <div
+                class="
+                    confirm-box
+                    ${
+                        complaint.platform_confirmed
+                        ?
+                        "confirm-yes"
+                        :
+                        "confirm-no"
+                    }
+                "
+            >
 
-    }
+                ${
+                    complaint.platform_confirmed
+                    ?
+                    "✓ 平台已确认"
+                    :
+                    "⚠ 平台尚未确认"
+                }
+
+            </div>
 
 
-    const imageResults =
-      [];
+            <div
+                class="
+                    confirm-box
+                    ${
+                        complaint.merchant_confirmed
+                        ?
+                        "confirm-yes"
+                        :
+                        "confirm-no"
+                    }
+                "
+            >
+
+                ${
+                    complaint.merchant_confirmed
+                    ?
+                    "✓ 商户已确认"
+                    :
+                    "⚠ 商户尚未确认"
+                }
+
+            </div>
+
+        </div>
 
 
-    for (
-      const row of rows
-    ) {
+        <div class="actions">
 
 
-      const {
-        data: signedData,
-        error: signedError
-      } =
-      await sb.storage
+            <button
+                class="action-btn image-btn"
+                type="button"
 
-        .from(
-          COMPLAINT_BUCKET
-        )
+                onclick="showComplaintImages(
+                    ${Number(
+                        complaint.complaint_id
+                    )}
+                )"
+            >
+                ${
+                    imageCount > 0
+                    ?
+                    `查看图片 (${imageCount})`
+                    :
+                    "查看图片"
+                }
+            </button>
 
-        .createSignedUrl(
-          row.storage_path,
-          600
+
+            <button
+                class="action-btn confirm-btn"
+                type="button"
+
+                ${
+                    complaint.platform_confirmed
+                    ?
+                    "disabled"
+                    :
+                    ""
+                }
+
+                onclick="confirmPlatformComplaint(
+                    ${Number(
+                        complaint.complaint_id
+                    )}
+                )"
+            >
+
+                ${
+                    complaint.platform_confirmed
+                    ?
+                    "平台已确认"
+                    :
+                    "平台确认"
+                }
+
+            </button>
+
+        </div>
+
+        `;
+
+
+    return card;
+}
+
+
+/* ============================================================
+   平台确认
+============================================================ */
+
+async function confirmPlatformComplaint(
+    complaintId
+) {
+
+    const complaint =
+        complaints.find(
+            item =>
+                Number(
+                    item.complaint_id
+                )
+                ===
+                Number(
+                    complaintId
+                )
         );
 
 
-      if (
-        !signedError &&
-        signedData?.signedUrl
-      ) {
+    if (!complaint) {
 
-        imageResults.push({
-          path:
-            row.storage_path,
-          url:
-            signedData.signedUrl
-        });
+        toast(
+            "没有找到投诉记录"
+        );
 
-      }
-
+        return;
     }
 
 
     if (
-      imageResults.length === 0
+        complaint.platform_confirmed
     ) {
 
-      throw new Error(
-        "图片存在，但暂时无法取得查看权限。"
-      );
+        toast(
+            "平台已经确认过该投诉"
+        );
 
+        return;
     }
 
 
-    grid.innerHTML =
-      imageResults.map(
-        image => `
+    let message =
+        "确认平台已经收到并处理该客户投诉吗？";
 
-          <div class="image-item">
 
-            <img
-              src="${escapeHtml(
-                image.url
-              )}"
-              alt="投诉图片"
-              onclick="
-                window.open(
-                  '${escapeHtml(
-                    image.url
-                  )}',
-                  '_blank'
+    if (
+        complaint.merchant_confirmed
+    ) {
+
+        message +=
+            "\n\n商户已经确认。本次平台确认后，双方确认完成，该投诉报警将自动结束。";
+
+    } else {
+
+        message +=
+            "\n\n商户尚未确认。平台确认后，该投诉仍会保留在“等待商户”中。";
+    }
+
+
+    const yes =
+        window.confirm(
+            message
+        );
+
+
+    if (!yes) {
+        return;
+    }
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+        await sb.rpc(
+            "confirm_complaint_by_platform",
+            {
+                p_complaint_id:
+                    Number(
+                        complaintId
+                    )
+            }
+        );
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        if (
+            !data
+            ||
+            data.success
+            !==
+            true
+        ) {
+
+            throw new Error(
+                data?.message
+                ||
+                "平台确认失败"
+            );
+        }
+
+
+        alert(
+            data.message
+            ||
+            "平台确认成功"
+        );
+
+
+        await loadComplaints();
+
+
+    } catch (error) {
+
+        console.error(
+            "platform complaint confirm:",
+            error
+        );
+
+
+        alert(
+            "平台确认失败：\n\n"
+            +
+            (
+                error?.message
+                ||
+                "未知错误"
+            )
+        );
+    }
+}
+
+
+/* ============================================================
+   投诉图片
+============================================================ */
+
+async function showComplaintImages(
+    complaintId
+) {
+
+    const complaint =
+        complaints.find(
+            item =>
+                Number(
+                    item.complaint_id
                 )
-              "
-            >
-
-          </div>
-
-        `
-      ).join("");
+                ===
+                Number(
+                    complaintId
+                )
+        );
 
 
-  }
-  catch (error) {
+    if (!complaint) {
 
-    console.error(
-      "读取投诉图片失败：",
-      error
+        toast(
+            "没有找到投诉记录"
+        );
+
+        return;
+    }
+
+
+    setText(
+        "modalOrderNo",
+        `订单号：${
+            complaint.order_no
+            ||
+            complaint.order_id
+            ||
+            "-"
+        }`
     );
 
 
-    grid.innerHTML = `
+    const box =
+        document.getElementById(
+            "imagesGrid"
+        );
 
-      <div
-        style="
-          grid-column:1/-1;
-          padding:35px;
-          text-align:center;
-          color:#c12a43;
-        "
-      >
 
-        图片读取失败
-        <br>
+    box.innerHTML =
+        `
+        <div class="no-images">
+            正在读取投诉图片...
+        </div>
+        `;
 
-        <span
-          style="
-            font-size:11px;
-            color:#9a9095;
-          "
-        >
-          ${escapeHtml(
-            error?.message ||
-            ""
-          )}
-        </span>
 
-      </div>
+    document
+        .getElementById(
+            "imageModal"
+        )
+        .classList
+        .remove(
+            "hidden"
+        );
 
-    `;
 
-  }
+    document.body.style.overflow =
+        "hidden";
 
+
+    try {
+
+        const rows =
+            await getComplaintImageRows(
+                complaintId
+            );
+
+
+        if (!rows.length) {
+
+            box.innerHTML =
+                `
+                <div class="no-images">
+                    客户没有上传投诉图片
+                </div>
+                `;
+
+            return;
+        }
+
+
+        const urls =
+            [];
+
+
+        for (
+            const row
+            of rows
+        ) {
+
+            const {
+                data,
+                error
+            } =
+            await sb.storage
+                .from(
+                    COMPLAINT_BUCKET
+                )
+                .createSignedUrl(
+                    row.storage_path,
+                    600
+                );
+
+
+            if (
+                !error
+                &&
+                data?.signedUrl
+            ) {
+
+                urls.push(
+                    data.signedUrl
+                );
+            }
+        }
+
+
+        if (!urls.length) {
+
+            box.innerHTML =
+                `
+                <div class="no-images">
+                    暂时无法读取投诉图片
+                </div>
+                `;
+
+            return;
+        }
+
+
+        box.innerHTML =
+            urls
+            .map(
+                url =>
+                    `
+                    <div class="image-item">
+
+                        <img
+                            src="${escapeHtml(url)}"
+                            alt="投诉图片"
+                            onclick="openImage('${escapeJsString(url)}')"
+                        >
+
+                    </div>
+                    `
+            )
+            .join("");
+
+
+    } catch (error) {
+
+        console.error(
+            "complaint images:",
+            error
+        );
+
+
+        box.innerHTML =
+            `
+            <div class="no-images">
+                图片读取失败：
+                ${escapeHtml(
+                    error?.message
+                    ||
+                    "未知错误"
+                )}
+            </div>
+            `;
+    }
 }
 
 
+/* ============================================================
+   获取图片记录
 
-/* =========================================================
-   关闭图片
-========================================================= */
+   优先调用平台专用RPC。
+   如果此前complains页面使用的是其他同名读取函数，
+   下面也做了兼容。
+============================================================ */
 
-function closeImages() {
+async function getComplaintImageRows(
+    complaintId
+) {
 
-  document.getElementById(
-    "imageModal"
-  ).classList.add(
-    "hidden"
-  );
-
-
-  document.body.style.overflow =
-    "";
-
-}
+    const rpcNames = [
+        "get_platform_complaint_images",
+        "get_complaint_images"
+    ];
 
 
-function handleMask(event) {
-
-  if (
-    event.target.id ===
-    "imageModal"
-  ) {
-
-    closeImages();
-
-  }
-
-}
+    let lastError =
+        null;
 
 
-
-/* =========================================================
-   初始化
-========================================================= */
-
-async function initialize() {
-
-  resetIdleTimer();
-
-
-  const ok =
-    await requireLogin();
-
-
-  if (!ok) {
-    return;
-  }
-
-
-  await loadComplaints();
-
-}
-
-
-
-/* =========================================================
-   Auth
-========================================================= */
-
-sb.auth.onAuthStateChange(
-  (
-    event,
-    session
-  ) => {
-
-    if (
-      event === "SIGNED_OUT"
-      ||
-      !session
+    for (
+        const rpcName
+        of rpcNames
     ) {
 
-      window.location.replace(
-        LOGIN_PAGE
-      );
+        const {
+            data,
+            error
+        } =
+        await sb.rpc(
+            rpcName,
+            {
+                p_complaint_id:
+                    Number(
+                        complaintId
+                    )
+            }
+        );
 
+
+        if (!error) {
+
+            return Array.isArray(data)
+                ?
+                data
+                :
+                [];
+        }
+
+
+        lastError =
+            error;
+
+
+        const message =
+            String(
+                error.message
+                ||
+                ""
+            );
+
+
+        if (
+            !message.includes(
+                "Could not find the function"
+            )
+
+            &&
+
+            !message.includes(
+                "does not exist"
+            )
+        ) {
+
+            throw error;
+        }
     }
 
-  }
+
+    /*
+       最后的兼容方案：
+       如果数据库已有允许平台读取
+       customer_complaint_images 的 RLS，
+       则直接读取。
+    */
+
+    const {
+        data,
+        error
+    } =
+    await sb
+        .from(
+            "customer_complaint_images"
+        )
+        .select(`
+            id,
+            complaint_id,
+            storage_path,
+            created_at
+        `)
+        .eq(
+            "complaint_id",
+            Number(
+                complaintId
+            )
+        )
+        .order(
+            "id",
+            {
+                ascending:
+                    true
+            }
+        );
+
+
+    if (error) {
+
+        throw (
+            lastError
+            ||
+            error
+        );
+    }
+
+
+    return data
+        ||
+        [];
+}
+
+
+function closeImageModal() {
+
+    document
+        .getElementById(
+            "imageModal"
+        )
+        .classList
+        .add(
+            "hidden"
+        );
+
+
+    document.body.style.overflow =
+        "";
+}
+
+
+function handleModalMask(
+    event
+) {
+
+    if (
+        event.target.id
+        ===
+        "imageModal"
+    ) {
+
+        closeImageModal();
+    }
+}
+
+
+function openImage(
+    url
+) {
+
+    window.open(
+        url,
+        "_blank",
+        "noopener,noreferrer"
+    );
+}
+
+
+/* ============================================================
+   刷新
+============================================================ */
+
+async function refreshPage() {
+
+    try {
+
+        toast(
+            "正在刷新..."
+        );
+
+
+        await loadComplaints();
+
+
+        toast(
+            "投诉信息已更新"
+        );
+
+
+    } catch (error) {
+
+        alert(
+            "刷新失败：\n\n"
+            +
+            (
+                error?.message
+                ||
+                "未知错误"
+            )
+        );
+    }
+}
+
+
+/* ============================================================
+   返回
+============================================================ */
+
+function goBack() {
+
+    window.location.href =
+        "./wholemanagement.html";
+}
+
+
+/* ============================================================
+   10分钟无操作退出
+============================================================ */
+
+function setupIdleLogout() {
+
+    const events = [
+        "click",
+        "touchstart",
+        "touchmove",
+        "keydown",
+        "scroll"
+    ];
+
+
+    events.forEach(
+        eventName => {
+
+            document.addEventListener(
+                eventName,
+                resetIdleTimer,
+                {
+                    passive:
+                        true
+                }
+            );
+        }
+    );
+
+
+    resetIdleTimer();
+}
+
+
+function resetIdleTimer() {
+
+    if (
+        idleTimer
+    ) {
+
+        clearTimeout(
+            idleTimer
+        );
+    }
+
+
+    idleTimer =
+        setTimeout(
+            logoutByIdle,
+            IDLE_LIMIT
+        );
+}
+
+
+async function logoutByIdle() {
+
+    try {
+
+        await sb.auth.signOut();
+
+    } catch (error) {
+
+        console.error(
+            error
+        );
+
+    } finally {
+
+        window.location.replace(
+            "./login.html?reason=idle"
+        );
+    }
+}
+
+
+/* ============================================================
+   Auth
+============================================================ */
+
+sb.auth.onAuthStateChange(
+    (
+        event,
+        session
+    ) => {
+
+        if (
+            event
+            ===
+            "SIGNED_OUT"
+        ) {
+
+            goLogin();
+        }
+    }
 );
 
 
+function goLogin() {
 
-/* =========================================================
-   启动
-========================================================= */
+    window.location.replace(
+        "./login.html"
+    );
+}
 
-document.addEventListener(
-  "DOMContentLoaded",
-  initialize
-);
 
+/* ============================================================
+   工具
+============================================================ */
+
+function setText(
+    id,
+    value
+) {
+
+    const el =
+        document.getElementById(
+            id
+        );
+
+
+    if (!el) {
+        return;
+    }
+
+
+    el.textContent =
+        (
+            value === null
+            ||
+            value === undefined
+            ||
+            value === ""
+        )
+        ?
+        "-"
+        :
+        String(value);
+}
+
+
+function formatDateTime(
+    value
+) {
+
+    if (!value) {
+        return "-";
+    }
+
+
+    const date =
+        new Date(
+            value
+        );
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return String(
+            value
+        );
+    }
+
+
+    return date.toLocaleString(
+        "zh-CN",
+        {
+            year:
+                "numeric",
+
+            month:
+                "2-digit",
+
+            day:
+                "2-digit",
+
+            hour:
+                "2-digit",
+
+            minute:
+                "2-digit",
+
+            hour12:
+                false
+        }
+    );
+}
+
+
+function escapeHtml(
+    value
+) {
+
+    return String(
+        value
+        ??
+        ""
+    )
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
+}
+
+
+function escapeJsString(
+    value
+) {
+
+    return String(
+        value
+        ??
+        ""
+    )
+    .replaceAll(
+        "\\",
+        "\\\\"
+    )
+    .replaceAll(
+        "'",
+        "\\'"
+    )
+    .replaceAll(
+        "\n",
+        ""
+    )
+    .replaceAll(
+        "\r",
+        ""
+    );
+}
+
+
+function toast(
+    message
+) {
+
+    const el =
+        document.getElementById(
+            "toast"
+        );
+
+
+    el.textContent =
+        message;
+
+
+    el.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toast.timer
+    );
+
+
+    toast.timer =
+        setTimeout(
+            () => {
+
+                el.classList.remove(
+                    "show"
+                );
+
+            },
+            2200
+        );
+}
+
+
+function hideLoading() {
+
+    const mask =
+        document.getElementById(
+            "loadingMask"
+        );
+
+
+    if (!mask) {
+        return;
+    }
+
+
+    mask.style.opacity =
+        "0";
+
+
+    mask.style.transition =
+        "opacity .2s";
+
+
+    setTimeout(
+        () => {
+
+            mask.style.display =
+                "none";
+
+        },
+        220
+    );
+}
 
 </script>
 

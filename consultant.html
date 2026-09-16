@@ -1,1 +1,2864 @@
 
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+  />
+
+  <title>健康顾问详情 - 孕乃馨</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Microsoft YaHei",
+        Arial,
+        sans-serif;
+
+      background: #f5f7fb;
+      color: #1f2937;
+      min-height: 100vh;
+    }
+
+    body.auth-loading {
+      visibility: hidden;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    input:disabled,
+    select:disabled,
+    textarea:disabled {
+      background: #f3f4f6;
+      color: #6b7280;
+      cursor: not-allowed;
+    }
+
+    /* =========================================================
+       顶部
+    ========================================================= */
+
+    .topbar {
+      min-height: 66px;
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 28px;
+
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .brand {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 2px;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .current-user {
+      font-size: 13px;
+      color: #6b7280;
+
+      max-width: 260px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    /* =========================================================
+       按钮
+    ========================================================= */
+
+    .btn {
+      border: none;
+      border-radius: 8px;
+      padding: 9px 16px;
+      font-size: 14px;
+      transition: 0.15s;
+    }
+
+    .btn:hover:not(:disabled) {
+      opacity: 0.88;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #eef2f7;
+      color: #374151;
+    }
+
+    .btn-success {
+      background: #16a34a;
+      color: white;
+    }
+
+    .btn-warning {
+      background: #f59e0b;
+      color: white;
+    }
+
+    .btn-danger {
+      background: #dc2626;
+      color: white;
+    }
+
+    /* =========================================================
+       主体
+    ========================================================= */
+
+    .page {
+      max-width: 1450px;
+      margin: 0 auto;
+      padding: 28px;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+
+      margin-bottom: 22px;
+    }
+
+    .page-title {
+      font-size: 25px;
+      font-weight: 800;
+      margin-bottom: 7px;
+    }
+
+    .page-description {
+      color: #6b7280;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .page-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* =========================================================
+       顾问头部
+    ========================================================= */
+
+    .profile-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+
+      padding: 22px;
+
+      margin-bottom: 20px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+
+    .profile-left {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .avatar {
+      width: 62px;
+      height: 62px;
+
+      border-radius: 50%;
+
+      background: #eff6ff;
+      color: #2563eb;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 25px;
+      font-weight: 800;
+    }
+
+    .profile-name {
+      font-size: 21px;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+
+    .profile-no {
+      font-family: monospace;
+      font-size: 13px;
+      color: #2563eb;
+      font-weight: 700;
+    }
+
+    /* =========================================================
+       状态
+    ========================================================= */
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 999px;
+
+      padding: 6px 12px;
+
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .badge-active {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .badge-inactive {
+      background: #f3f4f6;
+      color: #6b7280;
+    }
+
+    .badge-warning {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    /* =========================================================
+       布局
+    ========================================================= */
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .card {
+      background: #ffffff;
+
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+
+      padding: 22px;
+
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+
+    .card-full {
+      grid-column: 1 / -1;
+    }
+
+    .card-title {
+      font-size: 17px;
+      font-weight: 800;
+
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+
+      border-bottom: 1px solid #f0f1f3;
+    }
+
+    /* =========================================================
+       表单
+    ========================================================= */
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+
+      font-size: 13px;
+      color: #6b7280;
+
+      margin-bottom: 7px;
+
+      font-weight: 600;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+
+      padding: 10px 12px;
+
+      background: white;
+      color: #111827;
+
+      outline: none;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #2563eb;
+
+      box-shadow:
+        0 0 0 3px
+        rgba(37,99,235,0.08);
+    }
+
+    .readonly {
+      background: #f9fafb;
+      color: #6b7280;
+    }
+
+    .help {
+      margin-top: 6px;
+      font-size: 12px;
+      color: #9ca3af;
+      line-height: 1.5;
+    }
+
+    /* =========================================================
+       信息列表
+    ========================================================= */
+
+    .info-row {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+
+      padding: 12px 0;
+
+      border-bottom: 1px solid #f3f4f6;
+
+      font-size: 13px;
+    }
+
+    .info-row:last-child {
+      border-bottom: none;
+    }
+
+    .info-label {
+      color: #6b7280;
+    }
+
+    .info-value {
+      color: #111827;
+      word-break: break-all;
+    }
+
+    /* =========================================================
+       警告区
+    ========================================================= */
+
+    .warning-box {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+
+      border-radius: 10px;
+
+      padding: 14px 16px;
+
+      color: #92400e;
+
+      font-size: 13px;
+      line-height: 1.7;
+
+      margin-bottom: 18px;
+    }
+
+    .danger-box {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+
+      border-radius: 10px;
+
+      padding: 16px;
+
+      color: #991b1b;
+
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    /* =========================================================
+       Loading
+    ========================================================= */
+
+    .loading-screen {
+      padding: 90px 20px;
+      text-align: center;
+      color: #6b7280;
+    }
+
+    .loading-icon {
+      width: 34px;
+      height: 34px;
+
+      border: 3px solid #e5e7eb;
+      border-top-color: #2563eb;
+
+      border-radius: 50%;
+
+      margin: 0 auto 14px;
+
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* =========================================================
+       消息
+    ========================================================= */
+
+    #messageBox {
+      display: none;
+
+      position: fixed;
+
+      left: 50%;
+      bottom: 28px;
+
+      transform: translateX(-50%);
+
+      z-index: 2000;
+
+      min-width: 280px;
+      max-width: 90%;
+
+      border-radius: 9px;
+
+      padding: 12px 18px;
+
+      color: white;
+
+      text-align: center;
+
+      box-shadow:
+        0 8px 25px
+        rgba(0,0,0,0.18);
+    }
+
+    #timeoutWarning {
+      display: none;
+
+      position: fixed;
+
+      left: 50%;
+      bottom: 28px;
+
+      transform: translateX(-50%);
+
+      z-index: 1900;
+
+      background: #111827;
+      color: white;
+
+      border-radius: 9px;
+
+      padding: 11px 18px;
+
+      font-size: 13px;
+    }
+
+    /* =========================================================
+       手机
+    ========================================================= */
+
+    @media (max-width: 900px) {
+
+      .page {
+        padding: 16px;
+      }
+
+      .topbar {
+        padding: 0 14px;
+      }
+
+      .current-user {
+        display: none;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card-full {
+        grid-column: auto;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+
+      .page-header {
+        display: block;
+      }
+
+      .page-actions {
+        margin-top: 15px;
+      }
+
+      .profile-card {
+        display: block;
+      }
+
+      .profile-right {
+        margin-top: 15px;
+      }
+    }
+
+    @media (max-width: 520px) {
+
+      .brand-sub {
+        display: none;
+      }
+
+      .topbar-right .btn-secondary {
+        display: none;
+      }
+
+      .info-row {
+        grid-template-columns: 1fr;
+        gap: 5px;
+      }
+    }
+
+  </style>
+</head>
+
+
+<body class="auth-loading">
+
+<!-- ============================================================
+     顶部
+============================================================ -->
+
+<header class="topbar">
+
+  <div class="topbar-left">
+
+    <div>
+
+      <div class="brand">
+        孕乃馨 · 健康顾问详情
+      </div>
+
+      <div class="brand-sub">
+        YUNNAIXIN MANAGEMENT
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="topbar-right">
+
+    <div
+      id="currentUser"
+      class="current-user"
+    >
+      正在验证登录...
+    </div>
+
+
+    <button
+      class="btn btn-secondary"
+      onclick="backToList()"
+    >
+      返回顾问列表
+    </button>
+
+
+    <button
+      class="btn btn-danger"
+      onclick="logout()"
+    >
+      退出
+    </button>
+
+  </div>
+
+</header>
+
+
+<!-- ============================================================
+     页面
+============================================================ -->
+
+<main
+  id="pageContent"
+  class="page"
+>
+
+  <div class="loading-screen">
+
+    <div class="loading-icon"></div>
+
+    正在读取健康顾问资料...
+
+  </div>
+
+</main>
+
+
+<div id="timeoutWarning">
+  登录即将超时，请继续操作以保持登录。
+</div>
+
+<div id="messageBox"></div>
+
+
+<script>
+
+/* ============================================================
+   Supabase
+============================================================ */
+
+const SUPABASE_URL =
+  "https://icmifhjihgjrhkunjbmu.supabase.co";
+
+const SUPABASE_ANON_KEY =
+  "sb_publishable_PR-D5FTznDtffymRmANXqQ_a5qYXrI4";
+
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
+
+
+/* ============================================================
+   全局变量
+============================================================ */
+
+let currentSession = null;
+
+let currentProfile = null;
+
+let consultant = null;
+
+let serviceArea = null;
+
+let editMode = false;
+
+
+/* ============================================================
+   URL ID
+============================================================ */
+
+function getConsultantId() {
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
+
+  const id =
+    params.get("id");
+
+
+  if (!id) {
+    return null;
+  }
+
+
+  const parsed =
+    Number(id);
+
+
+  if (
+    !Number.isInteger(parsed) ||
+    parsed <= 0
+  ) {
+    return null;
+  }
+
+
+  return parsed;
+}
+
+
+/* ============================================================
+   页面访问权限
+============================================================ */
+
+async function requireAccess() {
+
+  try {
+
+    const {
+      data: { session },
+      error
+    } =
+      await supabaseClient.auth.getSession();
+
+
+    if (
+      error ||
+      !session
+    ) {
+
+      window.location.replace(
+        "page10.html"
+      );
+
+      return false;
+    }
+
+
+    currentSession =
+      session;
+
+
+    const {
+      data: profile,
+      error: profileError
+    } =
+      await supabaseClient
+        .from("profiles")
+        .select(`
+          id,
+          display_name,
+          role,
+          is_active
+        `)
+        .eq(
+          "id",
+          session.user.id
+        )
+        .single();
+
+
+    if (
+      profileError ||
+      !profile
+    ) {
+
+      console.error(
+        profileError
+      );
+
+
+      await supabaseClient.auth.signOut();
+
+
+      window.location.replace(
+        "page10.html"
+      );
+
+
+      return false;
+    }
+
+
+    if (
+      profile.is_active !== true
+    ) {
+
+      await supabaseClient.auth.signOut();
+
+
+      alert(
+        "当前账号已停用。"
+      );
+
+
+      window.location.replace(
+        "page10.html"
+      );
+
+
+      return false;
+    }
+
+
+    const allowedRoles = [
+      "founder",
+      "admin"
+    ];
+
+
+    if (
+      !allowedRoles.includes(
+        profile.role
+      )
+    ) {
+
+      alert(
+        "当前账号没有访问健康顾问管理页面的权限。"
+      );
+
+
+      window.location.replace(
+        "wholemanagement.html"
+      );
+
+
+      return false;
+    }
+
+
+    currentProfile =
+      profile;
+
+
+    document.getElementById(
+      "currentUser"
+    ).textContent =
+      (
+        profile.display_name ||
+        session.user.email ||
+        "管理人员"
+      ) +
+      " · " +
+      getRoleName(
+        profile.role
+      );
+
+
+    document.body.classList.remove(
+      "auth-loading"
+    );
+
+
+    resetInactivityTimer();
+
+
+    return true;
+
+  } catch (error) {
+
+    console.error(
+      "权限验证失败：",
+      error
+    );
+
+
+    window.location.replace(
+      "page10.html"
+    );
+
+
+    return false;
+  }
+}
+
+
+/* ============================================================
+   角色名称
+============================================================ */
+
+function getRoleName(role) {
+
+  switch (role) {
+
+    case "founder":
+      return "创始人";
+
+    case "admin":
+      return "管理员";
+
+    default:
+      return role || "";
+  }
+}
+
+
+/* ============================================================
+   读取顾问
+============================================================ */
+
+async function loadConsultant() {
+
+  const consultantId =
+    getConsultantId();
+
+
+  if (!consultantId) {
+
+    showFatalError(
+      "健康顾问编号无效。"
+    );
+
+    return;
+  }
+
+
+  try {
+
+    /*
+      不在前端附加城市权限条件。
+
+      RLS 会自动判断当前管理员
+      是否可以访问该健康顾问所在城市。
+
+      无权访问时不会返回该数据。
+    */
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from(
+          "health_consultants"
+        )
+        .select(`
+          id,
+          auth_user_id,
+          consultant_no,
+          consultant_name,
+          phone,
+          email,
+          service_area_id,
+          status,
+          recreated_from,
+          created_by,
+          created_at,
+          updated_at,
+          invalidated_at,
+          invalidated_by,
+          individual_business_name,
+          bank_name,
+          bank_account,
+          tax_no,
+          consultant_surname,
+          must_change_password
+        `)
+        .eq(
+          "id",
+          consultantId
+        )
+        .maybeSingle();
+
+
+    if (error) {
+      throw error;
+    }
+
+
+    if (!data) {
+
+      showFatalError(
+        "没有找到该健康顾问，或者当前账号没有权限查看该健康顾问。"
+      );
+
+      return;
+    }
+
+
+    consultant =
+      data;
+
+
+    await loadServiceArea();
+
+
+    renderPage();
+
+  } catch (error) {
+
+    console.error(
+      "读取健康顾问失败：",
+      error
+    );
+
+
+    showFatalError(
+      "健康顾问资料读取失败：" +
+      (
+        error.message ||
+        "未知错误"
+      )
+    );
+  }
+}
+
+
+/* ============================================================
+   读取服务区域
+============================================================ */
+
+async function loadServiceArea() {
+
+  serviceArea =
+    null;
+
+
+  if (
+    !consultant ||
+    !consultant.service_area_id
+  ) {
+    return;
+  }
+
+
+  try {
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from(
+          "service_areas"
+        )
+        .select(`
+          id,
+          province_id,
+          city_id,
+          district_id,
+          status
+        `)
+        .eq(
+          "id",
+          consultant.service_area_id
+        )
+        .maybeSingle();
+
+
+    if (error) {
+
+      console.warn(
+        "读取服务区域失败：",
+        error
+      );
+
+      return;
+    }
+
+
+    serviceArea =
+      data || null;
+
+  } catch (error) {
+
+    console.warn(
+      "读取服务区域失败：",
+      error
+    );
+  }
+}
+
+
+/* ============================================================
+   页面渲染
+============================================================ */
+
+function renderPage() {
+
+  if (!consultant) {
+    return;
+  }
+
+
+  const content =
+    document.getElementById(
+      "pageContent"
+    );
+
+
+  const active =
+    consultant.status ===
+    "active";
+
+
+  content.innerHTML = `
+
+    <!-- 页面标题 -->
+
+    <div class="page-header">
+
+      <div>
+
+        <div class="page-title">
+          健康顾问档案
+        </div>
+
+        <div class="page-description">
+          查看和维护健康顾问正式档案。
+          数据访问范围由数据库 RLS 自动控制。
+        </div>
+
+      </div>
+
+
+      <div class="page-actions">
+
+        ${
+          editMode
+            ? `
+              <button
+                class="btn btn-secondary"
+                onclick="cancelEdit()"
+              >
+                取消修改
+              </button>
+
+              <button
+                id="saveBtn"
+                class="btn btn-primary"
+                onclick="saveConsultant()"
+              >
+                保存资料
+              </button>
+            `
+            : `
+              <button
+                class="btn btn-primary"
+                onclick="startEdit()"
+              >
+                修改资料
+              </button>
+            `
+        }
+
+      </div>
+
+    </div>
+
+
+    <!-- 顾问基本头部 -->
+
+    <section class="profile-card">
+
+      <div class="profile-left">
+
+        <div class="avatar">
+          ${escapeHtml(
+            getAvatarText()
+          )}
+        </div>
+
+
+        <div>
+
+          <div class="profile-name">
+            ${escapeHtml(
+              getConsultantFullName()
+            )}
+          </div>
+
+
+          <div class="profile-no">
+            健康顾问编号：
+            ${escapeHtml(
+              formatConsultantNo(
+                consultant.consultant_no
+              )
+            )}
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="profile-right">
+
+        ${
+          active
+            ? `
+              <span class="badge badge-active">
+                正常
+              </span>
+            `
+            : `
+              <span class="badge badge-inactive">
+                已停用
+              </span>
+            `
+        }
+
+      </div>
+
+    </section>
+
+
+    <div class="grid">
+
+
+      <!-- =====================================================
+           基本资料
+      ====================================================== -->
+
+      <section class="card">
+
+        <div class="card-title">
+          基本资料
+        </div>
+
+
+        <div class="form-grid">
+
+
+          <div class="form-group">
+
+            <label>
+              健康顾问编号
+            </label>
+
+            <input
+              value="${escapeAttribute(
+                formatConsultantNo(
+                  consultant.consultant_no
+                )
+              )}"
+              disabled
+            />
+
+            <div class="help">
+              系统自动生成，不允许修改。
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              数据库 ID
+            </label>
+
+            <input
+              value="${escapeAttribute(
+                consultant.id
+              )}"
+              disabled
+            />
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              姓
+            </label>
+
+            <input
+              id="consultantSurname"
+              type="text"
+              value="${escapeAttribute(
+                consultant.consultant_surname || ""
+              )}"
+              ${editMode ? "" : "disabled"}
+            />
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              姓名 / 名
+            </label>
+
+            <input
+              id="consultantName"
+              type="text"
+              value="${escapeAttribute(
+                consultant.consultant_name || ""
+              )}"
+              ${editMode ? "" : "disabled"}
+            />
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              手机号码
+            </label>
+
+            <input
+              id="phone"
+              type="text"
+              value="${escapeAttribute(
+                consultant.phone || ""
+              )}"
+              ${editMode ? "" : "disabled"}
+            />
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              登录邮箱
+            </label>
+
+            <input
+              id="email"
+              type="email"
+              value="${escapeAttribute(
+                consultant.email || ""
+              )}"
+              ${editMode ? "" : "disabled"}
+            />
+
+            <div class="help">
+              这里只维护健康顾问档案中的邮箱。
+              不直接修改 Supabase Auth 登录账户。
+            </div>
+
+          </div>
+
+
+          <div class="form-group full">
+
+            <label>
+              Auth User ID
+            </label>
+
+            <input
+              value="${escapeAttribute(
+                consultant.auth_user_id || ""
+              )}"
+              disabled
+            />
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           辖区
+      ====================================================== -->
+
+      <section class="card">
+
+        <div class="card-title">
+          服务辖区
+        </div>
+
+
+        <div class="warning-box">
+
+          健康顾问的数据访问和管理权限与服务区域关联。
+          当前页面不允许直接修改 service_area_id，
+          避免通过前端把健康顾问错误迁移到其他城市。
+
+        </div>
+
+
+        <div class="info-row">
+
+          <div class="info-label">
+            服务区域 ID
+          </div>
+
+          <div class="info-value">
+            ${
+              consultant.service_area_id
+                ? escapeHtml(
+                    consultant.service_area_id
+                  )
+                : "未设置"
+            }
+          </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <div class="info-label">
+            省 ID
+          </div>
+
+          <div class="info-value">
+            ${
+              serviceArea?.province_id ??
+              "—"
+            }
+          </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <div class="info-label">
+            地级市 ID
+          </div>
+
+          <div class="info-value">
+            ${
+              serviceArea?.city_id ??
+              "—"
+            }
+          </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <div class="info-label">
+            区 / 县 ID
+          </div>
+
+          <div class="info-value">
+            ${
+              serviceArea?.district_id ??
+              "—"
+            }
+          </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <div class="info-label">
+            服务区域状态
+          </div>
+
+          <div class="info-value">
+            ${
+              serviceArea?.status
+                ? escapeHtml(
+                    serviceArea.status
+                  )
+                : "—"
+            }
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           结算资料
+      ====================================================== -->
+
+      <section class="card card-full">
+
+        <div class="card-title">
+          结算主体资料
+        </div>
+
+
+        <div class="form-grid">
+
+
+          <div class="form-group full">
+
+            <label>
+              个体工商户名称
+            </label>
+
+            <input
+              id="individualBusinessName"
+              type="text"
+              value="${escapeAttribute(
+                consultant.individual_business_name || ""
+              )}"
+              ${editMode ? "" : "disabled"}
+            />
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              开户银行
+            </label>
+
+            <input
+              id="bankName"
+              type="text"
+              value="${escapeAttribute(
+                consultant.bank_name || ""
+              )}"
+              ${editMode ? "" : "disabled"}
+            />
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              银行账号
+            </label>
+
+            <input
+              id="bankAccount"
+              type="text"
+              value="${escapeAttribute(
+                consultant.bank_account || ""
+              )}"
+              ${editMode ? "" : "disabled"}
+            />
+
+          </div>
+
+
+          <div class="form-group full">
+
+            <label>
+              税号
+            </label>
+
+            <input
+              id="taxNo"
+              type="text"
+              value="${escapeAttribute(
+                consultant.tax_no || ""
+              )}"
+              ${editMode ? "" : "disabled"}
+            />
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           账户信息
+      ====================================================== -->
+
+      <section class="card">
+
+        <div class="card-title">
+          系统账户
+        </div>
+
+
+        <div class="info-row">
+
+          <div class="info-label">
+            登录账户
+          </div>
+
+          <div class="info-value">
+            ${escapeHtml(
+              consultant.email || "—"
+            )}
+          </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <div class="info-label">
+            首次密码状态
+          </div>
+
+          <div class="info-value">
+
+            ${
+              consultant.must_change_password
+                ? `
+                  <span class="badge badge-warning">
+                    必须修改密码
+                  </span>
+                `
+                : `
+                  <span class="badge badge-active">
+                    已完成
+                  </span>
+                `
+            }
+
+          </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <div class="info-label">
+            Auth User ID
+          </div>
+
+          <div class="info-value">
+            ${escapeHtml(
+              consultant.auth_user_id || "—"
+            )}
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           系统记录
+      ====================================================== -->
+
+      <section class="card">
+
+        <div class="card-title">
+          系统记录
+        </div>
+
+
+        <div class="info-row">
+
+          <div class="info-label">
+            创建时间
+          </div>
+
+          <div class="info-value">
+            ${escapeHtml(
+              formatDateTime(
+                consultant.created_at
+              )
+            )}
+          </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <div class="info-label">
+            最后更新时间
+          </div>
+
+          <div class="info-value">
+            ${escapeHtml(
+              formatDateTime(
+                consultant.updated_at
+              )
+            )}
+          </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <div class="info-label">
+            原顾问记录
+          </div>
+
+          <div class="info-value">
+            ${
+              consultant.recreated_from
+                ? escapeHtml(
+                    consultant.recreated_from
+                  )
+                : "—"
+            }
+          </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <div class="info-label">
+            停用时间
+          </div>
+
+          <div class="info-value">
+            ${
+              consultant.invalidated_at
+                ? escapeHtml(
+                    formatDateTime(
+                      consultant.invalidated_at
+                    )
+                  )
+                : "—"
+            }
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           状态管理
+      ====================================================== -->
+
+      <section class="card card-full">
+
+        <div class="card-title">
+          健康顾问状态管理
+        </div>
+
+
+        ${
+          active
+            ? `
+              <div class="danger-box">
+
+                <strong>停用健康顾问</strong>
+
+                <br><br>
+
+                停用后保留该健康顾问的历史记录，
+                不物理删除数据库数据。
+
+                <br><br>
+
+                <button
+                  class="btn btn-danger"
+                  onclick="deactivateConsultant()"
+                >
+                  停用健康顾问
+                </button>
+
+              </div>
+            `
+            : `
+              <div class="warning-box">
+
+                当前健康顾问已经处于停用状态。
+
+                <br><br>
+
+                如果需要重新恢复使用，
+                可以恢复该健康顾问状态。
+
+                <br><br>
+
+                <button
+                  class="btn btn-success"
+                  onclick="reactivateConsultant()"
+                >
+                  恢复健康顾问
+                </button>
+
+              </div>
+            `
+        }
+
+      </section>
+
+    </div>
+  `;
+}
+
+
+/* ============================================================
+   开始编辑
+============================================================ */
+
+function startEdit() {
+
+  if (!consultant) {
+    return;
+  }
+
+
+  editMode =
+    true;
+
+
+  renderPage();
+}
+
+
+/* ============================================================
+   取消编辑
+============================================================ */
+
+function cancelEdit() {
+
+  editMode =
+    false;
+
+
+  renderPage();
+}
+
+
+/* ============================================================
+   保存资料
+============================================================ */
+
+async function saveConsultant() {
+
+  if (
+    !consultant ||
+    !editMode
+  ) {
+    return;
+  }
+
+
+  const consultantName =
+    getInputValue(
+      "consultantName"
+    );
+
+
+  const consultantSurname =
+    getInputValue(
+      "consultantSurname"
+    );
+
+
+  const phone =
+    getInputValue(
+      "phone"
+    );
+
+
+  const email =
+    getInputValue(
+      "email"
+    );
+
+
+  const individualBusinessName =
+    getInputValue(
+      "individualBusinessName"
+    );
+
+
+  const bankName =
+    getInputValue(
+      "bankName"
+    );
+
+
+  const bankAccount =
+    getInputValue(
+      "bankAccount"
+    );
+
+
+  const taxNo =
+    getInputValue(
+      "taxNo"
+    );
+
+
+  if (!consultantName) {
+
+    showMessage(
+      "健康顾问姓名不能为空。",
+      "error"
+    );
+
+    return;
+  }
+
+
+  if (
+    email &&
+    !isValidEmail(email)
+  ) {
+
+    showMessage(
+      "邮箱格式不正确。",
+      "error"
+    );
+
+    return;
+  }
+
+
+  const saveBtn =
+    document.getElementById(
+      "saveBtn"
+    );
+
+
+  if (saveBtn) {
+
+    saveBtn.disabled =
+      true;
+
+    saveBtn.textContent =
+      "正在保存...";
+  }
+
+
+  try {
+
+    const payload = {
+
+      consultant_name:
+        consultantName,
+
+      consultant_surname:
+        consultantSurname || null,
+
+      phone:
+        phone || null,
+
+      email:
+        email || null,
+
+      individual_business_name:
+        individualBusinessName || null,
+
+      bank_name:
+        bankName || null,
+
+      bank_account:
+        bankAccount || null,
+
+      tax_no:
+        taxNo || null,
+
+      updated_at:
+        new Date().toISOString()
+
+    };
+
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from(
+          "health_consultants"
+        )
+        .update(
+          payload
+        )
+        .eq(
+          "id",
+          consultant.id
+        )
+        .select(`
+          id,
+          auth_user_id,
+          consultant_no,
+          consultant_name,
+          phone,
+          email,
+          service_area_id,
+          status,
+          recreated_from,
+          created_by,
+          created_at,
+          updated_at,
+          invalidated_at,
+          invalidated_by,
+          individual_business_name,
+          bank_name,
+          bank_account,
+          tax_no,
+          consultant_surname,
+          must_change_password
+        `)
+        .maybeSingle();
+
+
+    if (error) {
+      throw error;
+    }
+
+
+    if (!data) {
+
+      throw new Error(
+        "没有权限修改该健康顾问，或者记录已经不存在。"
+      );
+    }
+
+
+    consultant =
+      data;
+
+
+    editMode =
+      false;
+
+
+    renderPage();
+
+
+    showMessage(
+      "健康顾问资料保存成功。",
+      "success"
+    );
+
+  } catch (error) {
+
+    console.error(
+      "保存失败：",
+      error
+    );
+
+
+    showMessage(
+      "保存失败：" +
+      (
+        error.message ||
+        "未知错误"
+      ),
+      "error"
+    );
+
+
+    if (saveBtn) {
+
+      saveBtn.disabled =
+        false;
+
+      saveBtn.textContent =
+        "保存资料";
+    }
+  }
+}
+
+
+/* ============================================================
+   停用健康顾问
+============================================================ */
+
+async function deactivateConsultant() {
+
+  if (
+    !consultant ||
+    consultant.status !== "active"
+  ) {
+    return;
+  }
+
+
+  const confirmed =
+    window.confirm(
+      "确定停用该健康顾问吗？\n\n" +
+      "系统不会删除历史数据。"
+    );
+
+
+  if (!confirmed) {
+    return;
+  }
+
+
+  try {
+
+    const now =
+      new Date().toISOString();
+
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from(
+          "health_consultants"
+        )
+        .update({
+
+          status:
+            "inactive",
+
+          invalidated_at:
+            now,
+
+          invalidated_by:
+            currentSession.user.id,
+
+          updated_at:
+            now
+
+        })
+        .eq(
+          "id",
+          consultant.id
+        )
+        .eq(
+          "status",
+          "active"
+        )
+        .select(`
+          id,
+          auth_user_id,
+          consultant_no,
+          consultant_name,
+          phone,
+          email,
+          service_area_id,
+          status,
+          recreated_from,
+          created_by,
+          created_at,
+          updated_at,
+          invalidated_at,
+          invalidated_by,
+          individual_business_name,
+          bank_name,
+          bank_account,
+          tax_no,
+          consultant_surname,
+          must_change_password
+        `)
+        .maybeSingle();
+
+
+    if (error) {
+      throw error;
+    }
+
+
+    if (!data) {
+
+      throw new Error(
+        "停用失败：记录状态已经发生变化或当前账号无权操作。"
+      );
+    }
+
+
+    consultant =
+      data;
+
+
+    renderPage();
+
+
+    showMessage(
+      "健康顾问已停用。",
+      "success"
+    );
+
+  } catch (error) {
+
+    console.error(
+      "停用失败：",
+      error
+    );
+
+
+    showMessage(
+      "停用失败：" +
+      (
+        error.message ||
+        "未知错误"
+      ),
+      "error"
+    );
+  }
+}
+
+
+/* ============================================================
+   恢复健康顾问
+============================================================ */
+
+async function reactivateConsultant() {
+
+  if (
+    !consultant ||
+    consultant.status === "active"
+  ) {
+    return;
+  }
+
+
+  const confirmed =
+    window.confirm(
+      "确定恢复该健康顾问吗？"
+    );
+
+
+  if (!confirmed) {
+    return;
+  }
+
+
+  try {
+
+    const now =
+      new Date().toISOString();
+
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from(
+          "health_consultants"
+        )
+        .update({
+
+          status:
+            "active",
+
+          invalidated_at:
+            null,
+
+          invalidated_by:
+            null,
+
+          updated_at:
+            now
+
+        })
+        .eq(
+          "id",
+          consultant.id
+        )
+        .select(`
+          id,
+          auth_user_id,
+          consultant_no,
+          consultant_name,
+          phone,
+          email,
+          service_area_id,
+          status,
+          recreated_from,
+          created_by,
+          created_at,
+          updated_at,
+          invalidated_at,
+          invalidated_by,
+          individual_business_name,
+          bank_name,
+          bank_account,
+          tax_no,
+          consultant_surname,
+          must_change_password
+        `)
+        .maybeSingle();
+
+
+    if (error) {
+      throw error;
+    }
+
+
+    if (!data) {
+
+      throw new Error(
+        "恢复失败：当前账号无权操作该健康顾问。"
+      );
+    }
+
+
+    consultant =
+      data;
+
+
+    renderPage();
+
+
+    showMessage(
+      "健康顾问已恢复。",
+      "success"
+    );
+
+  } catch (error) {
+
+    console.error(
+      "恢复失败：",
+      error
+    );
+
+
+    showMessage(
+      "恢复失败：" +
+      (
+        error.message ||
+        "未知错误"
+      ),
+      "error"
+    );
+  }
+}
+
+
+/* ============================================================
+   姓名
+============================================================ */
+
+function getConsultantFullName() {
+
+  if (!consultant) {
+    return "";
+  }
+
+
+  const surname =
+    (
+      consultant.consultant_surname ||
+      ""
+    ).trim();
+
+
+  const name =
+    (
+      consultant.consultant_name ||
+      ""
+    ).trim();
+
+
+  if (
+    surname &&
+    name &&
+    !name.startsWith(surname)
+  ) {
+
+    return surname + name;
+  }
+
+
+  return (
+    name ||
+    surname ||
+    "未命名"
+  );
+}
+
+
+/* ============================================================
+   头像文字
+============================================================ */
+
+function getAvatarText() {
+
+  const name =
+    getConsultantFullName();
+
+
+  if (!name) {
+    return "顾";
+  }
+
+
+  return name.substring(
+    0,
+    1
+  );
+}
+
+
+/* ============================================================
+   顾问编号
+============================================================ */
+
+function formatConsultantNo(no) {
+
+  if (
+    no === null ||
+    no === undefined
+  ) {
+    return "—";
+  }
+
+
+  return String(no).padStart(
+    6,
+    "0"
+  );
+}
+
+
+/* ============================================================
+   输入
+============================================================ */
+
+function getInputValue(id) {
+
+  const element =
+    document.getElementById(
+      id
+    );
+
+
+  if (!element) {
+    return "";
+  }
+
+
+  return element.value.trim();
+}
+
+
+/* ============================================================
+   邮箱验证
+============================================================ */
+
+function isValidEmail(email) {
+
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+    email
+  );
+}
+
+
+/* ============================================================
+   时间格式
+============================================================ */
+
+function formatDateTime(value) {
+
+  if (!value) {
+    return "—";
+  }
+
+
+  try {
+
+    const date =
+      new Date(value);
+
+
+    if (
+      Number.isNaN(
+        date.getTime()
+      )
+    ) {
+      return String(value);
+    }
+
+
+    return date.toLocaleString(
+      "zh-CN",
+      {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      }
+    );
+
+  } catch {
+
+    return String(value);
+  }
+}
+
+
+/* ============================================================
+   HTML 安全
+============================================================ */
+
+function escapeHtml(value) {
+
+  if (
+    value === null ||
+    value === undefined
+  ) {
+    return "";
+  }
+
+
+  return String(value)
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
+}
+
+
+function escapeAttribute(value) {
+
+  return escapeHtml(
+    value
+  );
+}
+
+
+/* ============================================================
+   消息
+============================================================ */
+
+let messageTimer =
+  null;
+
+
+function showMessage(
+  message,
+  type = "success"
+) {
+
+  const box =
+    document.getElementById(
+      "messageBox"
+    );
+
+
+  clearTimeout(
+    messageTimer
+  );
+
+
+  box.textContent =
+    message;
+
+
+  if (
+    type === "error"
+  ) {
+
+    box.style.background =
+      "#b91c1c";
+
+  } else {
+
+    box.style.background =
+      "#15803d";
+  }
+
+
+  box.style.display =
+    "block";
+
+
+  messageTimer =
+    setTimeout(
+      () => {
+
+        box.style.display =
+          "none";
+
+      },
+      3500
+    );
+}
+
+
+/* ============================================================
+   严重错误
+============================================================ */
+
+function showFatalError(message) {
+
+  document.body.classList.remove(
+    "auth-loading"
+  );
+
+
+  document.getElementById(
+    "pageContent"
+  ).innerHTML = `
+
+    <div class="card">
+
+      <div
+        class="card-title"
+        style="color:#b91c1c;"
+      >
+        无法打开健康顾问档案
+      </div>
+
+
+      <div
+        style="
+          color:#6b7280;
+          line-height:1.8;
+          margin-bottom:20px;
+        "
+      >
+        ${escapeHtml(message)}
+      </div>
+
+
+      <button
+        class="btn btn-secondary"
+        onclick="backToList()"
+      >
+        返回健康顾问列表
+      </button>
+
+    </div>
+  `;
+}
+
+
+/* ============================================================
+   返回列表
+============================================================ */
+
+function backToList() {
+
+  window.location.href =
+    "consultants.html";
+}
+
+
+/* ============================================================
+   退出
+============================================================ */
+
+async function logout() {
+
+  try {
+
+    await supabaseClient.auth.signOut();
+
+  } finally {
+
+    window.location.replace(
+      "page10.html"
+    );
+  }
+}
+
+
+/* ============================================================
+   10分钟无操作退出
+============================================================ */
+
+const INACTIVITY_LIMIT =
+  10 * 60 * 1000;
+
+
+const WARNING_BEFORE =
+  60 * 1000;
+
+
+let inactivityTimer =
+  null;
+
+
+let warningTimer =
+  null;
+
+
+function resetInactivityTimer() {
+
+  clearTimeout(
+    inactivityTimer
+  );
+
+
+  clearTimeout(
+    warningTimer
+  );
+
+
+  const warning =
+    document.getElementById(
+      "timeoutWarning"
+    );
+
+
+  if (warning) {
+
+    warning.style.display =
+      "none";
+  }
+
+
+  warningTimer =
+    setTimeout(
+      () => {
+
+        if (warning) {
+
+          warning.style.display =
+            "block";
+        }
+
+      },
+      INACTIVITY_LIMIT -
+      WARNING_BEFORE
+    );
+
+
+  inactivityTimer =
+    setTimeout(
+      async () => {
+
+        try {
+
+          await supabaseClient.auth.signOut();
+
+        } finally {
+
+          alert(
+            "由于长时间未操作，系统已自动退出，请重新登录。"
+          );
+
+
+          window.location.replace(
+            "page10.html"
+          );
+        }
+
+      },
+      INACTIVITY_LIMIT
+    );
+}
+
+
+/* ============================================================
+   用户活动
+============================================================ */
+
+[
+  "mousedown",
+  "mousemove",
+  "keydown",
+  "scroll",
+  "touchstart",
+  "click"
+].forEach(
+  eventName => {
+
+    document.addEventListener(
+      eventName,
+      resetInactivityTimer,
+      {
+        passive: true
+      }
+    );
+  }
+);
+
+
+/* ============================================================
+   浏览器缓存恢复
+============================================================ */
+
+window.addEventListener(
+  "pageshow",
+  async event => {
+
+    if (
+      event.persisted
+    ) {
+
+      const ok =
+        await requireAccess();
+
+
+      if (ok) {
+
+        await loadConsultant();
+      }
+    }
+  }
+);
+
+
+/* ============================================================
+   初始化
+============================================================ */
+
+async function init() {
+
+  const ok =
+    await requireAccess();
+
+
+  if (!ok) {
+    return;
+  }
+
+
+  await loadConsultant();
+}
+
+
+init();
+
+</script>
+
+</body>
+</html>

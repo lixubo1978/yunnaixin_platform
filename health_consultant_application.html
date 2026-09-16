@@ -1015,311 +1015,91 @@ function bindEvents() {
    读取已经开通业务的城市
 ============================================================ */
 
-async function loadActiveServiceCities() {
+async function loadActiveServiceCities(){
+    const select=document.getElementById("service_area_id");
+    if(!select)return;
 
-  const select =
-    document.getElementById(
-      "serviceCitySelect"
-    );
+    select.innerHTML='<option value="">正在读取服务城市...</option>';
 
+    try{
 
-  select.disabled =
-    true;
+        const {data:areas,error:areaError}=await supabaseClient
+            .from("service_areas")
+            .select("id,city_id,status")
+            .eq("status","active");
 
+        if(areaError) throw areaError;
 
-  select.innerHTML =
-    `
-      <option value="">
-        正在读取已开通业务的城市...
-      </option>
-    `;
-
-
-  serviceAreaByCity.clear();
+        if(!areas||areas.length===0){
+            select.innerHTML='<option value="">暂无已开通服务城市</option>';
+            return;
+        }
 
 
-  try {
-
-    /*
-      第一步：
-      只读取 active 的 service_areas。
-
-      service_areas.city_id 是 NOT NULL。
-    */
-
-    const {
-      data: serviceAreas,
-      error: serviceAreaError
-    } =
-      await db
-        .from(
-          "service_areas"
-        )
-        .select(
-          "id, city_id"
-        )
-        .eq(
-          "status",
-          "active"
-        )
-        .order(
-          "id",
-          {
-            ascending: true
-          }
-        );
+        const cityIds=[...new Set(
+            areas.map(a=>a.city_id).filter(Boolean)
+        )];
 
 
-    if (serviceAreaError) {
-
-      throw serviceAreaError;
-
-    }
-
-
-    if (
-      !serviceAreas ||
-      serviceAreas.length === 0
-    ) {
-
-      select.innerHTML =
-        `
-          <option value="">
-            暂无已开通业务的城市
-          </option>
-        `;
+        const {data:cities,error:cityError}=await supabaseClient
+            .from("cities")
+            .select("id,city_name,province_id")
+            .in("id",cityIds)
+            .eq("status","active");
 
 
-      showError(
-        "目前系统中暂无已开通业务的城市。"
-      );
+        if(cityError) throw cityError;
 
 
-      return;
+        const cityMap={};
 
-    }
-
-
-    /*
-      第二步：
-      按 city_id 去重。
-
-      如果一个城市存在多条 active service_area，
-      只显示一次城市。
-
-      申请记录保存该城市第一条有效
-      service_area_id。
-    */
-
-    const cityIds = [];
+        (cities||[]).forEach(c=>{
+            cityMap[c.id]=c;
+        });
 
 
-    for (
-      const area of serviceAreas
-    ) {
-
-      if (
-        area.city_id === null ||
-        area.city_id === undefined
-      ) {
-
-        continue;
-      }
+        select.innerHTML='<option value="">请选择服务城市</option>';
 
 
-      const cityKey =
-        String(
-          area.city_id
-        );
+        areas.forEach(area=>{
+
+            const city=cityMap[area.city_id];
+
+            if(city){
+
+                const option=document.createElement("option");
+
+                option.value=area.id;
+
+                option.textContent=city.city_name;
+
+                select.appendChild(option);
+
+            }
+
+        });
 
 
-      if (
-        !serviceAreaByCity.has(
-          cityKey
-        )
-      ) {
-
-        serviceAreaByCity.set(
-          cityKey,
-          area.id
-        );
+        if(select.options.length===1){
+            select.innerHTML='<option value="">暂无可选择城市</option>';
+        }
 
 
-        cityIds.push(
-          area.city_id
-        );
+    }catch(e){
 
-      }
+        console.error("服务城市读取失败:",e);
+
+        select.innerHTML='<option value="">服务城市读取失败</option>';
+
+        const msg=document.getElementById("message");
+
+        if(msg){
+            msg.innerHTML="服务城市读取失败，请稍后重新尝试。";
+            msg.className="error";
+        }
 
     }
-
-
-    if (
-      cityIds.length === 0
-    ) {
-
-      throw new Error(
-        "已开通服务区域没有对应的城市。"
-      );
-
-    }
-
-
-    /*
-      第三步：
-      从 cities 表读取城市名称。
-
-      已确认真实字段：
-      id
-      province_id
-      city_code
-      city_name
-      status
-      created_at
-    */
-
-    const {
-      data: cities,
-      error: cityError
-    } =
-      await db
-        .from(
-          "cities"
-        )
-        .select(
-          "id, city_code, city_name, status"
-        )
-        .in(
-          "id",
-          cityIds
-        )
-        .eq(
-          "status",
-          "active"
-        )
-        .order(
-          "city_code",
-          {
-            ascending: true
-          }
-        );
-
-
-    if (cityError) {
-
-      throw cityError;
-
-    }
-
-
-    if (
-      !cities ||
-      cities.length === 0
-    ) {
-
-      select.innerHTML =
-        `
-          <option value="">
-            暂无已开通业务的城市
-          </option>
-        `;
-
-
-      showError(
-        "目前系统中暂无可以申请的服务城市。"
-      );
-
-
-      return;
-
-    }
-
-
-    /*
-      第四步：
-      生成城市下拉框。
-    */
-
-    select.innerHTML =
-      `
-        <option value="">
-          请选择已开通业务的城市
-        </option>
-      `;
-
-
-    for (
-      const city of cities
-    ) {
-
-      const cityKey =
-        String(
-          city.id
-        );
-
-
-      if (
-        !serviceAreaByCity.has(
-          cityKey
-        )
-      ) {
-
-        continue;
-      }
-
-
-      const option =
-        document.createElement(
-          "option"
-        );
-
-
-      option.value =
-        city.id;
-
-
-      option.textContent =
-        city.city_name;
-
-
-      select.appendChild(
-        option
-      );
-
-    }
-
-
-    select.disabled =
-      false;
-
-
-    hideMessage();
-
-
-  } catch (error) {
-
-    console.error(
-      "读取已开通城市失败：",
-      error
-    );
-
-
-    select.innerHTML =
-      `
-        <option value="">
-          服务城市读取失败
-        </option>
-      `;
-
-
-    showError(
-      "服务城市读取失败，请稍后重新尝试。"
-    );
-
-  }
-
 }
-
 
 /* ============================================================
    选择服务城市

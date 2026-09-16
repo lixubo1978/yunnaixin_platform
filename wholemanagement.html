@@ -7,7 +7,7 @@
 <title>孕乃馨管理平台</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--pink-50:#fff5f8;--pink-100:#ffe7ef;--pink-300:#f7aac5;--pink-500:#e85d8f;--pink-600:#d94d7d;--pink-700:#b93667;--rose-dark:#61213d;--text-main:#26232a;--text-sub:#716a73;--text-light:#a39ba5;--border:#eee5e9;--danger:#e2263f;--purple:#8b3fd1;--shadow:0 10px 30px rgba(120,47,78,.06)}
+:root{--pink-50:#fff5f8;--pink-100:#ffe7ef;--pink-300:#f7aac5;--pink-500:#e85d8f;--pink-600:#d94d7d;--pink-700:#b93667;--rose-dark:#61213d;--text-main:#26232a;--text-sub:#716a73;--text-light:#a39ba5;--border:#eee5e9;--danger:#e2263f;--purple:#8b3fd1;--orange:#dc7a15;--shadow:0 10px 30px rgba(120,47,78,.06)}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{width:100%;min-height:100%;scroll-behavior:smooth}
 body{width:100%;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;background:linear-gradient(180deg,#fff9fb,#fbf9fa 45%,#f8f8fa);color:var(--text-main);font-size:15px;line-height:1.6}
@@ -19,21 +19,22 @@ button,input,select,textarea{font:inherit}button,a{touch-action:manipulation}but
 .menu-title{padding:13px 13px 7px;font-size:10px;font-weight:700;letter-spacing:1.2px;color:#b0a7ad}.menu-item{min-height:48px;display:flex;align-items:center;gap:12px;padding:10px 13px;margin-bottom:5px;border-radius:13px;text-decoration:none;color:#554f55;font-size:14px;font-weight:520}.menu-item:hover{background:var(--pink-50);color:var(--pink-700)}.menu-item.active{background:linear-gradient(135deg,var(--pink-100),#fff8fb);color:var(--pink-700);font-weight:650;box-shadow:inset 3px 0 0 var(--pink-500)}.menu-icon{width:26px;flex:0 0 26px;text-align:center;font-size:19px}
 .complaint-menu-item{color:#c51f39;font-weight:650}.complaint-menu-badge{margin-left:auto;min-width:22px;height:22px;display:none;align-items:center;justify-content:center;padding:0 6px;border-radius:999px;background:#e2263f;color:#fff;font-size:10px;font-weight:800}.complaint-menu-badge.show{display:inline-flex}
 .main{flex:1;min-width:0;padding:30px;overflow-x:hidden}.content-wrap{width:100%;max-width:1360px;margin:0 auto}
-.consultant-approval-alert{display:none;align-items:center;gap:14px;width:100%;margin-bottom:16px;padding:15px 18px;border:0;border-radius:15px;background:linear-gradient(135deg,#8b3fd1,#b45de1);color:#fff;box-shadow:0 8px 25px rgba(139,63,209,.24);text-align:left}.consultant-approval-alert.show{display:flex}.consultant-approval-icon{width:40px;height:40px;flex:0 0 40px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:21px}.consultant-approval-content{flex:1;min-width:0}.consultant-approval-title{font-size:15px;font-weight:800}.consultant-approval-desc{margin-top:3px;font-size:12px}.consultant-approval-count{min-width:40px;height:40px;padding:0 11px;border-radius:999px;background:#fff;color:#8738c8;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900}
+.consultant-alert{display:none;align-items:center;gap:14px;width:100%;margin-bottom:16px;padding:15px 18px;border:0;border-radius:15px;background:linear-gradient(135deg,#8b3fd1,#b45de1);color:#fff;box-shadow:0 8px 25px rgba(139,63,209,.24);text-align:left}.consultant-alert.show{display:flex}.consultant-alert-icon{width:40px;height:40px;flex:0 0 40px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:21px}.consultant-alert-content{flex:1;min-width:0}.consultant-alert-title{font-size:15px;font-weight:800}.consultant-alert-desc{margin-top:3px;font-size:12px}.consultant-alert-count{min-width:40px;height:40px;padding:0 11px;border-radius:999px;background:#fff;color:#8738c8;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900}
 .complaint-alert{display:none;width:100%;min-height:62px;margin-bottom:18px;padding:13px 18px;border:2px solid #ff4960;border-radius:16px;background:linear-gradient(135deg,#d91532,#f1344d);color:#fff;text-decoration:none;box-shadow:0 9px 28px rgba(211,23,51,.28)}.complaint-alert.show{display:flex;align-items:center;gap:14px}.complaint-alert-icon{width:38px;height:38px;flex:0 0 38px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(255,255,255,.18);font-size:20px}.complaint-alert-content{flex:1}.complaint-alert-title{font-size:15px;font-weight:800}.complaint-alert-desc{margin-top:2px;font-size:12px}.complaint-alert-count{min-width:38px;height:38px;display:flex;align-items:center;justify-content:center;padding:0 10px;border-radius:999px;background:#fff;color:#d31935;font-size:15px;font-weight:900}.complaint-alert-arrow{font-size:24px}
 .welcome{position:relative;overflow:hidden;background:linear-gradient(135deg,#fff1f6,#ffe3ed 52%,#ffd4e5);border-radius:24px;padding:30px 32px;margin-bottom:24px;box-shadow:var(--shadow)}.welcome-tag{display:inline-flex;padding:4px 11px;margin-bottom:12px;border-radius:999px;background:rgba(255,255,255,.72);color:var(--pink-700);font-size:11px;font-weight:700}.welcome h1{margin-bottom:9px;font-size:27px;color:var(--rose-dark)}.welcome p{font-size:14px;color:#8a4863}
 .info-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:30px}.info-card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:20px;min-height:112px}.info-label{margin-bottom:12px;font-size:11px;color:var(--text-light)}.info-value{font-size:18px;font-weight:700}.info-small{font-size:13px;font-weight:600;word-break:break-all}
 .section-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}.section-title{font-size:19px;font-weight:720}.section-hint{font-size:12px;color:var(--text-light)}.module-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;padding-bottom:40px}.module-card{min-height:170px;display:flex;flex-direction:column;background:#fff;border:1px solid var(--border);border-radius:19px;padding:21px;text-decoration:none;box-shadow:0 5px 18px rgba(98,46,68,.035);transition:.2s}.module-card:hover{transform:translateY(-3px);border-color:var(--pink-300)}.module-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:17px}.module-icon{width:48px;height:48px;border-radius:14px;background:var(--pink-100);display:flex;align-items:center;justify-content:center;font-size:22px}.module-arrow{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#faf7f9;color:var(--pink-500)}.module-name{margin-bottom:7px;font-size:16px;font-weight:700}.module-desc{font-size:12.5px;color:var(--text-sub)}.complaint-module-badge{display:none;margin-left:8px;padding:2px 8px;border-radius:999px;background:#e2263f;color:#fff;font-size:10px}.complaint-module-badge.show{display:inline-flex}
 .loading-mask{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fff8fb}.spinner{width:40px;height:40px;border:4px solid var(--pink-100);border-top-color:var(--pink-500);border-radius:50%;animation:spin .8s linear infinite;margin-bottom:15px}@keyframes spin{to{transform:rotate(360deg)}}.loading-text{font-size:13px;color:var(--text-sub)}
 .consultant-modal-mask{display:none;position:fixed;inset:0;z-index:5000;background:rgba(30,20,27,.56);padding:18px;align-items:center;justify-content:center}.consultant-modal-mask.show{display:flex}.consultant-modal{width:min(900px,100%);max-height:92vh;overflow:hidden;background:#fff;border-radius:18px;box-shadow:0 25px 70px rgba(0,0,0,.25);display:flex;flex-direction:column}.consultant-modal-head{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}.consultant-modal-head strong{font-size:17px;color:#66304b}.consultant-modal-close{width:36px;height:36px;border:0;border-radius:50%;background:#f8eef2;color:#7b5967;font-size:22px}.consultant-modal-body{padding:18px;overflow:auto}.consultant-empty{text-align:center;color:#999;padding:38px 15px}
-.consultant-application-card{border:1px solid #eadde3;border-radius:16px;padding:18px;margin-bottom:15px;background:#fffafb}.consultant-app-top{display:flex;justify-content:space-between;gap:12px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #f0e3e8}.consultant-app-name{font-size:18px;font-weight:800;color:#673149}.consultant-app-city{font-size:12px;color:#a05a76;text-align:right}.consultant-app-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px;font-size:13px;color:#53454b}.consultant-field{min-width:0;word-break:break-all}.consultant-field.full{grid-column:1/-1}.consultant-field span{display:inline-block;color:#a28f97;margin-right:5px}
+.consultant-card{border:1px solid #eadde3;border-radius:16px;padding:18px;margin-bottom:15px;background:#fffafb}.consultant-top{display:flex;justify-content:space-between;gap:12px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #f0e3e8}.consultant-name{font-size:18px;font-weight:800;color:#673149}.consultant-city{font-size:12px;color:#a05a76;text-align:right}.status-badge{display:inline-flex;margin-top:5px;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:800}.status-pending{background:#fff0f5;color:#c53669}.status-activation{background:#fff1dd;color:#b8650d}
+.consultant-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px;font-size:13px;color:#53454b}.consultant-field{min-width:0;word-break:break-all}.consultant-field.full{grid-column:1/-1}.consultant-field span{display:inline-block;color:#a28f97;margin-right:5px}
+.activation-warning{grid-column:1/-1;padding:12px 14px;border:1px solid #f1c788;border-radius:11px;background:#fff8eb;color:#9a5a0a;font-size:13px}.activation-error{margin-top:5px;color:#d32b43;word-break:break-all}
 .id-photo-box{grid-column:1/-1;margin-top:5px;padding:13px;border:1px solid #eadde3;border-radius:12px;background:#fff}.id-photo-label{margin-bottom:9px;color:#a28f97;font-size:13px}.id-photo{display:block;width:100%;max-width:520px;max-height:330px;object-fit:contain;border:1px solid #eee;border-radius:10px;background:#f8f8f8}.photo-loading{display:flex;align-items:center;justify-content:center;width:100%;max-width:520px;min-height:120px;border-radius:10px;background:#f7f2f5;color:#9c8e95;font-size:13px}.photo-error{padding:15px;border-radius:9px;background:#fff1f3;color:#bf3046;font-size:13px}
-.consultant-action-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}.consultant-approve-btn,.consultant-reject-btn{width:100%;min-height:44px;border:0;border-radius:10px;color:#fff;font-weight:800}.consultant-approve-btn{background:#8d42cb}.consultant-reject-btn{background:#e2263f}.consultant-approve-btn:disabled,.consultant-reject-btn:disabled{opacity:.55;cursor:not-allowed}
-.consultant-code-result{padding:22px;border:2px solid #a960dd;border-radius:16px;background:#fbf4ff;text-align:center}.consultant-code-number{margin:14px 0;font-size:32px;font-weight:900;letter-spacing:3px;color:#7e31bd}.consultant-code-warning{margin-top:12px;font-size:14px;line-height:1.8;color:#9b2c45;font-weight:700}
-.reject-modal-mask{display:none;position:fixed;inset:0;z-index:6000;padding:18px;background:rgba(25,16,21,.65);align-items:center;justify-content:center}.reject-modal-mask.show{display:flex}.reject-modal{width:min(520px,100%);background:#fff;border-radius:17px;padding:22px;box-shadow:0 25px 70px rgba(0,0,0,.3)}.reject-modal-title{font-size:18px;font-weight:800;color:#702b43}.reject-modal-desc{margin:8px 0 15px;color:#796b71;font-size:13px}.reject-reason{width:100%;min-height:120px;resize:vertical;padding:12px;border:1px solid #dccdd3;border-radius:10px;outline:none}.reject-reason:focus{border-color:#e85d8f;box-shadow:0 0 0 3px rgba(232,93,143,.1)}.reject-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}.reject-cancel,.reject-confirm{min-height:43px;border:0;border-radius:10px;font-weight:750}.reject-cancel{background:#f2edf0;color:#675b60}.reject-confirm{background:#e2263f;color:#fff}.reject-confirm:disabled{opacity:.55}
-.mobile-bottom-nav{display:none}
+.action-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}.action-row.single{grid-template-columns:1fr}.approve-btn,.reject-btn{width:100%;min-height:44px;border:0;border-radius:10px;color:#fff;font-weight:800}.approve-btn{background:#8d42cb}.approve-btn.activation{background:linear-gradient(135deg,#d97c16,#ed9b32)}.reject-btn{background:#e2263f}.approve-btn:disabled,.reject-btn:disabled{opacity:.55;cursor:not-allowed}
+.result-box{padding:22px;border:2px solid #a960dd;border-radius:16px;background:#fbf4ff;text-align:center}.result-number{margin:14px 0;font-size:32px;font-weight:900;letter-spacing:3px;color:#7e31bd}.result-password{display:inline-block;margin:8px 0;padding:8px 18px;border-radius:10px;background:#fff;color:#d62958;font-size:22px;font-weight:900;letter-spacing:2px}.result-warning{margin-top:12px;font-size:14px;line-height:1.8;color:#9b2c45;font-weight:700}
+.reject-mask{display:none;position:fixed;inset:0;z-index:6000;padding:18px;background:rgba(25,16,21,.65);align-items:center;justify-content:center}.reject-mask.show{display:flex}.reject-modal{width:min(520px,100%);background:#fff;border-radius:17px;padding:22px;box-shadow:0 25px 70px rgba(0,0,0,.3)}.reject-title{font-size:18px;font-weight:800;color:#702b43}.reject-desc{margin:8px 0 15px;color:#796b71;font-size:13px}.reject-reason{width:100%;min-height:120px;resize:vertical;padding:12px;border:1px solid #dccdd3;border-radius:10px;outline:none}.reject-reason:focus{border-color:#e85d8f;box-shadow:0 0 0 3px rgba(232,93,143,.1)}.reject-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}.reject-cancel,.reject-confirm{min-height:43px;border:0;border-radius:10px;font-weight:750}.reject-cancel{background:#f2edf0;color:#675b60}.reject-confirm{background:#e2263f;color:#fff}.reject-confirm:disabled{opacity:.55}.mobile-bottom-nav{display:none}
 @media(max-width:1100px){.info-grid,.module-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:760px){body{padding-bottom:78px}.topbar{min-height:64px;padding:4px 13px}.brand-logo{width:39px;height:39px}.brand-title{font-size:17px}.brand-subtitle,.user-info{display:none}.logout-btn{min-width:72px;min-height:44px}.page{display:block}.sidebar{display:none}.main{width:100%;padding:15px 13px}.welcome{padding:22px 20px}.welcome h1{font-size:21px}.info-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.module-grid{grid-template-columns:1fr;gap:11px}.consultant-app-grid{grid-template-columns:1fr}.consultant-field.full,.id-photo-box{grid-column:1}.consultant-action-row{grid-template-columns:1fr}.consultant-modal-mask{padding:7px}.consultant-modal{max-height:95vh}.mobile-bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:2000;min-height:70px;padding:7px 10px;display:grid;grid-template-columns:repeat(4,1fr);gap:5px;background:rgba(255,255,255,.96);border-top:1px solid var(--border)}.mobile-nav-item{min-height:54px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:13px;text-decoration:none;color:#8c838a;font-size:10px}.mobile-nav-item.active{color:var(--pink-600);background:var(--pink-50)}.mobile-nav-icon{font-size:20px}}
+@media(max-width:760px){body{padding-bottom:78px}.topbar{min-height:64px;padding:4px 13px}.brand-logo{width:39px;height:39px}.brand-title{font-size:17px}.brand-subtitle,.user-info{display:none}.logout-btn{min-width:72px;min-height:44px}.page{display:block}.sidebar{display:none}.main{width:100%;padding:15px 13px}.welcome{padding:22px 20px}.welcome h1{font-size:21px}.info-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.module-grid{grid-template-columns:1fr;gap:11px}.consultant-grid{grid-template-columns:1fr}.consultant-field.full,.id-photo-box,.activation-warning{grid-column:1}.action-row{grid-template-columns:1fr}.consultant-modal-mask{padding:7px}.consultant-modal{max-height:95vh}.mobile-bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:2000;min-height:70px;padding:7px 10px;display:grid;grid-template-columns:repeat(4,1fr);gap:5px;background:rgba(255,255,255,.96);border-top:1px solid var(--border)}.mobile-nav-item{min-height:54px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:13px;text-decoration:none;color:#8c838a;font-size:10px}.mobile-nav-item.active{color:var(--pink-600);background:var(--pink-50)}.mobile-nav-icon{font-size:20px}}
 </style>
 </head>
 <body>
@@ -62,10 +63,10 @@ button,input,select,textarea{font:inherit}button,a{touch-action:manipulation}but
 </aside>
 <main class="main">
 <div class="content-wrap">
-<button id="consultantApprovalAlert" class="consultant-approval-alert" type="button" onclick="openConsultantApprovalModal()">
-<div class="consultant-approval-icon">🩺</div>
-<div class="consultant-approval-content"><div class="consultant-approval-title">健康顾问申请待审批</div><div id="consultantApprovalDesc" class="consultant-approval-desc"></div></div>
-<div id="consultantApprovalCount" class="consultant-approval-count">0</div>
+<button id="consultantAlert" class="consultant-alert" type="button" onclick="openConsultantModal()">
+<div class="consultant-alert-icon">🩺</div>
+<div class="consultant-alert-content"><div class="consultant-alert-title">健康顾问申请及开户待处理</div><div id="consultantAlertDesc" class="consultant-alert-desc"></div></div>
+<div id="consultantAlertCount" class="consultant-alert-count">0</div>
 </button>
 <a id="complaintAlert" class="complaint-alert" href="complains.html">
 <div class="complaint-alert-icon">🚨</div>
@@ -96,17 +97,17 @@ button,input,select,textarea{font:inherit}button,a{touch-action:manipulation}but
 </main>
 </div>
 
-<div id="consultantApprovalModal" class="consultant-modal-mask" onclick="consultantModalMaskClicked(event)">
+<div id="consultantModal" class="consultant-modal-mask" onclick="consultantMaskClicked(event)">
 <div class="consultant-modal">
-<div class="consultant-modal-head"><strong>健康顾问申请审批</strong><button class="consultant-modal-close" type="button" onclick="closeConsultantApprovalModal()">×</button></div>
-<div id="consultantApprovalList" class="consultant-modal-body"><div class="consultant-empty">正在读取申请信息...</div></div>
+<div class="consultant-modal-head"><strong>健康顾问申请及账户开通</strong><button class="consultant-modal-close" type="button" onclick="closeConsultantModal()">×</button></div>
+<div id="consultantList" class="consultant-modal-body"><div class="consultant-empty">正在读取申请信息...</div></div>
 </div>
 </div>
 
-<div id="rejectModal" class="reject-modal-mask" onclick="rejectModalMaskClicked(event)">
+<div id="rejectModal" class="reject-mask" onclick="rejectMaskClicked(event)">
 <div class="reject-modal">
-<div class="reject-modal-title">拒绝健康顾问申请</div>
-<div id="rejectApplicantDesc" class="reject-modal-desc"></div>
+<div class="reject-title">拒绝健康顾问申请</div>
+<div id="rejectApplicantDesc" class="reject-desc"></div>
 <textarea id="rejectReason" class="reject-reason" maxlength="500" placeholder="请填写拒绝原因，此项为必填"></textarea>
 <div class="reject-actions">
 <button class="reject-cancel" type="button" onclick="closeRejectModal()">取消</button>
@@ -130,20 +131,20 @@ const LOGIN_PAGE="login.html";
 const IDLE_LIMIT=10*60*1000;
 const ID_IMAGE_BUCKET="health-consultant-applications";
 let idleTimer=null;
-let pendingConsultantApplications=[];
+let consultantApplications=[];
 let rejectingApplicationId=null;
 
 function esc(value){return String(value??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
-function displayValue(value){return value===null||value===undefined||String(value).trim()===""?"—":String(value)}
+function valueText(value){return value===null||value===undefined||String(value).trim()===""?"—":String(value)}
 function formatTime(value){if(!value)return"—";const date=new Date(value);return Number.isNaN(date.getTime())?"—":date.toLocaleString("zh-CN",{hour12:false})}
 function resetIdleTimer(){clearTimeout(idleTimer);idleTimer=setTimeout(autoLogout,IDLE_LIMIT)}
 async function autoLogout(){try{await supabaseClient.auth.signOut()}catch(error){console.error(error)}alert("由于10分钟未操作，系统已自动退出。");window.location.href=LOGIN_PAGE}
-["mousemove","mousedown","keydown","touchstart","scroll","click"].forEach(eventName=>document.addEventListener(eventName,resetIdleTimer,{passive:true}));
+["mousemove","mousedown","keydown","touchstart","scroll","click"].forEach(name=>document.addEventListener(name,resetIdleTimer,{passive:true}));
 
 function roleText(role){return{founder:"创始人",platform_admin:"平台管理员",platform_staff:"平台员工",province_admin:"省管理员",city_admin:"市管理员"}[role]||role}
 function isManagementRole(role){return["founder","platform_admin","platform_staff","province_admin","city_admin"].includes(role)}
 function isPlatformManager(role){return["founder","platform_admin"].includes(role)}
-function applyMenuPermissions(role){if(!isPlatformManager(role))document.querySelectorAll(".platform-only").forEach(element=>element.classList.add("hidden"))}
+function applyMenuPermissions(role){if(!isPlatformManager(role))document.querySelectorAll(".platform-only").forEach(el=>el.classList.add("hidden"))}
 
 async function loadAssignment(userId,role){
 if(isPlatformManager(role))return{provinceName:"全国",cityName:"全国"};
@@ -156,127 +157,161 @@ if(data.city_id){const{data:city}=await supabaseClient.from("cities").select("ci
 return{provinceName,cityName};
 }
 
-function updateConsultantApprovalAlert(){
-const count=pendingConsultantApplications.length,alertBar=document.getElementById("consultantApprovalAlert");
-if(count>0){alertBar.classList.add("show");document.getElementById("consultantApprovalCount").textContent=count>99?"99+":String(count);document.getElementById("consultantApprovalDesc").textContent=`当前辖区有 ${count} 条健康顾问申请等待审批，点击立即处理`}
-else alertBar.classList.remove("show");
+function isActivationItem(item){return item.needs_activation===true||item.account_status==="pending_activation"||item.application_status==="approved"}
+function updateConsultantAlert(){
+const count=consultantApplications.length;
+const pending=consultantApplications.filter(item=>!isActivationItem(item)).length;
+const activation=consultantApplications.filter(isActivationItem).length;
+const bar=document.getElementById("consultantAlert");
+if(count>0){
+bar.classList.add("show");
+document.getElementById("consultantAlertCount").textContent=count>99?"99+":String(count);
+const parts=[];
+if(pending)parts.push(`${pending}条待审批`);
+if(activation)parts.push(`${activation}条待开户`);
+document.getElementById("consultantAlertDesc").textContent=`当前辖区有${parts.join("、")}，点击立即处理`;
+}else bar.classList.remove("show");
 }
 
-async function loadConsultantApprovalAlert(profile){
-if(!["founder","platform_admin","province_admin","city_admin"].includes(profile.role)){pendingConsultantApplications=[];updateConsultantApprovalAlert();return}
+async function loadConsultantAlert(profile){
+if(!["founder","platform_admin","province_admin","city_admin"].includes(profile.role)){consultantApplications=[];updateConsultantAlert();return}
 try{
 const{data,error}=await supabaseClient.rpc("get_pending_health_consultant_applications");
 if(error)throw error;
-pendingConsultantApplications=Array.isArray(data)?data:[];
-updateConsultantApprovalAlert();
-}catch(error){console.warn("健康顾问待审批申请读取失败：",error);pendingConsultantApplications=[];updateConsultantApprovalAlert()}
+consultantApplications=Array.isArray(data)?data:[];
+updateConsultantAlert();
+}catch(error){console.warn("健康顾问待处理数据读取失败：",error);consultantApplications=[];updateConsultantAlert()}
 }
 
-function openConsultantApprovalModal(){document.getElementById("consultantApprovalModal").classList.add("show");document.body.style.overflow="hidden";renderConsultantApprovalList()}
-function closeConsultantApprovalModal(){document.getElementById("consultantApprovalModal").classList.remove("show");document.body.style.overflow=""}
-function consultantModalMaskClicked(event){if(event.target===event.currentTarget)closeConsultantApprovalModal()}
+function openConsultantModal(){document.getElementById("consultantModal").classList.add("show");document.body.style.overflow="hidden";renderConsultantList()}
+function closeConsultantModal(){document.getElementById("consultantModal").classList.remove("show");document.body.style.overflow=""}
+function consultantMaskClicked(event){if(event.target===event.currentTarget)closeConsultantModal()}
 
-async function createIdPhotoSignedUrl(path){
+async function createPhotoUrl(path){
 if(!path)return null;
-let cleanPath=String(path).trim();
-const marker=`/storage/v1/object/${ID_IMAGE_BUCKET}/`;
+let clean=String(path).trim();
+const objectMarker=`/storage/v1/object/${ID_IMAGE_BUCKET}/`;
 const signMarker=`/storage/v1/object/sign/${ID_IMAGE_BUCKET}/`;
-if(cleanPath.includes(marker))cleanPath=decodeURIComponent(cleanPath.split(marker)[1].split("?")[0]);
-if(cleanPath.includes(signMarker))cleanPath=decodeURIComponent(cleanPath.split(signMarker)[1].split("?")[0]);
-if(cleanPath.startsWith(`${ID_IMAGE_BUCKET}/`))cleanPath=cleanPath.slice(ID_IMAGE_BUCKET.length+1);
-const{data,error}=await supabaseClient.storage.from(ID_IMAGE_BUCKET).createSignedUrl(cleanPath,600);
+if(clean.includes(objectMarker))clean=decodeURIComponent(clean.split(objectMarker)[1].split("?")[0]);
+if(clean.includes(signMarker))clean=decodeURIComponent(clean.split(signMarker)[1].split("?")[0]);
+if(clean.startsWith(`${ID_IMAGE_BUCKET}/`))clean=clean.slice(ID_IMAGE_BUCKET.length+1);
+const{data,error}=await supabaseClient.storage.from(ID_IMAGE_BUCKET).createSignedUrl(clean,600);
 if(error)throw error;
 return data?.signedUrl||null;
 }
 
-async function loadApplicationPhoto(applicationId,path){
-const container=document.getElementById(`idPhoto-${applicationId}`);
-if(!container)return;
-if(!path){container.innerHTML='<div class="photo-error">申请人没有上传身份证正面照片</div>';return}
+async function loadPhoto(applicationId,path){
+const box=document.getElementById(`idPhoto-${applicationId}`);
+if(!box)return;
+if(!path){box.innerHTML='<div class="photo-error">申请人没有上传身份证正面照片</div>';return}
 try{
-const signedUrl=await createIdPhotoSignedUrl(path);
-if(!signedUrl)throw new Error("没有生成照片地址");
-container.innerHTML=`<a href="${esc(signedUrl)}" target="_blank" rel="noopener"><img class="id-photo" src="${esc(signedUrl)}" alt="身份证正面照片"></a><div style="margin-top:7px;color:#a28f97;font-size:11px">安全链接10分钟内有效，点击照片可放大查看</div>`;
-}catch(error){console.warn("身份证照片读取失败：",error);container.innerHTML='<div class="photo-error">身份证照片读取失败，请确认存储桶权限和照片路径。</div>'}
+const url=await createPhotoUrl(path);
+if(!url)throw new Error("没有生成照片地址");
+box.innerHTML=`<a href="${esc(url)}" target="_blank" rel="noopener"><img class="id-photo" src="${esc(url)}" alt="身份证正面照片"></a><div style="margin-top:7px;color:#a28f97;font-size:11px">安全链接10分钟内有效，点击照片可放大查看</div>`;
+}catch(error){console.warn("身份证照片读取失败：",error);box.innerHTML='<div class="photo-error">身份证照片读取失败，请确认照片路径和存储权限。</div>'}
 }
 
-function renderConsultantApprovalList(){
-const box=document.getElementById("consultantApprovalList");
-if(!pendingConsultantApplications.length){box.innerHTML='<div class="consultant-empty">当前辖区没有待审批的健康顾问申请</div>';return}
-box.innerHTML=pendingConsultantApplications.map(item=>{
+function renderConsultantList(){
+const box=document.getElementById("consultantList");
+if(!consultantApplications.length){box.innerHTML='<div class="consultant-empty">当前辖区没有待审批或待开户事项</div>';return}
+box.innerHTML=consultantApplications.map(item=>{
+const activation=isActivationItem(item);
 const city=[item.province_name,item.city_name].filter(Boolean).join(" · ")||"未识别辖区";
-return `<div class="consultant-application-card">
-<div class="consultant-app-top"><div><div class="consultant-app-name">${esc(displayValue(item.applicant_name))}</div><div style="margin-top:3px;font-size:11px;color:#aa8d99">待审批健康顾问</div></div><div class="consultant-app-city">${esc(city)}</div></div>
-<div class="consultant-app-grid">
-<div class="consultant-field"><span>手机号码：</span>${esc(displayValue(item.phone))}</div>
-<div class="consultant-field"><span>身份证号码：</span>${esc(displayValue(item.id_card_number))}</div>
-<div class="consultant-field"><span>个体工商户名称：</span>${esc(displayValue(item.individual_business_name))}</div>
-<div class="consultant-field"><span>统一社会信用代码/税号：</span>${esc(displayValue(item.tax_no))}</div>
-<div class="consultant-field"><span>开户银行：</span>${esc(displayValue(item.bank_name))}</div>
-<div class="consultant-field"><span>银行账号：</span>${esc(displayValue(item.bank_account))}</div>
-<div class="consultant-field"><span>服务省份：</span>${esc(displayValue(item.province_name))}</div>
-<div class="consultant-field"><span>服务城市：</span>${esc(displayValue(item.city_name))}</div>
-<div class="consultant-field"><span>服务区域编号：</span>${esc(displayValue(item.area_no))}</div>
-<div class="consultant-field"><span>服务区域ID：</span>${esc(displayValue(item.service_area_id))}</div>
+const badge=activation?'<span class="status-badge status-activation">已审批 · 待开户</span>':'<span class="status-badge status-pending">待审批</span>';
+const warning=activation?`<div class="activation-warning">该申请已经审批并生成永久编号 <strong>${esc(valueText(item.consultant_no))}</strong>，但登录账户尚未创建。点击下方按钮完成自动开户。${item.activation_error?`<div class="activation-error">上次开户失败：${esc(item.activation_error)}</div>`:""}</div>`:"";
+const action=activation
+?`<div class="action-row single"><button id="approveBtn-${esc(item.id)}" class="approve-btn activation" type="button" onclick="approveOrActivate(${Number(item.id)})">创建登录账户</button></div>`
+:`<div class="action-row"><button id="approveBtn-${esc(item.id)}" class="approve-btn" type="button" onclick="approveOrActivate(${Number(item.id)})">批准并自动创建账户</button><button id="rejectBtn-${esc(item.id)}" class="reject-btn" type="button" onclick="openRejectModal(${Number(item.id)})">拒绝申请</button></div>`;
+return `<div class="consultant-card">
+<div class="consultant-top"><div><div class="consultant-name">${esc(valueText(item.applicant_name))}</div>${badge}</div><div class="consultant-city">${esc(city)}</div></div>
+<div class="consultant-grid">
+${warning}
+<div class="consultant-field"><span>手机号码：</span>${esc(valueText(item.phone))}</div>
+<div class="consultant-field"><span>身份证号码：</span>${esc(valueText(item.id_card_number))}</div>
+<div class="consultant-field"><span>个体工商户名称：</span>${esc(valueText(item.individual_business_name))}</div>
+<div class="consultant-field"><span>统一社会信用代码/税号：</span>${esc(valueText(item.tax_no))}</div>
+<div class="consultant-field"><span>开户银行：</span>${esc(valueText(item.bank_name))}</div>
+<div class="consultant-field"><span>银行账号：</span>${esc(valueText(item.bank_account))}</div>
+<div class="consultant-field"><span>服务省份：</span>${esc(valueText(item.province_name))}</div>
+<div class="consultant-field"><span>服务城市：</span>${esc(valueText(item.city_name))}</div>
+<div class="consultant-field"><span>服务区域编号：</span>${esc(valueText(item.area_no))}</div>
+<div class="consultant-field"><span>服务区域ID：</span>${esc(valueText(item.service_area_id))}</div>
 <div class="consultant-field"><span>申请时间：</span>${esc(formatTime(item.created_at))}</div>
-<div class="consultant-field"><span>申请编号：</span>${esc(displayValue(item.id))}</div>
+<div class="consultant-field"><span>申请编号：</span>${esc(valueText(item.id))}</div>
+${activation?`<div class="consultant-field full"><span>永久顾问编号：</span><strong>${esc(valueText(item.consultant_no))}</strong></div>`:""}
 <div class="id-photo-box"><div class="id-photo-label">身份证正面照片</div><div id="idPhoto-${esc(item.id)}" class="photo-loading">正在生成安全查看链接...</div></div>
-</div>
-<div class="consultant-action-row">
-<button id="approveConsultantBtn-${esc(item.id)}" class="consultant-approve-btn" type="button" onclick="approveConsultantApplication(${Number(item.id)})">允许成为健康顾问</button>
-<button id="rejectConsultantBtn-${esc(item.id)}" class="consultant-reject-btn" type="button" onclick="openRejectModal(${Number(item.id)})">拒绝申请</button>
-</div>
-</div>`;
+</div>${action}</div>`;
 }).join("");
-pendingConsultantApplications.forEach(item=>loadApplicationPhoto(item.id,item.id_card_front_path));
+consultantApplications.forEach(item=>loadPhoto(item.id,item.id_card_front_path));
 }
 
-function setApplicationButtonsDisabled(applicationId,disabled){
-const approve=document.getElementById(`approveConsultantBtn-${applicationId}`);
-const reject=document.getElementById(`rejectConsultantBtn-${applicationId}`);
+function setButtonsDisabled(applicationId,disabled){
+const approve=document.getElementById(`approveBtn-${applicationId}`);
+const reject=document.getElementById(`rejectBtn-${applicationId}`);
 if(approve)approve.disabled=disabled;
 if(reject)reject.disabled=disabled;
 }
 
-async function approveConsultantApplication(applicationId){
-const item=pendingConsultantApplications.find(record=>Number(record.id)===Number(applicationId));
+async function approveOrActivate(applicationId){
+const item=consultantApplications.find(record=>Number(record.id)===Number(applicationId));
 if(!item)return;
-const confirmed=window.confirm(`确认允许 ${item.applicant_name} 成为健康顾问吗？\n\n批准后系统将生成永久唯一编码，该编码不可修改、不可回收复用。`);
-if(!confirmed)return;
-const button=document.getElementById(`approveConsultantBtn-${applicationId}`);
-setApplicationButtonsDisabled(applicationId,true);
-if(button)button.textContent="正在审批...";
+const activation=isActivationItem(item);
+const message=activation
+?`确认为 ${item.applicant_name} 创建健康顾问登录账户吗？\n\n永久编号：${item.consultant_no}\n初始密码：12345678`
+:`确认批准 ${item.applicant_name} 的健康顾问申请并自动创建登录账户吗？\n\n系统将生成永久唯一编号，初始密码为12345678。`;
+if(!window.confirm(message))return;
+const button=document.getElementById(`approveBtn-${applicationId}`);
+setButtonsDisabled(applicationId,true);
+if(button)button.textContent=activation?"正在创建登录账户...":"正在审批并创建账户...";
 try{
-const{data,error}=await supabaseClient.rpc("approve_health_consultant_application",{p_application_id:Number(applicationId),p_review_note:null});
-if(error)throw error;
-if(!data||!data.success)throw new Error(data?.message||"审批失败");
-pendingConsultantApplications=pendingConsultantApplications.filter(record=>Number(record.id)!==Number(applicationId));
-updateConsultantApprovalAlert();
-document.getElementById("consultantApprovalList").innerHTML=`<div class="consultant-code-result"><div style="font-size:18px;font-weight:800">健康顾问审批成功</div><div class="consultant-code-number">${esc(data.consultant_no)}</div><div>${esc(displayValue(data.applicant_name))}　${esc(displayValue(data.phone))}</div><div class="consultant-code-warning">请联系申请人本人，并口头告知以上永久唯一健康顾问编码。<br>该编码将作为登录用户名和客户下单时的业务凭证。<br>初始密码为 12345678，首次登录后必须修改密码。</div><button class="consultant-approve-btn" style="margin-top:18px" type="button" onclick="renderConsultantApprovalList()">继续处理其他申请</button></div>`;
+const{data,error}=await supabaseClient.functions.invoke("approve-health-consultant",{body:{application_id:Number(applicationId),review_note:null}});
+if(error){
+let message=error.message||"Edge Function调用失败";
+try{
+if(error.context instanceof Response){
+const detail=await error.context.json();
+message=detail?.message||message;
+}
+}catch(parseError){console.warn(parseError)}
+throw new Error(message);
+}
+if(!data?.success)throw new Error(data?.message||"审批及自动开户失败");
+consultantApplications=consultantApplications.filter(record=>Number(record.id)!==Number(applicationId));
+updateConsultantAlert();
+document.getElementById("consultantList").innerHTML=`<div class="result-box">
+<div style="font-size:18px;font-weight:800">健康顾问账户创建成功</div>
+<div style="margin-top:8px;color:#796b71">登录用户名</div>
+<div class="result-number">${esc(data.login_username||data.consultant_no)}</div>
+<div style="color:#796b71">初始密码</div>
+<div class="result-password">${esc(data.initial_password||"12345678")}</div>
+<div>${esc(valueText(data.applicant_name))}　${esc(valueText(data.phone))}</div>
+<div class="result-warning">请联系申请人本人，口头告知登录用户名和初始密码。<br>首次登录后必须立即修改密码。<br>永久顾问编号不可修改、不可回收复用。</div>
+<button class="approve-btn" style="margin-top:18px" type="button" onclick="renderConsultantList()">继续处理其他事项</button>
+</div>`;
 }catch(error){
-console.error("健康顾问审批失败：",error);
-alert("审批失败："+(error.message||"请稍后重试"));
-setApplicationButtonsDisabled(applicationId,false);
-if(button)button.textContent="允许成为健康顾问";
+console.error("健康顾问审批及开户失败：",error);
+alert("处理失败："+(error.message||"请稍后重试"));
+setButtonsDisabled(applicationId,false);
+if(button)button.textContent=activation?"创建登录账户":"批准并自动创建账户";
 }
 }
 
 function openRejectModal(applicationId){
-const item=pendingConsultantApplications.find(record=>Number(record.id)===Number(applicationId));
-if(!item)return;
+const item=consultantApplications.find(record=>Number(record.id)===Number(applicationId));
+if(!item||isActivationItem(item))return;
 rejectingApplicationId=Number(applicationId);
-document.getElementById("rejectApplicantDesc").textContent=`申请人：${displayValue(item.applicant_name)}　手机：${displayValue(item.phone)}`;
+document.getElementById("rejectApplicantDesc").textContent=`申请人：${valueText(item.applicant_name)}　手机：${valueText(item.phone)}`;
 document.getElementById("rejectReason").value="";
 document.getElementById("rejectModal").classList.add("show");
 setTimeout(()=>document.getElementById("rejectReason").focus(),50);
 }
 function closeRejectModal(){document.getElementById("rejectModal").classList.remove("show");rejectingApplicationId=null;document.getElementById("rejectReason").value=""}
-function rejectModalMaskClicked(event){if(event.target===event.currentTarget)closeRejectModal()}
+function rejectMaskClicked(event){if(event.target===event.currentTarget)closeRejectModal()}
 
 async function confirmRejectApplication(){
 if(!rejectingApplicationId)return;
 const applicationId=rejectingApplicationId;
-const item=pendingConsultantApplications.find(record=>Number(record.id)===applicationId);
+const item=consultantApplications.find(record=>Number(record.id)===applicationId);
 if(!item){closeRejectModal();return}
 const reason=document.getElementById("rejectReason").value.trim();
 if(!reason){alert("请填写拒绝原因。");document.getElementById("rejectReason").focus();return}
@@ -285,34 +320,32 @@ if(!window.confirm(`确认拒绝 ${item.applicant_name} 的健康顾问申请吗
 const button=document.getElementById("rejectConfirmBtn");
 button.disabled=true;
 button.textContent="正在处理...";
-setApplicationButtonsDisabled(applicationId,true);
+setButtonsDisabled(applicationId,true);
 try{
 const{data,error}=await supabaseClient.rpc("reject_health_consultant_application",{p_application_id:applicationId,p_review_note:reason});
 if(error)throw error;
-if(!data||!data.success)throw new Error(data?.message||"拒绝申请失败");
-pendingConsultantApplications=pendingConsultantApplications.filter(record=>Number(record.id)!==applicationId);
-updateConsultantApprovalAlert();
+if(!data?.success)throw new Error(data?.message||"拒绝申请失败");
+consultantApplications=consultantApplications.filter(record=>Number(record.id)!==applicationId);
+updateConsultantAlert();
 closeRejectModal();
 alert(`${item.applicant_name} 的健康顾问申请已拒绝。`);
-renderConsultantApprovalList();
+renderConsultantList();
 }catch(error){
 console.error("拒绝健康顾问申请失败：",error);
 alert("拒绝申请失败："+(error.message||"请稍后重试"));
-setApplicationButtonsDisabled(applicationId,false);
+setButtonsDisabled(applicationId,false);
 }finally{button.disabled=false;button.textContent="确认拒绝"}
 }
 
 function updateComplaintAlertUI(count){
-const safeCount=Math.max(0,Number(count)||0),alertBar=document.getElementById("complaintAlert"),menuBadge=document.getElementById("complaintMenuBadge"),moduleBadge=document.getElementById("complaintModuleBadge");
-if(safeCount>0){
-alertBar.classList.add("show");
-document.getElementById("complaintAlertCount").textContent=safeCount>99?"99+":String(safeCount);
-document.getElementById("complaintAlertDesc").textContent=`当前有 ${safeCount} 条客户投诉等待平台确认，点击立即处理`;
-menuBadge.textContent=safeCount>99?"99+":String(safeCount);
-menuBadge.classList.add("show");
-moduleBadge.textContent=`${safeCount} 条待确认`;
-moduleBadge.classList.add("show");
-}else{alertBar.classList.remove("show");menuBadge.classList.remove("show");moduleBadge.classList.remove("show")}
+const safe=Math.max(0,Number(count)||0),bar=document.getElementById("complaintAlert"),menu=document.getElementById("complaintMenuBadge"),module=document.getElementById("complaintModuleBadge");
+if(safe>0){
+bar.classList.add("show");
+document.getElementById("complaintAlertCount").textContent=safe>99?"99+":String(safe);
+document.getElementById("complaintAlertDesc").textContent=`当前有 ${safe} 条客户投诉等待平台确认，点击立即处理`;
+menu.textContent=safe>99?"99+":String(safe);menu.classList.add("show");
+module.textContent=`${safe} 条待确认`;module.classList.add("show");
+}else{bar.classList.remove("show");menu.classList.remove("show");module.classList.remove("show")}
 }
 
 async function loadComplaintAlert(profile){
@@ -354,7 +387,7 @@ else if(profile.role==="city_admin")description=`您当前负责 ${assignment.ci
 else description="您已进入孕乃馨平台管理中心，请按照已授权范围使用管理功能。";
 document.getElementById("welcomeDesc").textContent=description;
 applyMenuPermissions(profile.role);
-await Promise.all([loadComplaintAlert(profile),loadConsultantApprovalAlert(profile)]);
+await Promise.all([loadComplaintAlert(profile),loadConsultantAlert(profile)]);
 document.getElementById("loadingMask").style.display="none";
 }catch(error){
 console.error("页面初始化失败：",error);
@@ -370,7 +403,7 @@ window.location.href=LOGIN_PAGE;
 }
 
 supabaseClient.auth.onAuthStateChange(event=>{if(event==="SIGNED_OUT")window.location.href=LOGIN_PAGE});
-document.addEventListener("keydown",event=>{if(event.key==="Escape"){if(document.getElementById("rejectModal").classList.contains("show"))closeRejectModal();else if(document.getElementById("consultantApprovalModal").classList.contains("show"))closeConsultantApprovalModal()}});
+document.addEventListener("keydown",event=>{if(event.key==="Escape"){if(document.getElementById("rejectModal").classList.contains("show"))closeRejectModal();else if(document.getElementById("consultantModal").classList.contains("show"))closeConsultantModal()}});
 document.addEventListener("DOMContentLoaded",initializePage);
 </script>
 </body>

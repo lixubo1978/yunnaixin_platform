@@ -5,9 +5,13 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
 
-<title>商户分账规则管理</title>
+
+<title>
+商户分账规则管理 - 孕乃馨
+</title>
 
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -15,83 +19,145 @@
 
 <style>
 
+
 *{
+
 box-sizing:border-box;
-font-family:"Microsoft YaHei",Arial;
+
+margin:0;
+
+padding:0;
+
 }
 
 
 body{
 
-margin:0;
+font-family:
 
-background:#fff7fa;
+-apple-system,
+BlinkMacSystemFont,
+"Segoe UI",
+"Microsoft YaHei",
+Arial,
+sans-serif;
 
-color:#5b2333;
+
+background:#f5f7fb;
+
+color:#1f2937;
+
+min-height:100vh;
 
 }
 
 
 
-.header{
+body.auth-loading{
 
-height:70px;
+visibility:hidden;
+
+}
+
+
+
+/* ==========================
+顶部
+========================== */
+
+
+.topbar{
+
+height:66px;
 
 background:white;
+
+border-bottom:1px solid #e5e7eb;
+
 
 display:flex;
 
+align-items:center;
+
 justify-content:space-between;
+
+
+padding:0 28px;
+
+
+position:sticky;
+
+top:0;
+
+z-index:100;
+
+}
+
+
+
+.brand{
+
+font-size:18px;
+
+font-weight:800;
+
+}
+
+
+
+.brand-sub{
+
+font-size:12px;
+
+color:#9ca3af;
+
+margin-top:3px;
+
+}
+
+
+
+.topbar-right{
+
+display:flex;
 
 align-items:center;
 
-padding:0 30px;
-
-border-bottom:1px solid #f2d8e2;
+gap:10px;
 
 }
 
 
 
-.logo{
+.current-user{
 
-font-size:22px;
+font-size:13px;
 
-font-weight:bold;
-
-color:#df4f7d;
+color:#6b7280;
 
 }
 
 
 
-button{
-
-cursor:pointer;
+.btn{
 
 border:none;
 
-border-radius:20px;
+border-radius:8px;
 
-padding:10px 20px;
+padding:9px 16px;
 
-}
+font-size:14px;
 
-
-
-.btn-back{
-
-background:white;
-
-border:1px solid #efbfd0;
+cursor:pointer;
 
 }
 
 
 
-.btn-out{
+.btn-primary{
 
-background:#df4f7d;
+background:#2563eb;
 
 color:white;
 
@@ -99,57 +165,169 @@ color:white;
 
 
 
-.container{
+.btn-secondary{
 
-width:1200px;
+background:#eef2f7;
 
-max-width:95%;
-
-margin:30px auto;
+color:#374151;
 
 }
 
+
+
+.btn-danger{
+
+background:#dc2626;
+
+color:white;
+
+}
+
+
+
+.btn-success{
+
+background:#16a34a;
+
+color:white;
+
+}
+
+
+
+
+
+/* ==========================
+主体
+========================== */
+
+
+.page{
+
+
+max-width:1450px;
+
+margin:auto;
+
+padding:28px;
+
+}
+
+
+
+.page-header{
+
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:flex-start;
+
+margin-bottom:22px;
+
+
+}
+
+
+
+.page-title{
+
+
+font-size:25px;
+
+font-weight:800;
+
+margin-bottom:8px;
+
+
+}
+
+
+
+.page-description{
+
+
+color:#6b7280;
+
+font-size:14px;
+
+line-height:1.6;
+
+
+}
+
+
+
+/* ==========================
+卡片
+========================== */
 
 
 .card{
 
+
 background:white;
 
-border-radius:18px;
+border:1px solid #e5e7eb;
 
-padding:25px;
+border-radius:14px;
 
-margin-bottom:25px;
+padding:22px;
 
-box-shadow:0 5px 20px rgba(200,100,130,.08);
-
-}
+margin-bottom:20px;
 
 
+box-shadow:
 
-.title{
-
-background:#ffe8f0;
+0 1px 3px rgba(0,0,0,.03);
 
 }
 
 
 
-.title h1{
+.card-title{
 
-margin:0 0 10px;
+
+font-size:17px;
+
+font-weight:800;
+
+padding-bottom:14px;
+
+margin-bottom:18px;
+
+border-bottom:1px solid #f0f1f3;
+
 
 }
 
+
+
+/* ==========================
+选择区域
+========================== */
 
 
 .select-grid{
 
+
 display:grid;
 
-grid-template-columns:repeat(3,1fr);
+grid-template-columns:
 
-gap:20px;
+repeat(3,1fr);
+
+gap:18px;
+
+
+}
+
+
+
+.form-group{
+
+margin-bottom:10px;
 
 }
 
@@ -157,30 +335,63 @@ gap:20px;
 
 label{
 
+
 display:block;
 
-margin-bottom:8px;
+font-size:13px;
 
-color:#966273;
+font-weight:600;
+
+color:#6b7280;
+
+margin-bottom:7px;
+
 
 }
 
 
 
-select,input{
+select,
+input{
+
 
 width:100%;
 
 height:42px;
 
-border:1px solid #efd5df;
+border:1px solid #d1d5db;
 
-border-radius:10px;
+border-radius:8px;
 
 padding:0 12px;
 
+background:white;
+
 }
 
+
+
+select:focus,
+input:focus{
+
+
+outline:none;
+
+border-color:#2563eb;
+
+
+box-shadow:
+
+0 0 0 3px rgba(37,99,235,.08);
+
+
+}
+
+
+
+/* ==========================
+产品表格
+========================== */
 
 
 .table-box{
@@ -203,93 +414,145 @@ border-collapse:collapse;
 
 th{
 
-background:#fff0f5;
+
+background:#f9fafb;
+
+padding:13px;
+
+font-size:13px;
+
 
 }
 
 
 
-td,th{
+td{
 
-padding:14px;
 
-border-bottom:1px solid #f3e2e8;
+padding:13px;
+
+border-bottom:1px solid #f3f4f6;
 
 text-align:center;
 
+font-size:14px;
+
+
 }
 
 
+
+/* 已定义 */
 
 .lock-row{
 
-background:#eeeeee;
 
-opacity:.75;
+background:#f3f4f6;
+
+color:#6b7280;
+
 
 }
 
 
 
-.badge{
+.badge-active{
+
+
+background:#dcfce7;
+
+color:#15803d;
 
 padding:5px 12px;
 
-border-radius:15px;
+border-radius:999px;
 
-background:#ddffe9;
+font-size:12px;
 
-color:#178542;
-
-}
-
-
-
-.pending{
-
-background:#fff1cf;
-
-color:#b47700;
+font-weight:700;
 
 }
 
 
 
-.set-btn{
+.badge-warning{
 
-background:#df4f7d;
+
+background:#fef3c7;
+
+color:#92400e;
+
+padding:5px 12px;
+
+border-radius:999px;
+
+font-size:12px;
+
+font-weight:700;
+
+
+}
+
+
+
+.btn-small{
+
+
+padding:6px 12px;
+
+border-radius:8px;
+
+font-size:12px;
+
+border:none;
+
+cursor:pointer;
+
+
+}
+
+
+
+.btn-set{
+
+
+background:#2563eb;
 
 color:white;
 
-}
-
-
-
-.lock-btn{
-
-background:#cccccc;
-
-color:#666;
 
 }
 
 
 
-.edit-box{
+.btn-lock{
 
-display:none;
+
+background:#d1d5db;
+
+color:#6b7280;
+
 
 }
 
+
+
+/* ==========================
+编辑区域
+========================== */
 
 
 .rule-grid{
 
+
 display:grid;
 
-grid-template-columns:repeat(3,1fr);
+grid-template-columns:
 
-gap:15px;
+repeat(3,1fr);
+
+gap:16px;
+
 
 }
 
@@ -297,11 +560,13 @@ gap:15px;
 
 .rule-item{
 
-background:#fff6f9;
+
+background:#f9fafb;
 
 padding:15px;
 
-border-radius:12px;
+border-radius:10px;
+
 
 }
 
@@ -309,35 +574,50 @@ border-radius:12px;
 
 .rule-item span{
 
+
 display:block;
+
+font-size:13px;
+
+color:#6b7280;
 
 margin-bottom:8px;
 
+
 }
 
 
 
-.total{
+.total-box{
+
 
 margin-top:20px;
-
-background:#fff0f5;
 
 padding:15px;
 
-font-size:18px;
+background:#eff6ff;
+
+border-radius:10px;
+
+font-weight:700;
 
 }
 
 
 
-.save-btn{
+.save-area{
+
 
 margin-top:20px;
 
-background:#df4f7d;
+}
 
-color:white;
+
+
+.hidden{
+
+
+display:none;
 
 }
 
@@ -348,95 +628,152 @@ color:white;
 </head>
 
 
-<body>
+<body class="auth-loading">
 
 
-<div class="header">
-
-
-<div class="logo">
-
-🌸 商户六方分账配置中心
-
-</div>
+<header class="topbar">
 
 
 <div>
 
-<button class="btn-back" onclick="goBack()">
+
+<div class="brand">
+
+孕乃馨 · 商户分账规则管理
+
+</div>
+
+
+<div class="brand-sub">
+
+YUNNAIXIN MANAGEMENT
+
+</div>
+
+
+</div>
+
+
+
+
+<div class="topbar-right">
+
+
+<div id="currentUser"
+class="current-user">
+
+正在验证登录...
+
+</div>
+
+
+
+<button
+class="btn btn-secondary"
+onclick="goBack()">
 
 返回工作台
 
 </button>
 
 
-<button class="btn-out" onclick="logout()">
+
+<button
+class="btn btn-danger"
+onclick="logout()">
 
 退出
 
 </button>
 
+
+</div>
+
+
+</header>
+
+
+
+<main class="page">
+
+
+
+<div class="page-header">
+
+
+<div>
+
+
+<div class="page-title">
+
+产品级分账规则管理
+
+</div>
+
+
+<div class="page-description">
+
+每个城市、商户、服务项目独立配置。
+已经生效的分账规则自动锁定。
+
 </div>
 
 
 </div>
 
 
-<div class="container">
-
-
-<div class="card title">
-
-
-<h1>
-
-产品分账规则管理
-
-</h1>
-
-
-<p>
-
-每个商户显示全部可经营服务项目。
-已经定义并生效的规则自动锁定。
-
-</p>
-
-
 </div>
 
 
 
-<div class="card">
+<!-- 选择区域 -->
+
+<section class="card">
 
 
-<h3>
+<div class="card-title">
 
-选择商户
+选择已开通服务城市
 
-</h3>
+</div>
 
 
 <div class="select-grid">
 
 
-<div>
 
-<label>省份</label>
+<div class="form-group">
 
-<select id="provinceSelect"></select>
+<label>
+省份
+</label>
+
+
+<select id="provinceSelect">
+
+<option>
+加载中...
+</option>
+
+</select>
 
 </div>
 
 
 
-<div>
 
-<label>城市</label>
+<div class="form-group">
+
+<label>
+已开通服务城市
+</label>
+
 
 <select id="citySelect">
 
-<option>请选择城市</option>
+<option>
+请选择城市
+</option>
 
 </select>
 
@@ -444,127 +781,80 @@ color:white;
 
 
 
-<div>
 
-<label>商户</label>
+<div class="form-group">
+
+<label>
+商户
+</label>
+
 
 <select id="merchantSelect">
 
-<option>请选择商户</option>
+<option>
+请选择商户
+</option>
 
 </select>
 
 </div>
 
 
-</div>
-
 
 </div>
 
 
-
-
-
-<div class="card">
-
-
-<h3>
-
-全部服务项目
-
-</h3>
-
-
-
-<div class="table-box">
-
-
-<table>
-
-
-<thead>
-
-<tr>
-
-<th>
-服务项目
-</th>
-
-
-<th>
-状态
-</th>
-
-
-<th>
-当前分账比例
-</th>
-
-
-<th>
-操作
-</th>
-
-
-</tr>
-
-
-</thead>
-
-
-<tbody id="productList">
-
-
-</tbody>
-
-
-</table>
-
-
-</div>
-
-
-</div>
+</section>
 <script>
 
 
-/* ===============================
- Supabase 配置
-================================ */
+/* =====================================================
+   Supabase
+===================================================== */
 
 
 const SUPABASE_URL =
-"https://你的项目.supabase.co";
+"https://icmifhjihgjrhkunjbmu.supabase.co";
 
 
-const SUPABASE_KEY =
+const SUPABASE_ANON_KEY =
 "你的anon-key";
 
 
 const supabaseClient =
-supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
 );
 
 
 
-let currentUser=null;
+let currentSession=null;
+
+let currentProfile=null;
+
 
 let selectedProductId=null;
 
 
 
-/* ===============================
- 初始化
-================================ */
+/* =====================================================
+   初始化
+===================================================== */
 
 
 window.onload=async()=>{
 
 
-await checkLogin();
+const ok =
+await requireAccess();
+
+
+if(!ok){
+
+return;
+
+}
 
 
 await loadProvinces();
@@ -579,46 +869,159 @@ bindEvents();
 
 
 
-/* ===============================
- 登录检查
-================================ */
+/* =====================================================
+   权限验证
+===================================================== */
 
 
-async function checkLogin(){
+async function requireAccess(){
 
 
 const {
 
 data:{
-user}
+session
 
 }
+
+}
+
 =
-await supabaseClient.auth.getUser();
+await supabaseClient.auth.getSession();
 
 
 
-if(!user){
-
-location.href="login.html";
-
-return;
-
-}
+if(!session){
 
 
-currentUser=user;
+location.href="page10.html";
+
+
+return false;
 
 
 }
 
 
 
+currentSession=session;
 
 
-/* ===============================
- 加载省份
-================================ */
+
+const {
+
+data:profile
+
+}
+
+=
+await supabaseClient
+
+.from("profiles")
+
+.select(`
+id,
+display_name,
+role,
+is_active
+`)
+
+.eq(
+"id",
+session.user.id
+)
+
+.single();
+
+
+
+if(!profile || profile.is_active!==true){
+
+
+await supabaseClient.auth.signOut();
+
+
+location.href="page10.html";
+
+
+return false;
+
+
+}
+
+
+
+const roles=[
+
+"founder",
+"admin"
+
+];
+
+
+
+if(!roles.includes(profile.role)){
+
+
+alert(
+"无权限访问"
+);
+
+
+location.href=
+"wholemanagement.html";
+
+
+return false;
+
+
+}
+
+
+
+currentProfile=profile;
+
+
+
+document.getElementById(
+"currentUser"
+)
+.textContent=
+
+(
+profile.display_name ||
+session.user.email
+)
++
+" · "
++
+profile.role;
+
+
+
+document.body.classList.remove(
+"auth-loading"
+);
+
+
+
+resetTimer();
+
+
+
+return true;
+
+
+}
+
+
+
+
+
+
+/* =====================================================
+   省份
+===================================================== */
 
 
 async function loadProvinces(){
@@ -630,6 +1033,7 @@ const {
 data
 
 }
+
 =
 await supabaseClient
 
@@ -650,7 +1054,7 @@ await supabaseClient
 
 
 
-let box=
+const box =
 document.getElementById(
 "provinceSelect"
 );
@@ -660,16 +1064,18 @@ document.getElementById(
 box.innerHTML="";
 
 
+
 data?.forEach(p=>{
 
 
-let op=
+let op =
 document.createElement(
 "option"
 );
 
 
 op.value=p.id;
+
 
 op.textContent=p.name;
 
@@ -690,23 +1096,26 @@ await loadCities();
 
 
 
-/* ===============================
- 加载城市
-================================ */
+
+
+/* =====================================================
+   已开通服务城市
+===================================================== */
 
 
 async function loadCities(){
 
 
 
-let provinceId=
+const provinceId =
 document.getElementById(
 "provinceSelect"
-).value;
+)
+.value;
 
 
 
-let box=
+const box =
 document.getElementById(
 "citySelect"
 );
@@ -718,52 +1127,108 @@ box.innerHTML=
 
 
 
+/*
+
+只显示已经存在城市价格的城市
+
+city_prices
+        |
+        |
+      cities
+
+*/
+
 
 const {
 
 data
 
 }
+
 =
 await supabaseClient
 
-.from("cities")
+.from("city_prices")
 
-.select(
-"id,city_name"
+.select(`
+
+city_id,
+
+cities(
+
+id,
+
+city_name,
+
+province_id
+
 )
 
-.eq(
-"province_id",
-provinceId
-)
+`)
 
 .eq(
 "status",
 "active"
+)
+
+.eq(
+"cities.province_id",
+provinceId
 );
 
 
 
+
+
+let cityMap={};
+
+
+
+data?.forEach(item=>{
+
+
+if(item.cities){
+
+
+cityMap[item.city_id]=
+item.cities;
+
+
+}
+
+
+});
+
+
+
+
+
 box.innerHTML=
-"<option value=''>请选择城市</option>";
+"<option value=''>请选择已开通城市</option>";
 
 
 
-data?.forEach(c=>{
+
+Object.values(cityMap)
+
+.forEach(city=>{
 
 
-let op=
+let op =
 document.createElement(
 "option"
 );
 
 
-op.value=c.id;
+
+op.value =
+city.id;
 
 
-op.textContent=
-c.city_name;
+
+op.textContent =
+city.city_name;
+
 
 
 box.appendChild(op);
@@ -773,29 +1238,34 @@ box.appendChild(op);
 });
 
 
+
 }
 
 
 
 
 
-/* ===============================
- 加载商户
-================================ */
+
+
+
+/* =====================================================
+   商户
+===================================================== */
 
 
 async function loadMerchants(){
 
 
 
-let cityId=
+const cityId =
 document.getElementById(
 "citySelect"
-).value;
+)
+.value;
 
 
 
-let box=
+const box =
 document.getElementById(
 "merchantSelect"
 );
@@ -803,12 +1273,16 @@ document.getElementById(
 
 
 box.innerHTML=
-"<option>加载中...</option>";
+"<option>请选择商户</option>";
 
 
 
-if(!cityId)
+if(!cityId){
+
 return;
+
+}
+
 
 
 
@@ -817,14 +1291,16 @@ const {
 data
 
 }
+
 =
 await supabaseClient
 
 .from("merchants")
 
-.select(
-"id,merchant_name"
-)
+.select(`
+id,
+merchant_name
+`)
 
 .eq(
 "city_id",
@@ -838,25 +1314,23 @@ cityId
 
 
 
-box.innerHTML=
-"<option value=''>请选择商户</option>";
-
 
 
 data?.forEach(m=>{
 
 
-let op=
+let op =
 document.createElement(
 "option"
 );
 
 
+
 op.value=m.id;
 
 
-op.textContent=
-m.merchant_name;
+op.textContent=m.merchant_name;
+
 
 
 box.appendChild(op);
@@ -872,30 +1346,46 @@ box.appendChild(op);
 
 
 
-/* ===============================
- 加载商户全部产品
-================================ */
+
+
+
+
+/* =====================================================
+   加载商户全部服务项目
+===================================================== */
 
 
 async function loadMerchantProducts(){
 
 
 
-let merchantId=
+const merchantId =
 document.getElementById(
 "merchantSelect"
-).value;
+)
+.value;
 
 
-
-let cityId=
+const cityId =
 document.getElementById(
 "citySelect"
-).value;
+)
+.value;
 
 
 
-let tbody=
+if(
+!merchantId ||
+!cityId
+){
+
+return;
+
+}
+
+
+
+const tbody =
 document.getElementById(
 "productList"
 );
@@ -906,15 +1396,14 @@ tbody.innerHTML=
 "";
 
 
-if(!merchantId)
-return;
 
 
 
 /*
 
 第一步：
-读取城市可销售产品
+
+读取城市已经开通产品
 
 */
 
@@ -924,6 +1413,7 @@ const {
 data:prices
 
 }
+
 =
 await supabaseClient
 
@@ -932,6 +1422,8 @@ await supabaseClient
 .select(`
 
 product_id,
+
+price,
 
 products(
 
@@ -957,24 +1449,12 @@ cityId
 
 
 
-if(!prices || prices.length===0){
-
-
-tbody.innerHTML=
-
-"<tr><td colspan='4'>暂无服务项目</td></tr>";
-
-return;
-
-
-}
-
-
 
 /*
 
 第二步：
-读取已经存在的分账规则
+
+读取已经定义规则
 
 */
 
@@ -984,6 +1464,7 @@ const {
 data:rules
 
 }
+
 =
 await supabaseClient
 
@@ -1005,9 +1486,39 @@ merchantId
 
 
 
+
+if(!prices || prices.length===0){
+
+
+tbody.innerHTML=
+
+`
+
+<tr>
+
+<td colspan="4">
+
+该城市暂无开通服务项目
+
+</td>
+
+</tr>
+
+`;
+
+
+return;
+
+}
+
+
+
+
+
 /*
 
 第三步：
+
 合并显示
 
 */
@@ -1016,18 +1527,17 @@ merchantId
 prices.forEach(item=>{
 
 
+
 let rule =
 rules?.find(
-
 r=>
-
-r.product_id===item.product_id
-
+r.product_id===
+item.product_id
 );
 
 
 
-let tr=
+let tr =
 document.createElement(
 "tr"
 );
@@ -1035,7 +1545,17 @@ document.createElement(
 
 
 
+
 if(rule){
+
+
+/*
+
+已经定义
+
+灰色锁定
+
+*/
 
 
 tr.className=
@@ -1043,18 +1563,22 @@ tr.className=
 
 
 
-tr.innerHTML=`
+tr.innerHTML=
+
+`
 
 <td>
 
-${item.products.product_name}
+${escapeHtml(
+item.products.product_name
+)}
 
 </td>
 
 
 <td>
 
-<span class="badge">
+<span class="badge-active">
 
 已生效
 
@@ -1063,32 +1587,57 @@ ${item.products.product_name}
 </td>
 
 
+
 <td>
 
-平台 ${rule.platform_ratio || 0}%<br>
+平台：
+${rule.platform_ratio||0}%
 
-城市 ${rule.city_manager_ratio || 0}%<br>
+<br>
 
-商户 ${rule.store_ratio || 0}%<br>
+城市：
+${rule.city_manager_ratio||0}%
 
-服务人员 ${rule.operator_ratio || 0}%<br>
+<br>
 
-顾问 ${rule.order_source_ratio || 0}%<br>
+商户：
+${rule.store_ratio||0}%
 
-软件 ${rule.software_service_ratio || 2}%
+<br>
+
+服务人员：
+${rule.operator_ratio||0}%
+
+<br>
+
+顾问：
+${rule.order_source_ratio||0}%
+
+<br>
+
+软件：
+${rule.software_service_ratio||2}%
 
 </td>
 
 
+
 <td>
 
-<button class="lock-btn">
+<button
+
+class="btn-small btn-lock"
+
+disabled
+
+>
 
 已锁定
 
 </button>
 
 </td>
+
 
 `;
 
@@ -1099,24 +1648,39 @@ ${item.products.product_name}
 else{
 
 
-tr.innerHTML=`
+/*
+
+未定义
+
+允许创建
+
+*/
+
+
+tr.innerHTML=
+
+`
 
 <td>
 
-${item.products.product_name}
+${escapeHtml(
+item.products.product_name
+)}
 
 </td>
 
 
+
 <td>
 
-<span class="pending">
+<span class="badge-warning">
 
 未定义
 
 </span>
 
 </td>
+
 
 
 <td>
@@ -1126,16 +1690,20 @@ ${item.products.product_name}
 </td>
 
 
+
 <td>
 
 
 <button
 
-class="set-btn"
+class="btn-small btn-set"
 
-onclick="openRule(${item.product_id},'${item.products.product_name}')
+onclick="openRule(
+${item.product_id},
+'${item.products.product_name}'
+)"
 
-">
+>
 
 设置分账
 
@@ -1144,12 +1712,12 @@ onclick="openRule(${item.product_id},'${item.products.product_name}')
 
 </td>
 
+
 `;
 
 
 
 }
-
 
 
 
@@ -1161,208 +1729,95 @@ tbody.appendChild(tr);
 
 
 
-}
-
-
-
-
-
-/* ===============================
- 打开设置窗口
-================================ */
-
-
-function openRule(
-productId,
-productName
-){
-
-
-
-selectedProductId=
-productId;
-
-
-
-document.getElementById(
-"editTitle"
-).innerHTML=
-
-"设置服务项目："
-+
-productName;
-
-
-
-document.querySelector(
-".edit-box"
-).style.display=
-"block";
-
-
-
-[
-"cityRatio",
-"platformRatio",
-"merchantRatio",
-"workerRatio",
-"advisorRatio"
-
-].forEach(id=>{
-
-
-document.getElementById(id).value=0;
-
-
-});
-
-
-
-calculateTotal();
-
-
-
-window.scrollTo(
-0,
-document.body.scrollHeight
-);
-
-
 
 }
 
 
+  <!-- =====================================================
+     服务项目列表
+===================================================== -->
 
 
+<section class="card">
 
-/* ===============================
- 事件绑定
-================================ */
 
+<div class="card-title">
 
-function bindEvents(){
+该城市已开通服务项目
 
+</div>
 
 
-document.getElementById(
-"provinceSelect"
-)
-.onchange=
-loadCities;
 
+<div class="table-box">
 
 
+<table>
 
-document.getElementById(
-"citySelect"
-)
-.onchange=
-async()=>{
 
+<thead>
 
-await loadMerchants();
+<tr>
 
+<th>
+服务项目
+</th>
 
-};
+<th>
+状态
+</th>
 
+<th>
+当前分账比例
+</th>
 
+<th>
+操作
+</th>
 
+</tr>
 
 
-document.getElementById(
-"merchantSelect"
-)
-.onchange=
-loadMerchantProducts;
+</thead>
 
 
+<tbody id="productList">
 
 
-[
-"cityRatio",
-"platformRatio",
-"merchantRatio",
-"workerRatio",
-"advisorRatio"
+</tbody>
 
-]
-.forEach(id=>{
 
+</table>
 
-document.getElementById(id)
-.oninput=
-calculateTotal;
 
+</div>
 
 
-});
+</section>
 
 
 
-}
 
 
 
+<!-- =====================================================
+     分账设置
+===================================================== -->
 
 
-/* ===============================
-比例计算
-================================ */
+<section
+id="ruleEditor"
+class="card hidden"
+>
 
 
-function calculateTotal(){
-
-
-let total=2;
-
-
-[
-"cityRatio",
-"platformRatio",
-"merchantRatio",
-"workerRatio",
-"advisorRatio"
-
-]
-.forEach(id=>{
-
-
-total +=
-
-Number(
-document.getElementById(id).value||0
-);
-
-
-});
-
-
-
-document.getElementById(
-"totalRatio"
-)
-.innerText=
-total;
-
-
-
-}
-
-
-
-    <!-- ===============================
-     分账规则编辑窗口
-================================ -->
-
-
-<div class="card edit-box">
-
-
-<h3 id="editTitle">
+<div class="card-title"
+id="ruleTitle">
 
 设置分账规则
 
-</h3>
+</div>
+
 
 
 
@@ -1380,15 +1835,10 @@ total;
 
 
 <input
-
 id="cityRatio"
-
 type="number"
-
 value="0"
-
 min="0"
-
 >
 
 
@@ -1399,7 +1849,6 @@ min="0"
 
 
 <div class="rule-item">
-
 
 <span>
 
@@ -1409,15 +1858,10 @@ min="0"
 
 
 <input
-
 id="softwareRatio"
-
 type="number"
-
 value="2"
-
 readonly
-
 >
 
 
@@ -1428,7 +1872,6 @@ readonly
 
 
 <div class="rule-item">
-
 
 <span>
 
@@ -1438,15 +1881,10 @@ readonly
 
 
 <input
-
 id="platformRatio"
-
 type="number"
-
 value="0"
-
 min="0"
-
 >
 
 
@@ -1458,7 +1896,6 @@ min="0"
 
 
 <div class="rule-item">
-
 
 <span>
 
@@ -1468,15 +1905,10 @@ min="0"
 
 
 <input
-
 id="merchantRatio"
-
 type="number"
-
 value="0"
-
 min="0"
-
 >
 
 
@@ -1486,9 +1918,7 @@ min="0"
 
 
 
-
 <div class="rule-item">
-
 
 <span>
 
@@ -1498,15 +1928,10 @@ min="0"
 
 
 <input
-
 id="workerRatio"
-
 type="number"
-
 value="0"
-
 min="0"
-
 >
 
 
@@ -1516,9 +1941,7 @@ min="0"
 
 
 
-
 <div class="rule-item">
-
 
 <span>
 
@@ -1528,30 +1951,22 @@ min="0"
 
 
 <input
-
 id="advisorRatio"
-
 type="number"
-
 value="0"
-
 min="0"
-
 >
 
 
 </div>
 
 
-
 </div>
 
 
 
 
-
-<div class="total">
-
+<div class="total-box">
 
 当前比例合计：
 
@@ -1568,9 +1983,12 @@ min="0"
 
 
 
+<div class="save-area">
+
+
 <button
 
-class="save-btn"
+class="btn btn-primary"
 
 onclick="saveRule()"
 
@@ -1581,15 +1999,20 @@ onclick="saveRule()"
 </button>
 
 
-
 </div>
 
 
+</section>
 
+
+
+
+
+
+<div id="messageBox">
 
 
 </div>
-
 
 
 
@@ -1597,9 +2020,268 @@ onclick="saveRule()"
 
 
 
-/* ===============================
- 保存分账规则
-================================ */
+
+/* =====================================================
+   事件绑定
+===================================================== */
+
+
+function bindEvents(){
+
+
+
+document
+
+.getElementById(
+"provinceSelect"
+)
+
+.onchange =
+async()=>{
+
+
+await loadCities();
+
+
+};
+
+
+
+
+
+document
+
+.getElementById(
+"citySelect"
+)
+
+.onchange =
+async()=>{
+
+
+await loadMerchants();
+
+
+};
+
+
+
+
+
+document
+
+.getElementById(
+"merchantSelect"
+)
+
+.onchange =
+async()=>{
+
+
+await loadMerchantProducts();
+
+
+};
+
+
+
+
+
+
+
+[
+"cityRatio",
+"platformRatio",
+"merchantRatio",
+"workerRatio",
+"advisorRatio"
+
+]
+
+.forEach(id=>{
+
+
+document
+
+.getElementById(id)
+
+.oninput =
+calculateTotal;
+
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+
+/* =====================================================
+   打开规则编辑
+===================================================== */
+
+
+function openRule(
+productId,
+productName
+){
+
+
+selectedProductId =
+productId;
+
+
+
+document
+
+.getElementById(
+"ruleEditor"
+)
+
+.classList
+
+.remove(
+"hidden"
+);
+
+
+
+document
+
+.getElementById(
+"ruleTitle"
+)
+
+.innerHTML =
+
+"设置服务项目：" +
+escapeHtml(
+productName
+);
+
+
+
+
+[
+"cityRatio",
+"platformRatio",
+"merchantRatio",
+"workerRatio",
+"advisorRatio"
+
+]
+
+.forEach(id=>{
+
+
+document
+
+.getElementById(id)
+
+.value=0;
+
+
+
+});
+
+
+
+calculateTotal();
+
+
+
+window.scrollTo({
+
+top:
+document.body.scrollHeight,
+
+behavior:"smooth"
+
+});
+
+
+}
+
+
+
+
+
+
+
+/* =====================================================
+   比例计算
+===================================================== */
+
+
+function calculateTotal(){
+
+
+let total = 2;
+
+
+
+[
+
+"cityRatio",
+
+"platformRatio",
+
+"merchantRatio",
+
+"workerRatio",
+
+"advisorRatio"
+
+]
+
+.forEach(id=>{
+
+
+total += Number(
+
+document
+
+.getElementById(id)
+
+.value || 0
+
+);
+
+
+});
+
+
+
+
+document
+
+.getElementById(
+"totalRatio"
+)
+
+.innerText =
+total;
+
+
+
+}
+
+
+
+
+
+
+
+
+/* =====================================================
+   保存规则
+===================================================== */
 
 
 async function saveRule(){
@@ -1609,24 +2291,26 @@ async function saveRule(){
 if(!selectedProductId){
 
 
-alert(
+showMessage(
 "请选择服务项目"
 );
 
-
 return;
-
 
 }
 
 
 
 
-let merchantId=
+const merchantId =
 
-document.getElementById(
+document
+
+.getElementById(
 "merchantSelect"
-).value;
+)
+
+.value;
 
 
 
@@ -1634,13 +2318,12 @@ document.getElementById(
 if(!merchantId){
 
 
-alert(
+showMessage(
 "请选择商户"
 );
 
 
 return;
-
 
 }
 
@@ -1648,13 +2331,17 @@ return;
 
 
 
-let total=
+const total =
 
 Number(
 
-document.getElementById(
+document
+
+.getElementById(
 "totalRatio"
-).innerText
+)
+
+.innerText
 
 );
 
@@ -1665,7 +2352,7 @@ document.getElementById(
 if(total!==100){
 
 
-alert(
+showMessage(
 "六方比例必须等于100%"
 );
 
@@ -1680,134 +2367,18 @@ return;
 
 
 
-
-let ruleData={
-
-
-
-merchant_id:
-
-merchantId,
-
-
-
-product_id:
-
-selectedProductId,
-
-
-
-rule_type:
-
-"standard",
-
-
-
-
-
-city_manager_ratio:
-
-Number(
-document.getElementById(
-"cityRatio"
-).value||0
-),
-
-
-
-
-platform_ratio:
-
-Number(
-document.getElementById(
-"platformRatio"
-).value||0
-),
-
-
-
-
-
-store_ratio:
-
-Number(
-document.getElementById(
-"merchantRatio"
-).value||0
-),
-
-
-
-
-
-operator_ratio:
-
-Number(
-document.getElementById(
-"workerRatio"
-).value||0
-),
-
-
-
-
-order_source_ratio:
-
-Number(
-document.getElementById(
-"advisorRatio"
-).value||0
-),
-
-
-
-
-software_service_ratio:
-
-2,
-
-
-
-status:
-
-"active",
-
-
-
-version_no:
-
-1,
-
-
-
-created_by:
-
-currentUser.id
-
-
-
-};
-
-
-
-
-
-
-
 /*
 
-检查是否已经存在
+二次检查：
 
-理论上前端已经过滤
-
-这里再次保护
+防止重复创建
 
 */
 
 
 const {
 
-data:exist
+data:exists
 
 }
 
@@ -1843,11 +2414,17 @@ selectedProductId
 
 
 
-if(exist && exist.length){
+
+if(
+exists &&
+exists.length
+){
 
 
-alert(
-"该项目已经存在有效规则，不能重复创建"
+showMessage(
+
+"该项目已经存在有效规则"
+
 );
 
 
@@ -1855,6 +2432,96 @@ return;
 
 
 }
+
+
+
+
+
+
+
+const insertData={
+
+
+
+merchant_id:
+merchantId,
+
+
+
+product_id:
+selectedProductId,
+
+
+
+rule_type:
+"standard",
+
+
+
+city_manager_ratio:
+
+Number(
+cityRatio.value || 0
+),
+
+
+
+platform_ratio:
+
+Number(
+platformRatio.value || 0
+),
+
+
+
+store_ratio:
+
+Number(
+merchantRatio.value || 0
+),
+
+
+
+operator_ratio:
+
+Number(
+workerRatio.value || 0
+),
+
+
+
+order_source_ratio:
+
+Number(
+advisorRatio.value || 0
+),
+
+
+
+software_service_ratio:
+
+2,
+
+
+
+status:
+
+"active",
+
+
+
+version_no:
+
+1,
+
+
+
+created_by:
+
+currentSession.user.id
+
+
+};
 
 
 
@@ -1878,7 +2545,7 @@ await supabaseClient
 )
 
 .insert(
-ruleData
+insertData
 );
 
 
@@ -1890,10 +2557,14 @@ ruleData
 if(error){
 
 
-alert(
-"保存失败："
-+
+console.error(error);
+
+
+showMessage(
+
+"保存失败："+
 error.message
+
 );
 
 
@@ -1906,25 +2577,32 @@ return;
 
 
 
-alert(
+showMessage(
+
 "分账规则保存成功"
+
+);
+
+
+
+
+document
+
+.getElementById(
+"ruleEditor"
+)
+
+.classList
+
+.add(
+"hidden"
 );
 
 
 
 
 
-document.querySelector(
-".edit-box"
-).style.display=
-"none";
-
-
-
-
-
 await loadMerchantProducts();
-
 
 
 
@@ -1936,9 +2614,9 @@ await loadMerchantProducts();
 
 
 
-/* ===============================
- 返回
-================================ */
+/* =====================================================
+   返回
+===================================================== */
 
 
 function goBack(){
@@ -1954,9 +2632,9 @@ location.href=
 
 
 
-/* ===============================
-退出
-================================ */
+/* =====================================================
+   退出
+===================================================== */
 
 
 async function logout(){
@@ -1965,17 +2643,236 @@ async function logout(){
 await supabaseClient.auth.signOut();
 
 
-
 location.href=
-"login.html";
+"page10.html";
 
 
 }
 
 
 
-</script>
 
+
+
+/* =====================================================
+   消息
+===================================================== */
+
+
+function showMessage(msg){
+
+
+
+const box =
+document.getElementById(
+"messageBox"
+);
+
+
+
+box.innerText =
+msg;
+
+
+
+box.style.display =
+"block";
+
+
+
+box.style.position =
+"fixed";
+
+
+
+box.style.bottom =
+"30px";
+
+
+
+box.style.left =
+"50%";
+
+
+
+box.style.transform =
+"translateX(-50%)";
+
+
+
+box.style.background =
+"#2563eb";
+
+
+
+box.style.color =
+"white";
+
+
+
+box.style.padding =
+"12px 25px";
+
+
+
+box.style.borderRadius =
+"8px";
+
+
+
+
+setTimeout(()=>{
+
+
+box.style.display =
+"none";
+
+
+},3000);
+
+
+}
+
+
+
+
+
+
+
+/* =====================================================
+   HTML安全
+===================================================== */
+
+
+function escapeHtml(value){
+
+
+if(
+value===null ||
+value===undefined
+){
+
+return "";
+
+}
+
+
+return String(value)
+
+.replaceAll(
+"&",
+"&amp;"
+)
+
+.replaceAll(
+"<",
+"&lt;"
+)
+
+.replaceAll(
+">",
+"&gt;"
+)
+
+.replaceAll(
+'"',
+"&quot;"
+)
+
+.replaceAll(
+"'",
+"&#039;"
+);
+
+
+}
+
+
+
+
+
+
+
+/* =====================================================
+   10分钟退出
+===================================================== */
+
+
+let timer=null;
+
+
+function resetTimer(){
+
+
+
+clearTimeout(timer);
+
+
+
+timer=setTimeout(
+async()=>{
+
+
+await supabaseClient.auth.signOut();
+
+
+alert(
+"登录超时，请重新登录"
+);
+
+
+location.href=
+"page10.html";
+
+
+
+},
+10*60*1000
+);
+
+
+
+}
+
+
+
+[
+
+"click",
+
+"mousemove",
+
+"keydown",
+
+"scroll",
+
+"touchstart"
+
+]
+
+.forEach(event=>{
+
+
+document.addEventListener(
+
+event,
+
+resetTimer,
+
+{
+passive:true
+}
+
+);
+
+
+});
+
+
+
+
+
+</script>
 
 
 </body>

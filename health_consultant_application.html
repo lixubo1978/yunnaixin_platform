@@ -184,9 +184,16 @@ input::placeholder{color:#b4b4b4}
 </main>
 
 <script>
-const SUPABASE_URL="https://icmifhjihgjrhkunjbmu.supabase.co";
-const SUPABASE_ANON_KEY="sb_publishable_PR-D5FTznDtffymRmANXqQ_a5qYXrI4";
-const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+const SUPABASE_URL="https://qbuqjwpkltbjhlfbyjyb.supabase.co";
+const SUPABASE_ANON_KEY="sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{
+auth:{
+persistSession:true,
+autoRefreshToken:true,
+detectSessionInUrl:true
+}
+});
+
 const STORAGE_BUCKET="health-consultant-applications";
 let compressedIdCardFile=null;
 let currentPreviewUrl="";
@@ -204,65 +211,110 @@ document.getElementById("idCardFile").addEventListener("change",imageChanged);
 async function loadActiveServiceCities(){
 const select=document.getElementById("serviceCitySelect");
 const serviceAreaInput=document.getElementById("serviceAreaId");
+
 select.disabled=true;
 select.innerHTML='<option value="">正在读取已开通业务的城市...</option>';
 serviceAreaInput.value="";
 hideMessage();
 
 try{
-const {data:areas,error:areaError}=await db
+const [areaRes,cityRes,provinceRes]=await Promise.all([
+db
 .from("service_areas")
-.select("id,city_id,status")
+.select("id,area_no,province_id,city_id,district_id,status")
 .eq("status","active")
-.order("id",{ascending:true});
+.is("district_id",null)
+.order("area_no",{ascending:true}),
 
-if(areaError)throw areaError;
+db
+.from("cities")
+.select("id,province_id,city_code,city_name,status")
+.eq("status","active")
+.order("city_code",{ascending:true}),
 
-if(!areas||areas.length===0){
+db
+.from("provinces")
+.select("id,province_code,province_name,status")
+.eq("status","active")
+.order("province_code",{ascending:true})
+]);
+
+if(areaRes.error){
+throw new Error("服务区域读取失败："+areaRes.error.message);
+}
+
+if(cityRes.error){
+throw new Error("城市读取失败："+cityRes.error.message);
+}
+
+if(provinceRes.error){
+throw new Error("省份读取失败："+provinceRes.error.message);
+}
+
+const areas=areaRes.data||[];
+const cities=cityRes.data||[];
+const provinces=provinceRes.data||[];
+
+if(areas.length===0){
 select.innerHTML='<option value="">暂无已开通服务城市</option>';
 showError("平台目前没有已开通业务的城市。");
 return;
 }
 
-const cityIds=[...new Set(areas.map(area=>area.city_id).filter(cityId=>cityId!==null&&cityId!==undefined))];
-
-if(cityIds.length===0){
-select.innerHTML='<option value="">服务区域尚未关联城市</option>';
-showError("已开通的服务区域尚未关联城市，请联系平台管理员检查城市设置。");
-return;
-}
-
-const {data:cities,error:cityError}=await db
-.from("cities")
-.select("id,city_name,province_id")
-.in("id",cityIds);
-
-if(cityError)throw cityError;
-
 const cityMap=new Map();
-(cities||[]).forEach(city=>{
+const provinceMap=new Map();
+
+cities.forEach(city=>{
 cityMap.set(String(city.id),city);
+});
+
+provinces.forEach(province=>{
+provinceMap.set(String(province.id),province);
 });
 
 const availableAreas=areas
 .map(area=>{
 const city=cityMap.get(String(area.city_id));
-return city?{serviceAreaId:area.id,cityId:area.city_id,cityName:city.city_name||"未命名城市"}:null;
+const province=provinceMap.get(String(area.province_id));
+
+if(!city){
+return null;
+}
+
+return{
+serviceAreaId:area.id,
+cityId:area.city_id,
+areaNo:area.area_no,
+cityName:city.city_name||"未命名城市",
+provinceName:province?.province_name||""
+};
 })
 .filter(Boolean)
-.sort((a,b)=>String(a.cityName).localeCompare(String(b.cityName),"zh-CN"));
+.sort((a,b)=>Number(a.areaNo||0)-Number(b.areaNo||0));
 
 select.innerHTML='<option value="">请选择服务城市</option>';
 
 const addedServiceAreas=new Set();
+
 availableAreas.forEach(item=>{
 const serviceAreaKey=String(item.serviceAreaId);
-if(addedServiceAreas.has(serviceAreaKey))return;
+
+if(addedServiceAreas.has(serviceAreaKey)){
+return;
+}
+
 addedServiceAreas.add(serviceAreaKey);
+
 const option=document.createElement("option");
+const areaNo=item.areaNo?String(item.areaNo).padStart(3,"0"):"";
+
 option.value=serviceAreaKey;
 option.dataset.cityId=String(item.cityId);
-option.textContent=item.cityName;
+option.textContent=
+(areaNo?areaNo+" | ":"")+
+(item.provinceName?item.provinceName+" · ":"")+
+item.cityName;
+
 select.appendChild(option);
 });
 
@@ -285,11 +337,15 @@ showError("服务城市读取失败："+formatSupabaseError(error));
 function serviceCityChanged(){
 const selectedServiceAreaId=String(this.value||"").trim();
 document.getElementById("serviceAreaId").value=selectedServiceAreaId;
-if(selectedServiceAreaId)hideMessage();
+
+if(selectedServiceAreaId){
+hideMessage();
+}
 }
 
 async function imageChanged(event){
 const file=event.target.files?.[0];
+
 if(!file){
 compressedIdCardFile=null;
 hideImagePreview();
@@ -306,12 +362,18 @@ return;
 
 try{
 compressedIdCardFile=await compressImage(file);
-if(currentPreviewUrl)URL.revokeObjectURL(currentPreviewUrl);
+
+if(currentPreviewUrl){
+URL.revokeObjectURL(currentPreviewUrl);
+}
+
 currentPreviewUrl=URL.createObjectURL(compressedIdCardFile);
 document.getElementById("previewImage").src=currentPreviewUrl;
 document.getElementById("previewArea").style.display="block";
+
 const kb=Math.round(compressedIdCardFile.size/1024);
 document.getElementById("imageStatus").textContent=`身份证照片已准备完成 · ${kb} KB`;
+
 hideMessage();
 }catch(error){
 console.error(error);
@@ -325,6 +387,7 @@ showError("身份证图片处理失败，请重新选择照片。");
 function hideImagePreview(){
 document.getElementById("previewArea").style.display="none";
 document.getElementById("previewImage").removeAttribute("src");
+
 if(currentPreviewUrl){
 URL.revokeObjectURL(currentPreviewUrl);
 currentPreviewUrl="";
@@ -334,36 +397,57 @@ currentPreviewUrl="";
 function compressImage(file){
 return new Promise((resolve,reject)=>{
 const reader=new FileReader();
+
 reader.onload=e=>{
 const image=new Image();
+
 image.onload=()=>{
 const MAX_WIDTH=1600;
 const MAX_HEIGHT=1600;
+
 let width=image.width;
 let height=image.height;
-const scale=Math.min(1,MAX_WIDTH/width,MAX_HEIGHT/height);
+
+const scale=Math.min(
+1,
+MAX_WIDTH/width,
+MAX_HEIGHT/height
+);
+
 width=Math.round(width*scale);
 height=Math.round(height*scale);
+
 const canvas=document.createElement("canvas");
 canvas.width=width;
 canvas.height=height;
+
 const ctx=canvas.getContext("2d");
+
 if(!ctx){
 reject(new Error("浏览器不支持图片处理"));
 return;
 }
+
 ctx.drawImage(image,0,0,width,height);
+
 canvas.toBlob(blob=>{
 if(!blob){
 reject(new Error("图片压缩失败"));
 return;
 }
-resolve(new File([blob],"id-card-front.webp",{type:"image/webp"}));
+
+resolve(new File(
+[blob],
+"id-card-front.webp",
+{type:"image/webp"}
+));
 },"image/webp",.82);
 };
+
 image.onerror=()=>reject(new Error("图片读取失败"));
 image.src=e.target.result;
 };
+
 reader.onerror=()=>reject(new Error("文件读取失败"));
 reader.readAsDataURL(file);
 });
@@ -371,51 +455,103 @@ reader.readAsDataURL(file);
 
 function validateForm(){
 const serviceAreaId=getValue("serviceAreaId");
-if(!serviceAreaId)throw new Error("请选择服务城市。");
-if(!getValue("applicantName"))throw new Error("请填写申请人姓名。");
-if(!getValue("phone"))throw new Error("请填写手机号码。");
-if(!/^1\d{10}$/.test(getValue("phone")))throw new Error("请输入正确的11位手机号码。");
-if(!getValue("idCardNumber"))throw new Error("请填写身份证号码。");
-if(!compressedIdCardFile)throw new Error("请上传身份证正面照片。");
-if(!getValue("businessName"))throw new Error("请填写个体工商户名称。");
-if(!getValue("taxNo"))throw new Error("请填写税号。");
-if(!getValue("bankName"))throw new Error("请填写开户银行。");
-if(!getValue("bankAccount"))throw new Error("请填写银行账号。");
-if(!document.getElementById("agreement").checked)throw new Error("请确认所填写的申请资料真实有效。");
+
+if(!serviceAreaId){
+throw new Error("请选择服务城市。");
+}
+
+if(!getValue("applicantName")){
+throw new Error("请填写申请人姓名。");
+}
+
+if(!getValue("phone")){
+throw new Error("请填写手机号码。");
+}
+
+if(!/^1\d{10}$/.test(getValue("phone"))){
+throw new Error("请输入正确的11位手机号码。");
+}
+
+if(!getValue("idCardNumber")){
+throw new Error("请填写身份证号码。");
+}
+
+if(!compressedIdCardFile){
+throw new Error("请上传身份证正面照片。");
+}
+
+if(!getValue("businessName")){
+throw new Error("请填写个体工商户名称。");
+}
+
+if(!getValue("taxNo")){
+throw new Error("请填写税号。");
+}
+
+if(!getValue("bankName")){
+throw new Error("请填写开户银行。");
+}
+
+if(!getValue("bankAccount")){
+throw new Error("请填写银行账号。");
+}
+
+if(!document.getElementById("agreement").checked){
+throw new Error("请确认所填写的申请资料真实有效。");
+}
 }
 
 async function uploadIdCardImage(){
 const now=new Date();
 const year=now.getFullYear();
 const month=String(now.getMonth()+1).padStart(2,"0");
-const randomName=window.crypto&&typeof window.crypto.randomUUID==="function"
+
+const randomName=
+window.crypto&&typeof window.crypto.randomUUID==="function"
 ?window.crypto.randomUUID()
 :`${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
 const filePath=`applications/${year}/${month}/${randomName}.webp`;
 
-const {error}=await db.storage
+const {error}=await db
+.storage
 .from(STORAGE_BUCKET)
-.upload(filePath,compressedIdCardFile,{
+.upload(
+filePath,
+compressedIdCardFile,
+{
 contentType:"image/webp",
 cacheControl:"3600",
 upsert:false
-});
+}
+);
 
-if(error)throw new Error("身份证照片上传失败："+formatSupabaseError(error));
+if(error){
+throw new Error("身份证照片上传失败："+formatSupabaseError(error));
+}
+
 return filePath;
 }
 
 async function submitApplication(){
 const button=document.getElementById("submitButton");
-if(button.disabled)return;
+
+if(button.disabled){
+return;
+}
+
 hideMessage();
 
 let uploadedPath="";
+
 try{
 validateForm();
+
 button.disabled=true;
 button.textContent="正在上传身份证照片...";
+
 uploadedPath=await uploadIdCardImage();
+
 button.textContent="正在提交申请...";
 
 const applicationData={
@@ -435,18 +571,33 @@ const {error}=await db
 .from("health_consultant_applications")
 .insert(applicationData);
 
-if(error)throw new Error("申请资料提交失败："+formatSupabaseError(error));
+if(error){
+throw new Error("申请资料提交失败："+formatSupabaseError(error));
+}
 
 document.getElementById("applicationPage").style.display="none";
 document.getElementById("successPage").style.display="block";
-window.scrollTo({top:0,behavior:"smooth"});
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
 }catch(error){
 console.error(error);
+
 if(uploadedPath){
-const {error:removeError}=await db.storage.from(STORAGE_BUCKET).remove([uploadedPath]);
-if(removeError)console.error("清理未提交的身份证图片失败：",removeError);
+const {error:removeError}=await db
+.storage
+.from(STORAGE_BUCKET)
+.remove([uploadedPath]);
+
+if(removeError){
+console.error("清理未提交的身份证图片失败：",removeError);
 }
+}
+
 showError(error.message||"申请提交失败，请重新尝试。");
+
 button.disabled=false;
 button.textContent="提交申请";
 }
@@ -458,8 +609,14 @@ return element?String(element.value||"").trim():"";
 }
 
 function formatSupabaseError(error){
-if(!error)return"未知错误";
-return error.message||error.details||error.hint||String(error);
+if(!error){
+return "未知错误";
+}
+
+return error.message||
+error.details||
+error.hint||
+String(error);
 }
 
 function showError(text){
@@ -467,7 +624,11 @@ const box=document.getElementById("messageBox");
 box.className="message message-error";
 box.textContent=text;
 box.style.display="block";
-window.scrollTo({top:0,behavior:"smooth"});
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
 }
 
 function hideMessage(){

@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>商户分成规则管理 - 孕乃馨平台</title>
+<title>商户分账规则管理</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
 *{
-box-sizing:border-box
+box-sizing:border-box;
 }
 
 body{
 margin:0;
-background:#fffafb;
-color:#382a30;
+background:#fff8fb;
 font-family:
 -apple-system,
 BlinkMacSystemFont,
@@ -25,44 +25,21 @@ BlinkMacSystemFont,
 "PingFang SC",
 "Microsoft YaHei",
 sans-serif;
+color:#382a30;
 }
 
 
 header{
 
 height:72px;
-background:#fff;
-border-bottom:1px solid #eee3e7;
+background:white;
+border-bottom:1px solid #eee;
 
 display:flex;
-align-items:center;
 justify-content:space-between;
+align-items:center;
 
 padding:0 30px;
-
-}
-
-
-.logo{
-
-width:38px;
-height:38px;
-
-border-radius:50%;
-
-background:linear-gradient(
-145deg,
-#ff91ad,
-#ff668d
-);
-
-color:white;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-font-size:20px;
 
 }
 
@@ -70,64 +47,88 @@ font-size:20px;
 .brand{
 
 display:flex;
-gap:12px;
 align-items:center;
+gap:12px;
+
+}
+
+
+.logo{
+
+width:40px;
+height:40px;
+
+border-radius:50%;
+
+background:#ff7198;
+
+color:white;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:22px;
 
 }
 
 
 .brand h1{
 
-font-size:18px;
 margin:0;
-color:#8c3d58;
+
+font-size:18px;
+
+color:#7b3450;
 
 }
 
 
 .brand small{
 
-font-size:11px;
 color:#aaa;
+
+font-size:11px;
 
 }
 
 
-.btn{
+button{
 
-border:1px solid #eee3e7;
-
-background:white;
+border:0;
 
 border-radius:10px;
 
-padding:10px 16px;
+padding:10px 18px;
 
 cursor:pointer;
 
 }
 
 
+
 .btn-primary{
 
 background:#e64f7c;
+
 color:white;
-border-color:#e64f7c;
 
 }
 
 
-.btn-danger{
+.btn{
 
-background:#fff3f5;
-color:#dc4c64;
+background:white;
+
+border:1px solid #eee;
 
 }
+
 
 
 main{
 
-max-width:1250px;
+max-width:1200px;
 
 margin:25px auto;
 
@@ -137,93 +138,41 @@ padding:0 20px;
 
 
 
-.hero{
+.banner{
 
 background:
 linear-gradient(
 110deg,
 #fff0f5,
-#ffdce8
+#ffe0ea
 );
 
 border-radius:20px;
 
-padding:28px;
+padding:25px;
 
-margin-bottom:18px;
+margin-bottom:20px;
 
 }
 
 
-.hero h2{
+
+.banner h2{
 
 margin:0 0 10px;
 
-color:#75354c;
+color:#73334d;
 
 }
 
 
-.hero p{
+.banner p{
 
-color:#986879;
+margin:0;
 
 font-size:13px;
 
-line-height:1.8;
-
-}
-
-
-
-.stats{
-
-display:grid;
-
-grid-template-columns:
-repeat(4,1fr);
-
-gap:12px;
-
-margin-bottom:18px;
-
-}
-
-
-
-.stat{
-
-background:white;
-
-border:1px solid #eee3e7;
-
-border-radius:15px;
-
-padding:18px;
-
-}
-
-
-
-.stat-label{
-
-font-size:12px;
-
-color:#aaa;
-
-}
-
-
-
-.stat-value{
-
-font-size:24px;
-
-font-weight:800;
-
-color:#713148;
-
-margin-top:8px;
+color:#9b6879;
 
 }
 
@@ -233,9 +182,9 @@ margin-top:8px;
 
 background:white;
 
-border:1px solid #eee3e7;
-
 border-radius:16px;
+
+border:1px solid #eee;
 
 margin-bottom:18px;
 
@@ -243,30 +192,44 @@ margin-bottom:18px;
 
 
 
-.panel-head{
+.panel-title{
 
-padding:18px 20px;
+padding:16px 20px;
 
-border-bottom:1px solid #eee3e7;
+font-weight:bold;
 
-font-weight:800;
+border-bottom:1px solid #eee;
 
-color:#653146;
+color:#713148;
 
 }
 
 
 
-.filter{
+.form{
+
+padding:20px;
 
 display:grid;
 
 grid-template-columns:
 repeat(3,1fr);
 
-gap:12px;
+gap:15px;
 
-padding:20px;
+}
+
+
+
+label{
+
+display:block;
+
+font-size:12px;
+
+color:#999;
+
+margin-bottom:6px;
 
 }
 
@@ -275,72 +238,96 @@ padding:20px;
 select,
 input{
 
+width:100%;
+
 height:42px;
 
-border:1px solid #eee3e7;
+border:1px solid #ddd;
 
 border-radius:10px;
 
 padding:0 12px;
 
-width:100%;
+background:white;
 
 }
 
 
 
-.create-box{
+.split-box{
 
 padding:20px;
 
-background:#fff8fa;
-
-border-top:1px solid #eee3e7;
-
 }
 
 
 
-.rule-grid{
+.split-grid{
 
 display:grid;
 
 grid-template-columns:
-repeat(5,1fr);
+repeat(3,1fr);
 
-gap:10px;
-
-}
-
-
-.rule-grid label{
-
-font-size:11px;
-
-color:#999;
+gap:15px;
 
 }
 
 
-.percent{
 
-position:relative;
+.split-item{
+
+background:#fff8fa;
+
+border-radius:12px;
+
+padding:15px;
+
+border:1px solid #f3dce4;
+
+}
+
+
+
+.split-item input{
+
+background:white;
 
 }
 
 
-.percent span{
 
-position:absolute;
+.fixed{
 
-right:12px;
+color:#e64f7c;
 
-top:12px;
-
-color:#999;
+font-weight:bold;
 
 }
 
+
+
+.total{
+
+margin-top:20px;
+
+padding:15px;
+
+background:#fff4f7;
+
+border-radius:12px;
+
+font-weight:bold;
+
+}
+
+
+
+.table-wrap{
+
+overflow:auto;
+
+}
 
 
 table{
@@ -349,49 +336,46 @@ width:100%;
 
 border-collapse:collapse;
 
-min-width:1100px;
+min-width:1000px;
 
 }
 
 
 th{
 
-background:#fffafb;
-
-color:#98878e;
+background:#fff8fb;
 
 font-size:12px;
 
-padding:13px;
+color:#999;
+
+padding:12px;
 
 text-align:left;
 
 }
 
 
+
 td{
 
-padding:14px;
+padding:12px;
 
-border-bottom:1px solid #f2eaed;
+border-bottom:1px solid #eee;
 
 font-size:13px;
 
 }
 
 
-.badge{
+
+.status{
 
 padding:5px 10px;
 
 border-radius:20px;
 
 font-size:11px;
-
-}
-
-
-.active{
 
 background:#eaf8f1;
 
@@ -400,123 +384,18 @@ color:#2e9d68;
 }
 
 
-.history{
-
-background:#f3f1f2;
-
-color:#888;
-
-}
-
-
-.modal{
-
-display:none;
-
-position:fixed;
-
-inset:0;
-
-background:rgba(0,0,0,.35);
-
-align-items:center;
-
-justify-content:center;
-
-z-index:100;
-
-}
-
-
-.modal.show{
-
-display:flex;
-
-}
-
-
-.modal-box{
-
-background:white;
-
-width:520px;
-
-border-radius:18px;
-
-padding:25px;
-
-}
-
-
-
-.modal-title{
-
-font-size:18px;
-
-font-weight:bold;
-
-margin-bottom:20px;
-
-color:#70354a;
-
-}
-
-
-
-.row{
-
-margin-bottom:15px;
-
-}
-
-
-
-.row label{
-
-font-size:12px;
-
-color:#888;
-
-display:block;
-
-margin-bottom:6px;
-
-}
-
-
-
-.actions{
-
-display:flex;
-
-gap:8px;
-
-}
-
 
 @media(max-width:800px){
 
-.stats{
-
-grid-template-columns:1fr 1fr;
-
-}
-
-
-.filter{
+.form,
+.split-grid{
 
 grid-template-columns:1fr;
 
 }
 
-
-.rule-grid{
-
-grid-template-columns:1fr 1fr;
-
 }
 
-}
 
 </style>
 
@@ -531,13 +410,19 @@ grid-template-columns:1fr 1fr;
 
 <div class="brand">
 
-<div class="logo">♡</div>
+<div class="logo">
+♡
+</div>
 
 <div>
 
-<h1>商户分成规则管理</h1>
+<h1>
+商户分账规则管理
+</h1>
 
-<small>孕乃馨平台</small>
+<small>
+六方分账配置中心
+</small>
 
 </div>
 
@@ -546,11 +431,14 @@ grid-template-columns:1fr 1fr;
 
 <div>
 
-<button class="btn" onclick="goBack()">
-返回工作台
+<button class="btn"
+onclick="goBack()">
+返回
 </button>
 
-<button class="btn btn-primary" onclick="logout()">
+
+<button class="btn-primary"
+onclick="logout()">
 退出
 </button>
 
@@ -564,280 +452,332 @@ grid-template-columns:1fr 1fr;
 <main>
 
 
-<section class="hero">
+<div class="banner">
 
 <h2>
-商户经营分成规则
+产品级分账规则定义
 </h2>
 
 <p>
-只保存真实经营项目。
-管理员选择城市、商户和服务项目后，人工定义分成比例。
-系统不会自动生成占位规则。
+每个城市、每个商户、每个服务项目独立定义。
+软件服务商固定2%，其他分账比例人工配置。
 </p>
 
-</section>
-
-
-
-<section class="stats">
-
-
-<div class="stat">
-<div class="stat-label">
-有效规则
-</div>
-
-<div class="stat-value" id="activeCount">
-0
-</div>
 
 </div>
 
 
-<div class="stat">
-<div class="stat-label">
-历史规则
-</div>
 
-<div class="stat-value" id="historyCount">
-0
-</div>
+<div class="panel">
 
+
+<div class="panel-title">
+选择经营对象
 </div>
 
 
-<div class="stat">
-<div class="stat-label">
-商户数量
-</div>
 
-<div class="stat-value" id="merchantCount">
-0
-</div>
-
-</div>
-
-
-<div class="stat">
-<div class="stat-label">
-服务项目
-</div>
-
-<div class="stat-value" id="productCount">
-0
-</div>
-
-</div>
-
-
-</section>
-
-
-<section class="panel">
-
-<div class="panel-head">
-
-查询规则
-
-</div>
-
-
-<div class="filter">
-
-
-<select id="cityFilter">
-
-<option value="">
-选择城市
-</option>
-
-</select>
-
-
-
-<select id="merchantFilter">
-
-<option value="">
-选择商户
-</option>
-
-</select>
-
-
-
-<select id="productFilter">
-
-<option value="">
-选择服务项目
-</option>
-
-</select>
-
-
-</div>
-
-
-</section>
-
-
-
-<section class="panel">
-
-
-<div class="panel-head">
-
-创建新的分成规则
-
-</div>
-
-
-<div class="create-box">
-
-
-<div class="filter">
-
-
-<select id="createCity">
-
-<option>
-选择城市
-</option>
-
-</select>
-
-
-<select id="createMerchant">
-
-<option>
-选择商户
-</option>
-
-</select>
-
-
-<select id="createProduct">
-
-<option>
-选择服务项目
-</option>
-
-</select>
-
-
-</div>
-
-
-<div class="rule-grid">
+<div class="form">
 
 
 <div>
+
 <label>
-城市负责人
+省份
 </label>
-<div class="percent">
-<input id="cityRatio" type="number">
-<span>%</span>
+
+<select id="provinceSelect">
+
+<option>
+加载中...
+</option>
+
+</select>
+
+
 </div>
-</div>
+
 
 
 <div>
+
 <label>
-平台
+城市
 </label>
-<div class="percent">
-<input id="platformRatio" type="number">
-<span>%</span>
+
+<select id="citySelect">
+
+<option>
+请选择城市
+</option>
+
+</select>
+
+
 </div>
-</div>
+
+
 
 
 <div>
+
 <label>
 商户
 </label>
-<div class="percent">
-<input id="storeRatio" type="number">
-<span>%</span>
-</div>
-</div>
+
+<select id="merchantSelect">
+
+<option>
+请选择商户
+</option>
+
+</select>
 
 
-<div>
-<label>
-运营
-</label>
-<div class="percent">
-<input id="operatorRatio" type="number">
-<span>%</span>
 </div>
-</div>
+
 
 
 <div>
+
 <label>
-订单来源
+服务项目
 </label>
-<div class="percent">
-<input id="sourceRatio" type="number">
-<span>%</span>
+
+<select id="productSelect">
+
+<option>
+请选择项目
+</option>
+
+</select>
+
+
 </div>
+
+
+
 </div>
 
 
 </div>
+
+
+
+
+
+<div class="panel">
+
+
+<div class="panel-title">
+六方分账比例
+</div>
+
+
+
+<div class="split-box">
+
+
+<div class="split-grid">
+
+
+
+<div class="split-item">
+
+<label>
+城市负责人
+</label>
+
+<input id="cityManagerRatio"
+type="number"
+value="0">
+
+</div>
+
+
+
+
+<div class="split-item">
+
+<label>
+软件服务商
+</label>
+
+<input
+value="2"
+disabled
+class="fixed"
+id="softwareRatio">
+
+</div>
+
+
+
+
+<div class="split-item">
+
+<label>
+运营平台
+</label>
+
+<input id="platformRatio"
+type="number"
+value="0">
+
+</div>
+
+
+
+
+<div class="split-item">
+
+<label>
+商户
+</label>
+
+<input id="merchantRatio"
+type="number"
+value="0">
+
+</div>
+
+
+
+
+<div class="split-item">
+
+<label>
+服务人员
+</label>
+
+<input id="serviceRatio"
+type="number"
+value="0">
+
+</div>
+
+
+
+
+<div class="split-item">
+
+<label>
+健康顾问
+</label>
+
+<input id="consultantRatio"
+type="number"
+value="0">
+
+</div>
+
+
+
+</div>
+
+
+
+<div class="total">
+
+当前比例合计：
+<span id="totalRatio">
+2
+</span>
+%
+
+</div>
+
 
 
 <br>
 
 
-<button class="btn btn-primary" onclick="createRule()">
-保存分成规则
+<button
+class="btn-primary"
+onclick="saveRule()">
+
+保存分账规则
+
 </button>
 
 
 </div>
 
 
-</section>
-
-
-
-<section class="panel">
-
-<div class="panel-head">
-规则列表
 </div>
 
 
-<div style="overflow:auto">
+
+
+
+<div class="panel">
+
+
+<div class="panel-title">
+
+已有分账规则
+
+</div>
+
+
+<div class="table-wrap">
 
 
 <table>
+
 
 <thead>
 
 <tr>
 
-<th>城市</th>
-<th>商户</th>
-<th>服务项目</th>
-<th>城市负责人</th>
-<th>平台</th>
-<th>商户</th>
-<th>运营</th>
-<th>来源</th>
-<th>版本</th>
-<th>状态</th>
-<th>操作</th>
+<th>
+城市
+</th>
+
+<th>
+商户
+</th>
+
+<th>
+项目
+</th>
+
+<th>
+城市负责人
+</th>
+
+<th>
+软件服务商
+</th>
+
+<th>
+运营平台
+</th>
+
+<th>
+商户
+</th>
+
+<th>
+服务人员
+</th>
+
+<th>
+健康顾问
+</th>
+
+<th>
+状态
+</th>
 
 </tr>
+
 
 </thead>
 
 
-<tbody id="ruleList">
+<tbody id="ruleTable">
+
 
 </tbody>
 
@@ -848,54 +788,30 @@ grid-template-columns:1fr 1fr;
 </div>
 
 
-</section>
-
-
-</main>
-<div id="toast"
-style="
-position:fixed;
-right:20px;
-bottom:20px;
-background:#41353a;
-color:white;
-padding:12px 18px;
-border-radius:10px;
-display:none;
-z-index:200;
-">
 </div>
 
 
+</main>
 <script>
 
 
-const SUPABASE_URL=
+const SUPABASE_URL =
 "你的SUPABASE_URL";
 
 
-const SUPABASE_ANON_KEY=
+const SUPABASE_ANON_KEY =
 "你的SUPABASE_ANON_KEY";
 
 
-const supabaseClient=
-window.supabase.createClient(
+const supabaseClient =
+supabase.createClient(
 SUPABASE_URL,
 SUPABASE_ANON_KEY
 );
 
 
 
-const LOGIN_PAGE="login.html";
-
-const HOME_PAGE="wholemanagement.html";
-
-
-
-let currentUser=null;
-
-let currentProfile=null;
-
+let provinces=[];
 
 let cities=[];
 
@@ -907,33 +823,13 @@ let rules=[];
 
 
 
+let currentUser=null;
+
+let currentProfile=null;
+
+
+
 const $=id=>document.getElementById(id);
-
-
-
-function toast(msg,type=""){
-
-const t=$("toast");
-
-t.innerHTML=msg;
-
-t.style.display="block";
-
-t.style.background=
-type==="error"
-?
-"#b94057"
-:
-"#41353a";
-
-
-setTimeout(()=>{
-
-t.style.display="none";
-
-},3000);
-
-}
 
 
 
@@ -941,7 +837,7 @@ t.style.display="none";
 
 function goBack(){
 
-location.href=HOME_PAGE;
+location.href="wholemanagement.html";
 
 }
 
@@ -951,9 +847,20 @@ async function logout(){
 
 await supabaseClient.auth.signOut();
 
-location.href=LOGIN_PAGE;
+location.href="login.html";
 
 }
+
+
+
+
+
+function toast(msg){
+
+alert(msg);
+
+}
+
 
 
 
@@ -976,7 +883,7 @@ session
 
 if(!session){
 
-location.href=LOGIN_PAGE;
+location.href="login.html";
 
 return;
 
@@ -985,6 +892,7 @@ return;
 
 
 currentUser=session.user;
+
 
 
 
@@ -998,7 +906,10 @@ data:profile
 
 .select("*")
 
-.eq("id",currentUser.id)
+.eq(
+"id",
+currentUser.id
+)
 
 .single();
 
@@ -1006,43 +917,22 @@ data:profile
 
 if(!profile){
 
-alert("没有权限");
-
-location.href=HOME_PAGE;
+toast("没有权限");
 
 return;
 
 }
-
 
 
 currentProfile=profile;
 
 
 
-if(
-!
-[
-"founder",
-"platform_admin",
-"province_manager",
-"city_manager"
-]
-.includes(profile.role)
+await loadProvinces();
 
-){
+await loadProducts();
 
-alert("没有访问权限");
-
-location.href=HOME_PAGE;
-
-return;
-
-}
-
-
-
-await loadData();
+await loadRules();
 
 
 
@@ -1052,127 +942,322 @@ await loadData();
 
 
 
-async function loadData(){
 
 
+async function loadProvinces(){
 
-/*
-读取权限范围内城市
-*/
+
 
 const {
-data:scope,
-error:scopeError
+
+data
+
 }=await supabaseClient
-.rpc(
-"get_user_city_scope"
-);
 
+.from("provinces")
 
-
-if(scopeError){
-
-toast(scopeError.message,"error");
-
-return;
-
-}
-
-
-
-const cityIds=
-(scope||[]).map(
-x=>x.city_id
-);
-
-
-
-let cityQuery=
-supabaseClient
-.from("cities")
 .select("*")
-.eq("status","active");
+
+.eq(
+"status",
+"active"
+)
+
+.order("id");
 
 
 
-if(
-!
-[
-"founder",
-"platform_admin"
-]
-.includes(currentProfile.role)
+provinces=data||[];
 
-){
 
-cityQuery=
-cityQuery.in(
-"id",
-cityIds
-);
+
+renderProvinces();
+
+
 
 }
 
 
 
+
+
+
+function renderProvinces(){
+
+
+
+let html="";
+
+
+
+provinces.forEach(p=>{
+
+
+html+=`
+
+<option value="${p.id}">
+
+${p.province_name}
+
+</option>
+
+`;
+
+
+});
+
+
+
+$("provinceSelect").innerHTML=html;
+
+
+
+// 默认江苏省
+
+
+const js=
+
+provinces.find(
+
+p=>
+p.province_name==="江苏省"
+
+);
+
+
+
+if(js){
+
+
+$("provinceSelect").value=js.id;
+
+
+loadCities(js.id);
+
+
+}else if(provinces.length){
+
+
+loadCities(
+provinces[0].id
+);
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+async function loadCities(provinceId){
+
+
+
 const {
-data:cityData
-}=await cityQuery;
+
+data
+
+}=await supabaseClient
+
+.from("cities")
+
+.select("*")
+
+.eq(
+"province_id",
+provinceId
+)
+
+.eq(
+"status",
+"active"
+)
+
+.order("id");
 
 
-cities=cityData||[];
 
+cities=data||[];
+
+
+
+let html=`
+
+<option value="">
+请选择城市
+</option>
+
+`;
+
+
+
+cities.forEach(c=>{
+
+
+html+=`
+
+<option value="${c.id}">
+
+${c.city_name}
+
+</option>
+
+`;
+
+
+});
+
+
+$("citySelect").innerHTML=html;
+
+
+
+}
+
+
+
+
+
+
+
+
+async function loadMerchants(cityId){
 
 
 
 const {
-data:merchantData
+
+data
+
 }=await supabaseClient
 
 .from("merchants")
 
 .select("*")
 
-.eq("status","active");
+.eq(
+"city_id",
+cityId
+)
+
+.eq(
+"status",
+"active"
+);
 
 
 
-merchants=
-merchantData||[];
+merchants=data||[];
 
 
+
+let html=`
+
+<option value="">
+请选择商户
+</option>
+
+`;
+
+
+
+merchants.forEach(m=>{
+
+
+html+=`
+
+<option value="${m.id}">
+${m.merchant_name}
+</option>
+
+`;
+
+
+});
+
+
+$("merchantSelect").innerHTML=html;
+
+
+
+}
+
+
+
+
+
+
+
+
+
+async function loadProducts(){
 
 
 
 const {
-data:productData
+
+data
+
 }=await supabaseClient
 
 .from("products")
 
 .select("*")
 
-.eq("status","active")
+.eq(
+"status",
+"active"
+)
 
 .order("id");
 
 
 
-products=
-productData||[];
+products=data||[];
 
 
 
+let html=`
+
+<option value="">
+请选择服务项目
+</option>
+
+`;
 
 
-await loadRules();
+
+products.forEach(p=>{
 
 
+html+=`
 
-renderAll();
+<option value="${p.id}">
+
+${p.product_name}
+
+</option>
+
+`;
+
+
+});
+
+
+$("productSelect").innerHTML=html;
+
 
 
 }
+
+
+
 
 
 
@@ -1181,25 +1266,33 @@ renderAll();
 async function loadRules(){
 
 
+
 const {
+
 data,
+
 error
+
 }=await supabaseClient
 
 .from("merchant_product_rules")
 
 .select(`
+
 *,
+
 cities(
 city_name
 ),
+
 merchants(
 merchant_name
 ),
+
 products(
-product_name,
-product_code
+product_name
 )
+
 `)
 
 .order(
@@ -1213,7 +1306,7 @@ ascending:false
 
 if(error){
 
-toast(error.message,"error");
+toast(error.message);
 
 return;
 
@@ -1225,26 +1318,8 @@ rules=data||[];
 
 
 
-}
-
-
-
-
-
-function renderAll(){
-
-
-renderCities();
-
-renderCreateCities();
-
-renderMerchants();
-
-renderProducts();
-
 renderRules();
 
-updateStats();
 
 
 }
@@ -1252,178 +1327,6 @@ updateStats();
 
 
 
-
-
-function renderCities(){
-
-
-let html=
-`
-<option value="">
-选择城市
-</option>
-`;
-
-
-
-cities.forEach(c=>{
-
-html+=
-`
-<option value="${c.id}">
-${c.city_name}
-</option>
-`;
-
-});
-
-
-
-$("cityFilter").innerHTML=html;
-
-$("createCity").innerHTML=html;
-
-
-}
-
-
-
-
-
-function renderCreateCities(){
-
-
-
-$("createCity").innerHTML=
-$("cityFilter").innerHTML;
-
-
-
-}
-
-
-
-
-
-function renderMerchants(){
-
-
-
-let html=
-`
-<option value="">
-选择商户
-</option>
-`;
-
-
-
-merchants.forEach(m=>{
-
-
-html+=
-`
-<option value="${m.id}">
-${m.merchant_name}
-</option>
-`;
-
-
-});
-
-
-
-$("merchantFilter").innerHTML=html;
-
-$("createMerchant").innerHTML=html;
-
-
-}
-
-
-
-
-
-function renderProducts(){
-
-
-
-let html=
-`
-<option value="">
-选择服务项目
-</option>
-`;
-
-
-
-products.forEach(p=>{
-
-
-html+=
-`
-<option value="${p.id}">
-${p.product_name}
-</option>
-`;
-
-
-});
-
-
-
-$("productFilter").innerHTML=html;
-
-$("createProduct").innerHTML=html;
-
-
-
-}
-
-
-
-
-
-function updateStats(){
-
-
-$("activeCount").innerText=
-
-rules.filter(
-r=>r.status==="active"
-).length;
-
-
-
-$("historyCount").innerText=
-
-rules.filter(
-r=>r.status==="inactive"
-).length;
-
-
-
-$("merchantCount").innerText=
-
-new Set(
-rules.map(
-r=>r.merchant_id
-)
-).size;
-
-
-
-$("productCount").innerText=
-
-new Set(
-rules.map(
-r=>r.product_id
-)
-).size;
-
-
-
-}
 
 
 
@@ -1433,32 +1336,14 @@ function renderRules(){
 
 
 
-let list=$("ruleList");
+let html="";
 
 
 
-if(!rules.length){
-
-list.innerHTML=
-`
-<tr>
-<td colspan="11">
-暂无分成规则
-</td>
-</tr>
-`;
-
-return;
-
-}
+rules.forEach(r=>{
 
 
-
-list.innerHTML=
-rules.map(r=>{
-
-
-return `
+html+=`
 
 <tr>
 
@@ -1483,91 +1368,50 @@ ${r.city_manager_ratio||0}%
 
 
 <td>
+${r.software_service_ratio||2}%
+</td>
+
+
+<td>
 ${r.platform_ratio||0}%
 </td>
 
 
 <td>
-${r.store_ratio||0}%
+${r.merchant_ratio||0}%
 </td>
 
 
 <td>
-${r.operator_ratio||0}%
+${r.service_person_ratio||0}%
 </td>
 
 
 <td>
-${r.order_source_ratio||0}%
-</td>
-
-
-<td>
-V${r.version_no||1}
+${r.health_consultant_ratio||0}%
 </td>
 
 
 <td>
 
-<span class="badge ${
-r.status==="active"
-?
-"active"
-:
-"history"
-}">
+<span class="status">
 
-${r.status==="active"
-?
-"有效"
-:
-"历史"
-}
+${r.status}
 
 </span>
 
 </td>
 
 
-<td>
-
-
-${
-r.status==="active"
-
-?
-
-`
-
-<button
-class="btn btn-danger"
-onclick="stopRule(${r.id})">
-
-停止
-
-</button>
-
-`
-
-:
-
-""
-
-}
-
-
-</td>
-
-
 </tr>
-
 
 `;
 
 
+});
 
-}).join("");
 
+$("ruleTable").innerHTML=html;
 
 
 }
@@ -1577,70 +1421,150 @@ onclick="stopRule(${r.id})">
 
 
 
-async function createRule(){
+
+
+function calcTotal(){
 
 
 
-const city=
+let total=
+
 Number(
-$("createCity").value
-);
+$("cityManagerRatio").value||0
+)
 
++
 
-const merchant=
-Number(
-$("createMerchant").value
-);
+2
 
++
 
-const product=
-Number(
-$("createProduct").value
-);
-
-
-
-const cityRatio=
-Number(
-$("cityRatio").value||0
-);
-
-
-const platformRatio=
 Number(
 $("platformRatio").value||0
-);
+)
 
++
 
-const storeRatio=
 Number(
-$("storeRatio").value||0
-);
+$("merchantRatio").value||0
+)
 
++
 
-const operatorRatio=
 Number(
-$("operatorRatio").value||0
-);
+$("serviceRatio").value||0
+)
 
++
 
-const sourceRatio=
 Number(
-$("sourceRatio").value||0
+$("consultantRatio").value||0
 );
 
+
+
+$("totalRatio").innerText=total;
+
+
+
+}
+
+
+
+document
+.querySelectorAll("input[type=number]")
+.forEach(
+
+e=>{
+
+e.addEventListener(
+"input",
+calcTotal
+);
+
+}
+
+);
+
+
+
+
+
+
+
+
+
+$("provinceSelect")
+.addEventListener(
+"change",
+e=>{
+
+
+loadCities(
+Number(e.target.value)
+);
+
+
+});
+
+
+
+
+
+
+
+$("citySelect")
+.addEventListener(
+"change",
+e=>{
+
+
+loadMerchants(
+Number(e.target.value)
+);
+
+
+});
+
+
+
+
+
+
+
+
+
+async function saveRule(){
+
+
+
+const cityId=
+Number(
+$("citySelect").value
+);
+
+
+const merchantId=
+Number(
+$("merchantSelect").value
+);
+
+
+const productId=
+Number(
+$("productSelect").value
+);
 
 
 
 if(
-!city||
-!merchant||
-!product
+!cityId||
+!merchantId||
+!productId
 ){
 
 toast(
-"请选择完整信息",
-"error"
+"请选择完整信息"
 );
 
 return;
@@ -1650,137 +1574,129 @@ return;
 
 
 
-const total=
-cityRatio+
-platformRatio+
-storeRatio+
-operatorRatio+
-sourceRatio;
+
+const data={
+
+
+city_id:cityId,
+
+
+merchant_id:merchantId,
+
+
+product_id:productId,
+
+
+city_manager_ratio:
+Number(
+$("cityManagerRatio").value||0
+),
+
+
+software_service_ratio:2,
+
+
+platform_ratio:
+Number(
+$("platformRatio").value||0
+),
+
+
+merchant_ratio:
+Number(
+$("merchantRatio").value||0
+),
+
+
+service_person_ratio:
+Number(
+$("serviceRatio").value||0
+),
+
+
+health_consultant_ratio:
+Number(
+$("consultantRatio").value||0
+),
+
+
+status:"active",
+
+
+version_no:1,
+
+
+created_by:
+currentUser.id
+
+
+};
 
 
 
-if(total!==98){
+
+
+let total=
+
+data.city_manager_ratio
+
++
+
+data.software_service_ratio
+
++
+
+data.platform_ratio
+
++
+
+data.merchant_ratio
+
++
+
+data.service_person_ratio
+
++
+
+data.health_consultant_ratio;
+
+
+
+
+if(total!==100){
 
 toast(
-"经营分成比例必须合计98%",
-"error"
+"六方比例必须合计100%"
 );
 
 return;
 
 }
+
+
 
 
 
 
 const {
-data,
+
 error
+
 }=await supabaseClient
 
-.rpc(
-"create_merchant_rule",
-{
-
-p_city_id:city,
-
-p_merchant_id:merchant,
-
-p_product_id:product,
-
-p_city_manager_ratio:cityRatio,
-
-p_platform_ratio:platformRatio,
-
-p_store_ratio:storeRatio,
-
-p_operator_ratio:operatorRatio,
-
-p_order_source_ratio:sourceRatio
-
-}
-
-);
-
-
-
-if(error){
-
-toast(error.message,"error");
-
-return;
-
-}
-
-
-
-if(!data.success){
-
-toast(data.error,"error");
-
-return;
-
-}
-
-
-
-toast(
-"创建成功"
-);
-
-
-
-await loadRules();
-
-renderRules();
-
-
-}
-
-
-
-
-
-async function stopRule(id){
-
-
-
-if(
-!confirm(
-"确认停止该规则？"
+.from(
+"merchant_product_rules"
 )
 
-)return;
+.insert(data);
 
 
-
-const {
-data,
-error
-}=await supabaseClient
-
-.rpc(
-"stop_merchant_rule",
-{
-p_rule_id:id
-}
-);
 
 
 
 if(error){
 
-toast(error.message,"error");
-
-return;
-
-}
-
-
-
-if(!data.success){
-
-toast(data.error,"error");
+toast(error.message);
 
 return;
 
@@ -1789,14 +1705,13 @@ return;
 
 
 toast(
-"规则已停止"
+"保存成功"
 );
 
 
 
 await loadRules();
 
-renderRules();
 
 
 }

@@ -312,15 +312,62 @@ return p?.product_name||p?.name||p?.service_name||"未命名服务项目";
 }
 
 function productCategory(p){
-if(!p)return "其他服务";
-return p.category_name||
-p.category||
-p.product_category||
-p.service_category||
-p.first_level_category||
-p.level1_name||
-(p.product_type==="service"?"服务类项目":
-p.product_type==="physical_goods"?"实物商品":"其他服务");
+
+    if(!p){
+        return "其他服务";
+    }
+
+
+    /*
+      一级服务类别
+
+      products:
+      category_id = 3
+
+      对应：
+      母乳喂养指导类
+
+      后续如果建立 product_categories 表，
+      这里改成数据库关联即可。
+    */
+
+    const categoryMap={
+
+        3:"母乳喂养指导类"
+
+    };
+
+
+    if(
+        p.category_id &&
+        categoryMap[p.category_id]
+    ){
+
+        return categoryMap[p.category_id];
+
+    }
+
+
+    return (
+        p.category_name ||
+        p.category ||
+        p.product_category ||
+        p.service_category ||
+        p.first_level_category ||
+        p.level1_name ||
+        (
+            p.product_type==="service"
+            ?
+            "服务类项目"
+            :
+            p.product_type==="physical_goods"
+            ?
+            "实物商品"
+            :
+            "其他服务"
+        )
+    );
+
 }
 
 function activePriceForProduct(productId){

@@ -7,354 +7,193 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{box-sizing:border-box}
-:root{
-  --pink:#e64f7c;--pink2:#fff0f5;--pink3:#ffe1eb;--text:#382a30;
-  --muted:#9b8990;--border:#eee3e7;--bg:#fffafb;--green:#2e9d68;
-  --red:#dc4c64;--shadow:0 8px 28px rgba(111,63,78,.06)
-}
+:root{--pink:#e64f7c;--pink2:#fff0f5;--text:#382a30;--muted:#9b8990;--border:#eee3e7;--bg:#fffafb;--green:#2e9d68;--red:#dc4c64;--shadow:0 8px 28px rgba(111,63,78,.06)}
 body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
-button,input,select{font:inherit}
-button{cursor:pointer}
-header{
-  height:72px;background:#fff;border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;padding:0 32px;
-  position:sticky;top:0;z-index:30
-}
+button,input,select{font:inherit}button{cursor:pointer}
+header{height:72px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:30}
 .brand{display:flex;align-items:center;gap:12px}
-.logo{
-  width:38px;height:38px;border-radius:50% 50% 45% 45%;
-  background:linear-gradient(145deg,#ff91ad,#ff668d);
-  display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:800
-}
-.brand h1{font-size:18px;margin:0;color:#8c3d58}
-.brand small{display:block;margin-top:3px;color:#aaa;font-size:11px}
+.logo{width:38px;height:38px;border-radius:50%;background:linear-gradient(145deg,#ff91ad,#ff668d);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:800}
+.brand h1{font-size:18px;margin:0;color:#8c3d58}.brand small{display:block;margin-top:3px;color:#aaa;font-size:11px}
 .header-actions{display:flex;gap:10px}
-.btn{
-  border:1px solid var(--border);background:#fff;border-radius:10px;
-  padding:10px 17px;color:#67575d
-}
+.btn{border:1px solid var(--border);background:#fff;border-radius:10px;padding:10px 17px;color:#67575d}
 .btn-primary{background:var(--pink);border-color:var(--pink);color:#fff}
 .btn-danger{background:#fff4f6;color:var(--red);border-color:#ffcbd5}
 .btn-small{padding:7px 12px;border-radius:8px;font-size:12px}
 main{max-width:1240px;margin:24px auto 70px;padding:0 20px}
-.hero{
-  background:linear-gradient(110deg,#fff0f5,#ffdce8);
-  border:1px solid #ffd7e3;border-radius:20px;padding:28px 30px;margin-bottom:18px
-}
-.hero-tag{
-  display:inline-block;background:#fff;color:var(--pink);font-weight:800;font-size:11px;
-  border-radius:20px;padding:6px 10px;margin-bottom:9px
-}
+.hero{background:linear-gradient(110deg,#fff0f5,#ffdce8);border:1px solid #ffd7e3;border-radius:20px;padding:28px 30px;margin-bottom:18px}
+.hero-tag{display:inline-block;background:#fff;color:var(--pink);font-weight:800;font-size:11px;border-radius:20px;padding:6px 10px;margin-bottom:9px}
 .hero h2{margin:0 0 10px;font-size:24px;color:#75354c}
 .hero p{margin:0;color:#9b6578;font-size:13px;line-height:1.8}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
 .stat{background:#fff;border:1px solid var(--border);border-radius:14px;padding:17px 18px;box-shadow:var(--shadow)}
-.stat-label{font-size:11px;color:#aaa;margin-bottom:8px}
-.stat-value{font-size:22px;font-weight:800;color:#713148}
+.stat-label{font-size:11px;color:#aaa;margin-bottom:8px}.stat-value{font-size:22px;font-weight:800;color:#713148}
 .panel{background:#fff;border:1px solid var(--border);border-radius:16px;margin-bottom:16px;box-shadow:var(--shadow)}
 .panel-head{padding:17px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:15px}
-.panel-title{font-size:15px;font-weight:800;color:#653146}
-.panel-sub{font-size:11px;color:#aaa;margin-top:4px}
+.panel-title{font-size:15px;font-weight:800;color:#653146}.panel-sub{font-size:11px;color:#aaa;margin-top:4px}
 .citybar{padding:14px;display:grid;grid-template-columns:1.2fr 1fr;gap:10px}
-.control{
-  width:100%;height:43px;border:1px solid var(--border);border-radius:10px;
-  padding:0 13px;background:#fff;color:#4d4045;outline:none
-}
+.control{width:100%;height:43px;border:1px solid var(--border);border-radius:10px;padding:0 13px;background:#fff;color:#4d4045;outline:none}
 .control:focus{border-color:#f39bb4;box-shadow:0 0 0 3px rgba(230,79,124,.08)}
-.create-wrap{padding:20px}
-.form-grid{display:grid;grid-template-columns:1fr 1fr 1fr .7fr;gap:12px;align-items:end}
+.create-wrap{padding:20px}.form-grid{display:grid;grid-template-columns:1fr 1fr 1fr .7fr;gap:12px;align-items:end}
 .field label{display:block;font-size:11px;color:#96868c;margin:0 0 7px 3px}
-.price-input-wrap{position:relative}
-.price-input-wrap span{position:absolute;left:13px;top:11px;color:#888}
-.price-input-wrap input{padding-left:29px}
+.price-input-wrap{position:relative}.price-input-wrap span{position:absolute;left:13px;top:11px;color:#888}.price-input-wrap input{padding-left:29px}
 .create-btn{height:43px;width:100%}
-.tip{
-  margin-top:13px;padding:11px 13px;background:#fff8fa;border:1px dashed #f2cbd6;
-  border-radius:10px;color:#a27583;font-size:11px;line-height:1.7
-}
+.tip{margin-top:13px;padding:11px 13px;background:#fff8fa;border:1px dashed #f2cbd6;border-radius:10px;color:#a27583;font-size:11px;line-height:1.7}
 .city-current{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px}
-.city-current strong{font-size:15px}
-.city-current span{font-size:11px;color:#aaa}
-.table-wrap{overflow:auto}
-table{width:100%;border-collapse:collapse;min-width:950px}
-th{
-  padding:12px 14px;text-align:left;background:#fffafb;color:#9d8a91;
-  font-size:11px;font-weight:600;border-bottom:1px solid var(--border)
-}
-td{padding:14px;border-bottom:1px solid #f3eaed;font-size:12px;vertical-align:middle}
-tr:last-child td{border-bottom:0}
-.product-name{font-weight:700;color:#4a363e;margin-bottom:4px}
-.product-code{font-size:10px;color:#aaa}
-.price{font-weight:800;font-size:14px;color:#3f3136}
-.version{font-weight:700;color:var(--pink)}
-.badge{
-  display:inline-block;padding:5px 9px;border-radius:20px;font-size:10px;font-weight:700
-}
-.badge-green{background:#eaf8f1;color:var(--green)}
-.badge-gray{background:#f3f1f2;color:#8d8387}
-.actions{display:flex;gap:7px;flex-wrap:wrap}
-.empty{padding:50px 20px;text-align:center;color:#aaa;font-size:13px}
-.empty-icon{font-size:35px;margin-bottom:10px}
+.city-current strong{font-size:15px}.city-current span{font-size:11px;color:#aaa}
+.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:950px}
+th{padding:12px 14px;text-align:left;background:#fffafb;color:#9d8a91;font-size:11px;font-weight:600;border-bottom:1px solid var(--border)}
+td{padding:14px;border-bottom:1px solid #f3eaed;font-size:12px;vertical-align:middle}tr:last-child td{border-bottom:0}
+.product-name{font-weight:700;color:#4a363e;margin-bottom:4px}.product-code{font-size:10px;color:#aaa}
+.price{font-weight:800;font-size:14px;color:#3f3136}.version{font-weight:700;color:var(--pink)}
+.badge{display:inline-block;padding:5px 9px;border-radius:20px;font-size:10px;font-weight:700}
+.badge-green{background:#eaf8f1;color:var(--green)}.badge-gray{background:#f3f1f2;color:#8d8387}
+.actions{display:flex;gap:7px;flex-wrap:wrap}.empty{padding:50px 20px;text-align:center;color:#aaa;font-size:13px}.empty-icon{font-size:35px;margin-bottom:10px}
 .history-toggle{display:flex;align-items:center;gap:8px}
-.modal-mask{
-  position:fixed;inset:0;background:rgba(45,27,34,.35);display:none;
-  align-items:center;justify-content:center;z-index:100;padding:20px
-}
-.modal-mask.show{display:flex}
-.modal{
-  width:min(480px,100%);background:#fff;border-radius:18px;
-  box-shadow:0 20px 70px rgba(40,20,30,.18);overflow:hidden
-}
+.modal-mask{position:fixed;inset:0;background:rgba(45,27,34,.35);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+.modal-mask.show{display:flex}.modal{width:min(480px,100%);background:#fff;border-radius:18px;box-shadow:0 20px 70px rgba(40,20,30,.18);overflow:hidden}
 .modal-head{padding:19px 22px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-.modal-head strong{color:#70354a}
-.close{border:0;background:none;font-size:22px;color:#999}
-.modal-body{padding:22px}
-.modal-product{background:#fff7fa;border:1px solid #f5d9e1;border-radius:12px;padding:13px;margin-bottom:16px}
-.modal-product strong{display:block;margin-bottom:4px}
-.modal-product span{font-size:11px;color:#999}
+.modal-head strong{color:#70354a}.close{border:0;background:none;font-size:22px;color:#999}
+.modal-body{padding:22px}.modal-product{background:#fff7fa;border:1px solid #f5d9e1;border-radius:12px;padding:13px;margin-bottom:16px}
+.modal-product strong{display:block;margin-bottom:4px}.modal-product span{font-size:11px;color:#999}
 .modal-foot{display:flex;justify-content:flex-end;gap:9px;margin-top:20px}
-.toast{
-  position:fixed;right:22px;bottom:22px;max-width:380px;background:#41353a;color:#fff;
-  padding:13px 17px;border-radius:10px;font-size:12px;z-index:300;
-  box-shadow:0 10px 35px rgba(0,0,0,.18);display:none
-}
-.toast.show{display:block}
-.toast.error{background:#b94057}
-.toast.success{background:#27855b}
-.loading{opacity:.55;pointer-events:none}
+.toast{position:fixed;right:22px;bottom:22px;max-width:380px;background:#41353a;color:#fff;padding:13px 17px;border-radius:10px;font-size:12px;z-index:300;box-shadow:0 10px 35px rgba(0,0,0,.18);display:none}
+.toast.show{display:block}.toast.error{background:#b94057}.toast.success{background:#27855b}
+.loading-overlay{position:fixed;inset:0;background:rgba(255,250,251,.88);z-index:500;display:flex;align-items:center;justify-content:center;color:#a45470;font-size:14px}
 .mobile-list{display:none}
 @media(max-width:800px){
-  header{height:64px;padding:0 14px}
-  .brand h1{font-size:15px}
-  .brand small{display:none}
-  .header-actions .btn{padding:8px 10px;font-size:11px}
-  main{padding:0 12px;margin-top:14px}
-  .hero{padding:20px}
-  .hero h2{font-size:21px}
-  .stats{grid-template-columns:1fr 1fr}
-  .citybar{grid-template-columns:1fr}
-  .form-grid{grid-template-columns:1fr}
-  .desktop-table{display:none}
-  .mobile-list{display:block;padding:10px}
-  .mobile-card{border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:9px}
-  .mobile-card-top{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px}
-  .mobile-meta{display:grid;grid-template-columns:1fr 1fr;gap:9px;font-size:11px;color:#888;margin:10px 0}
-  .mobile-meta b{display:block;color:#49383e;margin-top:3px}
+header{height:64px;padding:0 14px}.brand h1{font-size:15px}.brand small{display:none}.header-actions .btn{padding:8px 10px;font-size:11px}
+main{padding:0 12px;margin-top:14px}.hero{padding:20px}.hero h2{font-size:21px}.stats{grid-template-columns:1fr 1fr}.citybar,.form-grid{grid-template-columns:1fr}
+.desktop-table{display:none}.mobile-list{display:block;padding:10px}.mobile-card{border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:9px}
+.mobile-card-top{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px}.mobile-meta{display:grid;grid-template-columns:1fr 1fr;gap:9px;font-size:11px;color:#888;margin:10px 0}
+.mobile-meta b{display:block;color:#49383e;margin-top:3px}
 }
 </style>
 </head>
-
 <body>
 
+<div id="loading" class="loading-overlay">正在读取城市销售价格...</div>
+
 <header>
-  <div class="brand">
-    <div class="logo">♡</div>
-    <div>
-      <h1>城市销售价格</h1>
-      <small>孕乃馨平台管理中心</small>
-    </div>
-  </div>
-  <div class="header-actions">
-    <button class="btn" onclick="goBack()">返回工作台</button>
-    <button class="btn btn-primary" onclick="logout()">退出</button>
-  </div>
+<div class="brand">
+<div class="logo">♡</div>
+<div><h1>城市销售价格</h1><small>孕乃馨平台管理中心</small></div>
+</div>
+<div class="header-actions">
+<button class="btn" onclick="goBack()">返回工作台</button>
+<button class="btn btn-primary" onclick="logout()">退出</button>
+</div>
 </header>
 
 <main>
+<section class="hero">
+<div class="hero-tag">CITY SALES PRICE</div>
+<h2>城市销售价格</h2>
+<p>系统不再为城市自动预生成全部产品价格。由管理人员从平台统一服务项目名录中人工选择当地需要开展的项目，并直接确定正式销售价格。首次创建为 V1；以后调整价格保留历史版本；停止开展后不生成空白价格记录。</p>
+</section>
 
-  <section class="hero">
-    <div class="hero-tag">CITY SALES PRICE</div>
-    <h2>城市销售价格</h2>
-    <p>
-      城市销售项目不再自动生成价格目录。先从系统服务项目名录中人工选择需要在当地开展的服务，
-      再确定该城市正式销售价格。首次创建直接生成 V1 正式价格；调整价格保留历史版本；停止开展后不自动创建任何新记录。
-    </p>
-  </section>
+<section class="stats">
+<div class="stat"><div class="stat-label">已开展业务城市</div><div class="stat-value" id="statCities">0</div></div>
+<div class="stat"><div class="stat-label">当前开展服务项目</div><div class="stat-value" id="statActive">0</div></div>
+<div class="stat"><div class="stat-label">系统服务项目名录</div><div class="stat-value" id="statProducts">0</div></div>
+<div class="stat"><div class="stat-label">历史价格记录</div><div class="stat-value" id="statHistory">0</div></div>
+</section>
 
-  <section class="stats">
-    <div class="stat">
-      <div class="stat-label">已开展业务城市</div>
-      <div class="stat-value" id="statCities">0</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">当前开展服务项目</div>
-      <div class="stat-value" id="statActive">0</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">系统服务项目名录</div>
-      <div class="stat-value" id="statProducts">0</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">历史价格记录</div>
-      <div class="stat-value" id="statHistory">0</div>
-    </div>
-  </section>
+<section class="panel">
+<div class="panel-head">
+<div><div class="panel-title">选择城市</div><div class="panel-sub">仅显示已经正式开通的城市级服务区域</div></div>
+</div>
+<div class="citybar">
+<select id="citySelect" class="control"><option value="">正在加载城市...</option></select>
+<input id="searchInput" class="control" placeholder="搜索服务项目名称或编号">
+</div>
+</section>
 
-  <section class="panel">
-    <div class="panel-head">
-      <div>
-        <div class="panel-title">选择城市</div>
-        <div class="panel-sub">仅显示已经开通的城市级服务区域</div>
-      </div>
-    </div>
-    <div class="citybar">
-      <select id="citySelect" class="control">
-        <option value="">正在加载城市...</option>
-      </select>
-      <input id="searchInput" class="control" placeholder="搜索已开展服务项目名称或编号">
-    </div>
-  </section>
+<section class="panel">
+<div class="panel-head">
+<div><div class="panel-title">创建城市标准价格</div><div class="panel-sub">人工选择该城市需要开展的服务项目</div></div>
+</div>
+<div class="create-wrap">
+<div class="form-grid">
+<div class="field">
+<label>一级服务类别</label>
+<select id="level1Select" class="control"><option value="">请选择一级类别</option></select>
+</div>
+<div class="field">
+<label>二级服务项目</label>
+<select id="productSelect" class="control" disabled><option value="">请先选择一级类别</option></select>
+</div>
+<div class="field">
+<label>当地销售价格</label>
+<div class="price-input-wrap"><span>¥</span><input id="newPrice" class="control" type="number" min="0.01" step="0.01" placeholder="0.00"></div>
+</div>
+<div class="field">
+<button id="createBtn" class="btn btn-primary create-btn" onclick="createCityPrice()">创建标准价格</button>
+</div>
+</div>
+<div class="tip">已经在当前城市正常开展的项目不会重复出现在可创建名录中。创建成功后直接产生正式有效价格，不生成“未定义”记录。</div>
+</div>
+</section>
 
-  <section class="panel">
-    <div class="panel-head">
-      <div>
-        <div class="panel-title">创建城市标准价格</div>
-        <div class="panel-sub">从全国统一服务项目名录中选择本城市需要开展的项目</div>
-      </div>
-    </div>
+<section class="panel">
+<div class="city-current">
+<div><span>当前城市</span><br><strong id="currentCityName">请选择城市</strong></div>
+<div class="history-toggle"><label style="font-size:11px;color:#999"><input type="checkbox" id="showHistory"> 显示历史价格</label></div>
+</div>
 
-    <div class="create-wrap">
-      <div class="form-grid">
-
-        <div class="field">
-          <label>一级服务类别</label>
-          <select id="level1Select" class="control">
-            <option value="">请选择一级类别</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>二级服务项目</label>
-          <select id="productSelect" class="control" disabled>
-            <option value="">请先选择一级类别</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>当地销售价格</label>
-          <div class="price-input-wrap">
-            <span>¥</span>
-            <input id="newPrice" class="control" type="number" min="0.01" step="0.01" placeholder="0.00">
-          </div>
-        </div>
-
-        <div class="field">
-          <button id="createBtn" class="btn btn-primary create-btn" onclick="createCityPrice()">
-            创建标准价格
-          </button>
-        </div>
-
-      </div>
-
-      <div class="tip">
-        这里只显示系统中当前有效的服务项目。已经在当前城市开展的项目不会重复出现在可创建列表中。
-        创建成功后直接成为当前正式销售价格，不产生“未定义价格”记录。
-      </div>
-    </div>
-  </section>
-
-  <section class="panel">
-    <div class="city-current">
-      <div>
-        <span>当前城市</span><br>
-        <strong id="currentCityName">请选择城市</strong>
-      </div>
-      <div class="history-toggle">
-        <label style="font-size:11px;color:#999">
-          <input type="checkbox" id="showHistory">
-          显示历史价格
-        </label>
-      </div>
-    </div>
-
-    <div class="desktop-table table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>服务项目</th>
-            <th>城市</th>
-            <th>版本</th>
-            <th>销售价格</th>
-            <th>创建时间</th>
-            <th>状态</th>
-            <th>操作</th>
-          </tr>
-        </thead>
-        <tbody id="priceTableBody"></tbody>
-      </table>
-      <div id="desktopEmpty" class="empty" style="display:none">
-        <div class="empty-icon">♡</div>
-        当前城市还没有开展符合条件的服务项目
-      </div>
-    </div>
-
-    <div id="mobileList" class="mobile-list"></div>
-  </section>
-
+<div class="desktop-table table-wrap">
+<table>
+<thead><tr><th>服务项目</th><th>城市</th><th>版本</th><th>销售价格</th><th>创建时间</th><th>状态</th><th>操作</th></tr></thead>
+<tbody id="priceTableBody"></tbody>
+</table>
+<div id="desktopEmpty" class="empty" style="display:none"><div class="empty-icon">♡</div>当前城市还没有开展符合条件的服务项目</div>
+</div>
+<div id="mobileList" class="mobile-list"></div>
+</section>
 </main>
 
 <div id="changeModal" class="modal-mask">
-  <div class="modal">
-    <div class="modal-head">
-      <strong>调整城市销售价格</strong>
-      <button class="close" onclick="closeModal('changeModal')">×</button>
-    </div>
-    <div class="modal-body">
-      <div class="modal-product">
-        <strong id="changeProductName"></strong>
-        <span id="changeProductInfo"></span>
-      </div>
-      <div class="field">
-        <label>新的销售价格</label>
-        <div class="price-input-wrap">
-          <span>¥</span>
-          <input id="changePriceInput" class="control" type="number" min="0.01" step="0.01">
-        </div>
-      </div>
-      <div class="modal-foot">
-        <button class="btn" onclick="closeModal('changeModal')">取消</button>
-        <button id="changeConfirmBtn" class="btn btn-primary" onclick="confirmChangePrice()">确认调价</button>
-      </div>
-    </div>
-  </div>
+<div class="modal">
+<div class="modal-head"><strong>调整城市销售价格</strong><button class="close" onclick="closeModal('changeModal')">×</button></div>
+<div class="modal-body">
+<div class="modal-product"><strong id="changeProductName"></strong><span id="changeProductInfo"></span></div>
+<div class="field"><label>新的销售价格</label><div class="price-input-wrap"><span>¥</span><input id="changePriceInput" class="control" type="number" min="0.01" step="0.01"></div></div>
+<div class="modal-foot"><button class="btn" onclick="closeModal('changeModal')">取消</button><button id="changeConfirmBtn" class="btn btn-primary" onclick="confirmChangePrice()">确认调价</button></div>
+</div>
+</div>
 </div>
 
 <div id="stopModal" class="modal-mask">
-  <div class="modal">
-    <div class="modal-head">
-      <strong>停止开展服务</strong>
-      <button class="close" onclick="closeModal('stopModal')">×</button>
-    </div>
-    <div class="modal-body">
-      <div class="modal-product">
-        <strong id="stopProductName"></strong>
-        <span id="stopProductInfo"></span>
-      </div>
-      <div style="font-size:12px;color:#866b75;line-height:1.8">
-        停止后，当前销售价格将进入历史记录。本操作不会自动生成下一版本，也不会生成空价格记录。
-        如果以后重新开展，需要重新从服务项目名录中人工选择并确定正式销售价格。
-      </div>
-      <div class="modal-foot">
-        <button class="btn" onclick="closeModal('stopModal')">取消</button>
-        <button id="stopConfirmBtn" class="btn btn-danger" onclick="confirmStopService()">确认停止</button>
-      </div>
-    </div>
-  </div>
+<div class="modal">
+<div class="modal-head"><strong>停止开展服务</strong><button class="close" onclick="closeModal('stopModal')">×</button></div>
+<div class="modal-body">
+<div class="modal-product"><strong id="stopProductName"></strong><span id="stopProductInfo"></span></div>
+<div style="font-size:12px;color:#866b75;line-height:1.8">停止后，当前销售价格进入历史记录，不自动生成下一版本，也不创建未定义记录。以后重新开展时，需要重新从服务项目名录中选择并确定正式价格。</div>
+<div class="modal-foot"><button class="btn" onclick="closeModal('stopModal')">取消</button><button id="stopConfirmBtn" class="btn btn-danger" onclick="confirmStopService()">确认停止</button></div>
+</div>
+</div>
 </div>
 
 <div id="toast" class="toast"></div>
 
 <script>
-const SUPABASE_URL='https://qbuqjwpktlbjhlfbyjyb.supabase.co';
+const SUPABASE_URL="https://qbuqjwpkltbjhlfbyjyb.supabase.co";
+const SUPABASE_ANON_KEY="sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
 
-/*
-  请保留你原 cityprices.html 中正在使用的 anon key。
-  如果你原文件这里已经有完整 SUPABASE_ANON_KEY，
-  请把下面这一行的内容换成原值。
-*/
-const SUPABASE_ANON_KEY='YOUR_SUPABASE_ANON_KEY';
+const supabaseClient=window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_ANON_KEY,
+{
+auth:{
+persistSession:true,
+autoRefreshToken:true,
+detectSessionInUrl:true
+}
+}
+);
 
-const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+const LOGIN_PAGE="./login.html";
+const HOME_PAGE="./wholemanagement.html";
+const IDLE_LIMIT=10*60*1000;
 
 let currentUser=null;
 let currentProfile=null;
@@ -370,738 +209,682 @@ let idleTimer=null;
 
 const $=id=>document.getElementById(id);
 
-function text(v){
-  return v===null||v===undefined?'':String(v);
-}
-
 function esc(v){
-  return text(v)
-    .replaceAll('&','&amp;')
-    .replaceAll('<','&lt;')
-    .replaceAll('>','&gt;')
-    .replaceAll('"','&quot;')
-    .replaceAll("'","&#039;");
+return String(v??"")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
 }
 
 function money(v){
-  const n=Number(v);
-  if(!Number.isFinite(n))return '—';
-  return '¥'+n.toLocaleString('zh-CN',{
-    minimumFractionDigits:2,
-    maximumFractionDigits:2
-  });
+const n=Number(v);
+if(!Number.isFinite(n))return "—";
+return "¥"+n.toLocaleString("zh-CN",{minimumFractionDigits:2,maximumFractionDigits:2});
 }
 
 function formatTime(v){
-  if(!v)return '—';
-  const d=new Date(v);
-  if(Number.isNaN(d.getTime()))return '—';
-  return d.toLocaleString('zh-CN',{
-    year:'numeric',month:'2-digit',day:'2-digit',
-    hour:'2-digit',minute:'2-digit',hour12:false
-  });
+if(!v)return "—";
+const d=new Date(v);
+if(Number.isNaN(d.getTime()))return "—";
+return d.toLocaleString("zh-CN",{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false});
 }
 
-function toast(message,type=''){
-  const el=$('toast');
-  el.textContent=message;
-  el.className='toast show '+type;
-  clearTimeout(el._timer);
-  el._timer=setTimeout(()=>el.className='toast',3000);
+function showToast(message,type=""){
+const el=$("toast");
+el.textContent=message;
+el.className="toast show "+type;
+clearTimeout(el._timer);
+el._timer=setTimeout(()=>el.className="toast",3000);
+}
+
+function hideLoading(){
+const el=$("loading");
+if(el)el.style.display="none";
 }
 
 function setBusy(el,busy,label){
-  if(!el)return;
-  if(busy){
-    el.dataset.old=el.textContent;
-    el.textContent=label||'处理中...';
-    el.disabled=true;
-  }else{
-    el.textContent=el.dataset.old||el.textContent;
-    el.disabled=false;
-  }
+if(!el)return;
+if(busy){
+el.dataset.old=el.textContent;
+el.textContent=label||"处理中...";
+el.disabled=true;
+}else{
+el.textContent=el.dataset.old||el.textContent;
+el.disabled=false;
+}
 }
 
 function goBack(){
-  location.href='wholemanagement.html';
+window.location.href=HOME_PAGE;
 }
 
 async function logout(){
-  await sb.auth.signOut();
-  location.href='login.html';
+try{
+await supabaseClient.auth.signOut();
+}finally{
+window.location.href=LOGIN_PAGE;
+}
 }
 
 function resetIdleTimer(){
-  clearTimeout(idleTimer);
-  idleTimer=setTimeout(async()=>{
-    await sb.auth.signOut();
-    location.href='login.html';
-  },10*60*1000);
+clearTimeout(idleTimer);
+idleTimer=setTimeout(autoLogout,IDLE_LIMIT);
 }
 
-['click','mousemove','keydown','touchstart','scroll'].forEach(evt=>{
-  window.addEventListener(evt,resetIdleTimer,{passive:true});
+async function autoLogout(){
+try{
+await supabaseClient.auth.signOut();
+}catch(error){
+console.error("自动退出失败：",error);
+}
+alert("由于10分钟未操作，系统已自动退出。");
+window.location.href=LOGIN_PAGE;
+}
+
+["mousemove","mousedown","keydown","touchstart","scroll","click"].forEach(eventName=>{
+document.addEventListener(eventName,resetIdleTimer,{passive:true});
 });
 
 function closeModal(id){
-  $(id).classList.remove('show');
+$(id).classList.remove("show");
 }
 
 function cityById(id){
-  return cities.find(x=>String(x.id)===String(id));
+return cities.find(x=>String(x.id)===String(id));
 }
 
 function provinceById(id){
-  return provinces.find(x=>String(x.id)===String(id));
+return provinces.find(x=>String(x.id)===String(id));
 }
 
 function productById(id){
-  return products.find(x=>String(x.id)===String(id));
+return products.find(x=>String(x.id)===String(id));
 }
 
 function productCode(p){
-  if(!p)return '';
-  return p.product_code||p.code||p.product_no||'';
+return p?.product_code||p?.code||p?.product_no||"";
 }
 
 function productName(p){
-  if(!p)return '未知服务项目';
-  return p.product_name||p.name||p.service_name||'未命名服务项目';
+return p?.product_name||p?.name||p?.service_name||"未命名服务项目";
 }
 
-/*
-  服务项目两级目录兼容规则：
-
-  优先读取数据库现有字段：
-  category_name
-  category
-  product_category
-  service_category
-  first_level_category
-  level1_name
-  product_type
-
-  因为 products 的全国统一名录是唯一数据来源，
-  页面不会另外建立一套分类数据。
-*/
 function productCategory(p){
-  if(!p)return '其他服务';
-  return p.category_name||
-         p.category||
-         p.product_category||
-         p.service_category||
-         p.first_level_category||
-         p.level1_name||
-         (p.product_type==='service'?'服务类项目':
-          p.product_type==='physical_goods'?'实物商品':'其他服务');
+if(!p)return "其他服务";
+return p.category_name||
+p.category||
+p.product_category||
+p.service_category||
+p.first_level_category||
+p.level1_name||
+(p.product_type==="service"?"服务类项目":
+p.product_type==="physical_goods"?"实物商品":"其他服务");
 }
 
 function activePriceForProduct(productId){
-  return cityPrices.find(x=>
-    String(x.city_id)===String(selectedCityId)&&
-    String(x.product_id)===String(productId)&&
-    x.status==='active'
-  );
+return cityPrices.find(x=>
+String(x.city_id)===String(selectedCityId)&&
+String(x.product_id)===String(productId)&&
+x.status==="active"
+);
 }
 
-async function init(){
-  try{
-    resetIdleTimer();
+async function initialize(){
+resetIdleTimer();
 
-    const {data:{session},error:sessionError}=await sb.auth.getSession();
+try{
+const {data:{session},error:sessionError}=await supabaseClient.auth.getSession();
 
-    if(sessionError||!session){
-      location.href='login.html';
-      return;
-    }
+if(sessionError)throw sessionError;
 
-    currentUser=session.user;
+if(!session){
+location.replace(LOGIN_PAGE);
+return;
+}
 
-    const {data:profile,error:profileError}=await sb
-      .from('profiles')
-      .select('id,role,status')
-      .eq('id',currentUser.id)
-      .maybeSingle();
+currentUser=session.user;
 
-    if(profileError)throw profileError;
+const {data:profile,error:profileError}=await supabaseClient
+.from("profiles")
+.select(`
+id,
+full_name,
+role,
+status
+`)
+.eq("id",currentUser.id)
+.single();
 
-    if(!profile||profile.status!=='active'){
-      await sb.auth.signOut();
-      location.href='login.html';
-      return;
-    }
+if(profileError||!profile){
+throw new Error("无法读取当前账号权限。");
+}
 
-    currentProfile=profile;
+if(profile.status!=="active"){
+throw new Error("当前账号已经停用。");
+}
 
-    if(!['founder','platform_admin'].includes(profile.role)){
-      location.href='wholemanagement.html';
-      return;
-    }
+if(!["founder","platform_admin"].includes(profile.role)){
+alert("您没有城市销售价格管理权限。");
+location.replace(HOME_PAGE);
+return;
+}
 
-    await loadAll();
+currentProfile=profile;
 
-  }catch(e){
-    console.error(e);
-    toast('页面加载失败：'+(e.message||e),'error');
-  }
+await loadAll();
+
+hideLoading();
+
+}catch(error){
+console.error("页面初始化失败：",error);
+hideLoading();
+alert(error.message||"页面初始化失败。");
+}
 }
 
 async function loadAll(){
-  document.body.classList.add('loading');
+const [areaRes,cityRes,provinceRes,productRes,priceRes]=await Promise.all([
+supabaseClient
+.from("service_areas")
+.select("id,area_no,province_id,city_id,district_id,status")
+.eq("status","active")
+.is("district_id",null)
+.order("area_no",{ascending:true}),
 
-  try{
-    const [
-      areaRes,
-      cityRes,
-      provinceRes,
-      productRes,
-      priceRes
-    ]=await Promise.all([
+supabaseClient
+.from("cities")
+.select("id,province_id,city_code,city_name,status")
+.eq("status","active")
+.order("city_code",{ascending:true}),
 
-      sb.from('service_areas')
-        .select('id,area_no,province_id,city_id,district_id,status')
-        .eq('status','active')
-        .is('district_id',null)
-        .order('area_no',{ascending:true}),
+supabaseClient
+.from("provinces")
+.select("id,province_code,province_name,status")
+.eq("status","active")
+.order("province_code",{ascending:true}),
 
-      sb.from('cities')
-        .select('id,province_id,city_code,city_name,status')
-        .eq('status','active'),
+supabaseClient
+.from("products")
+.select("*")
+.eq("status","active")
+.order("id",{ascending:true}),
 
-      sb.from('provinces')
-        .select('*')
-        .eq('status','active'),
+supabaseClient
+.from("city_prices")
+.select("*")
+.order("created_at",{ascending:false})
+]);
 
-      sb.from('products')
-        .select('*')
-        .eq('status','active')
-        .order('id',{ascending:true}),
+if(areaRes.error)throw new Error("服务区域读取失败："+areaRes.error.message);
+if(cityRes.error)throw new Error("城市读取失败："+cityRes.error.message);
+if(provinceRes.error)throw new Error("省份读取失败："+provinceRes.error.message);
+if(productRes.error)throw new Error("服务项目读取失败："+productRes.error.message);
+if(priceRes.error)throw new Error("城市价格读取失败："+priceRes.error.message);
 
-      sb.from('city_prices')
-        .select('*')
-        .order('created_at',{ascending:false})
+serviceAreas=areaRes.data||[];
+cities=cityRes.data||[];
+provinces=provinceRes.data||[];
+products=productRes.data||[];
+cityPrices=priceRes.data||[];
 
-    ]);
+renderCitySelect();
 
-    if(areaRes.error)throw areaRes.error;
-    if(cityRes.error)throw cityRes.error;
-    if(provinceRes.error)throw provinceRes.error;
-    if(productRes.error)throw productRes.error;
-    if(priceRes.error)throw priceRes.error;
+if(serviceAreas.length){
+const cityIds=[...new Set(serviceAreas.map(x=>String(x.city_id)))];
+const existing=$("citySelect").value;
+selectedCityId=existing&&cityIds.includes(String(existing))?existing:serviceAreas[0].city_id;
+$("citySelect").value=String(selectedCityId);
+}else{
+selectedCityId=null;
+}
 
-    serviceAreas=areaRes.data||[];
-    cities=cityRes.data||[];
-    provinces=provinceRes.data||[];
-    products=productRes.data||[];
-    cityPrices=priceRes.data||[];
-
-    renderCitySelect();
-
-    if(serviceAreas.length){
-      const existing=$('citySelect').value;
-      selectedCityId=existing||serviceAreas[0].city_id;
-      $('citySelect').value=String(selectedCityId);
-    }else{
-      selectedCityId=null;
-    }
-
-    renderAll();
-
-  }finally{
-    document.body.classList.remove('loading');
-  }
+renderAll();
 }
 
 function renderCitySelect(){
-  const select=$('citySelect');
-  const oldValue=select.value;
+const select=$("citySelect");
+const oldValue=select.value;
+const unique=new Map();
 
-  const unique=new Map();
+serviceAreas.forEach(sa=>{
+if(sa.city_id&&!unique.has(String(sa.city_id))){
+unique.set(String(sa.city_id),sa);
+}
+});
 
-  serviceAreas.forEach(sa=>{
-    if(sa.city_id&&!unique.has(String(sa.city_id))){
-      unique.set(String(sa.city_id),sa);
-    }
-  });
+const list=[...unique.values()].sort((a,b)=>Number(a.area_no||0)-Number(b.area_no||0));
 
-  const list=[...unique.values()].sort((a,b)=>{
-    const aa=Number(a.area_no||0);
-    const bb=Number(b.area_no||0);
-    return aa-bb;
-  });
+if(!list.length){
+select.innerHTML='<option value="">暂无已开通城市</option>';
+selectedCityId=null;
+return;
+}
 
-  if(!list.length){
-    select.innerHTML='<option value="">暂无已开通城市</option>';
-    return;
-  }
+select.innerHTML=list.map(sa=>{
+const c=cityById(sa.city_id);
+const p=provinceById(sa.province_id);
+const cityName=c?.city_name||("城市 "+sa.city_id);
+const provinceName=p?.province_name||"";
+const areaNo=sa.area_no?String(sa.area_no).padStart(3,"0"):"";
+return `<option value="${esc(sa.city_id)}">${esc(areaNo?areaNo+" | ":"")}${esc(provinceName)}${provinceName?" · ":""}${esc(cityName)}</option>`;
+}).join("");
 
-  select.innerHTML=list.map(sa=>{
-    const c=cityById(sa.city_id);
-    const p=provinceById(sa.province_id);
-    const cityName=c?.city_name||('城市 '+sa.city_id);
-    const provinceName=p?.province_name||p?.name||'';
-    const areaNo=sa.area_no?String(sa.area_no).padStart(3,'0'):'';
-    return `<option value="${esc(sa.city_id)}">${esc(areaNo?areaNo+' | ':'')}${esc(provinceName)}${provinceName?' · ':''}${esc(cityName)}</option>`;
-  }).join('');
-
-  if(oldValue&&list.some(x=>String(x.city_id)===String(oldValue))){
-    select.value=oldValue;
-  }
+if(oldValue&&list.some(x=>String(x.city_id)===String(oldValue))){
+select.value=oldValue;
+}
 }
 
 function renderAll(){
-  renderStats();
-  renderCurrentCity();
-  renderCategoryOptions();
-  renderProductOptions();
-  renderPrices();
+renderStats();
+renderCurrentCity();
+renderCategoryOptions();
+renderProductOptions();
+renderPrices();
 }
 
 function renderStats(){
-  const active=cityPrices.filter(x=>x.status==='active'&&x.price!==null);
-  const history=cityPrices.filter(x=>x.status==='inactive');
+const active=cityPrices.filter(x=>x.status==="active"&&x.price!==null);
+const history=cityPrices.filter(x=>x.status==="inactive");
 
-  const citySet=new Set(
-    active.map(x=>String(x.city_id))
-  );
-
-  $('statCities').textContent=citySet.size;
-  $('statActive').textContent=active.length;
-  $('statProducts').textContent=products.length;
-  $('statHistory').textContent=history.length;
+$("statCities").textContent=new Set(active.map(x=>String(x.city_id))).size;
+$("statActive").textContent=active.length;
+$("statProducts").textContent=products.length;
+$("statHistory").textContent=history.length;
 }
 
 function renderCurrentCity(){
-  if(!selectedCityId){
-    $('currentCityName').textContent='请选择城市';
-    return;
-  }
+if(!selectedCityId){
+$("currentCityName").textContent="请选择城市";
+return;
+}
 
-  const c=cityById(selectedCityId);
-  const sa=serviceAreas.find(x=>String(x.city_id)===String(selectedCityId));
-  const p=sa?provinceById(sa.province_id):null;
+const c=cityById(selectedCityId);
+const sa=serviceAreas.find(x=>String(x.city_id)===String(selectedCityId));
+const p=sa?provinceById(sa.province_id):null;
 
-  const cityName=c?.city_name||'未知城市';
-  const provinceName=p?.province_name||p?.name||'';
-
-  $('currentCityName').textContent=
-    (provinceName?provinceName+' · ':'')+cityName;
+$("currentCityName").textContent=
+(p?.province_name?p.province_name+" · ":"")+
+(c?.city_name||"未知城市");
 }
 
 function availableProducts(){
-  if(!selectedCityId)return [];
-
-  return products.filter(p=>{
-    return !activePriceForProduct(p.id);
-  });
+if(!selectedCityId)return [];
+return products.filter(p=>!activePriceForProduct(p.id));
 }
 
 function renderCategoryOptions(){
-  const select=$('level1Select');
-  const old=select.value;
+const select=$("level1Select");
+const old=select.value;
 
-  const categories=[...new Set(
-    availableProducts().map(productCategory)
-  )].sort((a,b)=>a.localeCompare(b,'zh-CN'));
+const categories=[...new Set(
+availableProducts().map(productCategory)
+)].sort((a,b)=>String(a).localeCompare(String(b),"zh-CN"));
 
-  select.innerHTML=
-    '<option value="">请选择一级类别</option>'+
-    categories.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');
+select.innerHTML=
+'<option value="">请选择一级类别</option>'+
+categories.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join("");
 
-  if(old&&categories.includes(old)){
-    select.value=old;
-  }
+if(old&&categories.includes(old)){
+select.value=old;
+}
 }
 
 function renderProductOptions(){
-  const category=$('level1Select').value;
-  const select=$('productSelect');
+const category=$("level1Select").value;
+const select=$("productSelect");
 
-  if(!category){
-    select.disabled=true;
-    select.innerHTML='<option value="">请先选择一级类别</option>';
-    return;
-  }
+if(!category){
+select.disabled=true;
+select.innerHTML='<option value="">请先选择一级类别</option>';
+return;
+}
 
-  const list=availableProducts().filter(p=>productCategory(p)===category);
+const list=availableProducts().filter(p=>productCategory(p)===category);
 
-  select.disabled=false;
+if(!list.length){
+select.disabled=true;
+select.innerHTML='<option value="">该类别暂无可创建项目</option>';
+return;
+}
 
-  if(!list.length){
-    select.innerHTML='<option value="">该类别暂无可创建项目</option>';
-    return;
-  }
-
-  select.innerHTML=
-    '<option value="">请选择具体服务项目</option>'+
-    list.map(p=>{
-      const code=productCode(p);
-      return `<option value="${esc(p.id)}">${esc(productName(p))}${code?' | '+esc(code):''}</option>`;
-    }).join('');
+select.disabled=false;
+select.innerHTML=
+'<option value="">请选择具体服务项目</option>'+
+list.map(p=>{
+const code=productCode(p);
+return `<option value="${esc(p.id)}">${esc(productName(p))}${code?" | "+esc(code):""}</option>`;
+}).join("");
 }
 
 function getVisiblePrices(){
-  if(!selectedCityId)return [];
+if(!selectedCityId)return [];
 
-  const showHistory=$('showHistory').checked;
-  const keyword=$('searchInput').value.trim().toLowerCase();
+const showHistory=$("showHistory").checked;
+const keyword=$("searchInput").value.trim().toLowerCase();
 
-  return cityPrices
-    .filter(r=>{
-      if(String(r.city_id)!==String(selectedCityId))return false;
+return cityPrices.filter(r=>{
+if(String(r.city_id)!==String(selectedCityId))return false;
 
-      if(showHistory){
-        if(!['active','inactive'].includes(r.status))return false;
-      }else{
-        if(r.status!=='active')return false;
-      }
+if(showHistory){
+if(!["active","inactive"].includes(r.status))return false;
+}else{
+if(r.status!=="active")return false;
+}
 
-      const p=productById(r.product_id);
-      const haystack=[
-        productName(p),
-        productCode(p),
-        productCategory(p)
-      ].join(' ').toLowerCase();
+const p=productById(r.product_id);
+const searchText=[
+productName(p),
+productCode(p),
+productCategory(p)
+].join(" ").toLowerCase();
 
-      return !keyword||haystack.includes(keyword);
-    })
-    .sort((a,b)=>{
-      if(a.status!==b.status){
-        return a.status==='active'?-1:1;
-      }
-      const ap=productById(a.product_id);
-      const bp=productById(b.product_id);
-      const nameCompare=productName(ap).localeCompare(productName(bp),'zh-CN');
-      if(nameCompare!==0)return nameCompare;
-      return Number(b.version_no||0)-Number(a.version_no||0);
-    });
+return !keyword||searchText.includes(keyword);
+
+}).sort((a,b)=>{
+if(a.status!==b.status)return a.status==="active"?-1:1;
+
+const ap=productById(a.product_id);
+const bp=productById(b.product_id);
+const n=productName(ap).localeCompare(productName(bp),"zh-CN");
+
+if(n!==0)return n;
+
+return Number(b.version_no||0)-Number(a.version_no||0);
+});
 }
 
 function renderPrices(){
-  const rows=getVisiblePrices();
-  const c=cityById(selectedCityId);
-  const cityName=c?.city_name||'—';
+const rows=getVisiblePrices();
+const c=cityById(selectedCityId);
+const cityName=c?.city_name||"—";
+const tbody=$("priceTableBody");
+const empty=$("desktopEmpty");
+const mobile=$("mobileList");
 
-  const tbody=$('priceTableBody');
-  const empty=$('desktopEmpty');
-  const mobile=$('mobileList');
+if(!rows.length){
+tbody.innerHTML="";
+empty.style.display="block";
+mobile.innerHTML='<div class="empty"><div class="empty-icon">♡</div>当前城市还没有开展符合条件的服务项目</div>';
+return;
+}
 
-  if(!rows.length){
-    tbody.innerHTML='';
-    empty.style.display='block';
-    mobile.innerHTML=`
-      <div class="empty">
-        <div class="empty-icon">♡</div>
-        当前城市还没有开展符合条件的服务项目
-      </div>`;
-    return;
-  }
+empty.style.display="none";
 
-  empty.style.display='none';
+tbody.innerHTML=rows.map(r=>{
+const p=productById(r.product_id);
+const active=r.status==="active";
 
-  tbody.innerHTML=rows.map(r=>{
-    const p=productById(r.product_id);
-    const name=productName(p);
-    const code=productCode(p);
-    const active=r.status==='active';
+return `
+<tr>
+<td>
+<div class="product-name">${esc(productName(p))}</div>
+<div class="product-code">${esc(productCode(p)||"—")}</div>
+</td>
+<td>${esc(cityName)}</td>
+<td><span class="version">V${esc(r.version_no||1)}</span></td>
+<td><span class="price">${money(r.price)}</span></td>
+<td>${esc(formatTime(r.created_at))}</td>
+<td><span class="badge ${active?"badge-green":"badge-gray"}">${active?"当前有效":"历史版本"}</span></td>
+<td>
+${active?`
+<div class="actions">
+<button class="btn btn-small" onclick="openChangePrice(${Number(r.id)})">调整价格</button>
+<button class="btn btn-small btn-danger" onclick="openStopService(${Number(r.id)})">停止开展</button>
+</div>`:"—"}
+</td>
+</tr>`;
+}).join("");
 
-    return `
-      <tr>
-        <td>
-          <div class="product-name">${esc(name)}</div>
-          <div class="product-code">${esc(code||'—')}</div>
-        </td>
-        <td>${esc(cityName)}</td>
-        <td><span class="version">V${esc(r.version_no||1)}</span></td>
-        <td><span class="price">${money(r.price)}</span></td>
-        <td>${esc(formatTime(r.created_at))}</td>
-        <td>
-          <span class="badge ${active?'badge-green':'badge-gray'}">
-            ${active?'当前有效':'历史版本'}
-          </span>
-        </td>
-        <td>
-          ${active?`
-            <div class="actions">
-              <button class="btn btn-small" onclick="openChangePrice(${Number(r.id)})">调整价格</button>
-              <button class="btn btn-small btn-danger" onclick="openStopService(${Number(r.id)})">停止开展</button>
-            </div>
-          `:'—'}
-        </td>
-      </tr>`;
-  }).join('');
+mobile.innerHTML=rows.map(r=>{
+const p=productById(r.product_id);
+const active=r.status==="active";
 
-  mobile.innerHTML=rows.map(r=>{
-    const p=productById(r.product_id);
-    const active=r.status==='active';
-
-    return `
-      <div class="mobile-card">
-        <div class="mobile-card-top">
-          <div>
-            <div class="product-name">${esc(productName(p))}</div>
-            <div class="product-code">${esc(productCode(p)||'—')}</div>
-          </div>
-          <span class="badge ${active?'badge-green':'badge-gray'}">
-            ${active?'当前有效':'历史版本'}
-          </span>
-        </div>
-
-        <div class="mobile-meta">
-          <div>城市<b>${esc(cityName)}</b></div>
-          <div>版本<b>V${esc(r.version_no||1)}</b></div>
-          <div>销售价格<b>${money(r.price)}</b></div>
-          <div>创建时间<b>${esc(formatTime(r.created_at))}</b></div>
-        </div>
-
-        ${active?`
-          <div class="actions">
-            <button class="btn btn-small" onclick="openChangePrice(${Number(r.id)})">调整价格</button>
-            <button class="btn btn-small btn-danger" onclick="openStopService(${Number(r.id)})">停止开展</button>
-          </div>
-        `:''}
-      </div>`;
-  }).join('');
+return `
+<div class="mobile-card">
+<div class="mobile-card-top">
+<div>
+<div class="product-name">${esc(productName(p))}</div>
+<div class="product-code">${esc(productCode(p)||"—")}</div>
+</div>
+<span class="badge ${active?"badge-green":"badge-gray"}">${active?"当前有效":"历史版本"}</span>
+</div>
+<div class="mobile-meta">
+<div>城市<b>${esc(cityName)}</b></div>
+<div>版本<b>V${esc(r.version_no||1)}</b></div>
+<div>销售价格<b>${money(r.price)}</b></div>
+<div>创建时间<b>${esc(formatTime(r.created_at))}</b></div>
+</div>
+${active?`
+<div class="actions">
+<button class="btn btn-small" onclick="openChangePrice(${Number(r.id)})">调整价格</button>
+<button class="btn btn-small btn-danger" onclick="openStopService(${Number(r.id)})">停止开展</button>
+</div>`:""}
+</div>`;
+}).join("");
 }
 
 async function createCityPrice(){
-  if(!selectedCityId){
-    toast('请先选择城市','error');
-    return;
-  }
+if(!selectedCityId){
+showToast("请先选择城市","error");
+return;
+}
 
-  const productId=Number($('productSelect').value);
-  const price=Number($('newPrice').value);
+const productId=Number($("productSelect").value);
+const price=Number($("newPrice").value);
 
-  if(!productId){
-    toast('请选择需要开展的服务项目','error');
-    return;
-  }
+if(!productId){
+showToast("请选择需要开展的服务项目","error");
+return;
+}
 
-  if(!Number.isFinite(price)||price<=0){
-    toast('请输入正确的销售价格','error');
-    return;
-  }
+if(!Number.isFinite(price)||price<=0){
+showToast("请输入正确的销售价格","error");
+return;
+}
 
-  const p=productById(productId);
-  const c=cityById(selectedCityId);
+if(activePriceForProduct(productId)){
+showToast("该服务项目已经在当前城市开展","error");
+return;
+}
 
-  const ok=confirm(
-    `确认在 ${c?.city_name||'当前城市'} 开展：\n\n`+
-    `${productName(p)}\n`+
-    `销售价格：${money(price)}\n\n`+
-    `确认后将直接创建正式销售价格。`
-  );
+const p=productById(productId);
+const c=cityById(selectedCityId);
 
-  if(!ok)return;
+if(!confirm(
+`确认在 ${c?.city_name||"当前城市"} 开展：\n\n`+
+`${productName(p)}\n`+
+`销售价格：${money(price)}\n\n`+
+`确认后直接创建正式销售价格。`
+))return;
 
-  const btn=$('createBtn');
-  setBusy(btn,true,'正在创建...');
+const btn=$("createBtn");
+setBusy(btn,true,"正在创建...");
 
-  try{
-    const {data,error}=await sb.rpc('create_city_price',{
-      p_city_id:Number(selectedCityId),
-      p_product_id:productId,
-      p_price:price
-    });
+try{
+const {data,error}=await supabaseClient.rpc("create_city_price",{
+p_city_id:Number(selectedCityId),
+p_product_id:productId,
+p_price:price
+});
 
-    if(error)throw error;
+if(error)throw error;
+if(!data?.success)throw new Error(data?.error||"创建城市销售价格失败");
 
-    if(!data?.success){
-      throw new Error(data?.error||'创建城市销售价格失败');
-    }
+$("newPrice").value="";
+$("level1Select").value="";
+showToast("城市标准价格创建成功","success");
 
-    toast('城市标准价格创建成功','success');
+await reloadPrices();
 
-    $('newPrice').value='';
-    $('level1Select').value='';
-    renderProductOptions();
-
-    await reloadPrices();
-
-  }catch(e){
-    console.error(e);
-    toast(e.message||'创建失败','error');
-  }finally{
-    setBusy(btn,false);
-  }
+}catch(error){
+console.error(error);
+showToast(error.message||"创建失败","error");
+}finally{
+setBusy(btn,false);
+}
 }
 
 function openChangePrice(id){
-  const r=cityPrices.find(x=>Number(x.id)===Number(id));
+const r=cityPrices.find(x=>Number(x.id)===Number(id));
 
-  if(!r||r.status!=='active'){
-    toast('当前价格已经不是有效版本','error');
-    return;
-  }
+if(!r||r.status!=="active"){
+showToast("当前价格已经不是有效版本","error");
+return;
+}
 
-  const p=productById(r.product_id);
-  const c=cityById(r.city_id);
+selectedChangeRule=r;
 
-  selectedChangeRule=r;
+const p=productById(r.product_id);
+const c=cityById(r.city_id);
 
-  $('changeProductName').textContent=productName(p);
-  $('changeProductInfo').textContent=
-    `${c?.city_name||''} · 当前 V${r.version_no||1} · ${money(r.price)}`;
+$("changeProductName").textContent=productName(p);
+$("changeProductInfo").textContent=
+`${c?.city_name||""} · 当前 V${r.version_no||1} · ${money(r.price)}`;
 
-  $('changePriceInput').value='';
-  $('changeModal').classList.add('show');
+$("changePriceInput").value="";
+$("changeModal").classList.add("show");
 
-  setTimeout(()=>$('changePriceInput').focus(),100);
+setTimeout(()=>$("changePriceInput").focus(),100);
 }
 
 async function confirmChangePrice(){
-  if(!selectedChangeRule)return;
+if(!selectedChangeRule)return;
 
-  const newPrice=Number($('changePriceInput').value);
+const newPrice=Number($("changePriceInput").value);
 
-  if(!Number.isFinite(newPrice)||newPrice<=0){
-    toast('请输入正确的新销售价格','error');
-    return;
-  }
+if(!Number.isFinite(newPrice)||newPrice<=0){
+showToast("请输入正确的新销售价格","error");
+return;
+}
 
-  if(Number(selectedChangeRule.price)===newPrice){
-    toast('新价格与当前价格相同','error');
-    return;
-  }
+if(Number(selectedChangeRule.price)===newPrice){
+showToast("新价格与当前价格相同","error");
+return;
+}
 
-  const btn=$('changeConfirmBtn');
-  setBusy(btn,true,'正在调整...');
+const btn=$("changeConfirmBtn");
+setBusy(btn,true,"正在调整...");
 
-  try{
-    const {data,error}=await sb.rpc('change_city_price',{
-      p_price_id:Number(selectedChangeRule.id),
-      p_new_price:newPrice
-    });
+try{
+const {data,error}=await supabaseClient.rpc("change_city_price",{
+p_price_id:Number(selectedChangeRule.id),
+p_new_price:newPrice
+});
 
-    if(error)throw error;
+if(error)throw error;
+if(!data?.success)throw new Error(data?.error||"调整价格失败");
 
-    if(!data?.success){
-      throw new Error(data?.error||'调整价格失败');
-    }
+closeModal("changeModal");
+selectedChangeRule=null;
 
-    closeModal('changeModal');
-    selectedChangeRule=null;
+showToast("价格调整成功，新版本已经生效","success");
 
-    toast('价格调整成功，新版本已经生效','success');
+await reloadPrices();
 
-    await reloadPrices();
-
-  }catch(e){
-    console.error(e);
-    toast(e.message||'调价失败','error');
-  }finally{
-    setBusy(btn,false);
-  }
+}catch(error){
+console.error(error);
+showToast(error.message||"调价失败","error");
+}finally{
+setBusy(btn,false);
+}
 }
 
 function openStopService(id){
-  const r=cityPrices.find(x=>Number(x.id)===Number(id));
+const r=cityPrices.find(x=>Number(x.id)===Number(id));
 
-  if(!r||r.status!=='active'){
-    toast('该服务当前已经不是开展状态','error');
-    return;
-  }
+if(!r||r.status!=="active"){
+showToast("该服务当前已经不是开展状态","error");
+return;
+}
 
-  const p=productById(r.product_id);
-  const c=cityById(r.city_id);
+selectedStopRule=r;
 
-  selectedStopRule=r;
+const p=productById(r.product_id);
+const c=cityById(r.city_id);
 
-  $('stopProductName').textContent=productName(p);
-  $('stopProductInfo').textContent=
-    `${c?.city_name||''} · V${r.version_no||1} · ${money(r.price)}`;
+$("stopProductName").textContent=productName(p);
+$("stopProductInfo").textContent=
+`${c?.city_name||""} · V${r.version_no||1} · ${money(r.price)}`;
 
-  $('stopModal').classList.add('show');
+$("stopModal").classList.add("show");
 }
 
 async function confirmStopService(){
-  if(!selectedStopRule)return;
+if(!selectedStopRule)return;
 
-  const btn=$('stopConfirmBtn');
-  setBusy(btn,true,'正在停止...');
+const btn=$("stopConfirmBtn");
+setBusy(btn,true,"正在停止...");
 
-  try{
-    const {data,error}=await sb.rpc('stop_city_service',{
-      p_price_id:Number(selectedStopRule.id)
-    });
+try{
+const {data,error}=await supabaseClient.rpc("stop_city_service",{
+p_price_id:Number(selectedStopRule.id)
+});
 
-    if(error)throw error;
+if(error)throw error;
+if(!data?.success)throw new Error(data?.error||"停止服务失败");
 
-    if(!data?.success){
-      throw new Error(data?.error||'停止服务失败');
-    }
+closeModal("stopModal");
+selectedStopRule=null;
 
-    closeModal('stopModal');
-    selectedStopRule=null;
+showToast("该城市服务项目已经停止开展","success");
 
-    toast('该城市服务项目已经停止开展','success');
+await reloadPrices();
 
-    await reloadPrices();
-
-  }catch(e){
-    console.error(e);
-    toast(e.message||'操作失败','error');
-  }finally{
-    setBusy(btn,false);
-  }
+}catch(error){
+console.error(error);
+showToast(error.message||"操作失败","error");
+}finally{
+setBusy(btn,false);
+}
 }
 
 async function reloadPrices(){
-  const {data,error}=await sb
-    .from('city_prices')
-    .select('*')
-    .order('created_at',{ascending:false});
+const {data,error}=await supabaseClient
+.from("city_prices")
+.select("*")
+.order("created_at",{ascending:false});
 
-  if(error)throw error;
+if(error)throw error;
 
-  cityPrices=data||[];
+cityPrices=data||[];
 
-  renderStats();
-  renderCategoryOptions();
-  renderProductOptions();
-  renderPrices();
+renderStats();
+renderCategoryOptions();
+renderProductOptions();
+renderPrices();
 }
 
-$('citySelect').addEventListener('change',()=>{
-  selectedCityId=$('citySelect').value||null;
-  $('level1Select').value='';
-  $('newPrice').value='';
-  renderCurrentCity();
-  renderCategoryOptions();
-  renderProductOptions();
-  renderPrices();
+$("citySelect").addEventListener("change",()=>{
+selectedCityId=$("citySelect").value||null;
+$("level1Select").value="";
+$("newPrice").value="";
+renderCurrentCity();
+renderCategoryOptions();
+renderProductOptions();
+renderPrices();
 });
 
-$('level1Select').addEventListener('change',()=>{
-  renderProductOptions();
+$("level1Select").addEventListener("change",renderProductOptions);
+$("searchInput").addEventListener("input",renderPrices);
+$("showHistory").addEventListener("change",renderPrices);
+
+$("newPrice").addEventListener("keydown",e=>{
+if(e.key==="Enter")createCityPrice();
 });
 
-$('searchInput').addEventListener('input',renderPrices);
-$('showHistory').addEventListener('change',renderPrices);
-
-$('newPrice').addEventListener('keydown',e=>{
-  if(e.key==='Enter')createCityPrice();
+$("changePriceInput").addEventListener("keydown",e=>{
+if(e.key==="Enter")confirmChangePrice();
 });
 
-$('changePriceInput').addEventListener('keydown',e=>{
-  if(e.key==='Enter')confirmChangePrice();
+document.querySelectorAll(".modal-mask").forEach(mask=>{
+mask.addEventListener("click",e=>{
+if(e.target===mask)mask.classList.remove("show");
+});
 });
 
-document.querySelectorAll('.modal-mask').forEach(mask=>{
-  mask.addEventListener('click',e=>{
-    if(e.target===mask)mask.classList.remove('show');
-  });
-});
-
-sb.auth.onAuthStateChange((event,session)=>{
-  if(event==='SIGNED_OUT'||!session){
-    location.href='login.html';
-  }
-});
-
-init();
+initialize();
 </script>
-
 </body>
 </html>

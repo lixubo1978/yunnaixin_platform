@@ -18,7 +18,7 @@
 
 <meta
     name="theme-color"
-    content="#ffffff"
+    content="#fff3f7"
 >
 
 <title>孕乃馨 - 登录</title>
@@ -53,14 +53,24 @@ body {
         sans-serif;
 
     background:
+        radial-gradient(
+            circle at 12% 8%,
+            rgba(255,255,255,.95) 0,
+            rgba(255,255,255,0) 26%
+        ),
+        radial-gradient(
+            circle at 90% 18%,
+            rgba(255,210,226,.60) 0,
+            rgba(255,210,226,0) 30%
+        ),
         linear-gradient(
-            180deg,
-            #fff8fa 0%,
-            #ffffff 42%,
-            #f8f9fb 100%
+            160deg,
+            #fff8fb 0%,
+            #ffeef4 45%,
+            #fff5f8 100%
         );
 
-    color:#242424;
+    color:#46353c;
 
     min-height:100vh;
     min-height:100dvh;
@@ -73,7 +83,58 @@ body {
         16px
         max(20px, env(safe-area-inset-bottom))
         16px;
+
+    position:relative;
+    overflow-x:hidden;
 }
+
+
+/* =====================================================
+   背景装饰
+===================================================== */
+
+body::before {
+
+    content:"";
+
+    position:fixed;
+
+    width:230px;
+    height:230px;
+
+    left:-95px;
+    bottom:7%;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,205,222,.28);
+
+    filter:blur(4px);
+
+    pointer-events:none;
+}
+
+body::after {
+
+    content:"";
+
+    position:fixed;
+
+    width:170px;
+    height:170px;
+
+    right:-65px;
+    top:31%;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,225,235,.55);
+
+    pointer-events:none;
+}
+
 
 button,
 input {
@@ -84,6 +145,11 @@ button {
     cursor:pointer;
 }
 
+
+/* =====================================================
+   页面
+===================================================== */
+
 .page {
 
     width:100%;
@@ -91,6 +157,9 @@ button {
 
     display:flex;
     flex-direction:column;
+
+    position:relative;
+    z-index:1;
 
     min-height:
         calc(
@@ -110,8 +179,8 @@ button {
 
     text-align:center;
 
-    padding-top:7vh;
-    padding-bottom:30px;
+    padding-top:6vh;
+    padding-bottom:27px;
 }
 
 .brand-main {
@@ -128,12 +197,12 @@ button {
 
 .brand-logo-image {
 
-    width:58px;
-    height:58px;
+    width:62px;
+    height:62px;
 
-    flex:0 0 58px;
+    flex:0 0 62px;
 
-    border-radius:16px;
+    border-radius:20px;
 
     object-fit:contain;
 
@@ -141,32 +210,38 @@ button {
 
     background:#ffffff;
 
+    border:
+        1px solid
+        rgba(255,185,209,.38);
+
     box-shadow:
-        0 8px 24px
-        rgba(0,0,0,.07);
+        0 10px 30px
+        rgba(205,105,140,.14);
 }
 
 .brand-title {
 
     margin:0;
 
-    font-size:29px;
+    font-size:30px;
     line-height:1.25;
 
-    font-weight:700;
+    font-weight:750;
 
-    letter-spacing:2px;
+    letter-spacing:3px;
+
+    color:#5b3b47;
 }
 
 .brand-subtitle {
 
-    margin-top:10px;
+    margin-top:11px;
 
     font-size:14px;
 
-    color:#8b8b8b;
+    color:#a27687;
 
-    letter-spacing:1px;
+    letter-spacing:2px;
 }
 
 
@@ -179,27 +254,32 @@ button {
     width:100%;
 
     background:
-        rgba(
-            255,
-            255,
-            255,
-            .96
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.97),
+            rgba(255,249,252,.97)
         );
 
-    border-radius:24px;
+    border-radius:28px;
 
     padding:
-        8px
+        9px
         18px
-        22px;
+        23px;
 
     box-shadow:
-        0 12px 40px
-        rgba(0,0,0,.07);
+        0 18px 50px
+        rgba(180,90,120,.12);
 
     border:
         1px solid
-        rgba(0,0,0,.035);
+        rgba(255,190,213,.38);
+
+    backdrop-filter:
+        blur(12px);
+
+    -webkit-backdrop-filter:
+        blur(12px);
 }
 
 
@@ -217,16 +297,20 @@ button {
 
     gap:6px;
 
-    background:#f4f4f6;
+    background:#fff0f5;
 
-    border-radius:15px;
+    border-radius:17px;
 
-    padding:4px;
+    padding:5px;
 
     margin:
         10px
         0
         24px;
+
+    border:
+        1px solid
+        rgba(255,195,215,.30);
 }
 
 .tab-button {
@@ -235,14 +319,14 @@ button {
     height:48px;
 
     border:0;
-    border-radius:12px;
+    border-radius:13px;
 
     background:transparent;
 
     font-size:16px;
-    font-weight:600;
+    font-weight:650;
 
-    color:#767676;
+    color:#a47a89;
 
     transition:.18s;
 
@@ -251,13 +335,18 @@ button {
 
 .tab-button.active {
 
-    background:#ffffff;
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #fff9fb
+        );
 
-    color:#222222;
+    color:#d65c88;
 
     box-shadow:
-        0 3px 12px
-        rgba(0,0,0,.08);
+        0 4px 14px
+        rgba(203,94,133,.12);
 }
 
 .tab-panel {
@@ -284,9 +373,9 @@ button {
     margin-bottom:8px;
 
     font-size:14px;
-    font-weight:600;
+    font-weight:650;
 
-    color:#555555;
+    color:#6c505b;
 }
 
 .input {
@@ -294,21 +383,22 @@ button {
     width:100%;
     height:54px;
 
-    border-radius:14px;
+    border-radius:15px;
 
     border:
         1px solid
-        #dddddf;
+        #efd7e0;
 
     padding:
         0
         15px;
 
-    background:#ffffff;
+    background:
+        rgba(255,255,255,.94);
 
     font-size:16px;
 
-    color:#222222;
+    color:#3e3035;
 
     outline:none;
 
@@ -317,15 +407,17 @@ button {
 
 .input:focus {
 
-    border-color:#a6a6aa;
+    border-color:#efa7c0;
 
     box-shadow:
-        0 0 0 3px
-        rgba(0,0,0,.035);
+        0 0 0 4px
+        rgba(239,167,192,.14);
+
+    background:#ffffff;
 }
 
 .input::placeholder {
-    color:#b8b8bc;
+    color:#c6adb6;
 }
 
 
@@ -348,13 +440,13 @@ button {
 
     height:54px;
 
-    border-radius:14px;
+    border-radius:15px;
 
     border:
         1px solid
-        #dddddf;
+        #efd7e0;
 
-    background:#f7f7f8;
+    background:#fff4f7;
 
     display:flex;
 
@@ -362,9 +454,9 @@ button {
     justify-content:center;
 
     font-size:16px;
-    font-weight:600;
+    font-weight:650;
 
-    color:#444444;
+    color:#875e6d;
 }
 
 
@@ -388,20 +480,24 @@ button {
     height:54px;
 
     border:0;
-    border-radius:14px;
+    border-radius:15px;
 
-    background:#f0f0f2;
+    background:#ffe5ee;
 
-    color:#333333;
+    color:#b84f75;
 
     font-size:14px;
-    font-weight:600;
+    font-weight:650;
 
     padding:
         0
         10px;
 
     touch-action:manipulation;
+}
+
+.otp-button:active {
+    transform:scale(.985);
 }
 
 .otp-button:disabled {
@@ -423,23 +519,32 @@ button {
 .business-tip {
 
     padding:
-        12px
+        13px
         14px;
 
     margin-bottom:20px;
 
-    border-radius:13px;
+    border-radius:15px;
 
-    background:#f8f8f9;
+    background:
+        linear-gradient(
+            135deg,
+            #fff6f9,
+            #fffafb
+        );
 
-    color:#777777;
+    border:
+        1px solid
+        #f5dce5;
+
+    color:#987381;
 
     font-size:13px;
     line-height:1.65;
 }
 
 .business-tip strong {
-    color:#444444;
+    color:#754e5d;
 }
 
 
@@ -472,7 +577,7 @@ button {
 
     background:transparent;
 
-    color:#777777;
+    color:#b06680;
 
     font-size:14px;
 
@@ -481,7 +586,7 @@ button {
 
 
 /* =====================================================
-   按钮
+   主按钮
 ===================================================== */
 
 .primary-button {
@@ -492,20 +597,25 @@ button {
     margin-top:5px;
 
     border:0;
-    border-radius:15px;
+    border-radius:16px;
 
-    background:#222222;
+    background:
+        linear-gradient(
+            135deg,
+            #f48fb1,
+            #e96f9a
+        );
 
     color:#ffffff;
 
     font-size:17px;
-    font-weight:650;
+    font-weight:700;
 
     letter-spacing:1px;
 
     box-shadow:
-        0 8px 18px
-        rgba(0,0,0,.13);
+        0 9px 22px
+        rgba(220,91,137,.24);
 
     transition:.15s;
 
@@ -523,6 +633,69 @@ button {
     cursor:not-allowed;
 }
 
+
+/* =====================================================
+   申请成为健康顾问
+===================================================== */
+
+.consultant-apply-button {
+
+    width:100%;
+    min-height:56px;
+
+    margin-top:13px;
+
+    border:
+        1px solid
+        #f3bfd1;
+
+    border-radius:16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff1f6,
+            #ffe5ee
+        );
+
+    color:#c04f78;
+
+    font-size:16px;
+    font-weight:700;
+
+    letter-spacing:.5px;
+
+    box-shadow:
+        0 5px 15px
+        rgba(219,111,150,.10);
+
+    touch-action:manipulation;
+
+    transition:
+        transform .15s,
+        box-shadow .15s,
+        background .15s;
+}
+
+.consultant-apply-button:active {
+
+    transform:scale(.985);
+
+    background:#ffdae7;
+}
+
+.consultant-apply-button .flower {
+
+    display:inline-block;
+
+    margin-right:6px;
+}
+
+
+/* =====================================================
+   返回主页
+===================================================== */
+
 .home-button {
 
     width:100%;
@@ -532,15 +705,16 @@ button {
 
     border:
         1px solid
-        #dddddf;
+        #efdbe2;
 
-    border-radius:15px;
+    border-radius:16px;
 
-    background:#ffffff;
+    background:
+        rgba(255,255,255,.92);
 
-    color:#333333;
+    color:#745966;
 
-    font-size:17px;
+    font-size:16px;
     font-weight:650;
 
     letter-spacing:1px;
@@ -554,7 +728,7 @@ button {
 
     transform:scale(.985);
 
-    background:#f7f7f8;
+    background:#fff5f8;
 }
 
 
@@ -569,11 +743,15 @@ button {
         2px
         20px;
 
+    padding:
+        2px
+        2px;
+
     font-size:13px;
 
-    line-height:1.6;
+    line-height:1.7;
 
-    color:#8b8b8b;
+    color:#a1818d;
 }
 
 
@@ -594,7 +772,7 @@ button {
         12px
         14px;
 
-    border-radius:12px;
+    border-radius:13px;
 
     font-size:14px;
 
@@ -607,23 +785,35 @@ button {
 
 .message.error {
 
-    background:#fff1f2;
+    background:#fff0f3;
 
-    color:#b42332;
+    color:#b4234d;
+
+    border:
+        1px solid
+        #ffd1dc;
 }
 
 .message.success {
 
-    background:#f0f8f3;
+    background:#f0faf4;
 
     color:#26734d;
+
+    border:
+        1px solid
+        #d7f0df;
 }
 
 .message.info {
 
-    background:#f3f5f8;
+    background:#fff5f8;
 
-    color:#555555;
+    color:#765b65;
+
+    border:
+        1px solid
+        #f5dfe7;
 }
 
 
@@ -646,7 +836,7 @@ button {
 
     line-height:1.7;
 
-    color:#a0a0a5;
+    color:#b792a0;
 }
 
 
@@ -696,8 +886,8 @@ button {
 
     body {
 
-        padding-left:12px;
-        padding-right:12px;
+        padding-left:10px;
+        padding-right:10px;
     }
 
     .login-card {
@@ -707,7 +897,7 @@ button {
     }
 
     .brand {
-        padding-top:4vh;
+        padding-top:3vh;
     }
 
     .brand-title {
@@ -720,6 +910,8 @@ button {
         height:52px;
 
         flex-basis:52px;
+
+        border-radius:17px;
     }
 
     .otp-row {
@@ -728,6 +920,16 @@ button {
             1fr
             108px;
     }
+
+    .tab-button {
+
+        font-size:14px;
+    }
+
+    .consultant-apply-button {
+
+        font-size:15px;
+    }
 }
 
 
@@ -735,13 +937,16 @@ button {
 
     .brand {
 
-        padding-top:4vh;
+        padding-top:3.5vh;
 
-        padding-bottom:24px;
+        padding-bottom:22px;
     }
 
     .login-card {
-        border-radius:22px;
+
+        border-radius:23px;
+
+        padding-bottom:20px;
     }
 
     .tab-button {
@@ -749,7 +954,9 @@ button {
     }
 
     .primary-button,
-    .home-button {
+    .home-button,
+    .consultant-apply-button {
+
         min-height:56px;
     }
 }
@@ -1033,6 +1240,21 @@ button {
             type="button"
         >
             邮箱密码登录
+        </button>
+
+
+        <!-- =============================================
+             唯一新增业务按钮：
+             申请成为健康顾问
+        ============================================== -->
+
+        <button
+            class="consultant-apply-button"
+            type="button"
+            onclick="window.location.href='./health_consultant_application.html'"
+        >
+            <span class="flower">🌸</span>
+            申请成为健康顾问
         </button>
 
 
@@ -1519,13 +1741,6 @@ async function sendOtp() {
 
                 options:{
 
-                    /*
-                     * 手机号不存在：
-                     * 自动创建Supabase Auth用户
-                     *
-                     * 手机号已经存在：
-                     * 直接向原用户发送登录验证码
-                     */
                     shouldCreateUser:
                         true
 
@@ -1668,9 +1883,6 @@ function updateOtpButton() {
 
 /* =========================================================
    确保客户业务记录存在
-
-   全国唯一客户：
-   不按省、市、区县搜索或建立客户
 ========================================================= */
 
 async function ensureCustomerRecord(
@@ -1984,11 +2196,6 @@ async function customerLogin() {
 
     try {
 
-        /* =================================================
-           第一步：
-           手机验证码验证
-        ================================================= */
-
         const {
             data,
             error
@@ -2022,17 +2229,6 @@ async function customerLogin() {
         }
 
 
-        /* =================================================
-           第二步：
-           全国范围确保客户业务记录存在
-
-           已有客户：
-           返回原customers记录
-
-           新客户：
-           创建customers记录和customer_no
-        ================================================= */
-
         const customerResult =
             await ensureCustomerRecord(
                 phone
@@ -2044,11 +2240,6 @@ async function customerLogin() {
             customerResult
         );
 
-
-        /* =================================================
-           第三步：
-           再次确认角色
-        ================================================= */
 
         const role =
             await getCurrentUserRole();
@@ -2068,11 +2259,6 @@ async function customerLogin() {
             );
         }
 
-
-        /* =================================================
-           第四步：
-           登录成功
-        ================================================= */
 
         showMessage(
 
@@ -2112,10 +2298,6 @@ async function customerLogin() {
         );
 
 
-        /*
-         * 如果业务记录初始化失败，
-         * 清除当前可能产生的Session。
-         */
         try {
 
             const {
@@ -2791,14 +2973,6 @@ async function autoRedirectExistingSession() {
             data.session.user;
 
 
-        /*
-         * 手机号用户：
-         * 自动确保customers记录存在。
-         *
-         * 这样即使客户过去已经登录过，
-         * 但旧数据库中没有customers记录，
-         * 也会在这里自动补齐。
-         */
         if (
             user &&
             user.phone

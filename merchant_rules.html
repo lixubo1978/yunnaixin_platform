@@ -2,736 +2,1817 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,viewport-fit=cover">
-<meta name="theme-color" content="#fff7fa">
-<title>商户分成规则 - 孕乃馨</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>商户分成规则管理 - 孕乃馨平台</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-:root{--pink-50:#fff7fa;--pink-100:#ffeef4;--pink-200:#ffd9e7;--pink-300:#f8bdd2;--pink-500:#e85d8f;--pink-600:#d94d7d;--pink-700:#b93667;--rose:#652742;--text:#29242a;--text2:#716a73;--text3:#a39aa1;--border:#eee5e9;--green:#278255;--green-bg:#edf9f2;--orange:#a56c16;--orange-bg:#fff7e8;--gray:#80777d;--gray-bg:#f3f0f2;--red:#c63d5b;--red-bg:#fff1f4}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;min-height:100%}
-body{min-height:100vh;min-height:100dvh;background:linear-gradient(180deg,#fffafb,#faf9fa);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;-webkit-font-smoothing:antialiased}
-button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
-.topbar{min-height:68px;position:sticky;top:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:8px 24px;background:rgba(255,255,255,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
-.brand{display:flex;align-items:center;gap:11px}.brand img{width:42px;height:42px;object-fit:contain;border-radius:12px}.brand-title{font-size:18px;font-weight:750;color:var(--rose)}.brand-sub{margin-top:2px;font-size:11px;color:var(--text3)}
-.top-actions{display:flex;align-items:center;gap:9px}.back-button,.logout-button{min-height:44px;padding:0 15px;border-radius:12px;font-size:12px;font-weight:700}.back-button{border:1px solid var(--pink-200);background:var(--pink-50);color:var(--pink-700)}.logout-button{border:0;background:linear-gradient(135deg,var(--pink-500),var(--pink-600));color:#fff}
-.page{width:100%;max-width:1750px;margin:0 auto;padding:28px}
-.hero{padding:26px 28px;margin-bottom:18px;border-radius:22px;border:1px solid rgba(232,93,143,.10);background:linear-gradient(135deg,#fff0f5,#ffe1ec)}.hero-tag{display:inline-flex;padding:4px 10px;margin-bottom:8px;border-radius:999px;background:rgba(255,255,255,.74);color:var(--pink-700);font-size:10px;font-weight:750}.hero h1{margin:0 0 6px;color:var(--rose);font-size:24px}.hero p{margin:0;color:#875064;font-size:12px;line-height:1.8}
-.stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:11px;margin-bottom:17px}.stat{min-height:100px;padding:16px;border:1px solid var(--border);border-radius:16px;background:#fff}.stat-fixed{border-color:var(--pink-200);background:linear-gradient(135deg,#fff7fa,#fff0f5)}.stat-label{color:var(--text3);font-size:10px}.stat-value{margin-top:7px;color:var(--rose);font-size:21px;font-weight:750}.stat-note{margin-top:4px;color:var(--pink-700);font-size:9px}
-.toolbar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:13px;margin-bottom:14px;border:1px solid var(--border);border-radius:17px;background:#fff}.select{width:100%;min-height:48px;padding:0 13px;border:1px solid #e4dce0;border-radius:11px;background:#fff;outline:none}.select:focus{border-color:var(--pink-300);box-shadow:0 0 0 3px var(--pink-50)}
-.table-panel{overflow:hidden;border:1px solid var(--border);border-radius:18px;background:#fff}.table-scroll{overflow-x:auto}table{width:100%;min-width:1750px;border-collapse:collapse}th{padding:13px 11px;text-align:left;white-space:nowrap;background:#fffafb;color:#837980;font-size:10px}td{padding:14px 11px;border-top:1px solid #f1eaee;font-size:11px;vertical-align:middle}
-.merchant-name{font-weight:750}.sub-text{margin-top:3px;color:var(--text3);font-size:9px}.service-name{font-weight:700}.value{font-weight:650}.undefined{color:var(--orange);font-weight:700}
-.fixed-ratio{display:inline-flex;align-items:center;justify-content:center;min-width:52px;min-height:27px;padding:3px 9px;border-radius:999px;color:var(--pink-700);background:var(--pink-100);border:1px solid var(--pink-200);font-size:10px;font-weight:800;white-space:nowrap}
-.badge{display:inline-flex;align-items:center;justify-content:center;min-height:26px;padding:3px 8px;border-radius:999px;font-size:9px;font-weight:750;white-space:nowrap}.badge-defined{color:var(--green);background:var(--green-bg)}.badge-undefined{color:var(--orange);background:var(--orange-bg)}.badge-partial{color:#a86613;background:#fff5dc}.badge-history{color:var(--gray);background:var(--gray-bg)}
-.define-button,.invalidate-button{min-height:39px;padding:0 12px;border-radius:10px;font-size:10px;font-weight:750;white-space:nowrap}.define-button{border:1px solid var(--pink-200);background:var(--pink-50);color:var(--pink-700)}.invalidate-button{border:1px solid #efc4ce;background:var(--red-bg);color:var(--red)}.history-text{color:var(--text3);font-size:10px}
-.empty{padding:55px 20px;text-align:center;color:var(--text3)}.empty-icon{margin-bottom:8px;font-size:33px}.mobile-list{display:none}
-.rule-card{padding:16px;margin-bottom:10px;border:1px solid var(--border);border-radius:16px;background:#fff}.rule-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:12px}.rule-card-name{font-size:15px;font-weight:750}.rule-card-service{margin-top:3px;color:var(--pink-700);font-size:12px;font-weight:650}.mobile-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mobile-item{padding:10px;border-radius:11px;background:#fcfafb}.mobile-item-fixed{background:var(--pink-50);border:1px solid var(--pink-100)}.mobile-label{color:var(--text3);font-size:9px}.mobile-value{margin-top:3px;font-size:11px;font-weight:650;word-break:break-word}.mobile-action{width:100%;min-height:47px;margin-top:11px;border-radius:12px;font-weight:750}
-.modal-mask{position:fixed;inset:0;z-index:5000;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(40,27,33,.44);backdrop-filter:blur(4px)}.modal{width:100%;max-width:560px;max-height:92vh;overflow:auto;padding:22px;border-radius:20px;background:#fff;box-shadow:0 24px 70px rgba(50,20,35,.20)}.modal-title{margin-bottom:4px;color:var(--rose);font-size:19px;font-weight:750}.modal-sub{margin-bottom:16px;color:var(--text2);font-size:11px;line-height:1.7}.modal-info{padding:12px;margin-bottom:16px;border-radius:12px;background:var(--pink-50);color:#7e4960;font-size:10px;line-height:1.7}
-.fixed-service-panel{padding:14px;margin-bottom:14px;border:1px solid var(--pink-200);border-radius:14px;background:linear-gradient(135deg,#fff7fa,#fff0f5)}.fixed-service-title{color:var(--rose);font-size:12px;font-weight:750}.fixed-service-value{margin-top:5px;color:var(--pink-700);font-size:22px;font-weight:800}.fixed-service-note{margin-top:4px;color:var(--text3);font-size:9px;line-height:1.6}
-.form-group{margin-bottom:13px}.form-label{display:block;margin-bottom:6px;color:#554b52;font-size:11px;font-weight:700}.form-input{width:100%;min-height:48px;padding:0 13px;border:1px solid #e5dce1;border-radius:11px;outline:none;background:#fff}.form-input:focus{border-color:var(--pink-300);box-shadow:0 0 0 3px var(--pink-50)}
-.ratio-check{margin:15px 0;padding:15px;border:1px solid #f0d9e2;border-radius:14px;background:#fffafb}.ratio-check-title{color:#6e5963;font-size:11px;font-weight:700}.ratio-total{margin-top:6px;font-size:24px;font-weight:800;color:var(--orange)}.ratio-total.valid{color:var(--green)}.ratio-total.invalid{color:var(--red)}.ratio-message{margin-top:5px;font-size:11px;line-height:1.6;color:var(--orange)}.ratio-message.valid{color:var(--green)}.ratio-message.invalid{color:var(--red)}.ratio-formula{margin-top:8px;color:var(--text3);font-size:9px;line-height:1.6}
-.modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:18px}.cancel-button,.save-button{min-height:49px;border-radius:12px;font-weight:750}.cancel-button{border:1px solid var(--border);background:#fff}.save-button{border:0;background:linear-gradient(135deg,var(--pink-500),var(--pink-600));color:#fff}.save-button:disabled{opacity:.45;cursor:not-allowed}
-.toast{position:fixed;left:50%;bottom:25px;z-index:9000;transform:translateX(-50%);max-width:calc(100% - 30px);padding:11px 16px;border-radius:11px;background:#382f35;color:#fff;font-size:11px}
-.loading{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;background:#fffafd}.spinner{width:38px;height:38px;border:4px solid var(--pink-100);border-top-color:var(--pink-500);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
-@media(max-width:1200px){.stats{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:900px){.toolbar{grid-template-columns:1fr 1fr}}
-@media(max-width:760px){.topbar{min-height:64px;padding:max(5px,env(safe-area-inset-top)) 11px 5px}.brand img{width:38px;height:38px}.brand-title{font-size:16px}.brand-sub,.back-button{display:none}.logout-button{min-height:42px;padding:0 12px}.page{padding:13px 11px 25px}.hero{padding:20px 18px;margin-bottom:12px;border-radius:18px}.hero h1{font-size:20px}.stats{grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px}.stat{min-height:87px;padding:13px}.stat-value{font-size:18px}.toolbar{grid-template-columns:1fr;padding:10px}.table-panel{display:none}.mobile-list{display:block}.modal-mask{align-items:flex-end;padding:0}.modal{max-width:none;max-height:93dvh;border-radius:22px 22px 0 0;padding:21px 17px max(20px,env(safe-area-inset-bottom))}}
+
+*{
+box-sizing:border-box
+}
+
+body{
+margin:0;
+background:#fffafb;
+color:#382a30;
+font-family:
+-apple-system,
+BlinkMacSystemFont,
+"Segoe UI",
+"PingFang SC",
+"Microsoft YaHei",
+sans-serif;
+}
+
+
+header{
+
+height:72px;
+background:#fff;
+border-bottom:1px solid #eee3e7;
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+padding:0 30px;
+
+}
+
+
+.logo{
+
+width:38px;
+height:38px;
+
+border-radius:50%;
+
+background:linear-gradient(
+145deg,
+#ff91ad,
+#ff668d
+);
+
+color:white;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:20px;
+
+}
+
+
+.brand{
+
+display:flex;
+gap:12px;
+align-items:center;
+
+}
+
+
+.brand h1{
+
+font-size:18px;
+margin:0;
+color:#8c3d58;
+
+}
+
+
+.brand small{
+
+font-size:11px;
+color:#aaa;
+
+}
+
+
+.btn{
+
+border:1px solid #eee3e7;
+
+background:white;
+
+border-radius:10px;
+
+padding:10px 16px;
+
+cursor:pointer;
+
+}
+
+
+.btn-primary{
+
+background:#e64f7c;
+color:white;
+border-color:#e64f7c;
+
+}
+
+
+.btn-danger{
+
+background:#fff3f5;
+color:#dc4c64;
+
+}
+
+
+main{
+
+max-width:1250px;
+
+margin:25px auto;
+
+padding:0 20px;
+
+}
+
+
+
+.hero{
+
+background:
+linear-gradient(
+110deg,
+#fff0f5,
+#ffdce8
+);
+
+border-radius:20px;
+
+padding:28px;
+
+margin-bottom:18px;
+
+}
+
+
+.hero h2{
+
+margin:0 0 10px;
+
+color:#75354c;
+
+}
+
+
+.hero p{
+
+color:#986879;
+
+font-size:13px;
+
+line-height:1.8;
+
+}
+
+
+
+.stats{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:12px;
+
+margin-bottom:18px;
+
+}
+
+
+
+.stat{
+
+background:white;
+
+border:1px solid #eee3e7;
+
+border-radius:15px;
+
+padding:18px;
+
+}
+
+
+
+.stat-label{
+
+font-size:12px;
+
+color:#aaa;
+
+}
+
+
+
+.stat-value{
+
+font-size:24px;
+
+font-weight:800;
+
+color:#713148;
+
+margin-top:8px;
+
+}
+
+
+
+.panel{
+
+background:white;
+
+border:1px solid #eee3e7;
+
+border-radius:16px;
+
+margin-bottom:18px;
+
+}
+
+
+
+.panel-head{
+
+padding:18px 20px;
+
+border-bottom:1px solid #eee3e7;
+
+font-weight:800;
+
+color:#653146;
+
+}
+
+
+
+.filter{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:12px;
+
+padding:20px;
+
+}
+
+
+
+select,
+input{
+
+height:42px;
+
+border:1px solid #eee3e7;
+
+border-radius:10px;
+
+padding:0 12px;
+
+width:100%;
+
+}
+
+
+
+.create-box{
+
+padding:20px;
+
+background:#fff8fa;
+
+border-top:1px solid #eee3e7;
+
+}
+
+
+
+.rule-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(5,1fr);
+
+gap:10px;
+
+}
+
+
+.rule-grid label{
+
+font-size:11px;
+
+color:#999;
+
+}
+
+
+.percent{
+
+position:relative;
+
+}
+
+
+.percent span{
+
+position:absolute;
+
+right:12px;
+
+top:12px;
+
+color:#999;
+
+}
+
+
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+min-width:1100px;
+
+}
+
+
+th{
+
+background:#fffafb;
+
+color:#98878e;
+
+font-size:12px;
+
+padding:13px;
+
+text-align:left;
+
+}
+
+
+td{
+
+padding:14px;
+
+border-bottom:1px solid #f2eaed;
+
+font-size:13px;
+
+}
+
+
+.badge{
+
+padding:5px 10px;
+
+border-radius:20px;
+
+font-size:11px;
+
+}
+
+
+.active{
+
+background:#eaf8f1;
+
+color:#2e9d68;
+
+}
+
+
+.history{
+
+background:#f3f1f2;
+
+color:#888;
+
+}
+
+
+.modal{
+
+display:none;
+
+position:fixed;
+
+inset:0;
+
+background:rgba(0,0,0,.35);
+
+align-items:center;
+
+justify-content:center;
+
+z-index:100;
+
+}
+
+
+.modal.show{
+
+display:flex;
+
+}
+
+
+.modal-box{
+
+background:white;
+
+width:520px;
+
+border-radius:18px;
+
+padding:25px;
+
+}
+
+
+
+.modal-title{
+
+font-size:18px;
+
+font-weight:bold;
+
+margin-bottom:20px;
+
+color:#70354a;
+
+}
+
+
+
+.row{
+
+margin-bottom:15px;
+
+}
+
+
+
+.row label{
+
+font-size:12px;
+
+color:#888;
+
+display:block;
+
+margin-bottom:6px;
+
+}
+
+
+
+.actions{
+
+display:flex;
+
+gap:8px;
+
+}
+
+
+@media(max-width:800px){
+
+.stats{
+
+grid-template-columns:1fr 1fr;
+
+}
+
+
+.filter{
+
+grid-template-columns:1fr;
+
+}
+
+
+.rule-grid{
+
+grid-template-columns:1fr 1fr;
+
+}
+
+}
+
 </style>
+
 </head>
+
+
 <body>
 
-<div id="loading" class="loading">
-<div class="spinner"></div>
-<div style="color:#756a71;font-size:12px">正在读取商户分成规则...</div>
+
+<header>
+
+
+<div class="brand">
+
+<div class="logo">♡</div>
+
+<div>
+
+<h1>商户分成规则管理</h1>
+
+<small>孕乃馨平台</small>
+
 </div>
 
-<header class="topbar">
-<div class="brand">
-<img src="./logo.jpeg" alt="孕乃馨">
-<div><div class="brand-title">商户分成规则</div><div class="brand-sub">孕乃馨平台管理中心</div></div>
 </div>
-<div class="top-actions">
-<button class="back-button" onclick="goHome()">返回首页</button>
-<button class="logout-button" onclick="logout()">退出</button>
+
+
+<div>
+
+<button class="btn" onclick="goBack()">
+返回工作台
+</button>
+
+<button class="btn btn-primary" onclick="logout()">
+退出
+</button>
+
 </div>
+
+
 </header>
 
-<main class="page">
+
+
+<main>
+
+
 <section class="hero">
-<div class="hero-tag">MERCHANT RULES</div>
-<h1>商户分成规则</h1>
-<p>每个商户、每个有效服务项目只保留一套统一分成规则。新商户或新服务项目建立后，系统自动生成一条未定义规则。市负责人比例、平台比例、软件服务商固定2%、门店比例、操作人员比例、订单来源比例六方合计必须等于100%。软件服务商技术服务费全国统一固定为2%，不可修改。规则定义后不能直接修改；如需调整，必须先将原规则设为无效，系统自动建立下一版本，历史规则永久保留。</p>
+
+<h2>
+商户经营分成规则
+</h2>
+
+<p>
+只保存真实经营项目。
+管理员选择城市、商户和服务项目后，人工定义分成比例。
+系统不会自动生成占位规则。
+</p>
+
 </section>
+
+
 
 <section class="stats">
-<div class="stat"><div class="stat-label">当前有效规则</div><div id="statActive" class="stat-value">0</div></div>
-<div class="stat"><div class="stat-label">涉及商户</div><div id="statMerchants" class="stat-value">0</div></div>
-<div class="stat"><div class="stat-label">已定义</div><div id="statDefined" class="stat-value">0</div></div>
-<div class="stat"><div class="stat-label">未定义</div><div id="statUndefined" class="stat-value">0</div></div>
-<div class="stat"><div class="stat-label">历史无效规则</div><div id="statHistory" class="stat-value">0</div></div>
-<div class="stat stat-fixed"><div class="stat-label">软件服务商技术服务费</div><div class="stat-value">2%</div><div class="stat-note">全国统一 · 固定比例 · 不可修改</div></div>
+
+
+<div class="stat">
+<div class="stat-label">
+有效规则
+</div>
+
+<div class="stat-value" id="activeCount">
+0
+</div>
+
+</div>
+
+
+<div class="stat">
+<div class="stat-label">
+历史规则
+</div>
+
+<div class="stat-value" id="historyCount">
+0
+</div>
+
+</div>
+
+
+<div class="stat">
+<div class="stat-label">
+商户数量
+</div>
+
+<div class="stat-value" id="merchantCount">
+0
+</div>
+
+</div>
+
+
+<div class="stat">
+<div class="stat-label">
+服务项目
+</div>
+
+<div class="stat-value" id="productCount">
+0
+</div>
+
+</div>
+
+
 </section>
 
-<section class="toolbar">
-<select id="cityFilter" class="select" onchange="cityChanged()"><option value="">全部已开展业务城市</option></select>
-<select id="merchantFilter" class="select" onchange="renderRules()"><option value="">全部商户</option></select>
-<select id="ruleFilter" class="select" onchange="renderRules()">
-<option value="active">当前有效规则</option>
-<option value="undefined">当前未定义</option>
-<option value="defined">当前已定义</option>
-<option value="history">历史已失效</option>
-<option value="all">全部规则</option>
+
+<section class="panel">
+
+<div class="panel-head">
+
+查询规则
+
+</div>
+
+
+<div class="filter">
+
+
+<select id="cityFilter">
+
+<option value="">
+选择城市
+</option>
+
 </select>
+
+
+
+<select id="merchantFilter">
+
+<option value="">
+选择商户
+</option>
+
+</select>
+
+
+
+<select id="productFilter">
+
+<option value="">
+选择服务项目
+</option>
+
+</select>
+
+
+</div>
+
+
 </section>
 
-<section class="table-panel">
-<div class="table-scroll">
+
+
+<section class="panel">
+
+
+<div class="panel-head">
+
+创建新的分成规则
+
+</div>
+
+
+<div class="create-box">
+
+
+<div class="filter">
+
+
+<select id="createCity">
+
+<option>
+选择城市
+</option>
+
+</select>
+
+
+<select id="createMerchant">
+
+<option>
+选择商户
+</option>
+
+</select>
+
+
+<select id="createProduct">
+
+<option>
+选择服务项目
+</option>
+
+</select>
+
+
+</div>
+
+
+<div class="rule-grid">
+
+
+<div>
+<label>
+城市负责人
+</label>
+<div class="percent">
+<input id="cityRatio" type="number">
+<span>%</span>
+</div>
+</div>
+
+
+<div>
+<label>
+平台
+</label>
+<div class="percent">
+<input id="platformRatio" type="number">
+<span>%</span>
+</div>
+</div>
+
+
+<div>
+<label>
+商户
+</label>
+<div class="percent">
+<input id="storeRatio" type="number">
+<span>%</span>
+</div>
+</div>
+
+
+<div>
+<label>
+运营
+</label>
+<div class="percent">
+<input id="operatorRatio" type="number">
+<span>%</span>
+</div>
+</div>
+
+
+<div>
+<label>
+订单来源
+</label>
+<div class="percent">
+<input id="sourceRatio" type="number">
+<span>%</span>
+</div>
+</div>
+
+
+</div>
+
+
+<br>
+
+
+<button class="btn btn-primary" onclick="createRule()">
+保存分成规则
+</button>
+
+
+</div>
+
+
+</section>
+
+
+
+<section class="panel">
+
+<div class="panel-head">
+规则列表
+</div>
+
+
+<div style="overflow:auto">
+
+
 <table>
-<thead><tr>
-<th>商户</th><th>服务区域</th><th>服务项目</th><th>版本</th><th>城市销售价</th>
-<th>市负责人比例</th><th>平台比例</th><th>软件服务商</th><th>门店比例</th>
-<th>操作人员比例</th><th>订单来源比例</th><th>修改人</th><th>修改时间</th><th>状态</th><th>操作</th>
-</tr></thead>
-<tbody id="rulesTable"></tbody>
+
+<thead>
+
+<tr>
+
+<th>城市</th>
+<th>商户</th>
+<th>服务项目</th>
+<th>城市负责人</th>
+<th>平台</th>
+<th>商户</th>
+<th>运营</th>
+<th>来源</th>
+<th>版本</th>
+<th>状态</th>
+<th>操作</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="ruleList">
+
+</tbody>
+
+
 </table>
+
+
 </div>
-<div id="desktopEmpty" class="empty hidden"><div class="empty-icon">📊</div>暂无符合条件的商户分成规则</div>
+
+
 </section>
 
-<section id="mobileList" class="mobile-list"></section>
-<div id="mobileEmpty" class="empty hidden"><div class="empty-icon">📊</div>暂无符合条件的商户分成规则</div>
+
 </main>
-
-<div id="defineModal" class="modal-mask hidden" onclick="modalBackgroundClick(event)">
-<div class="modal">
-<div class="modal-title">定义商户分成规则</div>
-<div id="modalSubtitle" class="modal-sub">-</div>
-<div class="modal-info">本次定义完成后，该版本规则将被锁定。<br>六方分账比例合计必须等于100%。<br>软件服务商固定收取每笔订单2%的技术服务费，不允许修改。<br>如果以后需要修改，请使用“设为无效”，旧版本永久保留，系统自动建立下一版本未定义规则。</div>
-
-<div class="fixed-service-panel">
-<div class="fixed-service-title">软件服务商技术服务费</div>
-<div class="fixed-service-value">2%</div>
-<div class="fixed-service-note">全国统一固定比例，由系统自动计入分账比例，不提供修改入口。</div>
+<div id="toast"
+style="
+position:fixed;
+right:20px;
+bottom:20px;
+background:#41353a;
+color:white;
+padding:12px 18px;
+border-radius:10px;
+display:none;
+z-index:200;
+">
 </div>
 
-<div class="form-group"><label class="form-label">市负责人比例（%）</label><input id="cityManagerInput" class="form-input ratio-input" type="number" min="0" max="100" step="0.01" inputmode="decimal" placeholder="请输入市负责人比例"></div>
-<div class="form-group"><label class="form-label">平台比例（%）</label><input id="platformInput" class="form-input ratio-input" type="number" min="0" max="100" step="0.01" inputmode="decimal" placeholder="请输入平台比例"></div>
-<div class="form-group"><label class="form-label">门店比例（%）</label><input id="storeInput" class="form-input ratio-input" type="number" min="0" max="100" step="0.01" inputmode="decimal" placeholder="请输入门店比例"></div>
-<div class="form-group"><label class="form-label">操作人员比例（%）</label><input id="operatorInput" class="form-input ratio-input" type="number" min="0" max="100" step="0.01" inputmode="decimal" placeholder="请输入操作人员比例"></div>
-<div class="form-group"><label class="form-label">订单来源比例（%）</label><input id="orderSourceInput" class="form-input ratio-input" type="number" min="0" max="100" step="0.01" inputmode="decimal" placeholder="请输入订单来源比例"></div>
-
-<div class="ratio-check">
-<div class="ratio-check-title">六方分账比例合计</div>
-<div id="ratioTotal" class="ratio-total">2.00%</div>
-<div id="ratioMessage" class="ratio-message">请填写5项可调整比例，加上软件服务商固定2%，合计必须等于100%。</div>
-<div class="ratio-formula">市负责人比例 + 平台比例 + 软件服务商固定2% + 门店比例 + 操作人员比例 + 订单来源比例 = 100%</div>
-</div>
-
-<div class="modal-actions">
-<button class="cancel-button" onclick="closeDefineModal()">取消</button>
-<button id="saveButton" class="save-button" onclick="saveDefinition()" disabled>确认定义</button>
-</div>
-</div>
-</div>
-
-<div id="toast" class="toast hidden"></div>
 
 <script>
-const SUPABASE_URL="https://qbuqjwpkltbjhlfbyjyb.supabase.co";
-const SUPABASE_ANON_KEY="sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
-const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
-const LOGIN_PAGE="./login.html",HOME_PAGE="./wholemanagement.html",SOFTWARE_SERVICE_RATIO=2;
 
-let currentUser=null,currentProfile=null,rules=[],merchants=[],products=[],serviceAreas=[],provinces=[],cities=[],cityPrices=[],profiles=[];
-let merchantsMap=new Map(),productsMap=new Map(),serviceAreasMap=new Map(),provincesMap=new Map(),citiesMap=new Map(),pricesMap=new Map(),profilesMap=new Map();
-let definingRuleId=null;
 
-async function initialize(){
-try{
-const {data:{session},error}=await supabaseClient.auth.getSession();
-if(error||!session){location.replace(LOGIN_PAGE);return}
-currentUser=session.user;
-await verifyAccess();
-await loadBaseData();
-await loadRules();
-buildMaps();
-buildCityFilter();
-buildMerchantFilter();
-renderStats();
-renderRules();
-document.getElementById("loading").style.display="none";
-}catch(error){
-console.error(error);
-document.getElementById("loading").style.display="none";
-alert(error.message||"商户分成规则读取失败。");
-}}
+const SUPABASE_URL=
+"你的SUPABASE_URL";
 
-async function verifyAccess(){
-const {data,error}=await supabaseClient.from("profiles").select("id,full_name,role,status").eq("id",currentUser.id).maybeSingle();
-if(error||!data){
-await supabaseClient.auth.signOut();
-location.replace(LOGIN_PAGE);
-throw new Error("无法读取当前账号资料。");
-}
-if(data.status!=="active"){
-await supabaseClient.auth.signOut();
-location.replace(LOGIN_PAGE);
-throw new Error("当前账号已停用。");
-}
-if(!["founder","platform_admin"].includes(data.role)){
-location.replace(HOME_PAGE);
-throw new Error("当前账号没有商户分成规则管理权限。");
-}
-currentProfile=data;
-}
 
-async function loadBaseData(){
-const results=await Promise.all([
-supabaseClient.from("merchants").select("*"),
-supabaseClient.from("products").select("*"),
-supabaseClient.from("service_areas").select("*"),
-supabaseClient.from("provinces").select("id,province_name"),
-supabaseClient.from("cities").select("id,province_id,city_name"),
-supabaseClient.from("city_prices").select("city_id,product_id,price,status"),
-supabaseClient.from("profiles").select("id,full_name,login_email")
-]);
-const [mr,pr,ar,pvr,cr,cpr,pfr]=results;
-if(mr.error)throw mr.error;
-if(pr.error)throw pr.error;
-if(ar.error)throw ar.error;
-if(pvr.error)throw pvr.error;
-if(cr.error)throw cr.error;
-if(cpr.error)throw cpr.error;
-merchants=mr.data||[];
-products=pr.data||[];
-serviceAreas=ar.data||[];
-provinces=pvr.data||[];
-cities=cr.data||[];
-cityPrices=cpr.data||[];
-profiles=pfr.error?[]:(pfr.data||[]);
-}
+const SUPABASE_ANON_KEY=
+"你的SUPABASE_ANON_KEY";
 
-async function loadRules(){
-const {data,error}=await supabaseClient
-.from("merchant_product_rules")
-.select(`
-id,merchant_id,product_id,rule_type,
-city_manager_ratio,software_service_ratio,platform_ratio,store_ratio,operator_ratio,order_source_ratio,
-status,version_no,previous_rule_id,
-created_by,created_at,updated_by,updated_at,invalidated_by,invalidated_at
-`)
-.eq("rule_type","standard")
-.order("merchant_id",{ascending:true})
-.order("product_id",{ascending:true})
-.order("version_no",{ascending:false});
-if(error)throw error;
-rules=data||[];
-}
 
-function buildMaps(){
-merchantsMap=new Map(merchants.map(x=>[String(x.id),x]));
-productsMap=new Map(products.map(x=>[String(x.id),x]));
-serviceAreasMap=new Map(serviceAreas.map(x=>[String(x.id),x]));
-provincesMap=new Map(provinces.map(x=>[String(x.id),x]));
-citiesMap=new Map(cities.map(x=>[String(x.id),x]));
-profilesMap=new Map(profiles.map(x=>[String(x.id),x]));
-pricesMap=new Map();
-cityPrices.forEach(x=>{if(x.status==="active")pricesMap.set(`${x.city_id}_${x.product_id}`,x)});
-}
-
-function getMerchant(r){return merchantsMap.get(String(r.merchant_id))}
-function getProduct(r){return productsMap.get(String(r.product_id))}
-function merchantName(m){return m?.merchant_name||m?.name||"未知商户"}
-function merchantNo(m){
-const raw=m?.record_no??m?.account_no??null;
-return raw===null||raw===undefined?"-":String(raw).padStart(3,"0");
-}
-function productName(p){return p?.product_name||p?.name||"未知服务项目"}
-
-function merchantCityId(m){
-if(!m)return null;
-if(m.service_area_id){
-const a=serviceAreasMap.get(String(m.service_area_id));
-if(a?.city_id)return a.city_id;
-}
-return m.city_id??null;
-}
-
-function areaText(m){
-if(!m)return "-";
-let provinceId=m.province_id,cityId=m.city_id;
-if(m.service_area_id){
-const a=serviceAreasMap.get(String(m.service_area_id));
-if(a){provinceId=a.province_id??provinceId;cityId=a.city_id??cityId}
-}
-const province=provincesMap.get(String(provinceId))?.province_name||"";
-const city=citiesMap.get(String(cityId))?.city_name||"";
-if(province&&city)return province+" · "+city;
-return city||province||"-";
-}
-
-function cityPrice(rule){
-const merchant=getMerchant(rule),cityId=merchantCityId(merchant);
-if(!cityId)return null;
-return pricesMap.get(`${cityId}_${rule.product_id}`)?.price??null;
-}
-
-function isEmptyValue(v){return v===null||v===undefined||v===""}
-function ruleValues(r){return[r.city_manager_ratio,r.platform_ratio,r.store_ratio,r.operator_ratio,r.order_source_ratio]}
-function isBlankRule(r){return ruleValues(r).every(isEmptyValue)}
-function isFullyDefined(r){return ruleValues(r).every(v=>!isEmptyValue(v))}
-function ruleStateText(r){
-if(r.status==="inactive")return{text:"历史无效",className:"badge-history"};
-if(isBlankRule(r))return{text:"未定义",className:"badge-undefined"};
-if(isFullyDefined(r))return{text:"已定义",className:"badge-defined"};
-return{text:"部分定义",className:"badge-partial"};
-}
-
-function modifierId(r){return r.status==="inactive"?(r.invalidated_by??r.updated_by??null):(r.updated_by??null)}
-function modifierName(r){
-const id=modifierId(r);
-if(!id)return isBlankRule(r)?"-":"平台管理人员";
-const p=profilesMap.get(String(id));
-return p?(p.full_name||p.login_email||"平台管理人员"):"平台管理人员";
-}
-function modifiedTime(r){
-if(isBlankRule(r)&&r.status==="active"&&!r.updated_by)return "-";
-return formatDateTime(r.status==="inactive"?(r.invalidated_at??r.updated_at):r.updated_at);
-}
-function formatPercent(v){return isEmptyValue(v)?'<span class="undefined">未定义</span>':`<span class="value">${escapeHtml(v)}%</span>`}
-function formatSoftwareRatio(v){
-const n=Number(v),d=Number.isFinite(n)?n:SOFTWARE_SERVICE_RATIO;
-return `<span class="fixed-ratio" title="全国统一固定软件服务商技术服务费">${escapeHtml(d)}%</span>`;
-}
-function formatPrice(v){
-if(isEmptyValue(v))return '<span class="undefined">未定义</span>';
-const n=Number(v);
-return Number.isNaN(n)?escapeHtml(v):`<span class="value">¥${n.toFixed(2)}</span>`;
-}
-function formatDateTime(v){
-if(!v)return "-";
-const d=new Date(v);
-if(Number.isNaN(d.getTime()))return "-";
-return new Intl.DateTimeFormat("zh-CN",{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).format(d);
-}
-function escapeHtml(v){return String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
-
-function buildCityFilter(){
-const s=document.getElementById("cityFilter");
-s.innerHTML='<option value="">全部已开展业务城市</option>';
-const used=new Set();
-serviceAreas.filter(a=>a.status==="active"&&a.city_id).forEach(a=>{
-const cityId=String(a.city_id);
-if(used.has(cityId))return;
-used.add(cityId);
-const province=provincesMap.get(String(a.province_id))?.province_name||"";
-const city=citiesMap.get(cityId)?.city_name||"";
-if(!city)return;
-const o=document.createElement("option");
-o.value=cityId;o.textContent=province?`${province} · ${city}`:city;
-s.appendChild(o);
-});
-}
-
-function buildMerchantFilter(){
-const s=document.getElementById("merchantFilter");
-const cityId=document.getElementById("cityFilter").value,previous=s.value;
-s.innerHTML='<option value="">全部商户</option>';
-const list=merchants.filter(m=>m.status==="active").filter(m=>!cityId||String(merchantCityId(m))===String(cityId));
-list.forEach(m=>{
-const o=document.createElement("option");
-o.value=m.id;o.textContent=`${merchantNo(m)}｜${merchantName(m)}`;
-s.appendChild(o);
-});
-if(list.some(m=>String(m.id)===String(previous)))s.value=previous;
-}
-function cityChanged(){buildMerchantFilter();renderRules()}
-
-function getFilteredRules(){
-const cityId=document.getElementById("cityFilter").value;
-const merchantId=document.getElementById("merchantFilter").value;
-const filter=document.getElementById("ruleFilter").value;
-return rules.filter(rule=>{
-if(rule.rule_type!=="standard")return false;
-const merchant=getMerchant(rule),product=getProduct(rule);
-if(!merchant||!product)return false;
-if(cityId&&String(merchantCityId(merchant))!==String(cityId))return false;
-if(merchantId&&String(rule.merchant_id)!==String(merchantId))return false;
-if(filter==="active")return rule.status==="active";
-if(filter==="undefined")return rule.status==="active"&&isBlankRule(rule);
-if(filter==="defined")return rule.status==="active"&&isFullyDefined(rule);
-if(filter==="history")return rule.status==="inactive";
-return true;
-});
-}
-
-function renderStats(){
-const standardRules=rules.filter(r=>r.rule_type==="standard");
-const active=standardRules.filter(r=>r.status==="active");
-const history=standardRules.filter(r=>r.status==="inactive");
-document.getElementById("statActive").textContent=active.length;
-document.getElementById("statMerchants").textContent=new Set(active.map(r=>String(r.merchant_id))).size;
-document.getElementById("statDefined").textContent=active.filter(isFullyDefined).length;
-document.getElementById("statUndefined").textContent=active.filter(isBlankRule).length;
-document.getElementById("statHistory").textContent=history.length;
-}
-
-function desktopAction(r){
-if(r.status==="inactive")return '<span class="history-text">历史记录</span>';
-if(isBlankRule(r))return `<button class="define-button" onclick="openDefineModal(${Number(r.id)})">定义</button>`;
-return `<button class="invalidate-button" onclick="invalidateRule(${Number(r.id)})">设为无效</button>`;
-}
-
-function renderRules(){
-const filtered=getFilteredRules();
-const tbody=document.getElementById("rulesTable"),mobile=document.getElementById("mobileList");
-tbody.innerHTML="";mobile.innerHTML="";
-document.getElementById("desktopEmpty").classList.toggle("hidden",filtered.length>0);
-document.getElementById("mobileEmpty").classList.toggle("hidden",filtered.length>0);
-
-filtered.forEach(rule=>{
-const merchant=getMerchant(rule),product=getProduct(rule),state=ruleStateText(rule);
-tbody.insertAdjacentHTML("beforeend",`
-<tr>
-<td><div class="merchant-name">${escapeHtml(merchantName(merchant))}</div><div class="sub-text">编号：${escapeHtml(merchantNo(merchant))}</div></td>
-<td>${escapeHtml(areaText(merchant))}</td>
-<td><div class="service-name">${escapeHtml(productName(product))}</div></td>
-<td>V${escapeHtml(rule.version_no??1)}</td>
-<td>${formatPrice(cityPrice(rule))}</td>
-<td>${formatPercent(rule.city_manager_ratio)}</td>
-<td>${formatPercent(rule.platform_ratio)}</td>
-<td>${formatSoftwareRatio(rule.software_service_ratio)}</td>
-<td>${formatPercent(rule.store_ratio)}</td>
-<td>${formatPercent(rule.operator_ratio)}</td>
-<td>${formatPercent(rule.order_source_ratio)}</td>
-<td>${escapeHtml(modifierName(rule))}</td>
-<td>${escapeHtml(modifiedTime(rule))}</td>
-<td><span class="badge ${state.className}">${state.text}</span></td>
-<td>${desktopAction(rule)}</td>
-</tr>`);
-mobile.insertAdjacentHTML("beforeend",mobileRuleCard(rule,merchant,product,state));
-});
-}
-
-function mobileRuleCard(rule,merchant,product,state){
-let button="";
-if(rule.status==="active"&&isBlankRule(rule)){
-button=`<button class="mobile-action define-button" onclick="openDefineModal(${Number(rule.id)})">定义分成规则</button>`;
-}else if(rule.status==="active"){
-button=`<button class="mobile-action invalidate-button" onclick="invalidateRule(${Number(rule.id)})">设为无效并生成新版本</button>`;
-}
-return `
-<div class="rule-card">
-<div class="rule-card-head">
-<div><div class="rule-card-name">${escapeHtml(merchantName(merchant))}</div><div class="rule-card-service">${escapeHtml(productName(product))}</div></div>
-<span class="badge ${state.className}">${state.text}</span>
-</div>
-<div class="mobile-grid">
-<div class="mobile-item"><div class="mobile-label">商户编号</div><div class="mobile-value">${escapeHtml(merchantNo(merchant))}</div></div>
-<div class="mobile-item"><div class="mobile-label">版本</div><div class="mobile-value">V${escapeHtml(rule.version_no??1)}</div></div>
-<div class="mobile-item"><div class="mobile-label">服务区域</div><div class="mobile-value">${escapeHtml(areaText(merchant))}</div></div>
-<div class="mobile-item"><div class="mobile-label">城市销售价</div><div class="mobile-value">${formatPrice(cityPrice(rule))}</div></div>
-<div class="mobile-item"><div class="mobile-label">市负责人比例</div><div class="mobile-value">${formatPercent(rule.city_manager_ratio)}</div></div>
-<div class="mobile-item"><div class="mobile-label">平台比例</div><div class="mobile-value">${formatPercent(rule.platform_ratio)}</div></div>
-<div class="mobile-item mobile-item-fixed"><div class="mobile-label">软件服务商</div><div class="mobile-value">${formatSoftwareRatio(rule.software_service_ratio)}</div></div>
-<div class="mobile-item"><div class="mobile-label">门店比例</div><div class="mobile-value">${formatPercent(rule.store_ratio)}</div></div>
-<div class="mobile-item"><div class="mobile-label">操作人员比例</div><div class="mobile-value">${formatPercent(rule.operator_ratio)}</div></div>
-<div class="mobile-item"><div class="mobile-label">订单来源比例</div><div class="mobile-value">${formatPercent(rule.order_source_ratio)}</div></div>
-<div class="mobile-item"><div class="mobile-label">修改人</div><div class="mobile-value">${escapeHtml(modifierName(rule))}</div></div>
-<div class="mobile-item"><div class="mobile-label">修改时间</div><div class="mobile-value">${escapeHtml(modifiedTime(rule))}</div></div>
-</div>
-${button}
-</div>`;
-}
-
-function readRatioInput(id){
-const el=document.getElementById(id);
-if(!el)return null;
-const raw=el.value.trim();
-if(raw==="")return null;
-const n=Number(raw);
-return !Number.isFinite(n)||n<0||n>100?null:n;
-}
-
-function getRatioValidation(){
-const cityManager=readRatioInput("cityManagerInput");
-const platform=readRatioInput("platformInput");
-const store=readRatioInput("storeInput");
-const operator=readRatioInput("operatorInput");
-const source=readRatioInput("orderSourceInput");
-const values=[cityManager,platform,store,operator,source];
-const allFilled=values.every(v=>v!==null);
-const total=values.reduce((sum,v)=>sum+(v===null?0:v),SOFTWARE_SERVICE_RATIO);
-const roundedTotal=Math.round((total+Number.EPSILON)*100)/100;
-return{cityManager,platform,software:SOFTWARE_SERVICE_RATIO,store,operator,source,allFilled,total:roundedTotal,valid:allFilled&&roundedTotal===100};
-}
-
-function updateRatioCheck(){
-const r=getRatioValidation();
-const total=document.getElementById("ratioTotal"),msg=document.getElementById("ratioMessage"),btn=document.getElementById("saveButton");
-total.textContent=`${r.total.toFixed(2)}%`;
-total.classList.remove("valid","invalid");msg.classList.remove("valid","invalid");
-
-if(!r.allFilled){
-total.classList.add("invalid");msg.classList.add("invalid");
-msg.textContent="请填写全部5项可调整比例；软件服务商固定2%，六方合计必须等于100%。";
-btn.disabled=true;return;
-}
-if(r.total<100){
-const d=Math.round((100-r.total)*100)/100;
-total.classList.add("invalid");msg.classList.add("invalid");
-msg.textContent=`当前六方合计不足100%，还差 ${d.toFixed(2)}%。`;
-btn.disabled=true;return;
-}
-if(r.total>100){
-const d=Math.round((r.total-100)*100)/100;
-total.classList.add("invalid");msg.classList.add("invalid");
-msg.textContent=`当前六方合计超过100%，超出 ${d.toFixed(2)}%。`;
-btn.disabled=true;return;
-}
-total.classList.add("valid");msg.classList.add("valid");
-msg.textContent="✓ 六方分账比例合计正确，可以保存。";
-btn.disabled=false;
-}
-
-function openDefineModal(ruleId){
-const rule=rules.find(x=>Number(x.id)===Number(ruleId));
-if(!rule){showToast("没有找到该规则。");return}
-if(rule.rule_type!=="standard"){showToast("该记录不是当前标准规则。");return}
-if(rule.status!=="active"){showToast("历史规则不能重新定义。");return}
-if(!isBlankRule(rule)){showToast("该规则已经定义。如需调整，请先设为无效。");return}
-
-definingRuleId=Number(ruleId);
-const merchant=getMerchant(rule),product=getProduct(rule);
-document.getElementById("modalSubtitle").textContent=`${merchantNo(merchant)}｜${merchantName(merchant)} · ${productName(product)} · V${rule.version_no||1}`;
-["cityManagerInput","platformInput","storeInput","operatorInput","orderSourceInput"].forEach(id=>document.getElementById(id).value="");
-document.getElementById("defineModal").classList.remove("hidden");
-updateRatioCheck();
-}
-
-function closeDefineModal(){
-definingRuleId=null;
-document.getElementById("defineModal").classList.add("hidden");
-}
-function modalBackgroundClick(e){if(e.target.id==="defineModal")closeDefineModal()}
-
-function parseRequiredPercent(id,name){
-const raw=document.getElementById(id).value.trim();
-if(raw==="")throw new Error(`${name}不能为空。`);
-const n=Number(raw);
-if(!Number.isFinite(n)||n<0||n>100)throw new Error(`${name}必须是0～100之间的数字。`);
-return n;
-}
-
-async function saveDefinition(){
-if(definingRuleId===null)return;
-
-const rule=rules.find(x=>Number(x.id)===Number(definingRuleId));
-if(!rule||rule.rule_type!=="standard"||rule.status!=="active"||!isBlankRule(rule)){
-showToast("当前规则状态已经变化，请刷新页面。");return;
-}
-
-const rv=getRatioValidation();
-if(!rv.allFilled){
-alert("请完整填写5项可调整比例。\n软件服务商2%由系统固定计入。");return;
-}
-if(!rv.valid){
-alert("比例核查失败。\n\n市负责人比例 + 平台比例 + 软件服务商固定2% + 门店比例 + 操作人员比例 + 订单来源比例\n必须正好等于100%。\n\n当前合计："+rv.total.toFixed(2)+"%");
-return;
-}
-
-let cityManager,platform,store,operator,orderSource;
-try{
-cityManager=parseRequiredPercent("cityManagerInput","市负责人比例");
-platform=parseRequiredPercent("platformInput","平台比例");
-store=parseRequiredPercent("storeInput","门店比例");
-operator=parseRequiredPercent("operatorInput","操作人员比例");
-orderSource=parseRequiredPercent("orderSourceInput","订单来源比例");
-}catch(error){alert(error.message);return}
-
-const finalTotal=Math.round((cityManager+platform+SOFTWARE_SERVICE_RATIO+store+operator+orderSource+Number.EPSILON)*100)/100;
-if(finalTotal!==100){
-alert(`保存失败：六方分账比例合计必须等于100%。\n当前合计：${finalTotal.toFixed(2)}%`);
-return;
-}
-
-const confirmed=confirm(
-`确认定义这条统一分成规则吗？
-
-市负责人：${cityManager}%
-平台：${platform}%
-软件服务商：${SOFTWARE_SERVICE_RATIO}%（固定）
-门店：${store}%
-操作人员：${operator}%
-订单来源：${orderSource}%
-
-六方合计：${finalTotal.toFixed(2)}%
-
-保存后该版本将不再允许直接修改。
-以后如需调整，只能先设为无效，再生成新的规则版本。`
+const supabaseClient=
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_ANON_KEY
 );
-if(!confirmed)return;
 
-const button=document.getElementById("saveButton");
-button.disabled=true;button.textContent="保存中...";
 
-try{
-const updateData={
-city_manager_ratio:cityManager,
-platform_ratio:platform,
-software_service_ratio:SOFTWARE_SERVICE_RATIO,
-store_ratio:store,
-operator_ratio:operator,
-order_source_ratio:orderSource,
-updated_by:currentUser.id,
-updated_at:new Date().toISOString()
-};
 
-const {data,error}=await supabaseClient
-.from("merchant_product_rules")
-.update(updateData)
-.eq("id",Number(definingRuleId))
-.eq("status","active")
-.eq("rule_type","standard")
-.is("city_manager_ratio",null)
-.is("platform_ratio",null)
-.is("store_ratio",null)
-.is("operator_ratio",null)
-.is("order_source_ratio",null)
-.select(`
-id,
-city_manager_ratio,
-platform_ratio,
-software_service_ratio,
-store_ratio,
-operator_ratio,
-order_source_ratio
-`);
+const LOGIN_PAGE="login.html";
 
-if(error)throw error;
-if(!data||data.length!==1)throw new Error("该规则可能已经被其他管理人员处理，请重新加载页面。");
+const HOME_PAGE="wholemanagement.html";
 
-const saved=data[0];
-const databaseTotal=Math.round((
-Number(saved.city_manager_ratio)+
-Number(saved.platform_ratio)+
-Number(saved.software_service_ratio)+
-Number(saved.store_ratio)+
-Number(saved.operator_ratio)+
-Number(saved.order_source_ratio)+
-Number.EPSILON
-)*100)/100;
 
-if(databaseTotal!==100){
-console.error("数据库实际比例合计异常：",saved);
-throw new Error(`数据库返回的六方比例合计为 ${databaseTotal.toFixed(2)}%，不是100%。`);
+
+let currentUser=null;
+
+let currentProfile=null;
+
+
+let cities=[];
+
+let merchants=[];
+
+let products=[];
+
+let rules=[];
+
+
+
+const $=id=>document.getElementById(id);
+
+
+
+function toast(msg,type=""){
+
+const t=$("toast");
+
+t.innerHTML=msg;
+
+t.style.display="block";
+
+t.style.background=
+type==="error"
+?
+"#b94057"
+:
+"#41353a";
+
+
+setTimeout(()=>{
+
+t.style.display="none";
+
+},3000);
+
 }
 
-closeDefineModal();
-await loadRules();
-renderStats();
-renderRules();
-showToast("统一分成规则定义成功，六方分账合计100%。");
 
-}catch(error){
-console.error(error);
-let message=error.message||"未知错误";
-if(message.includes("merchant_product_rules_ratio_total_100_check")){
-message="数据库六方比例约束拒绝了本次保存。当前规则必须满足：市负责人 + 平台 + 软件服务商2% + 门店 + 操作人员 + 订单来源 = 100%。";
-}
-alert("保存失败："+message);
-}finally{
-button.textContent="确认定义";
-if(!document.getElementById("defineModal").classList.contains("hidden"))updateRatioCheck();
-else button.disabled=true;
-}
+
+
+
+function goBack(){
+
+location.href=HOME_PAGE;
+
 }
 
-async function invalidateRule(ruleId){
-const rule=rules.find(x=>Number(x.id)===Number(ruleId));
-if(!rule)return;
-if(rule.rule_type!=="standard"){showToast("该记录不是当前标准规则。");return}
-if(rule.status!=="active"){showToast("该规则已经是历史记录。");return}
-if(isBlankRule(rule)){showToast("当前规则尚未定义，无需设为无效。");return}
 
-const merchant=getMerchant(rule),product=getProduct(rule);
-const confirmed=confirm(
-`确定将以下规则设为无效吗？
-
-商户：${merchantName(merchant)}
-服务项目：${productName(product)}
-版本：V${rule.version_no||1}
-
-旧规则将永久保留。
-系统随后会自动建立下一版本未定义规则。
-新版本的软件服务商技术服务费仍固定为2%。`
-);
-if(!confirmed)return;
-
-try{
-const {data,error}=await supabaseClient.rpc("invalidate_merchant_product_rule",{p_rule_id:Number(ruleId)});
-if(error)throw error;
-if(!data?.success)throw new Error(data?.error||"规则设为无效失败。");
-await loadRules();
-renderStats();
-renderRules();
-showToast(`旧规则已设为无效，新的 V${data.version_no} 未定义规则已自动建立。`);
-}catch(error){
-console.error(error);
-alert("操作失败："+(error.message||"未知错误"));
-}
-}
-
-function bindRatioInputs(){
-["cityManagerInput","platformInput","storeInput","operatorInput","orderSourceInput"].forEach(id=>{
-const el=document.getElementById(id);
-if(!el)return;
-el.addEventListener("input",updateRatioCheck);
-el.addEventListener("change",updateRatioCheck);
-});
-}
-
-let toastTimer;
-function showToast(text){
-const toast=document.getElementById("toast");
-toast.textContent=text;
-toast.classList.remove("hidden");
-clearTimeout(toastTimer);
-toastTimer=setTimeout(()=>toast.classList.add("hidden"),3000);
-}
-
-function goHome(){location.href=HOME_PAGE}
 
 async function logout(){
-if(!confirm("确定退出管理平台吗？"))return;
-try{await supabaseClient.auth.signOut()}catch(error){console.error(error)}
-location.replace(LOGIN_PAGE);
+
+await supabaseClient.auth.signOut();
+
+location.href=LOGIN_PAGE;
+
 }
 
-let idleTimer;
-function resetIdle(){
-clearTimeout(idleTimer);
-idleTimer=setTimeout(async()=>{
-try{await supabaseClient.auth.signOut()}catch(error){console.error(error)}
-alert("由于10分钟未操作，系统已经自动退出。");
-location.replace(LOGIN_PAGE);
-},10*60*1000);
+
+
+
+
+async function init(){
+
+
+
+const {
+
+data:{
+session
+
 }
 
-["click","touchstart","keydown","mousemove","scroll"].forEach(eventName=>{
-document.addEventListener(eventName,resetIdle,{passive:true});
+}=await supabaseClient.auth.getSession();
+
+
+
+if(!session){
+
+location.href=LOGIN_PAGE;
+
+return;
+
+}
+
+
+
+currentUser=session.user;
+
+
+
+const {
+
+data:profile
+
+}=await supabaseClient
+
+.from("profiles")
+
+.select("*")
+
+.eq("id",currentUser.id)
+
+.single();
+
+
+
+if(!profile){
+
+alert("没有权限");
+
+location.href=HOME_PAGE;
+
+return;
+
+}
+
+
+
+currentProfile=profile;
+
+
+
+if(
+!
+[
+"founder",
+"platform_admin",
+"province_manager",
+"city_manager"
+]
+.includes(profile.role)
+
+){
+
+alert("没有访问权限");
+
+location.href=HOME_PAGE;
+
+return;
+
+}
+
+
+
+await loadData();
+
+
+
+}
+
+
+
+
+
+async function loadData(){
+
+
+
+/*
+读取权限范围内城市
+*/
+
+const {
+data:scope,
+error:scopeError
+}=await supabaseClient
+.rpc(
+"get_user_city_scope"
+);
+
+
+
+if(scopeError){
+
+toast(scopeError.message,"error");
+
+return;
+
+}
+
+
+
+const cityIds=
+(scope||[]).map(
+x=>x.city_id
+);
+
+
+
+let cityQuery=
+supabaseClient
+.from("cities")
+.select("*")
+.eq("status","active");
+
+
+
+if(
+!
+[
+"founder",
+"platform_admin"
+]
+.includes(currentProfile.role)
+
+){
+
+cityQuery=
+cityQuery.in(
+"id",
+cityIds
+);
+
+}
+
+
+
+const {
+data:cityData
+}=await cityQuery;
+
+
+cities=cityData||[];
+
+
+
+
+const {
+data:merchantData
+}=await supabaseClient
+
+.from("merchants")
+
+.select("*")
+
+.eq("status","active");
+
+
+
+merchants=
+merchantData||[];
+
+
+
+
+
+const {
+data:productData
+}=await supabaseClient
+
+.from("products")
+
+.select("*")
+
+.eq("status","active")
+
+.order("id");
+
+
+
+products=
+productData||[];
+
+
+
+
+
+await loadRules();
+
+
+
+renderAll();
+
+
+}
+
+
+
+
+
+async function loadRules(){
+
+
+const {
+data,
+error
+}=await supabaseClient
+
+.from("merchant_product_rules")
+
+.select(`
+*,
+cities(
+city_name
+),
+merchants(
+merchant_name
+),
+products(
+product_name,
+product_code
+)
+`)
+
+.order(
+"created_at",
+{
+ascending:false
+}
+);
+
+
+
+if(error){
+
+toast(error.message,"error");
+
+return;
+
+}
+
+
+
+rules=data||[];
+
+
+
+}
+
+
+
+
+
+function renderAll(){
+
+
+renderCities();
+
+renderCreateCities();
+
+renderMerchants();
+
+renderProducts();
+
+renderRules();
+
+updateStats();
+
+
+}
+
+
+
+
+
+
+function renderCities(){
+
+
+let html=
+`
+<option value="">
+选择城市
+</option>
+`;
+
+
+
+cities.forEach(c=>{
+
+html+=
+`
+<option value="${c.id}">
+${c.city_name}
+</option>
+`;
+
 });
 
-supabaseClient.auth.onAuthStateChange((event)=>{
-if(event==="SIGNED_OUT")location.replace(LOGIN_PAGE);
+
+
+$("cityFilter").innerHTML=html;
+
+$("createCity").innerHTML=html;
+
+
+}
+
+
+
+
+
+function renderCreateCities(){
+
+
+
+$("createCity").innerHTML=
+$("cityFilter").innerHTML;
+
+
+
+}
+
+
+
+
+
+function renderMerchants(){
+
+
+
+let html=
+`
+<option value="">
+选择商户
+</option>
+`;
+
+
+
+merchants.forEach(m=>{
+
+
+html+=
+`
+<option value="${m.id}">
+${m.merchant_name}
+</option>
+`;
+
+
 });
 
-document.addEventListener("DOMContentLoaded",()=>{
-resetIdle();
-bindRatioInputs();
-updateRatioCheck();
-initialize();
+
+
+$("merchantFilter").innerHTML=html;
+
+$("createMerchant").innerHTML=html;
+
+
+}
+
+
+
+
+
+function renderProducts(){
+
+
+
+let html=
+`
+<option value="">
+选择服务项目
+</option>
+`;
+
+
+
+products.forEach(p=>{
+
+
+html+=
+`
+<option value="${p.id}">
+${p.product_name}
+</option>
+`;
+
+
 });
+
+
+
+$("productFilter").innerHTML=html;
+
+$("createProduct").innerHTML=html;
+
+
+
+}
+
+
+
+
+
+function updateStats(){
+
+
+$("activeCount").innerText=
+
+rules.filter(
+r=>r.status==="active"
+).length;
+
+
+
+$("historyCount").innerText=
+
+rules.filter(
+r=>r.status==="inactive"
+).length;
+
+
+
+$("merchantCount").innerText=
+
+new Set(
+rules.map(
+r=>r.merchant_id
+)
+).size;
+
+
+
+$("productCount").innerText=
+
+new Set(
+rules.map(
+r=>r.product_id
+)
+).size;
+
+
+
+}
+
+
+
+
+
+function renderRules(){
+
+
+
+let list=$("ruleList");
+
+
+
+if(!rules.length){
+
+list.innerHTML=
+`
+<tr>
+<td colspan="11">
+暂无分成规则
+</td>
+</tr>
+`;
+
+return;
+
+}
+
+
+
+list.innerHTML=
+rules.map(r=>{
+
+
+return `
+
+<tr>
+
+<td>
+${r.cities?.city_name||""}
+</td>
+
+
+<td>
+${r.merchants?.merchant_name||""}
+</td>
+
+
+<td>
+${r.products?.product_name||""}
+</td>
+
+
+<td>
+${r.city_manager_ratio||0}%
+</td>
+
+
+<td>
+${r.platform_ratio||0}%
+</td>
+
+
+<td>
+${r.store_ratio||0}%
+</td>
+
+
+<td>
+${r.operator_ratio||0}%
+</td>
+
+
+<td>
+${r.order_source_ratio||0}%
+</td>
+
+
+<td>
+V${r.version_no||1}
+</td>
+
+
+<td>
+
+<span class="badge ${
+r.status==="active"
+?
+"active"
+:
+"history"
+}">
+
+${r.status==="active"
+?
+"有效"
+:
+"历史"
+}
+
+</span>
+
+</td>
+
+
+<td>
+
+
+${
+r.status==="active"
+
+?
+
+`
+
+<button
+class="btn btn-danger"
+onclick="stopRule(${r.id})">
+
+停止
+
+</button>
+
+`
+
+:
+
+""
+
+}
+
+
+</td>
+
+
+</tr>
+
+
+`;
+
+
+
+}).join("");
+
+
+
+}
+
+
+
+
+
+
+async function createRule(){
+
+
+
+const city=
+Number(
+$("createCity").value
+);
+
+
+const merchant=
+Number(
+$("createMerchant").value
+);
+
+
+const product=
+Number(
+$("createProduct").value
+);
+
+
+
+const cityRatio=
+Number(
+$("cityRatio").value||0
+);
+
+
+const platformRatio=
+Number(
+$("platformRatio").value||0
+);
+
+
+const storeRatio=
+Number(
+$("storeRatio").value||0
+);
+
+
+const operatorRatio=
+Number(
+$("operatorRatio").value||0
+);
+
+
+const sourceRatio=
+Number(
+$("sourceRatio").value||0
+);
+
+
+
+
+if(
+!city||
+!merchant||
+!product
+){
+
+toast(
+"请选择完整信息",
+"error"
+);
+
+return;
+
+}
+
+
+
+
+const total=
+cityRatio+
+platformRatio+
+storeRatio+
+operatorRatio+
+sourceRatio;
+
+
+
+if(total!==98){
+
+toast(
+"经营分成比例必须合计98%",
+"error"
+);
+
+return;
+
+}
+
+
+
+
+const {
+data,
+error
+}=await supabaseClient
+
+.rpc(
+"create_merchant_rule",
+{
+
+p_city_id:city,
+
+p_merchant_id:merchant,
+
+p_product_id:product,
+
+p_city_manager_ratio:cityRatio,
+
+p_platform_ratio:platformRatio,
+
+p_store_ratio:storeRatio,
+
+p_operator_ratio:operatorRatio,
+
+p_order_source_ratio:sourceRatio
+
+}
+
+);
+
+
+
+if(error){
+
+toast(error.message,"error");
+
+return;
+
+}
+
+
+
+if(!data.success){
+
+toast(data.error,"error");
+
+return;
+
+}
+
+
+
+toast(
+"创建成功"
+);
+
+
+
+await loadRules();
+
+renderRules();
+
+
+}
+
+
+
+
+
+async function stopRule(id){
+
+
+
+if(
+!confirm(
+"确认停止该规则？"
+)
+
+)return;
+
+
+
+const {
+data,
+error
+}=await supabaseClient
+
+.rpc(
+"stop_merchant_rule",
+{
+p_rule_id:id
+}
+);
+
+
+
+if(error){
+
+toast(error.message,"error");
+
+return;
+
+}
+
+
+
+if(!data.success){
+
+toast(data.error,"error");
+
+return;
+
+}
+
+
+
+toast(
+"规则已停止"
+);
+
+
+
+await loadRules();
+
+renderRules();
+
+
+}
+
+
+
+
+
+
+
+init();
+
+
 </script>
+
+
 </body>
+
 </html>

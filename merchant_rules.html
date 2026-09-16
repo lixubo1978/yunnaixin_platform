@@ -40,11 +40,7 @@ header{
   top:0;
   z-index:30
 }
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px
-}
+.brand{display:flex;align-items:center;gap:12px}
 .logo{
   width:38px;
   height:38px;
@@ -57,21 +53,9 @@ header{
   font-size:20px;
   font-weight:800
 }
-.brand h1{
-  font-size:18px;
-  margin:0;
-  color:#8c3d58
-}
-.brand small{
-  display:block;
-  margin-top:3px;
-  color:#aaa;
-  font-size:11px
-}
-.header-actions{
-  display:flex;
-  gap:10px
-}
+.brand h1{font-size:18px;margin:0;color:#8c3d58}
+.brand small{display:block;margin-top:3px;color:#aaa;font-size:11px}
+.header-actions{display:flex;gap:10px}
 .btn{
   border:1px solid var(--border);
   background:#fff;
@@ -79,27 +63,15 @@ header{
   padding:10px 17px;
   color:#67575d
 }
-.btn-primary{
-  background:var(--pink);
-  border-color:var(--pink);
-  color:#fff
-}
-.btn-small{
-  padding:7px 12px;
-  border-radius:8px;
-  font-size:12px
-}
+.btn-primary{background:var(--pink);border-color:var(--pink);color:#fff}
+.btn-small{padding:7px 12px;border-radius:8px;font-size:12px}
 .btn-disabled{
   background:#efedef;
   border-color:#e3dfe1;
   color:#9d9498;
   cursor:not-allowed
 }
-main{
-  max-width:1240px;
-  margin:24px auto 70px;
-  padding:0 20px
-}
+main{max-width:1240px;margin:24px auto 70px;padding:0 20px}
 .hero{
   background:linear-gradient(110deg,#fff0f5,#ffdce8);
   border:1px solid #ffd7e3;
@@ -117,17 +89,8 @@ main{
   padding:6px 10px;
   margin-bottom:9px
 }
-.hero h2{
-  margin:0 0 10px;
-  font-size:24px;
-  color:#75354c
-}
-.hero p{
-  margin:0;
-  color:#9b6578;
-  font-size:13px;
-  line-height:1.8
-}
+.hero h2{margin:0 0 10px;font-size:24px;color:#75354c}
+.hero p{margin:0;color:#9b6578;font-size:13px;line-height:1.8}
 .stats{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -141,16 +104,8 @@ main{
   padding:17px 18px;
   box-shadow:var(--shadow)
 }
-.stat-label{
-  font-size:11px;
-  color:#aaa;
-  margin-bottom:8px
-}
-.stat-value{
-  font-size:22px;
-  font-weight:800;
-  color:#713148
-}
+.stat-label{font-size:11px;color:#aaa;margin-bottom:8px}
+.stat-value{font-size:22px;font-weight:800;color:#713148}
 .panel{
   background:#fff;
   border:1px solid var(--border);
@@ -166,18 +121,22 @@ main{
   justify-content:space-between;
   gap:15px
 }
-.panel-title{
-  font-size:15px;
-  font-weight:800;
-  color:#653146
+.panel-title{font-size:15px;font-weight:800;color:#653146}
+.panel-sub{font-size:11px;color:#aaa;margin-top:4px}
+
+/* 城市筛选独立一行 */
+.city-filterbar{
+  padding:14px 14px 0;
 }
-.panel-sub{
+.city-filter-label{
   font-size:11px;
-  color:#aaa;
-  margin-top:4px
+  color:#96868c;
+  margin:0 0 7px 3px
 }
+
+/* 商户+搜索第二行 */
 .filterbar{
-  padding:14px;
+  padding:10px 14px 14px;
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:10px
@@ -196,12 +155,8 @@ main{
   border-color:#f39bb4;
   box-shadow:0 0 0 3px rgba(230,79,124,.08)
 }
-.merchant-section{
-  border-bottom:1px solid var(--border)
-}
-.merchant-section:last-child{
-  border-bottom:0
-}
+.merchant-section{border-bottom:1px solid var(--border)}
+.merchant-section:last-child{border-bottom:0}
 .merchant-head{
   padding:17px 20px;
   background:#fffafb;
@@ -210,16 +165,8 @@ main{
   justify-content:space-between;
   gap:15px
 }
-.merchant-name{
-  font-size:15px;
-  font-weight:800;
-  color:#653146
-}
-.merchant-meta{
-  margin-top:5px;
-  font-size:11px;
-  color:#a39198
-}
+.merchant-name{font-size:15px;font-weight:800;color:#653146}
+.merchant-meta{margin-top:5px;font-size:11px;color:#a39198}
 .merchant-count{
   white-space:nowrap;
   background:#fff0f5;
@@ -229,14 +176,8 @@ main{
   font-size:11px;
   font-weight:700
 }
-.table-wrap{
-  overflow:auto
-}
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:1080px
-}
+.table-wrap{overflow:auto}
+table{width:100%;border-collapse:collapse;min-width:1080px}
 th{
   padding:12px 14px;
   text-align:left;
@@ -252,27 +193,11 @@ td{
   font-size:12px;
   vertical-align:middle
 }
-tr:last-child td{
-  border-bottom:0
-}
-.rule-active-row{
-  background:#f6f5f5
-}
-.rule-active-row td{
-  color:#71696c
-}
-.product-name{
-  font-weight:700;
-  color:#4a363e;
-  margin-bottom:4px
-}
-.product-code{
-  font-size:10px;
-  color:#aaa
-}
-.category{
-  color:#806d74
-}
+tr:last-child td{border-bottom:0}
+.rule-active-row{background:#f6f5f5}
+.rule-active-row td{color:#71696c}
+.product-name{font-weight:700;color:#4a363e;margin-bottom:4px}
+.product-code{font-size:10px;color:#aaa}
 .badge{
   display:inline-block;
   padding:5px 9px;
@@ -280,39 +205,24 @@ tr:last-child td{
   font-size:10px;
   font-weight:700
 }
-.badge-green{
-  background:#eaf8f1;
-  color:var(--green)
-}
-.badge-orange{
-  background:#fff3df;
-  color:var(--orange)
-}
+.badge-green{background:#eaf8f1;color:var(--green)}
+.badge-orange{background:#fff3df;color:var(--orange)}
 .ratio-line{
   display:flex;
   flex-wrap:wrap;
   gap:5px 10px;
   line-height:1.7
 }
-.ratio-item{
-  white-space:nowrap
-}
-.ratio-item b{
-  color:#704054
-}
-.rule-active-row .ratio-item b{
-  color:#655b5f
-}
+.ratio-item{white-space:nowrap}
+.ratio-item b{color:#704054}
+.rule-active-row .ratio-item b{color:#655b5f}
 .empty{
   padding:50px 20px;
   text-align:center;
   color:#aaa;
   font-size:13px
 }
-.empty-icon{
-  font-size:35px;
-  margin-bottom:10px
-}
+.empty-icon{font-size:35px;margin-bottom:10px}
 .toast{
   position:fixed;
   right:22px;
@@ -340,56 +250,27 @@ tr:last-child td{
   color:#a45470;
   font-size:14px
 }
-.mobile-list{
-  display:none
-}
+.mobile-list{display:none}
+
 @media(max-width:800px){
-  header{
-    height:64px;
-    padding:0 14px
-  }
-  .brand h1{
-    font-size:15px
-  }
-  .brand small{
-    display:none
-  }
-  .header-actions .btn{
-    padding:8px 10px;
-    font-size:11px
-  }
-  main{
-    padding:0 12px;
-    margin-top:14px
-  }
-  .hero{
-    padding:20px
-  }
-  .hero h2{
-    font-size:21px
-  }
-  .stats{
-    grid-template-columns:1fr 1fr
-  }
-  .filterbar{
-    grid-template-columns:1fr
-  }
-  .desktop-table{
-    display:none
-  }
-  .mobile-list{
-    display:block;
-    padding:10px
-  }
+  header{height:64px;padding:0 14px}
+  .brand h1{font-size:15px}
+  .brand small{display:none}
+  .header-actions .btn{padding:8px 10px;font-size:11px}
+  main{padding:0 12px;margin-top:14px}
+  .hero{padding:20px}
+  .hero h2{font-size:21px}
+  .stats{grid-template-columns:1fr 1fr}
+  .filterbar{grid-template-columns:1fr}
+  .desktop-table{display:none}
+  .mobile-list{display:block;padding:10px}
   .mobile-card{
     border:1px solid var(--border);
     border-radius:12px;
     padding:14px;
     margin-bottom:9px
   }
-  .mobile-card.locked{
-    background:#f6f5f5
-  }
+  .mobile-card.locked{background:#f6f5f5}
   .mobile-card-top{
     display:flex;
     justify-content:space-between;
@@ -409,86 +290,92 @@ tr:last-child td{
 <body>
 
 <div id="loading" class="loading-overlay">
-正在读取商户及服务项目...
+正在读取已开通城市、商户及服务项目...
 </div>
 
 <header>
-  <div class="brand">
-    <div class="logo">♡</div>
-    <div>
-      <h1>商户分账规则</h1>
-      <small>孕乃馨平台管理中心</small>
-    </div>
+<div class="brand">
+  <div class="logo">♡</div>
+  <div>
+    <h1>商户分账规则</h1>
+    <small>孕乃馨平台管理中心</small>
   </div>
+</div>
 
-  <div class="header-actions">
-    <button class="btn" onclick="goBack()">返回工作台</button>
-    <button class="btn btn-primary" onclick="logout()">退出</button>
-  </div>
+<div class="header-actions">
+  <button class="btn" onclick="goBack()">返回工作台</button>
+  <button class="btn btn-primary" onclick="logout()">退出</button>
+</div>
 </header>
 
 <main>
 
 <section class="hero">
-  <div class="hero-tag">MERCHANT SPLIT RULES</div>
-  <h2>商户分账规则</h2>
-  <p>
-    系统读取全部有效商户和平台全部有效服务项目，并按照商户逐一陈列。
-    已经定义并生效的分账规则以灰色显示并锁定；尚未定义分账规则的服务项目保留“设置分账”入口。
-  </p>
+<div class="hero-tag">MERCHANT SPLIT RULES</div>
+<h2>商户分账规则</h2>
+<p>
+系统读取全部有效商户和平台全部有效服务项目，并按照商户逐一陈列。
+已经定义并生效的分账规则以灰色显示并锁定；尚未定义分账规则的服务项目保留“设置分账”入口。
+</p>
 </section>
 
 <section class="stats">
-  <div class="stat">
-    <div class="stat-label">有效商户</div>
-    <div class="stat-value" id="statMerchants">0</div>
-  </div>
-
-  <div class="stat">
-    <div class="stat-label">服务项目</div>
-    <div class="stat-value" id="statProducts">0</div>
-  </div>
-
-  <div class="stat">
-    <div class="stat-label">已生效分账规则</div>
-    <div class="stat-value" id="statRules">0</div>
-  </div>
-
-  <div class="stat">
-    <div class="stat-label">未定义组合</div>
-    <div class="stat-value" id="statUndefined">0</div>
-  </div>
+<div class="stat">
+  <div class="stat-label">有效商户</div>
+  <div class="stat-value" id="statMerchants">0</div>
+</div>
+<div class="stat">
+  <div class="stat-label">服务项目</div>
+  <div class="stat-value" id="statProducts">0</div>
+</div>
+<div class="stat">
+  <div class="stat-label">已生效分账规则</div>
+  <div class="stat-value" id="statRules">0</div>
+</div>
+<div class="stat">
+  <div class="stat-label">未定义组合</div>
+  <div class="stat-value" id="statUndefined">0</div>
+</div>
 </section>
 
 <section class="panel">
 
-  <div class="panel-head">
-    <div>
-      <div class="panel-title">商户及服务项目列表</div>
-      <div class="panel-sub">
-        每一个商户下面显示平台全部有效服务项目
-      </div>
+<div class="panel-head">
+  <div>
+    <div class="panel-title">商户及服务项目列表</div>
+    <div class="panel-sub">
+      先选择已开通服务城市，再选择该城市商户
     </div>
   </div>
+</div>
 
-  <div class="filterbar">
-    <select id="merchantFilter" class="control">
-      <option value="">全部商户</option>
-    </select>
+<!-- 第一行：已开通服务城市 -->
+<div class="city-filterbar">
+  <div class="city-filter-label">选择已开通服务城市</div>
+  <select id="cityFilter" class="control">
+    <option value="">全部已开通服务城市</option>
+  </select>
+</div>
 
-    <input
-      id="searchInput"
-      class="control"
-      placeholder="搜索商户名称、服务项目名称或编号"
-    >
-  </div>
+<!-- 第二行：商户 + 搜索 -->
+<div class="filterbar">
+  <select id="merchantFilter" class="control">
+    <option value="">全部商户</option>
+  </select>
 
-  <div id="merchantContainer"></div>
+  <input
+    id="searchInput"
+    class="control"
+    placeholder="搜索商户名称、服务项目名称或编号"
+  >
+</div>
 
-  <div id="emptyBox" class="empty" style="display:none">
-    <div class="empty-icon">♡</div>
-    没有找到符合条件的商户或服务项目
-  </div>
+<div id="merchantContainer"></div>
+
+<div id="emptyBox" class="empty" style="display:none">
+  <div class="empty-icon">♡</div>
+  没有找到符合条件的商户或服务项目
+</div>
 
 </section>
 
@@ -501,15 +388,15 @@ const SUPABASE_URL="https://qbuqjwpkltbjhlfbyjyb.supabase.co";
 const SUPABASE_ANON_KEY="sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
 
 const supabaseClient=window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY,
-  {
-    auth:{
-      persistSession:true,
-      autoRefreshToken:true,
-      detectSessionInUrl:true
-    }
+SUPABASE_URL,
+SUPABASE_ANON_KEY,
+{
+  auth:{
+    persistSession:true,
+    autoRefreshToken:true,
+    detectSessionInUrl:true
   }
+}
 );
 
 const LOGIN_PAGE="./login.html";
@@ -523,533 +410,805 @@ let merchants=[];
 let products=[];
 let rules=[];
 
+let serviceAreas=[];
+let cities=[];
+let provinces=[];
+
 let idleTimer=null;
 
 const $=id=>document.getElementById(id);
 
 function esc(v){
-  return String(v??"")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+return String(v??"")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
 }
 
 function hideLoading(){
-  const el=$("loading");
-  if(el)el.style.display="none";
+const el=$("loading");
+if(el)el.style.display="none";
 }
 
 function showToast(message,type=""){
-  const el=$("toast");
-  el.textContent=message;
-  el.className="toast show "+type;
+const el=$("toast");
+el.textContent=message;
+el.className="toast show "+type;
 
-  clearTimeout(el._timer);
+clearTimeout(el._timer);
 
-  el._timer=setTimeout(()=>{
-    el.className="toast";
-  },3000);
+el._timer=setTimeout(()=>{
+  el.className="toast";
+},3000);
 }
 
 function goBack(){
-  window.location.href=HOME_PAGE;
+window.location.href=HOME_PAGE;
 }
 
 async function logout(){
-  try{
-    await supabaseClient.auth.signOut();
-  }finally{
-    window.location.href=LOGIN_PAGE;
-  }
+try{
+  await supabaseClient.auth.signOut();
+}finally{
+  window.location.href=LOGIN_PAGE;
+}
 }
 
 function resetIdleTimer(){
-  clearTimeout(idleTimer);
-  idleTimer=setTimeout(autoLogout,IDLE_LIMIT);
+clearTimeout(idleTimer);
+idleTimer=setTimeout(autoLogout,IDLE_LIMIT);
 }
 
 async function autoLogout(){
-  try{
-    await supabaseClient.auth.signOut();
-  }catch(error){
-    console.error("自动退出失败：",error);
-  }
+try{
+  await supabaseClient.auth.signOut();
+}catch(error){
+  console.error("自动退出失败：",error);
+}
 
-  alert("由于10分钟未操作，系统已自动退出。");
-  window.location.href=LOGIN_PAGE;
+alert("由于10分钟未操作，系统已自动退出。");
+window.location.href=LOGIN_PAGE;
 }
 
 [
-  "mousemove",
-  "mousedown",
-  "keydown",
-  "touchstart",
-  "scroll",
-  "click"
+"mousemove",
+"mousedown",
+"keydown",
+"touchstart",
+"scroll",
+"click"
 ].forEach(eventName=>{
-  document.addEventListener(
-    eventName,
-    resetIdleTimer,
-    {passive:true}
-  );
+document.addEventListener(
+  eventName,
+  resetIdleTimer,
+  {passive:true}
+);
 });
 
 function merchantName(m){
-  return (
-    m?.merchant_name ||
-    m?.name ||
-    m?.full_name ||
-    m?.company_name ||
-    "未命名商户"
-  );
+return (
+  m?.merchant_name ||
+  m?.name ||
+  m?.full_name ||
+  m?.company_name ||
+  "未命名商户"
+);
 }
 
 function merchantCode(m){
-  return (
-    m?.merchant_code ||
-    m?.code ||
-    m?.merchant_no ||
-    ""
-  );
+return (
+  m?.merchant_code ||
+  m?.code ||
+  m?.merchant_no ||
+  ""
+);
+}
+
+function merchantCityId(m){
+return (
+  m?.city_id ??
+  m?.service_city_id ??
+  m?.registered_city_id ??
+  null
+);
 }
 
 function productName(p){
-  return (
-    p?.product_name ||
-    p?.name ||
-    p?.service_name ||
-    "未命名服务项目"
-  );
+return (
+  p?.product_name ||
+  p?.name ||
+  p?.service_name ||
+  "未命名服务项目"
+);
 }
 
 function productCode(p){
-  return (
-    p?.product_code ||
-    p?.code ||
-    p?.product_no ||
-    ""
-  );
+return (
+  p?.product_code ||
+  p?.code ||
+  p?.product_no ||
+  ""
+);
 }
 
 function productCategory(p){
-  if(!p)return "—";
+if(!p)return "—";
 
-  if(p.category_name)return p.category_name;
-  if(p.category)return p.category;
-  if(p.service_category)return p.service_category;
+if(p.category_name)return p.category_name;
+if(p.category)return p.category;
+if(p.service_category)return p.service_category;
 
-  if(p.product_type==="service"){
-    return "服务类";
-  }
+if(p.product_type==="service"){
+  return "服务类";
+}
 
-  if(p.product_type==="physical_goods"){
-    return "实物商品";
-  }
+if(p.product_type==="physical_goods"){
+  return "实物商品";
+}
 
-  return "—";
+return "—";
+}
+
+function cityById(id){
+return cities.find(
+  x=>String(x.id)===String(id)
+);
+}
+
+function provinceById(id){
+return provinces.find(
+  x=>String(x.id)===String(id)
+);
 }
 
 function findActiveRule(merchantId,productId){
-  return rules.find(r=>
-    String(r.merchant_id)===String(merchantId) &&
-    String(r.product_id)===String(productId) &&
-    r.status==="active"
-  );
+return rules.find(r=>
+  String(r.merchant_id)===String(merchantId) &&
+  String(r.product_id)===String(productId) &&
+  r.status==="active"
+);
 }
 
 function ratioValue(v){
-  const n=Number(v);
+const n=Number(v);
 
-  if(!Number.isFinite(n)){
-    return "0";
+if(!Number.isFinite(n)){
+  return "0";
+}
+
+return n.toLocaleString(
+  "zh-CN",
+  {
+    maximumFractionDigits:4
   }
-
-  return n.toLocaleString(
-    "zh-CN",
-    {
-      maximumFractionDigits:4
-    }
-  );
+);
 }
 
 function ratioHtml(rule){
-  if(!rule){
-    return "—";
-  }
+if(!rule){
+  return "—";
+}
 
-  return `
-    <div class="ratio-line">
-      <span class="ratio-item">
-        平台 <b>${esc(ratioValue(rule.platform_ratio))}%</b>
-      </span>
+return `
+<div class="ratio-line">
 
-      <span class="ratio-item">
-        城市负责人 <b>${esc(ratioValue(rule.city_manager_ratio))}%</b>
-      </span>
+  <span class="ratio-item">
+    平台 <b>${esc(ratioValue(rule.platform_ratio))}%</b>
+  </span>
 
-      <span class="ratio-item">
-        商户 <b>${esc(ratioValue(rule.store_ratio))}%</b>
-      </span>
+  <span class="ratio-item">
+    城市负责人 <b>${esc(ratioValue(rule.city_manager_ratio))}%</b>
+  </span>
 
-      <span class="ratio-item">
-        服务人员 <b>${esc(ratioValue(rule.operator_ratio))}%</b>
-      </span>
+  <span class="ratio-item">
+    商户 <b>${esc(ratioValue(rule.store_ratio))}%</b>
+  </span>
 
-      <span class="ratio-item">
-        健康顾问 <b>${esc(ratioValue(rule.order_source_ratio))}%</b>
-      </span>
+  <span class="ratio-item">
+    服务人员 <b>${esc(ratioValue(rule.operator_ratio))}%</b>
+  </span>
 
-      <span class="ratio-item">
-        软件服务 <b>${esc(ratioValue(rule.software_service_ratio))}%</b>
-      </span>
-    </div>
-  `;
+  <span class="ratio-item">
+    健康顾问 <b>${esc(ratioValue(rule.order_source_ratio))}%</b>
+  </span>
+
+  <span class="ratio-item">
+    软件服务 <b>${esc(ratioValue(rule.software_service_ratio))}%</b>
+  </span>
+
+</div>
+`;
 }
 
 async function initialize(){
 
-  resetIdleTimer();
+resetIdleTimer();
 
-  try{
+try{
 
-    const {
-      data:{session},
-      error:sessionError
-    }=await supabaseClient.auth.getSession();
+  const {
+    data:{session},
+    error:sessionError
+  }=await supabaseClient.auth.getSession();
 
-    if(sessionError){
-      throw sessionError;
-    }
-
-    if(!session){
-      location.replace(LOGIN_PAGE);
-      return;
-    }
-
-    currentUser=session.user;
-
-    const {
-      data:profile,
-      error:profileError
-    }=await supabaseClient
-      .from("profiles")
-      .select(`
-        id,
-        full_name,
-        role,
-        status
-      `)
-      .eq("id",currentUser.id)
-      .single();
-
-    if(profileError || !profile){
-      throw new Error("无法读取当前账号权限。");
-    }
-
-    if(profile.status!=="active"){
-      throw new Error("当前账号已经停用。");
-    }
-
-    if(!["founder","platform_admin"].includes(profile.role)){
-      alert("您没有商户分账规则管理权限。");
-      location.replace(HOME_PAGE);
-      return;
-    }
-
-    currentProfile=profile;
-
-    await loadData();
-
-    hideLoading();
-
-  }catch(error){
-
-    console.error("页面初始化失败：",error);
-
-    hideLoading();
-
-    alert(
-      error.message ||
-      "页面初始化失败。"
-    );
+  if(sessionError){
+    throw sessionError;
   }
+
+  if(!session){
+    location.replace(LOGIN_PAGE);
+    return;
+  }
+
+  currentUser=session.user;
+
+  const {
+    data:profile,
+    error:profileError
+  }=await supabaseClient
+    .from("profiles")
+    .select(`
+      id,
+      full_name,
+      role,
+      status
+    `)
+    .eq("id",currentUser.id)
+    .single();
+
+  if(profileError || !profile){
+    throw new Error("无法读取当前账号权限。");
+  }
+
+  if(profile.status!=="active"){
+    throw new Error("当前账号已经停用。");
+  }
+
+  if(!["founder","platform_admin"].includes(profile.role)){
+    alert("您没有商户分账规则管理权限。");
+    location.replace(HOME_PAGE);
+    return;
+  }
+
+  currentProfile=profile;
+
+  await loadData();
+
+  hideLoading();
+
+}catch(error){
+
+  console.error("页面初始化失败：",error);
+
+  hideLoading();
+
+  alert(
+    error.message ||
+    "页面初始化失败。"
+  );
+}
 }
 
 async function loadData(){
 
-  const [
-    merchantRes,
-    productRes,
-    ruleRes
-  ]=await Promise.all([
+const [
+  merchantRes,
+  productRes,
+  ruleRes,
+  areaRes,
+  cityRes,
+  provinceRes
+]=await Promise.all([
 
-    supabaseClient
-      .from("merchants")
-      .select("*")
-      .eq("status","active")
-      .order("id",{ascending:true}),
+  supabaseClient
+    .from("merchants")
+    .select("*")
+    .eq("status","active")
+    .order("id",{ascending:true}),
 
-    supabaseClient
-      .from("products")
-      .select("*")
-      .eq("status","active")
-      .order("id",{ascending:true}),
+  supabaseClient
+    .from("products")
+    .select("*")
+    .eq("status","active")
+    .order("id",{ascending:true}),
 
-    supabaseClient
-      .from("merchant_product_rules")
-      .select("*")
-      .eq("status","active")
-      .order("created_at",{ascending:false})
+  supabaseClient
+    .from("merchant_product_rules")
+    .select("*")
+    .eq("status","active")
+    .order("created_at",{ascending:false}),
 
-  ]);
+  supabaseClient
+    .from("service_areas")
+    .select("id,area_no,province_id,city_id,district_id,status")
+    .eq("status","active")
+    .is("district_id",null)
+    .order("area_no",{ascending:true}),
 
-  if(merchantRes.error){
-    throw new Error(
-      "商户读取失败："+merchantRes.error.message
-    );
+  supabaseClient
+    .from("cities")
+    .select("id,province_id,city_code,city_name,status")
+    .eq("status","active")
+    .order("city_code",{ascending:true}),
+
+  supabaseClient
+    .from("provinces")
+    .select("id,province_code,province_name,status")
+    .eq("status","active")
+    .order("province_code",{ascending:true})
+
+]);
+
+if(merchantRes.error){
+  throw new Error(
+    "商户读取失败："+merchantRes.error.message
+  );
+}
+
+if(productRes.error){
+  throw new Error(
+    "服务项目读取失败："+productRes.error.message
+  );
+}
+
+if(ruleRes.error){
+  throw new Error(
+    "分账规则读取失败："+ruleRes.error.message
+  );
+}
+
+if(areaRes.error){
+  throw new Error(
+    "已开通服务城市读取失败："+areaRes.error.message
+  );
+}
+
+if(cityRes.error){
+  throw new Error(
+    "城市读取失败："+cityRes.error.message
+  );
+}
+
+if(provinceRes.error){
+  throw new Error(
+    "省份读取失败："+provinceRes.error.message
+  );
+}
+
+merchants=merchantRes.data||[];
+products=productRes.data||[];
+rules=ruleRes.data||[];
+
+serviceAreas=areaRes.data||[];
+cities=cityRes.data||[];
+provinces=provinceRes.data||[];
+
+renderCityFilter();
+renderMerchantFilter();
+renderStats();
+renderMerchantList();
+}
+
+function getOpenedCities(){
+
+const unique=new Map();
+
+serviceAreas.forEach(area=>{
+
+  if(!area.city_id){
+    return;
   }
 
-  if(productRes.error){
-    throw new Error(
-      "服务项目读取失败："+productRes.error.message
-    );
+  const key=String(area.city_id);
+
+  if(!unique.has(key)){
+    unique.set(key,area);
   }
+});
 
-  if(ruleRes.error){
-    throw new Error(
-      "分账规则读取失败："+ruleRes.error.message
+return [...unique.values()];
+}
+
+function renderCityFilter(){
+
+const select=$("cityFilter");
+const oldValue=select.value;
+
+const openedCities=getOpenedCities();
+
+select.innerHTML=
+'<option value="">全部已开通服务城市</option>'+
+openedCities.map(area=>{
+
+  const city=
+    cityById(area.city_id);
+
+  const province=
+    provinceById(
+      area.province_id ||
+      city?.province_id
     );
-  }
 
-  merchants=merchantRes.data||[];
-  products=productRes.data||[];
-  rules=ruleRes.data||[];
+  const areaNo=
+    area.area_no
+      ? String(area.area_no).padStart(3,"0")
+      : "";
 
-  renderMerchantFilter();
-  renderStats();
-  renderMerchantList();
+  const provinceName=
+    province?.province_name||"";
+
+  const cityName=
+    city?.city_name||
+    ("城市 "+area.city_id);
+
+  return `
+    <option value="${esc(area.city_id)}">
+      ${areaNo?esc(areaNo)+" | ":""}
+      ${provinceName?esc(provinceName)+" · ":""}
+      ${esc(cityName)}
+    </option>
+  `;
+
+}).join("");
+
+if(
+  oldValue &&
+  openedCities.some(
+    area=>String(area.city_id)===String(oldValue)
+  )
+){
+  select.value=oldValue;
+}
+}
+
+function merchantsForSelectedCity(){
+
+const selectedCity=
+  $("cityFilter").value;
+
+if(!selectedCity){
+  return merchants;
+}
+
+return merchants.filter(m=>
+  String(merchantCityId(m))===
+  String(selectedCity)
+);
 }
 
 function renderMerchantFilter(){
 
-  const select=$("merchantFilter");
-  const oldValue=select.value;
+const select=$("merchantFilter");
+const oldValue=select.value;
 
-  select.innerHTML=
-    '<option value="">全部商户</option>'+
-    merchants.map(m=>{
-      const code=merchantCode(m);
+const list=
+  merchantsForSelectedCity();
 
-      return `
-        <option value="${esc(m.id)}">
-          ${code?esc(code)+" | ":""}${esc(merchantName(m))}
-        </option>
-      `;
-    }).join("");
+select.innerHTML=
+'<option value="">全部商户</option>'+
+list.map(m=>{
 
-  if(
-    oldValue &&
-    merchants.some(
-      m=>String(m.id)===String(oldValue)
-    )
-  ){
-    select.value=oldValue;
-  }
+  const code=
+    merchantCode(m);
+
+  return `
+    <option value="${esc(m.id)}">
+      ${code?esc(code)+" | ":""}
+      ${esc(merchantName(m))}
+    </option>
+  `;
+
+}).join("");
+
+if(
+  oldValue &&
+  list.some(
+    m=>String(m.id)===String(oldValue)
+  )
+){
+  select.value=oldValue;
+}else{
+  select.value="";
+}
 }
 
 function renderStats(){
 
-  const totalCombinations=
-    merchants.length*
-    products.length;
+const cityMerchants=
+  merchantsForSelectedCity();
 
-  let activeCount=0;
+const totalCombinations=
+  cityMerchants.length*
+  products.length;
 
-  merchants.forEach(m=>{
-    products.forEach(p=>{
-      if(findActiveRule(m.id,p.id)){
-        activeCount++;
-      }
-    });
+let activeCount=0;
+
+cityMerchants.forEach(m=>{
+
+  products.forEach(p=>{
+
+    if(
+      findActiveRule(
+        m.id,
+        p.id
+      )
+    ){
+      activeCount++;
+    }
+
   });
 
-  $("statMerchants").textContent=
-    merchants.length;
+});
 
-  $("statProducts").textContent=
-    products.length;
+$("statMerchants").textContent=
+  cityMerchants.length;
 
-  $("statRules").textContent=
-    activeCount;
+$("statProducts").textContent=
+  products.length;
 
-  $("statUndefined").textContent=
-    Math.max(
-      0,
-      totalCombinations-activeCount
-    );
+$("statRules").textContent=
+  activeCount;
+
+$("statUndefined").textContent=
+  Math.max(
+    0,
+    totalCombinations-activeCount
+  );
 }
 
 function filteredMerchants(){
 
-  const selected=
-    $("merchantFilter").value;
+const selectedMerchant=
+  $("merchantFilter").value;
 
-  if(!selected){
-    return merchants;
-  }
+let list=
+  merchantsForSelectedCity();
 
-  return merchants.filter(
-    m=>String(m.id)===String(selected)
-  );
+if(!selectedMerchant){
+  return list;
+}
+
+return list.filter(
+  m=>String(m.id)===
+  String(selectedMerchant)
+);
 }
 
 function filteredProductsForMerchant(merchant){
 
-  const keyword=
-    $("searchInput")
-      .value
-      .trim()
-      .toLowerCase();
+const keyword=
+  $("searchInput")
+    .value
+    .trim()
+    .toLowerCase();
 
-  if(!keyword){
-    return products;
-  }
+if(!keyword){
+  return products;
+}
 
-  const merchantText=[
-    merchantName(merchant),
-    merchantCode(merchant)
+const merchantText=[
+  merchantName(merchant),
+  merchantCode(merchant)
+].join(" ").toLowerCase();
+
+if(
+  merchantText.includes(keyword)
+){
+  return products;
+}
+
+return products.filter(p=>{
+
+  const text=[
+    productName(p),
+    productCode(p),
+    productCategory(p)
   ].join(" ").toLowerCase();
 
-  if(merchantText.includes(keyword)){
-    return products;
-  }
+  return text.includes(keyword);
 
-  return products.filter(p=>{
-
-    const text=[
-      productName(p),
-      productCode(p),
-      productCategory(p)
-    ].join(" ").toLowerCase();
-
-    return text.includes(keyword);
-  });
+});
 }
 
 function renderMerchantList(){
 
-  const container=
-    $("merchantContainer");
+const container=
+  $("merchantContainer");
 
-  const empty=
-    $("emptyBox");
+const empty=
+  $("emptyBox");
 
-  const merchantList=
-    filteredMerchants();
+const merchantList=
+  filteredMerchants();
 
-  const blocks=[];
+const blocks=[];
 
-  merchantList.forEach(merchant=>{
+merchantList.forEach(merchant=>{
 
-    const productList=
-      filteredProductsForMerchant(merchant);
+  const productList=
+    filteredProductsForMerchant(
+      merchant
+    );
 
-    if(!productList.length){
-      return;
-    }
+  if(!productList.length){
+    return;
+  }
 
-    const code=
-      merchantCode(merchant);
+  const code=
+    merchantCode(merchant);
 
-    const activeRules=
-      productList.filter(
-        p=>findActiveRule(
+  const activeRules=
+    productList.filter(
+      p=>findActiveRule(
+        merchant.id,
+        p.id
+      )
+    ).length;
+
+  const desktopRows=
+    productList.map(product=>{
+
+      const rule=
+        findActiveRule(
           merchant.id,
-          p.id
-        )
-      ).length;
+          product.id
+        );
 
-    const desktopRows=
-      productList.map(product=>{
-
-        const rule=
-          findActiveRule(
-            merchant.id,
-            product.id
-          );
-
-        if(rule){
-
-          return `
-            <tr class="rule-active-row">
-
-              <td>
-                <div class="product-name">
-                  ${esc(productName(product))}
-                </div>
-
-                <div class="product-code">
-                  ${esc(productCode(product)||"—")}
-                </div>
-              </td>
-
-              <td>
-                ${esc(productCategory(product))}
-              </td>
-
-              <td>
-                <span class="badge badge-green">
-                  已定义并生效
-                </span>
-              </td>
-
-              <td>
-                ${ratioHtml(rule)}
-              </td>
-
-              <td>
-                <button
-                  class="btn btn-small btn-disabled"
-                  disabled
-                >
-                  已锁定
-                </button>
-              </td>
-
-            </tr>
-          `;
-        }
+      if(rule){
 
         return `
-          <tr>
+        <tr class="rule-active-row">
 
-            <td>
-              <div class="product-name">
-                ${esc(productName(product))}
-              </div>
+          <td>
+            <div class="product-name">
+              ${esc(productName(product))}
+            </div>
 
-              <div class="product-code">
-                ${esc(productCode(product)||"—")}
-              </div>
-            </td>
+            <div class="product-code">
+              ${esc(productCode(product)||"—")}
+            </div>
+          </td>
 
-            <td>
-              ${esc(productCategory(product))}
-            </td>
+          <td>
+            ${esc(productCategory(product))}
+          </td>
 
-            <td>
+          <td>
+            <span class="badge badge-green">
+              已定义并生效
+            </span>
+          </td>
+
+          <td>
+            ${ratioHtml(rule)}
+          </td>
+
+          <td>
+            <button
+              class="btn btn-small btn-disabled"
+              disabled
+            >
+              已锁定
+            </button>
+          </td>
+
+        </tr>
+        `;
+      }
+
+      return `
+      <tr>
+
+        <td>
+          <div class="product-name">
+            ${esc(productName(product))}
+          </div>
+
+          <div class="product-code">
+            ${esc(productCode(product)||"—")}
+          </div>
+        </td>
+
+        <td>
+          ${esc(productCategory(product))}
+        </td>
+
+        <td>
+          <span class="badge badge-orange">
+            未定义
+          </span>
+        </td>
+
+        <td>
+          —
+        </td>
+
+        <td>
+          <button
+            class="btn btn-primary btn-small"
+            onclick="openRule(
+              ${JSON.stringify(String(merchant.id))},
+              ${JSON.stringify(String(product.id))}
+            )"
+          >
+            设置分账
+          </button>
+        </td>
+
+      </tr>
+      `;
+
+    }).join("");
+
+  const mobileRows=
+    productList.map(product=>{
+
+      const rule=
+        findActiveRule(
+          merchant.id,
+          product.id
+        );
+
+      return `
+      <div class="mobile-card ${rule?"locked":""}">
+
+        <div class="mobile-card-top">
+
+          <div>
+
+            <div class="product-name">
+              ${esc(productName(product))}
+            </div>
+
+            <div class="product-code">
+              ${esc(productCode(product)||"—")}
+            </div>
+
+          </div>
+
+          ${
+            rule
+              ?
+              `
+              <span class="badge badge-green">
+                已定义
+              </span>
+              `
+              :
+              `
               <span class="badge badge-orange">
                 未定义
               </span>
-            </td>
+              `
+          }
 
-            <td>
-              —
-            </td>
+        </div>
 
-            <td>
+        <div class="mobile-meta">
+          服务类别：
+          ${esc(productCategory(product))}
+        </div>
+
+        ${
+          rule
+            ?
+            `
+            ${ratioHtml(rule)}
+
+            <div style="margin-top:12px">
+              <button
+                class="btn btn-small btn-disabled"
+                disabled
+              >
+                已锁定
+              </button>
+            </div>
+            `
+            :
+            `
+            <div style="margin-top:12px">
               <button
                 class="btn btn-primary btn-small"
                 onclick="openRule(
@@ -1059,227 +1218,166 @@ function renderMerchantList(){
               >
                 设置分账
               </button>
-            </td>
-
-          </tr>
-        `;
-      }).join("");
-
-    const mobileRows=
-      productList.map(product=>{
-
-        const rule=
-          findActiveRule(
-            merchant.id,
-            product.id
-          );
-
-        return `
-          <div class="mobile-card ${rule?"locked":""}">
-
-            <div class="mobile-card-top">
-
-              <div>
-
-                <div class="product-name">
-                  ${esc(productName(product))}
-                </div>
-
-                <div class="product-code">
-                  ${esc(productCode(product)||"—")}
-                </div>
-
-              </div>
-
-              ${
-                rule
-                ?
-                `
-                <span class="badge badge-green">
-                  已定义
-                </span>
-                `
-                :
-                `
-                <span class="badge badge-orange">
-                  未定义
-                </span>
-                `
-              }
-
             </div>
+            `
+        }
 
-            <div class="mobile-meta">
-              服务类别：
-              ${esc(productCategory(product))}
-            </div>
+      </div>
+      `;
 
-            ${
-              rule
+    }).join("");
+
+  blocks.push(`
+  <section class="merchant-section">
+
+    <div class="merchant-head">
+
+      <div>
+
+        <div class="merchant-name">
+          ${esc(merchantName(merchant))}
+        </div>
+
+        <div class="merchant-meta">
+
+          ${
+            code
               ?
-              `
-                ${ratioHtml(rule)}
-
-                <div style="margin-top:12px">
-                  <button
-                    class="btn btn-small btn-disabled"
-                    disabled
-                  >
-                    已锁定
-                  </button>
-                </div>
-              `
+              "商户编号："+esc(code)+" · "
               :
-              `
-                <div style="margin-top:12px">
-                  <button
-                    class="btn btn-primary btn-small"
-                    onclick="openRule(
-                      ${JSON.stringify(String(merchant.id))},
-                      ${JSON.stringify(String(product.id))}
-                    )"
-                  >
-                    设置分账
-                  </button>
-                </div>
-              `
-            }
+              ""
+          }
 
-          </div>
-        `;
-      }).join("");
-
-    blocks.push(`
-      <section class="merchant-section">
-
-        <div class="merchant-head">
-
-          <div>
-
-            <div class="merchant-name">
-              ${esc(merchantName(merchant))}
-            </div>
-
-            <div class="merchant-meta">
-              ${
-                code
-                ?
-                "商户编号："+esc(code)+" · "
-                :
-                ""
-              }
-              共 ${productList.length} 个服务项目 ·
-              ${activeRules} 个已定义分账规则
-            </div>
-
-          </div>
-
-          <div class="merchant-count">
-            ${activeRules}/${productList.length} 已定义
-          </div>
+          共 ${productList.length} 个服务项目 ·
+          ${activeRules} 个已定义分账规则
 
         </div>
 
-        <div class="desktop-table table-wrap">
+      </div>
 
-          <table>
+      <div class="merchant-count">
+        ${activeRules}/${productList.length} 已定义
+      </div>
 
-            <thead>
-              <tr>
-                <th>服务项目</th>
-                <th>服务类别</th>
-                <th>分账状态</th>
-                <th>当前分账比例</th>
-                <th>操作</th>
-              </tr>
-            </thead>
+    </div>
 
-            <tbody>
-              ${desktopRows}
-            </tbody>
+    <div class="desktop-table table-wrap">
 
-          </table>
+      <table>
 
-        </div>
+        <thead>
+          <tr>
+            <th>服务项目</th>
+            <th>服务类别</th>
+            <th>分账状态</th>
+            <th>当前分账比例</th>
+            <th>操作</th>
+          </tr>
+        </thead>
 
-        <div class="mobile-list">
-          ${mobileRows}
-        </div>
+        <tbody>
+          ${desktopRows}
+        </tbody>
 
-      </section>
-    `);
-  });
+      </table>
 
-  if(!blocks.length){
+    </div>
 
-    container.innerHTML="";
-    empty.style.display="block";
+    <div class="mobile-list">
+      ${mobileRows}
+    </div>
 
-  }else{
+  </section>
+  `);
 
-    empty.style.display="none";
-    container.innerHTML=
-      blocks.join("");
-  }
+});
+
+if(!blocks.length){
+
+  container.innerHTML="";
+  empty.style.display="block";
+
+}else{
+
+  empty.style.display="none";
+  container.innerHTML=
+    blocks.join("");
+
+}
 }
 
-function openRule(merchantId,productId){
+function openRule(
+merchantId,
+productId
+){
 
-  const merchant=
-    merchants.find(
-      m=>String(m.id)===String(merchantId)
-    );
+const merchant=
+  merchants.find(
+    m=>String(m.id)===
+    String(merchantId)
+  );
 
-  const product=
-    products.find(
-      p=>String(p.id)===String(productId)
-    );
+const product=
+  products.find(
+    p=>String(p.id)===
+    String(productId)
+  );
 
-  const existing=
-    findActiveRule(
-      merchantId,
-      productId
-    );
+const existing=
+  findActiveRule(
+    merchantId,
+    productId
+  );
 
-  if(existing){
-
-    showToast(
-      "该商户的这个服务项目已经存在有效分账规则。",
-      "error"
-    );
-
-    return;
-  }
-
-  /*
-    当前版本按照你的要求：
-    页面只负责读取并陈列全部商户和全部服务项目。
-
-    “设置分账”按钮入口保留。
-
-    下一步制作分账比例设置功能时，
-    直接从这里接入设置窗口即可。
-  */
+if(existing){
 
   showToast(
-    "准备设置："+
-    merchantName(merchant)+
-    " · "+
-    productName(product)
+    "该商户的这个服务项目已经存在有效分账规则。",
+    "error"
   );
+
+  return;
 }
 
-$("merchantFilter")
-  .addEventListener(
-    "change",
-    renderMerchantList
-  );
+showToast(
+  "准备设置："+
+  merchantName(merchant)+
+  " · "+
+  productName(product)
+);
+}
 
-$("searchInput")
-  .addEventListener(
-    "input",
-    renderMerchantList
-  );
+/* 选择城市 */
+$("cityFilter").addEventListener(
+"change",
+()=>{
+  /*
+    城市变化后：
+    1. 商户重新筛选
+    2. 商户选择恢复为“全部商户”
+    3. 统计数字重新计算
+    4. 商户列表重新显示
+  */
+
+  $("merchantFilter").value="";
+
+  renderMerchantFilter();
+  renderStats();
+  renderMerchantList();
+}
+);
+
+/* 选择商户 */
+$("merchantFilter").addEventListener(
+"change",
+renderMerchantList
+);
+
+/* 搜索 */
+$("searchInput").addEventListener(
+"input",
+renderMerchantList
+);
 
 initialize();
 </script>

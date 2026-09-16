@@ -1,2880 +1,937 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width,initial-scale=1.0">
-
-
-<title>
-商户分账规则管理 - 孕乃馨
-</title>
-
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>城市销售价格 - 孕乃馨平台管理中心</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-
 <style>
-
-
-*{
-
-box-sizing:border-box;
-
-margin:0;
-
-padding:0;
-
+*{box-sizing:border-box}
+:root{--pink:#e64f7c;--pink2:#fff0f5;--text:#382a30;--muted:#9b8990;--border:#eee3e7;--bg:#fffafb;--green:#2e9d68;--red:#dc4c64;--shadow:0 8px 28px rgba(111,63,78,.06)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
+button,input,select{font:inherit}button{cursor:pointer}
+header{height:72px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:30}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:38px;height:38px;border-radius:50%;background:linear-gradient(145deg,#ff91ad,#ff668d);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:800}
+.brand h1{font-size:18px;margin:0;color:#8c3d58}.brand small{display:block;margin-top:3px;color:#aaa;font-size:11px}
+.header-actions{display:flex;gap:10px}
+.btn{border:1px solid var(--border);background:#fff;border-radius:10px;padding:10px 17px;color:#67575d}
+.btn-primary{background:var(--pink);border-color:var(--pink);color:#fff}
+.btn-danger{background:#fff4f6;color:var(--red);border-color:#ffcbd5}
+.btn-small{padding:7px 12px;border-radius:8px;font-size:12px}
+main{max-width:1240px;margin:24px auto 70px;padding:0 20px}
+.hero{background:linear-gradient(110deg,#fff0f5,#ffdce8);border:1px solid #ffd7e3;border-radius:20px;padding:28px 30px;margin-bottom:18px}
+.hero-tag{display:inline-block;background:#fff;color:var(--pink);font-weight:800;font-size:11px;border-radius:20px;padding:6px 10px;margin-bottom:9px}
+.hero h2{margin:0 0 10px;font-size:24px;color:#75354c}
+.hero p{margin:0;color:#9b6578;font-size:13px;line-height:1.8}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.stat{background:#fff;border:1px solid var(--border);border-radius:14px;padding:17px 18px;box-shadow:var(--shadow)}
+.stat-label{font-size:11px;color:#aaa;margin-bottom:8px}.stat-value{font-size:22px;font-weight:800;color:#713148}
+.panel{background:#fff;border:1px solid var(--border);border-radius:16px;margin-bottom:16px;box-shadow:var(--shadow)}
+.panel-head{padding:17px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:15px}
+.panel-title{font-size:15px;font-weight:800;color:#653146}.panel-sub{font-size:11px;color:#aaa;margin-top:4px}
+.citybar{padding:14px;display:grid;grid-template-columns:1.2fr 1fr;gap:10px}
+.control{width:100%;height:43px;border:1px solid var(--border);border-radius:10px;padding:0 13px;background:#fff;color:#4d4045;outline:none}
+.control:focus{border-color:#f39bb4;box-shadow:0 0 0 3px rgba(230,79,124,.08)}
+.create-wrap{padding:20px}.form-grid{display:grid;grid-template-columns:1fr 1fr 1fr .7fr;gap:12px;align-items:end}
+.field label{display:block;font-size:11px;color:#96868c;margin:0 0 7px 3px}
+.price-input-wrap{position:relative}.price-input-wrap span{position:absolute;left:13px;top:11px;color:#888}.price-input-wrap input{padding-left:29px}
+.create-btn{height:43px;width:100%}
+.tip{margin-top:13px;padding:11px 13px;background:#fff8fa;border:1px dashed #f2cbd6;border-radius:10px;color:#a27583;font-size:11px;line-height:1.7}
+.city-current{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.city-current strong{font-size:15px}.city-current span{font-size:11px;color:#aaa}
+.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:950px}
+th{padding:12px 14px;text-align:left;background:#fffafb;color:#9d8a91;font-size:11px;font-weight:600;border-bottom:1px solid var(--border)}
+td{padding:14px;border-bottom:1px solid #f3eaed;font-size:12px;vertical-align:middle}tr:last-child td{border-bottom:0}
+.product-name{font-weight:700;color:#4a363e;margin-bottom:4px}.product-code{font-size:10px;color:#aaa}
+.price{font-weight:800;font-size:14px;color:#3f3136}.version{font-weight:700;color:var(--pink)}
+.badge{display:inline-block;padding:5px 9px;border-radius:20px;font-size:10px;font-weight:700}
+.badge-green{background:#eaf8f1;color:var(--green)}.badge-gray{background:#f3f1f2;color:#8d8387}
+.actions{display:flex;gap:7px;flex-wrap:wrap}.empty{padding:50px 20px;text-align:center;color:#aaa;font-size:13px}.empty-icon{font-size:35px;margin-bottom:10px}
+.history-toggle{display:flex;align-items:center;gap:8px}
+.modal-mask{position:fixed;inset:0;background:rgba(45,27,34,.35);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+.modal-mask.show{display:flex}.modal{width:min(480px,100%);background:#fff;border-radius:18px;box-shadow:0 20px 70px rgba(40,20,30,.18);overflow:hidden}
+.modal-head{padding:19px 22px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.modal-head strong{color:#70354a}.close{border:0;background:none;font-size:22px;color:#999}
+.modal-body{padding:22px}.modal-product{background:#fff7fa;border:1px solid #f5d9e1;border-radius:12px;padding:13px;margin-bottom:16px}
+.modal-product strong{display:block;margin-bottom:4px}.modal-product span{font-size:11px;color:#999}
+.modal-foot{display:flex;justify-content:flex-end;gap:9px;margin-top:20px}
+.toast{position:fixed;right:22px;bottom:22px;max-width:380px;background:#41353a;color:#fff;padding:13px 17px;border-radius:10px;font-size:12px;z-index:300;box-shadow:0 10px 35px rgba(0,0,0,.18);display:none}
+.toast.show{display:block}.toast.error{background:#b94057}.toast.success{background:#27855b}
+.loading-overlay{position:fixed;inset:0;background:rgba(255,250,251,.88);z-index:500;display:flex;align-items:center;justify-content:center;color:#a45470;font-size:14px}
+.mobile-list{display:none}
+@media(max-width:800px){
+header{height:64px;padding:0 14px}.brand h1{font-size:15px}.brand small{display:none}.header-actions .btn{padding:8px 10px;font-size:11px}
+main{padding:0 12px;margin-top:14px}.hero{padding:20px}.hero h2{font-size:21px}.stats{grid-template-columns:1fr 1fr}.citybar,.form-grid{grid-template-columns:1fr}
+.desktop-table{display:none}.mobile-list{display:block;padding:10px}.mobile-card{border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:9px}
+.mobile-card-top{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px}.mobile-meta{display:grid;grid-template-columns:1fr 1fr;gap:9px;font-size:11px;color:#888;margin:10px 0}
+.mobile-meta b{display:block;color:#49383e;margin-top:3px}
 }
-
-
-body{
-
-font-family:
-
--apple-system,
-BlinkMacSystemFont,
-"Segoe UI",
-"Microsoft YaHei",
-Arial,
-sans-serif;
-
-
-background:#f5f7fb;
-
-color:#1f2937;
-
-min-height:100vh;
-
-}
-
-
-
-body.auth-loading{
-
-visibility:hidden;
-
-}
-
-
-
-/* ==========================
-顶部
-========================== */
-
-
-.topbar{
-
-height:66px;
-
-background:white;
-
-border-bottom:1px solid #e5e7eb;
-
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-
-
-padding:0 28px;
-
-
-position:sticky;
-
-top:0;
-
-z-index:100;
-
-}
-
-
-
-.brand{
-
-font-size:18px;
-
-font-weight:800;
-
-}
-
-
-
-.brand-sub{
-
-font-size:12px;
-
-color:#9ca3af;
-
-margin-top:3px;
-
-}
-
-
-
-.topbar-right{
-
-display:flex;
-
-align-items:center;
-
-gap:10px;
-
-}
-
-
-
-.current-user{
-
-font-size:13px;
-
-color:#6b7280;
-
-}
-
-
-
-.btn{
-
-border:none;
-
-border-radius:8px;
-
-padding:9px 16px;
-
-font-size:14px;
-
-cursor:pointer;
-
-}
-
-
-
-.btn-primary{
-
-background:#2563eb;
-
-color:white;
-
-}
-
-
-
-.btn-secondary{
-
-background:#eef2f7;
-
-color:#374151;
-
-}
-
-
-
-.btn-danger{
-
-background:#dc2626;
-
-color:white;
-
-}
-
-
-
-.btn-success{
-
-background:#16a34a;
-
-color:white;
-
-}
-
-
-
-
-
-/* ==========================
-主体
-========================== */
-
-
-.page{
-
-
-max-width:1450px;
-
-margin:auto;
-
-padding:28px;
-
-}
-
-
-
-.page-header{
-
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:flex-start;
-
-margin-bottom:22px;
-
-
-}
-
-
-
-.page-title{
-
-
-font-size:25px;
-
-font-weight:800;
-
-margin-bottom:8px;
-
-
-}
-
-
-
-.page-description{
-
-
-color:#6b7280;
-
-font-size:14px;
-
-line-height:1.6;
-
-
-}
-
-
-
-/* ==========================
-卡片
-========================== */
-
-
-.card{
-
-
-background:white;
-
-border:1px solid #e5e7eb;
-
-border-radius:14px;
-
-padding:22px;
-
-margin-bottom:20px;
-
-
-box-shadow:
-
-0 1px 3px rgba(0,0,0,.03);
-
-}
-
-
-
-.card-title{
-
-
-font-size:17px;
-
-font-weight:800;
-
-padding-bottom:14px;
-
-margin-bottom:18px;
-
-border-bottom:1px solid #f0f1f3;
-
-
-}
-
-
-
-/* ==========================
-选择区域
-========================== */
-
-
-.select-grid{
-
-
-display:grid;
-
-grid-template-columns:
-
-repeat(3,1fr);
-
-gap:18px;
-
-
-}
-
-
-
-.form-group{
-
-margin-bottom:10px;
-
-}
-
-
-
-label{
-
-
-display:block;
-
-font-size:13px;
-
-font-weight:600;
-
-color:#6b7280;
-
-margin-bottom:7px;
-
-
-}
-
-
-
-select,
-input{
-
-
-width:100%;
-
-height:42px;
-
-border:1px solid #d1d5db;
-
-border-radius:8px;
-
-padding:0 12px;
-
-background:white;
-
-}
-
-
-
-select:focus,
-input:focus{
-
-
-outline:none;
-
-border-color:#2563eb;
-
-
-box-shadow:
-
-0 0 0 3px rgba(37,99,235,.08);
-
-
-}
-
-
-
-/* ==========================
-产品表格
-========================== */
-
-
-.table-box{
-
-overflow:auto;
-
-}
-
-
-
-table{
-
-width:100%;
-
-border-collapse:collapse;
-
-}
-
-
-
-th{
-
-
-background:#f9fafb;
-
-padding:13px;
-
-font-size:13px;
-
-
-}
-
-
-
-td{
-
-
-padding:13px;
-
-border-bottom:1px solid #f3f4f6;
-
-text-align:center;
-
-font-size:14px;
-
-
-}
-
-
-
-/* 已定义 */
-
-.lock-row{
-
-
-background:#f3f4f6;
-
-color:#6b7280;
-
-
-}
-
-
-
-.badge-active{
-
-
-background:#dcfce7;
-
-color:#15803d;
-
-padding:5px 12px;
-
-border-radius:999px;
-
-font-size:12px;
-
-font-weight:700;
-
-}
-
-
-
-.badge-warning{
-
-
-background:#fef3c7;
-
-color:#92400e;
-
-padding:5px 12px;
-
-border-radius:999px;
-
-font-size:12px;
-
-font-weight:700;
-
-
-}
-
-
-
-.btn-small{
-
-
-padding:6px 12px;
-
-border-radius:8px;
-
-font-size:12px;
-
-border:none;
-
-cursor:pointer;
-
-
-}
-
-
-
-.btn-set{
-
-
-background:#2563eb;
-
-color:white;
-
-
-}
-
-
-
-.btn-lock{
-
-
-background:#d1d5db;
-
-color:#6b7280;
-
-
-}
-
-
-
-/* ==========================
-编辑区域
-========================== */
-
-
-.rule-grid{
-
-
-display:grid;
-
-grid-template-columns:
-
-repeat(3,1fr);
-
-gap:16px;
-
-
-}
-
-
-
-.rule-item{
-
-
-background:#f9fafb;
-
-padding:15px;
-
-border-radius:10px;
-
-
-}
-
-
-
-.rule-item span{
-
-
-display:block;
-
-font-size:13px;
-
-color:#6b7280;
-
-margin-bottom:8px;
-
-
-}
-
-
-
-.total-box{
-
-
-margin-top:20px;
-
-padding:15px;
-
-background:#eff6ff;
-
-border-radius:10px;
-
-font-weight:700;
-
-}
-
-
-
-.save-area{
-
-
-margin-top:20px;
-
-}
-
-
-
-.hidden{
-
-
-display:none;
-
-}
-
-
-
 </style>
-
 </head>
+<body>
 
+<div id="loading" class="loading-overlay">正在读取城市销售价格...</div>
 
-<body class="auth-loading">
-
-
-<header class="topbar">
-
-
-<div>
-
-
+<header>
 <div class="brand">
-
-孕乃馨 · 商户分账规则管理
-
+<div class="logo">♡</div>
+<div><h1>城市销售价格</h1><small>孕乃馨平台管理中心</small></div>
 </div>
-
-
-<div class="brand-sub">
-
-YUNNAIXIN MANAGEMENT
-
+<div class="header-actions">
+<button class="btn" onclick="goBack()">返回工作台</button>
+<button class="btn btn-primary" onclick="logout()">退出</button>
 </div>
-
-
-</div>
-
-
-
-
-<div class="topbar-right">
-
-
-<div id="currentUser"
-class="current-user">
-
-正在验证登录...
-
-</div>
-
-
-
-<button
-class="btn btn-secondary"
-onclick="goBack()">
-
-返回工作台
-
-</button>
-
-
-
-<button
-class="btn btn-danger"
-onclick="logout()">
-
-退出
-
-</button>
-
-
-</div>
-
-
 </header>
 
-
-
-<main class="page">
-
-
-
-<div class="page-header">
-
-
-<div>
-
-
-<div class="page-title">
-
-产品级分账规则管理
-
-</div>
-
-
-<div class="page-description">
-
-每个城市、商户、服务项目独立配置。
-已经生效的分账规则自动锁定。
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-
-<!-- 选择区域 -->
-
-<section class="card">
-
-
-<div class="card-title">
-
-选择已开通服务城市
-
-</div>
-
-
-<div class="select-grid">
-
-
-
-<div class="form-group">
-
-<label>
-省份
-</label>
-
-
-<select id="provinceSelect">
-
-<option>
-加载中...
-</option>
-
-</select>
-
-</div>
-
-
-
-
-<div class="form-group">
-
-<label>
-已开通服务城市
-</label>
-
-
-<select id="citySelect">
-
-<option>
-请选择城市
-</option>
-
-</select>
-
-</div>
-
-
-
-
-<div class="form-group">
-
-<label>
-商户
-</label>
-
-
-<select id="merchantSelect">
-
-<option>
-请选择商户
-</option>
-
-</select>
-
-</div>
-
-
-
-</div>
-
-
+<main>
+<section class="hero">
+<div class="hero-tag">CITY SALES PRICE</div>
+<h2>城市销售价格</h2>
+<p>系统不再为城市自动预生成全部产品价格。由管理人员从平台统一服务项目名录中人工选择当地需要开展的项目，并直接确定正式销售价格。首次创建为 V1；以后调整价格保留历史版本；停止开展后不生成空白价格记录。</p>
 </section>
+
+<section class="stats">
+<div class="stat"><div class="stat-label">已开展业务城市</div><div class="stat-value" id="statCities">0</div></div>
+<div class="stat"><div class="stat-label">当前开展服务项目</div><div class="stat-value" id="statActive">0</div></div>
+<div class="stat"><div class="stat-label">系统服务项目名录</div><div class="stat-value" id="statProducts">0</div></div>
+<div class="stat"><div class="stat-label">历史价格记录</div><div class="stat-value" id="statHistory">0</div></div>
+</section>
+
+<section class="panel">
+<div class="panel-head">
+<div><div class="panel-title">选择城市</div><div class="panel-sub">仅显示已经正式开通的城市级服务区域</div></div>
+</div>
+<div class="citybar">
+<select id="citySelect" class="control"><option value="">正在加载城市...</option></select>
+<input id="searchInput" class="control" placeholder="搜索服务项目名称或编号">
+</div>
+</section>
+
+<section class="panel">
+<div class="panel-head">
+<div><div class="panel-title">创建城市标准价格</div><div class="panel-sub">人工选择该城市需要开展的服务项目</div></div>
+</div>
+<div class="create-wrap">
+<div class="form-grid">
+<div class="field">
+<label>一级服务类别</label>
+<select id="level1Select" class="control"><option value="">请选择一级类别</option></select>
+</div>
+<div class="field">
+<label>二级服务项目</label>
+<select id="productSelect" class="control" disabled><option value="">请先选择一级类别</option></select>
+</div>
+<div class="field">
+<label>当地销售价格</label>
+<div class="price-input-wrap"><span>¥</span><input id="newPrice" class="control" type="number" min="0.01" step="0.01" placeholder="0.00"></div>
+</div>
+<div class="field">
+<button id="createBtn" class="btn btn-primary create-btn" onclick="createCityPrice()">创建标准价格</button>
+</div>
+</div>
+<div class="tip">已经在当前城市正常开展的项目不会重复出现在可创建名录中。创建成功后直接产生正式有效价格，不生成“未定义”记录。</div>
+</div>
+</section>
+
+<section class="panel">
+<div class="city-current">
+<div><span>当前城市</span><br><strong id="currentCityName">请选择城市</strong></div>
+<div class="history-toggle"><label style="font-size:11px;color:#999"><input type="checkbox" id="showHistory"> 显示历史价格</label></div>
+</div>
+
+<div class="desktop-table table-wrap">
+<table>
+<thead><tr><th>服务项目</th><th>城市</th><th>版本</th><th>销售价格</th><th>创建时间</th><th>状态</th><th>操作</th></tr></thead>
+<tbody id="priceTableBody"></tbody>
+</table>
+<div id="desktopEmpty" class="empty" style="display:none"><div class="empty-icon">♡</div>当前城市还没有开展符合条件的服务项目</div>
+</div>
+<div id="mobileList" class="mobile-list"></div>
+</section>
+</main>
+
+<div id="changeModal" class="modal-mask">
+<div class="modal">
+<div class="modal-head"><strong>调整城市销售价格</strong><button class="close" onclick="closeModal('changeModal')">×</button></div>
+<div class="modal-body">
+<div class="modal-product"><strong id="changeProductName"></strong><span id="changeProductInfo"></span></div>
+<div class="field"><label>新的销售价格</label><div class="price-input-wrap"><span>¥</span><input id="changePriceInput" class="control" type="number" min="0.01" step="0.01"></div></div>
+<div class="modal-foot"><button class="btn" onclick="closeModal('changeModal')">取消</button><button id="changeConfirmBtn" class="btn btn-primary" onclick="confirmChangePrice()">确认调价</button></div>
+</div>
+</div>
+</div>
+
+<div id="stopModal" class="modal-mask">
+<div class="modal">
+<div class="modal-head"><strong>停止开展服务</strong><button class="close" onclick="closeModal('stopModal')">×</button></div>
+<div class="modal-body">
+<div class="modal-product"><strong id="stopProductName"></strong><span id="stopProductInfo"></span></div>
+<div style="font-size:12px;color:#866b75;line-height:1.8">停止后，当前销售价格进入历史记录，不自动生成下一版本，也不创建未定义记录。以后重新开展时，需要重新从服务项目名录中选择并确定正式价格。</div>
+<div class="modal-foot"><button class="btn" onclick="closeModal('stopModal')">取消</button><button id="stopConfirmBtn" class="btn btn-danger" onclick="confirmStopService()">确认停止</button></div>
+</div>
+</div>
+</div>
+
+<div id="toast" class="toast"></div>
+
 <script>
+const SUPABASE_URL="https://qbuqjwpkltbjhlfbyjyb.supabase.co";
+const SUPABASE_ANON_KEY="sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
 
-
-/* =====================================================
-   Supabase
-===================================================== */
-
-
-const SUPABASE_URL =
-"https://icmifhjihgjrhkunjbmu.supabase.co";
-
-
-const SUPABASE_ANON_KEY =
-"你的anon-key";
-
-
-const supabaseClient =
-window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
+const supabaseClient=window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_ANON_KEY,
+{
+auth:{
+persistSession:true,
+autoRefreshToken:true,
+detectSessionInUrl:true
+}
+}
 );
 
+const LOGIN_PAGE="./login.html";
+const HOME_PAGE="./wholemanagement.html";
+const IDLE_LIMIT=10*60*1000;
 
-
-let currentSession=null;
-
+let currentUser=null;
 let currentProfile=null;
+let serviceAreas=[];
+let cities=[];
+let provinces=[];
+let products=[];
+let cityPrices=[];
+let selectedCityId=null;
+let selectedChangeRule=null;
+let selectedStopRule=null;
+let idleTimer=null;
+
+const $=id=>document.getElementById(id);
+
+function esc(v){
+return String(v??"")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+}
+
+function money(v){
+const n=Number(v);
+if(!Number.isFinite(n))return "—";
+return "¥"+n.toLocaleString("zh-CN",{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+
+function formatTime(v){
+if(!v)return "—";
+const d=new Date(v);
+if(Number.isNaN(d.getTime()))return "—";
+return d.toLocaleString("zh-CN",{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false});
+}
+
+function showToast(message,type=""){
+const el=$("toast");
+el.textContent=message;
+el.className="toast show "+type;
+clearTimeout(el._timer);
+el._timer=setTimeout(()=>el.className="toast",3000);
+}
+
+function hideLoading(){
+const el=$("loading");
+if(el)el.style.display="none";
+}
+
+function setBusy(el,busy,label){
+if(!el)return;
+if(busy){
+el.dataset.old=el.textContent;
+el.textContent=label||"处理中...";
+el.disabled=true;
+}else{
+el.textContent=el.dataset.old||el.textContent;
+el.disabled=false;
+}
+}
+
+function goBack(){
+window.location.href=HOME_PAGE;
+}
+
+async function logout(){
+try{
+await supabaseClient.auth.signOut();
+}finally{
+window.location.href=LOGIN_PAGE;
+}
+}
+
+function resetIdleTimer(){
+clearTimeout(idleTimer);
+idleTimer=setTimeout(autoLogout,IDLE_LIMIT);
+}
+
+async function autoLogout(){
+try{
+await supabaseClient.auth.signOut();
+}catch(error){
+console.error("自动退出失败：",error);
+}
+alert("由于10分钟未操作，系统已自动退出。");
+window.location.href=LOGIN_PAGE;
+}
+
+["mousemove","mousedown","keydown","touchstart","scroll","click"].forEach(eventName=>{
+document.addEventListener(eventName,resetIdleTimer,{passive:true});
+});
+
+function closeModal(id){
+$(id).classList.remove("show");
+}
+
+function cityById(id){
+return cities.find(x=>String(x.id)===String(id));
+}
+
+function provinceById(id){
+return provinces.find(x=>String(x.id)===String(id));
+}
+
+function productById(id){
+return products.find(x=>String(x.id)===String(id));
+}
+
+function productCode(p){
+return p?.product_code||p?.code||p?.product_no||"";
+}
+
+function productName(p){
+return p?.product_name||p?.name||p?.service_name||"未命名服务项目";
+}
+
+function productCategory(p){
+
+    if(!p){
+        return "其他服务";
+    }
 
 
-let selectedProductId=null;
+    /*
+      一级服务类别
+
+      products:
+      category_id = 3
+
+      对应：
+      母乳喂养指导类
+
+      后续如果建立 product_categories 表，
+      这里改成数据库关联即可。
+    */
+
+    const categoryMap={
+
+        3:"母乳喂养指导类"
+
+    };
 
 
+    if(
+        p.category_id &&
+        categoryMap[p.category_id]
+    ){
 
-/* =====================================================
-   初始化
-===================================================== */
+        return categoryMap[p.category_id];
 
-
-window.onload=async()=>{
-
-
-const ok =
-await requireAccess();
+    }
 
 
-if(!ok){
-
-return;
+    return (
+        p.category_name ||
+        p.category ||
+        p.product_category ||
+        p.service_category ||
+        p.first_level_category ||
+        p.level1_name ||
+        (
+            p.product_type==="service"
+            ?
+            "服务类项目"
+            :
+            p.product_type==="physical_goods"
+            ?
+            "实物商品"
+            :
+            "其他服务"
+        )
+    );
 
 }
 
-
-await loadProvinces();
-
-
-bindEvents();
-
-
-};
-
-
-
-
-
-/* =====================================================
-   权限验证
-===================================================== */
-
-
-async function requireAccess(){
-
-
-const {
-
-data:{
-session
-
+function activePriceForProduct(productId){
+return cityPrices.find(x=>
+String(x.city_id)===String(selectedCityId)&&
+String(x.product_id)===String(productId)&&
+x.status==="active"
+);
 }
 
-}
+async function initialize(){
+resetIdleTimer();
 
-=
-await supabaseClient.auth.getSession();
+try{
+const {data:{session},error:sessionError}=await supabaseClient.auth.getSession();
 
-
+if(sessionError)throw sessionError;
 
 if(!session){
-
-
-location.href="page10.html";
-
-
-return false;
-
-
+location.replace(LOGIN_PAGE);
+return;
 }
 
+currentUser=session.user;
 
-
-currentSession=session;
-
-
-
-const {
-
-data:profile
-
-}
-
-=
-await supabaseClient
-
+const {data:profile,error:profileError}=await supabaseClient
 .from("profiles")
-
 .select(`
 id,
-display_name,
+full_name,
 role,
-is_active
+status
 `)
-
-.eq(
-"id",
-session.user.id
-)
-
+.eq("id",currentUser.id)
 .single();
 
-
-
-if(!profile || profile.is_active!==true){
-
-
-await supabaseClient.auth.signOut();
-
-
-location.href="page10.html";
-
-
-return false;
-
-
+if(profileError||!profile){
+throw new Error("无法读取当前账号权限。");
 }
 
-
-
-const roles=[
-
-"founder",
-"admin"
-
-];
-
-
-
-if(!roles.includes(profile.role)){
-
-
-alert(
-"无权限访问"
-);
-
-
-location.href=
-"wholemanagement.html";
-
-
-return false;
-
-
+if(profile.status!=="active"){
+throw new Error("当前账号已经停用。");
 }
 
-
+if(!["founder","platform_admin"].includes(profile.role)){
+alert("您没有城市销售价格管理权限。");
+location.replace(HOME_PAGE);
+return;
+}
 
 currentProfile=profile;
 
+await loadAll();
 
+hideLoading();
 
-document.getElementById(
-"currentUser"
-)
-.textContent=
-
-(
-profile.display_name ||
-session.user.email
-)
-+
-" · "
-+
-profile.role;
-
-
-
-document.body.classList.remove(
-"auth-loading"
-);
-
-
-
-resetTimer();
-
-
-
-return true;
-
-
+}catch(error){
+console.error("页面初始化失败：",error);
+hideLoading();
+alert(error.message||"页面初始化失败。");
+}
 }
 
+async function loadAll(){
+const [areaRes,cityRes,provinceRes,productRes,priceRes]=await Promise.all([
+supabaseClient
+.from("service_areas")
+.select("id,area_no,province_id,city_id,district_id,status")
+.eq("status","active")
+.is("district_id",null)
+.order("area_no",{ascending:true}),
 
+supabaseClient
+.from("cities")
+.select("id,province_id,city_code,city_name,status")
+.eq("status","active")
+.order("city_code",{ascending:true}),
 
-
-
-
-/* =====================================================
-   省份
-===================================================== */
-
-
-async function loadProvinces(){
-
-
-
-const {
-
-data
-
-}
-
-=
-await supabaseClient
-
+supabaseClient
 .from("provinces")
-
-.select(
-"id,name"
-)
-
-.eq(
-"status",
-"active"
-)
-
-.order(
-"id"
-);
-
-
-
-const box =
-document.getElementById(
-"provinceSelect"
-);
-
-
-
-box.innerHTML="";
-
-
-
-data?.forEach(p=>{
-
-
-let op =
-document.createElement(
-"option"
-);
-
-
-op.value=p.id;
-
-
-op.textContent=p.name;
-
-
-box.appendChild(op);
-
-
-});
-
-
-
-await loadCities();
-
-
-}
-
-
-
-
-
-
-
-/* =====================================================
-   已开通服务城市
-===================================================== */
-
-
-async function loadCities(){
-
-
-
-const provinceId =
-document.getElementById(
-"provinceSelect"
-)
-.value;
-
-
-
-const box =
-document.getElementById(
-"citySelect"
-);
-
-
-
-box.innerHTML=
-"<option>加载中...</option>";
-
-
-
-/*
-
-只显示已经存在城市价格的城市
-
-city_prices
-        |
-        |
-      cities
-
-*/
-
-
-const {
-
-data
-
-}
-
-=
-await supabaseClient
-
-.from("city_prices")
-
-.select(`
-
-city_id,
-
-cities(
-
-id,
-
-city_name,
-
-province_id
-
-)
-
-`)
-
-.eq(
-"status",
-"active"
-)
-
-.eq(
-"cities.province_id",
-provinceId
-);
-
-
-
-
-
-let cityMap={};
-
-
-
-data?.forEach(item=>{
-
-
-if(item.cities){
-
-
-cityMap[item.city_id]=
-item.cities;
-
-
-}
-
-
-});
-
-
-
-
-
-box.innerHTML=
-"<option value=''>请选择已开通城市</option>";
-
-
-
-
-Object.values(cityMap)
-
-.forEach(city=>{
-
-
-let op =
-document.createElement(
-"option"
-);
-
-
-
-op.value =
-city.id;
-
-
-
-op.textContent =
-city.city_name;
-
-
-
-box.appendChild(op);
-
-
-
-});
-
-
-
-}
-
-
-
-
-
-
-
-
-/* =====================================================
-   商户
-===================================================== */
-
-
-async function loadMerchants(){
-
-
-
-const cityId =
-document.getElementById(
-"citySelect"
-)
-.value;
-
-
-
-const box =
-document.getElementById(
-"merchantSelect"
-);
-
-
-
-box.innerHTML=
-"<option>请选择商户</option>";
-
-
-
-if(!cityId){
-
-return;
-
-}
-
-
-
-
-const {
-
-data
-
-}
-
-=
-await supabaseClient
-
-.from("merchants")
-
-.select(`
-id,
-merchant_name
-`)
-
-.eq(
-"city_id",
-cityId
-)
-
-.eq(
-"status",
-"active"
-);
-
-
-
-
-
-data?.forEach(m=>{
-
-
-let op =
-document.createElement(
-"option"
-);
-
-
-
-op.value=m.id;
-
-
-op.textContent=m.merchant_name;
-
-
-
-box.appendChild(op);
-
-
-
-});
-
-
-
-}
-
-
-
-
-
-
-
-
-/* =====================================================
-   加载商户全部服务项目
-===================================================== */
-
-
-async function loadMerchantProducts(){
-
-
-
-const merchantId =
-document.getElementById(
-"merchantSelect"
-)
-.value;
-
-
-const cityId =
-document.getElementById(
-"citySelect"
-)
-.value;
-
-
-
-if(
-!merchantId ||
-!cityId
-){
-
-return;
-
-}
-
-
-
-const tbody =
-document.getElementById(
-"productList"
-);
-
-
-
-tbody.innerHTML=
-"";
-
-
-
-
-
-/*
-
-第一步：
-
-读取城市已经开通产品
-
-*/
-
-
-const {
-
-data:prices
-
-}
-
-=
-await supabaseClient
-
-.from("city_prices")
-
-.select(`
-
-product_id,
-
-price,
-
-products(
-
-id,
-
-product_name
-
-)
-
-`)
-
-.eq(
-"city_id",
-cityId
-)
-
-.eq(
-"status",
-"active"
-);
-
-
-
-
-
-
-/*
-
-第二步：
-
-读取已经定义规则
-
-*/
-
-
-const {
-
-data:rules
-
-}
-
-=
-await supabaseClient
-
-.from("merchant_product_rules")
-
+.select("id,province_code,province_name,status")
+.eq("status","active")
+.order("province_code",{ascending:true}),
+
+supabaseClient
+.from("products")
 .select("*")
+.eq("status","active")
+.order("id",{ascending:true}),
 
-.eq(
-"merchant_id",
-merchantId
-)
+supabaseClient
+.from("city_prices")
+.select("*")
+.order("created_at",{ascending:false})
+]);
 
-.eq(
-"status",
-"active"
-);
+if(areaRes.error)throw new Error("服务区域读取失败："+areaRes.error.message);
+if(cityRes.error)throw new Error("城市读取失败："+cityRes.error.message);
+if(provinceRes.error)throw new Error("省份读取失败："+provinceRes.error.message);
+if(productRes.error)throw new Error("服务项目读取失败："+productRes.error.message);
+if(priceRes.error)throw new Error("城市价格读取失败："+priceRes.error.message);
 
+serviceAreas=areaRes.data||[];
+cities=cityRes.data||[];
+provinces=provinceRes.data||[];
+products=productRes.data||[];
+cityPrices=priceRes.data||[];
 
+renderCitySelect();
 
+if(serviceAreas.length){
+const cityIds=[...new Set(serviceAreas.map(x=>String(x.city_id)))];
+const existing=$("citySelect").value;
+selectedCityId=existing&&cityIds.includes(String(existing))?existing:serviceAreas[0].city_id;
+$("citySelect").value=String(selectedCityId);
+}else{
+selectedCityId=null;
+}
 
+renderAll();
+}
 
+function renderCitySelect(){
+const select=$("citySelect");
+const oldValue=select.value;
+const unique=new Map();
 
-if(!prices || prices.length===0){
+serviceAreas.forEach(sa=>{
+if(sa.city_id&&!unique.has(String(sa.city_id))){
+unique.set(String(sa.city_id),sa);
+}
+});
 
+const list=[...unique.values()].sort((a,b)=>Number(a.area_no||0)-Number(b.area_no||0));
 
-tbody.innerHTML=
+if(!list.length){
+select.innerHTML='<option value="">暂无已开通城市</option>';
+selectedCityId=null;
+return;
+}
 
-`
+select.innerHTML=list.map(sa=>{
+const c=cityById(sa.city_id);
+const p=provinceById(sa.province_id);
+const cityName=c?.city_name||("城市 "+sa.city_id);
+const provinceName=p?.province_name||"";
+const areaNo=sa.area_no?String(sa.area_no).padStart(3,"0"):"";
+return `<option value="${esc(sa.city_id)}">${esc(areaNo?areaNo+" | ":"")}${esc(provinceName)}${provinceName?" · ":""}${esc(cityName)}</option>`;
+}).join("");
 
+if(oldValue&&list.some(x=>String(x.city_id)===String(oldValue))){
+select.value=oldValue;
+}
+}
+
+function renderAll(){
+renderStats();
+renderCurrentCity();
+renderCategoryOptions();
+renderProductOptions();
+renderPrices();
+}
+
+function renderStats(){
+const active=cityPrices.filter(x=>x.status==="active"&&x.price!==null);
+const history=cityPrices.filter(x=>x.status==="inactive");
+
+$("statCities").textContent=new Set(active.map(x=>String(x.city_id))).size;
+$("statActive").textContent=active.length;
+$("statProducts").textContent=products.length;
+$("statHistory").textContent=history.length;
+}
+
+function renderCurrentCity(){
+if(!selectedCityId){
+$("currentCityName").textContent="请选择城市";
+return;
+}
+
+const c=cityById(selectedCityId);
+const sa=serviceAreas.find(x=>String(x.city_id)===String(selectedCityId));
+const p=sa?provinceById(sa.province_id):null;
+
+$("currentCityName").textContent=
+(p?.province_name?p.province_name+" · ":"")+
+(c?.city_name||"未知城市");
+}
+
+function availableProducts(){
+if(!selectedCityId)return [];
+return products.filter(p=>!activePriceForProduct(p.id));
+}
+
+function renderCategoryOptions(){
+const select=$("level1Select");
+const old=select.value;
+
+const categories=[...new Set(
+availableProducts().map(productCategory)
+)].sort((a,b)=>String(a).localeCompare(String(b),"zh-CN"));
+
+select.innerHTML=
+'<option value="">请选择一级类别</option>'+
+categories.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join("");
+
+if(old&&categories.includes(old)){
+select.value=old;
+}
+}
+
+function renderProductOptions(){
+const category=$("level1Select").value;
+const select=$("productSelect");
+
+if(!category){
+select.disabled=true;
+select.innerHTML='<option value="">请先选择一级类别</option>';
+return;
+}
+
+const list=availableProducts().filter(p=>productCategory(p)===category);
+
+if(!list.length){
+select.disabled=true;
+select.innerHTML='<option value="">该类别暂无可创建项目</option>';
+return;
+}
+
+select.disabled=false;
+select.innerHTML=
+'<option value="">请选择具体服务项目</option>'+
+list.map(p=>{
+const code=productCode(p);
+return `<option value="${esc(p.id)}">${esc(productName(p))}${code?" | "+esc(code):""}</option>`;
+}).join("");
+}
+
+function getVisiblePrices(){
+if(!selectedCityId)return [];
+
+const showHistory=$("showHistory").checked;
+const keyword=$("searchInput").value.trim().toLowerCase();
+
+return cityPrices.filter(r=>{
+if(String(r.city_id)!==String(selectedCityId))return false;
+
+if(showHistory){
+if(!["active","inactive"].includes(r.status))return false;
+}else{
+if(r.status!=="active")return false;
+}
+
+const p=productById(r.product_id);
+const searchText=[
+productName(p),
+productCode(p),
+productCategory(p)
+].join(" ").toLowerCase();
+
+return !keyword||searchText.includes(keyword);
+
+}).sort((a,b)=>{
+if(a.status!==b.status)return a.status==="active"?-1:1;
+
+const ap=productById(a.product_id);
+const bp=productById(b.product_id);
+const n=productName(ap).localeCompare(productName(bp),"zh-CN");
+
+if(n!==0)return n;
+
+return Number(b.version_no||0)-Number(a.version_no||0);
+});
+}
+
+function renderPrices(){
+const rows=getVisiblePrices();
+const c=cityById(selectedCityId);
+const cityName=c?.city_name||"—";
+const tbody=$("priceTableBody");
+const empty=$("desktopEmpty");
+const mobile=$("mobileList");
+
+if(!rows.length){
+tbody.innerHTML="";
+empty.style.display="block";
+mobile.innerHTML='<div class="empty"><div class="empty-icon">♡</div>当前城市还没有开展符合条件的服务项目</div>';
+return;
+}
+
+empty.style.display="none";
+
+tbody.innerHTML=rows.map(r=>{
+const p=productById(r.product_id);
+const active=r.status==="active";
+
+return `
 <tr>
-
-<td colspan="4">
-
-该城市暂无开通服务项目
-
+<td>
+<div class="product-name">${esc(productName(p))}</div>
+<div class="product-code">${esc(productCode(p)||"—")}</div>
 </td>
+<td>${esc(cityName)}</td>
+<td><span class="version">V${esc(r.version_no||1)}</span></td>
+<td><span class="price">${money(r.price)}</span></td>
+<td>${esc(formatTime(r.created_at))}</td>
+<td><span class="badge ${active?"badge-green":"badge-gray"}">${active?"当前有效":"历史版本"}</span></td>
+<td>
+${active?`
+<div class="actions">
+<button class="btn btn-small" onclick="openChangePrice(${Number(r.id)})">调整价格</button>
+<button class="btn btn-small btn-danger" onclick="openStopService(${Number(r.id)})">停止开展</button>
+</div>`:"—"}
+</td>
+</tr>`;
+}).join("");
 
-</tr>
+mobile.innerHTML=rows.map(r=>{
+const p=productById(r.product_id);
+const active=r.status==="active";
 
-`;
+return `
+<div class="mobile-card">
+<div class="mobile-card-top">
+<div>
+<div class="product-name">${esc(productName(p))}</div>
+<div class="product-code">${esc(productCode(p)||"—")}</div>
+</div>
+<span class="badge ${active?"badge-green":"badge-gray"}">${active?"当前有效":"历史版本"}</span>
+</div>
+<div class="mobile-meta">
+<div>城市<b>${esc(cityName)}</b></div>
+<div>版本<b>V${esc(r.version_no||1)}</b></div>
+<div>销售价格<b>${money(r.price)}</b></div>
+<div>创建时间<b>${esc(formatTime(r.created_at))}</b></div>
+</div>
+${active?`
+<div class="actions">
+<button class="btn btn-small" onclick="openChangePrice(${Number(r.id)})">调整价格</button>
+<button class="btn btn-small btn-danger" onclick="openStopService(${Number(r.id)})">停止开展</button>
+</div>`:""}
+</div>`;
+}).join("");
+}
 
-
+async function createCityPrice(){
+if(!selectedCityId){
+showToast("请先选择城市","error");
 return;
-
 }
 
-
-
-
-
-/*
-
-第三步：
-
-合并显示
-
-*/
-
-
-prices.forEach(item=>{
-
-
-
-let rule =
-rules?.find(
-r=>
-r.product_id===
-item.product_id
-);
-
-
-
-let tr =
-document.createElement(
-"tr"
-);
-
-
-
-
-
-if(rule){
-
-
-/*
-
-已经定义
-
-灰色锁定
-
-*/
-
-
-tr.className=
-"lock-row";
-
-
-
-tr.innerHTML=
-
-`
-
-<td>
-
-${escapeHtml(
-item.products.product_name
-)}
-
-</td>
-
-
-<td>
-
-<span class="badge-active">
-
-已生效
-
-</span>
-
-</td>
-
-
-
-<td>
-
-平台：
-${rule.platform_ratio||0}%
-
-<br>
-
-城市：
-${rule.city_manager_ratio||0}%
-
-<br>
-
-商户：
-${rule.store_ratio||0}%
-
-<br>
-
-服务人员：
-${rule.operator_ratio||0}%
-
-<br>
-
-顾问：
-${rule.order_source_ratio||0}%
-
-<br>
-
-软件：
-${rule.software_service_ratio||2}%
-
-</td>
-
-
-
-<td>
-
-<button
-
-class="btn-small btn-lock"
-
-disabled
-
->
-
-已锁定
-
-</button>
-
-</td>
-
-
-`;
-
-
-
+const productId=Number($("productSelect").value);
+const price=Number($("newPrice").value);
+
+if(!productId){
+showToast("请选择需要开展的服务项目","error");
+return;
 }
 
-else{
-
-
-/*
-
-未定义
-
-允许创建
-
-*/
-
-
-tr.innerHTML=
-
-`
-
-<td>
-
-${escapeHtml(
-item.products.product_name
-)}
-
-</td>
-
-
-
-<td>
-
-<span class="badge-warning">
-
-未定义
-
-</span>
-
-</td>
-
-
-
-<td>
-
---
-
-</td>
-
-
-
-<td>
-
-
-<button
-
-class="btn-small btn-set"
-
-onclick="openRule(
-${item.product_id},
-'${item.products.product_name}'
-)"
-
->
-
-设置分账
-
-</button>
-
-
-</td>
-
-
-`;
-
-
-
+if(!Number.isFinite(price)||price<=0){
+showToast("请输入正确的销售价格","error");
+return;
 }
 
+if(activePriceForProduct(productId)){
+showToast("该服务项目已经在当前城市开展","error");
+return;
+}
 
+const p=productById(productId);
+const c=cityById(selectedCityId);
 
-tbody.appendChild(tr);
+if(!confirm(
+`确认在 ${c?.city_name||"当前城市"} 开展：\n\n`+
+`${productName(p)}\n`+
+`销售价格：${money(price)}\n\n`+
+`确认后直接创建正式销售价格。`
+))return;
 
+const btn=$("createBtn");
+setBusy(btn,true,"正在创建...");
 
-
+try{
+const {data,error}=await supabaseClient.rpc("create_city_price",{
+p_city_id:Number(selectedCityId),
+p_product_id:productId,
+p_price:price
 });
 
+if(error)throw error;
+if(!data?.success)throw new Error(data?.error||"创建城市销售价格失败");
 
+$("newPrice").value="";
+$("level1Select").value="";
+showToast("城市标准价格创建成功","success");
 
+await reloadPrices();
 
-}
-
-
-  <!-- =====================================================
-     服务项目列表
-===================================================== -->
-
-
-<section class="card">
-
-
-<div class="card-title">
-
-该城市已开通服务项目
-
-</div>
-
-
-
-<div class="table-box">
-
-
-<table>
-
-
-<thead>
-
-<tr>
-
-<th>
-服务项目
-</th>
-
-<th>
-状态
-</th>
-
-<th>
-当前分账比例
-</th>
-
-<th>
-操作
-</th>
-
-</tr>
-
-
-</thead>
-
-
-<tbody id="productList">
-
-
-</tbody>
-
-
-</table>
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-
-<!-- =====================================================
-     分账设置
-===================================================== -->
-
-
-<section
-id="ruleEditor"
-class="card hidden"
->
-
-
-<div class="card-title"
-id="ruleTitle">
-
-设置分账规则
-
-</div>
-
-
-
-
-<div class="rule-grid">
-
-
-
-<div class="rule-item">
-
-<span>
-
-城市负责人 %
-
-</span>
-
-
-<input
-id="cityRatio"
-type="number"
-value="0"
-min="0"
->
-
-
-</div>
-
-
-
-
-
-<div class="rule-item">
-
-<span>
-
-软件服务商 %
-
-</span>
-
-
-<input
-id="softwareRatio"
-type="number"
-value="2"
-readonly
->
-
-
-</div>
-
-
-
-
-
-<div class="rule-item">
-
-<span>
-
-运营平台 %
-
-</span>
-
-
-<input
-id="platformRatio"
-type="number"
-value="0"
-min="0"
->
-
-
-</div>
-
-
-
-
-
-
-<div class="rule-item">
-
-<span>
-
-商户 %
-
-</span>
-
-
-<input
-id="merchantRatio"
-type="number"
-value="0"
-min="0"
->
-
-
-</div>
-
-
-
-
-
-<div class="rule-item">
-
-<span>
-
-服务人员 %
-
-</span>
-
-
-<input
-id="workerRatio"
-type="number"
-value="0"
-min="0"
->
-
-
-</div>
-
-
-
-
-
-<div class="rule-item">
-
-<span>
-
-健康顾问 %
-
-</span>
-
-
-<input
-id="advisorRatio"
-type="number"
-value="0"
-min="0"
->
-
-
-</div>
-
-
-</div>
-
-
-
-
-<div class="total-box">
-
-当前比例合计：
-
-<span id="totalRatio">
-
-2
-
-</span>
-
-%
-
-</div>
-
-
-
-
-<div class="save-area">
-
-
-<button
-
-class="btn btn-primary"
-
-onclick="saveRule()"
-
->
-
-保存分账规则
-
-</button>
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-
-<div id="messageBox">
-
-
-</div>
-
-
-
-<script>
-
-
-
-
-/* =====================================================
-   事件绑定
-===================================================== */
-
-
-function bindEvents(){
-
-
-
-document
-
-.getElementById(
-"provinceSelect"
-)
-
-.onchange =
-async()=>{
-
-
-await loadCities();
-
-
-};
-
-
-
-
-
-document
-
-.getElementById(
-"citySelect"
-)
-
-.onchange =
-async()=>{
-
-
-await loadMerchants();
-
-
-};
-
-
-
-
-
-document
-
-.getElementById(
-"merchantSelect"
-)
-
-.onchange =
-async()=>{
-
-
-await loadMerchantProducts();
-
-
-};
-
-
-
-
-
-
-
-[
-"cityRatio",
-"platformRatio",
-"merchantRatio",
-"workerRatio",
-"advisorRatio"
-
-]
-
-.forEach(id=>{
-
-
-document
-
-.getElementById(id)
-
-.oninput =
-calculateTotal;
-
-
-
-});
-
-
-
-}
-
-
-
-
-
-
-
-/* =====================================================
-   打开规则编辑
-===================================================== */
-
-
-function openRule(
-productId,
-productName
-){
-
-
-selectedProductId =
-productId;
-
-
-
-document
-
-.getElementById(
-"ruleEditor"
-)
-
-.classList
-
-.remove(
-"hidden"
-);
-
-
-
-document
-
-.getElementById(
-"ruleTitle"
-)
-
-.innerHTML =
-
-"设置服务项目：" +
-escapeHtml(
-productName
-);
-
-
-
-
-[
-"cityRatio",
-"platformRatio",
-"merchantRatio",
-"workerRatio",
-"advisorRatio"
-
-]
-
-.forEach(id=>{
-
-
-document
-
-.getElementById(id)
-
-.value=0;
-
-
-
-});
-
-
-
-calculateTotal();
-
-
-
-window.scrollTo({
-
-top:
-document.body.scrollHeight,
-
-behavior:"smooth"
-
-});
-
-
-}
-
-
-
-
-
-
-
-/* =====================================================
-   比例计算
-===================================================== */
-
-
-function calculateTotal(){
-
-
-let total = 2;
-
-
-
-[
-
-"cityRatio",
-
-"platformRatio",
-
-"merchantRatio",
-
-"workerRatio",
-
-"advisorRatio"
-
-]
-
-.forEach(id=>{
-
-
-total += Number(
-
-document
-
-.getElementById(id)
-
-.value || 0
-
-);
-
-
-});
-
-
-
-
-document
-
-.getElementById(
-"totalRatio"
-)
-
-.innerText =
-total;
-
-
-
-}
-
-
-
-
-
-
-
-
-/* =====================================================
-   保存规则
-===================================================== */
-
-
-async function saveRule(){
-
-
-
-if(!selectedProductId){
-
-
-showMessage(
-"请选择服务项目"
-);
-
-return;
-
-}
-
-
-
-
-const merchantId =
-
-document
-
-.getElementById(
-"merchantSelect"
-)
-
-.value;
-
-
-
-
-if(!merchantId){
-
-
-showMessage(
-"请选择商户"
-);
-
-
-return;
-
-}
-
-
-
-
-
-const total =
-
-Number(
-
-document
-
-.getElementById(
-"totalRatio"
-)
-
-.innerText
-
-);
-
-
-
-
-
-if(total!==100){
-
-
-showMessage(
-"六方比例必须等于100%"
-);
-
-
-return;
-
-
-}
-
-
-
-
-
-
-/*
-
-二次检查：
-
-防止重复创建
-
-*/
-
-
-const {
-
-data:exists
-
-}
-
-=
-
-await supabaseClient
-
-.from(
-"merchant_product_rules"
-)
-
-.select(
-"id"
-)
-
-.eq(
-"merchant_id",
-merchantId
-)
-
-.eq(
-"product_id",
-selectedProductId
-)
-
-.eq(
-"status",
-"active"
-);
-
-
-
-
-
-
-
-if(
-exists &&
-exists.length
-){
-
-
-showMessage(
-
-"该项目已经存在有效规则"
-
-);
-
-
-return;
-
-
-}
-
-
-
-
-
-
-
-const insertData={
-
-
-
-merchant_id:
-merchantId,
-
-
-
-product_id:
-selectedProductId,
-
-
-
-rule_type:
-"standard",
-
-
-
-city_manager_ratio:
-
-Number(
-cityRatio.value || 0
-),
-
-
-
-platform_ratio:
-
-Number(
-platformRatio.value || 0
-),
-
-
-
-store_ratio:
-
-Number(
-merchantRatio.value || 0
-),
-
-
-
-operator_ratio:
-
-Number(
-workerRatio.value || 0
-),
-
-
-
-order_source_ratio:
-
-Number(
-advisorRatio.value || 0
-),
-
-
-
-software_service_ratio:
-
-2,
-
-
-
-status:
-
-"active",
-
-
-
-version_no:
-
-1,
-
-
-
-created_by:
-
-currentSession.user.id
-
-
-};
-
-
-
-
-
-
-
-
-const {
-
-error
-
-}
-
-=
-
-await supabaseClient
-
-.from(
-"merchant_product_rules"
-)
-
-.insert(
-insertData
-);
-
-
-
-
-
-
-
-if(error){
-
-
+}catch(error){
 console.error(error);
+showToast(error.message||"创建失败","error");
+}finally{
+setBusy(btn,false);
+}
+}
 
+function openChangePrice(id){
+const r=cityPrices.find(x=>Number(x.id)===Number(id));
 
-showMessage(
-
-"保存失败："+
-error.message
-
-);
-
-
+if(!r||r.status!=="active"){
+showToast("当前价格已经不是有效版本","error");
 return;
-
-
 }
 
+selectedChangeRule=r;
 
+const p=productById(r.product_id);
+const c=cityById(r.city_id);
 
+$("changeProductName").textContent=productName(p);
+$("changeProductInfo").textContent=
+`${c?.city_name||""} · 当前 V${r.version_no||1} · ${money(r.price)}`;
 
+$("changePriceInput").value="";
+$("changeModal").classList.add("show");
 
-showMessage(
-
-"分账规则保存成功"
-
-);
-
-
-
-
-document
-
-.getElementById(
-"ruleEditor"
-)
-
-.classList
-
-.add(
-"hidden"
-);
-
-
-
-
-
-await loadMerchantProducts();
-
-
-
+setTimeout(()=>$("changePriceInput").focus(),100);
 }
 
+async function confirmChangePrice(){
+if(!selectedChangeRule)return;
 
+const newPrice=Number($("changePriceInput").value);
 
-
-
-
-
-/* =====================================================
-   返回
-===================================================== */
-
-
-function goBack(){
-
-
-location.href=
-"wholemanagement.html";
-
-
+if(!Number.isFinite(newPrice)||newPrice<=0){
+showToast("请输入正确的新销售价格","error");
+return;
 }
 
-
-
-
-
-/* =====================================================
-   退出
-===================================================== */
-
-
-async function logout(){
-
-
-await supabaseClient.auth.signOut();
-
-
-location.href=
-"page10.html";
-
-
+if(Number(selectedChangeRule.price)===newPrice){
+showToast("新价格与当前价格相同","error");
+return;
 }
 
-
-
-
-
-
-/* =====================================================
-   消息
-===================================================== */
-
-
-function showMessage(msg){
-
-
-
-const box =
-document.getElementById(
-"messageBox"
-);
-
-
-
-box.innerText =
-msg;
-
-
-
-box.style.display =
-"block";
-
-
-
-box.style.position =
-"fixed";
-
-
-
-box.style.bottom =
-"30px";
-
-
-
-box.style.left =
-"50%";
-
-
-
-box.style.transform =
-"translateX(-50%)";
-
-
-
-box.style.background =
-"#2563eb";
-
-
-
-box.style.color =
-"white";
-
-
-
-box.style.padding =
-"12px 25px";
-
-
-
-box.style.borderRadius =
-"8px";
-
-
-
-
-setTimeout(()=>{
-
-
-box.style.display =
-"none";
-
-
-},3000);
-
-
-}
-
-
-
-
-
-
-
-/* =====================================================
-   HTML安全
-===================================================== */
-
-
-function escapeHtml(value){
-
-
-if(
-value===null ||
-value===undefined
-){
-
-return "";
-
-}
-
-
-return String(value)
-
-.replaceAll(
-"&",
-"&amp;"
-)
-
-.replaceAll(
-"<",
-"&lt;"
-)
-
-.replaceAll(
-">",
-"&gt;"
-)
-
-.replaceAll(
-'"',
-"&quot;"
-)
-
-.replaceAll(
-"'",
-"&#039;"
-);
-
-
-}
-
-
-
-
-
-
-
-/* =====================================================
-   10分钟退出
-===================================================== */
-
-
-let timer=null;
-
-
-function resetTimer(){
-
-
-
-clearTimeout(timer);
-
-
-
-timer=setTimeout(
-async()=>{
-
-
-await supabaseClient.auth.signOut();
-
-
-alert(
-"登录超时，请重新登录"
-);
-
-
-location.href=
-"page10.html";
-
-
-
-},
-10*60*1000
-);
-
-
-
-}
-
-
-
-[
-
-"click",
-
-"mousemove",
-
-"keydown",
-
-"scroll",
-
-"touchstart"
-
-]
-
-.forEach(event=>{
-
-
-document.addEventListener(
-
-event,
-
-resetTimer,
-
-{
-passive:true
-}
-
-);
-
-
+const btn=$("changeConfirmBtn");
+setBusy(btn,true,"正在调整...");
+
+try{
+const {data,error}=await supabaseClient.rpc("change_city_price",{
+p_price_id:Number(selectedChangeRule.id),
+p_new_price:newPrice
 });
 
+if(error)throw error;
+if(!data?.success)throw new Error(data?.error||"调整价格失败");
 
+closeModal("changeModal");
+selectedChangeRule=null;
 
+showToast("价格调整成功，新版本已经生效","success");
 
+await reloadPrices();
 
+}catch(error){
+console.error(error);
+showToast(error.message||"调价失败","error");
+}finally{
+setBusy(btn,false);
+}
+}
+
+function openStopService(id){
+const r=cityPrices.find(x=>Number(x.id)===Number(id));
+
+if(!r||r.status!=="active"){
+showToast("该服务当前已经不是开展状态","error");
+return;
+}
+
+selectedStopRule=r;
+
+const p=productById(r.product_id);
+const c=cityById(r.city_id);
+
+$("stopProductName").textContent=productName(p);
+$("stopProductInfo").textContent=
+`${c?.city_name||""} · V${r.version_no||1} · ${money(r.price)}`;
+
+$("stopModal").classList.add("show");
+}
+
+async function confirmStopService(){
+if(!selectedStopRule)return;
+
+const btn=$("stopConfirmBtn");
+setBusy(btn,true,"正在停止...");
+
+try{
+const {data,error}=await supabaseClient.rpc("stop_city_service",{
+p_price_id:Number(selectedStopRule.id)
+});
+
+if(error)throw error;
+if(!data?.success)throw new Error(data?.error||"停止服务失败");
+
+closeModal("stopModal");
+selectedStopRule=null;
+
+showToast("该城市服务项目已经停止开展","success");
+
+await reloadPrices();
+
+}catch(error){
+console.error(error);
+showToast(error.message||"操作失败","error");
+}finally{
+setBusy(btn,false);
+}
+}
+
+async function reloadPrices(){
+const {data,error}=await supabaseClient
+.from("city_prices")
+.select("*")
+.order("created_at",{ascending:false});
+
+if(error)throw error;
+
+cityPrices=data||[];
+
+renderStats();
+renderCategoryOptions();
+renderProductOptions();
+renderPrices();
+}
+
+$("citySelect").addEventListener("change",()=>{
+selectedCityId=$("citySelect").value||null;
+$("level1Select").value="";
+$("newPrice").value="";
+renderCurrentCity();
+renderCategoryOptions();
+renderProductOptions();
+renderPrices();
+});
+
+$("level1Select").addEventListener("change",renderProductOptions);
+$("searchInput").addEventListener("input",renderPrices);
+$("showHistory").addEventListener("change",renderPrices);
+
+$("newPrice").addEventListener("keydown",e=>{
+if(e.key==="Enter")createCityPrice();
+});
+
+$("changePriceInput").addEventListener("keydown",e=>{
+if(e.key==="Enter")confirmChangePrice();
+});
+
+document.querySelectorAll(".modal-mask").forEach(mask=>{
+mask.addEventListener("click",e=>{
+if(e.target===mask)mask.classList.remove("show");
+});
+});
+
+initialize();
 </script>
-
-
 </body>
-
 </html>

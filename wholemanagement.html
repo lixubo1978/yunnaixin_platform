@@ -1,4311 +1,525 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
-
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="
-      width=device-width,
-      initial-scale=1.0,
-      maximum-scale=1.0,
-      viewport-fit=cover
-    "
-  >
-
-  <meta
-    name="theme-color"
-    content="#fff7fa"
-  >
-
-  <title>孕乃馨平台管理中心</title>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <style>
-
-    :root {
-
-      --pink-50: #fff7fa;
-      --pink-100: #ffeef4;
-      --pink-200: #ffd9e7;
-      --pink-300: #fbbfd3;
-      --pink-400: #f28aae;
-      --pink-500: #e85d8f;
-      --pink-600: #d94d7d;
-      --pink-700: #b93667;
-      --pink-800: #8e294f;
-
-      --rose-dark: #61213d;
-
-      --text-main: #26232a;
-      --text-sub: #716a73;
-      --text-light: #a39ba5;
-
-      --border: #eee5e9;
-      --surface: #ffffff;
-      --background: #fbf9fa;
-
-      --danger: #e2263f;
-      --danger-dark: #b80f29;
-      --danger-light: #fff0f2;
-
-      --shadow-soft:
-        0 10px 30px
-        rgba(120, 47, 78, 0.06);
-
-      --shadow-card:
-        0 8px 26px
-        rgba(120, 47, 78, 0.07);
-
-      --radius-sm: 12px;
-      --radius-md: 16px;
-      --radius-lg: 22px;
-
-      --touch-size: 48px;
-
-    }
-
-
-    * {
-
-      box-sizing: border-box;
-
-      margin: 0;
-      padding: 0;
-
-      -webkit-tap-highlight-color:
-        transparent;
-
-    }
-
-
-    html {
-
-      width: 100%;
-
-      min-height: 100%;
-
-      scroll-behavior: smooth;
-
-    }
-
-
-    body {
-
-      width: 100%;
-
-      min-height: 100vh;
-      min-height: 100dvh;
-
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "SF Pro Display",
-        "Segoe UI",
-        "PingFang SC",
-        "Hiragino Sans GB",
-        "Microsoft YaHei",
-        Arial,
-        sans-serif;
-
-      background:
-        linear-gradient(
-          180deg,
-          #fff9fb 0%,
-          #fbf9fa 45%,
-          #f8f8fa 100%
-        );
-
-      color:
-        var(--text-main);
-
-      font-size: 15px;
-
-      line-height: 1.6;
-
-      -webkit-font-smoothing:
-        antialiased;
-
-      text-rendering:
-        optimizeLegibility;
-
-    }
-
-
-    button,
-    input,
-    select,
-    textarea {
-
-      font: inherit;
-
-    }
-
-
-    button,
-    a {
-
-      touch-action: manipulation;
-
-    }
-
-
-    a {
-
-      color: inherit;
-
-    }
-
-
-    button {
-
-      cursor: pointer;
-
-    }
-
-
-    .hidden {
-
-      display: none !important;
-
-    }
-
-
-
-    /* =========================================================
-       顶部导航
-    ========================================================= */
-
-    .topbar {
-
-      min-height: 72px;
-
-      background:
-        rgba(
-          255,
-          255,
-          255,
-          0.94
-        );
-
-      backdrop-filter:
-        blur(18px);
-
-      -webkit-backdrop-filter:
-        blur(18px);
-
-      border-bottom:
-        1px solid
-        rgba(
-          232,
-          93,
-          143,
-          0.08
-        );
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content:
-        space-between;
-
-      gap: 18px;
-
-      padding:
-        0
-        28px;
-
-      position:
-        sticky;
-
-      top: 0;
-
-      z-index: 1000;
-
-      box-shadow:
-        0 2px 18px
-        rgba(
-          100,
-          40,
-          66,
-          0.03
-        );
-
-    }
-
-
-    .brand {
-
-      display: flex;
-
-      align-items: center;
-
-      gap: 13px;
-
-      min-width: 0;
-
-    }
-
-
-    .brand-logo {
-
-      width: 44px;
-      height: 44px;
-
-      flex:
-        0 0 44px;
-
-      border-radius: 13px;
-
-      object-fit: contain;
-
-      background: #ffffff;
-
-      box-shadow:
-        0 6px 18px
-        rgba(
-          186,
-          63,
-          110,
-          0.12
-        );
-
-    }
-
-
-    .brand-text {
-
-      min-width: 0;
-
-    }
-
-
-    .brand-title {
-
-      font-size: 20px;
-
-      line-height: 1.25;
-
-      font-weight: 720;
-
-      letter-spacing: 1.5px;
-
-      color:
-        var(--text-main);
-
-    }
-
-
-    .brand-subtitle {
-
-      margin-top: 3px;
-
-      font-size: 11px;
-
-      line-height: 1.35;
-
-      color:
-        var(--text-light);
-
-      letter-spacing: 0.5px;
-
-    }
-
-
-    .top-right {
-
-      display: flex;
-
-      align-items: center;
-
-      gap: 14px;
-
-    }
-
-
-    .user-info {
-
-      text-align: right;
-
-      max-width: 240px;
-
-    }
-
-
-    .user-name {
-
-      font-size: 14px;
-
-      line-height: 1.3;
-
-      font-weight: 650;
-
-      white-space: nowrap;
-
-      overflow: hidden;
-
-      text-overflow: ellipsis;
-
-    }
-
-
-    .user-role {
-
-      margin-top: 4px;
-
-      font-size: 11px;
-
-      color:
-        var(--pink-600);
-
-      font-weight: 600;
-
-    }
-
-
-    .logout-btn {
-
-      min-width: 88px;
-
-      min-height:
-        var(--touch-size);
-
-      padding:
-        0
-        18px;
-
-      border: none;
-
-      border-radius: 13px;
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--pink-500),
-          var(--pink-600)
-        );
-
-      color: #ffffff;
-
-      font-size: 13px;
-
-      font-weight: 650;
-
-      letter-spacing: 0.5px;
-
-      box-shadow:
-        0 7px 18px
-        rgba(
-          217,
-          77,
-          125,
-          0.18
-        );
-
-      transition:
-        transform .16s ease,
-        box-shadow .16s ease;
-
-    }
-
-
-    .logout-btn:hover {
-
-      box-shadow:
-        0 10px 22px
-        rgba(
-          217,
-          77,
-          125,
-          0.24
-        );
-
-    }
-
-
-    .logout-btn:active {
-
-      transform:
-        scale(0.97);
-
-    }
-
-
-
-    /* =========================================================
-       页面结构
-    ========================================================= */
-
-    .page {
-
-      display: flex;
-
-      width: 100%;
-
-      min-height:
-        calc(
-          100vh
-          - 72px
-        );
-
-    }
-
-
-    .sidebar {
-
-      width: 238px;
-
-      flex:
-        0 0 238px;
-
-      background:
-        rgba(
-          255,
-          255,
-          255,
-          0.92
-        );
-
-      border-right:
-        1px solid
-        var(--border);
-
-      padding:
-        22px
-        14px
-        34px;
-
-      position:
-        sticky;
-
-      top: 72px;
-
-      height:
-        calc(
-          100vh
-          - 72px
-        );
-
-      overflow-y: auto;
-
-    }
-
-
-    .menu-title {
-
-      padding:
-        13px
-        13px
-        7px;
-
-      font-size: 10px;
-
-      font-weight: 700;
-
-      letter-spacing: 1.2px;
-
-      color:
-        #b0a7ad;
-
-      text-transform:
-        uppercase;
-
-    }
-
-
-    .menu-item {
-
-      min-height:
-        var(--touch-size);
-
-      display: flex;
-
-      align-items: center;
-
-      gap: 12px;
-
-      padding:
-        10px
-        13px;
-
-      margin-bottom: 5px;
-
-      border-radius: 13px;
-
-      text-decoration: none;
-
-      color:
-        #554f55;
-
-      font-size: 14px;
-
-      font-weight: 520;
-
-      transition:
-        background .18s ease,
-        color .18s ease,
-        transform .18s ease;
-
-    }
-
-
-    .menu-item:hover {
-
-      background:
-        var(--pink-50);
-
-      color:
-        var(--pink-700);
-
-      transform:
-        translateX(2px);
-
-    }
-
-
-    .menu-item.active {
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--pink-100),
-          #fff8fb
-        );
-
-      color:
-        var(--pink-700);
-
-      font-weight: 650;
-
-      box-shadow:
-        inset
-        3px
-        0
-        0
-        var(--pink-500);
-
-    }
-
-
-    .menu-icon {
-
-      width: 26px;
-
-      flex:
-        0 0 26px;
-
-      text-align: center;
-
-      font-size: 19px;
-
-    }
-
-
-    /* 投诉菜单 */
-
-    .complaint-menu-item {
-
-      color: #c51f39;
-
-      font-weight: 650;
-
-    }
-
-
-    .complaint-menu-badge {
-
-      margin-left: auto;
-
-      min-width: 22px;
-      height: 22px;
-
-      display: none;
-
-      align-items: center;
-      justify-content: center;
-
-      padding: 0 6px;
-
-      border-radius: 999px;
-
-      background: #e2263f;
-
-      color: #ffffff;
-
-      font-size: 10px;
-      font-weight: 800;
-
-    }
-
-
-    .complaint-menu-badge.show {
-
-      display: inline-flex;
-
-    }
-
-
-
-    /* =========================================================
-       主内容
-    ========================================================= */
-
-    .main {
-
-      flex: 1;
-
-      min-width: 0;
-
-      padding:
-        30px;
-
-      overflow-x:
-        hidden;
-
-    }
-
-
-    .content-wrap {
-
-      width: 100%;
-
-      max-width:
-        1360px;
-
-      margin:
-        0
-        auto;
-
-    }
-
-
-
-    /* =========================================================
-       投诉红色报警条
-    ========================================================= */
-
-    .complaint-alert {
-
-      position: relative;
-
-      display: none;
-
-      width: 100%;
-
-      min-height: 62px;
-
-      margin-bottom: 18px;
-
-      padding:
-        13px
-        18px;
-
-      border:
-        2px solid
-        #ff4960;
-
-      border-radius:
-        16px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #d91532,
-          #f1344d
-        );
-
-      color: #ffffff;
-
-      text-decoration: none;
-
-      box-shadow:
-        0 9px 28px
-        rgba(
-          211,
-          23,
-          51,
-          0.28
-        );
-
-      overflow: hidden;
-
-      cursor: pointer;
-
-      animation:
-        complaintAlertFlash
-        1.15s
-        ease-in-out
-        infinite;
-
-    }
-
-
-    .complaint-alert.show {
-
-      display: flex;
-
-      align-items: center;
-
-      gap: 14px;
-
-    }
-
-
-    .complaint-alert::after {
-
-      content: "";
-
-      position: absolute;
-
-      width: 120px;
-      height: 120px;
-
-      right: -40px;
-      top: -45px;
-
-      border-radius: 50%;
-
-      background:
-        rgba(
-          255,
-          255,
-          255,
-          .12
-        );
-
-    }
-
-
-    @keyframes complaintAlertFlash {
-
-      0%,
-      100% {
-
-        background:
-          linear-gradient(
-            135deg,
-            #c81731,
-            #e82d47
-          );
-
-        box-shadow:
-          0 8px 25px
-          rgba(
-            211,
-            23,
-            51,
-            .22
-          );
-
-      }
-
-      50% {
-
-        background:
-          linear-gradient(
-            135deg,
-            #f12c45,
-            #ff5064
-          );
-
-        box-shadow:
-          0 10px 34px
-          rgba(
-            225,
-            28,
-            55,
-            .48
-          );
-
-      }
-
-    }
-
-
-    .complaint-alert-icon {
-
-      position: relative;
-
-      z-index: 2;
-
-      width: 38px;
-      height: 38px;
-
-      flex: 0 0 38px;
-
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 50%;
-
-      background:
-        rgba(
-          255,
-          255,
-          255,
-          .18
-        );
-
-      font-size: 20px;
-
-      animation:
-        complaintBellShake
-        .75s
-        ease-in-out
-        infinite;
-
-    }
-
-
-    @keyframes complaintBellShake {
-
-      0%,
-      100% {
-        transform: rotate(0deg);
-      }
-
-      25% {
-        transform: rotate(-8deg);
-      }
-
-      75% {
-        transform: rotate(8deg);
-      }
-
-    }
-
-
-    .complaint-alert-content {
-
-      position: relative;
-
-      z-index: 2;
-
-      flex: 1;
-
-      min-width: 0;
-
-    }
-
-
-    .complaint-alert-title {
-
-      font-size: 15px;
-
-      font-weight: 800;
-
-      line-height: 1.35;
-
-      letter-spacing: .3px;
-
-    }
-
-
-    .complaint-alert-desc {
-
-      margin-top: 2px;
-
-      font-size: 12px;
-
-      line-height: 1.45;
-
-      opacity: .94;
-
-    }
-
-
-    .complaint-alert-count {
-
-      position: relative;
-
-      z-index: 2;
-
-      min-width: 38px;
-      height: 38px;
-
-      flex: 0 0 auto;
-
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-      padding: 0 10px;
-
-      border-radius: 999px;
-
-      background: #ffffff;
-
-      color: #d31935;
-
-      font-size: 15px;
-
-      font-weight: 900;
-
-    }
-
-
-    .complaint-alert-arrow {
-
-      position: relative;
-
-      z-index: 2;
-
-      font-size: 24px;
-
-      font-weight: 300;
-
-    }
-
-
-
-    /* =========================================================
-       欢迎区
-    ========================================================= */
-
-    .welcome {
-
-      position: relative;
-
-      overflow: hidden;
-
-      background:
-        linear-gradient(
-          135deg,
-          #fff1f6 0%,
-          #ffe3ed 52%,
-          #ffd4e5 100%
-        );
-
-      border:
-        1px solid
-        rgba(
-          232,
-          93,
-          143,
-          0.10
-        );
-
-      border-radius:
-        24px;
-
-      padding:
-        30px
-        32px;
-
-      margin-bottom:
-        24px;
-
-      box-shadow:
-        var(--shadow-soft);
-
-    }
-
-
-    .welcome::after {
-
-      content: "";
-
-      position: absolute;
-
-      width: 210px;
-      height: 210px;
-
-      right: -70px;
-      top: -80px;
-
-      border-radius: 50%;
-
-      background:
-        rgba(
-          255,
-          255,
-          255,
-          0.33
-        );
-
-    }
-
-
-    .welcome::before {
-
-      content: "";
-
-      position: absolute;
-
-      width: 110px;
-      height: 110px;
-
-      right: 70px;
-      bottom: -60px;
-
-      border-radius: 50%;
-
-      background:
-        rgba(
-          255,
-          255,
-          255,
-          0.22
-        );
-
-    }
-
-
-    .welcome-content {
-
-      position: relative;
-
-      z-index: 2;
-
-      max-width:
-        880px;
-
-    }
-
-
-    .welcome-tag {
-
-      display:
-        inline-flex;
-
-      align-items:
-        center;
-
-      min-height:
-        28px;
-
-      padding:
-        4px
-        11px;
-
-      margin-bottom:
-        12px;
-
-      border-radius:
-        999px;
-
-      background:
-        rgba(
-          255,
-          255,
-          255,
-          0.72
-        );
-
-      color:
-        var(--pink-700);
-
-      font-size:
-        11px;
-
-      font-weight:
-        700;
-
-      letter-spacing:
-        0.6px;
-
-    }
-
-
-    .welcome h1 {
-
-      margin-bottom:
-        9px;
-
-      font-size:
-        27px;
-
-      line-height:
-        1.35;
-
-      font-weight:
-        720;
-
-      color:
-        var(--rose-dark);
-
-    }
-
-
-    .welcome p {
-
-      font-size:
-        14px;
-
-      line-height:
-        1.8;
-
-      color:
-        #8a4863;
-
-      max-width:
-        850px;
-
-    }
-
-
-
-    /* =========================================================
-       信息卡
-    ========================================================= */
-
-    .info-grid {
-
-      display: grid;
-
-      grid-template-columns:
-        repeat(
-          4,
-          minmax(
-            0,
-            1fr
-          )
-        );
-
-      gap:
-        16px;
-
-      margin-bottom:
-        30px;
-
-    }
-
-
-    .info-card {
-
-      position:
-        relative;
-
-      background:
-        rgba(
-          255,
-          255,
-          255,
-          0.96
-        );
-
-      border:
-        1px solid
-        var(--border);
-
-      border-radius:
-        18px;
-
-      padding:
-        20px;
-
-      min-height:
-        112px;
-
-      box-shadow:
-        0 5px 18px
-        rgba(
-          98,
-          46,
-          68,
-          0.035
-        );
-
-    }
-
-
-    .info-card::before {
-
-      content: "";
-
-      position:
-        absolute;
-
-      left: 0;
-      top: 18px;
-      bottom: 18px;
-
-      width: 3px;
-
-      border-radius:
-        0
-        3px
-        3px
-        0;
-
-      background:
-        linear-gradient(
-          180deg,
-          var(--pink-400),
-          var(--pink-600)
-        );
-
-    }
-
-
-    .info-label {
-
-      margin-bottom:
-        12px;
-
-      padding-left:
-        3px;
-
-      font-size:
-        11px;
-
-      font-weight:
-        650;
-
-      color:
-        var(--text-light);
-
-    }
-
-
-    .info-value {
-
-      padding-left:
-        3px;
-
-      font-size:
-        18px;
-
-      font-weight:
-        700;
-
-      line-height:
-        1.5;
-
-      color:
-        var(--text-main);
-
-      word-break:
-        break-word;
-
-    }
-
-
-    .info-small {
-
-      font-size:
-        13px;
-
-      font-weight:
-        600;
-
-      color:
-        #494349;
-
-    }
-
-
-
-    /* =========================================================
-       功能区
-    ========================================================= */
-
-    .section-heading {
-
-      display: flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        space-between;
-
-      gap: 12px;
-
-      margin-bottom:
-        15px;
-
-    }
-
-
-    .section-title {
-
-      font-size:
-        19px;
-
-      font-weight:
-        720;
-
-      color:
-        var(--text-main);
-
-    }
-
-
-    .section-hint {
-
-      font-size:
-        12px;
-
-      color:
-        var(--text-light);
-
-    }
-
-
-    .module-grid {
-
-      display: grid;
-
-      grid-template-columns:
-        repeat(
-          3,
-          minmax(
-            0,
-            1fr
-          )
-        );
-
-      gap:
-        16px;
-
-      padding-bottom:
-        40px;
-
-    }
-
-
-    .module-card {
-
-      min-height:
-        170px;
-
-      display: flex;
-
-      flex-direction: column;
-
-      background:
-        rgba(
-          255,
-          255,
-          255,
-          0.97
-        );
-
-      border:
-        1px solid
-        var(--border);
-
-      border-radius:
-        19px;
-
-      padding:
-        21px;
-
-      text-decoration:
-        none;
-
-      color:
-        inherit;
-
-      box-shadow:
-        0 5px 18px
-        rgba(
-          98,
-          46,
-          68,
-          0.035
-        );
-
-      transition:
-        transform .18s ease,
-        border-color .18s ease,
-        box-shadow .18s ease,
-        background .18s ease;
-
-      cursor: pointer;
-
-    }
-
-
-    .module-card:hover {
-
-      transform:
-        translateY(-3px);
-
-      border-color:
-        var(--pink-300);
-
-      background:
-        #fffdfd;
-
-      box-shadow:
-        var(--shadow-card);
-
-    }
-
-
-    .module-card:active {
-
-      transform:
-        scale(0.985);
-
-    }
-
-
-    .module-top {
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        space-between;
-
-      margin-bottom:
-        17px;
-
-    }
-
-
-    .module-icon {
-
-      width: 48px;
-      height: 48px;
-
-      flex:
-        0 0 48px;
-
-      border-radius:
-        14px;
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--pink-100),
-          #fff9fb
-        );
-
-      display: flex;
-
-      justify-content:
-        center;
-
-      align-items:
-        center;
-
-      font-size:
-        22px;
-
-    }
-
-
-    .module-arrow {
-
-      width: 30px;
-      height: 30px;
-
-      border-radius:
-        50%;
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        center;
-
-      background:
-        #faf7f9;
-
-      color:
-        var(--pink-500);
-
-      font-size:
-        17px;
-
-    }
-
-
-    .module-name {
-
-      margin-bottom:
-        7px;
-
-      font-size:
-        16px;
-
-      line-height:
-        1.4;
-
-      font-weight:
-        700;
-
-      color:
-        #332e33;
-
-    }
-
-
-    .module-desc {
-
-      font-size:
-        12.5px;
-
-      line-height:
-        1.75;
-
-      color:
-        var(--text-sub);
-
-    }
-
-
-    /* 投诉处理模块 */
-
-    .complaint-module {
-
-      border-color:
-        rgba(
-          226,
-          38,
-          63,
-          .22
-        );
-
-      background:
-        linear-gradient(
-          145deg,
-          #ffffff,
-          #fff8f9
-        );
-
-    }
-
-
-    .complaint-module .module-icon {
-
-      background:
-        #fff0f2;
-
-      color:
-        #d91e38;
-
-    }
-
-
-    .complaint-module .module-name {
-
-      color:
-        #b91630;
-
-    }
-
-
-    .complaint-module .module-arrow {
-
-      color:
-        #d91e38;
-
-      background:
-        #fff0f2;
-
-    }
-
-
-    .complaint-module-badge {
-
-      display: none;
-
-      margin-left: 8px;
-
-      padding:
-        2px
-        8px;
-
-      border-radius:
-        999px;
-
-      background:
-        #e2263f;
-
-      color:
-        #ffffff;
-
-      font-size:
-        10px;
-
-      font-weight:
-        800;
-
-      vertical-align: middle;
-
-    }
-
-
-    .complaint-module-badge.show {
-
-      display: inline-flex;
-
-    }
-
-
-
-    /* =========================================================
-       加载
-    ========================================================= */
-
-    .loading-mask {
-
-      position:
-        fixed;
-
-      inset: 0;
-
-      z-index:
-        9999;
-
-      display: flex;
-
-      flex-direction:
-        column;
-
-      align-items:
-        center;
-
-      justify-content:
-        center;
-
-      background:
-        linear-gradient(
-          180deg,
-          #fff8fb,
-          #ffffff
-        );
-
-    }
-
-
-    .spinner {
-
-      width: 40px;
-      height: 40px;
-
-      border:
-        4px solid
-        var(--pink-100);
-
-      border-top-color:
-        var(--pink-500);
-
-      border-radius:
-        50%;
-
-      animation:
-        spin .8s
-        linear
-        infinite;
-
-      margin-bottom:
-        15px;
-
-    }
-
-
-    @keyframes spin {
-
-      to {
-        transform:
-          rotate(360deg);
-      }
-
-    }
-
-
-    .loading-text {
-
-      font-size:
-        13px;
-
-      color:
-        var(--text-sub);
-
-    }
-
-
-    .mobile-bottom-nav {
-
-      display: none;
-
-    }
-
-
-
-    /* =========================================================
-       平板
-    ========================================================= */
-
-    @media
-    (max-width: 1100px) {
-
-      .info-grid {
-
-        grid-template-columns:
-          repeat(
-            2,
-            minmax(
-              0,
-              1fr
-            )
-          );
-
-      }
-
-
-      .module-grid {
-
-        grid-template-columns:
-          repeat(
-            2,
-            minmax(
-              0,
-              1fr
-            )
-          );
-
-      }
-
-    }
-
-
-
-    /* =========================================================
-       手机
-    ========================================================= */
-
-    @media
-    (max-width: 760px) {
-
-
-      body {
-
-        padding-bottom:
-          calc(
-            78px
-            + env(
-              safe-area-inset-bottom
-            )
-          );
-
-      }
-
-
-      .topbar {
-
-        min-height:
-          64px;
-
-        padding:
-          max(
-            4px,
-            env(
-              safe-area-inset-top
-            )
-          )
-          13px
-          4px;
-
-      }
-
-
-      .brand {
-
-        gap:
-          10px;
-
-      }
-
-
-      .brand-logo {
-
-        width: 39px;
-        height: 39px;
-
-        flex-basis:
-          39px;
-
-        border-radius:
-          11px;
-
-      }
-
-
-      .brand-title {
-
-        font-size:
-          17px;
-
-      }
-
-
-      .brand-subtitle {
-
-        display:
-          none;
-
-      }
-
-
-      .user-info {
-
-        display:
-          none;
-
-      }
-
-
-      .logout-btn {
-
-        min-width:
-          72px;
-
-        min-height:
-          44px;
-
-        padding:
-          0
-          14px;
-
-        font-size:
-          12px;
-
-      }
-
-
-      .page {
-
-        display:
-          block;
-
-      }
-
-
-      .sidebar {
-
-        display:
-          none;
-
-      }
-
-
-      .main {
-
-        width: 100%;
-
-        padding:
-          15px
-          13px
-          18px;
-
-      }
-
-
-      .complaint-alert {
-
-        min-height: 68px;
-
-        padding:
-          11px
-          12px;
-
-        gap: 9px;
-
-        border-radius:
-          14px;
-
-        margin-bottom:
-          13px;
-
-      }
-
-
-      .complaint-alert-icon {
-
-        width: 34px;
-        height: 34px;
-
-        flex-basis: 34px;
-
-        font-size: 18px;
-
-      }
-
-
-      .complaint-alert-title {
-
-        font-size: 13px;
-
-      }
-
-
-      .complaint-alert-desc {
-
-        font-size: 10.5px;
-
-      }
-
-
-      .complaint-alert-count {
-
-        min-width: 32px;
-        height: 32px;
-
-        padding: 0 8px;
-
-        font-size: 13px;
-
-      }
-
-
-      .complaint-alert-arrow {
-
-        display: none;
-
-      }
-
-
-      .welcome {
-
-        padding:
-          22px
-          20px;
-
-        border-radius:
-          20px;
-
-        margin-bottom:
-          16px;
-
-      }
-
-
-      .welcome h1 {
-
-        font-size:
-          21px;
-
-      }
-
-
-      .welcome p {
-
-        font-size:
-          13px;
-
-      }
-
-
-      .info-grid {
-
-        grid-template-columns:
-          repeat(
-            2,
-            minmax(
-              0,
-              1fr
-            )
-          );
-
-        gap:
-          10px;
-
-        margin-bottom:
-          24px;
-
-      }
-
-
-      .info-card {
-
-        min-height:
-          100px;
-
-        padding:
-          16px
-          14px;
-
-      }
-
-
-      .info-value {
-
-        font-size:
-          15px;
-
-      }
-
-
-      .info-small {
-
-        font-size:
-          12px;
-
-      }
-
-
-      .module-grid {
-
-        grid-template-columns:
-          1fr;
-
-        gap:
-          11px;
-
-        padding-bottom:
-          12px;
-
-      }
-
-
-      .module-card {
-
-        min-height:
-          122px;
-
-        padding:
-          17px;
-
-      }
-
-
-      .mobile-bottom-nav {
-
-        position:
-          fixed;
-
-        left: 0;
-        right: 0;
-        bottom: 0;
-
-        z-index:
-          2000;
-
-        min-height:
-          70px;
-
-        padding:
-          7px
-          10px
-          max(
-            7px,
-            env(
-              safe-area-inset-bottom
-            )
-          );
-
-        display:
-          grid;
-
-        grid-template-columns:
-          repeat(
-            4,
-            1fr
-          );
-
-        gap:
-          5px;
-
-        background:
-          rgba(
-            255,
-            255,
-            255,
-            0.96
-          );
-
-        backdrop-filter:
-          blur(20px);
-
-        -webkit-backdrop-filter:
-          blur(20px);
-
-        border-top:
-          1px solid
-          var(--border);
-
-      }
-
-
-      .mobile-nav-item {
-
-        min-height:
-          54px;
-
-        display:
-          flex;
-
-        flex-direction:
-          column;
-
-        align-items:
-          center;
-
-        justify-content:
-          center;
-
-        gap:
-          2px;
-
-        border-radius:
-          13px;
-
-        text-decoration:
-          none;
-
-        color:
-          #8c838a;
-
-        font-size:
-          10px;
-
-        font-weight:
-          600;
-
-      }
-
-
-      .mobile-nav-item.active {
-
-        color:
-          var(--pink-600);
-
-        background:
-          var(--pink-50);
-
-      }
-
-
-      .mobile-nav-icon {
-
-        font-size:
-          20px;
-
-      }
-
-    }
-
-
-  </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fff7fa">
+<title>孕乃馨平台管理中心</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--pink-50:#fff7fa;--pink-100:#ffeef4;--pink-200:#ffd9e7;--pink-300:#fbbfd3;--pink-400:#f28aae;--pink-500:#e85d8f;--pink-600:#d94d7d;--pink-700:#b93667;--rose-dark:#61213d;--text-main:#26232a;--text-sub:#716a73;--text-light:#a39ba5;--border:#eee5e9;--danger:#e2263f;--shadow:0 10px 30px rgba(120,47,78,.06)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{width:100%;min-height:100%;scroll-behavior:smooth}
+body{width:100%;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;background:linear-gradient(180deg,#fff9fb,#fbf9fa 45%,#f8f8fa);color:var(--text-main);font-size:15px;line-height:1.6}
+button,input,select,textarea{font:inherit}button,a{touch-action:manipulation}button{cursor:pointer}a{color:inherit}.hidden{display:none!important}
+.topbar{min-height:72px;background:rgba(255,255,255,.95);backdrop-filter:blur(18px);border-bottom:1px solid rgba(232,93,143,.08);display:flex;align-items:center;justify-content:space-between;gap:18px;padding:0 28px;position:sticky;top:0;z-index:1000}
+.brand{display:flex;align-items:center;gap:13px;min-width:0}.brand-logo{width:44px;height:44px;flex:0 0 44px;border-radius:13px;object-fit:contain;background:#fff;box-shadow:0 6px 18px rgba(186,63,110,.12)}.brand-title{font-size:20px;font-weight:720;letter-spacing:1.5px}.brand-subtitle{margin-top:3px;font-size:11px;color:var(--text-light)}
+.top-right{display:flex;align-items:center;gap:14px}.user-info{text-align:right;max-width:240px}.user-name{font-size:14px;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.user-role{margin-top:4px;font-size:11px;color:var(--pink-600);font-weight:600}.logout-btn{min-width:88px;min-height:48px;padding:0 18px;border:0;border-radius:13px;background:linear-gradient(135deg,var(--pink-500),var(--pink-600));color:#fff;font-size:13px;font-weight:650}
+.page{display:flex;width:100%;min-height:calc(100vh - 72px)}.sidebar{width:238px;flex:0 0 238px;background:rgba(255,255,255,.92);border-right:1px solid var(--border);padding:22px 14px 34px;position:sticky;top:72px;height:calc(100vh - 72px);overflow-y:auto}
+.menu-title{padding:13px 13px 7px;font-size:10px;font-weight:700;letter-spacing:1.2px;color:#b0a7ad}.menu-item{min-height:48px;display:flex;align-items:center;gap:12px;padding:10px 13px;margin-bottom:5px;border-radius:13px;text-decoration:none;color:#554f55;font-size:14px;font-weight:520}.menu-item:hover{background:var(--pink-50);color:var(--pink-700)}.menu-item.active{background:linear-gradient(135deg,var(--pink-100),#fff8fb);color:var(--pink-700);font-weight:650;box-shadow:inset 3px 0 0 var(--pink-500)}.menu-icon{width:26px;flex:0 0 26px;text-align:center;font-size:19px}
+.complaint-menu-item{color:#c51f39;font-weight:650}.complaint-menu-badge{margin-left:auto;min-width:22px;height:22px;display:none;align-items:center;justify-content:center;padding:0 6px;border-radius:999px;background:#e2263f;color:#fff;font-size:10px;font-weight:800}.complaint-menu-badge.show{display:inline-flex}
+.main{flex:1;min-width:0;padding:30px;overflow-x:hidden}.content-wrap{width:100%;max-width:1360px;margin:0 auto}
+.consultant-approval-alert{display:none;align-items:center;gap:14px;width:100%;margin-bottom:16px;padding:15px 18px;border:0;border-radius:15px;background:linear-gradient(135deg,#8b3fd1,#b45de1);color:#fff;box-shadow:0 8px 25px rgba(139,63,209,.24);text-align:left}.consultant-approval-alert.show{display:flex}.consultant-approval-icon{width:40px;height:40px;flex:0 0 40px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:21px}.consultant-approval-content{flex:1;min-width:0}.consultant-approval-title{font-size:15px;font-weight:800}.consultant-approval-desc{margin-top:3px;font-size:12px}.consultant-approval-count{min-width:40px;height:40px;padding:0 11px;border-radius:999px;background:#fff;color:#8738c8;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900}
+.complaint-alert{display:none;width:100%;min-height:62px;margin-bottom:18px;padding:13px 18px;border:2px solid #ff4960;border-radius:16px;background:linear-gradient(135deg,#d91532,#f1344d);color:#fff;text-decoration:none;box-shadow:0 9px 28px rgba(211,23,51,.28)}.complaint-alert.show{display:flex;align-items:center;gap:14px}.complaint-alert-icon{width:38px;height:38px;flex:0 0 38px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(255,255,255,.18);font-size:20px}.complaint-alert-content{flex:1}.complaint-alert-title{font-size:15px;font-weight:800}.complaint-alert-desc{margin-top:2px;font-size:12px}.complaint-alert-count{min-width:38px;height:38px;display:flex;align-items:center;justify-content:center;padding:0 10px;border-radius:999px;background:#fff;color:#d31935;font-size:15px;font-weight:900}.complaint-alert-arrow{font-size:24px}
+.welcome{position:relative;overflow:hidden;background:linear-gradient(135deg,#fff1f6,#ffe3ed 52%,#ffd4e5);border-radius:24px;padding:30px 32px;margin-bottom:24px;box-shadow:var(--shadow)}.welcome-tag{display:inline-flex;padding:4px 11px;margin-bottom:12px;border-radius:999px;background:rgba(255,255,255,.72);color:var(--pink-700);font-size:11px;font-weight:700}.welcome h1{margin-bottom:9px;font-size:27px;color:var(--rose-dark)}.welcome p{font-size:14px;color:#8a4863}
+.info-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:30px}.info-card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:20px;min-height:112px}.info-label{margin-bottom:12px;font-size:11px;color:var(--text-light)}.info-value{font-size:18px;font-weight:700}.info-small{font-size:13px;font-weight:600}
+.section-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}.section-title{font-size:19px;font-weight:720}.section-hint{font-size:12px;color:var(--text-light)}.module-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;padding-bottom:40px}.module-card{min-height:170px;display:flex;flex-direction:column;background:#fff;border:1px solid var(--border);border-radius:19px;padding:21px;text-decoration:none;box-shadow:0 5px 18px rgba(98,46,68,.035)}.module-card:hover{transform:translateY(-3px);border-color:var(--pink-300)}.module-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:17px}.module-icon{width:48px;height:48px;border-radius:14px;background:var(--pink-100);display:flex;align-items:center;justify-content:center;font-size:22px}.module-arrow{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#faf7f9;color:var(--pink-500)}.module-name{margin-bottom:7px;font-size:16px;font-weight:700}.module-desc{font-size:12.5px;color:var(--text-sub)}.complaint-module-badge{display:none;margin-left:8px;padding:2px 8px;border-radius:999px;background:#e2263f;color:#fff;font-size:10px}.complaint-module-badge.show{display:inline-flex}
+.loading-mask{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fff8fb}.spinner{width:40px;height:40px;border:4px solid var(--pink-100);border-top-color:var(--pink-500);border-radius:50%;animation:spin .8s linear infinite;margin-bottom:15px}@keyframes spin{to{transform:rotate(360deg)}}.loading-text{font-size:13px;color:var(--text-sub)}
+.consultant-modal-mask{display:none;position:fixed;inset:0;z-index:5000;background:rgba(30,20,27,.56);padding:18px;align-items:center;justify-content:center}.consultant-modal-mask.show{display:flex}.consultant-modal{width:min(760px,100%);max-height:88vh;overflow:hidden;background:#fff;border-radius:18px;box-shadow:0 25px 70px rgba(0,0,0,.25);display:flex;flex-direction:column}.consultant-modal-head{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}.consultant-modal-head strong{font-size:17px;color:#66304b}.consultant-modal-close{width:36px;height:36px;border:0;border-radius:50%;background:#f8eef2;color:#7b5967;font-size:22px}.consultant-modal-body{padding:18px;overflow:auto}.consultant-empty{text-align:center;color:#999;padding:38px 15px}.consultant-application-card{border:1px solid #eadde3;border-radius:14px;padding:16px;margin-bottom:12px;background:#fffafb}.consultant-app-top{display:flex;justify-content:space-between;gap:12px;margin-bottom:10px}.consultant-app-name{font-size:16px;font-weight:800;color:#673149}.consultant-app-city{font-size:12px;color:#a05a76}.consultant-app-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 16px;font-size:13px;color:#66545b}.consultant-app-grid span{color:#a28f97}.consultant-approve-btn{width:100%;height:42px;margin-top:14px;border:0;border-radius:9px;background:#8d42cb;color:#fff;font-weight:800}.consultant-approve-btn:disabled{opacity:.55}.consultant-code-result{padding:20px;border:2px solid #a960dd;border-radius:16px;background:#fbf4ff;text-align:center}.consultant-code-number{margin:14px 0;font-size:32px;font-weight:900;letter-spacing:3px;color:#7e31bd}.consultant-code-warning{font-size:14px;line-height:1.8;color:#9b2c45;font-weight:700}.mobile-bottom-nav{display:none}
+@media(max-width:1100px){.info-grid,.module-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){body{padding-bottom:78px}.topbar{min-height:64px;padding:4px 13px}.brand-logo{width:39px;height:39px}.brand-title{font-size:17px}.brand-subtitle,.user-info{display:none}.logout-btn{min-width:72px;min-height:44px}.page{display:block}.sidebar{display:none}.main{width:100%;padding:15px 13px}.welcome{padding:22px 20px}.welcome h1{font-size:21px}.info-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.module-grid{grid-template-columns:1fr;gap:11px}.consultant-app-grid{grid-template-columns:1fr}.consultant-modal-mask{padding:8px}.consultant-modal{max-height:94vh}.mobile-bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:2000;min-height:70px;padding:7px 10px;display:grid;grid-template-columns:repeat(4,1fr);gap:5px;background:rgba(255,255,255,.96);border-top:1px solid var(--border)}.mobile-nav-item{min-height:54px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:13px;text-decoration:none;color:#8c838a;font-size:10px}.mobile-nav-item.active{color:var(--pink-600);background:var(--pink-50)}.mobile-nav-icon{font-size:20px}}
+</style>
 </head>
-
-
 <body>
-
-
-<div
-  id="loadingMask"
-  class="loading-mask"
->
-
-  <div class="spinner"></div>
-
-  <div class="loading-text">
-    正在验证管理权限...
-  </div>
-
-</div>
-
-
-
+<div id="loadingMask" class="loading-mask"><div class="spinner"></div><div class="loading-text">正在验证管理权限...</div></div>
 <header class="topbar">
-
-
-  <div class="brand">
-
-
-    <img
-      src="./logo.jpeg"
-      class="brand-logo"
-      alt="孕乃馨 Logo"
-    >
-
-
-    <div class="brand-text">
-
-      <div class="brand-title">
-        孕乃馨
-      </div>
-
-      <div class="brand-subtitle">
-        全国业务管理平台
-      </div>
-
-    </div>
-
-
-  </div>
-
-
-  <div class="top-right">
-
-
-    <div class="user-info">
-
-      <div
-        id="topUserName"
-        class="user-name"
-      >
-        -
-      </div>
-
-      <div
-        id="topUserRole"
-        class="user-role"
-      >
-        -
-      </div>
-
-    </div>
-
-
-    <button
-      class="logout-btn"
-      type="button"
-      onclick="logout()"
-    >
-      退出登录
-    </button>
-
-
-  </div>
-
-
+<div class="brand"><img src="./logo.jpeg" class="brand-logo" alt="孕乃馨 Logo"><div><div class="brand-title">孕乃馨</div><div class="brand-subtitle">全国业务管理平台</div></div></div>
+<div class="top-right"><div class="user-info"><div id="topUserName" class="user-name">-</div><div id="topUserRole" class="user-role">-</div></div><button class="logout-btn" type="button" onclick="logout()">退出登录</button></div>
 </header>
-
-
-
 <div class="page">
-
-
-  <!-- =====================================================
-       左侧菜单
-  ====================================================== -->
-
-  <aside class="sidebar">
-
-
-    <div class="menu-title">
-      工作台
-    </div>
-
-
-    <a
-      class="menu-item active"
-      href="wholemanagement.html"
-    >
-
-      <span class="menu-icon">
-        🏠
-      </span>
-
-      管理首页
-
-    </a>
-
-
-
-    <div class="menu-title">
-      平台管理
-    </div>
-
-
-    <a
-      class="menu-item platform-only"
-      href="admins.html"
-    >
-
-      <span class="menu-icon">
-        👤
-      </span>
-
-      授权管理
-
-    </a>
-
-
-    <a
-      class="menu-item platform-only"
-      href="products.html"
-    >
-
-      <span class="menu-icon">
-        📦
-      </span>
-
-      服务项目定义
-
-    </a>
-
-
-    <a
-      class="menu-item"
-      href="cityprices.html"
-    >
-
-      <span class="menu-icon">
-        💗
-      </span>
-
-      城市统一定价
-
-    </a>
-
-
-
-    <div class="menu-title">
-      业务管理
-    </div>
-
-
-    <a
-      class="menu-item"
-      href="merchants.html"
-    >
-
-      <span class="menu-icon">
-        🏪
-      </span>
-
-      商户管理
-
-    </a>
-
-
-    <a
-      class="menu-item platform-only"
-      href="healthconsultant.html"
-    >
-
-      <span class="menu-icon">
-        🩺
-      </span>
-
-      健康顾问
-
-    </a>
-
-
-    <a
-      class="menu-item platform-only"
-      href="merchant_rules.html"
-    >
-
-      <span class="menu-icon">
-        📊
-      </span>
-
-      分成规则
-
-    </a>
-
-
-    <a
-      class="menu-item"
-      href="orders.html"
-    >
-
-      <span class="menu-icon">
-        🧾
-      </span>
-
-      订单管理
-
-    </a>
-
-
-    <a
-      class="menu-item"
-      href="customers.html"
-    >
-
-      <span class="menu-icon">
-        👥
-      </span>
-
-      客户管理
-
-    </a>
-
-
-    <!-- 新增：投诉处理 -->
-
-    <a
-      class="menu-item complaint-menu-item"
-      href="complains.html"
-    >
-
-      <span class="menu-icon">
-        🚨
-      </span>
-
-      投诉处理
-
-      <span
-        id="complaintMenuBadge"
-        class="complaint-menu-badge"
-      >
-        0
-      </span>
-
-    </a>
-
-
-
-    <div class="menu-title">
-      地区管理
-    </div>
-
-
-    <a
-      class="menu-item platform-only"
-      href="regions.html"
-    >
-
-      <span class="menu-icon">
-        🗺️
-      </span>
-
-      服务区域
-
-    </a>
-
-
-  </aside>
-    <!-- =====================================================
-       主内容
-  ====================================================== -->
-
-  <main class="main">
-
-
-    <div class="content-wrap">
-
-
-      <!-- =================================================
-           客户投诉报警
-           只有存在“平台尚未确认”的投诉才显示
-      ================================================== -->
-
-      <a
-        id="complaintAlert"
-        class="complaint-alert"
-        href="complains.html"
-        aria-label="进入投诉处理"
-      >
-
-        <div class="complaint-alert-icon">
-          🚨
-        </div>
-
-
-        <div class="complaint-alert-content">
-
-          <div class="complaint-alert-title">
-            客户投诉报警
-          </div>
-
-          <div
-            id="complaintAlertDesc"
-            class="complaint-alert-desc"
-          >
-            当前有客户投诉等待平台确认，点击立即处理
-          </div>
-
-        </div>
-
-
-        <div
-          id="complaintAlertCount"
-          class="complaint-alert-count"
-        >
-          0
-        </div>
-
-
-        <div class="complaint-alert-arrow">
-          ›
-        </div>
-
-      </a>
-
-
-
-      <section class="welcome">
-
-
-        <div class="welcome-content">
-
-
-          <div class="welcome-tag">
-            YUNNAIXIN MANAGEMENT
-          </div>
-
-
-          <h1 id="welcomeTitle">
-            欢迎进入孕乃馨管理平台
-          </h1>
-
-
-          <p id="welcomeDesc">
-            正在加载您的管理权限和辖区信息。
-          </p>
-
-
-        </div>
-
-
-      </section>
-
-
-
-      <!-- 身份 -->
-
-      <section class="info-grid">
-
-
-        <div class="info-card">
-
-          <div class="info-label">
-            当前身份
-          </div>
-
-          <div
-            id="cardRole"
-            class="info-value info-small"
-          >
-            -
-          </div>
-
-        </div>
-
-
-        <div class="info-card">
-
-          <div class="info-label">
-            管理省份
-          </div>
-
-          <div
-            id="cardProvince"
-            class="info-value info-small"
-          >
-            -
-          </div>
-
-        </div>
-
-
-        <div class="info-card">
-
-          <div class="info-label">
-            管理城市
-          </div>
-
-          <div
-            id="cardCity"
-            class="info-value info-small"
-          >
-            -
-          </div>
-
-        </div>
-
-
-        <div class="info-card">
-
-          <div class="info-label">
-            登录账户
-          </div>
-
-          <div
-            id="cardEmail"
-            class="info-value info-small"
-          >
-            -
-          </div>
-
-        </div>
-
-
-      </section>
-
-
-
-      <div class="section-heading">
-
-        <div class="section-title">
-          管理功能
-        </div>
-
-        <div class="section-hint">
-          点击进入相应模块
-        </div>
-
-      </div>
-
-
-
-      <section class="module-grid">
-
-
-        <!-- 管理人员 -->
-
-        <a
-          class="module-card platform-only"
-          href="admins.html"
-        >
-
-          <div class="module-top">
-
-            <div class="module-icon">
-              👤
-            </div>
-
-            <div class="module-arrow">
-              ›
-            </div>
-
-          </div>
-
-
-          <div class="module-name">
-            授权管理
-          </div>
-
-
-          <div class="module-desc">
-            创建和管理平台、省、市各级管理人员及辖区权限。
-          </div>
-
-        </a>
-
-
-
-        <!-- 服务项目 -->
-
-        <a
-          class="module-card platform-only"
-          href="products.html"
-        >
-
-          <div class="module-top">
-
-            <div class="module-icon">
-              📦
-            </div>
-
-            <div class="module-arrow">
-              ›
-            </div>
-
-          </div>
-
-
-          <div class="module-name">
-            服务项目定义
-          </div>
-
-
-          <div class="module-desc">
-            建立全国唯一服务项目目录，所有城市统一使用平台产品索引。
-          </div>
-
-        </a>
-
-
-
-        <!-- 城市定价 -->
-
-        <a
-          class="module-card"
-          href="cityprices.html"
-        >
-
-          <div class="module-top">
-
-            <div class="module-icon">
-              💗
-            </div>
-
-            <div class="module-arrow">
-              ›
-            </div>
-
-          </div>
-
-
-          <div class="module-name">
-            城市定价
-          </div>
-
-
-          <div class="module-desc">
-            查看辖区城市产品价格，市管理员维护本市个性化价格。
-          </div>
-
-        </a>
-
-
-
-        <!-- 商户管理 -->
-
-        <a
-          class="module-card"
-          href="merchants.html"
-        >
-
-          <div class="module-top">
-
-            <div class="module-icon">
-              🏪
-            </div>
-
-            <div class="module-arrow">
-              ›
-            </div>
-
-          </div>
-
-
-          <div class="module-name">
-            商户管理
-          </div>
-
-
-          <div class="module-desc">
-            管理辖区内机构商户和个人服务者及认证资料。
-          </div>
-
-        </a>
-
-
-
-        <!-- 健康顾问 -->
-
-        <a
-          class="module-card platform-only"
-          href="healthconsultant.html"
-        >
-
-          <div class="module-top">
-
-            <div class="module-icon">
-              🩺
-            </div>
-
-            <div class="module-arrow">
-              ›
-            </div>
-
-          </div>
-
-
-          <div class="module-name">
-            健康顾问
-          </div>
-
-
-          <div class="module-desc">
-            查看健康顾问服务项目、关联商户及健康顾问分成比例。
-          </div>
-
-        </a>
-
-
-
-        <!-- 分成规则 -->
-
-        <a
-          class="module-card platform-only"
-          href="merchant_rules.html"
-        >
-
-          <div class="module-top">
-
-            <div class="module-icon">
-              📊
-            </div>
-
-            <div class="module-arrow">
-              ›
-            </div>
-
-          </div>
-
-
-          <div class="module-name">
-            分成规则
-          </div>
-
-
-          <div class="module-desc">
-            查看并定义各商户不同服务项目的税率、平台比例、门店比例、操作人员比例及健康顾问比例。
-          </div>
-
-        </a>
-
-
-
-        <!-- 订单 -->
-
-        <a
-          class="module-card"
-          href="orders.html"
-        >
-
-          <div class="module-top">
-
-            <div class="module-icon">
-              🧾
-            </div>
-
-            <div class="module-arrow">
-              ›
-            </div>
-
-          </div>
-
-
-          <div class="module-name">
-            订单管理
-          </div>
-
-
-          <div class="module-desc">
-            按城市、商户、客户和时间查询订单及业务数据。
-          </div>
-
-        </a>
-
-
-
-        <!-- 客户 -->
-
-        <a
-          class="module-card"
-          href="customers.html"
-        >
-
-          <div class="module-top">
-
-            <div class="module-icon">
-              👥
-            </div>
-
-            <div class="module-arrow">
-              ›
-            </div>
-
-          </div>
-
-
-          <div class="module-name">
-            客户管理
-          </div>
-
-
-          <div class="module-desc">
-            查看辖区客户资料、消费记录及关联订单数据。
-          </div>
-
-        </a>
-
-
-
-        <!-- =================================================
-             新增：投诉处理
-        ================================================== -->
-
-        <a
-          class="module-card complaint-module"
-          href="complains.html"
-        >
-
-          <div class="module-top">
-
-            <div class="module-icon">
-              🚨
-            </div>
-
-            <div class="module-arrow">
-              ›
-            </div>
-
-          </div>
-
-
-          <div class="module-name">
-
-            投诉处理
-
-            <span
-              id="complaintModuleBadge"
-              class="complaint-module-badge"
-            >
-              0 条待确认
-            </span>
-
-          </div>
-
-
-          <div class="module-desc">
-            查看客户投诉、投诉图片及对应订单，处理平台投诉报警并查看商户确认状态。
-          </div>
-
-        </a>
-
-
-
-        <!-- 服务区域 -->
-
-        <a
-          class="module-card platform-only"
-          href="regions.html"
-        >
-
-          <div class="module-top">
-
-            <div class="module-icon">
-              🗺️
-            </div>
-
-            <div class="module-arrow">
-              ›
-            </div>
-
-          </div>
-
-
-          <div class="module-name">
-            新建区域
-          </div>
-
-
-          <div class="module-desc">
-            管理全国省、市、区县三级行政区域基础数据。
-          </div>
-
-        </a>
-
-
-      </section>
-
-
-    </div>
-
-
-  </main>
-
-
+<aside class="sidebar">
+<div class="menu-title">工作台</div>
+<a class="menu-item active" href="wholemanagement.html"><span class="menu-icon">🏠</span>管理首页</a>
+<div class="menu-title">平台管理</div>
+<a class="menu-item platform-only" href="admins.html"><span class="menu-icon">👤</span>授权管理</a>
+<a class="menu-item platform-only" href="products.html"><span class="menu-icon">📦</span>服务项目定义</a>
+<a class="menu-item" href="cityprices.html"><span class="menu-icon">💗</span>城市统一定价</a>
+<div class="menu-title">业务管理</div>
+<a class="menu-item" href="merchants.html"><span class="menu-icon">🏪</span>商户管理</a>
+<a class="menu-item platform-only" href="healthconsultant.html"><span class="menu-icon">🩺</span>健康顾问</a>
+<a class="menu-item platform-only" href="merchant_rules.html"><span class="menu-icon">📊</span>分成规则</a>
+<a class="menu-item" href="orders.html"><span class="menu-icon">🧾</span>订单管理</a>
+<a class="menu-item" href="customers.html"><span class="menu-icon">👥</span>客户管理</a>
+<a class="menu-item complaint-menu-item" href="complains.html"><span class="menu-icon">🚨</span>投诉处理<span id="complaintMenuBadge" class="complaint-menu-badge">0</span></a>
+<div class="menu-title">地区管理</div>
+<a class="menu-item platform-only" href="regions.html"><span class="menu-icon">🗺️</span>服务区域</a>
+</aside>
+<main class="main">
+<div class="content-wrap">
+<button id="consultantApprovalAlert" class="consultant-approval-alert" type="button" onclick="openConsultantApprovalModal()">
+<div class="consultant-approval-icon">🩺</div>
+<div class="consultant-approval-content"><div class="consultant-approval-title">健康顾问申请待审批</div><div id="consultantApprovalDesc" class="consultant-approval-desc"></div></div>
+<div id="consultantApprovalCount" class="consultant-approval-count">0</div>
+</button>
+<a id="complaintAlert" class="complaint-alert" href="complains.html">
+<div class="complaint-alert-icon">🚨</div>
+<div class="complaint-alert-content"><div class="complaint-alert-title">客户投诉报警</div><div id="complaintAlertDesc" class="complaint-alert-desc"></div></div>
+<div id="complaintAlertCount" class="complaint-alert-count">0</div><div class="complaint-alert-arrow">›</div>
+</a>
+<section class="welcome"><div class="welcome-tag">YUNNAIXIN MANAGEMENT</div><h1 id="welcomeTitle">欢迎进入孕乃馨管理平台</h1><p id="welcomeDesc">正在加载您的管理权限和辖区信息。</p></section>
+<section class="info-grid">
+<div class="info-card"><div class="info-label">当前身份</div><div id="cardRole" class="info-value info-small">-</div></div>
+<div class="info-card"><div class="info-label">管理省份</div><div id="cardProvince" class="info-value info-small">-</div></div>
+<div class="info-card"><div class="info-label">管理城市</div><div id="cardCity" class="info-value info-small">-</div></div>
+<div class="info-card"><div class="info-label">登录账户</div><div id="cardEmail" class="info-value info-small">-</div></div>
+</section>
+<div class="section-heading"><div class="section-title">管理功能</div><div class="section-hint">点击进入相应模块</div></div>
+<section class="module-grid">
+<a class="module-card platform-only" href="admins.html"><div class="module-top"><div class="module-icon">👤</div><div class="module-arrow">›</div></div><div class="module-name">授权管理</div><div class="module-desc">创建和管理平台、省、市各级管理人员及辖区权限。</div></a>
+<a class="module-card platform-only" href="products.html"><div class="module-top"><div class="module-icon">📦</div><div class="module-arrow">›</div></div><div class="module-name">服务项目定义</div><div class="module-desc">建立全国唯一服务项目目录。</div></a>
+<a class="module-card" href="cityprices.html"><div class="module-top"><div class="module-icon">💗</div><div class="module-arrow">›</div></div><div class="module-name">城市定价</div><div class="module-desc">查看辖区城市产品价格。</div></a>
+<a class="module-card" href="merchants.html"><div class="module-top"><div class="module-icon">🏪</div><div class="module-arrow">›</div></div><div class="module-name">商户管理</div><div class="module-desc">管理辖区商户和认证资料。</div></a>
+<a class="module-card platform-only" href="healthconsultant.html"><div class="module-top"><div class="module-icon">🩺</div><div class="module-arrow">›</div></div><div class="module-name">健康顾问</div><div class="module-desc">查看健康顾问及分成比例。</div></a>
+<a class="module-card platform-only" href="merchant_rules.html"><div class="module-top"><div class="module-icon">📊</div><div class="module-arrow">›</div></div><div class="module-name">分成规则</div><div class="module-desc">定义商户和健康顾问分成比例。</div></a>
+<a class="module-card" href="orders.html"><div class="module-top"><div class="module-icon">🧾</div><div class="module-arrow">›</div></div><div class="module-name">订单管理</div><div class="module-desc">查询辖区订单及业务数据。</div></a>
+<a class="module-card" href="customers.html"><div class="module-top"><div class="module-icon">👥</div><div class="module-arrow">›</div></div><div class="module-name">客户管理</div><div class="module-desc">查看辖区客户和消费记录。</div></a>
+<a class="module-card" href="complains.html"><div class="module-top"><div class="module-icon">🚨</div><div class="module-arrow">›</div></div><div class="module-name">投诉处理 <span id="complaintModuleBadge" class="complaint-module-badge"></span></div><div class="module-desc">查看和处理客户投诉。</div></a>
+<a class="module-card platform-only" href="regions.html"><div class="module-top"><div class="module-icon">🗺️</div><div class="module-arrow">›</div></div><div class="module-name">新建区域</div><div class="module-desc">管理全国行政区域数据。</div></a>
+</section>
 </div>
-
-
-
-<!-- =========================================================
-     手机底部导航
-========================================================= -->
-
+</main>
+</div>
+<div id="consultantApprovalModal" class="consultant-modal-mask" onclick="consultantModalMaskClicked(event)">
+<div class="consultant-modal">
+<div class="consultant-modal-head"><strong>健康顾问申请审批</strong><button class="consultant-modal-close" type="button" onclick="closeConsultantApprovalModal()">×</button></div>
+<div id="consultantApprovalList" class="consultant-modal-body"><div class="consultant-empty">正在读取申请信息...</div></div>
+</div>
+</div>
 <nav class="mobile-bottom-nav">
-
-
-  <a
-    href="wholemanagement.html"
-    class="mobile-nav-item active"
-  >
-
-    <span class="mobile-nav-icon">
-      🏠
-    </span>
-
-    首页
-
-  </a>
-
-
-  <a
-    href="cityprices.html"
-    class="mobile-nav-item"
-  >
-
-    <span class="mobile-nav-icon">
-      💗
-    </span>
-
-    定价
-
-  </a>
-
-
-  <a
-    href="orders.html"
-    class="mobile-nav-item"
-  >
-
-    <span class="mobile-nav-icon">
-      🧾
-    </span>
-
-    订单
-
-  </a>
-
-
-  <a
-    href="merchants.html"
-    class="mobile-nav-item"
-  >
-
-    <span class="mobile-nav-icon">
-      🏪
-    </span>
-
-    商户
-
-  </a>
-
-
+<a href="wholemanagement.html" class="mobile-nav-item active"><span class="mobile-nav-icon">🏠</span>首页</a>
+<a href="cityprices.html" class="mobile-nav-item"><span class="mobile-nav-icon">💗</span>定价</a>
+<a href="orders.html" class="mobile-nav-item"><span class="mobile-nav-icon">🧾</span>订单</a>
+<a href="merchants.html" class="mobile-nav-item"><span class="mobile-nav-icon">🏪</span>商户</a>
 </nav>
-
-
-
 <script>
+const SUPABASE_URL="https://qbuqjwpkltbjhlfbyjyb.supabase.co";
+const SUPABASE_ANON_KEY="sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
+const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+const LOGIN_PAGE="login.html";
+const IDLE_LIMIT=10*60*1000;
+let idleTimer=null;
+let pendingConsultantApplications=[];
 
-
-const SUPABASE_URL =
-  "https://qbuqjwpkltbjhlfbyjyb.supabase.co";
-
-
-const SUPABASE_ANON_KEY =
-  "sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
-
-
-const supabaseClient =
-  window.supabase.createClient(
-
-    SUPABASE_URL,
-
-    SUPABASE_ANON_KEY,
-
-    {
-
-      auth: {
-
-        persistSession: true,
-
-        autoRefreshToken: true,
-
-        detectSessionInUrl: true
-
-      }
-
-    }
-
-  );
-
-
-
-const LOGIN_PAGE =
-  "login.html";
-
-
-
-/* ==========================================================
-   10分钟无操作退出
-========================================================== */
-
-const IDLE_LIMIT =
-  10 * 60 * 1000;
-
-
-let idleTimer;
-
-
-
-function resetIdleTimer() {
-
-  clearTimeout(
-    idleTimer
-  );
-
-
-  idleTimer =
-    setTimeout(
-
-      autoLogout,
-
-      IDLE_LIMIT
-
-    );
-
+function esc(value){
+return String(value??"")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
 }
 
-
-
-async function autoLogout() {
-
-  try {
-
-    await supabaseClient.auth
-      .signOut();
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "自动退出失败：",
-      error
-    );
-
-  }
-
-
-  alert(
-    "由于10分钟未操作，系统已自动退出。"
-  );
-
-
-  window.location.href =
-    LOGIN_PAGE;
-
+function resetIdleTimer(){
+clearTimeout(idleTimer);
+idleTimer=setTimeout(autoLogout,IDLE_LIMIT);
 }
 
+async function autoLogout(){
+try{await supabaseClient.auth.signOut()}catch(error){console.error(error)}
+alert("由于10分钟未操作，系统已自动退出。");
+window.location.href=LOGIN_PAGE;
+}
 
+["mousemove","mousedown","keydown","touchstart","scroll","click"].forEach(eventName=>{
+document.addEventListener(eventName,resetIdleTimer,{passive:true});
+});
 
-[
-  "mousemove",
-  "mousedown",
-  "keydown",
-  "touchstart",
-  "scroll",
-  "click"
-]
-.forEach(
+function roleText(role){
+return{
+founder:"创始人",
+platform_admin:"平台管理员",
+platform_staff:"平台员工",
+province_admin:"省管理员",
+city_admin:"市管理员"
+}[role]||role;
+}
 
-  eventName => {
+function isManagementRole(role){
+return["founder","platform_admin","platform_staff","province_admin","city_admin"].includes(role);
+}
 
-    document.addEventListener(
+function isPlatformManager(role){
+return["founder","platform_admin"].includes(role);
+}
 
-      eventName,
+function applyMenuPermissions(role){
+if(!isPlatformManager(role)){
+document.querySelectorAll(".platform-only").forEach(element=>{
+element.classList.add("hidden");
+});
+}
+}
 
-      resetIdleTimer,
+async function loadAssignment(userId,role){
+if(isPlatformManager(role)){
+return{provinceName:"全国",cityName:"全国"};
+}
 
-      {
-        passive: true
-      }
+if(role==="platform_staff"){
+return{provinceName:"按授权",cityName:"按授权"};
+}
 
-    );
+const{data,error}=await supabaseClient
+.from("admin_assignments")
+.select("province_id,city_id")
+.eq("user_id",userId)
+.eq("status","active")
+.limit(1)
+.maybeSingle();
 
-  }
+if(error||!data){
+return{provinceName:"未配置",cityName:"未配置"};
+}
 
+let provinceName="未配置";
+let cityName="全部城市";
+
+if(data.province_id){
+const{data:province}=await supabaseClient
+.from("provinces")
+.select("province_name")
+.eq("id",data.province_id)
+.maybeSingle();
+
+if(province){
+provinceName=province.province_name;
+}
+}
+
+if(data.city_id){
+const{data:city}=await supabaseClient
+.from("cities")
+.select("city_name")
+.eq("id",data.city_id)
+.maybeSingle();
+
+if(city){
+cityName=city.city_name;
+}
+}
+
+return{provinceName,cityName};
+}
+
+function updateConsultantApprovalAlert(){
+const count=pendingConsultantApplications.length;
+const alertBar=document.getElementById("consultantApprovalAlert");
+
+if(count>0){
+alertBar.classList.add("show");
+document.getElementById("consultantApprovalCount").textContent=count>99?"99+":String(count);
+document.getElementById("consultantApprovalDesc").textContent=`当前辖区有 ${count} 条健康顾问申请等待审批，点击立即处理`;
+}else{
+alertBar.classList.remove("show");
+}
+}
+
+async function loadConsultantApprovalAlert(profile){
+if(!["founder","platform_admin","province_admin","city_admin"].includes(profile.role)){
+pendingConsultantApplications=[];
+updateConsultantApprovalAlert();
+return;
+}
+
+try{
+const{data,error}=await supabaseClient.rpc("get_pending_health_consultant_applications");
+
+if(error){
+throw error;
+}
+
+pendingConsultantApplications=Array.isArray(data)?data:[];
+updateConsultantApprovalAlert();
+}catch(error){
+console.warn("健康顾问待审批申请读取失败：",error);
+pendingConsultantApplications=[];
+updateConsultantApprovalAlert();
+}
+}
+
+function openConsultantApprovalModal(){
+document.getElementById("consultantApprovalModal").classList.add("show");
+renderConsultantApprovalList();
+}
+
+function closeConsultantApprovalModal(){
+document.getElementById("consultantApprovalModal").classList.remove("show");
+}
+
+function consultantModalMaskClicked(event){
+if(event.target===event.currentTarget){
+closeConsultantApprovalModal();
+}
+}
+
+function renderConsultantApprovalList(){
+const box=document.getElementById("consultantApprovalList");
+
+if(!pendingConsultantApplications.length){
+box.innerHTML='<div class="consultant-empty">当前辖区没有待审批的健康顾问申请</div>';
+return;
+}
+
+box.innerHTML=pendingConsultantApplications.map(item=>{
+const city=[item.province_name,item.city_name].filter(Boolean).join(" · ")||"未识别辖区";
+const time=item.created_at
+?new Date(item.created_at).toLocaleString("zh-CN",{hour12:false})
+:"—";
+
+return`
+<div class="consultant-application-card">
+<div class="consultant-app-top">
+<div class="consultant-app-name">${esc(item.applicant_name)}</div>
+<div class="consultant-app-city">${esc(city)}</div>
+</div>
+<div class="consultant-app-grid">
+<div><span>手机号码：</span>${esc(item.phone)}</div>
+<div><span>申请时间：</span>${esc(time)}</div>
+<div><span>经营主体：</span>${esc(item.individual_business_name||"—")}</div>
+<div><span>申请编号：</span>${esc(item.id)}</div>
+</div>
+<button id="approveConsultantBtn-${esc(item.id)}" class="consultant-approve-btn" type="button" onclick="approveConsultantApplication(${Number(item.id)})">允许成为健康顾问</button>
+</div>`;
+}).join("");
+}
+
+async function approveConsultantApplication(applicationId){
+const item=pendingConsultantApplications.find(record=>{
+return Number(record.id)===Number(applicationId);
+});
+
+if(!item){
+return;
+}
+
+const confirmed=window.confirm(
+`确认允许 ${item.applicant_name} 成为健康顾问吗？\n\n批准后系统将生成永久唯一编码，该编码不可修改、不可回收复用。`
 );
 
-
-
-/* ==========================================================
-   角色名称
-========================================================== */
-
-function roleText(
-  role
-) {
-
-  const map = {
-
-    founder:
-      "创始人",
-
-    platform_admin:
-      "平台管理员",
-
-    platform_staff:
-      "平台员工",
-
-    province_admin:
-      "省管理员",
-
-    city_admin:
-      "市管理员"
-
-  };
-
-
-  return map[role] || role;
-
+if(!confirmed){
+return;
 }
 
+const button=document.getElementById(`approveConsultantBtn-${applicationId}`);
 
-
-/* ==========================================================
-   管理角色
-========================================================== */
-
-function isManagementRole(
-  role
-) {
-
-  return [
-
-    "founder",
-
-    "platform_admin",
-
-    "platform_staff",
-
-    "province_admin",
-
-    "city_admin"
-
-  ]
-  .includes(
-    role
-  );
-
+if(button){
+button.disabled=true;
+button.textContent="正在审批...";
 }
 
-
-
-/* ==========================================================
-   平台高级管理
-========================================================== */
-
-function isPlatformManager(
-  role
-) {
-
-  return [
-
-    "founder",
-
-    "platform_admin"
-
-  ]
-  .includes(
-    role
-  );
-
+try{
+const{data,error}=await supabaseClient.rpc(
+"approve_health_consultant_application",
+{
+p_application_id:Number(applicationId),
+p_review_note:null
 }
-
-
-
-/* ==========================================================
-   菜单权限
-========================================================== */
-
-function applyMenuPermissions(
-  role
-) {
-
-  const platformItems =
-    document.querySelectorAll(
-      ".platform-only"
-    );
-
-
-  if (
-    !isPlatformManager(
-      role
-    )
-  ) {
-
-    platformItems.forEach(
-
-      element => {
-
-        element.classList.add(
-          "hidden"
-        );
-
-      }
-
-    );
-
-  }
-
-}
-
-
-
-/* ==========================================================
-   管理辖区
-========================================================== */
-
-async function loadAssignment(
-  userId,
-  role
-) {
-
-
-  if (
-    role === "founder"
-    ||
-    role === "platform_admin"
-  ) {
-
-    return {
-
-      provinceName:
-        "全国",
-
-      cityName:
-        "全国"
-
-    };
-
-  }
-
-
-
-  if (
-    role ===
-    "platform_staff"
-  ) {
-
-    return {
-
-      provinceName:
-        "按授权",
-
-      cityName:
-        "按授权"
-
-    };
-
-  }
-
-
-
-  const {
-    data,
-    error
-  } =
-
-  await supabaseClient
-
-    .from(
-      "admin_assignments"
-    )
-
-    .select(`
-
-      province_id,
-
-      city_id
-
-    `)
-
-    .eq(
-      "user_id",
-      userId
-    )
-
-    .eq(
-      "status",
-      "active"
-    )
-
-    .limit(1)
-
-    .maybeSingle();
-
-
-
-  if (error) {
-
-    console.error(
-      "读取辖区失败：",
-      error
-    );
-
-
-    return {
-
-      provinceName:
-        "未配置",
-
-      cityName:
-        "未配置"
-
-    };
-
-  }
-
-
-
-  if (!data) {
-
-    return {
-
-      provinceName:
-        "未配置",
-
-      cityName:
-        "未配置"
-
-    };
-
-  }
-
-
-
-  let provinceName =
-    "未配置";
-
-
-  let cityName =
-    "全部城市";
-
-
-
-  if (
-    data.province_id
-  ) {
-
-    const {
-      data: province
-    } =
-
-    await supabaseClient
-
-      .from(
-        "provinces"
-      )
-
-      .select(
-        "province_name"
-      )
-
-      .eq(
-        "id",
-        data.province_id
-      )
-
-      .maybeSingle();
-
-
-    if (province) {
-
-      provinceName =
-        province.province_name;
-
-    }
-
-  }
-
-
-
-  if (
-    data.city_id
-  ) {
-
-    const {
-      data: city
-    } =
-
-    await supabaseClient
-
-      .from(
-        "cities"
-      )
-
-      .select(
-        "city_name"
-      )
-
-      .eq(
-        "id",
-        data.city_id
-      )
-
-      .maybeSingle();
-
-
-    if (city) {
-
-      cityName =
-        city.city_name;
-
-    }
-
-  }
-
-
-
-  return {
-
-    provinceName,
-
-    cityName
-
-  };
-
-}
-  /* ==========================================================
-   投诉报警显示
-========================================================== */
-
-function updateComplaintAlertUI(
-  count
-) {
-
-  const safeCount =
-    Math.max(
-      0,
-      Number(count) || 0
-    );
-
-
-  const alertBar =
-    document.getElementById(
-      "complaintAlert"
-    );
-
-
-  const alertCount =
-    document.getElementById(
-      "complaintAlertCount"
-    );
-
-
-  const alertDesc =
-    document.getElementById(
-      "complaintAlertDesc"
-    );
-
-
-  const menuBadge =
-    document.getElementById(
-      "complaintMenuBadge"
-    );
-
-
-  const moduleBadge =
-    document.getElementById(
-      "complaintModuleBadge"
-    );
-
-
-  if (
-    safeCount > 0
-  ) {
-
-    alertBar.classList.add(
-      "show"
-    );
-
-
-    alertCount.textContent =
-      safeCount > 99
-        ? "99+"
-        : String(safeCount);
-
-
-    alertDesc.textContent =
-      `当前有 ${safeCount} 条客户投诉等待平台确认，点击立即处理`;
-
-
-    menuBadge.textContent =
-      safeCount > 99
-        ? "99+"
-        : String(safeCount);
-
-
-    menuBadge.classList.add(
-      "show"
-    );
-
-
-    moduleBadge.textContent =
-      `${safeCount} 条待确认`;
-
-
-    moduleBadge.classList.add(
-      "show"
-    );
-
-  }
-
-  else {
-
-    alertBar.classList.remove(
-      "show"
-    );
-
-
-    menuBadge.classList.remove(
-      "show"
-    );
-
-
-    moduleBadge.classList.remove(
-      "show"
-    );
-
-  }
-
-}
-
-
-
-/* ==========================================================
-   读取平台待确认投诉数量
-
-   优先使用安全 RPC：
-   get_platform_complaint_alert_count()
-
-   下一步 complains.html 数据库读取接口建立后，
-   此处会直接使用 RPC。
-
-   为兼容当前阶段：
-   如果 RPC 尚未建立，则尝试直接读取投诉表。
-   如果 RLS 阻止读取，则不影响管理首页运行。
-========================================================== */
-
-async function loadComplaintAlert(
-  profile
-) {
-
-  /*
-   * 当前投诉“平台确认”RPC只允许：
-   * founder / platform_admin
-   *
-   * 因此当前首页报警也先只对这两个角色显示。
-   */
-  if (
-    !isPlatformManager(
-      profile.role
-    )
-  ) {
-
-    updateComplaintAlertUI(
-      0
-    );
-
-    return;
-  }
-
-
-  try {
-
-    /*
-     * 第一选择：
-     * 使用安全 RPC。
-     */
-    const {
-      data: rpcData,
-      error: rpcError
-    } =
-
-    await supabaseClient.rpc(
-      "get_platform_complaint_alert_count"
-    );
-
-
-    if (
-      !rpcError
-    ) {
-
-      let count =
-        0;
-
-
-      if (
-        typeof rpcData ===
-        "number"
-      ) {
-
-        count =
-          rpcData;
-
-      }
-
-      else if (
-        typeof rpcData ===
-        "string"
-      ) {
-
-        count =
-          Number(rpcData) || 0;
-
-      }
-
-      else if (
-        rpcData
-        &&
-        typeof rpcData ===
-        "object"
-      ) {
-
-        count =
-          Number(
-            rpcData.count
-            ??
-            rpcData.pending_count
-            ??
-            rpcData.alert_count
-            ??
-            0
-          );
-
-      }
-
-
-      updateComplaintAlertUI(
-        count
-      );
-
-
-      return;
-
-    }
-
-
-    /*
-     * RPC不存在时，
-     * 尝试直接读取。
-     */
-    console.warn(
-      "投诉报警RPC暂不可用，尝试直接读取：",
-      rpcError
-    );
-
-
-    const {
-      count,
-      error
-    } =
-
-    await supabaseClient
-
-      .from(
-        "customer_complaints"
-      )
-
-      .select(
-        "id",
-        {
-          count: "exact",
-          head: true
-        }
-      )
-
-      .eq(
-        "status",
-        "active"
-      )
-
-      .eq(
-        "platform_confirmed",
-        false
-      );
-
-
-    if (error) {
-
-      /*
-       * 投诉报警读取失败不能影响
-       * wholemanagement 首页。
-       */
-      console.warn(
-        "当前RLS暂未开放投诉报警读取：",
-        error
-      );
-
-
-      updateComplaintAlertUI(
-        0
-      );
-
-
-      return;
-    }
-
-
-    updateComplaintAlertUI(
-      count || 0
-    );
-
-  }
-
-  catch (error) {
-
-    console.warn(
-      "读取投诉报警失败：",
-      error
-    );
-
-
-    updateComplaintAlertUI(
-      0
-    );
-
-  }
-
-}
-
-
-
-/* ==========================================================
-   初始化
-========================================================== */
-
-async function initializePage() {
-
-
-  resetIdleTimer();
-
-
-  try {
-
-
-    const {
-
-      data: {
-        session
-      },
-
-      error: sessionError
-
-    } =
-
-    await supabaseClient.auth
-      .getSession();
-
-
-
-    if (
-      sessionError
-      ||
-      !session
-    ) {
-
-      window.location.href =
-        LOGIN_PAGE;
-
-      return;
-
-    }
-
-
-
-    const user =
-      session.user;
-
-
-
-    const {
-
-      data: profile,
-
-      error: profileError
-
-    } =
-
-    await supabaseClient
-
-      .from(
-        "profiles"
-      )
-
-      .select(`
-
-        id,
-
-        full_name,
-
-        role,
-
-        status
-
-      `)
-
-      .eq(
-        "id",
-        user.id
-      )
-
-      .maybeSingle();
-
-
-
-    if (
-      profileError
-      ||
-      !profile
-    ) {
-
-      console.error(
-        "读取profile失败：",
-        profileError
-      );
-
-
-      await supabaseClient.auth
-        .signOut();
-
-
-      alert(
-        "当前账号没有平台管理人员资料。"
-      );
-
-
-      window.location.href =
-        LOGIN_PAGE;
-
-
-      return;
-
-    }
-
-
-
-    if (
-      profile.status !==
-      "active"
-    ) {
-
-      await supabaseClient.auth
-        .signOut();
-
-
-      alert(
-        "当前账号已停用，无法进入管理平台。"
-      );
-
-
-      window.location.href =
-        LOGIN_PAGE;
-
-
-      return;
-
-    }
-
-
-
-    if (
-      !isManagementRole(
-        profile.role
-      )
-    ) {
-
-      await supabaseClient.auth
-        .signOut();
-
-
-      alert(
-        "当前账号没有管理平台访问权限。"
-      );
-
-
-      window.location.href =
-        LOGIN_PAGE;
-
-
-      return;
-
-    }
-
-
-
-    const assignment =
-      await loadAssignment(
-
-        user.id,
-
-        profile.role
-
-      );
-
-
-
-    const displayName =
-
-      profile.full_name
-      ||
-      user.email
-      ||
-      "管理人员";
-
-
-
-    const roleName =
-
-      roleText(
-        profile.role
-      );
-
-
-
-    document.getElementById(
-      "topUserName"
-    ).textContent =
-      displayName;
-
-
-
-    document.getElementById(
-      "topUserRole"
-    ).textContent =
-      roleName;
-
-
-
-    document.getElementById(
-      "cardRole"
-    ).textContent =
-      roleName;
-
-
-
-    document.getElementById(
-      "cardProvince"
-    ).textContent =
-      assignment.provinceName;
-
-
-
-    document.getElementById(
-      "cardCity"
-    ).textContent =
-      assignment.cityName;
-
-
-
-    document.getElementById(
-      "cardEmail"
-    ).textContent =
-      user.email || "-";
-
-
-
-    document.getElementById(
-      "welcomeTitle"
-    ).textContent =
-      `欢迎回来，${displayName}`;
-
-
-
-    let description =
-      "";
-
-
-    if (
-      profile.role ===
-      "founder"
-    ) {
-
-      description =
-
-        "您当前拥有全国平台最高管理权限，可管理全国产品、人员、地区和业务数据。";
-
-    }
-
-
-    else if (
-      profile.role ===
-      "platform_admin"
-    ) {
-
-      description =
-
-        "您当前拥有平台管理权限，可管理全国产品目录、地区和业务数据。";
-
-    }
-
-
-    else if (
-      profile.role ===
-      "province_admin"
-    ) {
-
-      description =
-
-        `您当前负责 ${assignment.provinceName}，可以查看本省辖区内各城市业务数据。`;
-
-    }
-
-
-    else if (
-      profile.role ===
-      "city_admin"
-    ) {
-
-      description =
-
-        `您当前负责 ${assignment.cityName}，可以管理本市价格并查看本市业务数据。`;
-
-    }
-
-
-    else {
-
-      description =
-
-        "您已进入孕乃馨平台管理中心，请按照已授权范围使用管理功能。";
-
-    }
-
-
-
-    document.getElementById(
-      "welcomeDesc"
-    ).textContent =
-      description;
-
-
-
-    applyMenuPermissions(
-      profile.role
-    );
-
-
-
-    /*
-     * 页面主体权限验证完成后，
-     * 再读取投诉报警。
-     *
-     * 报警读取失败不会阻塞首页。
-     */
-    await loadComplaintAlert(
-      profile
-    );
-
-
-
-    document.getElementById(
-      "loadingMask"
-    ).style.display =
-      "none";
-
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "页面初始化失败：",
-      error
-    );
-
-
-    alert(
-      "系统初始化失败，请重新登录。"
-    );
-
-
-    window.location.href =
-      LOGIN_PAGE;
-
-  }
-
-}
-
-
-
-/* ==========================================================
-   手动退出
-========================================================== */
-
-async function logout() {
-
-
-  const confirmLogout =
-
-    confirm(
-      "确定退出管理平台吗？"
-    );
-
-
-  if (
-    !confirmLogout
-  ) {
-
-    return;
-
-  }
-
-
-  try {
-
-    await supabaseClient.auth
-      .signOut();
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "退出登录失败：",
-      error
-    );
-
-  }
-
-
-  window.location.href =
-    LOGIN_PAGE;
-
-}
-
-
-
-/* ==========================================================
-   登录状态监听
-========================================================== */
-
-supabaseClient.auth
-  .onAuthStateChange(
-
-    (
-      event,
-      session
-    ) => {
-
-      if (
-        event ===
-        "SIGNED_OUT"
-      ) {
-
-        window.location.href =
-          LOGIN_PAGE;
-
-      }
-
-    }
-
-  );
-
-
-
-/* ==========================================================
-   启动
-========================================================== */
-
-document.addEventListener(
-
-  "DOMContentLoaded",
-
-  initializePage
-
 );
 
+if(error){
+throw error;
+}
 
+if(!data||!data.success){
+throw new Error(data?.message||"审批失败");
+}
+
+pendingConsultantApplications=pendingConsultantApplications.filter(record=>{
+return Number(record.id)!==Number(applicationId);
+});
+
+updateConsultantApprovalAlert();
+
+document.getElementById("consultantApprovalList").innerHTML=`
+<div class="consultant-code-result">
+<div>健康顾问审批成功</div>
+<div class="consultant-code-number">${esc(data.consultant_no)}</div>
+<div>${esc(data.applicant_name)}　${esc(data.phone)}</div>
+<div class="consultant-code-warning">
+请联系申请人本人，并口头告知以上唯一健康顾问编码。
+<br>
+该编码将作为登录用户名和订单归属凭证，请申请人妥善保管。
+</div>
+<button class="consultant-approve-btn" type="button" onclick="renderConsultantApprovalList()">继续处理其他申请</button>
+</div>`;
+}catch(error){
+console.error("健康顾问审批失败：",error);
+alert("审批失败："+(error.message||"请稍后重试"));
+
+if(button){
+button.disabled=false;
+button.textContent="允许成为健康顾问";
+}
+}
+}
+
+function updateComplaintAlertUI(count){
+const safeCount=Math.max(0,Number(count)||0);
+const alertBar=document.getElementById("complaintAlert");
+const menuBadge=document.getElementById("complaintMenuBadge");
+const moduleBadge=document.getElementById("complaintModuleBadge");
+
+if(safeCount>0){
+alertBar.classList.add("show");
+document.getElementById("complaintAlertCount").textContent=safeCount>99?"99+":String(safeCount);
+document.getElementById("complaintAlertDesc").textContent=`当前有 ${safeCount} 条客户投诉等待平台确认，点击立即处理`;
+menuBadge.textContent=safeCount>99?"99+":String(safeCount);
+menuBadge.classList.add("show");
+moduleBadge.textContent=`${safeCount} 条待确认`;
+moduleBadge.classList.add("show");
+}else{
+alertBar.classList.remove("show");
+menuBadge.classList.remove("show");
+moduleBadge.classList.remove("show");
+}
+}
+
+async function loadComplaintAlert(profile){
+if(!isPlatformManager(profile.role)){
+updateComplaintAlertUI(0);
+return;
+}
+
+try{
+const{data,error}=await supabaseClient.rpc("get_platform_complaint_alert_count");
+
+if(error){
+console.warn("投诉提醒读取失败：",error);
+updateComplaintAlertUI(0);
+return;
+}
+
+let count=0;
+
+if(typeof data==="number"||typeof data==="string"){
+count=Number(data)||0;
+}else if(data&&typeof data==="object"){
+count=Number(data.count??data.pending_count??data.alert_count??0);
+}
+
+updateComplaintAlertUI(count);
+}catch(error){
+console.warn("投诉提醒读取失败：",error);
+updateComplaintAlertUI(0);
+}
+}
+
+async function initializePage(){
+resetIdleTimer();
+
+try{
+const{
+data:{session},
+error:sessionError
+}=await supabaseClient.auth.getSession();
+
+if(sessionError||!session){
+window.location.href=LOGIN_PAGE;
+return;
+}
+
+const user=session.user;
+
+const{data:profile,error:profileError}=await supabaseClient
+.from("profiles")
+.select("id,full_name,role,status")
+.eq("id",user.id)
+.maybeSingle();
+
+if(profileError||!profile){
+await supabaseClient.auth.signOut();
+alert("当前账号没有平台管理人员资料。");
+window.location.href=LOGIN_PAGE;
+return;
+}
+
+if(profile.status!=="active"){
+await supabaseClient.auth.signOut();
+alert("当前账号已停用。");
+window.location.href=LOGIN_PAGE;
+return;
+}
+
+if(!isManagementRole(profile.role)){
+await supabaseClient.auth.signOut();
+alert("当前账号没有管理平台访问权限。");
+window.location.href=LOGIN_PAGE;
+return;
+}
+
+const assignment=await loadAssignment(user.id,profile.role);
+const displayName=profile.full_name||user.email||"管理人员";
+const roleName=roleText(profile.role);
+
+document.getElementById("topUserName").textContent=displayName;
+document.getElementById("topUserRole").textContent=roleName;
+document.getElementById("cardRole").textContent=roleName;
+document.getElementById("cardProvince").textContent=assignment.provinceName;
+document.getElementById("cardCity").textContent=assignment.cityName;
+document.getElementById("cardEmail").textContent=user.email||"-";
+document.getElementById("welcomeTitle").textContent=`欢迎回来，${displayName}`;
+
+let description="";
+
+if(profile.role==="founder"){
+description="您当前拥有全国平台最高管理权限，可管理全国产品、人员、地区和业务数据。";
+}else if(profile.role==="platform_admin"){
+description="您当前拥有平台管理权限，可管理全国产品目录、地区和业务数据。";
+}else if(profile.role==="province_admin"){
+description=`您当前负责 ${assignment.provinceName}，可以查看本省辖区内各城市业务数据。`;
+}else if(profile.role==="city_admin"){
+description=`您当前负责 ${assignment.cityName}，可以管理本市价格并查看本市业务数据。`;
+}else{
+description="您已进入孕乃馨平台管理中心，请按照已授权范围使用管理功能。";
+}
+
+document.getElementById("welcomeDesc").textContent=description;
+applyMenuPermissions(profile.role);
+
+await Promise.all([
+loadComplaintAlert(profile),
+loadConsultantApprovalAlert(profile)
+]);
+
+document.getElementById("loadingMask").style.display="none";
+}catch(error){
+console.error("页面初始化失败：",error);
+alert("系统初始化失败，请重新登录。");
+window.location.href=LOGIN_PAGE;
+}
+}
+
+async function logout(){
+if(!confirm("确定退出管理平台吗？")){
+return;
+}
+
+try{
+await supabaseClient.auth.signOut();
+}catch(error){
+console.error("退出登录失败：",error);
+}
+
+window.location.href=LOGIN_PAGE;
+}
+
+supabaseClient.auth.onAuthStateChange(event=>{
+if(event==="SIGNED_OUT"){
+window.location.href=LOGIN_PAGE;
+}
+});
+
+document.addEventListener("DOMContentLoaded",initializePage);
 </script>
-
-
 </body>
-
 </html>

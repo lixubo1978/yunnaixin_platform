@@ -1,52 +1,35 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
 <meta charset="UTF-8">
-<meta
-    name="viewport"
-    content="width=device-width,initial-scale=1.0,maximum-scale=1.0,viewport-fit=cover"
->
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,viewport-fit=cover">
 <meta name="theme-color" content="#fff7fa">
-
 <title>商户分成规则 - 孕乃馨</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
 :root{
     --pink-50:#fff7fa;
     --pink-100:#ffeef4;
     --pink-200:#ffd9e7;
     --pink-300:#f8bdd2;
-    --pink-400:#f28aae;
     --pink-500:#e85d8f;
     --pink-600:#d94d7d;
     --pink-700:#b93667;
-
     --rose:#652742;
-
     --text:#29242a;
     --text2:#716a73;
     --text3:#a39aa1;
-
     --border:#eee5e9;
-
     --green:#278255;
     --green-bg:#edf9f2;
-
     --orange:#a56c16;
     --orange-bg:#fff7e8;
-
     --gray:#80777d;
     --gray-bg:#f3f0f2;
-
     --red:#c63d5b;
     --red-bg:#fff1f4;
-
-    --purple:#78518e;
-    --purple-bg:#f6effa;
 }
 
 *{
@@ -54,8 +37,7 @@
     -webkit-tap-highlight-color:transparent;
 }
 
-html,
-body{
+html,body{
     margin:0;
     min-height:100%;
 }
@@ -63,41 +45,15 @@ body{
 body{
     min-height:100vh;
     min-height:100dvh;
-
-    background:
-        linear-gradient(
-            180deg,
-            #fffafb,
-            #faf9fa
-        );
-
+    background:linear-gradient(180deg,#fffafb,#faf9fa);
     color:var(--text);
-
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        "PingFang SC",
-        "Microsoft YaHei",
-        Arial,
-        sans-serif;
-
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;
     -webkit-font-smoothing:antialiased;
 }
 
-button,
-input,
-select{
-    font:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-.hidden{
-    display:none !important;
-}
+button,input,select{font:inherit;}
+button{cursor:pointer;}
+.hidden{display:none!important;}
 
 .topbar{
     min-height:68px;
@@ -146,8 +102,7 @@ button{
     gap:9px;
 }
 
-.back-button,
-.logout-button{
+.back-button,.logout-button{
     min-height:44px;
     padding:0 15px;
     border-radius:12px;
@@ -277,13 +232,11 @@ button{
     background:#fff;
 }
 
-.table-scroll{
-    overflow-x:auto;
-}
+.table-scroll{overflow-x:auto;}
 
 table{
     width:100%;
-    min-width:2050px;
+    min-width:1750px;
     border-collapse:collapse;
 }
 
@@ -303,9 +256,7 @@ td{
     vertical-align:middle;
 }
 
-.merchant-name{
-    font-weight:750;
-}
+.merchant-name{font-weight:750;}
 
 .sub-text{
     margin-top:3px;
@@ -313,13 +264,8 @@ td{
     font-size:9px;
 }
 
-.service-name{
-    font-weight:700;
-}
-
-.value{
-    font-weight:650;
-}
+.service-name{font-weight:700;}
+.value{font-weight:650;}
 
 .undefined{
     color:var(--orange);
@@ -374,8 +320,7 @@ td{
     background:var(--gray-bg);
 }
 
-.define-button,
-.invalidate-button{
+.define-button,.invalidate-button{
     min-height:39px;
     padding:0 12px;
     border-radius:10px;
@@ -412,9 +357,7 @@ td{
     font-size:33px;
 }
 
-.mobile-list{
-    display:none;
-}
+.mobile-list{display:none;}
 
 .rule-card{
     padding:16px;
@@ -459,10 +402,6 @@ td{
 .mobile-item-fixed{
     background:var(--pink-50);
     border:1px solid var(--pink-100);
-}
-
-.mobile-item-wide{
-    grid-column:1 / -1;
 }
 
 .mobile-label{
@@ -560,24 +499,7 @@ td{
     line-height:1.6;
 }
 
-.health-panel{
-    padding:15px 14px 2px;
-    margin:4px 0 14px;
-    border:1px solid #ead9f0;
-    border-radius:14px;
-    background:#fcf8fe;
-}
-
-.health-panel-title{
-    margin-bottom:13px;
-    color:var(--purple);
-    font-size:12px;
-    font-weight:750;
-}
-
-.form-group{
-    margin-bottom:13px;
-}
+.form-group{margin-bottom:13px;}
 
 .form-label{
     display:block;
@@ -623,13 +545,8 @@ td{
     color:var(--orange);
 }
 
-.ratio-total.valid{
-    color:var(--green);
-}
-
-.ratio-total.invalid{
-    color:var(--red);
-}
+.ratio-total.valid{color:var(--green);}
+.ratio-total.invalid{color:var(--red);}
 
 .ratio-message{
     margin-top:5px;
@@ -638,13 +555,8 @@ td{
     color:var(--orange);
 }
 
-.ratio-message.valid{
-    color:var(--green);
-}
-
-.ratio-message.invalid{
-    color:var(--red);
-}
+.ratio-message.valid{color:var(--green);}
+.ratio-message.invalid{color:var(--red);}
 
 .ratio-formula{
     margin-top:8px;
@@ -660,8 +572,7 @@ td{
     margin-top:18px;
 }
 
-.cancel-button,
-.save-button{
+.cancel-button,.save-button{
     min-height:49px;
     border-radius:12px;
     font-weight:750;
@@ -723,19 +634,14 @@ td{
 }
 
 @media(max-width:1200px){
-    .stats{
-        grid-template-columns:repeat(3,1fr);
-    }
+    .stats{grid-template-columns:repeat(3,1fr);}
 }
 
 @media(max-width:900px){
-    .toolbar{
-        grid-template-columns:1fr 1fr;
-    }
+    .toolbar{grid-template-columns:1fr 1fr;}
 }
 
 @media(max-width:760px){
-
     .topbar{
         min-height:64px;
         padding:max(5px,env(safe-area-inset-top)) 11px 5px;
@@ -746,26 +652,16 @@ td{
         height:38px;
     }
 
-    .brand-title{
-        font-size:16px;
-    }
-
-    .brand-sub{
-        display:none;
-    }
-
-    .back-button{
-        display:none;
-    }
+    .brand-title{font-size:16px;}
+    .brand-sub{display:none;}
+    .back-button{display:none;}
 
     .logout-button{
         min-height:42px;
         padding:0 12px;
     }
 
-    .page{
-        padding:13px 11px 25px;
-    }
+    .page{padding:13px 11px 25px;}
 
     .hero{
         padding:20px 18px;
@@ -773,9 +669,7 @@ td{
         border-radius:18px;
     }
 
-    .hero h1{
-        font-size:20px;
-    }
+    .hero h1{font-size:20px;}
 
     .stats{
         grid-template-columns:repeat(2,1fr);
@@ -788,22 +682,10 @@ td{
         padding:13px;
     }
 
-    .stat-value{
-        font-size:18px;
-    }
-
-    .toolbar{
-        grid-template-columns:1fr;
-        padding:10px;
-    }
-
-    .table-panel{
-        display:none;
-    }
-
-    .mobile-list{
-        display:block;
-    }
+    .stat-value{font-size:18px;}
+    .toolbar{grid-template-columns:1fr;padding:10px;}
+    .table-panel{display:none;}
+    .mobile-list{display:block;}
 
     .modal-mask{
         align-items:flex-end;
@@ -817,7 +699,6 @@ td{
         padding:21px 17px max(20px,env(safe-area-inset-bottom));
     }
 }
-
 </style>
 </head>
 
@@ -825,59 +706,29 @@ td{
 
 <div id="loading" class="loading">
     <div class="spinner"></div>
-    <div style="color:#756a71;font-size:12px;">
-        正在读取商户分成规则...
-    </div>
+    <div style="color:#756a71;font-size:12px;">正在读取商户分成规则...</div>
 </div>
 
 <header class="topbar">
-
     <div class="brand">
         <img src="./logo.jpeg" alt="孕乃馨">
-
         <div>
-            <div class="brand-title">
-                商户分成规则
-            </div>
-
-            <div class="brand-sub">
-                孕乃馨平台管理中心
-            </div>
+            <div class="brand-title">商户分成规则</div>
+            <div class="brand-sub">孕乃馨平台管理中心</div>
         </div>
     </div>
 
     <div class="top-actions">
-
-        <button
-            class="back-button"
-            onclick="goHome()"
-        >
-            返回首页
-        </button>
-
-        <button
-            class="logout-button"
-            onclick="logout()"
-        >
-            退出
-        </button>
-
+        <button class="back-button" onclick="goHome()">返回首页</button>
+        <button class="logout-button" onclick="logout()">退出</button>
     </div>
-
 </header>
 
 <main class="page">
 
 <section class="hero">
-
-    <div class="hero-tag">
-        MERCHANT RULES
-    </div>
-
-    <h1>
-        商户分成规则
-    </h1>
-
+    <div class="hero-tag">MERCHANT RULES</div>
+    <h1>商户分成规则</h1>
     <p>
         每个商户、每个有效服务项目只保留一套统一分成规则。
         新商户或新服务项目建立后，系统自动生成一条未定义规则。
@@ -887,11 +738,9 @@ td{
         规则定义后不能直接修改；如需调整，必须先将原规则设为无效，
         系统自动建立下一版本，历史规则永久保留。
     </p>
-
 </section>
 
 <section class="stats">
-
     <div class="stat">
         <div class="stat-label">当前有效规则</div>
         <div id="statActive" class="stat-value">0</div>
@@ -922,47 +771,29 @@ td{
         <div class="stat-value">2%</div>
         <div class="stat-note">全国统一 · 固定比例 · 不可修改</div>
     </div>
-
 </section>
 
 <section class="toolbar">
-
-    <select
-        id="cityFilter"
-        class="select"
-        onchange="cityChanged()"
-    >
+    <select id="cityFilter" class="select" onchange="cityChanged()">
         <option value="">全部已开展业务城市</option>
     </select>
 
-    <select
-        id="merchantFilter"
-        class="select"
-        onchange="renderRules()"
-    >
+    <select id="merchantFilter" class="select" onchange="renderRules()">
         <option value="">全部商户</option>
     </select>
 
-    <select
-        id="ruleFilter"
-        class="select"
-        onchange="renderRules()"
-    >
+    <select id="ruleFilter" class="select" onchange="renderRules()">
         <option value="active">当前有效规则</option>
         <option value="undefined">当前未定义</option>
         <option value="defined">当前已定义</option>
         <option value="history">历史已失效</option>
         <option value="all">全部规则</option>
     </select>
-
 </section>
 
 <section class="table-panel">
-
 <div class="table-scroll">
-
 <table>
-
 <thead>
 <tr>
     <th>商户</th>
@@ -976,33 +807,23 @@ td{
     <th>门店比例</th>
     <th>操作人员比例</th>
     <th>订单来源比例</th>
-    <th>订单来源联系人</th>
-    <th>健康咨询电话</th>
     <th>修改人</th>
     <th>修改时间</th>
     <th>状态</th>
     <th>操作</th>
 </tr>
 </thead>
-
 <tbody id="rulesTable"></tbody>
-
 </table>
-
 </div>
 
 <div id="desktopEmpty" class="empty hidden">
     <div class="empty-icon">📊</div>
     暂无符合条件的商户分成规则
 </div>
-
 </section>
 
-<section
-    id="mobileList"
-    class="mobile-list"
->
-</section>
+<section id="mobileList" class="mobile-list"></section>
 
 <div id="mobileEmpty" class="empty hidden">
     <div class="empty-icon">📊</div>
@@ -1011,24 +832,11 @@ td{
 
 </main>
 
-<div
-    id="defineModal"
-    class="modal-mask hidden"
-    onclick="modalBackgroundClick(event)"
->
-
+<div id="defineModal" class="modal-mask hidden" onclick="modalBackgroundClick(event)">
 <div class="modal">
 
-    <div class="modal-title">
-        定义商户分成规则
-    </div>
-
-    <div
-        id="modalSubtitle"
-        class="modal-sub"
-    >
-        -
-    </div>
+    <div class="modal-title">定义商户分成规则</div>
+    <div id="modalSubtitle" class="modal-sub">-</div>
 
     <div class="modal-info">
         本次定义完成后，该版本规则将被锁定。
@@ -1042,23 +850,15 @@ td{
     </div>
 
     <div class="fixed-service-panel">
-        <div class="fixed-service-title">
-            软件服务商技术服务费
-        </div>
-        <div class="fixed-service-value">
-            2%
-        </div>
+        <div class="fixed-service-title">软件服务商技术服务费</div>
+        <div class="fixed-service-value">2%</div>
         <div class="fixed-service-note">
             全国统一固定比例，由系统自动计入分账比例，不提供修改入口。
         </div>
     </div>
 
     <div class="form-group">
-
-        <label class="form-label">
-            市负责人比例（%）
-        </label>
-
+        <label class="form-label">市负责人比例（%）</label>
         <input
             id="cityManagerInput"
             class="form-input ratio-input"
@@ -1069,15 +869,10 @@ td{
             inputmode="decimal"
             placeholder="请输入市负责人比例"
         >
-
     </div>
 
     <div class="form-group">
-
-        <label class="form-label">
-            平台比例（%）
-        </label>
-
+        <label class="form-label">平台比例（%）</label>
         <input
             id="platformInput"
             class="form-input ratio-input"
@@ -1088,15 +883,10 @@ td{
             inputmode="decimal"
             placeholder="请输入平台比例"
         >
-
     </div>
 
     <div class="form-group">
-
-        <label class="form-label">
-            门店比例（%）
-        </label>
-
+        <label class="form-label">门店比例（%）</label>
         <input
             id="storeInput"
             class="form-input ratio-input"
@@ -1107,15 +897,10 @@ td{
             inputmode="decimal"
             placeholder="请输入门店比例"
         >
-
     </div>
 
     <div class="form-group">
-
-        <label class="form-label">
-            操作人员比例（%）
-        </label>
-
+        <label class="form-label">操作人员比例（%）</label>
         <input
             id="operatorInput"
             class="form-input ratio-input"
@@ -1126,87 +911,33 @@ td{
             inputmode="decimal"
             placeholder="请输入操作人员比例"
         >
-
     </div>
 
-    <div id="healthConsultantPanel" class="health-panel">
-
-        <div class="health-panel-title">
-            订单来源信息
-        </div>
-
-        <div class="form-group">
-
-            <label class="form-label">
-                订单来源比例（%）
-            </label>
-
-            <input
-                id="healthRatioInput"
-                class="form-input ratio-input"
-                type="number"
-                min="0"
-                max="100"
-                step="0.01"
-                inputmode="decimal"
-                placeholder="请输入订单来源比例"
-            >
-
-        </div>
-
-        <div class="form-group">
-
-            <label class="form-label">
-                订单来源联系人
-            </label>
-
-            <input
-                id="healthNameInput"
-                class="form-input"
-                type="text"
-                maxlength="100"
-                autocomplete="off"
-                placeholder="请输入订单来源联系人"
-            >
-
-        </div>
-
-        <div class="form-group">
-
-            <label class="form-label">
-                健康咨询电话
-            </label>
-
-            <input
-                id="healthPhoneInput"
-                class="form-input"
-                type="tel"
-                maxlength="50"
-                autocomplete="off"
-                placeholder="请输入健康咨询电话"
-            >
-
-        </div>
-
+    <!--
+        订单来源比例现在与其他可调整比例完全相同。
+        不再使用单独“订单来源信息”区域。
+        不再要求联系人及电话。
+    -->
+    <div class="form-group">
+        <label class="form-label">订单来源比例（%）</label>
+        <input
+            id="orderSourceInput"
+            class="form-input ratio-input"
+            type="number"
+            min="0"
+            max="100"
+            step="0.01"
+            inputmode="decimal"
+            placeholder="请输入订单来源比例"
+        >
     </div>
 
     <div class="ratio-check">
+        <div class="ratio-check-title">六方分账比例合计</div>
 
-        <div class="ratio-check-title">
-            六方分账比例合计
-        </div>
+        <div id="ratioTotal" class="ratio-total">2.00%</div>
 
-        <div
-            id="ratioTotal"
-            class="ratio-total"
-        >
-            2.00%
-        </div>
-
-        <div
-            id="ratioMessage"
-            class="ratio-message"
-        >
+        <div id="ratioMessage" class="ratio-message">
             请填写5项可调整比例，加上软件服务商固定2%，合计必须等于100%。
         </div>
 
@@ -1214,17 +945,10 @@ td{
             市负责人比例 + 平台比例 + 软件服务商固定2% +
             门店比例 + 操作人员比例 + 订单来源比例 = 100%
         </div>
-
     </div>
 
     <div class="modal-actions">
-
-        <button
-            class="cancel-button"
-            onclick="closeDefineModal()"
-        >
-            取消
-        </button>
+        <button class="cancel-button" onclick="closeDefineModal()">取消</button>
 
         <button
             id="saveButton"
@@ -1234,17 +958,12 @@ td{
         >
             确认定义
         </button>
-
     </div>
 
 </div>
 </div>
 
-<div
-    id="toast"
-    class="toast hidden"
->
-</div>
+<div id="toast" class="toast hidden"></div>
 
 <script>
 
@@ -1348,11 +1067,11 @@ async function initialize(){
             error.message ||
             "商户分成规则读取失败。"
         );
-
     }
-
 }
-    /* =========================================================
+
+
+/* =========================================================
    04. ACCESS
 ========================================================= */
 
@@ -1375,9 +1094,7 @@ async function verifyAccess(){
         await supabaseClient.auth.signOut();
         location.replace(LOGIN_PAGE);
 
-        throw new Error(
-            "无法读取当前账号资料。"
-        );
+        throw new Error("无法读取当前账号资料。");
     }
 
     if(data.status !== "active"){
@@ -1385,9 +1102,7 @@ async function verifyAccess(){
         await supabaseClient.auth.signOut();
         location.replace(LOGIN_PAGE);
 
-        throw new Error(
-            "当前账号已停用。"
-        );
+        throw new Error("当前账号已停用。");
     }
 
     if(
@@ -1396,7 +1111,6 @@ async function verifyAccess(){
             "platform_admin"
         ].includes(data.role)
     ){
-
         location.replace(HOME_PAGE);
 
         throw new Error(
@@ -1460,7 +1174,6 @@ async function loadBaseData(){
                     full_name,
                     login_email
                 `)
-
         ]);
 
     const [
@@ -1511,15 +1224,10 @@ async function loadRules(){
 
                 city_manager_ratio,
                 software_service_ratio,
-
                 platform_ratio,
                 store_ratio,
                 operator_ratio,
-
                 health_consultant_ratio,
-                health_consultant_id,
-                health_consultant_name,
-                health_consultant_phone,
 
                 status,
                 version_no,
@@ -1636,7 +1344,6 @@ function buildMaps(){
                 `${item.city_id}_${item.product_id}`,
                 item
             );
-
         }
     );
 }
@@ -1647,21 +1354,18 @@ function buildMaps(){
 ========================================================= */
 
 function getMerchant(rule){
-
     return merchantsMap.get(
         String(rule.merchant_id)
     );
 }
 
 function getProduct(rule){
-
     return productsMap.get(
         String(rule.product_id)
     );
 }
 
 function merchantName(merchant){
-
     return (
         merchant?.merchant_name ||
         merchant?.name ||
@@ -1687,7 +1391,6 @@ function merchantNo(merchant){
 }
 
 function productName(product){
-
     return (
         product?.product_name ||
         product?.name ||
@@ -1710,9 +1413,7 @@ function merchantCityId(merchant){
 
         const area =
             serviceAreasMap.get(
-                String(
-                    merchant.service_area_id
-                )
+                String(merchant.service_area_id)
             );
 
         if(area?.city_id){
@@ -1739,9 +1440,7 @@ function areaText(merchant){
 
         const area =
             serviceAreasMap.get(
-                String(
-                    merchant.service_area_id
-                )
+                String(merchant.service_area_id)
             );
 
         if(area){
@@ -1804,7 +1503,6 @@ function cityPrice(rule){
 ========================================================= */
 
 function isEmptyValue(value){
-
     return (
         value === null ||
         value === undefined ||
@@ -1812,14 +1510,13 @@ function isEmptyValue(value){
     );
 }
 
-
 /*
- * 软件服务商固定2%，不作为“是否定义”的判断条件。
+ * 当前统一规则只判断5项可调整比例。
  *
- * tax_rate 已正式废弃，
- * 不再读取、不再判断、不再显示、不再计算。
+ * 软件服务商固定2%，不作为空白判断条件。
+ * 联系人、电话已经退出分成规则。
+ * tax_rate 已废弃。
  */
-
 function ruleValues(rule){
 
     return [
@@ -1827,9 +1524,7 @@ function ruleValues(rule){
         rule.platform_ratio,
         rule.store_ratio,
         rule.operator_ratio,
-        rule.health_consultant_ratio,
-        rule.health_consultant_name,
-        rule.health_consultant_phone
+        rule.health_consultant_ratio
     ];
 }
 
@@ -1965,12 +1660,7 @@ function modifiedTime(rule){
 function formatPercent(value){
 
     if(isEmptyValue(value)){
-
-        return `
-            <span class="undefined">
-                未定义
-            </span>
-        `;
+        return `<span class="undefined">未定义</span>`;
     }
 
     return `
@@ -1982,8 +1672,7 @@ function formatPercent(value){
 
 function formatSoftwareRatio(value){
 
-    const ratio =
-        Number(value);
+    const ratio = Number(value);
 
     const display =
         Number.isFinite(ratio)
@@ -2000,33 +1689,10 @@ function formatSoftwareRatio(value){
     `;
 }
 
-function formatTextValue(value){
-
-    if(isEmptyValue(value)){
-
-        return `
-            <span class="undefined">
-                未定义
-            </span>
-        `;
-    }
-
-    return `
-        <span class="value">
-            ${escapeHtml(value)}
-        </span>
-    `;
-}
-
 function formatPrice(value){
 
     if(isEmptyValue(value)){
-
-        return `
-            <span class="undefined">
-                未定义
-            </span>
-        `;
+        return `<span class="undefined">未定义</span>`;
     }
 
     const number = Number(value);
@@ -2090,11 +1756,7 @@ function buildCityFilter(){
         );
 
     select.innerHTML =
-        `
-        <option value="">
-            全部已开展业务城市
-        </option>
-        `;
+        `<option value="">全部已开展业务城市</option>`;
 
     const used = new Set();
 
@@ -2168,11 +1830,7 @@ function buildMerchantFilter(){
     const previous = select.value;
 
     select.innerHTML =
-        `
-        <option value="">
-            全部商户
-        </option>
-        `;
+        `<option value="">全部商户</option>`;
 
     const list =
         merchants
@@ -2227,7 +1885,6 @@ function buildMerchantFilter(){
 }
 
 function cityChanged(){
-
     buildMerchantFilter();
     renderRules();
 }
@@ -2301,7 +1958,6 @@ function getFilteredRules(){
             }
 
             if(filter === "undefined"){
-
                 return (
                     rule.status === "active"
                     &&
@@ -2310,7 +1966,6 @@ function getFilteredRules(){
             }
 
             if(filter === "defined"){
-
                 return (
                     rule.status === "active"
                     &&
@@ -2396,16 +2051,10 @@ function renderStats(){
 function desktopAction(rule){
 
     if(rule.status === "inactive"){
-
-        return `
-            <span class="history-text">
-                历史记录
-            </span>
-        `;
+        return `<span class="history-text">历史记录</span>`;
     }
 
     if(isBlankRule(rule)){
-
         return `
             <button
                 class="define-button"
@@ -2564,18 +2213,6 @@ function renderRules(){
                     </td>
 
                     <td>
-                        ${formatTextValue(
-                            rule.health_consultant_name
-                        )}
-                    </td>
-
-                    <td>
-                        ${formatTextValue(
-                            rule.health_consultant_phone
-                        )}
-                    </td>
-
-                    <td>
                         ${escapeHtml(
                             modifierName(rule)
                         )}
@@ -2588,9 +2225,7 @@ function renderRules(){
                     </td>
 
                     <td>
-                        <span
-                            class="badge ${state.className}"
-                        >
+                        <span class="badge ${state.className}">
                             ${state.text}
                         </span>
                     </td>
@@ -2635,7 +2270,6 @@ function mobileRuleCard(
         &&
         isBlankRule(rule)
     ){
-
         button =
             `
             <button
@@ -2647,7 +2281,6 @@ function mobileRuleCard(
             `;
     }
     else if(rule.status === "active"){
-
         button =
             `
             <button
@@ -2665,7 +2298,6 @@ function mobileRuleCard(
             <div class="rule-card-head">
 
                 <div>
-
                     <div class="rule-card-name">
                         ${escapeHtml(
                             merchantName(merchant)
@@ -2677,12 +2309,9 @@ function mobileRuleCard(
                             productName(product)
                         )}
                     </div>
-
                 </div>
 
-                <span
-                    class="badge ${state.className}"
-                >
+                <span class="badge ${state.className}">
                     ${state.text}
                 </span>
 
@@ -2691,9 +2320,7 @@ function mobileRuleCard(
             <div class="mobile-grid">
 
                 <div class="mobile-item">
-                    <div class="mobile-label">
-                        商户编号
-                    </div>
+                    <div class="mobile-label">商户编号</div>
                     <div class="mobile-value">
                         ${escapeHtml(
                             merchantNo(merchant)
@@ -2702,9 +2329,7 @@ function mobileRuleCard(
                 </div>
 
                 <div class="mobile-item">
-                    <div class="mobile-label">
-                        版本
-                    </div>
+                    <div class="mobile-label">版本</div>
                     <div class="mobile-value">
                         V${escapeHtml(
                             rule.version_no ?? 1
@@ -2713,9 +2338,7 @@ function mobileRuleCard(
                 </div>
 
                 <div class="mobile-item">
-                    <div class="mobile-label">
-                        服务区域
-                    </div>
+                    <div class="mobile-label">服务区域</div>
                     <div class="mobile-value">
                         ${escapeHtml(
                             areaText(merchant)
@@ -2724,9 +2347,7 @@ function mobileRuleCard(
                 </div>
 
                 <div class="mobile-item">
-                    <div class="mobile-label">
-                        城市销售价
-                    </div>
+                    <div class="mobile-label">城市销售价</div>
                     <div class="mobile-value">
                         ${formatPrice(
                             cityPrice(rule)
@@ -2735,9 +2356,7 @@ function mobileRuleCard(
                 </div>
 
                 <div class="mobile-item">
-                    <div class="mobile-label">
-                        市负责人比例
-                    </div>
+                    <div class="mobile-label">市负责人比例</div>
                     <div class="mobile-value">
                         ${formatPercent(
                             rule.city_manager_ratio
@@ -2746,9 +2365,7 @@ function mobileRuleCard(
                 </div>
 
                 <div class="mobile-item">
-                    <div class="mobile-label">
-                        平台比例
-                    </div>
+                    <div class="mobile-label">平台比例</div>
                     <div class="mobile-value">
                         ${formatPercent(
                             rule.platform_ratio
@@ -2757,9 +2374,7 @@ function mobileRuleCard(
                 </div>
 
                 <div class="mobile-item mobile-item-fixed">
-                    <div class="mobile-label">
-                        软件服务商
-                    </div>
+                    <div class="mobile-label">软件服务商</div>
                     <div class="mobile-value">
                         ${formatSoftwareRatio(
                             rule.software_service_ratio
@@ -2768,9 +2383,7 @@ function mobileRuleCard(
                 </div>
 
                 <div class="mobile-item">
-                    <div class="mobile-label">
-                        门店比例
-                    </div>
+                    <div class="mobile-label">门店比例</div>
                     <div class="mobile-value">
                         ${formatPercent(
                             rule.store_ratio
@@ -2779,9 +2392,7 @@ function mobileRuleCard(
                 </div>
 
                 <div class="mobile-item">
-                    <div class="mobile-label">
-                        操作人员比例
-                    </div>
+                    <div class="mobile-label">操作人员比例</div>
                     <div class="mobile-value">
                         ${formatPercent(
                             rule.operator_ratio
@@ -2790,9 +2401,7 @@ function mobileRuleCard(
                 </div>
 
                 <div class="mobile-item">
-                    <div class="mobile-label">
-                        订单来源比例
-                    </div>
+                    <div class="mobile-label">订单来源比例</div>
                     <div class="mobile-value">
                         ${formatPercent(
                             rule.health_consultant_ratio
@@ -2801,31 +2410,7 @@ function mobileRuleCard(
                 </div>
 
                 <div class="mobile-item">
-                    <div class="mobile-label">
-                        订单来源联系人
-                    </div>
-                    <div class="mobile-value">
-                        ${formatTextValue(
-                            rule.health_consultant_name
-                        )}
-                    </div>
-                </div>
-
-                <div class="mobile-item mobile-item-wide">
-                    <div class="mobile-label">
-                        健康咨询电话
-                    </div>
-                    <div class="mobile-value">
-                        ${formatTextValue(
-                            rule.health_consultant_phone
-                        )}
-                    </div>
-                </div>
-
-                <div class="mobile-item">
-                    <div class="mobile-label">
-                        修改人
-                    </div>
+                    <div class="mobile-label">修改人</div>
                     <div class="mobile-value">
                         ${escapeHtml(
                             modifierName(rule)
@@ -2834,9 +2419,7 @@ function mobileRuleCard(
                 </div>
 
                 <div class="mobile-item">
-                    <div class="mobile-label">
-                        修改时间
-                    </div>
+                    <div class="mobile-label">修改时间</div>
                     <div class="mobile-value">
                         ${escapeHtml(
                             modifiedTime(rule)
@@ -2851,8 +2434,10 @@ function mobileRuleCard(
         </div>
     `;
 }
-    /* =========================================================
-   22. 比例合计检查
+
+
+/* =========================================================
+   22. RATIO VALIDATION
 ========================================================= */
 
 function readRatioInput(id){
@@ -2884,7 +2469,6 @@ function readRatioInput(id){
     return number;
 }
 
-
 function getRatioValidation(){
 
     const cityManager =
@@ -2909,13 +2493,9 @@ function getRatioValidation(){
 
     const source =
         readRatioInput(
-            "healthRatioInput"
+            "orderSourceInput"
         );
 
-    /*
-     * 软件服务商全国固定2%，
-     * 不从输入框读取。
-     */
     const software =
         SOFTWARE_SERVICE_RATIO;
 
@@ -2975,7 +2555,6 @@ function getRatioValidation(){
     };
 }
 
-
 function updateRatioCheck(){
 
     const result =
@@ -3023,7 +2602,6 @@ function updateRatioCheck(){
             "请填写全部5项可调整比例；软件服务商固定2%，六方合计必须等于100%。";
 
         saveButton.disabled = true;
-
         return;
     }
 
@@ -3031,12 +2609,7 @@ function updateRatioCheck(){
 
         const difference =
             Math.round(
-                (
-                    100 -
-                    result.total
-                )
-                *
-                100
+                (100 - result.total) * 100
             )
             /
             100;
@@ -3053,7 +2626,6 @@ function updateRatioCheck(){
             `当前六方合计不足100%，还差 ${difference.toFixed(2)}%。`;
 
         saveButton.disabled = true;
-
         return;
     }
 
@@ -3061,12 +2633,7 @@ function updateRatioCheck(){
 
         const difference =
             Math.round(
-                (
-                    result.total -
-                    100
-                )
-                *
-                100
+                (result.total - 100) * 100
             )
             /
             100;
@@ -3083,7 +2650,6 @@ function updateRatioCheck(){
             `当前六方合计超过100%，超出 ${difference.toFixed(2)}%。`;
 
         saveButton.disabled = true;
-
         return;
     }
 
@@ -3118,10 +2684,7 @@ function openDefineModal(ruleId){
 
     if(!rule){
 
-        showToast(
-            "没有找到该规则。"
-        );
-
+        showToast("没有找到该规则。");
         return;
     }
 
@@ -3129,20 +2692,13 @@ function openDefineModal(ruleId){
         rule.rule_type !==
         "health_consultant"
     ){
-
-        showToast(
-            "该记录不是当前统一规则。"
-        );
-
+        showToast("该记录不是当前统一规则。");
         return;
     }
 
     if(rule.status !== "active"){
 
-        showToast(
-            "历史规则不能重新定义。"
-        );
-
+        showToast("历史规则不能重新定义。");
         return;
     }
 
@@ -3188,15 +2744,7 @@ function openDefineModal(ruleId){
     ).value = "";
 
     document.getElementById(
-        "healthRatioInput"
-    ).value = "";
-
-    document.getElementById(
-        "healthNameInput"
-    ).value = "";
-
-    document.getElementById(
-        "healthPhoneInput"
+        "orderSourceInput"
     ).value = "";
 
     document.getElementById(
@@ -3247,7 +2795,6 @@ function parseRequiredPercent(
             .trim();
 
     if(raw === ""){
-
         throw new Error(
             `${name}不能为空。`
         );
@@ -3262,41 +2809,12 @@ function parseRequiredPercent(
         ||
         number > 100
     ){
-
         throw new Error(
             `${name}必须是0～100之间的数字。`
         );
     }
 
     return number;
-}
-
-function parseRequiredText(
-    id,
-    name,
-    maxLength
-){
-
-    const raw =
-        document.getElementById(id)
-            .value
-            .trim();
-
-    if(raw === ""){
-
-        throw new Error(
-            `${name}不能为空。`
-        );
-    }
-
-    if(raw.length > maxLength){
-
-        throw new Error(
-            `${name}长度不能超过${maxLength}个字符。`
-        );
-    }
-
-    return raw;
 }
 
 
@@ -3329,26 +2847,11 @@ async function saveDefinition(){
         ||
         !isBlankRule(rule)
     ){
-
         showToast(
             "当前规则状态已经变化，请刷新页面。"
         );
-
         return;
     }
-
-    /*
-     * 保存前再次核查：
-     *
-     * 市负责人
-     * 平台
-     * 软件服务商固定2%
-     * 门店
-     * 操作人员
-     * 订单来源
-     *
-     * 六方必须正好100%。
-     */
 
     const ratioValidation =
         getRatioValidation();
@@ -3379,9 +2882,7 @@ async function saveDefinition(){
     let platform;
     let store;
     let operator;
-    let healthRatio;
-    let healthName;
-    let healthPhone;
+    let orderSource;
 
     try{
 
@@ -3409,24 +2910,10 @@ async function saveDefinition(){
                 "操作人员比例"
             );
 
-        healthRatio =
+        orderSource =
             parseRequiredPercent(
-                "healthRatioInput",
+                "orderSourceInput",
                 "订单来源比例"
-            );
-
-        healthName =
-            parseRequiredText(
-                "healthNameInput",
-                "订单来源联系人",
-                100
-            );
-
-        healthPhone =
-            parseRequiredText(
-                "healthPhoneInput",
-                "健康咨询电话",
-                50
             );
 
     }
@@ -3444,7 +2931,7 @@ async function saveDefinition(){
                 SOFTWARE_SERVICE_RATIO +
                 store +
                 operator +
-                healthRatio +
+                orderSource +
                 Number.EPSILON
             )
             *
@@ -3473,7 +2960,7 @@ async function saveDefinition(){
             `软件服务商：${SOFTWARE_SERVICE_RATIO}%（固定）\n` +
             `门店：${store}%\n` +
             `操作人员：${operator}%\n` +
-            `订单来源：${healthRatio}%\n\n` +
+            `订单来源：${orderSource}%\n\n` +
 
             `六方合计：${finalTotal.toFixed(2)}%\n\n` +
 
@@ -3495,27 +2982,30 @@ async function saveDefinition(){
 
     try{
 
-        const updateData = {
+        /*
+         * 当前数据库字段映射：
+         *
+         * city_manager_ratio       = 市负责人比例
+         * platform_ratio           = 平台比例
+         * software_service_ratio   = 软件服务商固定2%
+         * store_ratio              = 门店比例
+         * operator_ratio           = 操作人员比例
+         * health_consultant_ratio  = 订单来源比例
+         *
+         * health_consultant_name / phone
+         * 不再参与本功能，也不再写入。
+         */
 
-            /*
-             * tax_rate 已废弃。
-             * 此处不再提交 tax_rate。
-             */
+        const updateData = {
 
             city_manager_ratio:
                 cityManager,
 
-            /*
-             * 软件服务商固定2%。
-             * 即使数据库已有默认值，
-             * 保存时仍明确提交2%，
-             * 数据库 CHECK 也会保证不能写成其他值。
-             */
-            software_service_ratio:
-                SOFTWARE_SERVICE_RATIO,
-
             platform_ratio:
                 platform,
+
+            software_service_ratio:
+                SOFTWARE_SERVICE_RATIO,
 
             store_ratio:
                 store,
@@ -3523,19 +3013,8 @@ async function saveDefinition(){
             operator_ratio:
                 operator,
 
-            /*
-             * 数据库历史字段名继续保持
-             * health_consultant_ratio，
-             * 当前业务含义为“订单来源比例”。
-             */
             health_consultant_ratio:
-                healthRatio,
-
-            health_consultant_name:
-                healthName,
-
-            health_consultant_phone:
-                healthPhone,
+                orderSource,
 
             updated_by:
                 currentUser.id,
@@ -3564,15 +3043,10 @@ async function saveDefinition(){
                 )
 
                 /*
-                 * 防止两个管理人员同时定义同一条规则。
-                 *
-                 * tax_rate 已废弃，
-                 * 不再作为并发判断条件。
-                 *
-                 * software_service_ratio 固定2，
-                 * 因此也不能用 NULL 判断。
+                 * 并发保护只检查当前真正需要定义的5个字段。
+                 * 软件服务商固定2%，所以不检查NULL。
+                 * 联系人、电话已经退出定义条件。
                  */
-
                 .is(
                     "city_manager_ratio",
                     null
@@ -3593,16 +3067,14 @@ async function saveDefinition(){
                     "health_consultant_ratio",
                     null
                 )
-                .is(
-                    "health_consultant_name",
-                    null
-                )
-                .is(
-                    "health_consultant_phone",
-                    null
-                )
                 .select(`
-                    id
+                    id,
+                    city_manager_ratio,
+                    platform_ratio,
+                    software_service_ratio,
+                    store_ratio,
+                    operator_ratio,
+                    health_consultant_ratio
                 `);
 
         if(error){
@@ -3613,9 +3085,43 @@ async function saveDefinition(){
             !data ||
             data.length !== 1
         ){
-
             throw new Error(
                 "该规则可能已经被其他管理人员处理，请重新加载页面。"
+            );
+        }
+
+        /*
+         * 保存完成以后，再用数据库实际返回值核查一次。
+         * 防止前端显示100%，但数据库最终值不一致。
+         */
+        const saved = data[0];
+
+        const databaseTotal =
+            Math.round(
+                (
+                    Number(saved.city_manager_ratio) +
+                    Number(saved.platform_ratio) +
+                    Number(saved.software_service_ratio) +
+                    Number(saved.store_ratio) +
+                    Number(saved.operator_ratio) +
+                    Number(saved.health_consultant_ratio) +
+                    Number.EPSILON
+                )
+                *
+                100
+            )
+            /
+            100;
+
+        if(databaseTotal !== 100){
+
+            console.error(
+                "数据库实际比例合计异常：",
+                saved
+            );
+
+            throw new Error(
+                `数据库返回的六方比例合计为 ${databaseTotal.toFixed(2)}%，不是100%。`
             );
         }
 
@@ -3635,12 +3141,29 @@ async function saveDefinition(){
 
         console.error(error);
 
+        let message =
+            error.message ||
+            "未知错误";
+
+        /*
+         * 对数据库CHECK约束错误给出更明确提示。
+         * 这类错误意味着数据库约束本身与当前六方公式不一致，
+         * 而不是前端计算错误。
+         */
+        if(
+            message.includes(
+                "merchant_product_rules_ratio_total_100_check"
+            )
+        ){
+            message =
+                "数据库六方比例约束拒绝了本次保存。" +
+                "当前网页已经按“市负责人 + 平台 + 软件服务商2% + 门店 + 操作人员 + 订单来源 = 100%”提交；" +
+                "如果仍出现此错误，说明数据库中的 ratio_total_100_check 约束定义仍需要调整。";
+        }
+
         alert(
             "保存失败：" +
-            (
-                error.message ||
-                "未知错误"
-            )
+            message
         );
 
     }
@@ -3687,11 +3210,9 @@ async function invalidateRule(ruleId){
         rule.rule_type !==
         "health_consultant"
     ){
-
         showToast(
             "该记录不是当前统一规则。"
         );
-
         return;
     }
 
@@ -3700,7 +3221,6 @@ async function invalidateRule(ruleId){
         showToast(
             "该规则已经是历史记录。"
         );
-
         return;
     }
 
@@ -3709,7 +3229,6 @@ async function invalidateRule(ruleId){
         showToast(
             "当前规则尚未定义，无需设为无效。"
         );
-
         return;
     }
 
@@ -3787,7 +3306,7 @@ async function invalidateRule(ruleId){
 
 
 /* =========================================================
-   28. 比例输入实时监听
+   28. RATIO INPUT LISTENERS
 ========================================================= */
 
 function bindRatioInputs(){
@@ -3797,7 +3316,7 @@ function bindRatioInputs(){
         "platformInput",
         "storeInput",
         "operatorInput",
-        "healthRatioInput"
+        "orderSourceInput"
     ]
     .forEach(
         id => {
@@ -3847,11 +3366,9 @@ function showToast(text){
     toastTimer =
         setTimeout(
             () => {
-
                 toast.classList.add(
                     "hidden"
                 );
-
             },
             3000
         );
@@ -3863,9 +3380,7 @@ function showToast(text){
 ========================================================= */
 
 function goHome(){
-
-    location.href =
-        HOME_PAGE;
+    location.href = HOME_PAGE;
 }
 
 
@@ -3884,12 +3399,9 @@ async function logout(){
     }
 
     try{
-
         await supabaseClient.auth.signOut();
-
     }
     catch(error){
-
         console.error(error);
     }
 
@@ -3914,12 +3426,9 @@ function resetIdle(){
             async () => {
 
                 try{
-
                     await supabaseClient.auth.signOut();
-
                 }
                 catch(error){
-
                     console.error(error);
                 }
 
@@ -3969,7 +3478,6 @@ supabaseClient.auth
         ) => {
 
             if(event === "SIGNED_OUT"){
-
                 location.replace(
                     LOGIN_PAGE
                 );

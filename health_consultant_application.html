@@ -208,7 +208,7 @@
     }
 
     .help {
-      margin-top: 6px;
+      margin-top: 7px;
 
       font-size: 12px;
       color: #999;
@@ -216,13 +216,17 @@
       line-height: 1.6;
     }
 
-    .area-grid {
-      display: grid;
+    .city-select-wrap {
+      width: 100%;
+    }
 
-      grid-template-columns:
-        repeat(3, minmax(0,1fr));
+    .city-select {
+      width: 100%;
+      height: 48px;
 
-      gap: 12px;
+      font-size: 15px;
+
+      background: #fff;
     }
 
     .upload-area {
@@ -473,13 +477,17 @@
         padding: 18px;
       }
 
-      .form-grid,
-      .area-grid {
+      .form-grid {
         grid-template-columns: 1fr;
       }
 
       .form-item.full {
         grid-column: auto;
+      }
+
+      .city-select {
+        height: 50px;
+        font-size: 16px;
       }
     }
   </style>
@@ -545,68 +553,48 @@
 
 
     <!-- ======================================================
-         服务地区
+         服务城市
     ======================================================= -->
 
     <section class="card">
 
       <div class="card-title">
-        服务地区
+        服务城市
       </div>
 
 
-      <div class="area-grid">
+      <div class="city-select-wrap">
 
-        <div>
-          <label>
-            省
-            <span class="required">*</span>
-          </label>
-
-          <select id="provinceSelect">
-            <option value="">
-              请选择省
-            </option>
-          </select>
-        </div>
+        <label for="serviceCitySelect">
+          服务城市
+          <span class="required">*</span>
+        </label>
 
 
-        <div>
-          <label>
-            地级市
-            <span class="required">*</span>
-          </label>
+        <select
+          id="serviceCitySelect"
+          class="city-select"
+          disabled
+        >
 
-          <select
-            id="citySelect"
-            disabled
-          >
-            <option value="">
-              请选择地级市
-            </option>
-          </select>
-        </div>
+          <option value="">
+            正在读取已开通业务的城市...
+          </option>
+
+        </select>
 
 
-        <div>
-          <label>
-            区 / 县
-            <span class="required">*</span>
-          </label>
-
-          <select
-            id="districtSelect"
-            disabled
-          >
-            <option value="">
-              请选择区 / 县
-            </option>
-          </select>
+        <div class="help">
+          这里只显示孕乃馨平台已经开通业务的城市。
         </div>
 
       </div>
 
 
+      <!--
+        真正写入 health_consultant_applications
+        的是 service_area_id
+      -->
       <input
         type="hidden"
         id="serviceAreaId"
@@ -966,6 +954,19 @@ const STORAGE_BUCKET =
 let compressedIdCardFile = null;
 
 
+/*
+  城市 ID -> service_area_id
+
+  例如：
+  320600 -> 15
+
+  前端显示城市名称，
+  真正提交数据库的是 service_area_id。
+*/
+const serviceAreaByCity =
+  new Map();
+
+
 /* ============================================================
    页面初始化
 ============================================================ */
@@ -976,7 +977,7 @@ document.addEventListener(
 
     bindEvents();
 
-    await loadProvinces();
+    await loadActiveServiceCities();
 
   }
 );
@@ -989,31 +990,19 @@ document.addEventListener(
 function bindEvents() {
 
   document
-    .getElementById("provinceSelect")
+    .getElementById(
+      "serviceCitySelect"
+    )
     .addEventListener(
       "change",
-      provinceChanged
+      serviceCityChanged
     );
 
 
   document
-    .getElementById("citySelect")
-    .addEventListener(
-      "change",
-      cityChanged
-    );
-
-
-  document
-    .getElementById("districtSelect")
-    .addEventListener(
-      "change",
-      districtChanged
-    );
-
-
-  document
-    .getElementById("idCardFile")
+    .getElementById(
+      "idCardFile"
+    )
     .addEventListener(
       "change",
       imageChanged
@@ -1023,404 +1012,369 @@ function bindEvents() {
 
 
 /* ============================================================
-   省
+   读取已经开通业务的城市
 ============================================================ */
 
-async function loadProvinces() {
-
-  const {
-    data,
-    error
-  } =
-    await db
-      .from("provinces")
-      .select("*")
-      .order("id");
-
-
-  if (error) {
-
-    console.error(error);
-
-    showError(
-      "服务地区读取失败，请稍后重试。"
-    );
-
-    return;
-  }
-
+async function loadActiveServiceCities() {
 
   const select =
     document.getElementById(
-      "provinceSelect"
+      "serviceCitySelect"
     );
-
-
-  select.innerHTML =
-    `<option value="">请选择省</option>`;
-
-
-  (data || []).forEach(
-    row => {
-
-      const option =
-        document.createElement(
-          "option"
-        );
-
-      option.value =
-        row.id;
-
-      option.textContent =
-        getAdministrativeName(
-          row
-        );
-
-      select.appendChild(
-        option
-      );
-
-    }
-  );
-
-}
-
-
-/* ============================================================
-   选择省
-============================================================ */
-
-async function provinceChanged() {
-
-  const provinceId =
-    this.value;
-
-
-  resetCity();
-
-  resetDistrict();
-
-  clearServiceArea();
-
-
-  if (!provinceId) {
-    return;
-  }
-
-
-  const {
-    data,
-    error
-  } =
-    await db
-      .from("cities")
-      .select("*")
-      .eq(
-        "province_id",
-        provinceId
-      )
-      .order("id");
-
-
-  if (error) {
-
-    console.error(error);
-
-    showError(
-      "地级市读取失败。"
-    );
-
-    return;
-  }
-
-
-  const select =
-    document.getElementById(
-      "citySelect"
-    );
-
-
-  select.innerHTML =
-    `<option value="">请选择地级市</option>`;
-
-
-  (data || []).forEach(
-    row => {
-
-      const option =
-        document.createElement(
-          "option"
-        );
-
-      option.value =
-        row.id;
-
-      option.textContent =
-        getAdministrativeName(
-          row
-        );
-
-      select.appendChild(
-        option
-      );
-
-    }
-  );
 
 
   select.disabled =
-    false;
+    true;
+
+
+  select.innerHTML =
+    `
+      <option value="">
+        正在读取已开通业务的城市...
+      </option>
+    `;
+
+
+  serviceAreaByCity.clear();
+
+
+  try {
+
+    /*
+      第一步：
+      只读取 active 的 service_areas。
+
+      service_areas.city_id 是 NOT NULL。
+    */
+
+    const {
+      data: serviceAreas,
+      error: serviceAreaError
+    } =
+      await db
+        .from(
+          "service_areas"
+        )
+        .select(
+          "id, city_id"
+        )
+        .eq(
+          "status",
+          "active"
+        )
+        .order(
+          "id",
+          {
+            ascending: true
+          }
+        );
+
+
+    if (serviceAreaError) {
+
+      throw serviceAreaError;
+
+    }
+
+
+    if (
+      !serviceAreas ||
+      serviceAreas.length === 0
+    ) {
+
+      select.innerHTML =
+        `
+          <option value="">
+            暂无已开通业务的城市
+          </option>
+        `;
+
+
+      showError(
+        "目前系统中暂无已开通业务的城市。"
+      );
+
+
+      return;
+
+    }
+
+
+    /*
+      第二步：
+      按 city_id 去重。
+
+      如果一个城市存在多条 active service_area，
+      只显示一次城市。
+
+      申请记录保存该城市第一条有效
+      service_area_id。
+    */
+
+    const cityIds = [];
+
+
+    for (
+      const area of serviceAreas
+    ) {
+
+      if (
+        area.city_id === null ||
+        area.city_id === undefined
+      ) {
+
+        continue;
+      }
+
+
+      const cityKey =
+        String(
+          area.city_id
+        );
+
+
+      if (
+        !serviceAreaByCity.has(
+          cityKey
+        )
+      ) {
+
+        serviceAreaByCity.set(
+          cityKey,
+          area.id
+        );
+
+
+        cityIds.push(
+          area.city_id
+        );
+
+      }
+
+    }
+
+
+    if (
+      cityIds.length === 0
+    ) {
+
+      throw new Error(
+        "已开通服务区域没有对应的城市。"
+      );
+
+    }
+
+
+    /*
+      第三步：
+      从 cities 表读取城市名称。
+
+      已确认真实字段：
+      id
+      province_id
+      city_code
+      city_name
+      status
+      created_at
+    */
+
+    const {
+      data: cities,
+      error: cityError
+    } =
+      await db
+        .from(
+          "cities"
+        )
+        .select(
+          "id, city_code, city_name, status"
+        )
+        .in(
+          "id",
+          cityIds
+        )
+        .eq(
+          "status",
+          "active"
+        )
+        .order(
+          "city_code",
+          {
+            ascending: true
+          }
+        );
+
+
+    if (cityError) {
+
+      throw cityError;
+
+    }
+
+
+    if (
+      !cities ||
+      cities.length === 0
+    ) {
+
+      select.innerHTML =
+        `
+          <option value="">
+            暂无已开通业务的城市
+          </option>
+        `;
+
+
+      showError(
+        "目前系统中暂无可以申请的服务城市。"
+      );
+
+
+      return;
+
+    }
+
+
+    /*
+      第四步：
+      生成城市下拉框。
+    */
+
+    select.innerHTML =
+      `
+        <option value="">
+          请选择已开通业务的城市
+        </option>
+      `;
+
+
+    for (
+      const city of cities
+    ) {
+
+      const cityKey =
+        String(
+          city.id
+        );
+
+
+      if (
+        !serviceAreaByCity.has(
+          cityKey
+        )
+      ) {
+
+        continue;
+      }
+
+
+      const option =
+        document.createElement(
+          "option"
+        );
+
+
+      option.value =
+        city.id;
+
+
+      option.textContent =
+        city.city_name;
+
+
+      select.appendChild(
+        option
+      );
+
+    }
+
+
+    select.disabled =
+      false;
+
+
+    hideMessage();
+
+
+  } catch (error) {
+
+    console.error(
+      "读取已开通城市失败：",
+      error
+    );
+
+
+    select.innerHTML =
+      `
+        <option value="">
+          服务城市读取失败
+        </option>
+      `;
+
+
+    showError(
+      "服务城市读取失败，请稍后重新尝试。"
+    );
+
+  }
 
 }
 
 
 /* ============================================================
-   选择市
+   选择服务城市
 ============================================================ */
 
-async function cityChanged() {
+function serviceCityChanged() {
 
   const cityId =
     this.value;
 
 
-  resetDistrict();
+  const serviceAreaInput =
+    document.getElementById(
+      "serviceAreaId"
+    );
 
-  clearServiceArea();
+
+  serviceAreaInput.value =
+    "";
 
 
   if (!cityId) {
+
     return;
+
   }
 
 
-  const {
-    data,
-    error
-  } =
-    await db
-      .from("districts")
-      .select("*")
-      .eq(
-        "city_id",
+  const serviceAreaId =
+    serviceAreaByCity.get(
+      String(
         cityId
       )
-      .order("id");
+    );
 
 
-  if (error) {
-
-    console.error(error);
+  if (!serviceAreaId) {
 
     showError(
-      "区县读取失败。"
+      "当前城市没有有效的服务区域，请重新选择。"
     );
 
+    this.value =
+      "";
+
     return;
+
   }
 
 
-  const select =
-    document.getElementById(
-      "districtSelect"
-    );
-
-
-  select.innerHTML =
-    `<option value="">请选择区 / 县</option>`;
-
-
-  (data || []).forEach(
-    row => {
-
-      const option =
-        document.createElement(
-          "option"
-        );
-
-      option.value =
-        row.id;
-
-      option.textContent =
-        getAdministrativeName(
-          row
-        );
-
-      select.appendChild(
-        option
-      );
-
-    }
-  );
-
-
-  select.disabled =
-    false;
-
-}
-
-
-/* ============================================================
-   选择区县
-============================================================ */
-
-async function districtChanged() {
-
-  const districtId =
-    this.value;
-
-
-  clearServiceArea();
-
-
-  if (!districtId) {
-    return;
-  }
-
-
-  const cityId =
-    document
-      .getElementById(
-        "citySelect"
-      )
-      .value;
-
-
-  /*
-    根据选择的城市 + 区县找到对应 service_area。
-  */
-
-  const {
-    data,
-    error
-  } =
-    await db
-      .from("service_areas")
-      .select("*")
-      .eq(
-        "city_id",
-        cityId
-      )
-      .eq(
-        "district_id",
-        districtId
-      )
-      .eq(
-        "status",
-        "active"
-      )
-      .limit(1)
-      .maybeSingle();
-
-
-  if (error) {
-
-    console.error(error);
-
-    showError(
-      "服务区域读取失败。"
-    );
-
-    return;
-  }
-
-
-  if (!data) {
-
-    showError(
-      "当前选择的地区暂未开放健康顾问申请。"
-    );
-
-    return;
-  }
-
-
-  document
-    .getElementById(
-      "serviceAreaId"
-    )
-    .value =
-      data.id;
+  serviceAreaInput.value =
+    serviceAreaId;
 
 
   hideMessage();
-
-}
-
-
-/* ============================================================
-   行政区名称
-============================================================ */
-
-function getAdministrativeName(row) {
-
-  return (
-    row.name ||
-    row.province_name ||
-    row.city_name ||
-    row.district_name ||
-    row.area_name ||
-    String(row.id)
-  );
-
-}
-
-
-/* ============================================================
-   重置城市
-============================================================ */
-
-function resetCity() {
-
-  const select =
-    document.getElementById(
-      "citySelect"
-    );
-
-
-  select.innerHTML =
-    `<option value="">请选择地级市</option>`;
-
-
-  select.disabled =
-    true;
-
-}
-
-
-/* ============================================================
-   重置区县
-============================================================ */
-
-function resetDistrict() {
-
-  const select =
-    document.getElementById(
-      "districtSelect"
-    );
-
-
-  select.innerHTML =
-    `<option value="">请选择区 / 县</option>`;
-
-
-  select.disabled =
-    true;
-
-}
-
-
-/* ============================================================
-   清除 service_area
-============================================================ */
-
-function clearServiceArea() {
-
-  document
-    .getElementById(
-      "serviceAreaId"
-    )
-    .value = "";
 
 }
 
@@ -1714,7 +1668,7 @@ function validateForm() {
   if (!serviceAreaId) {
 
     throw new Error(
-      "请选择完整的服务地区。"
+      "请选择服务城市。"
     );
 
   }
@@ -1945,10 +1899,6 @@ async function submitApplication() {
   hideMessage();
 
 
-  let uploadedPath =
-    null;
-
-
   try {
 
     validateForm();
@@ -1967,7 +1917,7 @@ async function submitApplication() {
       上传身份证照片
     */
 
-    uploadedPath =
+    const uploadedPath =
       await uploadIdCardImage();
 
 
@@ -1979,9 +1929,11 @@ async function submitApplication() {
       第二步：
       创建 pending 申请。
 
-      注意：
-      此处不会生成 consultant_no。
-      也不会创建 health_consultants。
+      此处：
+      不创建正式健康顾问
+      不生成 consultant_no
+
+      只有后台审批通过以后才正式创建。
     */
 
     const applicationData = {

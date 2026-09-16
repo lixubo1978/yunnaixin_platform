@@ -478,7 +478,6 @@ td{
         <option value="active">正常</option>
         <option value="inactive">无效</option>
     </select>
-    <button id="createConsultantButton" class="primary-button" onclick="openConsultantModal()">＋ 创建健康顾问</button>
 </div>
 
 <div class="table-scroll">
@@ -884,8 +883,7 @@ function applyPermissionUI(){
     const business=["founder","platform_admin"].includes(currentProfile.role);
 
     document.getElementById("createMerchantButton").style.display=business?"":"none";
-    document.getElementById("createConsultantButton").style.display=business?"":"none";
-}
+   }
 
 async function logout(){
     await sb.auth.signOut();

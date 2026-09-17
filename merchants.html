@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>商户经营统计｜孕乃馨</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--pink:#e7467a;--pink2:#ff789f;--deep:#74344d;--soft:#fff7fa;--soft2:#fdeaf1;--line:#f0dfe5;--text:#3d3135;--muted:#998990;--green:#1d9c72;--greenbg:#e8f8f2;--blue:#3779c7;--bluebg:#eaf3ff;--orange:#c77a12;--orangebg:#fff3df;--red:#c7475d;--redbg:#fff0f3;--shadow:0 10px 30px rgba(111,56,77,.07)}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;color:var(--text);background:linear-gradient(180deg,#fffafd 0,#fff 45%,#fff9fb 100%)}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+.topbar{height:82px;background:#fff;border-bottom:1px solid #f3e5ea;display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:50}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{width:42px;height:42px;border-radius:13px;object-fit:cover;box-shadow:0 5px 14px rgba(231,70,122,.16)}
+.brand-title{font-size:20px;font-weight:800;color:var(--deep);line-height:1.2}
+.brand-sub{font-size:12px;color:#ad959e;margin-top:4px}
+.top-actions{display:flex;gap:10px}
+.btn{border:1px solid var(--line);background:#fff;color:#715b64;padding:10px 18px;border-radius:12px;font-weight:700;transition:.18s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(80,40,55,.08)}
+.btn-primary{background:linear-gradient(135deg,var(--pink2),var(--pink));border-color:transparent;color:#fff}
+.btn-danger{background:var(--pink);border-color:var(--pink);color:#fff}
+.btn-small{padding:8px 13px;border-radius:10px;font-size:13px}
+.page{width:min(1440px,calc(100% - 36px));margin:22px auto 50px}
+.hero{background:linear-gradient(135deg,#feeaf1,#ffe0ea);border:1px solid #ffd4e1;border-radius:24px;padding:28px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;right:-45px;top:-70px;background:rgba(255,255,255,.48)}
+.hero-tag{display:inline-block;background:#fff;color:var(--pink);padding:7px 11px;border-radius:999px;font-size:12px;font-weight:900;letter-spacing:.5px}
+.hero h1{margin:13px 0 8px;font-size:28px;color:var(--deep)}
+.hero p{margin:0;max-width:1020px;color:#9a6176;line-height:1.8;font-size:14px}
+.viewer-line{margin-top:14px;color:#8c5b6d;font-size:13px}
+.viewer-line b{color:var(--deep)}
+.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin:16px 0}
+.stat{background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px 16px;min-height:108px;box-shadow:var(--shadow)}
+.stat-label{font-size:12px;color:var(--muted)}
+.stat-value{font-size:23px;font-weight:900;color:var(--deep);margin-top:9px;word-break:break-all}
+.stat-note{font-size:11px;color:#b19ea5;margin-top:6px;line-height:1.4}
+.stat.green .stat-value{color:var(--green)}
+.stat.blue .stat-value{color:var(--blue)}
+.stat.orange .stat-value{color:var(--orange)}
+.panel{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);margin-top:16px;overflow:hidden}
+.panel-head{padding:19px 20px;border-bottom:1px solid #f3e7eb;display:flex;justify-content:space-between;gap:15px;align-items:center}
+.panel-title{font-size:17px;font-weight:900;color:var(--deep)}
+.panel-sub{font-size:12px;color:#a18f96;margin-top:5px}
+.filters{padding:18px 20px}
+.filter-grid{display:grid;grid-template-columns:1.25fr .8fr .8fr 1.25fr auto auto;gap:10px;align-items:end}
+.field label{display:block;font-size:12px;color:#927f87;margin:0 0 7px 3px}
+.control{width:100%;height:44px;border:1px solid #eadde2;border-radius:12px;background:#fff;padding:0 13px;color:#51434a;outline:none}
+.control:focus{border-color:#f08bad;box-shadow:0 0 0 3px rgba(231,70,122,.08)}
+.filter-note{margin-top:13px;border:1px dashed #f0cbd7;background:#fff8fa;color:#9d6879;border-radius:12px;padding:11px 13px;font-size:12px;line-height:1.6}
+.table-wrap{overflow:auto}
+table{width:100%;border-collapse:collapse;min-width:1500px}
+th{background:#fff9fb;color:#8c747d;font-size:12px;text-align:left;padding:13px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:15px 12px;border-bottom:1px solid #f3e8ec;font-size:13px;vertical-align:middle}
+tbody tr:hover{background:#fffbfc}
+tbody tr:last-child td{border-bottom:0}
+.merchant-no{font-size:15px;font-weight:900;color:var(--pink)}
+.merchant-name{font-weight:800;color:#49383f;margin-top:4px;max-width:220px}
+.mini{font-size:11px;color:#a28f96;margin-top:4px;line-height:1.45}
+.money{font-weight:900;color:var(--deep);white-space:nowrap}
+.money.green{color:var(--green)}
+.money.blue{color:var(--blue)}
+.money.orange{color:var(--orange)}
+.count-main{font-weight:900;font-size:16px;color:#4d3b42}
+.badges{display:flex;flex-wrap:wrap;gap:5px;max-width:180px}
+.badge{display:inline-flex;align-items:center;border-radius:999px;padding:5px 8px;font-size:11px;font-weight:800;white-space:nowrap}
+.badge-green{background:var(--greenbg);color:var(--green)}
+.badge-blue{background:var(--bluebg);color:var(--blue)}
+.badge-orange{background:var(--orangebg);color:var(--orange)}
+.badge-red{background:var(--redbg);color:var(--red)}
+.badge-gray{background:#f3f0f1;color:#88777e}
+.empty{padding:55px 20px;text-align:center;color:#a08d94}
+.loading{position:fixed;inset:0;background:rgba(255,255,255,.78);backdrop-filter:blur(2px);z-index:200;display:flex;align-items:center;justify-content:center}
+.loading-box{text-align:center;color:#8b5e6f;font-size:14px}
+.spinner{width:43px;height:43px;border:4px solid #f8d9e4;border-top-color:var(--pink);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 13px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.modal-mask{position:fixed;inset:0;background:rgba(45,34,39,.55);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal{width:min(1500px,100%);max-height:94vh;background:#fff;border-radius:22px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 25px 80px rgba(40,20,28,.22)}
+.modal-head{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;justify-content:space-between;gap:15px}
+.modal-title{font-size:19px;font-weight:900;color:var(--deep)}
+.modal-sub{font-size:12px;color:#9b8890;margin-top:5px}
+.close{border:0;background:#f7eef1;color:#8c6875;width:37px;height:37px;border-radius:50%;font-size:22px}
+.modal-body{overflow:auto;padding:18px}
+.merchant-summary{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:15px}
+.summary-box{border:1px solid var(--line);background:#fffafb;border-radius:14px;padding:12px}
+.summary-box span{display:block;font-size:11px;color:#9d8991}
+.summary-box b{display:block;margin-top:6px;font-size:15px;color:var(--deep);word-break:break-word}
+.detail-filter{display:grid;grid-template-columns:1fr auto;gap:10px;margin-bottom:14px}
+.order-list{display:flex;flex-direction:column;gap:12px}
+.order-card{border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.order-head{padding:13px 15px;background:#fff8fa;display:flex;justify-content:space-between;align-items:flex-start;gap:15px}
+.order-no{font-weight:900;color:var(--deep)}
+.order-time{font-size:11px;color:#9f8b93;margin-top:4px}
+.order-body{padding:14px 15px}
+.order-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.order-item span{font-size:11px;color:#a08c94;display:block}
+.order-item b{font-size:13px;color:#4a3b41;display:block;margin-top:5px;word-break:break-word}
+.products{margin-top:13px;border-top:1px dashed #eddde3;padding-top:11px}
+.product-line{display:grid;grid-template-columns:1.7fr .5fr .7fr .7fr;gap:10px;padding:7px 0;font-size:12px;border-bottom:1px dashed #f1e5e9}
+.product-line:last-child{border-bottom:0}
+.product-line .muted{color:#a08c94}
+.mobile-list{display:none}
+.footer-tip{text-align:center;color:#b29fa6;font-size:11px;padding:20px}
+@media(max-width:1250px){.stats{grid-template-columns:repeat(4,1fr)}.filter-grid{grid-template-columns:1fr 1fr 1fr}.merchant-summary{grid-template-columns:repeat(3,1fr)}.order-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:760px){
+.topbar{height:70px;padding:0 14px}.brand img{width:38px;height:38px}.brand-title{font-size:17px}.brand-sub{display:none}.top-actions .btn{padding:9px 11px;font-size:12px}
+.page{width:calc(100% - 20px);margin:12px auto 35px}.hero{padding:20px;border-radius:18px}.hero h1{font-size:22px}.hero p{font-size:13px}.stats{grid-template-columns:repeat(2,1fr);gap:8px}.stat{min-height:96px;padding:14px 12px}.stat-value{font-size:19px}
+.filter-grid{grid-template-columns:1fr}.filter-grid .btn{height:44px}.panel-head{padding:16px}.filters{padding:14px}.desktop-table{display:none}.mobile-list{display:block;padding:10px}
+.m-card{border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px;background:#fff}.m-card-head{display:flex;justify-content:space-between;gap:10px}.m-card-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}.m-kv span{font-size:10px;color:#a08c94;display:block}.m-kv b{font-size:13px;display:block;margin-top:4px}.m-card .btn{width:100%;margin-top:13px}
+.modal-mask{padding:6px}.modal{max-height:98vh;border-radius:17px}.modal-head{padding:15px}.modal-body{padding:12px}.merchant-summary{grid-template-columns:repeat(2,1fr)}.detail-filter{grid-template-columns:1fr}.order-head{display:block}.order-head .badges{margin-top:9px}.order-grid{grid-template-columns:repeat(2,1fr)}.product-line{grid-template-columns:1.4fr .5fr .7fr}.product-line>:last-child{display:none}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <img src="logo.jpeg" alt="孕乃馨">
+    <div>
+      <div class="brand-title">商户经营统计</div>
+      <div class="brand-sub">全国商户、订单与经营收入管理</div>
+    </div>
+  </div>
+  <div class="top-actions">
+    <button class="btn" onclick="location.href='wholemanagement.html'">返回工作台</button>
+    <button class="btn btn-danger" id="logoutBtn">退出</button>
+  </div>
+</header>
+
+<main class="page">
+  <section class="hero">
+    <span class="hero-tag">MERCHANT MANAGEMENT</span>
+    <h1>商户经营与收入统计</h1>
+    <p>同时统计商户作为线下消费场所产生的订单，以及商户作为订单推荐来源产生的订单。同一订单中商户同时具备两种身份时，订单数量和订单金额只计算一次；商户收入以实际分账记录为准。</p>
+    <div class="viewer-line">当前身份：<b id="viewerRole">验证中</b>　当前数据范围：<b id="viewerScope">读取中</b></div>
+  </section>
+
+  <section class="stats">
+    <div class="stat"><div class="stat-label">商户总数</div><div class="stat-value" id="sMerchant">0</div><div class="stat-note">当前城市全部历史商户</div></div>
+    <div class="stat"><div class="stat-label">正常商户</div><div class="stat-value" id="sActive">0</div><div class="stat-note">永久状态正常</div></div>
+    <div class="stat"><div class="stat-label">当前上线商户</div><div class="stat-value" id="sOnline">0</div><div class="stat-note">客户当前可以选择</div></div>
+    <div class="stat"><div class="stat-label">全部关联订单</div><div class="stat-value" id="sOrders">0</div><div class="stat-note">消费场所与来源订单去重</div></div>
+    <div class="stat"><div class="stat-label">已支付订单</div><div class="stat-value" id="sPaidOrders">0</div><div class="stat-note">已支付及已完成订单</div></div>
+    <div class="stat"><div class="stat-label">已完成订单</div><div class="stat-value" id="sCompleted">0</div><div class="stat-note">已经完成服务或消费</div></div>
+
+    <div class="stat"><div class="stat-label">消费场所订单</div><div class="stat-value" id="sConsumption">0</div><div class="stat-note">在本城市商户处消费</div></div>
+    <div class="stat"><div class="stat-label">商户来源订单</div><div class="stat-value" id="sSource">0</div><div class="stat-note">推荐来源为商户</div></div>
+    <div class="stat blue"><div class="stat-label">订单总金额</div><div class="stat-value" id="sAmount">¥0.00</div><div class="stat-note">已支付订单金额</div></div>
+    <div class="stat blue"><div class="stat-label">实际到账资金</div><div class="stat-value" id="sNet">¥0.00</div><div class="stat-note">微信扣费后进入分账账户</div></div>
+    <div class="stat green"><div class="stat-label">商户已分收入</div><div class="stat-value" id="sIncomePaid">¥0.00</div><div class="stat-note">已完成实际分账</div></div>
+    <div class="stat orange"><div class="stat-label">商户待分收入</div><div class="stat-value" id="sIncomePending">¥0.00</div><div class="stat-note">已生成但尚未执行分账</div></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <div>
+        <div class="panel-title">统计筛选</div>
+        <div class="panel-sub">城市、日期和商户关键字同时作用于统计卡片与商户经营表</div>
+      </div>
+    </div>
+    <div class="filters">
+      <div class="filter-grid">
+        <div class="field">
+          <label>统计城市</label>
+          <select class="control" id="citySelect"><option value="">正在读取可管理城市…</option></select>
+        </div>
+        <div class="field">
+          <label>开始日期</label>
+          <input class="control" id="dateFrom" type="date">
+        </div>
+        <div class="field">
+          <label>结束日期</label>
+          <input class="control" id="dateTo" type="date">
+        </div>
+        <div class="field">
+          <label>商户搜索</label>
+          <input class="control" id="keyword" placeholder="商户编号、名称、代码或手机号">
+        </div>
+        <button class="btn btn-primary" id="queryBtn">查询统计</button>
+        <button class="btn" id="resetBtn">重置</button>
+      </div>
+      <div class="filter-note" id="scopeNote">系统正在验证当前账号的数据辖区。所有城市权限同时由数据库函数验证，不能通过修改网页绕过。</div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <div>
+        <div class="panel-title">商户经营收入表</div>
+        <div class="panel-sub">消费场所订单与订单来源订单分别汇总，全部关联订单自动去重</div>
+      </div>
+      <div class="panel-sub" id="merchantCount">0 家商户</div>
+    </div>
+    <div class="table-wrap desktop-table">
+      <table>
+        <thead>
+          <tr>
+            <th>商户</th>
+            <th>状态与账户</th>
+            <th>关联订单</th>
+            <th>已支付订单</th>
+            <th>订单总金额</th>
+            <th>实际到账资金</th>
+            <th>最近分账比例</th>
+            <th>商户应分收入</th>
+            <th>商户已分收入</th>
+            <th>商户待分收入</th>
+            <th>最后订单</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="merchantBody"></tbody>
+      </table>
+      <div class="empty hidden" id="emptyState">当前条件下没有商户数据</div>
+    </div>
+    <div class="mobile-list" id="mobileList"></div>
+  </section>
+  <div class="footer-tip">孕乃馨平台商户经营管理中心</div>
+</main>
+
+<div class="modal-mask hidden" id="orderModal">
+  <div class="modal">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title" id="modalTitle">商户订单明细</div>
+        <div class="modal-sub" id="modalSub">正在读取订单</div>
+      </div>
+      <button class="close" id="closeModal">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="merchant-summary" id="merchantSummary"></div>
+      <div class="detail-filter">
+        <select class="control" id="relationFilter">
+          <option value="all">全部关联订单</option>
+          <option value="consumption">仅消费场所订单</option>
+          <option value="source">仅商户来源订单</option>
+          <option value="both">同时为消费场所和来源</option>
+        </select>
+        <button class="btn btn-primary" id="refreshDetail">查询订单</button>
+      </div>
+      <div class="order-list" id="orderList"></div>
+    </div>
+  </div>
+</div>
+
+<div class="loading" id="loading">
+  <div class="loading-box">
+    <div class="spinner"></div>
+    <div id="loadingText">正在验证管理账号…</div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL='https://qbuqjwpkltbjhlfbyjyb.supabase.co';
+const SUPABASE_KEY='sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3';
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const $=id=>document.getElementById(id);
+const allowedRoles=['founder','platform_admin','province_admin','city_admin'];
+const roleNames={founder:'创始人',platform_admin:'平台管理员',province_admin:'省级管理员',city_admin:'城市管理员'};
+let currentProfile=null,cities=[],dashboard=null,currentMerchant=null;
+const esc=v=>String(v??'').replace(/[&<>"']/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+const num=v=>Number(v||0);
+const money=v=>'¥'+num(v).toLocaleString('zh-CN',{minimumFractionDigits:2,maximumFractionDigits:2});
+const dt=v=>v?new Date(v).toLocaleString('zh-CN',{hour12:false}):'—';
+const showLoading=(text='正在读取数据…')=>{$('loadingText').textContent=text;$('loading').classList.remove('hidden')};
+const hideLoading=()=>$('loading').classList.add('hidden');
+const statusBadge=(text,type='gray')=>`<span class="badge badge-${type}">${esc(text)}</span>`;
+function roleLabel(r){return roleNames[r]||r||'未知身份'}
+function merchantType(v){return v==='organization'?'机构商户':v==='individual'?'个人商户':v||'未定义'}
+function orderStatus(v){return({pending_payment:'待支付',paid:'已支付',completed:'已完成',cancelled:'已取消',refunded:'已退款'}[v]||v||'—')}
+function paymentStatus(v){return({paid:'已支付',unpaid:'未支付',refunded:'已退款'}[v]||v||'—')}
+function splitStatus(v){return({pending:'待分账',generated:'已生成',processing:'处理中',completed:'已完成',failed:'失败'}[v]||v||'—')}
+function statusHtml(m){
+  let a=[];
+  a.push(m.status==='active'?statusBadge('正常','green'):statusBadge('无效','gray'));
+  a.push(m.listing_status==='online'?statusBadge('已上线','blue'):statusBadge('已下线','red'));
+  a.push(m.certification_status==='approved'?statusBadge('已认证','green'):statusBadge(m.certification_status||'待认证','orange'));
+  a.push(m.account_opened?statusBadge('账户已开通','blue'):statusBadge('账户未开通','red'));
+  return a.join('');
+}
+async function forceLogout(msg){
+  try{await db.auth.signOut()}catch(e){}
+  if(msg) alert(msg);
+  location.replace('login.html');
+}
+const ACTIVITY_KEY='ynx_admin_last_activity';
+const IDLE_LIMIT=10*60*1000;
+let activityWrite=0;
+function markActivity(){
+  const now=Date.now();
+  if(now-activityWrite>5000){localStorage.setItem(ACTIVITY_KEY,String(now));activityWrite=now}
+}
+function installIdleLogout(){
+  const saved=Number(localStorage.getItem(ACTIVITY_KEY)||Date.now());
+  if(Date.now()-saved>IDLE_LIMIT){forceLogout('登录已超过10分钟无操作，请重新登录');return}
+  markActivity();
+  ['click','keydown','mousemove','touchstart','scroll'].forEach(e=>window.addEventListener(e,markActivity,{passive:true}));
+  setInterval(()=>{const last=Number(localStorage.getItem(ACTIVITY_KEY)||0);if(last&&Date.now()-last>IDLE_LIMIT)forceLogout('已超过10分钟无操作，系统已自动退出')},15000);
+}
+async function verifyAccess(){
+  const {data:{session},error}=await db.auth.getSession();
+  if(error||!session){location.replace('login.html');return false}
+  const {data:profile,error:pe}=await db.from('profiles').select('id,role,status,display_name,email').eq('id',session.user.id).maybeSingle();
+  if(pe||!profile||profile.status!=='active'||!allowedRoles.includes(profile.role)){
+    await db.auth.signOut();location.replace('login.html');return false
+  }
+  currentProfile=profile;
+  $('viewerRole').textContent=roleLabel(profile.role);
+  installIdleLogout();
+  return true;
+}
+async function loadCities(){
+  const {data,error}=await db.rpc('get_merchant_management_cities');
+  if(error) throw error;
+  const result=data||{};
+  cities=result.cities||[];
+  $('citySelect').innerHTML=cities.length
+    ?cities.map(c=>`<option value="${c.city_id}">${esc(String(c.city_code||'').padStart(3,'0'))}｜${esc(c.display_name)}</option>`).join('')
+    :'<option value="">暂无可管理的开通城市</option>';
+  if(!cities.length) throw new Error('当前账号没有可以查看的开通服务城市');
+  updateScope();
+}
+function updateScope(){
+  const c=cities.find(x=>String(x.city_id)===$('citySelect').value);
+  if(!c)return;
+  const role=currentProfile?.role;
+  let scope=role==='founder'||role==='platform_admin'?'全国开通城市':role==='province_admin'?'授权省份内开通城市':'授权城市';
+  $('viewerScope').textContent=scope;
+  $('scopeNote').textContent=`当前身份：${roleLabel(role)}。当前统计城市：${c.display_name}。所有统计数据由数据库按辖区验证后返回。`;
+}
+function setStats(s={}){
+  $('sMerchant').textContent=num(s.merchant_count);
+  $('sActive').textContent=num(s.active_merchant_count);
+  $('sOnline').textContent=num(s.online_merchant_count);
+  $('sOrders').textContent=num(s.related_order_count);
+  $('sPaidOrders').textContent=num(s.paid_order_count);
+  $('sCompleted').textContent=num(s.completed_order_count);
+  $('sConsumption').textContent=num(s.consumption_order_count);
+  $('sSource').textContent=num(s.merchant_source_order_count);
+  $('sAmount').textContent=money(s.order_amount);
+  $('sNet').textContent=money(s.actual_received_amount);
+  $('sIncomePaid').textContent=money(s.merchant_paid_income);
+  $('sIncomePending').textContent=money(s.merchant_pending_income);
+}
+function merchantRow(m){
+  return `<tr>
+    <td>
+      <div class="merchant-no">${esc(m.merchant_no)}</div>
+      <div class="merchant-name">${esc(m.merchant_name)}</div>
+      <div class="mini">${esc(m.merchant_code)}｜${esc(merchantType(m.merchant_type))}<br>${esc(m.phone||'未填写电话')}</div>
+    </td>
+    <td><div class="badges">${statusHtml(m)}</div></td>
+    <td>
+      <div class="count-main">${num(m.related_order_count)}</div>
+      <div class="mini">消费场所 ${num(m.consumption_order_count)}<br>订单来源 ${num(m.source_order_count)}<br>双重身份 ${num(m.dual_role_order_count)}</div>
+    </td>
+    <td><div class="count-main">${num(m.paid_order_count)}</div></td>
+    <td><div class="money">${money(m.related_order_amount)}</div><div class="mini">场所 ${money(m.consumption_order_amount)}<br>来源 ${money(m.source_order_amount)}</div></td>
+    <td><div class="money blue">${money(m.actual_received_amount)}</div><div class="mini">手续费 ${money(m.wechat_fee_amount)}</div></td>
+    <td><div class="money">${num(m.latest_split_ratio).toFixed(2)}%</div></td>
+    <td><div class="money">${money(m.expected_income)}</div><div class="mini">场所收入 ${money(m.consumption_income)}<br>来源收入 ${money(m.source_income)}</div></td>
+    <td><div class="money green">${money(m.paid_income)}</div></td>
+    <td><div class="money orange">${money(m.pending_income)}</div></td>
+    <td>${dt(m.last_order_at)}</td>
+    <td><button class="btn btn-small" onclick="openOrders('${esc(m.merchant_id)}')">订单明细</button></td>
+  </tr>`;
+}
+function merchantCard(m){
+  return `<div class="m-card">
+    <div class="m-card-head">
+      <div><div class="merchant-no">${esc(m.merchant_no)}</div><div class="merchant-name">${esc(m.merchant_name)}</div><div class="mini">${esc(m.merchant_code)}｜${esc(m.phone||'未填写电话')}</div></div>
+      <div class="badges">${statusHtml(m)}</div>
+    </div>
+    <div class="m-card-grid">
+      <div class="m-kv"><span>全部关联订单</span><b>${num(m.related_order_count)}</b></div>
+      <div class="m-kv"><span>已支付订单</span><b>${num(m.paid_order_count)}</b></div>
+      <div class="m-kv"><span>消费场所订单</span><b>${num(m.consumption_order_count)}</b></div>
+      <div class="m-kv"><span>来源订单</span><b>${num(m.source_order_count)}</b></div>
+      <div class="m-kv"><span>订单总金额</span><b>${money(m.related_order_amount)}</b></div>
+      <div class="m-kv"><span>实际到账资金</span><b class="money blue">${money(m.actual_received_amount)}</b></div>
+      <div class="m-kv"><span>商户应分收入</span><b>${money(m.expected_income)}</b></div>
+      <div class="m-kv"><span>已分 / 待分</span><b>${money(m.paid_income)} / ${money(m.pending_income)}</b></div>
+    </div>
+    <button class="btn btn-primary" onclick="openOrders('${esc(m.merchant_id)}')">查看订单明细</button>
+  </div>`;
+}
+function renderMerchants(){
+  const list=dashboard?.merchants||[];
+  $('merchantCount').textContent=`${list.length} 家商户`;
+  $('merchantBody').innerHTML=list.map(merchantRow).join('');
+  $('mobileList').innerHTML=list.length?list.map(merchantCard).join(''):'<div class="empty">当前条件下没有商户数据</div>';
+  $('emptyState').classList.toggle('hidden',list.length>0);
+}
+async function queryDashboard(){
+  const cityId=Number($('citySelect').value);
+  if(!cityId)return alert('请选择统计城市');
+  const from=$('dateFrom').value||null,to=$('dateTo').value||null;
+  if(from&&to&&from>to)return alert('开始日期不能晚于结束日期');
+  showLoading('正在统计商户经营数据…');
+  try{
+    const {data,error}=await db.rpc('get_merchant_management_dashboard',{
+      p_city_id:cityId,p_date_from:from,p_date_to:to,p_keyword:$('keyword').value.trim()||null
+    });
+    if(error)throw error;
+    dashboard=data||{};
+    if(dashboard.success===false)throw new Error(dashboard.error||'统计失败');
+    setStats(dashboard.summary||{});
+    renderMerchants();
+    updateScope();
+  }catch(e){console.error(e);alert('读取商户经营数据失败：'+(e.message||e))}
+  finally{hideLoading()}
+}
+function merchantSummaryHtml(m){
+  return [
+    ['商户编号',m.merchant_no],['商户名称',m.merchant_name],['消费场所订单',m.consumption_order_count],
+    ['来源订单',m.source_order_count],['订单总金额',money(m.related_order_amount)],['实际到账',money(m.actual_received_amount)],
+    ['应分收入',money(m.expected_income)],['已分收入',money(m.paid_income)],['待分收入',money(m.pending_income)],
+    ['场所收入',money(m.consumption_income)],['来源收入',money(m.source_income)],['最后订单',dt(m.last_order_at)]
+  ].map(x=>`<div class="summary-box"><span>${esc(x[0])}</span><b>${esc(x[1]??'—')}</b></div>`).join('');
+}
+window.openOrders=async id=>{
+  currentMerchant=(dashboard?.merchants||[]).find(m=>m.merchant_id===id);
+  if(!currentMerchant)return alert('没有找到商户数据');
+  $('modalTitle').textContent=`${currentMerchant.merchant_name}｜订单明细`;
+  $('modalSub').textContent=`商户编号 ${currentMerchant.merchant_no} · ${currentMerchant.merchant_code}`;
+  $('merchantSummary').innerHTML=merchantSummaryHtml(currentMerchant);
+  $('relationFilter').value='all';
+  $('orderModal').classList.remove('hidden');
+  document.body.style.overflow='hidden';
+  await loadOrders();
+};
+async function loadOrders(){
+  if(!currentMerchant)return;
+  $('orderList').innerHTML='<div class="empty">正在读取商户订单…</div>';
+  try{
+    const {data,error}=await db.rpc('get_merchant_management_orders',{
+      p_merchant_id:currentMerchant.merchant_id,
+      p_city_id:Number($('citySelect').value),
+      p_date_from:$('dateFrom').value||null,
+      p_date_to:$('dateTo').value||null,
+      p_relation_type:$('relationFilter').value
+    });
+    if(error)throw error;
+    const orders=data?.orders||[];
+    $('modalSub').textContent=`商户编号 ${currentMerchant.merchant_no} · 当前显示 ${orders.length} 笔订单`;
+    $('orderList').innerHTML=orders.length?orders.map(orderCard).join(''):'<div class="empty">当前筛选条件下没有订单</div>';
+  }catch(e){console.error(e);$('orderList').innerHTML=`<div class="empty">订单读取失败：${esc(e.message||e)}</div>`}
+}
+function orderCard(o){
+  const relationship=o.relation_type==='consumption_and_source'
+    ?statusBadge('消费场所＋订单来源','orange')
+    :o.relation_type==='consumption'
+      ?statusBadge('消费场所','blue')
+      :statusBadge('订单来源','green');
+  const pay=o.payment_status==='paid'?statusBadge('已支付','green'):statusBadge(paymentStatus(o.payment_status),'gray');
+  const state=o.order_status==='completed'?statusBadge('已完成','green'):o.order_status==='paid'?statusBadge('待消费','blue'):statusBadge(orderStatus(o.order_status),'gray');
+  const products=(o.order_items||[]).length
+    ?o.order_items.map(i=>`<div class="product-line"><div><b>${esc(i.product_name)}</b><div class="mini">${esc(i.product_code)}｜${esc(i.product_type)}</div></div><div>${num(i.quantity)}</div><div>${money(i.unit_price)}</div><div>${money(i.amount)}</div></div>`).join('')
+    :'<div class="mini">暂无商品明细</div>';
+  return `<article class="order-card">
+    <div class="order-head">
+      <div><div class="order-no">${esc(o.order_no)}</div><div class="order-time">下单时间：${dt(o.created_at)}</div></div>
+      <div class="badges">${relationship}${pay}${state}${statusBadge(splitStatus(o.split_status),'orange')}</div>
+    </div>
+    <div class="order-body">
+      <div class="order-grid">
+        <div class="order-item"><span>消费商户</span><b>${esc(o.consumption_merchant_name||'—')}</b></div>
+        <div class="order-item"><span>订单来源</span><b>${esc(o.recommendation_source_name||'—')}</b></div>
+        <div class="order-item"><span>订单总金额</span><b>${money(o.paid_order_amount)}</b></div>
+        <div class="order-item"><span>实际到账资金</span><b class="money blue">${money(o.actual_received_amount)}</b></div>
+        <div class="order-item"><span>微信手续费</span><b>${money(o.wechat_fee_amount)}</b></div>
+        <div class="order-item"><span>商户分账比例</span><b>${num(o.merchant_split_ratio).toFixed(2)}%</b></div>
+        <div class="order-item"><span>商户应分收入</span><b>${money(o.merchant_expected_income)}</b></div>
+        <div class="order-item"><span>商户已分收入</span><b class="money green">${money(o.merchant_paid_income)}</b></div>
+        <div class="order-item"><span>商户待分收入</span><b class="money orange">${money(o.merchant_pending_income)}</b></div>
+        <div class="order-item"><span>使用次数</span><b>${num(o.used_uses)} / ${num(o.total_uses)}</b></div>
+        <div class="order-item"><span>支付时间</span><b>${dt(o.paid_at)}</b></div>
+        <div class="order-item"><span>完成时间</span><b>${dt(o.completed_at)}</b></div>
+      </div>
+      <div class="products">
+        <div class="product-line" style="font-weight:800;color:#927681"><div>服务项目</div><div>数量</div><div>单价</div><div>金额</div></div>
+        ${products}
+      </div>
+    </div>
+  </article>`;
+}
+function closeModal(){
+  $('orderModal').classList.add('hidden');
+  document.body.style.overflow='';
+  currentMerchant=null;
+}
+$('logoutBtn').onclick=()=>forceLogout();
+$('queryBtn').onclick=queryDashboard;
+$('resetBtn').onclick=()=>{
+  $('dateFrom').value='';$('dateTo').value='';$('keyword').value='';
+  if(cities.length)$('citySelect').value=cities[0].city_id;
+  queryDashboard();
+};
+$('citySelect').onchange=()=>{updateScope();queryDashboard()};
+$('keyword').addEventListener('keydown',e=>{if(e.key==='Enter')queryDashboard()});
+$('closeModal').onclick=closeModal;
+$('refreshDetail').onclick=loadOrders;
+$('relationFilter').onchange=loadOrders;
+$('orderModal').addEventListener('click',e=>{if(e.target===$('orderModal'))closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('orderModal').classList.contains('hidden'))closeModal()});
+db.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_OUT'||!session)location.replace('login.html')});
+(async()=>{
+  showLoading('正在验证管理账号…');
+  try{
+    if(!await verifyAccess())return;
+    showLoading('正在读取可管理城市…');
+    await loadCities();
+    await queryDashboard();
+  }catch(e){
+    console.error(e);hideLoading();
+    alert(e.message||'页面初始化失败');
+  }
+})();
+</script>
+</body>
+</html>

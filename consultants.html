@@ -25,9 +25,10 @@ main{max-width:1440px;margin:24px auto 70px;padding:0 20px}.hero{position:relati
 .filters{padding:16px;display:grid;grid-template-columns:1.15fr .8fr .8fr 1.3fr auto auto;gap:10px;align-items:end}.field label{display:block;font-size:11px;color:#96868c;margin:0 0 7px 3px}
 .control{width:100%;height:43px;border:1px solid var(--border);border-radius:10px;padding:0 13px;background:#fff;color:#4d4045;outline:none}.control:focus{border-color:#f39bb4;box-shadow:0 0 0 3px rgba(230,79,124,.08)}
 .filter-btn{height:43px;white-space:nowrap}.scope-note{margin:0 16px 16px;padding:11px 13px;border-radius:10px;background:#fff8fa;border:1px dashed #f2cbd6;color:#a27583;font-size:11px;line-height:1.7}
-.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:1300px}th{padding:12px 13px;text-align:left;background:#fffafb;color:#9d8a91;font-size:11px;font-weight:600;border-bottom:1px solid var(--border);white-space:nowrap}
+.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:1420px}th{padding:12px 13px;text-align:left;background:#fffafb;color:#9d8a91;font-size:11px;font-weight:600;border-bottom:1px solid var(--border);white-space:nowrap}
 td{padding:14px 13px;border-bottom:1px solid #f3eaed;font-size:12px;vertical-align:middle}tr:last-child td{border-bottom:0}tbody tr:hover{background:#fffafb}
-.consultant-no{font-size:15px;font-weight:850;color:var(--pink-dark);margin-bottom:3px}.consultant-name{font-weight:750;color:#49353d}.small-text{font-size:10px;color:#aaa;margin-top:3px}.area-name{font-weight:650;color:#59464d}.amount{font-weight:800;color:#443239;white-space:nowrap}.income{font-weight:800;color:var(--green);white-space:nowrap}.pending-income{font-weight:800;color:var(--orange);white-space:nowrap}
+.consultant-no{font-size:15px;font-weight:850;color:var(--pink-dark);margin-bottom:3px}.consultant-name{font-weight:750;color:#49353d}.small-text{font-size:10px;color:#aaa;margin-top:3px}.area-name{font-weight:650;color:#59464d}
+.amount{font-weight:800;color:#443239;white-space:nowrap}.net-amount{font-weight:800;color:var(--blue);white-space:nowrap}.income{font-weight:800;color:var(--green);white-space:nowrap}.pending-income{font-weight:800;color:var(--orange);white-space:nowrap}
 .badge{display:inline-flex;align-items:center;padding:5px 9px;border-radius:20px;font-size:10px;font-weight:750;white-space:nowrap}.badge-green{background:#eaf8f1;color:var(--green)}.badge-orange{background:#fff5df;color:var(--orange)}.badge-gray{background:#f3f1f2;color:#8d8387}.badge-blue{background:#edf5ff;color:var(--blue)}.badge-red{background:#fff0f2;color:var(--red)}
 .status-stack{display:flex;flex-direction:column;align-items:flex-start;gap:5px}.empty{padding:55px 20px;text-align:center;color:#aaa;font-size:13px}.empty-icon{font-size:36px;margin-bottom:10px}.mobile-list{display:none;padding:10px}
 .mobile-card{border:1px solid var(--border);border-radius:13px;padding:14px;margin-bottom:10px}.mobile-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.mobile-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:13px 0}.mobile-cell{font-size:10px;color:#9c8a91}.mobile-cell b{display:block;color:#49383e;font-size:12px;margin-top:4px}.mobile-actions{display:flex;justify-content:flex-end;border-top:1px solid #f3eaed;padding-top:11px}
@@ -55,14 +56,14 @@ main{margin-top:14px;padding:0 12px}.hero{padding:21px 19px}.hero h2{font-size:2
 <section class="hero">
 <div class="hero-tag">HEALTH CONSULTANT MANAGEMENT</div>
 <h2>健康顾问经营统计</h2>
-<p>以已经支付的有效订单为统计依据，按健康顾问永久编号和订单所属城市汇总订单金额及分账收入。创始人和平台管理员可查看全国数据；省级、市级管理员仅能查看已授权辖区。</p>
+<p>以已经支付的有效订单为统计依据，按健康顾问永久编号和订单所属城市汇总订单金额、微信分账账户实际到账资金及顾问分账收入。创始人和平台管理员可查看全国数据；省级、市级管理员仅能查看已授权辖区。</p>
 </section>
 <section class="stats">
 <div class="stat"><div class="stat-label">可管理城市</div><div class="stat-value" id="statCities">0</div><div class="stat-sub">当前账号授权范围</div></div>
 <div class="stat"><div class="stat-label">健康顾问总数</div><div class="stat-value" id="statConsultants">0</div><div class="stat-sub" id="statConsultantStatus">正常 0 · 待激活 0</div></div>
 <div class="stat"><div class="stat-label">产生订单的顾问</div><div class="stat-value" id="statWithOrders">0</div><div class="stat-sub">筛选期间内有有效订单</div></div>
 <div class="stat"><div class="stat-label">健康顾问关联订单</div><div class="stat-value" id="statOrders">0</div><div class="stat-sub">已支付且有效</div></div>
-<div class="stat money-stat"><div class="stat-label">关联订单总金额</div><div class="stat-value" id="statOrderAmount">¥0.00</div><div class="stat-sub">实际支付金额</div></div>
+<div class="stat money-stat"><div class="stat-label">关联订单总金额</div><div class="stat-value" id="statOrderAmount">¥0.00</div><div class="stat-sub">客户实际支付金额</div></div>
 <div class="stat money-stat"><div class="stat-label">顾问应分收入</div><div class="stat-value" id="statExpected">¥0.00</div><div class="stat-sub">分账记录合计</div></div>
 <div class="stat money-stat"><div class="stat-label">顾问已分收入</div><div class="stat-value" id="statPaid">¥0.00</div><div class="stat-sub">已完成实际分账</div></div>
 <div class="stat money-stat"><div class="stat-label">顾问待分收入</div><div class="stat-value" id="statPending">¥0.00</div><div class="stat-sub">尚未执行分账</div></div>
@@ -81,10 +82,10 @@ main{margin-top:14px;padding:0 12px}.hero{padding:21px 19px}.hero h2{font-size:2
 <div class="scope-note" id="scopeNote">系统正在读取当前账号的省市管理范围。所有辖区限制均由数据库执行，前端无法越权读取其他城市数据。</div>
 </section>
 <section class="panel">
-<div class="panel-head"><div><div class="panel-title">健康顾问收入表</div><div class="panel-sub">订单金额与顾问分账收入按城市、顾问编号分别汇总</div></div><div id="resultCount" style="font-size:11px;color:#aaa">0 位顾问</div></div>
+<div class="panel-head"><div><div class="panel-title">健康顾问收入表</div><div class="panel-sub">订单总金额为客户支付金额；实际到账资金为扣除微信手续费后进入分账账户的订单净额；顾问收入按顾问编号分别汇总</div></div><div id="resultCount" style="font-size:11px;color:#aaa">0 位顾问</div></div>
 <div class="desktop-table table-wrap">
 <table>
-<thead><tr><th>健康顾问</th><th>所属城市</th><th>状态与账户</th><th>有效订单</th><th>订单总金额</th><th>最近分账比例</th><th>应分收入</th><th>已分收入</th><th>待分收入</th><th>最后订单</th><th>操作</th></tr></thead>
+<thead><tr><th>健康顾问</th><th>所属城市</th><th>状态与账户</th><th>有效订单</th><th>订单总金额</th><th>实际到账资金</th><th>最近分账比例</th><th>应分收入</th><th>已分收入</th><th>待分收入</th><th>最后订单</th><th>操作</th></tr></thead>
 <tbody id="consultantBody"></tbody>
 </table>
 <div id="desktopEmpty" class="empty" style="display:none"><div class="empty-icon">♡</div>当前筛选范围内没有健康顾问数据</div>
@@ -165,12 +166,7 @@ if(String(error.message||"").includes("登录"))location.replace(LOGIN_PAGE);
 }
 function rpcParams(){
 const cityValue=$("citySelect").value;
-return {
-p_city_id:cityValue?Number(cityValue):null,
-p_date_from:$("dateFrom").value||null,
-p_date_to:$("dateTo").value||null,
-p_keyword:$("keyword").value.trim()||null
-};
+return {p_city_id:cityValue?Number(cityValue):null,p_date_from:$("dateFrom").value||null,p_date_to:$("dateTo").value||null,p_keyword:$("keyword").value.trim()||null};
 }
 async function loadDashboard(initial=false){
 const thisRequest=++requestNo;
@@ -244,7 +240,8 @@ function renderConsultants(){
 $("resultCount").textContent=`${consultants.length} 位顾问`;
 const tbody=$("consultantBody"),mobile=$("mobileList"),empty=$("desktopEmpty");
 if(!consultants.length){
-tbody.innerHTML="";empty.style.display="block";
+tbody.innerHTML="";
+empty.style.display="block";
 mobile.innerHTML='<div class="empty"><div class="empty-icon">♡</div>当前筛选范围内没有健康顾问数据</div>';
 return;
 }
@@ -256,6 +253,7 @@ tbody.innerHTML=consultants.map(c=>`
 <td>${consultantStatusBadges(c)}</td>
 <td><span class="amount">${integer(c.order_count)}</span></td>
 <td><span class="amount">${money(c.order_amount)}</span></td>
+<td><span class="net-amount">${money(c.actual_received_amount)}</span></td>
 <td>${esc(ratio(c.latest_ratio))}</td>
 <td><span class="income">${money(c.expected_income)}</span></td>
 <td><span class="income">${money(c.paid_income)}</span></td>
@@ -271,21 +269,30 @@ return `<div class="mobile-card">
 <div class="mobile-grid">
 <div class="mobile-cell">有效订单<b>${integer(c.order_count)}</b></div>
 <div class="mobile-cell">订单总金额<b>${money(c.order_amount)}</b></div>
+<div class="mobile-cell">实际到账资金<b style="color:var(--blue)">${money(c.actual_received_amount)}</b></div>
+<div class="mobile-cell">最近分账比例<b>${esc(ratio(c.latest_ratio))}</b></div>
 <div class="mobile-cell">应分收入<b>${money(c.expected_income)}</b></div>
 <div class="mobile-cell">已分收入<b>${money(c.paid_income)}</b></div>
 <div class="mobile-cell">待分收入<b>${money(c.pending_income)}</b></div>
-<div class="mobile-cell">最近比例<b>${esc(ratio(c.latest_ratio))}</b></div>
+<div class="mobile-cell">最后订单<b>${esc(formatTime(c.last_order_at))}</b></div>
 </div>
 <div class="mobile-actions"><button class="btn btn-small" onclick="openOrders('${esc(c.consultant_no)}','${esc(c.city_id)}')">查看订单明细</button></div>
 </div>`;
 }).join("");
 }
 function renderFailure(){
-dashboardData={summary:{},cities:[],consultants:[]};availableCities=[];consultants=[];
-renderCitySelect(true);renderSummary();renderConsultants();$("statScope").textContent="读取失败";
+dashboardData={summary:{},cities:[],consultants:[]};
+availableCities=[];
+consultants=[];
+renderCitySelect(true);
+renderSummary();
+renderConsultants();
+$("statScope").textContent="读取失败";
 }
 function resetFilters(){
-$("dateFrom").value="";$("dateTo").value="";$("keyword").value="";
+$("dateFrom").value="";
+$("dateTo").value="";
+$("keyword").value="";
 if(availableCities.length>1)$("citySelect").value="";
 else if(availableCities.length===1)$("citySelect").value=String(availableCities[0].city_id);
 loadDashboard();
@@ -296,12 +303,15 @@ if(!consultant){showToast("没有找到该健康顾问资料","error");return}
 $("orderModal").classList.add("show");
 $("modalTitle").textContent=`${consultant.consultant_name||"健康顾问"} · ${consultant.consultant_no}`;
 $("modalSub").textContent=`${consultant.province_name||""} · ${consultant.city_name||""}｜统计期间与主页面日期筛选一致`;
-$("modalOrderCount").textContent="—";$("modalOrderAmount").textContent="—";$("modalExpected").textContent="—";$("modalPaid").textContent="—";
-$("modalLoading").classList.remove("hidden");$("orderDesktop").classList.add("hidden");$("orderMobile").innerHTML="";
+$("modalOrderCount").textContent="—";
+$("modalOrderAmount").textContent="—";
+$("modalExpected").textContent="—";
+$("modalPaid").textContent="—";
+$("modalLoading").classList.remove("hidden");
+$("orderDesktop").classList.add("hidden");
+$("orderMobile").innerHTML="";
 try{
-const {data,error}=await supabaseClient.rpc("get_consultant_management_orders",{
-p_consultant_no:Number(consultantNo),p_city_id:Number(cityId),p_date_from:$("dateFrom").value||null,p_date_to:$("dateTo").value||null
-});
+const {data,error}=await supabaseClient.rpc("get_consultant_management_orders",{p_consultant_no:Number(consultantNo),p_city_id:Number(cityId),p_date_from:$("dateFrom").value||null,p_date_to:$("dateTo").value||null});
 if(error)throw error;
 const result=parseData(data),orders=Array.isArray(result.orders)?result.orders:[];
 renderOrders(orders);
@@ -309,25 +319,52 @@ renderOrders(orders);
 console.error("订单明细读取失败：",error);
 showToast(error.message||"订单明细读取失败","error");
 $("orderMobile").innerHTML='<div class="empty">订单明细读取失败</div>';
-}finally{$("modalLoading").classList.add("hidden")}
+}finally{
+$("modalLoading").classList.add("hidden");
+}
 }
 function renderOrders(orders){
-const count=orders.length,total=orders.reduce((s,x)=>s+num(x.order_amount),0),expected=orders.reduce((s,x)=>s+num(x.expected_income),0),paid=orders.reduce((s,x)=>s+num(x.paid_income),0);
-$("modalOrderCount").textContent=integer(count);$("modalOrderAmount").textContent=money(total);$("modalExpected").textContent=money(expected);$("modalPaid").textContent=money(paid);
+const count=orders.length;
+const total=orders.reduce((s,x)=>s+num(x.order_amount),0);
+const expected=orders.reduce((s,x)=>s+num(x.expected_income),0);
+const paid=orders.reduce((s,x)=>s+num(x.paid_income),0);
+$("modalOrderCount").textContent=integer(count);
+$("modalOrderAmount").textContent=money(total);
+$("modalExpected").textContent=money(expected);
+$("modalPaid").textContent=money(paid);
 $("orderDesktop").classList.remove("hidden");
 const body=$("orderBody"),empty=$("orderEmpty"),mobile=$("orderMobile");
-if(!orders.length){body.innerHTML="";empty.style.display="block";mobile.innerHTML='<div class="empty"><div class="empty-icon">♡</div>该健康顾问暂无有效订单</div>';return}
+if(!orders.length){
+body.innerHTML="";
+empty.style.display="block";
+mobile.innerHTML='<div class="empty"><div class="empty-icon">♡</div>该健康顾问暂无有效订单</div>';
+return;
+}
 empty.style.display="none";
 body.innerHTML=orders.map(o=>`
-<tr><td><strong>${esc(o.order_no||"—")}</strong><div class="small-text">${esc(formatTime(o.created_at))}</div></td>
+<tr>
+<td><strong>${esc(o.order_no||"—")}</strong><div class="small-text">${esc(formatTime(o.created_at))}</div></td>
 <td>${esc(o.merchant_name||"—")}<div class="small-text">${o.merchant_no?esc(o.merchant_no):"—"}</div></td>
 <td><span class="amount">${money(o.order_amount)}</span></td>
 <td><span class="badge ${o.order_status==="completed"?"badge-green":"badge-blue"}">${esc(orderStatusName(o.order_status))}</span></td>
 <td>${o.split_executed_at?'<span class="badge badge-green">已分账</span>':num(o.expected_income)>0?'<span class="badge badge-orange">待分账</span>':'<span class="badge badge-gray">未生成</span>'}</td>
-<td>${esc(ratio(o.split_ratio))}</td><td class="income">${money(o.expected_income)}</td><td class="income">${money(o.paid_income)}</td><td class="pending-income">${money(o.pending_income)}</td><td>${esc(formatTime(o.paid_at||o.created_at))}</td></tr>`).join("");
-mobile.innerHTML=orders.map(o=>`<div class="mobile-card">
+<td>${esc(ratio(o.split_ratio))}</td>
+<td class="income">${money(o.expected_income)}</td>
+<td class="income">${money(o.paid_income)}</td>
+<td class="pending-income">${money(o.pending_income)}</td>
+<td>${esc(formatTime(o.paid_at||o.created_at))}</td>
+</tr>`).join("");
+mobile.innerHTML=orders.map(o=>`
+<div class="mobile-card">
 <div class="mobile-top"><div><div class="consultant-name">${esc(o.order_no||"—")}</div><div class="small-text">${esc(o.merchant_name||"—")}</div></div><span class="badge ${o.order_status==="completed"?"badge-green":"badge-blue"}">${esc(orderStatusName(o.order_status))}</span></div>
-<div class="mobile-grid"><div class="mobile-cell">订单金额<b>${money(o.order_amount)}</b></div><div class="mobile-cell">顾问比例<b>${esc(ratio(o.split_ratio))}</b></div><div class="mobile-cell">应分收入<b>${money(o.expected_income)}</b></div><div class="mobile-cell">已分收入<b>${money(o.paid_income)}</b></div><div class="mobile-cell">待分收入<b>${money(o.pending_income)}</b></div><div class="mobile-cell">支付时间<b>${esc(formatTime(o.paid_at||o.created_at))}</b></div></div>
+<div class="mobile-grid">
+<div class="mobile-cell">订单金额<b>${money(o.order_amount)}</b></div>
+<div class="mobile-cell">顾问比例<b>${esc(ratio(o.split_ratio))}</b></div>
+<div class="mobile-cell">应分收入<b>${money(o.expected_income)}</b></div>
+<div class="mobile-cell">已分收入<b>${money(o.paid_income)}</b></div>
+<div class="mobile-cell">待分收入<b>${money(o.pending_income)}</b></div>
+<div class="mobile-cell">支付时间<b>${esc(formatTime(o.paid_at||o.created_at))}</b></div>
+</div>
 </div>`).join("");
 }
 function closeOrderModal(){$("orderModal").classList.remove("show")}

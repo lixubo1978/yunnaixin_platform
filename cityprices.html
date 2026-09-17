@@ -70,9 +70,7 @@ main{padding:0 12px;margin-top:14px}.hero{padding:20px}.hero h2{font-size:21px}.
 </style>
 </head>
 <body>
-
 <div id="loading" class="loading-overlay">正在读取城市销售价格...</div>
-
 <header>
 <div class="brand">
 <div class="logo">♡</div>
@@ -83,21 +81,18 @@ main{padding:0 12px;margin-top:14px}.hero{padding:20px}.hero h2{font-size:21px}.
 <button class="btn btn-primary" onclick="logout()">退出</button>
 </div>
 </header>
-
 <main>
 <section class="hero">
 <div class="hero-tag">CITY SALES PRICE</div>
 <h2>城市销售价格</h2>
 <p>系统不再为城市自动预生成全部产品价格。由管理人员从平台统一服务项目名录中人工选择当地需要开展的项目，并直接确定正式销售价格。首次创建为 V1；以后调整价格保留历史版本；停止开展后不生成空白价格记录。</p>
 </section>
-
 <section class="stats">
 <div class="stat"><div class="stat-label">已开展业务城市</div><div class="stat-value" id="statCities">0</div></div>
 <div class="stat"><div class="stat-label">当前开展服务项目</div><div class="stat-value" id="statActive">0</div></div>
 <div class="stat"><div class="stat-label">系统服务项目名录</div><div class="stat-value" id="statProducts">0</div></div>
 <div class="stat"><div class="stat-label">历史价格记录</div><div class="stat-value" id="statHistory">0</div></div>
 </section>
-
 <section class="panel">
 <div class="panel-head">
 <div><div class="panel-title">选择城市</div><div class="panel-sub">仅显示已经正式开通的城市级服务区域</div></div>
@@ -107,7 +102,6 @@ main{padding:0 12px;margin-top:14px}.hero{padding:20px}.hero h2{font-size:21px}.
 <input id="searchInput" class="control" placeholder="搜索服务项目名称或编号">
 </div>
 </section>
-
 <section class="panel">
 <div class="panel-head">
 <div><div class="panel-title">创建城市标准价格</div><div class="panel-sub">人工选择该城市需要开展的服务项目</div></div>
@@ -133,13 +127,11 @@ main{padding:0 12px;margin-top:14px}.hero{padding:20px}.hero h2{font-size:21px}.
 <div class="tip">已经在当前城市正常开展的项目不会重复出现在可创建名录中。创建成功后直接产生正式有效价格，不生成“未定义”记录。</div>
 </div>
 </section>
-
 <section class="panel">
 <div class="city-current">
 <div><span>当前城市</span><br><strong id="currentCityName">请选择城市</strong></div>
 <div class="history-toggle"><label style="font-size:11px;color:#999"><input type="checkbox" id="showHistory"> 显示历史价格</label></div>
 </div>
-
 <div class="desktop-table table-wrap">
 <table>
 <thead><tr><th>服务项目</th><th>城市</th><th>版本</th><th>销售价格</th><th>创建时间</th><th>状态</th><th>操作</th></tr></thead>
@@ -150,7 +142,6 @@ main{padding:0 12px;margin-top:14px}.hero{padding:20px}.hero h2{font-size:21px}.
 <div id="mobileList" class="mobile-list"></div>
 </section>
 </main>
-
 <div id="changeModal" class="modal-mask">
 <div class="modal">
 <div class="modal-head"><strong>调整城市销售价格</strong><button class="close" onclick="closeModal('changeModal')">×</button></div>
@@ -161,7 +152,6 @@ main{padding:0 12px;margin-top:14px}.hero{padding:20px}.hero h2{font-size:21px}.
 </div>
 </div>
 </div>
-
 <div id="stopModal" class="modal-mask">
 <div class="modal">
 <div class="modal-head"><strong>停止开展服务</strong><button class="close" onclick="closeModal('stopModal')">×</button></div>
@@ -172,29 +162,18 @@ main{padding:0 12px;margin-top:14px}.hero{padding:20px}.hero h2{font-size:21px}.
 </div>
 </div>
 </div>
-
 <div id="toast" class="toast"></div>
-
 <script>
 const SUPABASE_URL="https://qbuqjwpkltbjhlfbyjyb.supabase.co";
 const SUPABASE_ANON_KEY="sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
-
 const supabaseClient=window.supabase.createClient(
 SUPABASE_URL,
 SUPABASE_ANON_KEY,
-{
-auth:{
-persistSession:true,
-autoRefreshToken:true,
-detectSessionInUrl:true
-}
-}
+{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}}
 );
-
 const LOGIN_PAGE="./login.html";
 const HOME_PAGE="./wholemanagement.html";
 const IDLE_LIMIT=10*60*1000;
-
 let currentUser=null;
 let currentProfile=null;
 let serviceAreas=[];
@@ -206,9 +185,7 @@ let selectedCityId=null;
 let selectedChangeRule=null;
 let selectedStopRule=null;
 let idleTimer=null;
-
 const $=id=>document.getElementById(id);
-
 function esc(v){
 return String(v??"")
 .replaceAll("&","&amp;")
@@ -217,20 +194,17 @@ return String(v??"")
 .replaceAll('"',"&quot;")
 .replaceAll("'","&#039;");
 }
-
 function money(v){
 const n=Number(v);
 if(!Number.isFinite(n))return "—";
 return "¥"+n.toLocaleString("zh-CN",{minimumFractionDigits:2,maximumFractionDigits:2});
 }
-
 function formatTime(v){
 if(!v)return "—";
 const d=new Date(v);
 if(Number.isNaN(d.getTime()))return "—";
 return d.toLocaleString("zh-CN",{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false});
 }
-
 function showToast(message,type=""){
 const el=$("toast");
 el.textContent=message;
@@ -238,12 +212,10 @@ el.className="toast show "+type;
 clearTimeout(el._timer);
 el._timer=setTimeout(()=>el.className="toast",3000);
 }
-
 function hideLoading(){
 const el=$("loading");
 if(el)el.style.display="none";
 }
-
 function setBusy(el,busy,label){
 if(!el)return;
 if(busy){
@@ -255,121 +227,49 @@ el.textContent=el.dataset.old||el.textContent;
 el.disabled=false;
 }
 }
-
-function goBack(){
-window.location.href=HOME_PAGE;
-}
-
+function goBack(){window.location.href=HOME_PAGE}
 async function logout(){
-try{
-await supabaseClient.auth.signOut();
-}finally{
-window.location.href=LOGIN_PAGE;
+try{await supabaseClient.auth.signOut()}
+finally{window.location.href=LOGIN_PAGE}
 }
-}
-
 function resetIdleTimer(){
 clearTimeout(idleTimer);
 idleTimer=setTimeout(autoLogout,IDLE_LIMIT);
 }
-
 async function autoLogout(){
-try{
-await supabaseClient.auth.signOut();
-}catch(error){
-console.error("自动退出失败：",error);
-}
+try{await supabaseClient.auth.signOut()}
+catch(error){console.error("自动退出失败：",error)}
 alert("由于10分钟未操作，系统已自动退出。");
 window.location.href=LOGIN_PAGE;
 }
-
 ["mousemove","mousedown","keydown","touchstart","scroll","click"].forEach(eventName=>{
 document.addEventListener(eventName,resetIdleTimer,{passive:true});
 });
-
-function closeModal(id){
-$(id).classList.remove("show");
-}
-
-function cityById(id){
-return cities.find(x=>String(x.id)===String(id));
-}
-
-function provinceById(id){
-return provinces.find(x=>String(x.id)===String(id));
-}
-
-function productById(id){
-return products.find(x=>String(x.id)===String(id));
-}
-
-function productCode(p){
-return p?.product_code||p?.code||p?.product_no||"";
-}
-
-function productName(p){
-return p?.product_name||p?.name||p?.service_name||"未命名服务项目";
-}
-
+function closeModal(id){$(id).classList.remove("show")}
+function cityById(id){return cities.find(x=>String(x.id)===String(id))}
+function provinceById(id){return provinces.find(x=>String(x.id)===String(id))}
+function productById(id){return products.find(x=>String(x.id)===String(id))}
+function productCode(p){return p?.product_code||p?.code||p?.product_no||""}
+function productName(p){return p?.product_name||p?.name||p?.service_name||"未命名服务项目"}
 function productCategory(p){
-
-    if(!p){
-        return "其他服务";
-    }
-
-
-    /*
-      一级服务类别
-
-      products:
-      category_id = 3
-
-      对应：
-      母乳喂养指导类
-
-      后续如果建立 product_categories 表，
-      这里改成数据库关联即可。
-    */
-
-    const categoryMap={
-
-        3:"母乳喂养指导类"
-
-    };
-
-
-    if(
-        p.category_id &&
-        categoryMap[p.category_id]
-    ){
-
-        return categoryMap[p.category_id];
-
-    }
-
-
-    return (
-        p.category_name ||
-        p.category ||
-        p.product_category ||
-        p.service_category ||
-        p.first_level_category ||
-        p.level1_name ||
-        (
-            p.product_type==="service"
-            ?
-            "服务类项目"
-            :
-            p.product_type==="physical_goods"
-            ?
-            "实物商品"
-            :
-            "其他服务"
-        )
-    );
-
+if(!p)return "其他服务";
+const categoryMap={
+3:"母乳喂养指导类",
+7:"月嫂服务类"
+};
+if(p.category_id&&categoryMap[p.category_id]){
+return categoryMap[p.category_id];
 }
-
+return(
+p.category_name||
+p.category||
+p.product_category||
+p.service_category||
+p.first_level_category||
+p.level1_name||
+(p.product_type==="service"?"服务类项目":p.product_type==="physical_goods"?"实物商品":"其他服务")
+);
+}
 function activePriceForProduct(productId){
 return cityPrices.find(x=>
 String(x.city_id)===String(selectedCityId)&&
@@ -377,107 +277,56 @@ String(x.product_id)===String(productId)&&
 x.status==="active"
 );
 }
-
 async function initialize(){
 resetIdleTimer();
-
 try{
 const {data:{session},error:sessionError}=await supabaseClient.auth.getSession();
-
 if(sessionError)throw sessionError;
-
 if(!session){
 location.replace(LOGIN_PAGE);
 return;
 }
-
 currentUser=session.user;
-
 const {data:profile,error:profileError}=await supabaseClient
 .from("profiles")
-.select(`
-id,
-full_name,
-role,
-status
-`)
+.select("id,full_name,role,status")
 .eq("id",currentUser.id)
 .single();
-
-if(profileError||!profile){
-throw new Error("无法读取当前账号权限。");
-}
-
-if(profile.status!=="active"){
-throw new Error("当前账号已经停用。");
-}
-
+if(profileError||!profile)throw new Error("无法读取当前账号权限。");
+if(profile.status!=="active")throw new Error("当前账号已经停用。");
 if(!["founder","platform_admin"].includes(profile.role)){
 alert("您没有城市销售价格管理权限。");
 location.replace(HOME_PAGE);
 return;
 }
-
 currentProfile=profile;
-
 await loadAll();
-
 hideLoading();
-
 }catch(error){
 console.error("页面初始化失败：",error);
 hideLoading();
 alert(error.message||"页面初始化失败。");
 }
 }
-
 async function loadAll(){
 const [areaRes,cityRes,provinceRes,productRes,priceRes]=await Promise.all([
-supabaseClient
-.from("service_areas")
-.select("id,area_no,province_id,city_id,district_id,status")
-.eq("status","active")
-.is("district_id",null)
-.order("area_no",{ascending:true}),
-
-supabaseClient
-.from("cities")
-.select("id,province_id,city_code,city_name,status")
-.eq("status","active")
-.order("city_code",{ascending:true}),
-
-supabaseClient
-.from("provinces")
-.select("id,province_code,province_name,status")
-.eq("status","active")
-.order("province_code",{ascending:true}),
-
-supabaseClient
-.from("products")
-.select("*")
-.eq("status","active")
-.order("id",{ascending:true}),
-
-supabaseClient
-.from("city_prices")
-.select("*")
-.order("created_at",{ascending:false})
+supabaseClient.from("service_areas").select("id,area_no,province_id,city_id,district_id,status").eq("status","active").is("district_id",null).order("area_no",{ascending:true}),
+supabaseClient.from("cities").select("id,province_id,city_code,city_name,status").eq("status","active").order("city_code",{ascending:true}),
+supabaseClient.from("provinces").select("id,province_code,province_name,status").eq("status","active").order("province_code",{ascending:true}),
+supabaseClient.from("products").select("*").eq("status","active").order("id",{ascending:true}),
+supabaseClient.from("city_prices").select("*").order("created_at",{ascending:false})
 ]);
-
 if(areaRes.error)throw new Error("服务区域读取失败："+areaRes.error.message);
 if(cityRes.error)throw new Error("城市读取失败："+cityRes.error.message);
 if(provinceRes.error)throw new Error("省份读取失败："+provinceRes.error.message);
 if(productRes.error)throw new Error("服务项目读取失败："+productRes.error.message);
 if(priceRes.error)throw new Error("城市价格读取失败："+priceRes.error.message);
-
 serviceAreas=areaRes.data||[];
 cities=cityRes.data||[];
 provinces=provinceRes.data||[];
 products=productRes.data||[];
 cityPrices=priceRes.data||[];
-
 renderCitySelect();
-
 if(serviceAreas.length){
 const cityIds=[...new Set(serviceAreas.map(x=>String(x.city_id)))];
 const existing=$("citySelect").value;
@@ -486,29 +335,23 @@ $("citySelect").value=String(selectedCityId);
 }else{
 selectedCityId=null;
 }
-
 renderAll();
 }
-
 function renderCitySelect(){
 const select=$("citySelect");
 const oldValue=select.value;
 const unique=new Map();
-
 serviceAreas.forEach(sa=>{
 if(sa.city_id&&!unique.has(String(sa.city_id))){
 unique.set(String(sa.city_id),sa);
 }
 });
-
 const list=[...unique.values()].sort((a,b)=>Number(a.area_no||0)-Number(b.area_no||0));
-
 if(!list.length){
 select.innerHTML='<option value="">暂无已开通城市</option>';
 selectedCityId=null;
 return;
 }
-
 select.innerHTML=list.map(sa=>{
 const c=cityById(sa.city_id);
 const p=provinceById(sa.province_id);
@@ -517,12 +360,10 @@ const provinceName=p?.province_name||"";
 const areaNo=sa.area_no?String(sa.area_no).padStart(3,"0"):"";
 return `<option value="${esc(sa.city_id)}">${esc(areaNo?areaNo+" | ":"")}${esc(provinceName)}${provinceName?" · ":""}${esc(cityName)}</option>`;
 }).join("");
-
 if(oldValue&&list.some(x=>String(x.city_id)===String(oldValue))){
 select.value=oldValue;
 }
 }
-
 function renderAll(){
 renderStats();
 renderCurrentCity();
@@ -530,72 +371,57 @@ renderCategoryOptions();
 renderProductOptions();
 renderPrices();
 }
-
 function renderStats(){
 const active=cityPrices.filter(x=>x.status==="active"&&x.price!==null);
 const history=cityPrices.filter(x=>x.status==="inactive");
-
 $("statCities").textContent=new Set(active.map(x=>String(x.city_id))).size;
 $("statActive").textContent=active.length;
 $("statProducts").textContent=products.length;
 $("statHistory").textContent=history.length;
 }
-
 function renderCurrentCity(){
 if(!selectedCityId){
 $("currentCityName").textContent="请选择城市";
 return;
 }
-
 const c=cityById(selectedCityId);
 const sa=serviceAreas.find(x=>String(x.city_id)===String(selectedCityId));
 const p=sa?provinceById(sa.province_id):null;
-
 $("currentCityName").textContent=
 (p?.province_name?p.province_name+" · ":"")+
 (c?.city_name||"未知城市");
 }
-
 function availableProducts(){
 if(!selectedCityId)return [];
 return products.filter(p=>!activePriceForProduct(p.id));
 }
-
 function renderCategoryOptions(){
 const select=$("level1Select");
 const old=select.value;
-
 const categories=[...new Set(
 availableProducts().map(productCategory)
 )].sort((a,b)=>String(a).localeCompare(String(b),"zh-CN"));
-
 select.innerHTML=
 '<option value="">请选择一级类别</option>'+
 categories.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join("");
-
 if(old&&categories.includes(old)){
 select.value=old;
 }
 }
-
 function renderProductOptions(){
 const category=$("level1Select").value;
 const select=$("productSelect");
-
 if(!category){
 select.disabled=true;
 select.innerHTML='<option value="">请先选择一级类别</option>';
 return;
 }
-
 const list=availableProducts().filter(p=>productCategory(p)===category);
-
 if(!list.length){
 select.disabled=true;
 select.innerHTML='<option value="">该类别暂无可创建项目</option>';
 return;
 }
-
 select.disabled=false;
 select.innerHTML=
 '<option value="">请选择具体服务项目</option>'+
@@ -604,44 +430,33 @@ const code=productCode(p);
 return `<option value="${esc(p.id)}">${esc(productName(p))}${code?" | "+esc(code):""}</option>`;
 }).join("");
 }
-
 function getVisiblePrices(){
 if(!selectedCityId)return [];
-
 const showHistory=$("showHistory").checked;
 const keyword=$("searchInput").value.trim().toLowerCase();
-
 return cityPrices.filter(r=>{
 if(String(r.city_id)!==String(selectedCityId))return false;
-
 if(showHistory){
 if(!["active","inactive"].includes(r.status))return false;
 }else{
 if(r.status!=="active")return false;
 }
-
 const p=productById(r.product_id);
 const searchText=[
 productName(p),
 productCode(p),
 productCategory(p)
 ].join(" ").toLowerCase();
-
 return !keyword||searchText.includes(keyword);
-
 }).sort((a,b)=>{
 if(a.status!==b.status)return a.status==="active"?-1:1;
-
 const ap=productById(a.product_id);
 const bp=productById(b.product_id);
 const n=productName(ap).localeCompare(productName(bp),"zh-CN");
-
 if(n!==0)return n;
-
 return Number(b.version_no||0)-Number(a.version_no||0);
 });
 }
-
 function renderPrices(){
 const rows=getVisiblePrices();
 const c=cityById(selectedCityId);
@@ -649,20 +464,16 @@ const cityName=c?.city_name||"—";
 const tbody=$("priceTableBody");
 const empty=$("desktopEmpty");
 const mobile=$("mobileList");
-
 if(!rows.length){
 tbody.innerHTML="";
 empty.style.display="block";
 mobile.innerHTML='<div class="empty"><div class="empty-icon">♡</div>当前城市还没有开展符合条件的服务项目</div>';
 return;
 }
-
 empty.style.display="none";
-
 tbody.innerHTML=rows.map(r=>{
 const p=productById(r.product_id);
 const active=r.status==="active";
-
 return `
 <tr>
 <td>
@@ -683,11 +494,9 @@ ${active?`
 </td>
 </tr>`;
 }).join("");
-
 mobile.innerHTML=rows.map(r=>{
 const p=productById(r.product_id);
 const active=r.status==="active";
-
 return `
 <div class="mobile-card">
 <div class="mobile-card-top">
@@ -711,60 +520,47 @@ ${active?`
 </div>`;
 }).join("");
 }
-
 async function createCityPrice(){
 if(!selectedCityId){
 showToast("请先选择城市","error");
 return;
 }
-
 const productId=Number($("productSelect").value);
 const price=Number($("newPrice").value);
-
 if(!productId){
 showToast("请选择需要开展的服务项目","error");
 return;
 }
-
 if(!Number.isFinite(price)||price<=0){
 showToast("请输入正确的销售价格","error");
 return;
 }
-
 if(activePriceForProduct(productId)){
 showToast("该服务项目已经在当前城市开展","error");
 return;
 }
-
 const p=productById(productId);
 const c=cityById(selectedCityId);
-
 if(!confirm(
 `确认在 ${c?.city_name||"当前城市"} 开展：\n\n`+
 `${productName(p)}\n`+
 `销售价格：${money(price)}\n\n`+
 `确认后直接创建正式销售价格。`
 ))return;
-
 const btn=$("createBtn");
 setBusy(btn,true,"正在创建...");
-
 try{
 const {data,error}=await supabaseClient.rpc("create_city_price",{
 p_city_id:Number(selectedCityId),
 p_product_id:productId,
 p_price:price
 });
-
 if(error)throw error;
 if(!data?.success)throw new Error(data?.error||"创建城市销售价格失败");
-
 $("newPrice").value="";
 $("level1Select").value="";
 showToast("城市标准价格创建成功","success");
-
 await reloadPrices();
-
 }catch(error){
 console.error(error);
 showToast(error.message||"创建失败","error");
@@ -772,64 +568,46 @@ showToast(error.message||"创建失败","error");
 setBusy(btn,false);
 }
 }
-
 function openChangePrice(id){
 const r=cityPrices.find(x=>Number(x.id)===Number(id));
-
 if(!r||r.status!=="active"){
 showToast("当前价格已经不是有效版本","error");
 return;
 }
-
 selectedChangeRule=r;
-
 const p=productById(r.product_id);
 const c=cityById(r.city_id);
-
 $("changeProductName").textContent=productName(p);
 $("changeProductInfo").textContent=
 `${c?.city_name||""} · 当前 V${r.version_no||1} · ${money(r.price)}`;
-
 $("changePriceInput").value="";
 $("changeModal").classList.add("show");
-
 setTimeout(()=>$("changePriceInput").focus(),100);
 }
-
 async function confirmChangePrice(){
 if(!selectedChangeRule)return;
-
 const newPrice=Number($("changePriceInput").value);
-
 if(!Number.isFinite(newPrice)||newPrice<=0){
 showToast("请输入正确的新销售价格","error");
 return;
 }
-
 if(Number(selectedChangeRule.price)===newPrice){
 showToast("新价格与当前价格相同","error");
 return;
 }
-
 const btn=$("changeConfirmBtn");
 setBusy(btn,true,"正在调整...");
-
 try{
 const {data,error}=await supabaseClient.rpc("change_city_price",{
 p_price_id:Number(selectedChangeRule.id),
 p_new_price:newPrice
 });
-
 if(error)throw error;
 if(!data?.success)throw new Error(data?.error||"调整价格失败");
-
 closeModal("changeModal");
 selectedChangeRule=null;
-
 showToast("价格调整成功，新版本已经生效","success");
-
 await reloadPrices();
-
 }catch(error){
 console.error(error);
 showToast(error.message||"调价失败","error");
@@ -837,48 +615,34 @@ showToast(error.message||"调价失败","error");
 setBusy(btn,false);
 }
 }
-
 function openStopService(id){
 const r=cityPrices.find(x=>Number(x.id)===Number(id));
-
 if(!r||r.status!=="active"){
 showToast("该服务当前已经不是开展状态","error");
 return;
 }
-
 selectedStopRule=r;
-
 const p=productById(r.product_id);
 const c=cityById(r.city_id);
-
 $("stopProductName").textContent=productName(p);
 $("stopProductInfo").textContent=
 `${c?.city_name||""} · V${r.version_no||1} · ${money(r.price)}`;
-
 $("stopModal").classList.add("show");
 }
-
 async function confirmStopService(){
 if(!selectedStopRule)return;
-
 const btn=$("stopConfirmBtn");
 setBusy(btn,true,"正在停止...");
-
 try{
 const {data,error}=await supabaseClient.rpc("stop_city_service",{
 p_price_id:Number(selectedStopRule.id)
 });
-
 if(error)throw error;
 if(!data?.success)throw new Error(data?.error||"停止服务失败");
-
 closeModal("stopModal");
 selectedStopRule=null;
-
 showToast("该城市服务项目已经停止开展","success");
-
 await reloadPrices();
-
 }catch(error){
 console.error(error);
 showToast(error.message||"操作失败","error");
@@ -886,23 +650,18 @@ showToast(error.message||"操作失败","error");
 setBusy(btn,false);
 }
 }
-
 async function reloadPrices(){
 const {data,error}=await supabaseClient
 .from("city_prices")
 .select("*")
 .order("created_at",{ascending:false});
-
 if(error)throw error;
-
 cityPrices=data||[];
-
 renderStats();
 renderCategoryOptions();
 renderProductOptions();
 renderPrices();
 }
-
 $("citySelect").addEventListener("change",()=>{
 selectedCityId=$("citySelect").value||null;
 $("level1Select").value="";
@@ -912,25 +671,20 @@ renderCategoryOptions();
 renderProductOptions();
 renderPrices();
 });
-
 $("level1Select").addEventListener("change",renderProductOptions);
 $("searchInput").addEventListener("input",renderPrices);
 $("showHistory").addEventListener("change",renderPrices);
-
 $("newPrice").addEventListener("keydown",e=>{
 if(e.key==="Enter")createCityPrice();
 });
-
 $("changePriceInput").addEventListener("keydown",e=>{
 if(e.key==="Enter")confirmChangePrice();
 });
-
 document.querySelectorAll(".modal-mask").forEach(mask=>{
 mask.addEventListener("click",e=>{
 if(e.target===mask)mask.classList.remove("show");
 });
 });
-
 initialize();
 </script>
 </body>

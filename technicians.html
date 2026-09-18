@@ -6,29 +6,18 @@
 <title>孕乃馨 - 技术服务人员管理</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{
-  --pink:#e85587;--pink2:#c93869;--bg:#fff8fa;--line:#f0e4e9;
-  --text:#30262b;--muted:#94868e;--green:#18805d;--blue:#3978c8;
-  --orange:#bd7618;--card:#fff;--shadow:0 12px 30px rgba(128,48,76,.07)
-}
-*{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#fffafa,#fff7f9);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",Arial,sans-serif}
-button,input,select{font:inherit} button{cursor:pointer}.hidden{display:none!important}
-.topbar{height:68px;padding:0 28px;display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
-.brand{display:flex;gap:11px;align-items:center}.logo{width:39px;height:39px;border-radius:13px;background:linear-gradient(135deg,#ff8bae,#ec4f84);color:#fff;font-size:23px;display:grid;place-items:center}
-.brand b{font-size:18px}.brand small{display:block;margin-top:3px;color:var(--muted);font-size:11px}
-.actions{display:flex;gap:9px}.btn{min-height:40px;padding:0 14px;border:1px solid var(--line);border-radius:11px;background:#fff;color:#675b61;font-weight:650;font-size:13px}
-.btn.primary{border:0;background:linear-gradient(135deg,#ec5a8b,#d94476);color:#fff}.btn.danger{color:#c33d64;background:#fff7f9;border-color:#ffd3e0}.btn:disabled{opacity:.45;cursor:not-allowed}
-.main{max-width:1440px;margin:auto;padding:26px 28px 45px}.hero{padding:24px 28px;border:1px solid #ffd4e1;border-radius:20px;background:linear-gradient(115deg,#fff0f5,#ffdce8);margin-bottom:18px}
-.eyebrow{font-size:11px;color:var(--pink2);font-weight:800;letter-spacing:.5px}.hero h1{margin:8px 0;font-size:28px}.hero p{max-width:880px;margin:0;color:#8b6573;font-size:13px;line-height:1.7}
-.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:18px 0}.stat{background:#fff;border:1px solid var(--line);padding:16px;border-radius:16px;min-height:98px;box-shadow:0 4px 15px rgba(100,45,65,.025)}
-.stat label{display:block;color:var(--muted);font-size:11px}.stat b{display:block;margin-top:9px;font-size:24px;color:#74334b}.stat small{display:block;margin-top:4px;color:var(--muted);font-size:11px}
-.panel{background:#fff;border:1px solid var(--line);border-radius:19px;overflow:hidden;box-shadow:var(--shadow);margin-top:16px}.panel-head{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}.panel-head h2{margin:0;font-size:16px}.panel-head p{margin:5px 0 0;color:var(--muted);font-size:12px}
-.filters{display:grid;grid-template-columns:270px 1fr 160px auto auto;gap:10px;padding:15px;border-bottom:1px solid var(--line)}.input,.select{height:43px;width:100%;border:1px solid #eadde3;border-radius:11px;padding:0 12px;background:#fff;outline:none}.input:focus,.select:focus{border-color:#ee8ead;box-shadow:0 0 0 3px #fff0f5}
-.notice{margin:0 15px 14px;padding:11px 13px;border:1px dashed #f4bfd0;border-radius:10px;background:#fff9fb;color:#a16d7d;font-size:12px}
-.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:1250px}th{padding:13px 12px;background:#fdfafb;color:#8d8087;font-size:11px;text-align:left;white-space:nowrap}td{padding:14px 12px;border-top:1px solid #f4ecef;font-size:13px;vertical-align:middle}.number{font-weight:800;color:var(--pink2);font-size:15px}.name{font-weight:750}.sub{margin-top:4px;color:var(--muted);font-size:11px}.money{font-weight:800;color:#278161;white-space:nowrap}.money.ref{color:#cb7b18}.money.total{color:#713450}
-.badge{display:inline-flex;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:700;margin:1px}.ok{color:var(--green);background:#eaf9f2}.wait{color:#b27116;background:#fff4df}.off{color:#8b7d83;background:#f2eef0}.blue{color:var(--blue);background:#ecf5ff}.project-list{max-width:235px;line-height:1.8;color:#5e5057;font-size:12px}.empty{padding:60px;text-align:center;color:var(--muted)}
-.modal-mask{display:none;position:fixed;inset:0;z-index:30;background:rgba(41,26,33,.46);padding:18px;align-items:center;justify-content:center}.modal-mask.show{display:flex}.modal{width:min(860px,100%);max-height:92vh;overflow:auto;border-radius:20px;background:#fff;box-shadow:0 20px 60px rgba(40,20,30,.24)}.modal-head{padding:19px 22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.modal-head h3{margin:0;font-size:18px}.x{border:0;background:transparent;font-size:25px;color:#9a8991}.form{padding:20px 22px}.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.field label{display:block;margin-bottom:6px;font-size:12px;color:#725e67;font-weight:700}.field.full{grid-column:1/-1}.checks{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-height:215px;overflow:auto;padding:11px;border:1px solid var(--line);border-radius:12px;background:#fffafa}.check{display:flex;gap:7px;align-items:flex-start;padding:7px;font-size:12px;color:#5b4d53}.check input{margin-top:2px}.modal-foot{padding:15px 22px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:10px}
-.loading{position:fixed;inset:0;background:rgba(255,255,255,.76);display:none;place-items:center;z-index:40;color:var(--pink2);font-weight:800}.loading.show{display:grid}
+:root{--pink:#e85587;--pink2:#c93869;--line:#f0e4e9;--text:#30262b;--muted:#94868e;--green:#18805d;--blue:#3978c8;--orange:#bd7618;--shadow:0 12px 30px rgba(128,48,76,.07)}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#fffafa,#fff7f9);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+.topbar{height:68px;padding:0 28px;display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}.brand{display:flex;gap:11px;align-items:center}.logo{width:39px;height:39px;border-radius:13px;background:linear-gradient(135deg,#ff8bae,#ec4f84);color:#fff;font-size:22px;display:grid;place-items:center}.brand b{font-size:18px}.brand small{display:block;margin-top:3px;color:var(--muted);font-size:11px}.actions{display:flex;gap:9px}
+.btn{min-height:40px;padding:0 14px;border:1px solid var(--line);border-radius:11px;background:#fff;color:#675b61;font-weight:650;font-size:13px}.btn.primary{border:0;background:linear-gradient(135deg,#ec5a8b,#d94476);color:#fff}.btn.blue{color:#286fbe;background:#f1f8ff;border-color:#cfe6ff}.btn.orange{color:#a8650f;background:#fff7e9;border-color:#f5d9a9}.btn:disabled{opacity:.45;cursor:not-allowed}
+.main{max-width:1440px;margin:auto;padding:26px 28px 45px}.hero{padding:24px 28px;border:1px solid #ffd4e1;border-radius:20px;background:linear-gradient(115deg,#fff0f5,#ffdce8);margin-bottom:18px}.eyebrow{font-size:11px;color:var(--pink2);font-weight:800;letter-spacing:.5px}.hero h1{margin:8px 0;font-size:28px}.hero p{max-width:900px;margin:0;color:#8b6573;font-size:13px;line-height:1.75}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:18px 0}.stat{background:#fff;border:1px solid var(--line);padding:16px;border-radius:16px;min-height:98px;box-shadow:0 4px 15px rgba(100,45,65,.025)}.stat label{display:block;color:var(--muted);font-size:11px}.stat b{display:block;margin-top:9px;font-size:24px;color:#74334b}.stat small{display:block;margin-top:4px;color:var(--muted);font-size:11px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:19px;overflow:hidden;box-shadow:var(--shadow);margin-top:16px}.panel-head{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}.panel-head h2{margin:0;font-size:16px}.panel-head p{margin:5px 0 0;color:var(--muted);font-size:12px}.filters{display:grid;grid-template-columns:270px 1fr 160px auto auto;gap:10px;padding:15px;border-bottom:1px solid var(--line)}
+.input,.select{height:43px;width:100%;border:1px solid #eadde3;border-radius:11px;padding:0 12px;background:#fff;outline:none}.input:focus,.select:focus{border-color:#ee8ead;box-shadow:0 0 0 3px #fff0f5}.notice{margin:0 15px 14px;padding:11px 13px;border:1px dashed #f4bfd0;border-radius:10px;background:#fff9fb;color:#a16d7d;font-size:12px}
+.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:1320px}th{padding:13px 12px;background:#fdfafb;color:#8d8087;font-size:11px;text-align:left;white-space:nowrap}td{padding:14px 12px;border-top:1px solid #f4ecef;font-size:13px;vertical-align:middle}.number{font-weight:800;color:var(--pink2);font-size:15px}.name{font-weight:750}.sub{margin-top:4px;color:var(--muted);font-size:11px}.money{font-weight:800;color:#278161;white-space:nowrap}.money.ref{color:#cb7b18}.money.total{color:#713450}.project-list{max-width:220px;line-height:1.8;color:#5e5057;font-size:12px}.empty{padding:60px;text-align:center;color:var(--muted)}
+.badge{display:inline-flex;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:700;margin:1px}.ok{color:var(--green);background:#eaf9f2}.wait{color:#b27116;background:#fff4df}.off{color:#8b7d83;background:#f2eef0}.blue-badge{color:var(--blue);background:#ecf5ff}.action-stack{display:flex;flex-wrap:wrap;gap:6px;min-width:185px}
+.modal-mask{display:none;position:fixed;inset:0;z-index:50;background:rgba(41,26,33,.46);padding:18px;align-items:center;justify-content:center}.modal-mask.show{display:flex}.modal{width:min(860px,100%);max-height:92vh;overflow:auto;border-radius:20px;background:#fff;box-shadow:0 20px 60px rgba(40,20,30,.24)}.modal.small{width:min(620px,100%)}.modal-head{padding:19px 22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.modal-head h3{margin:0;font-size:18px}.x{border:0;background:transparent;font-size:25px;color:#9a8991}.form{padding:20px 22px}.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.field label{display:block;margin-bottom:6px;font-size:12px;color:#725e67;font-weight:700}.field.full{grid-column:1/-1}.checks{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-height:280px;overflow:auto;padding:11px;border:1px solid var(--line);border-radius:12px;background:#fffafa}.check{display:flex;gap:7px;align-items:flex-start;padding:7px;font-size:12px;color:#5b4d53}.check input{margin-top:2px}.modal-foot{padding:15px 22px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:10px}.modal-desc{padding:0 22px;margin:17px 0 0;color:var(--muted);font-size:13px;line-height:1.7}
+.loading{position:fixed;inset:0;background:rgba(255,255,255,.8);display:none;place-items:center;z-index:99;color:var(--pink2);font-weight:800}.loading.show{display:grid}
 @media(max-width:900px){.main{padding:18px 14px}.topbar{padding:0 14px}.stats{grid-template-columns:repeat(2,1fr)}.filters{grid-template-columns:1fr 1fr}.filters .wide{grid-column:1/-1}.form-grid{grid-template-columns:1fr}.checks{grid-template-columns:1fr 1fr}.hero{padding:20px}.hero h1{font-size:23px}}
 </style>
 </head>
@@ -36,261 +25,244 @@ button,input,select{font:inherit} button{cursor:pointer}.hidden{display:none!imp
 <div id="loading" class="loading">正在加载技术服务人员数据…</div>
 
 <header class="topbar">
-  <div class="brand">
-    <div class="logo">♧</div>
-    <div><b>技术服务人员管理</b><small>授权、门店关联与城市收入统计</small></div>
-  </div>
-  <div class="actions">
-    <button class="btn" onclick="location.href='wholemanagement.html'">返回工作台</button>
-    <button class="btn primary" onclick="logout()">退出</button>
-  </div>
+  <div class="brand"><div class="logo">♧</div><div><b>技术服务人员管理</b><small>项目授权、商户配对与城市收入统计</small></div></div>
+  <div class="actions"><button class="btn" onclick="location.href='wholemanagement.html'">返回工作台</button><button class="btn primary" onclick="logout()">退出</button></div>
 </header>
 
 <main class="main">
   <section class="hero">
     <div class="eyebrow">SERVICE TECHNICIAN MANAGEMENT</div>
     <h1>技术服务人员专区</h1>
-    <p>按已开通服务城市管理技术服务人员。首次下单仅可选择关联门店的已授权人员；订单服务人员更换时，才可在同城所有已授权人员中选择。历史授权、门店及订单数据均保留快照。</p>
+    <p>技术人员必须在所属城市内完成服务项目授权，且仅能关联一家当前城市商户。首次下单只能选择本店已关联且已授权的技术人员；订单更换服务人员时，才可选择同城全部已授权人员。</p>
   </section>
 
   <section class="stats">
     <div class="stat"><label>当前管理城市</label><b id="statCities">0</b><small>按登录权限自动限制</small></div>
-    <div class="stat"><label>技术服务人员</label><b id="statTechs">0</b><small id="statTechsNote">当前筛选范围</small></div>
-    <div class="stat"><label>已完成服务收入</label><b id="statService">¥0.00</b><small>技术服务人员分账</small></div>
+    <div class="stat"><label>技术服务人员</label><b id="statTechs">0</b><small>当前筛选范围</small></div>
+    <div class="stat"><label>已完成服务收入</label><b id="statService">¥0.00</b><small>技术人员服务分账</small></div>
     <div class="stat"><label>推荐来源收入</label><b id="statReferral">¥0.00</b><small>被选为推荐来源</small></div>
-    <div class="stat"><label>技术人员总收入</label><b id="statTotal">¥0.00</b><small>仅统计已生成子订单快照</small></div>
+    <div class="stat"><label>技术人员总收入</label><b id="statTotal">¥0.00</b><small>按已生成的子订单快照</small></div>
   </section>
 
   <section class="panel">
     <div class="panel-head">
-      <div><h2>筛选与管理</h2><p>城市下拉仅显示当前账号权限范围内、已开通业务的城市。</p></div>
+      <div><h2>筛选与管理</h2><p>城市、技术人员、项目、商户关联均直接从数据库读取。</p></div>
       <button id="createBtn" class="btn primary hidden" onclick="openCreate()">＋ 创建技术服务人员</button>
     </div>
     <div class="filters">
       <select id="cityFilter" class="select" onchange="render()"></select>
-      <input id="keyword" class="input wide" placeholder="搜索编号、姓名、手机、邮箱或关联门店" oninput="render()">
-      <select id="statusFilter" class="select" onchange="render()">
-        <option value="">全部状态</option><option value="active">正常</option>
-        <option value="pending_activation">待激活</option><option value="inactive">无效</option>
-      </select>
-      <button class="btn primary" onclick="render()">查询统计</button>
-      <button class="btn" onclick="resetFilters()">重置</button>
+      <input id="keyword" class="input wide" placeholder="搜索编号、姓名、手机、邮箱或关联商户" oninput="render()">
+      <select id="statusFilter" class="select" onchange="render()"><option value="">全部状态</option><option value="active">正常</option><option value="pending_activation">待激活</option><option value="inactive">无效</option></select>
+      <button class="btn primary" onclick="render()">查询统计</button><button class="btn" onclick="resetFilters()">重置</button>
     </div>
-    <div id="scopeNotice" class="notice"></div>
+    <div id="scopeNotice" class="notice">正在读取数据库权限范围…</div>
   </section>
 
   <section class="panel">
-    <div class="panel-head">
-      <div><h2>技术服务人员收入明细</h2><p>服务收入与推荐来源收入分开统计；表内金额以已生成的子订单六方分账快照为准。</p></div>
-      <span id="countText" class="sub"></span>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr>
-          <th>技术人员</th><th>所属城市</th><th>状态与账户</th><th>关联门店</th>
-          <th>已授权服务项目</th><th>服务收入</th><th>推荐来源收入</th>
-          <th>总收入</th><th>创建时间</th><th>操作</th>
-        </tr></thead>
-        <tbody id="rows"></tbody>
-      </table>
-    </div>
+    <div class="panel-head"><div><h2>技术服务人员收入明细</h2><p>点击“项目授权”或“商户配对”进入对应管理窗口。</p></div><span id="countText" class="sub"></span></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>技术人员</th><th>所属城市</th><th>状态与账户</th><th>关联商户</th><th>已授权服务项目</th><th>服务收入</th><th>推荐来源收入</th><th>总收入</th><th>创建时间</th><th>操作</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
   </section>
 </main>
 
-<div id="modalMask" class="modal-mask">
-  <div class="modal">
-    <div class="modal-head"><h3 id="modalTitle">创建技术服务人员</h3><button class="x" onclick="closeModal()">×</button></div>
-    <form class="form" id="techForm" onsubmit="saveTechnician(event)">
-      <input type="hidden" id="editId">
-      <div class="form-grid">
-        <div class="field"><label>姓名 *</label><input id="fName" class="input" required></div>
-        <div class="field"><label>登录邮箱 *</label><input id="fEmail" class="input" type="email" required></div>
-        <div class="field"><label>手机号码</label><input id="fPhone" class="input"></div>
-        <div class="field"><label>所属业务城市 *</label><select id="fCity" class="select" required onchange="fillMerchants()"></select></div>
-        <div class="field"><label>个体工商户名称</label><input id="fBusiness" class="input"></div>
-        <div class="field"><label>个体户税号</label><input id="fTaxNo" class="input"></div>
-        <div class="field"><label>开户银行</label><input id="fBank" class="input"></div>
-        <div class="field"><label>银行账号</label><input id="fBankAccount" class="input"></div>
-        <div class="field full"><label>身份证正面图片路径</label><input id="fIdCard" class="input" placeholder="上传后保存的 Storage 路径"></div>
-        <div class="field full"><label>关联门店（仅可关联一家；留空表示暂不关联）</label><select id="fMerchant" class="select"></select></div>
-        <div class="field full"><label>可从事的服务项目 *</label><div class="checks" id="productChecks"></div></div>
-      </div>
-      <div class="notice">新建账号初始密码为 <b>12345678</b>，首次登录必须修改密码。仅创始人和平台管理员可创建或修改授权。</div>
-      <div class="modal-foot"><button type="button" class="btn" onclick="closeModal()">取消</button><button id="saveBtn" class="btn primary" type="submit">保存</button></div>
-    </form>
-  </div>
-</div>
+<div id="personModal" class="modal-mask"><div class="modal">
+  <div class="modal-head"><h3>创建技术服务人员</h3><button class="x" onclick="closeModal('personModal')">×</button></div>
+  <form class="form" onsubmit="createTechnician(event)">
+    <div class="form-grid">
+      <div class="field"><label>姓名 *</label><input id="fName" class="input" required></div>
+      <div class="field"><label>登录邮箱 *</label><input id="fEmail" class="input" type="email" required></div>
+      <div class="field"><label>手机号码</label><input id="fPhone" class="input"></div>
+      <div class="field"><label>所属业务城市 *</label><select id="fCity" class="select" required></select></div>
+      <div class="field"><label>个体工商户名称</label><input id="fBusiness" class="input"></div>
+      <div class="field"><label>个体户税号</label><input id="fTaxNo" class="input"></div>
+      <div class="field"><label>开户银行</label><input id="fBank" class="input"></div>
+      <div class="field"><label>银行账号</label><input id="fBankAccount" class="input"></div>
+      <div class="field full"><label>身份证正面图片路径</label><input id="fIdCard" class="input" placeholder="上传后的 Supabase Storage 路径"></div>
+    </div>
+    <div class="notice">新建账号初始密码为 <b>12345678</b>，首次登录必须修改。创建成功后，请在列表内分别完成“项目授权”和“商户配对”。</div>
+    <div class="modal-foot"><button type="button" class="btn" onclick="closeModal('personModal')">取消</button><button class="btn primary" type="submit">创建并开户</button></div>
+  </form>
+</div></div>
+
+<div id="authModal" class="modal-mask"><div class="modal">
+  <div class="modal-head"><h3 id="authTitle">服务项目授权</h3><button class="x" onclick="closeModal('authModal')">×</button></div>
+  <p class="modal-desc">仅列出平台当前有效的服务类项目。取消勾选不会删除历史授权记录，只会将该授权设为无效并从可选菜单隐藏。</p>
+  <div class="form"><div id="projectChecks" class="checks"></div></div>
+  <div class="modal-foot"><button class="btn" onclick="closeModal('authModal')">取消</button><button class="btn primary" onclick="saveAuthorization()">保存项目授权</button></div>
+</div></div>
+
+<div id="merchantModal" class="modal-mask"><div class="modal small">
+  <div class="modal-head"><h3 id="merchantTitle">商户配对</h3><button class="x" onclick="closeModal('merchantModal')">×</button></div>
+  <p id="merchantDesc" class="modal-desc"></p>
+  <div class="form"><div class="field"><label>当前城市商户</label><select id="pairMerchant" class="select"></select></div></div>
+  <div class="modal-foot"><button class="btn" onclick="closeModal('merchantModal')">取消</button><button class="btn orange" onclick="clearMerchantLink()">解除配对</button><button class="btn primary" onclick="saveMerchantLink()">保存商户配对</button></div>
+</div></div>
 
 <script>
 const SUPABASE_URL="https://qbuqjwpkltbjhlfbyjyb.supabase.co";
 const SUPABASE_ANON_KEY="sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
-const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-
-let profile=null, cities=[], areas=[], technicians=[], products=[], merchants=[], authorizations=[], links=[], unitSplits=[], units=[], orders=[];
-let idleTimer=null;
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true}});
 const $=id=>document.getElementById(id);
+let profile=null,cities=[],areas=[],technicians=[],products=[],merchants=[],authorizations=[],links=[],units=[],splits=[],orders=[],selectedTech=null,idleTimer=null;
+const pick=(o,...keys)=>keys.map(k=>o?.[k]).find(v=>v!==null&&v!==undefined&&v!=="")||"";
+const active=s=>["active","approved","normal"].includes(String(s||"").toLowerCase());
 const money=n=>"¥"+Number(n||0).toLocaleString("zh-CN",{minimumFractionDigits:2,maximumFractionDigits:2});
-const val=(o,...keys)=>keys.map(k=>o?.[k]).find(v=>v!==null&&v!==undefined&&v!=="")||"";
-const active=v=>["active","approved","normal"].includes(String(v||"").toLowerCase());
+const canManage=()=>["founder","platform_admin"].includes(profile?.role);
+const same=(a,b)=>String(a??"")===String(b??"");
 
 function setLoading(v){$("loading").classList.toggle("show",v)}
-function cityName(id){const c=cities.find(x=>String(x.id)===String(id));return c?(val(c,"province_name","province")?val(c,"province_name","province")+" · ":"")+val(c,"city_name","name","city_code"): "—"}
-function techCity(t){return t.city_id||areas.find(a=>String(a.id)===String(t.service_area_id))?.city_id}
-function merchantName(id){const m=merchants.find(x=>String(x.id)===String(id));return m?(val(m,"merchant_name","name","business_name")||("商户 "+val(m,"record_no","id"))):"未关联"}
-function roleCanManage(){return ["founder","platform_admin"].includes(profile?.role)}
-function resetIdle(){clearTimeout(idleTimer);idleTimer=setTimeout(()=>logout(),10*60*1000)}
-["click","keydown","mousemove","touchstart"].forEach(e=>document.addEventListener(e,resetIdle,{passive:true}));
+function openModal(id){$(id).classList.add("show")}
+function closeModal(id){$(id).classList.remove("show");selectedTech=null}
+function cityIdOf(row){return row?.city_id||areas.find(a=>same(a.id,row?.service_area_id))?.city_id||null}
+function cityText(id){const c=cities.find(x=>same(x.id,id));if(!c)return"—";return `${pick(c,"province_name","province")} ${pick(c,"city_name","name","city_code")}`.trim()}
+function merchantText(id){const m=merchants.find(x=>same(x.id,id));return m?(pick(m,"merchant_name","name","business_name")||`商户 ${pick(m,"record_no","id")}`):"—"}
+function techLink(id){return links.find(x=>same(x.technician_id,id)&&active(x.status))}
+function techAuths(id){return authorizations.filter(x=>same(x.technician_id,id)&&active(x.status))}
+function resetIdle(){clearTimeout(idleTimer);idleTimer=setTimeout(logout,600000)}
+["click","keydown","mousemove","touchstart","scroll"].forEach(e=>document.addEventListener(e,resetIdle,{passive:true}));
+async function logout(){try{await sb.auth.signOut()}finally{location.href="login.html"}}
 
-async function logout(){await sb.auth.signOut();location.href="login.html"}
-
+async function read(table,query){
+  const r=await query(sb.from(table));
+  if(r.error){console.warn(table,r.error.message);return[]}
+  return r.data||[]
+}
 async function boot(){
   setLoading(true);
   try{
     const {data:{session}}=await sb.auth.getSession();
     if(!session){location.href="login.html";return}
-    const r=await sb.from("profiles").select("*").eq("id",session.user.id).single();
-    if(r.error)throw r.error;
-    profile=r.data;
-    if(!["founder","platform_admin","province_admin","city_admin"].includes(profile.role)){
-      alert("当前账号没有技术服务人员管理权限");location.href="wholemanagement.html";return;
-    }
-    if(roleCanManage()) $("createBtn").classList.remove("hidden");
+    const p=await sb.from("profiles").select("*").eq("id",session.user.id).maybeSingle();
+    if(p.error||!p.data||p.data.status!=="active")throw new Error("当前账号没有有效的平台管理权限");
+    profile=p.data;
+    if(!["founder","platform_admin","province_admin","city_admin"].includes(profile.role))throw new Error("当前账号没有技术服务人员管理权限");
+    if(canManage())$("createBtn").classList.remove("hidden");
     await loadData();
-  }catch(e){alert("页面加载失败："+e.message)}finally{setLoading(false)}
+  }catch(e){alert(e.message||"页面加载失败");location.href="wholemanagement.html"}finally{setLoading(false)}
 }
-
 async function loadData(){
-  const results=await Promise.all([
-    sb.from("cities").select("*").eq("status","active"),
-    sb.from("service_areas").select("*").eq("status","active"),
-    sb.from("service_technicians").select("*").order("created_at",{ascending:false}),
-    sb.from("products").select("*").eq("status","active").eq("product_type","service").order("id"),
-    sb.from("merchants").select("*"),
-    sb.from("technician_service_authorizations").select("*"),
-    sb.from("merchant_technician_links").select("*"),
-    sb.from("order_service_unit_split_participants").select("*"),
-    sb.from("order_service_units").select("*"),
-    sb.from("orders").select("id,city_id,created_at")
+  const data=await Promise.all([
+    read("cities",q=>q.select("*").eq("status","active")),
+    read("service_areas",q=>q.select("*").eq("status","active")),
+    read("service_technicians",q=>q.select("*").order("created_at",{ascending:false})),
+    read("products",q=>q.select("*").eq("status","active").eq("product_type","service").order("id")),
+    read("merchants",q=>q.select("*")),
+    read("technician_service_authorizations",q=>q.select("*")),
+    read("merchant_technician_links",q=>q.select("*")),
+    read("order_service_units",q=>q.select("*")),
+    read("order_service_unit_split_participants",q=>q.select("*")),
+    read("orders",q=>q.select("*"))
   ]);
-  const names=["cities","areas","technicians","products","merchants","authorizations","links","unitSplits","units","orders"];
-  results.forEach((r,i)=>{if(r.error && !["unitSplits","units"].includes(names[i]))throw r.error;window[names[i]]=r.data||[]});
-  cities=(window.cities||[]).filter(c=>areas.some(a=>String(a.city_id)===String(c.id)));
-  areas=window.areas||[];technicians=window.technicians||[];products=window.products||[];merchants=window.merchants||[];
-  authorizations=window.authorizations||[];links=window.links||[];unitSplits=window.unitSplits||[];units=window.units||[];orders=window.orders||[];
-  buildCities();render();
+  [cities,areas,technicians,products,merchants,authorizations,links,units,splits,orders]=data;
+  const usedCityIds=new Set([...areas.map(x=>x.city_id),...technicians.map(cityIdOf),...merchants.map(cityIdOf),...orders.map(x=>x.city_id)].filter(Boolean).map(String));
+  cities=cities.filter(c=>usedCityIds.size===0||usedCityIds.has(String(c.id)));
+  buildCitySelect();render();
 }
-
-function buildCities(){
-  const select=$("cityFilter"), old=select.value;
-  select.innerHTML=`<option value="">全部可管理城市</option>`+cities.map(c=>`<option value="${c.id}">${cityName(c.id)}</option>`).join("");
-  if(cities.some(c=>String(c.id)===old))select.value=old;
+function buildCitySelect(){
+  const old=$("cityFilter").value;
+  $("cityFilter").innerHTML=`<option value="">全部可管理城市</option>${cities.map(c=>`<option value="${c.id}">${cityText(c.id)}</option>`).join("")}`;
+  if(cities.some(c=>same(c.id,old)))$("cityFilter").value=old;
   $("statCities").textContent=cities.length;
-  $("scopeNotice").textContent=`当前身份：${profile.full_name||profile.login_email||profile.role}。页面数据由数据库行级权限控制，仅显示当前账号有权限查看的城市、人员和订单。`;
+  $("scopeNotice").textContent=`当前身份：${profile.full_name||profile.login_email||profile.role}。城市、人员、商户、授权和订单均由 Supabase 行级权限控制，仅显示当前账号可查看的数据。`;
 }
-
 function incomeOf(t){
-  const ids=new Set(units.filter(u=>String(orders.find(o=>String(o.id)===String(u.order_id))?.city_id)===String(techCity(t))||!techCity(t)).map(u=>String(u.id)));
+  const participantId=t.split_participant_id;
+  if(!participantId)return{service:0,referral:0,total:0};
   let service=0,referral=0;
-  unitSplits.filter(s=>ids.has(String(s.service_unit_id))&&String(s.participant_id)===String(t.split_participant_id||"__")).forEach(s=>{
-    const u=units.find(x=>String(x.id)===String(s.service_unit_id));
-    const amount=Number(u?.wechat_net_amount||0)*Number(s.ratio_snapshot||0)/100;
+  for(const s of splits.filter(x=>same(x.participant_id,participantId))){
+    const u=units.find(x=>same(x.id,s.service_unit_id));
+    if(!u)continue;
+    const amount=Number(u.wechat_net_amount||0)*Number(s.ratio_snapshot||0)/100;
     if(s.split_role==="service_technician")service+=amount;
     if(s.split_role==="recommendation_source")referral+=amount;
-  });
-  return {service,referral,total:service+referral};
+  }
+  return{service,referral,total:service+referral};
 }
-
 function render(){
-  const city=$("cityFilter").value, q=$("keyword").value.trim().toLowerCase(), status=$("statusFilter").value;
-  const rows=technicians.filter(t=>{
-    const tc=techCity(t), link=links.find(x=>String(x.technician_id)===String(t.id)&&active(x.status));
-    const text=[t.technician_no,t.technician_name,t.phone,t.email,merchantName(link?.merchant_id)].join(" ").toLowerCase();
-    return (!city||String(tc)===String(city))&&(!status||t.status===status)&&(!q||text.includes(q));
+  const city=$("cityFilter").value,q=$("keyword").value.trim().toLowerCase(),status=$("statusFilter").value;
+  const list=technicians.filter(t=>{
+    const link=techLink(t.id),text=[t.technician_no,t.technician_name,t.phone,t.email,merchantText(link?.merchant_id)].join(" ").toLowerCase();
+    return(!city||same(cityIdOf(t),city))&&(!status||t.status===status)&&(!q||text.includes(q));
   });
   let service=0,referral=0;
-  $("rows").innerHTML=rows.length?rows.map(t=>{
-    const link=links.find(x=>String(x.technician_id)===String(t.id)&&active(x.status));
-    const auths=authorizations.filter(a=>String(a.technician_id)===String(t.id)&&active(a.status));
-    const projectText=auths.map(a=>val(products.find(p=>String(p.id)===String(a.product_id)),"product_name","name")).filter(Boolean);
-    const income=incomeOf(t);service+=income.service;referral+=income.referral;
+  $("rows").innerHTML=list.length?list.map(t=>{
+    const link=techLink(t.id),auth=techAuths(t.id),names=auth.map(a=>pick(products.find(p=>same(p.id,a.product_id)),"product_name","name")).filter(Boolean),income=incomeOf(t);
+    service+=income.service;referral+=income.referral;
     const statusBadge=t.status==="active"?`<span class="badge ok">正常</span>`:t.status==="pending_activation"?`<span class="badge wait">待激活</span>`:`<span class="badge off">无效</span>`;
-    return `<tr>
-      <td><div class="number">${t.technician_no||"—"}</div><div class="name">${t.technician_name||"未命名"}</div><div class="sub">${t.phone||"未登记手机"}</div></td>
-      <td><b>${cityName(techCity(t))}</b></td>
-      <td>${statusBadge}<br>${t.auth_user_id?`<span class="badge blue">账户已开通</span>`:`<span class="badge wait">账户待开通</span>`}<br>${t.must_change_password?`<span class="badge wait">首次需改密</span>`:""}</td>
-      <td><b>${link?merchantName(link.merchant_id):"暂未关联"}</b><div class="sub">${link?"仅此一家门店":"下单时不可被门店选择"}</div></td>
-      <td><div class="project-list">${projectText.length?projectText.join("、"):"暂无已授权项目"}</div></td>
-      <td class="money">${money(income.service)}</td><td class="money ref">${money(income.referral)}</td><td class="money total">${money(income.total)}</td>
-      <td>${t.created_at?new Date(t.created_at).toLocaleDateString("zh-CN"):"—"}</td>
-      <td>${roleCanManage()?`<button class="btn" onclick="openEdit('${t.id}')">编辑授权</button>`:"<span class='sub'>仅查看</span>"}</td>
-    </tr>`;
+    const actions=canManage()?`<div class="action-stack"><button class="btn blue" onclick="openAuthorization('${t.id}')">项目授权</button><button class="btn orange" onclick="openMerchantPair('${t.id}')">商户配对</button></div>`:`<span class="sub">仅查看</span>`;
+    return`<tr><td><div class="number">${t.technician_no||"—"}</div><div class="name">${t.technician_name||"未命名"}</div><div class="sub">${t.phone||"未登记手机"}</div></td>
+    <td><b>${cityText(cityIdOf(t))}</b></td><td>${statusBadge}<br>${t.auth_user_id?`<span class="badge blue-badge">账户已开通</span>`:`<span class="badge wait">账户待开通</span>`}${t.must_change_password?`<br><span class="badge wait">首次需改密</span>`:""}</td>
+    <td><b>${link?merchantText(link.merchant_id):"暂未配对"}</b><div class="sub">${link?"当前仅关联该商户":"首次下单时不可选择此人员"}</div></td>
+    <td><div class="project-list">${names.length?names.join("、"):"暂无项目授权"}</div></td><td class="money">${money(income.service)}</td><td class="money ref">${money(income.referral)}</td><td class="money total">${money(income.total)}</td>
+    <td>${t.created_at?new Date(t.created_at).toLocaleDateString("zh-CN"):"—"}</td><td>${actions}</td></tr>`;
   }).join(""):`<tr><td colspan="10" class="empty">当前筛选条件下没有技术服务人员</td></tr>`;
-  $("countText").textContent=`共 ${rows.length} 位技术服务人员`;
-  $("statTechs").textContent=rows.length;$("statService").textContent=money(service);$("statReferral").textContent=money(referral);$("statTotal").textContent=money(service+referral);
+  $("countText").textContent=`共 ${list.length} 位技术服务人员`;
+  $("statTechs").textContent=list.length;$("statService").textContent=money(service);$("statReferral").textContent=money(referral);$("statTotal").textContent=money(service+referral);
 }
-
 function resetFilters(){$("cityFilter").value="";$("keyword").value="";$("statusFilter").value="";render()}
-function openModal(){$("modalMask").classList.add("show")}
-function closeModal(){$("modalMask").classList.remove("show")}
-function fillCities(selected=""){$("fCity").innerHTML=`<option value="">请选择城市</option>`+cities.map(c=>`<option value="${c.id}" ${String(c.id)===String(selected)?"selected":""}>${cityName(c.id)}</option>`).join("")}
-function fillMerchants(selected=""){
-  const city=$("fCity").value;
-  const list=merchants.filter(m=>!city||String(techCity(m)||areas.find(a=>String(a.id)===String(m.service_area_id))?.city_id)===String(city));
-  $("fMerchant").innerHTML=`<option value="">暂不关联门店</option>`+list.map(m=>`<option value="${m.id}" ${String(m.id)===String(selected)?"selected":""}>${merchantName(m.id)}</option>`).join("");
-}
-function fillProducts(selected=[]){
-  $("productChecks").innerHTML=products.map(p=>`<label class="check"><input type="checkbox" value="${p.id}" ${selected.map(String).includes(String(p.id))?"checked":""}><span>${p.product_name||p.name}<br><small>${p.product_code||""}</small></span></label>`).join("");
-}
 function openCreate(){
-  $("modalTitle").textContent="创建技术服务人员";$("techForm").reset();$("editId").value="";
-  fillCities();fillMerchants();fillProducts();openModal();
+  $("fName").value="";$("fEmail").value="";$("fPhone").value="";$("fBusiness").value="";$("fTaxNo").value="";$("fBank").value="";$("fBankAccount").value="";$("fIdCard").value="";
+  $("fCity").innerHTML=`<option value="">请选择城市</option>${cities.map(c=>`<option value="${c.id}">${cityText(c.id)}</option>`).join("")}`;openModal("personModal");
 }
-function openEdit(id){
-  const t=technicians.find(x=>String(x.id)===String(id));if(!t)return;
-  $("modalTitle").textContent=`编辑技术服务人员：${t.technician_name}`;$("editId").value=t.id;
-  $("fName").value=t.technician_name||"";$("fEmail").value=t.email||"";$("fPhone").value=t.phone||"";
-  $("fBusiness").value=t.individual_business_name||"";$("fTaxNo").value=t.tax_no||"";$("fBank").value=t.bank_name||"";$("fBankAccount").value=t.bank_account||"";$("fIdCard").value=t.id_card_front_path||"";
-  fillCities(techCity(t));const link=links.find(x=>String(x.technician_id)===String(t.id)&&active(x.status));fillMerchants(link?.merchant_id||"");
-  fillProducts(authorizations.filter(a=>String(a.technician_id)===String(id)&&active(a.status)).map(a=>a.product_id));openModal();
-}
-
-async function saveTechnician(e){
+async function createTechnician(e){
   e.preventDefault();setLoading(true);
   try{
-    const id=$("editId").value, productIds=[...document.querySelectorAll("#productChecks input:checked")].map(x=>Number(x.value));
-    if(!productIds.length)throw new Error("请至少选择一个可从事的服务项目");
-    const payload={
-      technician_name:$("fName").value.trim(),name:$("fName").value.trim(),
-      email:$("fEmail").value.trim(),login_email:$("fEmail").value.trim(),phone:$("fPhone").value.trim(),
-      city_id:Number($("fCity").value),service_area_id:areas.find(a=>String(a.city_id)===String($("fCity").value))?.id||null,
-      individual_business_name:$("fBusiness").value.trim(),tax_no:$("fTaxNo").value.trim(),
-      bank_name:$("fBank").value.trim(),bank_account:$("fBankAccount").value.trim(),
-      id_card_front_path:$("fIdCard").value.trim(),merchant_id:$("fMerchant").value||null,
-      authorized_product_ids:productIds,initial_password:"12345678"
-    };
-    if(!id){
-      const {data:{session}}=await sb.auth.getSession();
-      const r=await fetch(SUPABASE_URL+"/functions/v1/create-service-technician-account",{
-        method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+session.access_token,"apikey":SUPABASE_ANON_KEY},
-        body:JSON.stringify(payload)
-      });
-      const out=await r.json();if(!r.ok)throw new Error(out.error||out.message||"创建失败");
-      alert(`创建成功。技术人员登录邮箱：${payload.email}；初始密码：12345678。`);
-    }else{
-      const r=await sb.from("service_technicians").update(payload).eq("id",id);if(r.error)throw r.error;
-      for(const p of products){
-        const exists=productIds.includes(Number(p.id));
-        const old=authorizations.find(a=>String(a.technician_id)===String(id)&&String(a.product_id)===String(p.id));
-        if(old){const r=await sb.from("technician_service_authorizations").update({status:exists?"approved":"inactive"}).eq("id",old.id);if(r.error)throw r.error}
-        else if(exists){const r=await sb.from("technician_service_authorizations").insert({technician_id:Number(id),product_id:p.id,status:"approved"});if(r.error)throw r.error}
-      }
-      const current=links.find(x=>String(x.technician_id)===String(id)&&active(x.status));
-      if(current){const r=await sb.from("merchant_technician_links").update({status:"inactive"}).eq("id",current.id);if(r.error)throw r.error}
-      if(payload.merchant_id){const r=await sb.from("merchant_technician_links").insert({technician_id:Number(id),merchant_id:payload.merchant_id,status:"active"});if(r.error)throw r.error}
-      alert("人员资料、授权项目和门店关联已保存。");
+    const {data:{session}}=await sb.auth.getSession(),cityId=$("fCity").value,area=areas.find(a=>same(a.city_id,cityId));
+    const payload={name:$("fName").value.trim(),technician_name:$("fName").value.trim(),email:$("fEmail").value.trim(),login_email:$("fEmail").value.trim(),phone:$("fPhone").value.trim(),city_id:Number(cityId),service_area_id:area?.id||null,individual_business_name:$("fBusiness").value.trim(),tax_no:$("fTaxNo").value.trim(),bank_name:$("fBank").value.trim(),bank_account:$("fBankAccount").value.trim(),id_card_front_path:$("fIdCard").value.trim(),initial_password:"12345678"};
+    const r=await fetch(`${SUPABASE_URL}/functions/v1/create-service-technician-account`,{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+session.access_token,"apikey":SUPABASE_ANON_KEY},body:JSON.stringify(payload)});
+    const out=await r.json();if(!r.ok||out?.success===false)throw new Error(out?.error||out?.message||"创建失败");
+    alert(`创建成功。\n登录邮箱：${payload.email}\n初始密码：12345678\n请继续设置项目授权和商户配对。`);
+    closeModal("personModal");await loadData();
+  }catch(e){alert("创建失败："+e.message)}finally{setLoading(false)}
+}
+function openAuthorization(id){
+  selectedTech=technicians.find(t=>same(t.id,id));if(!selectedTech)return;
+  $("authTitle").textContent=`项目授权：${selectedTech.technician_name}`;
+  const selected=new Set(techAuths(id).map(x=>String(x.product_id)));
+  $("projectChecks").innerHTML=products.length?products.map(p=>`<label class="check"><input type="checkbox" value="${p.id}" ${selected.has(String(p.id))?"checked":""}><span>${pick(p,"product_name","name")}<br><small>${p.product_code||""}</small></span></label>`).join(""):`<div class="sub">当前没有有效服务项目，请先在“服务项目定义”中创建。</div>`;
+  openModal("authModal");
+}
+async function saveAuthorization(){
+  if(!selectedTech)return;
+  const ids=[...document.querySelectorAll("#projectChecks input:checked")].map(x=>String(x.value)),id=selectedTech.id;
+  setLoading(true);
+  try{
+    for(const p of products){
+      const old=authorizations.find(a=>same(a.technician_id,id)&&same(a.product_id,p.id)),should=ids.includes(String(p.id));
+      if(old){const r=await sb.from("technician_service_authorizations").update({status:should?"approved":"inactive"}).eq("id",old.id);if(r.error)throw r.error}
+      else if(should){const r=await sb.from("technician_service_authorizations").insert({technician_id:id,product_id:p.id,status:"approved"});if(r.error)throw r.error}
     }
-    closeModal();await loadData();
-  }catch(err){alert("保存失败："+err.message)}finally{setLoading(false)}
+    alert("服务项目授权已保存。");closeModal("authModal");await loadData();
+  }catch(e){alert("保存授权失败："+e.message)}finally{setLoading(false)}
+}
+function openMerchantPair(id){
+  selectedTech=technicians.find(t=>same(t.id,id));if(!selectedTech)return;
+  const city=cityIdOf(selectedTech),current=techLink(id);
+  const list=merchants.filter(m=>same(cityIdOf(m),city)&&active(m.status));
+  $("merchantTitle").textContent=`商户配对：${selectedTech.technician_name}`;
+  $("merchantDesc").textContent=`仅显示 ${cityText(city)} 内的正常商户。每位技术人员只能关联一家商户；重新保存会自动解除原有配对。`;
+  $("pairMerchant").innerHTML=`<option value="">请选择商户</option>${list.map(m=>`<option value="${m.id}" ${same(m.id,current?.merchant_id)?"selected":""}>${merchantText(m.id)}（${pick(m,"record_no","id")}）</option>`).join("")}`;
+  openModal("merchantModal");
+}
+async function saveMerchantLink(){
+  if(!selectedTech)return;
+  const merchantId=$("pairMerchant").value;if(!merchantId){alert("请选择当前城市商户。");return}
+  setLoading(true);
+  try{
+    const current=techLink(selectedTech.id);
+    if(current&&!same(current.merchant_id,merchantId)){const r=await sb.from("merchant_technician_links").update({status:"inactive"}).eq("id",current.id);if(r.error)throw r.error}
+    if(!current||!same(current.merchant_id,merchantId)){const r=await sb.from("merchant_technician_links").insert({technician_id:selectedTech.id,merchant_id:merchantId,status:"active"});if(r.error)throw r.error}
+    alert("商户配对已保存。");closeModal("merchantModal");await loadData();
+  }catch(e){alert("保存商户配对失败："+e.message)}finally{setLoading(false)}
+}
+async function clearMerchantLink(){
+  if(!selectedTech)return;
+  const current=techLink(selectedTech.id);if(!current){closeModal("merchantModal");return}
+  if(!confirm("确认解除该技术人员与当前商户的配对吗？历史订单不受影响。"))return;
+  setLoading(true);
+  try{const r=await sb.from("merchant_technician_links").update({status:"inactive"}).eq("id",current.id);if(r.error)throw r.error;alert("商户配对已解除。");closeModal("merchantModal");await loadData()}catch(e){alert("解除失败："+e.message)}finally{setLoading(false)}
 }
 boot();
 </script>

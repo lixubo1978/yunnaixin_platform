@@ -7,31 +7,7 @@
 <title>孕乃馨 - 登录</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0;width:100%;min-height:100%}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;background:radial-gradient(circle at 12% 8%,rgba(255,255,255,.95) 0,rgba(255,255,255,0) 26%),radial-gradient(circle at 90% 18%,rgba(255,210,226,.60) 0,rgba(255,210,226,0) 30%),linear-gradient(160deg,#fff8fb 0%,#ffeef4 45%,#fff5f8 100%);color:#46353c;min-height:100vh;min-height:100dvh;display:flex;justify-content:center;padding:max(18px,env(safe-area-inset-top)) 16px max(20px,env(safe-area-inset-bottom)) 16px;position:relative;overflow-x:hidden}
-body::before{content:"";position:fixed;width:230px;height:230px;left:-95px;bottom:7%;border-radius:50%;background:rgba(255,205,222,.28);filter:blur(4px);pointer-events:none}
-body::after{content:"";position:fixed;width:170px;height:170px;right:-65px;top:31%;border-radius:50%;background:rgba(255,225,235,.55);pointer-events:none}
-button,input{font:inherit}button{cursor:pointer}
-.page{width:100%;max-width:460px;display:flex;flex-direction:column;position:relative;z-index:1;min-height:calc(100dvh - max(18px,env(safe-area-inset-top)) - max(20px,env(safe-area-inset-bottom)) - 32px)}
-.brand{text-align:center;padding-top:6vh;padding-bottom:27px}.brand-main{display:flex;align-items:center;justify-content:center;gap:13px;width:100%}.brand-logo-image{width:62px;height:62px;flex:0 0 62px;border-radius:20px;object-fit:contain;display:block;background:#fff;border:1px solid rgba(255,185,209,.38);box-shadow:0 10px 30px rgba(205,105,140,.14)}.brand-title{margin:0;font-size:30px;line-height:1.25;font-weight:750;letter-spacing:3px;color:#5b3b47}.brand-subtitle{margin-top:11px;font-size:14px;color:#a27687;letter-spacing:2px}
-.login-card{width:100%;background:linear-gradient(145deg,rgba(255,255,255,.97),rgba(255,249,252,.97));border-radius:28px;padding:9px 18px 23px;box-shadow:0 18px 50px rgba(180,90,120,.12);border:1px solid rgba(255,190,213,.38);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:#fff0f5;border-radius:17px;padding:5px;margin:10px 0 24px;border:1px solid rgba(255,195,215,.30)}.tab-button{width:100%;height:48px;border:0;border-radius:13px;background:transparent;font-size:16px;font-weight:650;color:#a47a89;transition:.18s;touch-action:manipulation}.tab-button.active{background:linear-gradient(135deg,#fff,#fff9fb);color:#d65c88;box-shadow:0 4px 14px rgba(203,94,133,.12)}.tab-panel{display:none}.tab-panel.active{display:block}
-.form-group{margin-bottom:18px}.form-label{display:block;margin-bottom:8px;font-size:14px;font-weight:650;color:#6c505b}.input{width:100%;height:54px;border-radius:15px;border:1px solid #efd7e0;padding:0 15px;background:rgba(255,255,255,.94);font-size:16px;color:#3e3035;outline:none;transition:.18s}.input:focus{border-color:#efa7c0;box-shadow:0 0 0 4px rgba(239,167,192,.14);background:#fff}.input::placeholder{color:#c6adb6}
-.phone-row{display:grid;grid-template-columns:82px 1fr;gap:8px}.country-code{height:54px;border-radius:15px;border:1px solid #efd7e0;background:#fff4f7;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:650;color:#875e6d}
-.otp-row{display:grid;grid-template-columns:1fr 122px;gap:8px}.otp-button{height:54px;border:0;border-radius:15px;background:#ffe5ee;color:#b84f75;font-size:14px;font-weight:650;padding:0 10px;touch-action:manipulation}.otp-button:active{transform:scale(.985)}.otp-button:disabled{opacity:.55;cursor:not-allowed}
-.business-tip{padding:13px 14px;margin-bottom:20px;border-radius:15px;background:linear-gradient(135deg,#fff6f9,#fffafb);border:1px solid #f5dce5;color:#987381;font-size:13px;line-height:1.65}.business-tip strong{color:#754e5d}
-.password-wrap{position:relative}.password-wrap .input{padding-right:72px}.password-toggle{position:absolute;right:9px;top:7px;height:40px;padding:0 10px;border:0;background:transparent;color:#b06680;font-size:14px}
-.primary-button{width:100%;height:56px;margin-top:5px;border:0;border-radius:16px;background:linear-gradient(135deg,#f48fb1,#e96f9a);color:#fff;font-size:17px;font-weight:700;letter-spacing:1px;box-shadow:0 9px 22px rgba(220,91,137,.24);transition:.15s}.primary-button:active{transform:scale(.985)}.primary-button:disabled{opacity:.55;cursor:not-allowed}
-.consultant-apply-button{width:100%;min-height:56px;margin-top:13px;border:1px solid #f3bfd1;border-radius:16px;background:linear-gradient(135deg,#fff1f6,#ffe5ee);color:#c04f78;font-size:16px;font-weight:700;letter-spacing:.5px;box-shadow:0 5px 15px rgba(219,111,150,.10);transition:.15s}.consultant-apply-button:active{transform:scale(.985);background:#ffdae7}.consultant-apply-button .flower{display:inline-block;margin-right:6px}
-.home-button{width:100%;height:56px;margin-top:12px;border:1px solid #efdbe2;border-radius:16px;background:rgba(255,255,255,.92);color:#745966;font-size:16px;font-weight:650;letter-spacing:1px;transition:.15s}.home-button:active{transform:scale(.985);background:#fff5f8}
-.login-description{margin:-8px 2px 20px;padding:2px;font-size:13px;line-height:1.7;color:#a1818d}
-.message{display:none;margin:16px 0 0;padding:12px 14px;border-radius:13px;font-size:14px;line-height:1.55}.message.show{display:block}.message.error{background:#fff0f3;color:#b4234d;border:1px solid #ffd1dc}.message.success{background:#f0faf4;color:#26734d;border:1px solid #d7f0df}.message.info{background:#fff5f8;color:#765b65;border:1px solid #f5dfe7}
-.footer{margin-top:auto;padding:26px 8px 6px;text-align:center;font-size:12px;line-height:1.7;color:#b792a0}
-.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;vertical-align:-3px;margin-right:8px;animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
-@media(max-width:360px){body{padding-left:10px;padding-right:10px}.login-card{padding-left:14px;padding-right:14px}.brand{padding-top:3vh}.brand-title{font-size:26px}.brand-logo-image{width:52px;height:52px;flex-basis:52px;border-radius:17px}.otp-row{grid-template-columns:1fr 108px}.tab-button{font-size:14px}.consultant-apply-button{font-size:15px}}
-@media(max-width:600px){.brand{padding-top:3.5vh;padding-bottom:22px}.login-card{border-radius:23px;padding-bottom:20px}.tab-button{min-height:48px}.primary-button,.home-button,.consultant-apply-button{min-height:56px}}
-@media(min-width:768px){body{align-items:center}.page{min-height:auto}.brand{padding-top:0}.login-card{padding:12px 28px 28px}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;padding:0;width:100%;min-height:100%}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;background:radial-gradient(circle at 12% 8%,rgba(255,255,255,.95) 0,rgba(255,255,255,0) 26%),radial-gradient(circle at 90% 18%,rgba(255,210,226,.60) 0,rgba(255,210,226,0) 30%),linear-gradient(160deg,#fff8fb 0%,#ffeef4 45%,#fff5f8 100%);color:#46353c;min-height:100vh;min-height:100dvh;display:flex;justify-content:center;padding:max(18px,env(safe-area-inset-top)) 16px max(20px,env(safe-area-inset-bottom)) 16px;position:relative;overflow-x:hidden}body::before{content:"";position:fixed;width:230px;height:230px;left:-95px;bottom:7%;border-radius:50%;background:rgba(255,205,222,.28);filter:blur(4px);pointer-events:none}body::after{content:"";position:fixed;width:170px;height:170px;right:-65px;top:31%;border-radius:50%;background:rgba(255,225,235,.55);pointer-events:none}button,input{font:inherit}button{cursor:pointer}.page{width:100%;max-width:460px;display:flex;flex-direction:column;position:relative;z-index:1;min-height:calc(100dvh - max(18px,env(safe-area-inset-top)) - max(20px,env(safe-area-inset-bottom)) - 32px)}.brand{text-align:center;padding-top:6vh;padding-bottom:27px}.brand-main{display:flex;align-items:center;justify-content:center;gap:13px;width:100%}.brand-logo-image{width:62px;height:62px;flex:0 0 62px;border-radius:20px;object-fit:contain;display:block;background:#fff;border:1px solid rgba(255,185,209,.38);box-shadow:0 10px 30px rgba(205,105,140,.14)}.brand-title{margin:0;font-size:30px;line-height:1.25;font-weight:750;letter-spacing:3px;color:#5b3b47}.brand-subtitle{margin-top:11px;font-size:14px;color:#a27687;letter-spacing:2px}.login-card{width:100%;background:linear-gradient(145deg,rgba(255,255,255,.97),rgba(255,249,252,.97));border-radius:28px;padding:9px 18px 23px;box-shadow:0 18px 50px rgba(180,90,120,.12);border:1px solid rgba(255,190,213,.38);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:#fff0f5;border-radius:17px;padding:5px;margin:10px 0 24px;border:1px solid rgba(255,195,215,.30)}.tab-button{width:100%;height:48px;border:0;border-radius:13px;background:transparent;font-size:16px;font-weight:650;color:#a47a89;transition:.18s;touch-action:manipulation}.tab-button.active{background:linear-gradient(135deg,#fff,#fff9fb);color:#d65c88;box-shadow:0 4px 14px rgba(203,94,133,.12)}.tab-panel{display:none}.tab-panel.active{display:block}.form-group{margin-bottom:18px}.form-label{display:block;margin-bottom:8px;font-size:14px;font-weight:650;color:#6c505b}.input{width:100%;height:54px;border-radius:15px;border:1px solid #efd7e0;padding:0 15px;background:rgba(255,255,255,.94);font-size:16px;color:#3e3035;outline:none;transition:.18s}.input:focus{border-color:#efa7c0;box-shadow:0 0 0 4px rgba(239,167,192,.14);background:#fff}.input::placeholder{color:#c6adb6}.phone-row{display:grid;grid-template-columns:82px 1fr;gap:8px}.country-code{height:54px;border-radius:15px;border:1px solid #efd7e0;background:#fff4f7;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:650;color:#875e6d}.otp-row{display:grid;grid-template-columns:1fr 122px;gap:8px}.otp-button{height:54px;border:0;border-radius:15px;background:#ffe5ee;color:#b84f75;font-size:14px;font-weight:650;padding:0 10px;touch-action:manipulation}.otp-button:active{transform:scale(.985)}.otp-button:disabled{opacity:.55;cursor:not-allowed}.business-tip{padding:13px 14px;margin-bottom:20px;border-radius:15px;background:linear-gradient(135deg,#fff6f9,#fffafb);border:1px solid #f5dce5;color:#987381;font-size:13px;line-height:1.65}.business-tip strong{color:#754e5d}.password-wrap{position:relative}.password-wrap .input{padding-right:72px}.password-toggle{position:absolute;right:9px;top:7px;height:40px;padding:0 10px;border:0;background:transparent;color:#b06680;font-size:14px}.primary-button{width:100%;height:56px;margin-top:5px;border:0;border-radius:16px;background:linear-gradient(135deg,#f48fb1,#e96f9a);color:#fff;font-size:17px;font-weight:700;letter-spacing:1px;box-shadow:0 9px 22px rgba(220,91,137,.24);transition:.15s}.primary-button:active{transform:scale(.985)}.primary-button:disabled{opacity:.55;cursor:not-allowed}.consultant-apply-button{width:100%;min-height:56px;margin-top:13px;border:1px solid #f3bfd1;border-radius:16px;background:linear-gradient(135deg,#fff1f6,#ffe5ee);color:#c04f78;font-size:16px;font-weight:700;letter-spacing:.5px;box-shadow:0 5px 15px rgba(219,111,150,.10);transition:.15s}.consultant-apply-button:active{transform:scale(.985);background:#ffdae7}.consultant-apply-button .flower{display:inline-block;margin-right:6px}.home-button{width:100%;height:56px;margin-top:12px;border:1px solid #efdbe2;border-radius:16px;background:rgba(255,255,255,.92);color:#745966;font-size:16px;font-weight:650;letter-spacing:1px;transition:.15s}.home-button:active{transform:scale(.985);background:#fff5f8}.login-description{margin:-8px 2px 20px;padding:2px;font-size:13px;line-height:1.7;color:#a1818d}.message{display:none;margin:16px 0 0;padding:12px 14px;border-radius:13px;font-size:14px;line-height:1.55}.message.show{display:block}.message.error{background:#fff0f3;color:#b4234d;border:1px solid #ffd1dc}.message.success{background:#f0faf4;color:#26734d;border:1px solid #d7f0df}.message.info{background:#fff5f8;color:#765b65;border:1px solid #f5dfe7}.footer{margin-top:auto;padding:26px 8px 6px;text-align:center;font-size:12px;line-height:1.7;color:#b792a0}.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;vertical-align:-3px;margin-right:8px;animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media(max-width:360px){body{padding-left:10px;padding-right:10px}.login-card{padding-left:14px;padding-right:14px}.brand{padding-top:3vh}.brand-title{font-size:26px}.brand-logo-image{width:52px;height:52px;flex-basis:52px;border-radius:17px}.otp-row{grid-template-columns:1fr 108px}.tab-button{font-size:14px}.consultant-apply-button{font-size:15px}}@media(max-width:600px){.brand{padding-top:3.5vh;padding-bottom:22px}.login-card{border-radius:23px;padding-bottom:20px}.tab-button{min-height:48px}.primary-button,.home-button,.consultant-apply-button{min-height:56px}}@media(min-width:768px){body{align-items:center}.page{min-height:auto}.brand{padding-top:0}.login-card{padding:12px 28px 28px}}
 </style>
 </head>
 <body>
@@ -45,44 +21,18 @@ button,input{font:inherit}button{cursor:pointer}
 <button id="customerTab" class="tab-button active" type="button">客户登录</button>
 <button id="businessTab" class="tab-button" type="button">商户/顾问/管理/服务人员</button>
 </div>
-
 <section id="customerPanel" class="tab-panel active">
 <div class="login-description">使用手机号码登录。首次登录会自动创建客户账号，已有客户直接进入原账号。客户账号全国通用，不受城市限制。</div>
-<div class="form-group">
-<label class="form-label" for="customerPhone">手机号码</label>
-<div class="phone-row">
-<div class="country-code">+86</div>
-<input id="customerPhone" class="input" type="tel" inputmode="numeric" autocomplete="tel" maxlength="11" placeholder="请输入手机号码">
-</div>
-</div>
-<div class="form-group">
-<label class="form-label" for="customerOtp">短信验证码</label>
-<div class="otp-row">
-<input id="customerOtp" class="input" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="6位验证码">
-<button id="sendOtpButton" class="otp-button" type="button">获取验证码</button>
-</div>
-</div>
+<div class="form-group"><label class="form-label" for="customerPhone">手机号码</label><div class="phone-row"><div class="country-code">+86</div><input id="customerPhone" class="input" type="tel" inputmode="numeric" autocomplete="tel" maxlength="11" placeholder="请输入手机号码"></div></div>
+<div class="form-group"><label class="form-label" for="customerOtp">短信验证码</label><div class="otp-row"><input id="customerOtp" class="input" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="6位验证码"><button id="sendOtpButton" class="otp-button" type="button">获取验证码</button></div></div>
 <button id="customerLoginButton" class="primary-button" type="button">登录</button>
 <button class="home-button" type="button" onclick="window.location.href='./index.html'">返回主页</button>
 <div id="customerMessage" class="message"></div>
 </section>
-
 <section id="businessPanel" class="tab-panel">
-<div class="business-tip">
-<strong>商户、健康顾问及平台管理人员入口</strong><br>
-商户和平台管理人员使用登录邮箱，健康顾问使用系统分配的永久ID。系统会自动识别账号角色并进入相应工作页面。
-</div>
-<div class="form-group">
-<label class="form-label" for="businessAccount">邮箱或系统ID</label>
-<input id="businessAccount" class="input" type="text" inputmode="text" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="邮箱或系统ID">
-</div>
-<div class="form-group">
-<label class="form-label" for="businessPassword">登录密码</label>
-<div class="password-wrap">
-<input id="businessPassword" class="input" type="password" autocomplete="current-password" placeholder="请输入登录密码">
-<button id="passwordToggle" class="password-toggle" type="button">显示</button>
-</div>
-</div>
+<div class="business-tip"><strong>商户、健康顾问、技术服务人员及平台管理人员入口</strong><br>商户、技术服务人员和平台管理人员使用登录邮箱，健康顾问使用系统分配的永久ID。系统会自动识别账号角色并进入相应工作页面。</div>
+<div class="form-group"><label class="form-label" for="businessAccount">邮箱或系统ID</label><input id="businessAccount" class="input" type="text" inputmode="text" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="邮箱或系统ID"></div>
+<div class="form-group"><label class="form-label" for="businessPassword">登录密码</label><div class="password-wrap"><input id="businessPassword" class="input" type="password" autocomplete="current-password" placeholder="请输入登录密码"><button id="passwordToggle" class="password-toggle" type="button">显示</button></div></div>
 <button id="businessLoginButton" class="primary-button" type="button">登录</button>
 <button class="consultant-apply-button" type="button" onclick="window.location.href='./health_consultant_application.html'"><span class="flower">🌸</span>申请成为健康顾问</button>
 <button class="home-button" type="button" onclick="window.location.href='./index.html'">返回主页</button>
@@ -91,292 +41,66 @@ button,input{font:inherit}button{cursor:pointer}
 </main>
 <footer class="footer">登录即表示您同意平台相关服务条款和隐私政策<br>© 孕乃馨</footer>
 </div>
-
 <script>
-const customerTab=document.getElementById("customerTab");
-const businessTab=document.getElementById("businessTab");
-const customerPanel=document.getElementById("customerPanel");
-const businessPanel=document.getElementById("businessPanel");
-const customerPhone=document.getElementById("customerPhone");
-const customerOtp=document.getElementById("customerOtp");
-const sendOtpButton=document.getElementById("sendOtpButton");
-const customerLoginButton=document.getElementById("customerLoginButton");
-const customerMessage=document.getElementById("customerMessage");
-const businessAccount=document.getElementById("businessAccount");
-const businessPassword=document.getElementById("businessPassword");
-const businessLoginButton=document.getElementById("businessLoginButton");
-const businessMessage=document.getElementById("businessMessage");
-const passwordToggle=document.getElementById("passwordToggle");
-
-const SUPABASE_URL="https://qbuqjwpkltbjhlfbyjyb.supabase.co";
-const SUPABASE_ANON_KEY="sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
-const PAGE_PLATFORM="./wholemanagement.html";
-const PAGE_MERCHANT="./merchantplatform.html";
-const PAGE_HEALTH_CONSULTANT="./healthconsultant.html";
-const PAGE_CUSTOMER="./customer.html";
-const PLATFORM_ROLES=["founder","platform_admin","platform_staff","province_admin","city_admin"];
-let supabaseClient=null;
-let otpCountdown=0;
-let otpTimer=null;
-
-function initializeSupabase(){
-try{
-if(!window.supabase||typeof window.supabase.createClient!=="function")return false;
-supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
-return true;
-}catch(error){console.error("Supabase初始化失败：",error);supabaseClient=null;return false}
-}
+const customerTab=document.getElementById("customerTab"),businessTab=document.getElementById("businessTab"),customerPanel=document.getElementById("customerPanel"),businessPanel=document.getElementById("businessPanel"),customerPhone=document.getElementById("customerPhone"),customerOtp=document.getElementById("customerOtp"),sendOtpButton=document.getElementById("sendOtpButton"),customerLoginButton=document.getElementById("customerLoginButton"),customerMessage=document.getElementById("customerMessage"),businessAccount=document.getElementById("businessAccount"),businessPassword=document.getElementById("businessPassword"),businessLoginButton=document.getElementById("businessLoginButton"),businessMessage=document.getElementById("businessMessage"),passwordToggle=document.getElementById("passwordToggle");
+const SUPABASE_URL="https://qbuqjwpkltbjhlfbyjyb.supabase.co",SUPABASE_ANON_KEY="sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3",PAGE_PLATFORM="./wholemanagement.html",PAGE_MERCHANT="./merchantplatform.html",PAGE_HEALTH_CONSULTANT="./healthconsultant.html",PAGE_TECHNICIAN="./technician.html",PAGE_CUSTOMER="./customer.html",PLATFORM_ROLES=["founder","platform_admin","platform_staff","province_admin","city_admin"];
+let supabaseClient=null,otpCountdown=0,otpTimer=null;
+function initializeSupabase(){try{if(!window.supabase||typeof window.supabase.createClient!=="function")return false;supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});return true}catch(error){console.error("Supabase初始化失败：",error);supabaseClient=null;return false}}
 initializeSupabase();
-
-function openCustomerTab(){
-customerTab.classList.add("active");businessTab.classList.remove("active");
-customerPanel.classList.add("active");businessPanel.classList.remove("active");
-clearMessage(customerMessage);clearMessage(businessMessage);
-}
-function openBusinessTab(){
-businessTab.classList.add("active");customerTab.classList.remove("active");
-businessPanel.classList.add("active");customerPanel.classList.remove("active");
-clearMessage(customerMessage);clearMessage(businessMessage);
-}
-customerTab.onclick=openCustomerTab;
-businessTab.onclick=openBusinessTab;
-
-function showMessage(element,message,type="info"){
-if(!element)return;
-element.textContent=message;
-element.className="message show "+type;
-}
-function clearMessage(element){
-if(!element)return;
-element.textContent="";
-element.className="message";
-}
-function requireSupabase(messageElement){
-if(supabaseClient||initializeSupabase())return true;
-showMessage(messageElement,"登录系统连接失败，请刷新页面重新尝试。","error");
-return false;
-}
-function normalizeChinaPhone(value){
-let phone=String(value||"").replace(/\D/g,"");
-if(phone.startsWith("86")&&phone.length===13)phone=phone.substring(2);
-return /^1\d{10}$/.test(phone)?"+86"+phone:null;
-}
-function isValidEmail(value){
-return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-}
-function normalizeBusinessAccount(value){
-const account=String(value||"").trim().toLowerCase();
-if(/^\d{6,12}$/.test(account)){
-return{email:`${account}@consultant.yunnaixin.internal`,type:"system_id",display:account};
-}
-if(isValidEmail(account)){
-return{email:account,type:"email",display:account};
-}
-return null;
-}
-function setButtonLoading(button,loading,text){
-button.disabled=loading;
-if(loading)button.innerHTML='<span class="spinner"></span>'+text;
-else button.textContent=text;
-}
-
-async function sendOtp(){
-clearMessage(customerMessage);
-if(!requireSupabase(customerMessage))return;
-const phone=normalizeChinaPhone(customerPhone.value);
-if(!phone){showMessage(customerMessage,"请输入正确的11位手机号码。","error");customerPhone.focus();return}
-sendOtpButton.disabled=true;
-sendOtpButton.textContent="发送中...";
-try{
-const{error}=await supabaseClient.auth.signInWithOtp({phone,options:{shouldCreateUser:true}});
-if(error)throw error;
-showMessage(customerMessage,"验证码已经发送，请查看手机短信。","success");
-startOtpCountdown();
-}catch(error){
-console.error("发送验证码失败：",error);
-showMessage(customerMessage,getReadableError(error),"error");
-sendOtpButton.disabled=false;
-sendOtpButton.textContent="获取验证码";
-}
-}
-function startOtpCountdown(){
-if(otpTimer)clearInterval(otpTimer);
-otpCountdown=60;
-sendOtpButton.disabled=true;
-updateOtpButton();
-otpTimer=setInterval(()=>{
-otpCountdown--;
-updateOtpButton();
-if(otpCountdown<=0){
-clearInterval(otpTimer);otpTimer=null;
-sendOtpButton.disabled=false;sendOtpButton.textContent="重新获取";
-}
-},1000);
-}
+function openCustomerTab(){customerTab.classList.add("active");businessTab.classList.remove("active");customerPanel.classList.add("active");businessPanel.classList.remove("active");clearMessage(customerMessage);clearMessage(businessMessage)}
+function openBusinessTab(){businessTab.classList.add("active");customerTab.classList.remove("active");businessPanel.classList.add("active");customerPanel.classList.remove("active");clearMessage(customerMessage);clearMessage(businessMessage)}
+customerTab.onclick=openCustomerTab;businessTab.onclick=openBusinessTab;
+function showMessage(element,message,type="info"){if(!element)return;element.textContent=message;element.className="message show "+type}
+function clearMessage(element){if(!element)return;element.textContent="";element.className="message"}
+function requireSupabase(messageElement){if(supabaseClient||initializeSupabase())return true;showMessage(messageElement,"登录系统连接失败，请刷新页面重新尝试。","error");return false}
+function normalizeChinaPhone(value){let phone=String(value||"").replace(/\D/g,"");if(phone.startsWith("86")&&phone.length===13)phone=phone.substring(2);return /^1\d{10}$/.test(phone)?"+86"+phone:null}
+function isValidEmail(value){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)}
+function normalizeBusinessAccount(value){const account=String(value||"").trim().toLowerCase();if(/^\d{6,12}$/.test(account))return{email:`${account}@consultant.yunnaixin.internal`,type:"system_id",display:account};if(isValidEmail(account))return{email:account,type:"email",display:account};return null}
+function setButtonLoading(button,loading,text){button.disabled=loading;if(loading)button.innerHTML='<span class="spinner"></span>'+text;else button.textContent=text}
+async function sendOtp(){clearMessage(customerMessage);if(!requireSupabase(customerMessage))return;const phone=normalizeChinaPhone(customerPhone.value);if(!phone){showMessage(customerMessage,"请输入正确的11位手机号码。","error");customerPhone.focus();return}sendOtpButton.disabled=true;sendOtpButton.textContent="发送中...";try{const{error}=await supabaseClient.auth.signInWithOtp({phone,options:{shouldCreateUser:true}});if(error)throw error;showMessage(customerMessage,"验证码已经发送，请查看手机短信。","success");startOtpCountdown()}catch(error){console.error("发送验证码失败：",error);showMessage(customerMessage,getReadableError(error),"error");sendOtpButton.disabled=false;sendOtpButton.textContent="获取验证码"}}
+function startOtpCountdown(){if(otpTimer)clearInterval(otpTimer);otpCountdown=60;sendOtpButton.disabled=true;updateOtpButton();otpTimer=setInterval(()=>{otpCountdown--;updateOtpButton();if(otpCountdown<=0){clearInterval(otpTimer);otpTimer=null;sendOtpButton.disabled=false;sendOtpButton.textContent="重新获取"}},1000)}
 function updateOtpButton(){if(otpCountdown>0)sendOtpButton.textContent=otpCountdown+"秒"}
-
-async function ensureCustomerRecord(phone){
-const{data,error}=await supabaseClient.rpc("ensure_customer_record",{p_phone:phone});
-if(error)throw error;
-if(!data||data.success!==true)throw new Error("客户资料初始化失败。");
-return data;
-}
-
+async function ensureCustomerRecord(phone){const{data,error}=await supabaseClient.rpc("ensure_customer_record",{p_phone:phone});if(error)throw error;if(!data||data.success!==true)throw new Error("客户资料初始化失败。");return data}
 async function getCurrentIdentity(){
-const{data:userData,error:userError}=await supabaseClient.auth.getUser();
-if(userError)throw userError;
-const user=userData?.user;
-if(!user)throw new Error("无法获取登录用户信息。");
-
-const{data:profile,error:profileError}=await supabaseClient
-.from("profiles")
-.select("id,role,status,full_name,login_email")
-.eq("id",user.id)
-.maybeSingle();
-
+const{data:userData,error:userError}=await supabaseClient.auth.getUser();if(userError)throw userError;
+const user=userData?.user;if(!user)throw new Error("无法获取登录用户信息。");
+const{data:profile,error:profileError}=await supabaseClient.from("profiles").select("id,role,status,full_name,login_email").eq("id",user.id).maybeSingle();
 if(profileError)console.warn("读取profiles失败：",profileError);
-
-if(profile){
-if(profile.status!=="active")throw new Error("该账号当前已被停用。");
-if(!profile.role)throw new Error("账号尚未配置用户角色，请联系平台管理员。");
-return{role:profile.role,status:profile.status,profile,user};
-}
-
+if(profile){if(profile.status!=="active")throw new Error("该账号当前已被停用。");if(!profile.role)throw new Error("账号尚未配置用户角色，请联系平台管理员。");return{role:profile.role,status:profile.status,profile,user}}
 const authRole=String(user.app_metadata?.role||user.user_metadata?.account_type||"");
-
-if(authRole==="health_consultant"){
-return{
-role:"health_consultant",
-status:"active",
-profile:null,
-user,
-mustChangePassword:user.user_metadata?.must_change_password===true
-};
-}
-
+if(authRole==="health_consultant"||authRole==="service_technician")return{role:authRole,status:"active",profile:null,user,mustChangePassword:user.user_metadata?.must_change_password===true};
 throw new Error("该账号尚未建立平台身份资料，请联系管理员。");
 }
-
-async function getCurrentUserRole(){
-const identity=await getCurrentIdentity();
-return identity.role;
-}
-
+async function getCurrentUserRole(){return(await getCurrentIdentity()).role}
 function redirectByRole(role){
 if(PLATFORM_ROLES.includes(role)){window.location.replace(PAGE_PLATFORM);return}
 if(role==="merchant"){window.location.replace(PAGE_MERCHANT);return}
 if(role==="health_consultant"){window.location.replace(PAGE_HEALTH_CONSULTANT);return}
+if(role==="service_technician"){window.location.replace(PAGE_TECHNICIAN);return}
 if(role==="customer"){window.location.replace(PAGE_CUSTOMER);return}
 throw new Error("当前账号角色无法识别。");
 }
-
-async function customerLogin(){
-clearMessage(customerMessage);
-if(!requireSupabase(customerMessage))return;
-const phone=normalizeChinaPhone(customerPhone.value);
-const token=String(customerOtp.value||"").trim();
-if(!phone){showMessage(customerMessage,"请输入正确的手机号码。","error");customerPhone.focus();return}
-if(!/^\d{6}$/.test(token)){showMessage(customerMessage,"请输入6位短信验证码。","error");customerOtp.focus();return}
-setButtonLoading(customerLoginButton,true,"正在登录");
-try{
-const{data,error}=await supabaseClient.auth.verifyOtp({phone,token,type:"sms"});
-if(error)throw error;
-if(!data?.user||!data?.session)throw new Error("登录失败，请重新获取验证码。");
-const customerResult=await ensureCustomerRecord(phone);
-const role=await getCurrentUserRole();
-if(role!=="customer"){await supabaseClient.auth.signOut();throw new Error("该手机账号不是客户账号，请使用商户 / 顾问 / 管理入口登录。")}
-showMessage(customerMessage,customerResult.created?`注册成功，您的客户编号为 ${customerResult.customer_no}。`:"登录成功。","success");
-setTimeout(()=>window.location.replace(PAGE_CUSTOMER),350);
-}catch(error){
-console.error("客户登录失败：",error);
-try{const{data}=await supabaseClient.auth.getSession();if(data?.session)await supabaseClient.auth.signOut()}catch(signOutError){console.error(signOutError)}
-showMessage(customerMessage,getReadableError(error),"error");
-setButtonLoading(customerLoginButton,false,"登录");
-}
-}
-
+async function customerLogin(){clearMessage(customerMessage);if(!requireSupabase(customerMessage))return;const phone=normalizeChinaPhone(customerPhone.value),token=String(customerOtp.value||"").trim();if(!phone){showMessage(customerMessage,"请输入正确的手机号码。","error");customerPhone.focus();return}if(!/^\d{6}$/.test(token)){showMessage(customerMessage,"请输入6位短信验证码。","error");customerOtp.focus();return}setButtonLoading(customerLoginButton,true,"正在登录");try{const{data,error}=await supabaseClient.auth.verifyOtp({phone,token,type:"sms"});if(error)throw error;if(!data?.user||!data?.session)throw new Error("登录失败，请重新获取验证码。");const customerResult=await ensureCustomerRecord(phone),role=await getCurrentUserRole();if(role!=="customer"){await supabaseClient.auth.signOut();throw new Error("该手机账号不是客户账号，请使用商户 / 顾问 / 管理入口登录。")}showMessage(customerMessage,customerResult.created?`注册成功，您的客户编号为 ${customerResult.customer_no}。`:"登录成功。","success");setTimeout(()=>window.location.replace(PAGE_CUSTOMER),350)}catch(error){console.error("客户登录失败：",error);try{const{data}=await supabaseClient.auth.getSession();if(data?.session)await supabaseClient.auth.signOut()}catch(signOutError){console.error(signOutError)}showMessage(customerMessage,getReadableError(error),"error");setButtonLoading(customerLoginButton,false,"登录")}}
 async function businessLogin(){
-clearMessage(businessMessage);
-if(!requireSupabase(businessMessage))return;
-const account=normalizeBusinessAccount(businessAccount.value);
-const password=String(businessPassword.value||"");
-if(!account){
-showMessage(businessMessage,"请输入正确的邮箱或系统ID。","error");
-businessAccount.focus();
-return;
-}
-if(!password){
-showMessage(businessMessage,"请输入登录密码。","error");
-businessPassword.focus();
-return;
-}
+clearMessage(businessMessage);if(!requireSupabase(businessMessage))return;
+const account=normalizeBusinessAccount(businessAccount.value),password=String(businessPassword.value||"");
+if(!account){showMessage(businessMessage,"请输入正确的邮箱或系统ID。","error");businessAccount.focus();return}
+if(!password){showMessage(businessMessage,"请输入登录密码。","error");businessPassword.focus();return}
 setButtonLoading(businessLoginButton,true,"正在验证");
 try{
-const{data,error}=await supabaseClient.auth.signInWithPassword({email:account.email,password});
-if(error)throw error;
+const{data,error}=await supabaseClient.auth.signInWithPassword({email:account.email,password});if(error)throw error;
 if(!data?.user||!data?.session)throw new Error("登录失败，请重新尝试。");
 const identity=await getCurrentIdentity();
-if(identity.role==="customer"){
-await supabaseClient.auth.signOut();
-throw new Error("客户账号请使用手机验证码登录。");
-}
-if(!PLATFORM_ROLES.includes(identity.role)&&identity.role!=="merchant"&&identity.role!=="health_consultant"){
-await supabaseClient.auth.signOut();
-throw new Error("该账号没有平台认可的登录角色。");
-}
+if(identity.role==="customer"){await supabaseClient.auth.signOut();throw new Error("客户账号请使用手机验证码登录。")}
+if(!PLATFORM_ROLES.includes(identity.role)&&!["merchant","health_consultant","service_technician"].includes(identity.role)){await supabaseClient.auth.signOut();throw new Error("该账号没有平台认可的登录角色。")}
 redirectByRole(identity.role);
-}catch(error){
-console.error("账号密码登录失败：",error);
-try{const{data}=await supabaseClient.auth.getSession();if(data?.session)await supabaseClient.auth.signOut()}catch(signOutError){console.error(signOutError)}
-showMessage(businessMessage,getReadableError(error),"error");
-setButtonLoading(businessLoginButton,false,"登录");
+}catch(error){console.error("账号密码登录失败：",error);try{const{data}=await supabaseClient.auth.getSession();if(data?.session)await supabaseClient.auth.signOut()}catch(signOutError){console.error(signOutError)}showMessage(businessMessage,getReadableError(error),"error");setButtonLoading(businessLoginButton,false,"登录")}
 }
-}
-
-function getReadableError(error){
-const original=String(error?.message||"");
-const message=original.toLowerCase();
-if(message.includes("invalid login credentials"))return"邮箱、系统ID或密码错误。";
-if(message.includes("email not confirmed"))return"该登录账户尚未完成确认。";
-if(message.includes("token has expired")||message.includes("otp expired"))return"验证码已经失效，请重新获取。";
-if(message.includes("invalid token")||message.includes("token is invalid"))return"验证码错误，请重新输入。";
-if(message.includes("rate limit")||message.includes("too many requests"))return"操作过于频繁，请稍后再试。";
-if(message.includes("already bound")||message.includes("已经绑定"))return"该手机号已经绑定其他客户账号，请联系平台处理。";
-if(message.includes("user_type"))return"登录页面版本过旧，请刷新页面重新登录。";
-return original||"登录失败，请稍后重新尝试。";
-}
-
-passwordToggle.onclick=()=>{
-const hidden=businessPassword.type==="password";
-businessPassword.type=hidden?"text":"password";
-passwordToggle.textContent=hidden?"隐藏":"显示";
-};
-sendOtpButton.onclick=sendOtp;
-customerLoginButton.onclick=customerLogin;
-businessLoginButton.onclick=businessLogin;
-
-customerOtp.addEventListener("keydown",event=>{if(event.key==="Enter")customerLogin()});
-businessAccount.addEventListener("keydown",event=>{if(event.key==="Enter")businessPassword.focus()});
-businessPassword.addEventListener("keydown",event=>{if(event.key==="Enter")businessLogin()});
-customerPhone.addEventListener("input",()=>{customerPhone.value=customerPhone.value.replace(/\D/g,"").slice(0,11)});
-customerOtp.addEventListener("input",()=>{customerOtp.value=customerOtp.value.replace(/\D/g,"").slice(0,6)});
-
-async function autoRedirectExistingSession(){
-if(!supabaseClient)return;
-try{
-const{data,error}=await supabaseClient.auth.getSession();
-if(error||!data?.session)return;
-const user=data.session.user;
-if(user?.phone){
-try{await ensureCustomerRecord(user.phone)}catch(customerError){console.error("自动补齐客户记录失败：",customerError)}
-}
-const role=await getCurrentUserRole();
-redirectByRole(role);
-}catch(error){
-console.error("自动登录检测失败：",error);
-try{await supabaseClient.auth.signOut()}catch(signOutError){console.error(signOutError)}
-}
-}
+function getReadableError(error){const original=String(error?.message||""),message=original.toLowerCase();if(message.includes("invalid login credentials"))return"邮箱、系统ID或密码错误。";if(message.includes("email not confirmed"))return"该登录账户尚未完成确认。";if(message.includes("token has expired")||message.includes("otp expired"))return"验证码已经失效，请重新获取。";if(message.includes("invalid token")||message.includes("token is invalid"))return"验证码错误，请重新输入。";if(message.includes("rate limit")||message.includes("too many requests"))return"操作过于频繁，请稍后再试。";if(message.includes("already bound")||message.includes("已经绑定"))return"该手机号已经绑定其他客户账号，请联系平台处理。";if(message.includes("user_type"))return"登录页面版本过旧，请刷新页面重新登录。";return original||"登录失败，请稍后重新尝试。"}
+passwordToggle.onclick=()=>{const hidden=businessPassword.type==="password";businessPassword.type=hidden?"text":"password";passwordToggle.textContent=hidden?"隐藏":"显示"};
+sendOtpButton.onclick=sendOtp;customerLoginButton.onclick=customerLogin;businessLoginButton.onclick=businessLogin;
+customerOtp.addEventListener("keydown",event=>{if(event.key==="Enter")customerLogin()});businessAccount.addEventListener("keydown",event=>{if(event.key==="Enter")businessPassword.focus()});businessPassword.addEventListener("keydown",event=>{if(event.key==="Enter")businessLogin()});customerPhone.addEventListener("input",()=>{customerPhone.value=customerPhone.value.replace(/\D/g,"").slice(0,11)});customerOtp.addEventListener("input",()=>{customerOtp.value=customerOtp.value.replace(/\D/g,"").slice(0,6)});
+async function autoRedirectExistingSession(){if(!supabaseClient)return;try{const{data,error}=await supabaseClient.auth.getSession();if(error||!data?.session)return;const user=data.session.user;if(user?.phone){try{await ensureCustomerRecord(user.phone)}catch(customerError){console.error("自动补齐客户记录失败：",customerError)}}redirectByRole(await getCurrentUserRole())}catch(error){console.error("自动登录检测失败：",error);try{await supabaseClient.auth.signOut()}catch(signOutError){console.error(signOutError)}}}
 autoRedirectExistingSession();
 </script>
 </body>

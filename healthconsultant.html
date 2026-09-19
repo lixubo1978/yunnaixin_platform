@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -89,7 +90,7 @@ button,input,select{font:inherit}button{cursor:pointer}a{color:inherit}.hidden{d
 <input id="newPassword" class="password-input" type="password" autocomplete="new-password" maxlength="72" placeholder="请输入新密码">
 <button class="show-password" type="button" onclick="togglePassword('newPassword',this)">显示</button>
 </div>
-<div class="password-rule">至少8位，必须同时包含字母和数字，不能继续使用12345678。</div>
+<div class="password-rule">至少8位，可使用数字、字母或任意字符。</div>
 </div>
 <div class="form-group">
 <label class="form-label" for="confirmPassword">再次输入新密码</label>
@@ -281,8 +282,6 @@ hidePasswordError();
 const password=document.getElementById("newPassword").value;
 const confirmPassword=document.getElementById("confirmPassword").value;
 if(password.length<8){showPasswordError("新密码至少需要8位。");return}
-if(!/[A-Za-z]/.test(password)||!/\d/.test(password)){showPasswordError("新密码必须同时包含字母和数字。");return}
-if(password==="12345678"){showPasswordError("不能继续使用系统初始密码12345678。");return}
 if(password!==confirmPassword){showPasswordError("两次输入的新密码不一致。");return}
 const button=document.getElementById("savePasswordButton");
 button.disabled=true;
@@ -325,5 +324,6 @@ document.addEventListener("keydown",event=>{if(event.key==="Escape"&&!passwordFo
 supabaseClient.auth.onAuthStateChange(event=>{if(event==="SIGNED_OUT")window.location.replace(LOGIN_PAGE)});
 document.addEventListener("DOMContentLoaded",initialize);
 </script>
+
 </body>
 </html>

@@ -484,7 +484,7 @@ td{
 <table>
 <thead>
 <tr>
-<th>编号</th><th>对外显示</th><th>登录邮箱</th><th>电话</th><th>服务区域</th><th>状态</th><th>操作</th>
+<th>登录编号</th><th>对外显示</th><th>登录邮箱</th><th>电话</th><th>服务区域</th><th>状态</th><th>操作</th>
 </tr>
 </thead>
 <tbody id="consultantTable"></tbody>
@@ -1119,6 +1119,7 @@ function renderConsultants(){
             <td>
                 ${canManage&&row.status==="active"
                     ? `<button class="action edit-action" onclick="editConsultant('${row.id}')">编辑</button>
+                       <button class="action edit-action" onclick="resetConsultantPassword('${row.id}')">重置密码</button>
                        <button class="action danger-action" onclick="invalidateConsultant('${row.id}')">设为无效</button>`
                     :"—"}
             </td>
@@ -1632,6 +1633,21 @@ async function invalidateConsultant(id){
         await loadAllData();
     }catch(error){
         showToast(error.message||"操作失败。","error");
+    }
+}
+
+async function resetConsultantPassword(id){
+    const row=consultants.find(x=>String(x.id)===String(id));
+    if(!row)return showToast("没有找到该健康顾问。","error");
+    const name=row.consultant_name||(row.consultant_surname?row.consultant_surname+"老师":"该健康顾问");
+    if(!confirm(`确定重置 ${name}（登录编号：${row.consultant_no??"—"}）的密码吗？\n\n重置后密码为：12345678\n下次登录必须修改密码。`))return;
+    try{
+        await callSystemUser({account_type:"health_consultant",action:"reset_password",record_id:Number(id),password:"12345678"});
+        showToast("密码已重置为 12345678，下次登录必须修改密码。","success");
+        await loadAllData();
+    }catch(error){
+        console.error(error);
+        showToast(error.message||"重置密码失败。","error");
     }
 }
 

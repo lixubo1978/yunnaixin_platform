@@ -5,9 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>技术服务人员工作台｜孕乃馨</title>
 <style>
-:root{--pink:#ed4f87;--dark:#542a3d;--muted:#9d8791;--line:#f1dfe6;--bg:#fff9fb;--green:#16a36e;--orange:#eb8c20;--blue:#397dcb}
-*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#fff 0,#fff8fb 100%);color:#4a3440;font:14px -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;min-height:100vh}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}
-.topbar{height:68px;background:#fff;border-bottom:1px solid #f4e4ea;display:flex;align-items:center;padding:0 28px;justify-content:space-between;position:sticky;top:0;z-index:10}.brand{display:flex;gap:12px;align-items:center}.brand-icon{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#ff78a7,#e73c78);color:#fff;display:grid;place-items:center;font-size:20px;box-shadow:0 7px 16px #f7bed1}.brand b{display:block;font-size:18px;color:#4d293a}.brand small{color:#9e8b94;font-size:12px}.top-actions{display:flex;gap:10px}.btn{border:1px solid #efdce4;background:#fff;color:#694858;border-radius:10px;padding:10px 15px;font-weight:700}.btn:hover{border-color:#ed7ca5}.btn.primary{background:var(--pink);border-color:var(--pink);color:#fff;box-shadow:0 7px 15px #f6c4d6}.btn.danger{color:#d84a74}.wrap{max-width:1280px;margin:24px auto 50px;padding:0 18px}.hero{background:linear-gradient(115deg,#ffeaf2,#ffd7e6);border:1px solid #ffd0e0;border-radius:18px;padding:28px;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;background:#fff4f8;right:-65px;top:-110px}.eyebrow{color:#e7477d;font-size:11px;font-weight:800;letter-spacing:1.3px}.hero h1{margin:8px 0 10px;font-size:29px;color:#482633}.hero p{margin:0;max-width:850px;line-height:1.8;color:#835568}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0}.card,.panel{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 25px rgba(112,48,75,.035)}.card{padding:18px}.card .label{font-size:12px;color:#a88e99}.card .value{font-size:23px;font-weight:800;color:#713b52;margin-top:8px;word-break:break-word}.card .sub{font-size:12px;color:#b29ba5;margin-top:6px}.panel{margin-top:16px;overflow:hidden}.panel-head{padding:19px 20px;border-bottom:1px solid #f5e6eb;display:flex;align-items:center;justify-content:space-between;gap:12px}.panel-title{font-size:17px;font-weight:800;color:#4d2d3c}.panel-desc{font-size:12px;color:#a08b94;margin-top:5px}.panel-body{padding:20px}.project-list{display:flex;flex-wrap:wrap;gap:10px}.project{padding:10px 12px;border:1px solid #f0dce4;border-radius:10px;background:#fffafd;min-width:180px}.project b{display:block;color:#633649}.project small{display:block;color:#a38a95;margin-top:4px}.notice{padding:12px 14px;background:#fff8e5;border:1px solid #f8e1a4;border-radius:10px;color:#9a6d18;line-height:1.7}.notice.blue{background:#f2f8ff;border-color:#d2e5fb;color:#4174ac}.table-wrap{overflow:auto}.data-table{border-collapse:collapse;width:100%;min-width:900px}.data-table th{background:#fff8fb;color:#9d818d;font-size:12px;text-align:left;padding:13px 12px;border-bottom:1px solid #f2e2e8;white-space:nowrap}.data-table td{padding:14px 12px;border-bottom:1px solid #f7e8ed;vertical-align:top}.data-table tr:last-child td{border-bottom:0}.main{font-weight:750;color:#593343}.subtext{font-size:12px;color:#a28c96;margin-top:4px}.tag{display:inline-block;padding:4px 8px;border-radius:20px;font-size:12px;font-weight:700;background:#f3edf0;color:#886b79}.tag.green{background:#e7f8ef;color:#188b5d}.tag.orange{background:#fff2dc;color:#c87d17}.tag.blue{background:#e8f2ff;color:#397dcb}.empty{padding:38px 12px;text-align:center;color:#b19ca5}.modal-mask{position:fixed;inset:0;background:rgba(46,30,38,.54);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}.modal-mask.show{display:flex}.modal{background:#fff;width:min(620px,100%);max-height:calc(100vh - 32px);overflow:auto;border-radius:18px;box-shadow:0 20px 65px rgba(0,0,0,.24)}.modal-head{padding:20px;border-bottom:1px solid #f3e5ea;display:flex;align-items:center;justify-content:space-between}.modal-head h2{font-size:19px;margin:0}.close{border:0;background:transparent;font-size:25px;color:#a58d97}.modal-body{padding:20px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:13px;color:#765665;font-weight:700}.field input,.field select,.field textarea{width:100%;border:1px solid #eedde4;border-radius:10px;padding:11px 12px;background:#fff;color:#513541;outline:none}.field input[readonly]{background:#fbf7f9;color:#896f7c}.field textarea{min-height:84px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#ed70a0;box-shadow:0 0 0 3px #fff0f5}.modal-foot{padding:16px 20px;border-top:1px solid #f3e5ea;display:flex;justify-content:flex-end;gap:10px}.loading{position:fixed;inset:0;background:rgba(255,255,255,.72);display:none;place-items:center;z-index:80;color:#c2366c;font-weight:800;font-size:16px}.loading.show{display:grid}.hint{font-size:12px;color:#a48e98;line-height:1.7;margin:10px 0 0}.must-change{display:none;margin-top:16px}@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.form-grid{grid-template-columns:1fr}.topbar{padding:0 14px}.wrap{padding:0 12px}.hero{padding:22px}.hero h1{font-size:24px}}@media(max-width:500px){.grid{grid-template-columns:1fr}.brand small{display:none}.btn{padding:9px 11px}.top-actions .btn:first-child{display:none}}
+:root{--pink:#ed4f87;--dark:#542a3d;--muted:#9d8791;--line:#f1dfe6;--bg:#fff9fb;--green:#16a36e;--orange:#eb8c20;--blue:#397dcb;--gray:#a59ca1}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#fff 0,#fff8fb 100%);color:#4a3440;font:14px -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;min-height:100vh}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}.topbar{height:68px;background:#fff;border-bottom:1px solid #f4e4ea;display:flex;align-items:center;padding:0 28px;justify-content:space-between;position:sticky;top:0;z-index:10}.brand{display:flex;gap:12px;align-items:center}.brand-icon{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#ff78a7,#e73c78);color:#fff;display:grid;place-items:center;font-size:20px;box-shadow:0 7px 16px #f7bed1}.brand b{display:block;font-size:18px;color:#4d293a}.brand small{color:#9e8b94;font-size:12px}.top-actions{display:flex;gap:10px}.btn{border:1px solid #efdce4;background:#fff;color:#694858;border-radius:10px;padding:10px 15px;font-weight:700}.btn:hover{border-color:#ed7ca5}.btn.primary{background:var(--pink);border-color:var(--pink);color:#fff;box-shadow:0 7px 15px #f6c4d6}.btn.danger{color:#d84a74}.wrap{max-width:1280px;margin:24px auto 50px;padding:0 18px}.hero{background:linear-gradient(115deg,#ffeaf2,#ffd7e6);border:1px solid #ffd0e0;border-radius:18px;padding:28px;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;background:#fff4f8;right:-65px;top:-110px}.eyebrow{color:#e7477d;font-size:11px;font-weight:800;letter-spacing:1.3px}.hero h1{margin:8px 0 10px;font-size:29px;color:#482633}.hero p{margin:0;max-width:850px;line-height:1.8;color:#835568}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0}.card,.panel{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 25px rgba(112,48,75,.035)}.card{padding:18px}.card .label{font-size:12px;color:#a88e99}.card .value{font-size:23px;font-weight:800;color:#713b52;margin-top:8px;word-break:break-word}.card .sub{font-size:12px;color:#b29ba5;margin-top:6px}.panel{margin-top:16px;overflow:hidden}.panel-head{padding:19px 20px;border-bottom:1px solid #f5e6eb;display:flex;align-items:center;justify-content:space-between;gap:12px}.panel-title{font-size:17px;font-weight:800;color:#4d2d3c}.panel-desc{font-size:12px;color:#a08b94;margin-top:5px}.panel-body{padding:20px}.project-list{display:flex;flex-wrap:wrap;gap:10px}.project{padding:10px 12px;border:1px solid #f0dce4;border-radius:10px;background:#fffafd;min-width:185px;position:relative}.project b{display:block;color:#633649}.project small{display:block;color:#a38a95;margin-top:4px}.project.disabled{background:#f5f3f4;border-color:#e8e3e5}.project.disabled b,.project.disabled small{color:#aaa1a6}.project.disabled:after{content:"未授权，不可服务";position:absolute;right:9px;top:9px;font-size:10px;font-weight:700;color:#a9a0a5}.notice{padding:12px 14px;background:#fff8e5;border:1px solid #f8e1a4;border-radius:10px;color:#9a6d18;line-height:1.7}.notice.blue{background:#f2f8ff;border-color:#d2e5fb;color:#4174ac}.table-wrap{overflow:auto}.data-table{border-collapse:collapse;width:100%;min-width:900px}.data-table th{background:#fff8fb;color:#9d818d;font-size:12px;text-align:left;padding:13px 12px;border-bottom:1px solid #f2e2e8;white-space:nowrap}.data-table td{padding:14px 12px;border-bottom:1px solid #f7e8ed;vertical-align:top}.data-table tr:last-child td{border-bottom:0}.main{font-weight:750;color:#593343}.subtext{font-size:12px;color:#a28c96;margin-top:4px}.tag{display:inline-block;padding:4px 8px;border-radius:20px;font-size:12px;font-weight:700;background:#f3edf0;color:#886b79}.tag.green{background:#e7f8ef;color:#188b5d}.tag.orange{background:#fff2dc;color:#c87d17}.tag.blue{background:#e8f2ff;color:#397dcb}.tag.gray{background:#f0eef0;color:#938991}.empty{padding:38px 12px;text-align:center;color:#b19ca5}.modal-mask{position:fixed;inset:0;background:rgba(46,30,38,.54);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}.modal-mask.show{display:flex}.modal{background:#fff;width:min(620px,100%);max-height:calc(100vh - 32px);overflow:auto;border-radius:18px;box-shadow:0 20px 65px rgba(0,0,0,.24)}.modal-head{padding:20px;border-bottom:1px solid #f3e5ea;display:flex;align-items:center;justify-content:space-between}.modal-head h2{font-size:19px;margin:0}.close{border:0;background:transparent;font-size:25px;color:#a58d97}.modal-body{padding:20px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:13px;color:#765665;font-weight:700}.field input,.field select,.field textarea{width:100%;border:1px solid #eedde4;border-radius:10px;padding:11px 12px;background:#fff;color:#513541;outline:none}.field input[readonly]{background:#fbf7f9;color:#896f7c}.field textarea{min-height:84px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#ed70a0;box-shadow:0 0 0 3px #fff0f5}.modal-foot{padding:16px 20px;border-top:1px solid #f3e5ea;display:flex;justify-content:flex-end;gap:10px}.loading{position:fixed;inset:0;background:rgba(255,255,255,.72);display:none;place-items:center;z-index:80;color:#c2366c;font-weight:800;font-size:16px}.loading.show{display:grid}.hint{font-size:12px;color:#a48e98;line-height:1.7;margin:10px 0 0}.must-change{display:none;margin-top:16px}@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.form-grid{grid-template-columns:1fr}.topbar{padding:0 14px}.wrap{padding:0 12px}.hero{padding:22px}.hero h1{font-size:24px}}@media(max-width:500px){.grid{grid-template-columns:1fr}.brand small{display:none}.btn{padding:9px 11px}.top-actions .btn:first-child{display:none}}
 </style>
 </head>
 <body>
@@ -19,26 +17,26 @@
   <section class="hero">
     <div class="eyebrow">SERVICE TECHNICIAN PORTAL</div>
     <h1 id="welcomeTitle">技术服务人员工作台</h1>
-    <p>这里仅显示您本人当前工作城市、项目授权及订单数据。更换服务商户需提交申请；目标商户同意并完成平台审核后，才会更新您的当前服务商户，不影响任何已生成订单。</p>
+    <p>这里仅显示您本人当前工作城市、项目授权及订单数据。变更配对关系需提交申请；目标商户同意并完成平台审核后，才会更新您的当前服务商户，不影响任何已生成订单。</p>
   </section>
   <section class="grid">
     <div class="card"><div class="label">当前工作城市</div><div class="value" id="currentCity">—</div><div class="sub">以当前服务区域为准</div></div>
-    <div class="card"><div class="label">当前服务商户</div><div class="value" id="currentMerchant">暂未关联</div><div class="sub" id="merchantNo">可发起更换申请</div></div>
-    <div class="card"><div class="label">已授权服务项目</div><div class="value" id="projectCount">0</div><div class="sub">仅当前有效项目可服务</div></div>
+    <div class="card"><div class="label">当前服务商户</div><div class="value" id="currentMerchant">未参加工作</div><div class="sub" id="merchantNo">当前未与商户形成有效配对</div></div>
+    <div class="card"><div class="label">已授权服务项目</div><div class="value" id="projectCount">0</div><div class="sub">仅已授权项目可服务</div></div>
     <div class="card"><div class="label">已完成服务订单</div><div class="value" id="completedCount">0</div><div class="sub">按服务子订单统计</div></div>
   </section>
 
   <section class="panel must-change" id="passwordNotice">
-    <div class="panel-body"><div class="notice">您的账号仍处于首次登录状态。请尽快修改初始密码 <b>12345678</b>，避免继续使用初始密码。</div></div>
+    <div class="panel-body"><div class="notice">您的账号仍处于首次登录状态，必须修改初始密码后才能继续使用系统。</div></div>
   </section>
 
   <section class="panel">
-    <div class="panel-head"><div><div class="panel-title">我的服务项目授权</div><div class="panel-desc">由平台管理人员按当前有效服务目录授予；失效项目不会在客户下单菜单中出现。</div></div></div>
-    <div class="panel-body"><div class="project-list" id="projectList"><div class="empty">正在读取项目授权…</div></div></div>
+    <div class="panel-head"><div><div class="panel-title">我的服务项目目录</div><div class="panel-desc">已授权项目可服务；未授权项目仅供查看，不能在订单中被选择。</div></div></div>
+    <div class="panel-body"><div class="project-list" id="projectList"><div class="empty">正在读取服务项目目录…</div></div></div>
   </section>
 
   <section class="panel">
-    <div class="panel-head"><div><div class="panel-title">当前城市其他商户</div><div class="panel-desc">仅列出您当前工作城市内正常营业的商户。更换商户申请可跨已开通业务城市提交。</div></div><button class="btn primary" id="openRequestBtn">申请更换服务商户</button></div>
+    <div class="panel-head"><div><div class="panel-title">当前城市其他商户</div><div class="panel-desc">仅列出您当前工作城市内正常营业的商户。变更配对关系申请可跨已开通业务城市提交。</div></div><button class="btn primary" id="openRequestBtn">变更配对关系</button></div>
     <div class="panel-body"><div id="localMerchants" class="project-list"><div class="empty">正在读取商户…</div></div></div>
   </section>
 
@@ -53,14 +51,30 @@
   </section>
 
   <section class="panel">
-    <div class="panel-head"><div><div class="panel-title">我的商户更换申请</div><div class="panel-desc">申请可以跨已开通业务城市。申请待处理期间不能重复提交同一目标商户。</div></div></div>
+    <div class="panel-head"><div><div class="panel-title">我的配对关系变更申请</div><div class="panel-desc">申请可以跨已开通业务城市。申请待处理期间不能重复提交同一目标商户。</div></div></div>
     <div class="table-wrap"><table class="data-table"><thead><tr><th>申请时间</th><th>目标城市</th><th>目标商户</th><th>申请说明</th><th>状态</th><th>审核说明</th></tr></thead><tbody id="requestBody"></tbody></table></div>
   </section>
 </main>
 
+<div class="modal-mask" id="passwordModal">
+  <div class="modal">
+    <div class="modal-head"><h2>首次登录，请修改密码</h2></div>
+    <div class="modal-body">
+      <div class="notice">为保障账户安全，首次登录必须设置新密码。修改成功后才能继续使用工作台。</div>
+      <div class="form-grid" style="margin-top:16px">
+        <div class="field full"><label>登录账号</label><input id="passwordAccount" readonly></div>
+        <div class="field"><label>新密码 *</label><input id="newPassword" type="password" autocomplete="new-password" minlength="8" placeholder="至少 8 位"></div>
+        <div class="field"><label>确认新密码 *</label><input id="confirmPassword" type="password" autocomplete="new-password" minlength="8" placeholder="再次输入新密码"></div>
+      </div>
+      <p class="hint">新密码至少 8 位，建议同时包含字母、数字和符号。修改后，初始密码将立即失效。</p>
+    </div>
+    <div class="modal-foot"><button class="btn danger" id="passwordLogoutBtn">退出登录</button><button class="btn primary" id="savePasswordBtn">确认修改密码</button></div>
+  </div>
+</div>
+
 <div class="modal-mask" id="requestModal">
   <div class="modal">
-    <div class="modal-head"><h2>申请更换服务商户</h2><button class="close" data-close="requestModal">×</button></div>
+    <div class="modal-head"><h2>申请变更配对关系</h2><button class="close" data-close="requestModal">×</button></div>
     <div class="modal-body">
       <div class="notice blue">您可申请所有“已开通业务城市”中的正常营业商户。提交后不会立即变更当前商户，须由目标商户与平台完成审核。</div>
       <div class="form-grid" style="margin-top:16px">
@@ -68,13 +82,14 @@
         <div class="field"><label>当前工作城市</label><input id="fromCityInput" readonly></div>
         <div class="field"><label>目标已开通业务城市 *</label><select id="targetCity"><option value="">请选择城市</option></select></div>
         <div class="field"><label>目标经营商户 *</label><select id="targetMerchant" disabled><option value="">请先选择目标城市</option></select></div>
-        <div class="field full"><label>申请说明</label><textarea id="requestNote" maxlength="300" placeholder="可填写更换原因或您希望商户了解的情况（最多 300 字）"></textarea></div>
+        <div class="field full"><label>申请说明</label><textarea id="requestNote" maxlength="300" placeholder="可填写更换原因或希望商户了解的情况（最多 300 字）"></textarea></div>
       </div>
       <p class="hint">申请只能提交给正常营业商户；已完成订单、已生成的分账快照与历史服务关系均不会因申请而改变。</p>
     </div>
     <div class="modal-foot"><button class="btn" data-close="requestModal">取消</button><button class="btn primary" id="submitRequestBtn">提交申请</button></div>
   </div>
 </div>
+
 <div class="loading" id="loading">正在加载您的工作数据…</div>
 
 <script type="module">
@@ -82,83 +97,115 @@ import{createClient}from"https://esm.sh/@supabase/supabase-js@2";
 const SUPABASE_URL="https://qbuqjwpkltbjhlfbyjyb.supabase.co";
 const SUPABASE_ANON_KEY="sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
 const sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
-const $=id=>document.getElementById(id),esc=v=>String(v??"").replace(/[&<>"']/g,x=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[x]));
+const $=id=>document.getElementById(id);
+const esc=v=>String(v??"").replace(/[&<>"']/g,x=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[x]));
 const money=v=>`¥${Number(v||0).toLocaleString("zh-CN",{minimumFractionDigits:2,maximumFractionDigits:2})}`;
 const date=v=>v?new Date(v).toLocaleString("zh-CN",{hour12:false}):"—";
-const nameOf=(r,fallback="商户")=>r?.merchant_name||r?.name||r?.business_name||r?.store_name||fallback;
-const productOf=(r,fallback="服务项目")=>r?.product_name||r?.name||r?.service_name||r?.title||fallback;
-const techState={session:null,profile:null,tech:null,areas:[],cities:[],merchants:[],projects:[],links:[],requests:[],completed:[],recommended:[]};
+const nameOf=(r,f="商户")=>r?.merchant_name||r?.name||r?.business_name||r?.store_name||f;
+const productOf=(r,f="服务项目")=>r?.product_name||r?.name||r?.service_name||r?.title||f;
+const state={session:null,profile:null,tech:null,areas:[],cities:[],merchants:[],links:[],auths:[],projects:[],authorizedProjects:[],requests:[],completed:[],recommended:[],activeCityIds:new Set()};
 let idleTimer=null;
 function setLoading(on,text="正在加载您的工作数据…"){$("loading").classList.toggle("show",on);$("loading").textContent=text}
 function openModal(id){$(id).classList.add("show")}
 function closeModal(id){$(id).classList.remove("show")}
 function resetIdle(){clearTimeout(idleTimer);idleTimer=setTimeout(async()=>{await sb.auth.signOut();location.replace("./login.html")},600000)}
-function statusTag(status){const s=String(status||"pending").toLowerCase();const map={approved:["已同意","green"],rejected:["已拒绝","orange"],cancelled:["已撤销",""],pending:["待审核","blue"]};const x=map[s]||[status||"待处理",""];return `<span class="tag ${x[1]}">${esc(x[0])}</span>`}
-function currentArea(){return techState.areas.find(x=>String(x.id)===String(techState.tech?.service_area_id))||null}
-function cityName(id){return techState.cities.find(x=>String(x.id)===String(id))?.city_name||techState.cities.find(x=>String(x.id)===String(id))?.name||"—"}
-function activeLink(){return techState.links.find(x=>String(x.technician_id)===String(techState.tech?.id)&&x.status==="active")||null}
-function currentMerchant(){const link=activeLink();return link?techState.merchants.find(x=>String(x.id)===String(link.merchant_id))||null:null}
+function active(v){return String(v||"").toLowerCase()==="active"}
+function serviceProduct(p){const type=String(p.product_type||p.type||p.category||"service").toLowerCase();return type==="service"||type==="services"}
+function statusTag(status){const s=String(status||"pending").toLowerCase(),m={approved:["已同意","green"],active:["已授权","green"],rejected:["已拒绝","orange"],inactive:["未授权","gray"],cancelled:["已撤销","gray"],pending:["待审核","blue"],paid:["已支付","green"],completed:["已完成","green"]},x=m[s]||[status||"待处理",""];return `<span class="tag ${x[1]}">${esc(x[0])}</span>`}
+function currentArea(){return state.areas.find(x=>String(x.id)===String(state.tech?.service_area_id))||null}
+function cityName(id){const x=state.cities.find(x=>String(x.id)===String(id));return x?.city_name||x?.name||"—"}
+function activeLink(){return state.links.find(x=>String(x.technician_id)===String(state.tech?.id)&&active(x.status))||null}
+function currentMerchant(){const l=activeLink();return l?state.merchants.find(x=>String(x.id)===String(l.merchant_id))||null:null}
 function renderEmpty(id,cols,msg){$(id).innerHTML=`<tr><td colspan="${cols}"><div class="empty">${esc(msg)}</div></td></tr>`}
+async function list(table,build){let q=sb.from(table).select("*");if(build)q=build(q);const{data,error}=await q;if(error)throw error;return data||[]}
+async function one(table,build){let q=sb.from(table).select("*");if(build)q=build(q);const{data,error}=await q;if(error)throw error;return data||null}
 function render(){
- const t=techState.tech,a=currentArea(),m=currentMerchant(),city=cityName(a?.city_id||t?.city_id);
+ const t=state.tech,a=currentArea(),m=currentMerchant(),city=cityName(a?.city_id||t?.city_id);
  $("welcomeTitle").textContent=`${t?.technician_name||"技术服务人员"}，您好`;
- $("currentCity").textContent=city;$("currentMerchant").textContent=m?nameOf(m):"暂未关联";$("merchantNo").textContent=m?(m.record_no?`商户编号 ${m.record_no}`:"当前服务商户"):"可发起更换申请";
- $("projectCount").textContent=techState.projects.length;$("completedCount").textContent=techState.completed.length;$("completedTag").textContent=`${techState.completed.length} 笔`;$("recommendTag").textContent=`${techState.recommended.length} 笔`;
+ $("currentCity").textContent=city;
+ $("currentMerchant").textContent=m?nameOf(m):"未参加工作";
+ $("merchantNo").textContent=m?(m.record_no?`商户编号 ${m.record_no}`:"当前服务商户"):"当前未与任何商户形成有效配对";
+ $("projectCount").textContent=state.authorizedProjects.length;
+ $("completedCount").textContent=state.completed.length;
+ $("completedTag").textContent=`${state.completed.length} 笔`;
+ $("recommendTag").textContent=`${state.recommended.length} 笔`;
  $("passwordNotice").style.display=t?.must_change_password?"block":"none";
- $("projectList").innerHTML=techState.projects.length?techState.projects.map(p=>`<div class="project"><b>${esc(productOf(p))}</b><small>${esc(p.product_code||p.service_code||`项目编号 ${p.id}`)}</small></div>`).join(""):`<div class="empty">目前没有可服务的有效项目授权，请联系平台管理人员。</div>`;
- const local=techState.merchants.filter(x=>String(x.service_area_id)===String(t?.service_area_id)&&x.status==="active");
- $("localMerchants").innerHTML=local.length?local.map(x=>`<div class="project"><b>${esc(nameOf(x))}</b><small>${x.record_no?`商户编号 ${esc(x.record_no)}`:"正常营业商户"}${m&&String(m.id)===String(x.id)?" · 当前服务商户":""}</small></div>`).join(""):`<div class="empty">当前城市暂无其他正常营业商户。</div>`;
- if(techState.completed.length)$("completedBody").innerHTML=techState.completed.map(x=>`<tr><td><div class="main">#${esc(x.id||"—")}</div></td><td>${esc(x.order_id||"—")}</td><td>${esc(productOf(x,"—"))}</td><td>${date(x.completed_at||x.updated_at)}</td><td>${statusTag(x.service_status||x.status||"completed")}</td></tr>`).join("");else renderEmpty("completedBody",5,"暂无已完成服务订单");
- if(techState.recommended.length)$("recommendBody").innerHTML=techState.recommended.map(x=>`<tr><td><div class="main">${esc(x.order_no||`#${x.id}`)}</div></td><td>${money(x.payment_amount??x.payable_amount??x.total_amount)}</td><td>${statusTag(x.payment_status)}</td><td>${statusTag(x.order_status)}</td><td>${date(x.created_at)}</td></tr>`).join("");else renderEmpty("recommendBody",5,"暂无作为推荐来源参与的订单");
- if(techState.requests.length)$("requestBody").innerHTML=techState.requests.map(x=>{const tm=techState.merchants.find(m=>String(m.id)===String(x.target_merchant_id));const ta=techState.areas.find(a=>String(a.id)===String(x.target_service_area_id));return `<tr><td>${date(x.created_at||x.requested_at)}</td><td>${esc(cityName(ta?.city_id))}</td><td><div class="main">${esc(nameOf(tm,"目标商户"))}</div></td><td>${esc(x.request_note||"—")}</td><td>${statusTag(x.status)}</td><td>${esc(x.review_note||"—")}</td></tr>`}).join("");else renderEmpty("requestBody",6,"暂无商户更换申请");
+ $("projectList").innerHTML=state.projects.length?state.projects.map(p=>{
+   const ok=state.auths.some(x=>String(x.product_id)===String(p.id)&&["approved","active"].includes(String(x.status).toLowerCase()));
+   return `<div class="project ${ok?"":"disabled"}"><b>${esc(productOf(p))}</b><small>${esc(p.product_code||p.service_code||`项目编号 ${p.id}`)}${ok?" · 已授权":" · 未授权"}</small></div>`;
+ }).join(""):`<div class="empty">当前没有可展示的有效服务项目目录。</div>`;
+ const local=state.merchants.filter(x=>String(x.service_area_id)===String(t?.service_area_id)&&active(x.status));
+ $("localMerchants").innerHTML=local.length?local.map(x=>`<div class="project"><b>${esc(nameOf(x))}</b><small>${x.record_no?`商户编号 ${esc(x.record_no)}`:"正常营业商户"}${m&&String(m.id)===String(x.id)?" · 当前服务商户":""}</small></div>`).join(""):`<div class="empty">当前工作城市暂无正常营业商户。</div>`;
+ if(state.completed.length)$("completedBody").innerHTML=state.completed.map(x=>`<tr><td><div class="main">#${esc(x.id||"—")}</div></td><td>${esc(x.order_id||"—")}</td><td>${esc(productOf(x,"—"))}</td><td>${date(x.completed_at||x.updated_at)}</td><td>${statusTag(x.service_status||x.status||"completed")}</td></tr>`).join("");else renderEmpty("completedBody",5,"暂无已完成服务订单");
+ if(state.recommended.length)$("recommendBody").innerHTML=state.recommended.map(x=>`<tr><td><div class="main">${esc(x.order_no||`#${x.id}`)}</div></td><td>${money(x.payment_amount??x.payable_amount??x.total_amount)}</td><td>${statusTag(x.payment_status)}</td><td>${statusTag(x.order_status)}</td><td>${date(x.created_at)}</td></tr>`).join("");else renderEmpty("recommendBody",5,"暂无作为推荐来源参与的订单");
+ if(state.requests.length)$("requestBody").innerHTML=state.requests.map(x=>{const tm=state.merchants.find(m=>String(m.id)===String(x.target_merchant_id)),ta=state.areas.find(a=>String(a.id)===String(x.target_service_area_id));return `<tr><td>${date(x.created_at||x.requested_at)}</td><td>${esc(cityName(ta?.city_id))}</td><td><div class="main">${esc(nameOf(tm,"目标商户"))}</div></td><td>${esc(x.request_note||"—")}</td><td>${statusTag(x.status)}</td><td>${esc(x.review_note||"—")}</td></tr>`}).join("");else renderEmpty("requestBody",6,"暂无配对关系变更申请");
 }
-async function query(table,build){let q=sb.from(table).select("*");if(build)q=build(q);const r=await q;if(r.error)throw r.error;return r.data||[]}
 async function loadData(){
- setLoading(true);try{
-  const {data:{session}}=await sb.auth.getSession();if(!session)throw new Error("登录已失效");
-  techState.session=session;
-  const p=await query("profiles",q=>q.eq("id",session.user.id).maybeSingle());techState.profile=p[0];
-  if(!techState.profile||techState.profile.status!=="active"||techState.profile.role!=="service_technician")throw new Error("当前账号不是有效技术服务人员");
-  const tt=await query("service_technicians",q=>q.eq("auth_user_id",session.user.id).maybeSingle());techState.tech=tt[0];
-  if(!techState.tech||techState.tech.status!=="active")throw new Error("技术服务人员账号未启用");
-  const [areas,cities,merchants,links,auths,products,prices]=await Promise.all([
-   query("service_areas",q=>q.eq("status","active")),query("cities"),query("merchants"),query("merchant_technician_links",q=>q.eq("technician_id",techState.tech.id)),query("technician_service_authorizations",q=>q.eq("technician_id",techState.tech.id).eq("status","active")),query("products",q=>q.eq("status","active")),query("city_prices",q=>q.eq("status","active"))
-  ]);
-  techState.areas=areas;techState.cities=cities;techState.merchants=merchants.filter(x=>x.status==="active");techState.links=links;
-  const ids=new Set(auths.map(x=>String(x.product_id)));techState.projects=products.filter(x=>ids.has(String(x.id)));
-  try{techState.completed=await query("order_service_units",q=>q.eq("current_technician_id",techState.tech.id));techState.completed=techState.completed.filter(x=>String(x.service_status||x.status||"").toLowerCase()==="completed")}catch(e){techState.completed=[];console.warn("未读取服务子订单：",e.message)}
-  try{techState.recommended=await query("orders",q=>q.eq("recommendation_source_type","service_technician").eq("recommendation_source_entity_id",String(techState.tech.id)))}catch(e){techState.recommended=[];console.warn("未读取推荐订单：",e.message)}
-  try{techState.requests=await query("technician_merchant_change_requests",q=>q.eq("technician_id",techState.tech.id).order("created_at",{ascending:false}))}catch(e){techState.requests=[];console.warn("申请表尚未建立：",e.message)}
-  techState.activeCityIds=new Set(prices.map(x=>String(x.city_id)));render();
+ setLoading(true);
+ try{
+   const{data:{session}}=await sb.auth.getSession();if(!session)throw new Error("登录已失效");state.session=session;
+   state.profile=await one("profiles",q=>q.eq("id",session.user.id).maybeSingle());
+   if(!state.profile||state.profile.status!=="active"||state.profile.role!=="service_technician")throw new Error("当前账号不是有效技术服务人员");
+   state.tech=await one("service_technicians",q=>q.eq("auth_user_id",session.user.id).maybeSingle());
+   if(!state.tech||state.tech.status!=="active")throw new Error("技术服务人员账号未启用");
+   const[areas,cities,merchants,links,auths,products,prices]=await Promise.all([
+     list("service_areas",q=>q.eq("status","active")),list("cities"),list("merchants"),list("merchant_technician_links",q=>q.eq("technician_id",state.tech.id)),list("technician_service_authorizations",q=>q.eq("technician_id",state.tech.id)),list("products",q=>q.eq("status","active")),list("city_prices",q=>q.eq("status","active"))
+   ]);
+   state.areas=areas;state.cities=cities;state.merchants=merchants.filter(x=>active(x.status));state.links=links;state.auths=auths;state.projects=products.filter(serviceProduct);state.authorizedProjects=state.projects.filter(p=>state.auths.some(a=>String(a.product_id)===String(p.id)&&["approved","active"].includes(String(a.status).toLowerCase())));state.activeCityIds=new Set(prices.map(x=>String(x.city_id)));
+   try{state.completed=(await list("order_service_units",q=>q.eq("current_technician_id",state.tech.id))).filter(x=>String(x.service_status||x.status||"").toLowerCase()==="completed")}catch(e){state.completed=[];console.warn("未读取服务子订单：",e.message)}
+   try{state.recommended=await list("orders",q=>q.eq("recommendation_source_type","service_technician").eq("recommendation_source_entity_id",String(state.tech.id)))}catch(e){state.recommended=[];console.warn("未读取推荐订单：",e.message)}
+   try{state.requests=await list("technician_merchant_change_requests",q=>q.eq("technician_id",state.tech.id).order("created_at",{ascending:false}))}catch(e){state.requests=[];console.warn("未读取申请记录：",e.message)}
+   render();
+   if(state.tech.must_change_password){$("passwordAccount").value=session.user.email||state.tech.login_email||"";openModal("passwordModal")}
  }catch(e){alert(`${e.message||"读取失败"}，请重新登录。`);await sb.auth.signOut();location.replace("./login.html")}finally{setLoading(false)}
 }
 function fillTargetCities(){
- const cities=techState.cities.filter(c=>techState.activeCityIds.has(String(c.id))).sort((a,b)=>String(a.city_name||a.name).localeCompare(String(b.city_name||b.name),"zh-CN"));
- $("targetCity").innerHTML=`<option value="">请选择城市</option>${cities.map(c=>`<option value="${esc(c.id)}">${esc(c.city_name||c.name)}</option>`).join("")}`;
+ const cs=state.cities.filter(c=>state.activeCityIds.has(String(c.id))).sort((a,b)=>String(a.city_name||a.name).localeCompare(String(b.city_name||b.name),"zh-CN"));
+ $("targetCity").innerHTML=`<option value="">请选择城市</option>${cs.map(c=>`<option value="${esc(c.id)}">${esc(c.city_name||c.name)}</option>`).join("")}`;
 }
 function fillTargetMerchants(){
  const cityId=$("targetCity").value;$("targetMerchant").disabled=!cityId;
  if(!cityId){$("targetMerchant").innerHTML='<option value="">请先选择目标城市</option>';return}
- const areaIds=new Set(techState.areas.filter(a=>String(a.city_id)===String(cityId)).map(a=>String(a.id)));
- const list=techState.merchants.filter(m=>areaIds.has(String(m.service_area_id))&&m.status==="active");
- $("targetMerchant").innerHTML=`<option value="">请选择经营商户</option>${list.map(m=>`<option value="${esc(m.id)}">${esc(nameOf(m))}${m.record_no?`（${esc(m.record_no)}）`:""}</option>`).join("");
+ const areaIds=new Set(state.areas.filter(a=>String(a.city_id)===String(cityId)).map(a=>String(a.id)));
+ const ms=state.merchants.filter(m=>areaIds.has(String(m.service_area_id))&&active(m.status));
+ $("targetMerchant").innerHTML=`<option value="">请选择经营商户</option>${ms.map(m=>`<option value="${esc(m.id)}">${esc(nameOf(m))}${m.record_no?`（${esc(m.record_no)}）`:""}</option>`).join("");
 }
 function openRequest(){
- const a=currentArea(),m=currentMerchant();$("fromMerchantInput").value=m?nameOf(m):"暂未关联商户";$("fromCityInput").value=cityName(a?.city_id||techState.tech?.city_id);$("targetCity").value="";$("targetMerchant").innerHTML='<option value="">请先选择目标城市</option>';$("targetMerchant").disabled=true;$("requestNote").value="";fillTargetCities();openModal("requestModal");
+ const a=currentArea(),m=currentMerchant();
+ $("fromMerchantInput").value=m?nameOf(m):"未参加工作（暂未关联商户）";
+ $("fromCityInput").value=cityName(a?.city_id||state.tech?.city_id);
+ $("targetCity").value="";$("targetMerchant").innerHTML='<option value="">请先选择目标城市</option>';$("targetMerchant").disabled=true;$("requestNote").value="";
+ fillTargetCities();openModal("requestModal");
 }
 async function submitRequest(){
- const targetCity=$("targetCity").value,targetMerchant=$("targetMerchant").value,note=$("requestNote").value.trim();
- if(!targetCity||!targetMerchant)return alert("请选择目标已开通业务城市和目标经营商户。");
- const target=techState.merchants.find(x=>String(x.id)===String(targetMerchant));if(!target)return alert("目标商户不存在或不再正常营业。");
- const area=techState.areas.find(x=>String(x.id)===String(target.service_area_id));if(!area||String(area.city_id)!==String(targetCity))return alert("目标商户与所选城市不一致，请重新选择。");
- const duplicate=techState.requests.some(x=>String(x.target_merchant_id)===String(targetMerchant)&&x.status==="pending");if(duplicate)return alert("该商户已有一条待处理申请，请勿重复提交。");
- setLoading(true,"正在提交更换商户申请…");try{
-  const link=activeLink();const {error}=await sb.from("technician_merchant_change_requests").insert({technician_id:techState.tech.id,from_service_area_id:techState.tech.service_area_id||null,from_merchant_id:link?.merchant_id||null,target_service_area_id:target.service_area_id,target_merchant_id:target.id,request_note:note||null,status:"pending",created_by:techState.session.user.id});
-  if(error)throw error;alert("申请已提交，等待目标商户与平台审核。");closeModal("requestModal");await loadData();
- }catch(e){alert(`提交申请失败：${e.message||"请确认技术人员更换商户申请表及权限已建立"}`)}finally{setLoading(false)}
+ const cityId=$("targetCity").value,merchantId=$("targetMerchant").value,note=$("requestNote").value.trim();
+ if(!cityId||!merchantId)return alert("请选择目标已开通业务城市和目标经营商户。");
+ const target=state.merchants.find(x=>String(x.id)===String(merchantId));if(!target)return alert("目标商户不存在或不再正常营业。");
+ const area=state.areas.find(x=>String(x.id)===String(target.service_area_id));if(!area||String(area.city_id)!==String(cityId))return alert("目标商户与所选城市不一致，请重新选择。");
+ if(state.requests.some(x=>String(x.target_merchant_id)===String(merchantId)&&String(x.status).toLowerCase()==="pending"))return alert("该商户已有一条待处理申请，请勿重复提交。");
+ setLoading(true,"正在提交配对关系变更申请…");
+ try{
+   const link=activeLink(),{error}=await sb.from("technician_merchant_change_requests").insert({technician_id:state.tech.id,from_service_area_id:state.tech.service_area_id||null,from_merchant_id:link?.merchant_id||null,target_service_area_id:target.service_area_id,target_merchant_id:target.id,request_note:note||null,status:"pending",created_by:state.session.user.id});
+   if(error)throw error;
+   alert("申请已提交，等待目标商户与平台审核。");closeModal("requestModal");await loadData();
+ }catch(e){alert(`提交申请失败：${e.message||"请确认申请表及权限已建立"}`)}finally{setLoading(false)}
 }
-$("openRequestBtn").onclick=openRequest;$("targetCity").onchange=fillTargetMerchants;$("submitRequestBtn").onclick=submitRequest;$("refreshBtn").onclick=loadData;$("logoutBtn").onclick=async()=>{await sb.auth.signOut();location.replace("./login.html")};
-document.querySelectorAll("[data-close]").forEach(x=>x.onclick=()=>closeModal(x.dataset.close));$("requestModal").onclick=e=>{if(e.target===$("requestModal"))closeModal("requestModal")};
+async function changeInitialPassword(){
+ const p=$("newPassword").value,c=$("confirmPassword").value;
+ if(p.length<8)return alert("新密码至少需要 8 位。");
+ if(p!==c)return alert("两次输入的新密码不一致。");
+ setLoading(true,"正在修改登录密码…");
+ try{
+   const{error}=await sb.auth.updateUser({password:p});if(error)throw error;
+   const{error:rpcError}=await sb.rpc("complete_my_technician_initial_password");if(rpcError)throw rpcError;
+   $("newPassword").value="";$("confirmPassword").value="";closeModal("passwordModal");alert("密码修改成功，请牢记新密码。");await loadData();
+ }catch(e){alert(`密码修改失败：${e.message||"请稍后重试"}`)}finally{setLoading(false)}
+}
+$("openRequestBtn").onclick=openRequest;$("targetCity").onchange=fillTargetMerchants;$("submitRequestBtn").onclick=submitRequest;$("savePasswordBtn").onclick=changeInitialPassword;
+$("passwordLogoutBtn").onclick=async()=>{await sb.auth.signOut();location.replace("./login.html")};
+$("refreshBtn").onclick=loadData;$("logoutBtn").onclick=async()=>{await sb.auth.signOut();location.replace("./login.html")};
+document.querySelectorAll("[data-close]").forEach(x=>x.onclick=()=>closeModal(x.dataset.close));
+$("requestModal").onclick=e=>{if(e.target===$("requestModal"))closeModal("requestModal")};
 ["click","keydown","touchstart","mousemove","scroll"].forEach(x=>addEventListener(x,resetIdle,{passive:true}));resetIdle();loadData();
 </script>
 </body>

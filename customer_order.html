@@ -1306,7 +1306,7 @@ button{
     display:grid;
 
     grid-template-columns:
-        repeat(3,1fr);
+        repeat(2,1fr);
 
     gap:8px;
 }
@@ -2259,6 +2259,12 @@ button{
         class="merchant-list"
     ></div>
 
+    <div id="technicianPicker" class="card source-card" style="display:none;margin-top:12px;">
+        <div class="field-label">选择服务人员（可选）</div>
+        <select id="technicianSelect" class="select-control" onchange="technicianSelectionChanged()"><option value="">系统自动轮换</option></select>
+        <div id="technicianNote" class="source-note">未手动选择时，系统将按轮换规则分配服务人员。</div>
+    </div>
+
 </section>
 
 
@@ -2404,6 +2410,13 @@ button{
                 健康顾问
             </button>
 
+            <button id="sourceTechnicianBtn" class="source-type-btn" onclick="chooseSourceType('service_technician')">服务人员推荐</button>
+
+        </div>
+
+        <div id="sourceTechnicianPicker" class="source-picker" style="display:none;">
+            <div class="field-label">选择推荐服务人员</div>
+            <select id="sourceTechnicianSelect" class="select-control" onchange="sourceSelectionChanged()"><option value="">请选择推荐服务人员</option></select>
         </div>
 
 
@@ -3046,6 +3059,10 @@ let selectedProductId = null;
 
 let selectedMerchantId = null;
 
+let availableTechnicians = [];
+
+let selectedTechnicianId = null;
+
 let selectedOption = null;
 
 let quantity = 1;
@@ -3160,7 +3177,7 @@ async function init(){
         await loadBaseData();
 
 
-        renderCitySelect();
+    renderCitySelect();
 
 
         renderSourceOptions();
@@ -4762,6 +4779,9 @@ function setCity(
     renderServices();
 
 
+    renderSourceOptions();
+
+
     renderMerchants();
 
 
@@ -4857,6 +4877,22 @@ function resetAfterCity(){
 
 
     selectedOption =
+        null;
+
+
+    availableTechnicians =
+        [];
+
+
+    selectedTechnicianId =
+        null;
+
+
+    selectedSourceType =
+        "platform";
+
+
+    selectedSourceNo =
         null;
 
 
@@ -5163,6 +5199,14 @@ function renderServices(){
                         null;
 
 
+                    availableTechnicians =
+                        [];
+
+
+                    selectedTechnicianId =
+                        null;
+
+
                     quantity =
                         1;
 
@@ -5171,6 +5215,9 @@ function renderServices(){
 
 
                     renderMerchants();
+
+
+                    renderTechnicianPicker();
 
 
                     updateAll();
@@ -6348,7 +6395,7 @@ function formatReviewDate(
    统一商户选择
 ========================================================= */
 
-function selectMerchant(
+async function selectMerchant(
     item,
     fromMap
 ){
@@ -6366,6 +6413,12 @@ function selectMerchant(
             1,
             quantity
         );
+
+
+    await loadTechnicians();
+
+
+    renderTechnicianPicker();
 
 
     renderMerchants();
@@ -6992,6 +7045,32 @@ function changeQuantity(
    推荐来源
 ========================================================= */
 
+async function loadTechnicians(){
+    availableTechnicians=[];selectedTechnicianId=null;
+    if(!selectedOption){renderTechnicianPicker();return;}
+    const{data,error}=await sb.rpc("get_customer_order_technicians",{p_merchant_id:selectedOption.merchant_id,p_product_id:selectedOption.product_id});
+    if(error){console.error("get_customer_order_technicians",error);renderTechnicianPicker();return;}
+    availableTechnicians=data||[];
+    selectedTechnicianId=availableTechnicians.find(item=>item.is_default)?.technician_id||null;
+}
+
+function renderTechnicianPicker(){
+    const box=document.getElementById("technicianPicker"),select=document.getElementById("technicianSelect"),note=document.getElementById("technicianNote");
+    if(!selectedOption||!availableTechnicians.length){box.style.display="none";return;}
+    box.style.display="block";select.innerHTML='<option value="">系统自动轮换</option>';
+    availableTechnicians.forEach(item=>{const option=document.createElement("option");option.value=item.technician_id;option.textContent=`${item.technician_no}｜${item.technician_name}${item.is_default?"（系统默认）":""}`;select.appendChild(option);});
+    select.value=selectedTechnicianId||"";
+    const selected=availableTechnicians.find(item=>String(item.technician_id)===String(selectedTechnicianId));
+    note.textContent=selected?`当前默认服务人员：${selected.technician_no}｜${selected.technician_name}；您可自行更换。`:"未手动选择时，系统将按轮换规则分配服务人员。";
+}
+
+function technicianSelectionChanged(){
+    const value=document.getElementById("technicianSelect").value;
+    selectedTechnicianId=value?Number(value):null;
+    renderTechnicianPicker();
+    updateAll();
+}
+
 function renderSourceOptions(){
 
     const merchantSelect =
@@ -7004,6 +7083,8 @@ function renderSourceOptions(){
         document.getElementById(
             "sourceConsultantSelect"
         );
+
+    const technicianSelect=document.getElementById("sourceTechnicianSelect");
 
 
     merchantSelect.innerHTML =
@@ -7021,12 +7102,15 @@ function renderSourceOptions(){
         </option>
         `;
 
+    technicianSelect.innerHTML='<option value="">请选择推荐服务人员</option>';
+
 
     recommendationSources
         .filter(
             item=>
                 item.source_type ===
                 "merchant"
+                && String(item.city_id)===String(selectedCityId)
         )
         .sort(
             (
@@ -7076,6 +7160,7 @@ function renderSourceOptions(){
             item=>
                 item.source_type ===
                 "health_consultant"
+                && String(item.city_id)===String(selectedCityId)
         )
         .sort(
             (
@@ -7119,6 +7204,8 @@ function renderSourceOptions(){
             }
         );
 
+    recommendationSources.filter(item=>item.source_type==="service_technician"&&String(item.city_id)===String(selectedCityId)).sort((a,b)=>Number(a.source_no||0)-Number(b.source_no||0)).forEach(item=>{const option=document.createElement("option");option.value=item.source_no;option.textContent=`${item.source_no}｜${item.source_name}`;technicianSelect.appendChild(option);});
+
 }
 
 
@@ -7149,6 +7236,8 @@ function chooseSourceType(
         .value =
         "";
 
+    document.getElementById("sourceTechnicianSelect").value="";
+
 
     [
         [
@@ -7164,6 +7253,11 @@ function chooseSourceType(
         [
             "health_consultant",
             "sourceConsultantBtn"
+        ],
+
+        [
+            "service_technician",
+            "sourceTechnicianBtn"
         ]
 
     ]
@@ -7212,6 +7306,8 @@ function chooseSourceType(
         "block"
         :
         "none";
+
+    document.getElementById("sourceTechnicianPicker").style.display=type==="service_technician"?"block":"none";
 
 
     updateSourceNote();
@@ -7271,6 +7367,11 @@ function sourceSelectionChanged(){
             :
             null;
 
+    }
+
+    if(selectedSourceType==="service_technician"){
+        const value=document.getElementById("sourceTechnicianSelect").value;
+        selectedSourceNo=value?Number(value):null;
     }
 
 
@@ -7384,7 +7485,7 @@ function updateSourceNote(){
             "merchant"
             ?
             "请选择推荐商户"
-            :
+            :selectedSourceType==="service_technician"?"请选择推荐服务人员":
             "请选择健康顾问";
 
 
@@ -8468,7 +8569,10 @@ async function submitOrder(){
                         ?
                         "WGS84"
                         :
-                        null
+                        null,
+
+                    p_technician_id:
+                        selectedTechnicianId
 
                 }
             );

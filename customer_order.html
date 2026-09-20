@@ -1005,6 +1005,8 @@ button{
     transform:scale(.97);
 }
 
+.merchant-technician-picker{margin-top:12px;padding-top:12px;border-top:1px solid #f4e7ec;}
+
 
 /* =========================================================
    新增：本店评价弹窗
@@ -2258,12 +2260,6 @@ button{
         id="merchantList"
         class="merchant-list"
     ></div>
-
-    <div id="technicianPicker" class="card source-card" style="display:none;margin-top:12px;">
-        <div class="field-label">选择服务人员（可选）</div>
-        <select id="technicianSelect" class="select-control" onchange="technicianSelectionChanged()"><option value="">系统自动轮换</option></select>
-        <div id="technicianNote" class="source-note">未手动选择时，系统将按轮换规则分配服务人员。</div>
-    </div>
 
 </section>
 
@@ -5217,9 +5213,6 @@ function renderServices(){
                     renderMerchants();
 
 
-                    renderTechnicianPicker();
-
-
                     updateAll();
 
 
@@ -5778,6 +5771,8 @@ function renderMerchants(){
                     </button>
 
                 </div>
+
+                ${String(selectedMerchantId)===String(item.merchant_id)?getTechnicianPickerHtml():""}
                 `;
 
 
@@ -6418,9 +6413,6 @@ async function selectMerchant(
     await loadTechnicians();
 
 
-    renderTechnicianPicker();
-
-
     renderMerchants();
 
 
@@ -7047,27 +7039,23 @@ function changeQuantity(
 
 async function loadTechnicians(){
     availableTechnicians=[];selectedTechnicianId=null;
-    if(!selectedOption){renderTechnicianPicker();return;}
+    if(!selectedOption){return;}
     const{data,error}=await sb.rpc("get_customer_order_technicians",{p_merchant_id:selectedOption.merchant_id,p_product_id:selectedOption.product_id});
-    if(error){console.error("get_customer_order_technicians",error);renderTechnicianPicker();return;}
+    if(error){console.error("get_customer_order_technicians",error);return;}
     availableTechnicians=data||[];
     selectedTechnicianId=availableTechnicians.find(item=>item.is_default)?.technician_id||null;
 }
 
-function renderTechnicianPicker(){
-    const box=document.getElementById("technicianPicker"),select=document.getElementById("technicianSelect"),note=document.getElementById("technicianNote");
-    if(!selectedOption||!availableTechnicians.length){box.style.display="none";return;}
-    box.style.display="block";select.innerHTML='<option value="">系统自动轮换</option>';
-    availableTechnicians.forEach(item=>{const option=document.createElement("option");option.value=item.technician_id;option.textContent=`${item.technician_no}｜${item.technician_name}${item.is_default?"（系统默认）":""}`;select.appendChild(option);});
-    select.value=selectedTechnicianId||"";
+function getTechnicianPickerHtml(){
+    if(!selectedOption||!availableTechnicians.length)return"";
     const selected=availableTechnicians.find(item=>String(item.technician_id)===String(selectedTechnicianId));
-    note.textContent=selected?`当前默认服务人员：${selected.technician_no}｜${selected.technician_name}；您可自行更换。`:"未手动选择时，系统将按轮换规则分配服务人员。";
+    return `<div class="merchant-technician-picker" onclick="event.stopPropagation()"><div class="field-label">选择服务人员（可选）</div><select id="technicianSelect" class="select-control" onchange="technicianSelectionChanged()"><option value="">系统自动轮换</option>${availableTechnicians.map(item=>`<option value="${item.technician_id}" ${String(item.technician_id)===String(selectedTechnicianId)?"selected":""}>${escapeHtml(item.technician_no)}｜${escapeHtml(item.technician_name)}${item.is_default?"（系统默认）":""}</option>`).join("")}</select><div class="source-note">${selected?`当前默认服务人员：${escapeHtml(selected.technician_no)}｜${escapeHtml(selected.technician_name)}；您可自行更换。`:"未手动选择时，系统将按轮换规则分配服务人员。"}</div></div>`;
 }
 
 function technicianSelectionChanged(){
     const value=document.getElementById("technicianSelect").value;
     selectedTechnicianId=value?Number(value):null;
-    renderTechnicianPicker();
+    renderMerchants();
     updateAll();
 }
 

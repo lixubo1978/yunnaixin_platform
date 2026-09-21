@@ -400,36 +400,43 @@ button {
 
     gap:12px;
 
-    margin-bottom:18px;
+    margin-bottom:14px;
 }
 
 .stat {
 
-    min-height:103px;
-
-    padding:17px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    min-width:0;
+    min-height:64px;
+    padding:10px 16px;
 
     border:
         1px solid
         var(--border);
 
-    border-radius:16px;
+    border-radius:12px;
 
     background:#fff;
 }
 
 .stat-label {
 
-    font-size:10px;
-
-    color:var(--text3);
+    min-width:0;
+    font-size:12px;
+    font-weight:600;
+    line-height:1.5;
+    color:var(--text2);
 }
 
 .stat-value {
 
-    margin-top:7px;
-
-    font-size:22px;
+    margin-top:0;
+    flex-shrink:0;
+    font-size:24px;
+    line-height:1.2;
     font-weight:750;
 
     color:var(--rose);
@@ -1689,13 +1696,12 @@ textarea.form-control {
 
     .stat {
 
-        min-height:92px;
-
-        padding:14px;
+        min-height:58px;
+        padding:10px 12px;
     }
 
     .stat-value {
-        font-size:20px;
+        font-size:22px;
     }
 
     .panel {
@@ -1926,11 +1932,11 @@ textarea.form-control {
     <div class="stat">
 
         <div class="stat-label">
-            服务项目类型
+            一级目录总数
         </div>
 
         <div
-            id="statCategories"
+            id="statTopCategories"
             class="stat-value"
         >
             0
@@ -1942,7 +1948,23 @@ textarea.form-control {
     <div class="stat">
 
         <div class="stat-label">
-            服务项目总数
+            二级目录总数
+        </div>
+
+        <div
+            id="statSubCategories"
+            class="stat-value"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-label">
+            项目总数
         </div>
 
         <div
@@ -1958,7 +1980,7 @@ textarea.form-control {
     <div class="stat">
 
         <div class="stat-label">
-            正常服务项目
+            正常经营项目总数
         </div>
 
         <div
@@ -1966,26 +1988,6 @@ textarea.form-control {
             class="stat-value"
         >
             0
-        </div>
-
-    </div>
-
-
-    <div class="stat">
-
-        <div class="stat-label">
-            已失效服务项目
-        </div>
-
-        <div
-            id="statInactive"
-            class="stat-value"
-        >
-            0
-        </div>
-
-        <div class="stat-note">
-            历史数据继续保留
         </div>
 
     </div>
@@ -3160,50 +3162,10 @@ function fillCategoryFilter() {
 ========================================================= */
 
 function renderStats() {
-
-    document.getElementById(
-        "statCategories"
-    ).textContent =
-
-        categories.filter(
-
-            item =>
-                item.status ===
-                "active"
-
-        ).length;
-
-
-    document.getElementById(
-        "statTotal"
-    ).textContent =
-        products.length;
-
-
-    document.getElementById(
-        "statActive"
-    ).textContent =
-
-        products.filter(
-
-            item =>
-                item.status ===
-                "active"
-
-        ).length;
-
-
-    document.getElementById(
-        "statInactive"
-    ).textContent =
-
-        products.filter(
-
-            item =>
-                item.status ===
-                "inactive"
-
-        ).length;
+    document.getElementById("statTopCategories").textContent = categories.filter(item => item.parent_category_id == null).length;
+    document.getElementById("statSubCategories").textContent = categories.filter(item => item.parent_category_id != null).length;
+    document.getElementById("statTotal").textContent = products.length;
+    document.getElementById("statActive").textContent = products.filter(item => item.status === "active").length;
 }
 
 

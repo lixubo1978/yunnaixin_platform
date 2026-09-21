@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#fff5f8"><title>孕乃馨 - 服务下单</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://api.map.baidu.com/api?v=3.0&amp;ak=qm079iFrWCY799GxJSJEnfJWIhwnqqnK"></script><style>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#fff5f8"><title>孕乃馨 - 服务下单</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://api.map.baidu.com/api?v=3.0&amp;ak=qm079iFrWCY799GxJSJEnfJWIhwnqqnK"></script><style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{margin:0;padding:0;min-height:100%;background:#fff7fa;color:#493741;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang SC","Microsoft YaHei",Arial,sans-serif;}
 body{padding-bottom:calc( 110px + env(safe-area-inset-bottom) );}
@@ -331,73 +330,28 @@ button:focus-visible,input:focus-visible{outline:3px solid #d55785;outline-offse
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
 
-</style></head><body>
-<div id="loadingMask" class="loading-mask"><div class="loading-box"><div class="loading-icon">🌸</div><div class="loading-text">正在准备您的服务…</div></div></div>
-<div class="app wizard-app">
-<header class="wizard-header"><button class="wizard-icon-button" type="button" onclick="wizardBack()" aria-label="返回上一步">‹</button><div><div class="wizard-brand">孕乃馨</div><div class="wizard-header-title">服务下单</div></div><span id="stepCounter" class="step-counter">1 / 7</span></header>
-<div class="wizard-progress" id="wizardProgress" role="progressbar" aria-label="下单进度" aria-valuemin="1" aria-valuemax="7" aria-valuenow="1"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-<main class="wizard-main">
-<div class="wizard-prompt"><span id="wizardAvatar" class="wizard-avatar" aria-hidden="true">🌷</span><div class="prompt-copy"><div id="wizardEyebrow" class="wizard-eyebrow">先从您所在的城市开始</div><h1 id="wizardTitle" tabindex="-1">您想在哪个城市享受服务？</h1><p id="wizardHelp">允许定位，或直接点选一个城市。</p></div></div>
-<div class="conversation-card" id="conversationCard">
-<section class="wizard-panel" id="panel0" aria-labelledby="wizardTitle">
-<div class="location-banner"><span class="location-pin" aria-hidden="true">📍</span><div><strong id="currentCityTitle">请选择城市</strong><p id="cityStatus" role="status">可以直接点选下方城市。</p></div></div>
-<button type="button" id="locateBtn" class="quiet-action" onclick="manualLocate()">◎ 使用当前位置</button>
-<label class="search-field"><span aria-hidden="true">⌕</span><input id="citySearch" type="search" placeholder="搜索城市" autocomplete="off" oninput="renderCitySelect()" aria-label="搜索城市"></label><div id="cityList" class="choice-grid"></div>
-</section>
-<section class="wizard-panel" id="panel1" hidden aria-labelledby="wizardTitle"><div class="context-strip" id="serviceContext"></div><label class="search-field"><span aria-hidden="true">⌕</span><input id="serviceSearch" type="search" placeholder="搜索服务名称" oninput="renderServices()" aria-label="搜索服务"></label><div id="serviceList" class="choice-list"></div></section>
-<section class="wizard-panel" id="panel2" hidden aria-labelledby="wizardTitle"><div class="context-strip" id="merchantContext"></div><div class="merchant-tools"><span>按距离优先排列</span><button type="button" class="text-action" onclick="openMapDialog()">查看地图 ↗</button></div><label class="search-field"><span aria-hidden="true">⌕</span><input id="merchantSearch" type="search" placeholder="搜索门店名称或地址" oninput="renderMerchants()" aria-label="搜索门店"></label><div id="merchantList" class="choice-list"></div></section>
-<section class="wizard-panel" id="panel3" hidden aria-labelledby="wizardTitle"><div class="context-strip" id="technicianContext"></div><div id="technicianList" class="choice-list"></div><p class="panel-footnote">您也可以选择“系统自动轮换”，由系统分配服务人员。</p></section>
-<section class="wizard-panel" id="panel4" hidden aria-labelledby="wizardTitle"><div class="quantity-hero"><span class="quantity-flower" aria-hidden="true">🌸</span><h2 id="quantityService">服务项目</h2><div id="unitPriceText"></div><div class="quantity-stepper"><button id="quantityMinus" type="button" onclick="changeQuantity(-1)" aria-label="减少一份">−</button><div><strong id="quantityNumber">1</strong><span>份</span></div><button id="quantityPlus" type="button" onclick="changeQuantity(1)" aria-label="增加一份">＋</button></div><div class="quantity-shortcuts" aria-label="快捷选择购买份数"><button type="button" onclick="pickQuantity(1)">1 份</button><button type="button" onclick="pickQuantity(3)">3 份</button><button type="button" onclick="pickQuantity(5)">5 份</button><button type="button" onclick="pickQuantity(10)">10 份</button></div><p id="quantityDetail"></p></div><div class="wizard-discount"><strong>多买自动享优惠</strong><div class="discount-grid"><div id="tier5" class="discount-tier"><div>超过 ¥2000</div><b>优惠 5%</b></div><div id="tier8" class="discount-tier"><div>超过 ¥3000</div><b>优惠 8%</b></div><div id="tier10" class="discount-tier"><div>超过 ¥5000</div><b>优惠 10%</b></div></div><p id="discountCurrent"></p></div></section>
-<section class="wizard-panel" id="panel5" hidden aria-labelledby="wizardTitle"><div class="source-type-grid"><button id="sourcePlatformBtn" type="button" class="source-type-btn active" onclick="chooseSourceType('platform')"><span>🌷</span>自己找到平台</button><button id="sourceMerchantBtn" type="button" class="source-type-btn" onclick="chooseSourceType('merchant')"><span>🏡</span>商户推荐</button><button id="sourceConsultantBtn" type="button" class="source-type-btn" onclick="chooseSourceType('health_consultant')"><span>♡</span>健康顾问推荐</button><button id="sourceTechnicianBtn" type="button" class="source-type-btn" onclick="chooseSourceType('service_technician')"><span>✧</span>服务人员推荐</button></div><div id="sourcePicker" hidden><label class="search-field"><span aria-hidden="true">⌕</span><input id="sourceSearch" type="search" placeholder="搜索推荐人名称或编号" oninput="renderSourceOptions()" aria-label="搜索推荐来源"></label><div id="sourceList" class="choice-list"></div></div><div id="sourceNote" class="source-note" role="status"></div></section>
-<section class="wizard-panel" id="panel6" hidden aria-labelledby="wizardTitle"><div class="review-greeting"><span>♡</span><div><strong>您的服务已准备好</strong><p>核对以下信息，确认后即可生成订单。</p></div></div><div class="review-block"><button class="review-edit" type="button" onclick="showWizardStep(0)"><span>服务城市</span><b id="summaryCity"></b><i>修改 ›</i></button><button class="review-edit" type="button" onclick="showWizardStep(1)"><span>服务项目</span><b id="summaryService"></b><i>修改 ›</i></button><button class="review-edit" type="button" onclick="showWizardStep(2)"><span>服务门店</span><b id="summaryMerchant"></b><i>修改 ›</i></button><p id="summaryAddress" class="review-address"></p><button class="review-edit" type="button" onclick="showWizardStep(3)"><span>服务人员</span><b id="summaryTechnician"></b><i>修改 ›</i></button><button class="review-edit" type="button" onclick="showWizardStep(4)"><span>购买数量</span><b><span id="summaryQuantity"></span>份 ·<span id="summaryUses"></span></b><i>修改 ›</i></button><button class="review-edit" type="button" onclick="showWizardStep(5)"><span>推荐来源</span><b id="summarySource"></b><i>修改 ›</i></button></div><div class="review-money"><div><span>城市单价</span><b id="summaryUnitPrice"></b></div><div><span>原价合计</span><b id="summarySubtotal"></b></div><div class="saving"><span>自动优惠 <span id="summaryDiscountRate"></span></span><b id="summaryDiscountAmount"></b></div><div class="review-total"><strong>应付金额</strong><b id="summaryPayable"></b></div></div></section>
-</div>
-</main>
-<footer class="wizard-footer"><div class="footer-summary"><div><span id="footerLabel">当前选择</span><strong id="footerSelection">请选择城市</strong></div><div class="footer-amount" id="footerAmount" hidden><s id="bottomOldPrice"></s><b id="bottomPrice">¥--</b></div></div><p id="navHint" class="nav-hint" aria-live="polite">点选一个城市后继续</p><div class="wizard-nav"><button id="previousBtn" type="button" class="previous-btn" onclick="wizardBack()" hidden>上一步</button><button id="confirmBtn" type="button" class="next-btn" onclick="wizardNext()" disabled>下一步 <span>→</span></button></div></footer>
-</div>
-<div id="mapModal" class="modal-mask" onclick="if(event.target===this)closeMapDialog()"><div class="modal-sheet map-dialog" role="dialog" aria-modal="true" aria-labelledby="mapDialogTitle"><div class="dialog-heading"><h2 id="mapDialogTitle">在地图上看看门店</h2><button class="wizard-icon-button" onclick="closeMapDialog()" aria-label="关闭地图">×</button></div><div class="map-shell"><div id="baiduMap"></div><div id="mapLoading" class="map-loading"><div><div class="map-loading-icon">📍</div><div id="mapLoadingText">正在准备地图…</div></div></div></div><p id="mapStatusText" class="map-status-text"></p><p class="panel-footnote">点击门店标记可选择门店，也可返回列表选择。</p><button class="detail-close-btn" onclick="closeMapDialog()">返回门店列表</button></div></div>
-<div id="serviceDetailModal" class="modal-mask" onclick="
+</style><style>.location-hero{text-align:center;padding:21px 12px 18px;background:radial-gradient(ellipse at top,#fff0f6,#fff 76%);border-radius:19px}.location-orbit{width:72px;height:72px;display:grid;place-items:center;margin:0 auto 13px;border:8px solid #fff7fa;background:#ffe6f0;border-radius:50%;font-size:30px;box-shadow:0 0 0 1px #fce5ee}.location-badge{display:inline-block;background:#fff0f6;color:#c77497;padding:5px 11px;border-radius:20px;font-size:11px;font-weight:650}.location-badge.success{background:#eef9f3;color:#499879}.location-label{font-size:11px;color:#b191a1;letter-spacing:1px;margin:17px 0 8px}.location-hero h2{font-size:26px;line-height:1.45;color:#694355;margin:0}.location-address{font-size:14px;line-height:1.9;color:#a2798d;overflow-wrap:anywhere;margin:10px auto;max-width:310px}.location-help{font-size:12px;line-height:1.8;color:#b28b9e;margin:12px 0 0}.location-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px}.location-actions .quiet-action{margin:0;font-size:12px}.catalog-intro{font-size:12px;line-height:1.8;color:#ad889c;margin:13px 0}.category-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.category-card{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;justify-content:center;min-height:149px;border:1.5px solid #f2e3eb;border-radius:19px;background:#fff;padding:18px 10px;color:#6f4b5d}.category-card.selected{border-color:#f479a5;background:#fff1f7;box-shadow:0 0 0 2px #fff0f6}.category-card .choice-tick{position:absolute;right:10px;top:10px;width:18px;height:18px;font-size:11px}.category-symbol{display:grid;place-items:center;width:52px;height:52px;font-size:30px;border-radius:17px;background:#fff2f7;margin-bottom:11px}.category-card.selected .category-symbol{background:#ffe1ed}.category-card strong{font-size:16px;line-height:1.5;overflow-wrap:anywhere}.category-card small{font-size:11px;line-height:1.6;color:#b38c9f;margin-top:6px}.category-grid .panel-empty{grid-column:1/-1}.appointment-zone{text-align:center;font-size:10px;color:#b38ba0;margin:12px 0}.calendar-head{display:flex;align-items:center;justify-content:space-between;margin:7px 0 11px}.calendar-head h2{font-size:16px;font-weight:750;margin:0;color:#835469}.calendar-arrow{border:1px solid #f2dfe8;border-radius:11px;background:#fff6fa;width:36px;height:36px;font-size:23px;color:#bf7b99}.calendar-arrow:disabled{opacity:.32;cursor:default}.calendar-week,.calendar-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}.calendar-week{font-size:11px;color:#baa0ad;text-align:center;margin-bottom:7px}.calendar-day{height:42px;border:1px solid transparent;border-radius:11px;background:#fff6fa;color:#916179;font-size:14px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1px;padding:1px}.calendar-day small{font-size:8px;line-height:1}.calendar-day.today{border-color:#f1bfd4}.calendar-day.selected{background:#f775a5;color:#fff}.calendar-day:disabled{background:#faf8f9;color:#d7cbd1;cursor:default}.selected-date-bar{display:flex;justify-content:space-between;align-items:center;background:#fff3f8;border:1px solid #f7dce8;border-radius:15px;padding:13px 14px;gap:12px;margin-top:12px}.selected-date-bar small{font-size:10px;color:#b38a9d;display:block;margin-bottom:4px}.selected-date-bar strong{font-size:16px;color:#9a5374;line-height:1.5}.appointment-time-title{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:20px 0 12px}.appointment-time-title strong{font-size:13px;color:#8a6175}.appointment-time-title>span{font-size:10px;color:#b799a8}.time-periods{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:4px;border-radius:12px;background:#fbf3f7;margin-bottom:13px}.time-period{border:0;border-radius:9px;background:transparent;min-height:37px;color:#b0879b;font-size:12px}.time-period.selected{background:#fff;color:#d16894;box-shadow:0 2px 7px #b9779312;font-weight:750}.time-period:disabled{color:#d7c5cd;cursor:default}.time-slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.time-slot{border:1px solid #f0dce6;border-radius:11px;background:#fff;min-height:43px;font-size:14px;color:#96637b;font-variant-numeric:tabular-nums}.time-slot.selected{background:#fff0f7;border-color:#ef80ab;color:#d05789;box-shadow:0 0 0 1px #f6bad3;font-weight:750}.time-slot:disabled{background:#faf7f9;border-color:#f3edf0;color:#cfc0c8;cursor:default}.appointment-selection{margin-top:17px;padding:13px;border-radius:13px;background:#fff5f9;color:#b8809a;font-size:12px;line-height:1.8;text-align:center}.appointment-selection.selected{background:#f0faf4;color:#56876c}.modal-row.appointment-row{background:#fff0f7;border-radius:11px;padding:10px;color:#b9527f}.wizard-prompt h1{overflow-wrap:anywhere}@media(max-height:740px){.location-hero{padding-top:13px}.location-orbit{width:60px;height:60px;margin-bottom:9px}.location-hero h2{font-size:23px}.category-card{min-height:132px;padding:15px 8px}.category-symbol{height:46px;width:46px;font-size:27px;margin-bottom:8px}.calendar-day{height:37px}}@media(max-width:360px){.category-card strong{font-size:14px}.category-grid{gap:9px}.time-slots{gap:6px}.calendar-week,.calendar-days{gap:3px}.location-actions{gap:7px}.calendar-day{height:37px}.selected-date-bar strong{font-size:14px}}
+
+.wizard-progress{grid-template-columns:repeat(10,minmax(0,1fr));gap:4px}
+</style></head><body><div id="loadingMask" class="loading-mask"><div class="loading-box"><div class="loading-icon">🌸</div><div class="loading-text">正在准备您的服务…</div></div></div><div class="app wizard-app"><header class="wizard-header"><button class="wizard-icon-button" type="button" onclick="wizardBack()" aria-label="返回上一步">‹</button><div><div class="wizard-brand">孕乃馨</div><div class="wizard-header-title">服务下单</div></div><span id="stepCounter" class="step-counter">1 / 10</span></header><div class="wizard-progress" id="wizardProgress" role="progressbar" aria-label="下单进度" aria-valuemin="1" aria-valuemax="10" aria-valuenow="1"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><main class="wizard-main"><div class="wizard-prompt"><span id="wizardAvatar" class="wizard-avatar" aria-hidden="true">📍</span><div class="prompt-copy"><div id="wizardEyebrow" class="wizard-eyebrow">先确认您所在的位置</div><h1 id="wizardTitle" tabindex="-1">在这里享受服务，对吗？</h1><p id="wizardHelp">定位成功后，直接点下一步就好。</p></div></div><div class="conversation-card" id="conversationCard"><section class="wizard-panel" id="panel0" aria-labelledby="wizardTitle"><div class="location-hero"><span class="location-orbit" aria-hidden="true">📍</span><span id="locationBadge" class="location-badge">正在定位</span><p class="location-label">当前地理位置</p><h2 id="currentCityTitle">正在获取当前位置</h2><p id="locationAddress" class="location-address">请允许浏览器使用您的位置。</p><p id="cityStatus" class="location-help" role="status">定位成功后，可直接点“下一步”。</p></div><div class="location-actions"><button type="button" id="locateBtn" class="quiet-action" onclick="manualLocate()">◎ 重新定位</button><button type="button" id="manualCityBtn" class="quiet-action" onclick="toggleManualCities()" aria-expanded="false" aria-controls="manualCityPicker">手工选择城市</button></div><div id="manualCityPicker" hidden><label class="search-field"><span aria-hidden="true">⌕</span><input id="citySearch" type="search" placeholder="搜索服务城市" autocomplete="off" oninput="renderCitySelect()" aria-label="搜索服务城市"></label><div id="cityList" class="choice-grid"></div></div></section><section class="wizard-panel" id="panel1" hidden aria-labelledby="wizardTitle"><div class="context-strip" id="topCategoryContext"></div><p class="catalog-intro">点选图标，找到您需要的服务类型。</p><div id="topCategoryList" class="category-grid"></div></section><section class="wizard-panel" id="panel2" hidden aria-labelledby="wizardTitle"><div class="context-strip" id="subCategoryContext"></div><p class="catalog-intro">再选一个更具体的分类。</p><div id="subCategoryList" class="category-grid"></div></section><section class="wizard-panel" id="panel3" hidden aria-labelledby="wizardTitle"><div class="context-strip" id="serviceContext"></div><label class="search-field"><span aria-hidden="true">⌕</span><input id="serviceSearch" type="search" placeholder="搜索服务名称" oninput="renderServices()" aria-label="搜索服务"></label><div id="serviceList" class="choice-list"></div></section><section class="wizard-panel" id="panel4" hidden aria-labelledby="wizardTitle"><div class="context-strip" id="merchantContext"></div><div class="merchant-tools"><span>按距离优先排列</span><button type="button" class="text-action" onclick="openMapDialog()">查看地图 ↗</button></div><label class="search-field"><span aria-hidden="true">⌕</span><input id="merchantSearch" type="search" placeholder="搜索门店名称或地址" oninput="renderMerchants()" aria-label="搜索门店"></label><div id="merchantList" class="choice-list"></div></section><section class="wizard-panel" id="panel5" hidden aria-labelledby="wizardTitle"><div class="context-strip" id="technicianContext"></div><div id="technicianList" class="choice-list"></div><p class="panel-footnote">您也可以选择“系统自动轮换”，由系统分配服务人员。</p></section><section class="wizard-panel" id="panel6" hidden aria-labelledby="wizardTitle"><div class="quantity-hero"><span class="quantity-flower" aria-hidden="true">🌸</span><h2 id="quantityService">服务项目</h2><div id="unitPriceText"></div><div class="quantity-stepper"><button id="quantityMinus" type="button" onclick="changeQuantity(-1)" aria-label="减少一份">−</button><div><strong id="quantityNumber">1</strong><span>份</span></div><button id="quantityPlus" type="button" onclick="changeQuantity(1)" aria-label="增加一份">＋</button></div><div class="quantity-shortcuts" aria-label="快捷选择购买份数"><button type="button" onclick="pickQuantity(1)">1 份</button><button type="button" onclick="pickQuantity(3)">3 份</button><button type="button" onclick="pickQuantity(5)">5 份</button><button type="button" onclick="pickQuantity(10)">10 份</button></div><p id="quantityDetail"></p></div><div class="wizard-discount"><strong>多买自动享优惠</strong><div class="discount-grid"><div id="tier5" class="discount-tier"><div>超过 ¥2000</div><b>优惠 5%</b></div><div id="tier8" class="discount-tier"><div>超过 ¥3000</div><b>优惠 8%</b></div><div id="tier10" class="discount-tier"><div>超过 ¥5000</div><b>优惠 10%</b></div></div><p id="discountCurrent"></p></div></section><section class="wizard-panel" id="panel7" hidden aria-labelledby="wizardTitle"><div class="source-type-grid"><button id="sourcePlatformBtn" type="button" class="source-type-btn active" onclick="chooseSourceType('platform')"><span>🌷</span>自己找到平台</button><button id="sourceMerchantBtn" type="button" class="source-type-btn" onclick="chooseSourceType('merchant')"><span>🏡</span>商户推荐</button><button id="sourceConsultantBtn" type="button" class="source-type-btn" onclick="chooseSourceType('health_consultant')"><span>♡</span>健康顾问推荐</button><button id="sourceTechnicianBtn" type="button" class="source-type-btn" onclick="chooseSourceType('service_technician')"><span>✧</span>服务人员推荐</button></div><div id="sourcePicker" hidden><label class="search-field"><span aria-hidden="true">⌕</span><input id="sourceSearch" type="search" placeholder="搜索推荐人名称或编号" oninput="renderSourceOptions()" aria-label="搜索推荐来源"></label><div id="sourceList" class="choice-list"></div></div><div id="sourceNote" class="source-note" role="status"></div></section><section class="wizard-panel" id="panel8" hidden aria-labelledby="wizardTitle"><div class="review-greeting"><span>♡</span><div><strong>您的服务已准备好</strong><p>核对后继续选择预约时间。</p></div></div><div class="review-block"><button class="review-edit" type="button" onclick="showWizardStep(0)"><span>服务城市</span><b id="summaryCity"></b><i>修改 ›</i></button><button class="review-edit" type="button" onclick="showWizardStep(1)"><span>服务类型</span><b id="summaryTopCategory"></b><i>修改 ›</i></button><button class="review-edit" type="button" onclick="showWizardStep(2)"><span>具体分类</span><b id="summarySubCategory"></b><i>修改 ›</i></button><button class="review-edit" type="button" onclick="showWizardStep(3)"><span>服务项目</span><b id="summaryService"></b><i>修改 ›</i></button><button class="review-edit" type="button" onclick="showWizardStep(4)"><span>服务门店</span><b id="summaryMerchant"></b><i>修改 ›</i></button><p id="summaryAddress" class="review-address"></p><button class="review-edit" type="button" onclick="showWizardStep(5)"><span>服务人员</span><b id="summaryTechnician"></b><i>修改 ›</i></button><button class="review-edit" type="button" onclick="showWizardStep(6)"><span>购买数量</span><b><span id="summaryQuantity"></span>份 ·<span id="summaryUses"></span></b><i>修改 ›</i></button><button class="review-edit" type="button" onclick="showWizardStep(7)"><span>推荐来源</span><b id="summarySource"></b><i>修改 ›</i></button></div><div class="review-money"><div><span>城市单价</span><b id="summaryUnitPrice"></b></div><div><span>原价合计</span><b id="summarySubtotal"></b></div><div class="saving"><span>自动优惠 <span id="summaryDiscountRate"></span></span><b id="summaryDiscountAmount"></b></div><div class="review-total"><strong>应付金额</strong><b id="summaryPayable"></b></div></div></section><section class="wizard-panel" id="panel9" hidden aria-labelledby="wizardTitle"><div class="context-strip" id="appointmentContext"></div><div class="appointment-zone">预约时间统一按北京时间（UTC+8）记录</div><div id="selectedDateBar" class="selected-date-bar" hidden><div><small>预约日期</small><strong id="selectedDateText"></strong></div><button type="button" class="text-action" onclick="editAppointmentDate()">修改日期 ›</button></div><div id="appointmentCalendar"><div class="calendar-head"><button id="calendarPrev" type="button" class="calendar-arrow" onclick="moveCalendar(-1)" aria-label="上个月">‹</button><h2 id="calendarMonth"></h2><button type="button" class="calendar-arrow" onclick="moveCalendar(1)" aria-label="下个月">›</button></div><div class="calendar-week" aria-hidden="true"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div><div id="calendarDays" class="calendar-days" aria-label="选择预约日期"></div></div><div id="appointmentTimes" hidden><div class="appointment-time-title"><strong>选择预约时间</strong><span>每半小时一个选项</span></div><div id="timePeriods" class="time-periods" aria-label="选择时段"></div><div id="timeSlots" class="time-slots" aria-label="选择预约时间"></div><p id="timeSlotNote" class="panel-footnote"></p></div><div id="appointmentSelection" class="appointment-selection" role="status">先点选日期，再选择时间。</div><p id="appointmentUsesNote" class="panel-footnote"></p></section></div></main><footer class="wizard-footer"><div class="footer-summary"><div><span id="footerLabel">当前选择</span><strong id="footerSelection">请选择城市</strong></div><div class="footer-amount" id="footerAmount" hidden><s id="bottomOldPrice"></s><b id="bottomPrice">¥--</b></div></div><p id="navHint" class="nav-hint" aria-live="polite">请确认定位城市，或手工选择城市</p><div class="wizard-nav"><button id="previousBtn" type="button" class="previous-btn" onclick="wizardBack()" hidden>上一步</button><button id="confirmBtn" type="button" class="next-btn" onclick="wizardNext()" disabled>下一步 <span>→</span></button></div></footer></div><div id="mapModal" class="modal-mask" onclick="if(event.target===this)closeMapDialog()"><div class="modal-sheet map-dialog" role="dialog" aria-modal="true" aria-labelledby="mapDialogTitle"><div class="dialog-heading"><h2 id="mapDialogTitle">在地图上看看门店</h2><button class="wizard-icon-button" onclick="closeMapDialog()" aria-label="关闭地图">×</button></div><div class="map-shell"><div id="baiduMap"></div><div id="mapLoading" class="map-loading"><div><div class="map-loading-icon">📍</div><div id="mapLoadingText">正在准备地图…</div></div></div></div><p id="mapStatusText" class="map-status-text"></p><p class="panel-footnote">点击门店标记可选择门店，也可返回列表选择。</p><button class="detail-close-btn" onclick="closeMapDialog()">返回门店列表</button></div></div><div id="serviceDetailModal" class="modal-mask" onclick="
 serviceDetailMaskClose(
 event
 )
-">
-<div class="modal-sheet service-detail-sheet" role="dialog" aria-modal="true" aria-label="服务详情">
-<div class="modal-title">服务详情</div>
-<div id="serviceDetailContent"></div>
-<button class="detail-close-btn" onclick="closeServiceDetail()">我已了解</button>
-</div>
-</div>
-<div id="merchantReviewModal" class="modal-mask" onclick="
+"><div class="modal-sheet service-detail-sheet" role="dialog" aria-modal="true" aria-label="服务详情"><div class="modal-title">服务详情</div><div id="serviceDetailContent"></div><button class="detail-close-btn" onclick="closeServiceDetail()">我已了解</button></div></div><div id="merchantReviewModal" class="modal-mask" onclick="
 merchantReviewMaskClose(
 event
 )
-">
-<div class="modal-sheet merchant-review-sheet" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-label="本店评价">
-<div class="modal-title">本店评价</div>
-<div id="merchantReviewContent">
-<div class="merchant-review-loading">正在读取本店评价...</div>
-</div>
-<button class="merchant-review-close-btn" type="button" onclick="closeMerchantReviews()">关闭</button>
-</div>
-</div>
-<div id="confirmModal" class="modal-mask" onclick="
+"><div class="modal-sheet merchant-review-sheet" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-label="本店评价"><div class="modal-title">本店评价</div><div id="merchantReviewContent"><div class="merchant-review-loading">正在读取本店评价...</div></div><button class="merchant-review-close-btn" type="button" onclick="closeMerchantReviews()">关闭</button></div></div><div id="confirmModal" class="modal-mask" onclick="
 maskClose(
 event
 )
-">
-<div class="modal-sheet" role="dialog" aria-modal="true" aria-label="确认提交订单">
-<div class="modal-title">确认提交订单</div>
-<div class="modal-desc">确认服务、门店和金额后生成订单，下一页继续支付。</div><div id="modalSummary" class="modal-summary"></div>
-<div class="modal-actions">
-<button class="modal-btn modal-cancel" onclick="closeConfirmModal()">再检查一下</button>
-<button id="submitOrderBtn" class="modal-btn modal-confirm" onclick="submitOrder()">确认生成订单</button>
-</div>
-</div>
-</div>
-<div id="toast" class="toast" role="status" aria-live="polite"></div>
-<script>
+"><div class="modal-sheet" role="dialog" aria-modal="true" aria-label="确认提交订单"><div class="modal-title">确认提交订单</div><div class="modal-desc">确认服务、门店和金额后生成订单，下一页继续支付。</div><div id="modalSummary" class="modal-summary"></div><div class="modal-actions"><button class="modal-btn modal-cancel" onclick="closeConfirmModal()">再检查一下</button><button id="submitOrderBtn" class="modal-btn modal-confirm" onclick="submitOrder()">确认生成订单</button></div></div></div><div id="toast" class="toast" role="status" aria-live="polite"></div><script>let categories=[],productCategoryMap=new Map(),selectedTopCategoryId=null,selectedSubCategoryId=null;
+let locationRequest=0,locationBusy=false,geoStatus='locating',geoAddress='',geoCityName='',geoMessage='';
+let appointmentDate=null,appointmentTime=null,appointmentPeriod=1,calendarCursor='',appointmentCalendarOpen=true;
+const timePeriods=[['凌晨',0,6],['上午',6,12],['下午',12,18],['晚上',18,24]];
 let wizardStep=0,wizardReady=false,manualCityChoice=false,techniciansLoading=false,techniciansError=false,technicianRequest=0;
-const wizardScroll=[0,0,0,0,0,0,0];
-const wizardPrompts=[['先从您所在的城市开始','您想在哪个城市享受服务？','允许定位，或直接点选一个城市。','🌷'],['挑选一份适合您的关怀','这次需要什么服务？','点选服务卡片，也可以先查看详情。','🌸'],['找一家合适的门店','您想去哪家门店？','看看距离、地址和评价，再安心选择。','🏡'],['为您安排细致的服务','有想选择的服务人员吗？','点选一位服务人员，或交给系统自动轮换。','♡'],['按您的需要安排','这次想购买几份？','消费次数与优惠金额会随数量自动更新。','✧'],['谢谢您的信任','您是怎么找到我们的？','如有推荐人，请选择对应类型和名称。','🌷'],['再核对一下，就可以了','这份服务安排合适吗？','点击“修改”可返回对应步骤调整。','♡']];
+const wizardScroll=Array(10).fill(0);
+const wizardPrompts=[["先确认您所在的位置","在这里享受服务，对吗？","定位成功后，直接点下一步就好。","📍"],["从您需要的类型开始","今天想获得哪一类关怀？","点选一个图标，再继续下一步。","🌷"],["再了解一下您的需要","您需要哪一种具体服务？","选择分类后，为您展示对应项目。","🌸"],["找到适合您的服务","这次选择哪个服务项目？","可以先查看详情，再点选项目。","🌸"],["选一家安心的门店","您想去哪家门店？","看看距离、地址和评价，再做选择。","🏡"],["为您安排细致的服务","有想选择的服务人员吗？","也可以交给系统自动轮换。","♡"],["按您的需要安排","这次想购买几份？","可消费次数与优惠金额会自动更新。","✧"],["谢谢您的信任","您是怎么找到我们的？","如有推荐人，请选择类型和名称。","🌷"],["一起核对这份安排","这些服务信息都对吗？","可点“修改”；下一步选择预约时间。","♡"],["最后，留一个合适的时间","您希望什么时候到店？","先选日期，再点选预约时间。","🗓️"]];
 let dialogAccessReady=false,dialogReturnFocus=null;
 const SUPABASE_URL="https://qbuqjwpkltbjhlfbyjyb.supabase.co";
 const SUPABASE_ANON_KEY="sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
@@ -429,7 +383,7 @@ let customerMarker=null;
 const IDLE_LIMIT=10*60*1000;
 let idleTimer=null;
 document.addEventListener("DOMContentLoaded",init);
-async function init(){try{setupDialogAccess();setupIdleLogout();const{data:{session},error}=await sb.auth.getSession();if(error||!session?.user){goLogin();return;}currentUser=session.user;if(!(await verifyCustomer()))return;await loadCustomer();await loadBaseData();wizardReady=true;renderCitySelect();const ids=getAvailableCityIds();if(ids.length===1)setCity(ids[0],false,'当前已开通此城市，已为您选好。');renderServices();renderMerchants();renderSourceOptions();renderTechnicians();updateAll();hideLoading();setTimeout(()=>requestLocation(true),500);}catch(error){console.error('初始化失败',error);hideLoading();wizardReady=false;el('cityList').innerHTML=panelEmpty('暂时无法读取服务','请检查网络后重新加载。');const retry=makeChoice('重新加载','',false,()=>window.location.reload());el('cityList').appendChild(retry);toast('页面加载失败，请稍后重试');updateAll();}}
+async function init(){try{setupDialogAccess();setupIdleLogout();const{data:{session},error}=await sb.auth.getSession();if(error||!session?.user){goLogin();return;}currentUser=session.user;if(!(await verifyCustomer()))return;await loadCustomer();await loadBaseData();wizardReady=true;renderCitySelect();renderCategories();renderServices();renderMerchants();renderSourceOptions();renderTechnicians();updateAll();hideLoading();requestLocation(true);setInterval(refreshAppointmentAvailability,30000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshAppointmentAvailability();});}catch(error){console.error('初始化失败',error);hideLoading();wizardReady=false;geoStatus='failed';geoMessage='服务资料暂时无法加载，请检查网络后重试。';updateCityUI();el('manualCityPicker').hidden=false;el('manualCityBtn').setAttribute('aria-expanded','true');el('cityList').innerHTML=panelEmpty('暂时无法读取服务','请重新加载页面。');el('cityList').appendChild(makeChoice('重新加载','',false,()=>window.location.reload()));toast('页面加载失败，请稍后重试');updateAll();}}
 async function verifyCustomer(){const{data,error}=await sb.from("profiles").select(`
                 id,
                 full_name,
@@ -439,7 +393,7 @@ async function verifyCustomer(){const{data,error}=await sb.from("profiles").sele
                 account_no
             `).eq("id",currentUser.id).maybeSingle();if(error||!data){await forceLogout();return false;}if(data.status&&data.status!=="active"){toast("账号已停用");setTimeout(forceLogout,800);return false;}const isCustomer=data.role==="customer"||data.user_type==="customer";if(!isCustomer){await forceLogout();return false;}currentProfile=data;return true;}
 async function loadCustomer(){const{data,error}=await sb.from("customers").select("*").eq("id",currentUser.id).maybeSingle();if(!error){currentCustomer=data;}}
-async function loadBaseData(){const[optionResult,cityResult,sourceResult]=await Promise.all([sb.from("customer_order_options").select("*"),sb.from("cities").select("*"),sb.from("recommendation_sources").select("*")]);if(optionResult.error){console.error("customer_order_options",optionResult.error);throw optionResult.error;}if(cityResult.error){console.error("cities",cityResult.error);}if(sourceResult.error){console.error("recommendation_sources",sourceResult.error);}orderOptions=optionResult.data||[];cities=cityResult.data||[];recommendationSources=sourceResult.data||[];}
+async function loadBaseData(){const results=await Promise.all([sb.from('customer_order_options').select('*'),sb.from('cities').select('*'),sb.from('recommendation_sources').select('*'),sb.rpc('get_customer_order_catalog')]);for(const result of results)if(result.error)throw result.error;const catalog=results[3].data;if(!Array.isArray(catalog?.categories)||!Array.isArray(catalog?.products))throw Error('服务分类读取失败');orderOptions=results[0].data||[];cities=results[1].data||[];recommendationSources=results[2].data||[];categories=catalog.categories;productCategoryMap=new Map(catalog.products.map(x=>[String(x.id),String(x.category_id)]));}
 function initBaiduMap(){const loadingText=document.getElementById("mapLoadingText");if(typeof BMap==="undefined"){loadingText.textContent="百度地图加载失败，仍可通过商户列表手动选择。";document.getElementById("mapStatusText").textContent="地图暂不可用，请使用下方商户列表";return;}try{baiduMap=new BMap.Map("baiduMap",{coordsType:BMAP_COORD_BD09});const defaultPoint=new BMap.Point(116.404,39.915);baiduMap.centerAndZoom(defaultPoint,5);baiduMap.enableScrollWheelZoom(true);baiduMap.enableDragging();try{const navigation=new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_RIGHT,type:BMAP_NAVIGATION_CONTROL_ZOOM});baiduMap.addControl(navigation);}catch(error){console.warn("地图控件加载失败",error);}baiduMapReady=true;document.getElementById("mapLoading").classList.add("hidden");document.getElementById("mapStatusText").textContent="请选择服务项目查看可消费商户";refreshMap();}catch(error){console.error("百度地图初始化失败",error);loadingText.textContent="百度地图初始化失败，仍可使用下方商户列表。";}}
 function refreshMap(){if(!baiduMapReady||!baiduMap){return;}clearMerchantMarkers();drawCustomerMarker();const list=getMapMerchantOptions();const points=[];if(customerBaiduLongitude!==null&&customerBaiduLatitude!==null){points.push(new BMap.Point(customerBaiduLongitude,customerBaiduLatitude));}list.forEach(item=>{const point=getMerchantMapPoint(item);if(!point){return;}points.push(point);addMerchantMarker(item,point);});if(!points.length){if(selectedCityId){baiduMap.centerAndZoom(getCityName(selectedCityId),12);document.getElementById("mapStatusText").textContent=`${getCityName(selectedCityId)}暂无带坐标的可显示商户`;}return;}if(points.length===1){baiduMap.centerAndZoom(points[0],15);}else{try{const viewport=baiduMap.getViewport(points);baiduMap.centerAndZoom(viewport.center,Math.min(viewport.zoom,16));}catch(error){baiduMap.centerAndZoom(points[0],13);}}if(selectedOption){document.getElementById("mapStatusText").textContent=`已选择：${selectedOption.merchant_name}`;}else if(selectedProductId){document.getElementById("mapStatusText").textContent=`地图显示 ${list.length} 家可提供此服务的商户`;}else{document.getElementById("mapStatusText").textContent="选择服务后显示可消费商户";}}
 function getMapMerchantOptions(){if(selectedCityId&&selectedProductId){return getMerchantOptions();}if(selectedCityId){const map=new Map();getCityOptions().forEach(item=>{const key=String(item.merchant_id);if(!map.has(key)){map.set(key,item);}});return[...map.values()];}return[];}
@@ -457,9 +411,7 @@ function openMerchantInfoWindow(item,point,selectable){if(!baiduMapReady){return
                     sans-serif;
                 padding:2px;
             "
-        >
-
-            <div
+        ><div
                 style="
                     font-size:14px;
                     font-weight:800;
@@ -467,9 +419,7 @@ function openMerchantInfoWindow(item,point,selectable){if(!baiduMapReady){return
                 "
             >
                 ${name}
-            </div>
-
-            <div
+            </div><div
                 style="
                     margin-top:6px;
                     font-size:11px;
@@ -521,74 +471,39 @@ function openMerchantInfoWindow(item,point,selectable){if(!baiduMapReady){return
 function clearMerchantMarkers(){if(!baiduMapReady){return;}merchantMarkers.forEach(marker=>{try{baiduMap.removeOverlay(marker);}catch(error){console.warn(error);}});merchantMarkers=[];}
 function drawCustomerMarker(){if(!baiduMapReady||customerBaiduLongitude===null||customerBaiduLatitude===null){return;}if(customerMarker){try{baiduMap.removeOverlay(customerMarker);}catch(error){console.warn(error);}}const point=new BMap.Point(customerBaiduLongitude,customerBaiduLatitude);customerMarker=new BMap.Marker(point);baiduMap.addOverlay(customerMarker);try{const label=new BMap.Label("我的位置",{offset:new BMap.Size(18,-8)});label.setStyle({color:"#2773d5",border:"1px solid #b8d6ff",backgroundColor:"#ffffff",borderRadius:"8px",padding:"3px 6px",fontSize:"10px",fontWeight:"700"});customerMarker.setLabel(label);}catch(error){console.warn(error);}}
 function focusMapOnMerchant(item){if(!baiduMapReady){return;}const point=getMerchantMapPoint(item);if(!point){return;}baiduMap.centerAndZoom(point,16);setTimeout(()=>{openMerchantInfoWindow(item,point,true);},180);}
-function convertCustomerToBaidu(lng,lat){return new Promise(resolve=>{if(typeof BMap==="undefined"){customerBaiduLongitude=lng;customerBaiduLatitude=lat;resolve(false);return;}try{const convertor=new BMap.Convertor();const point=new BMap.Point(lng,lat);convertor.translate([point],1,5,result=>{if(result&&result.status===0&&result.points&&result.points.length){customerBaiduLongitude=Number(result.points[0].lng);customerBaiduLatitude=Number(result.points[0].lat);resolve(true);return;}customerBaiduLongitude=lng;customerBaiduLatitude=lat;resolve(false);});}catch(error){console.error("百度坐标转换失败",error);customerBaiduLongitude=lng;customerBaiduLatitude=lat;resolve(false);}});}
 function getAvailableCityIds(){return[...new Set(orderOptions.map(item=>String(item.city_id)).filter(Boolean))];}
 function getCityName(cityId){const city=cities.find(item=>String(item.id)===String(cityId));return city?.city_name||city?.name||`城市 ${cityId}`;}
 function renderCitySelect(){const box=el('cityList');box.innerHTML='';const all=getAvailableCityIds().map(id=>({id,name:getCityName(id)})).sort((a,b)=>String(a.name).localeCompare(String(b.name),'zh-CN'));const list=all.filter(x=>containsQuery(x.name,'citySearch'));if(!list.length){box.innerHTML=panelEmpty(all.length?'没有找到这个城市':'暂时没有可下单的城市',all.length?'试试其他城市名称。':'请稍后再来看看。');return;}list.forEach(x=>box.appendChild(makeChoice(x.name,'',String(selectedCityId)===String(x.id),()=>setCity(x.id,true,'已选择此城市。'))));}
-function setCity(cityId,isManual,message){if(!cityId)return;const changed=String(selectedCityId)!==String(cityId);if(isManual)manualCityChoice=true;selectedCityId=cityId;if(changed){resetAfterCity();wizardStep=0;wizardScroll.fill(0);el('conversationCard').scrollTop=0;}updateCityUI(cityId,message);renderCitySelect();renderServices();renderSourceOptions();renderMerchants();renderTechnicians();updateAll();refreshMap();if(isManual)toast('已选择 '+getCityName(cityId));}
-function updateCityUI(cityId,message){const title=document.getElementById("currentCityTitle");const status=document.getElementById("cityStatus");if(!cityId){title.textContent="尚未选择城市";status.textContent=message||"请允许定位或手动选择城市。";status.classList.remove("city-success");return;}title.textContent=getCityName(cityId);status.textContent=message||"当前城市已确认。";status.classList.add("city-success");}
-function resetAfterCity(){selectedProductId=null;selectedMerchantId=null;selectedOption=null;availableTechnicians=[];selectedTechnicianId=null;selectedSourceType='platform';selectedSourceNo=null;quantity=1;technicianRequest++;techniciansLoading=false;techniciansError=false;['serviceSearch','merchantSearch','sourceSearch'].forEach(id=>el(id).value='');}
+function setCity(cityId,isManual,message){if(!getAvailableCityIds().includes(String(cityId)))return;const changed=String(selectedCityId)!==String(cityId);if(isManual){manualCityChoice=true;locationRequest++;locationBusy=false;geoMessage='已选择服务城市，可继续下一步。';el('manualCityPicker').hidden=true;el('manualCityBtn').setAttribute('aria-expanded','false');}selectedCityId=cityId;if(changed){resetAfterCity();wizardStep=0;wizardScroll.fill(0);el('conversationCard').scrollTop=0;}updateCityUI();renderCitySelect();renderSourceOptions();refreshSelectionPanels();if(isManual)toast('已选择 '+getCityName(cityId));}
+function updateCityUI(){const selected=!!selectedCityId;el('currentCityTitle').textContent=selected?getCityName(selectedCityId):geoCityName||(locationBusy?'正在获取当前位置':'请选择服务城市');el('locationAddress').textContent=geoAddress?(manualCityChoice?'定位地址：':'')+geoAddress:locationBusy?'正在识别您的城市与附近地址…':'定位成功后，这里会显示您的地理信息。';el('cityStatus').textContent=locationBusy?'您也可以手工选择服务城市。':geoMessage||(selected?'位置已确认，可直接点“下一步”。':'无法自动识别城市，请使用下方“手工选择城市”。');el('locationBadge').textContent=locationBusy?'正在定位':manualCityChoice&&selected?'手工选择':geoStatus==='success'&&selected?'定位成功':'等待选择';el('locationBadge').classList.toggle('success',selected&&!locationBusy);el('locateBtn').disabled=locationBusy||!wizardReady;el('locateBtn').textContent=locationBusy?'◎ 正在定位…':'◎ 重新定位';el('manualCityBtn').disabled=!wizardReady;}
+function resetAfterCity(){selectedTopCategoryId=null;selectedSubCategoryId=null;resetServiceSelection();selectedSourceType='platform';selectedSourceNo=null;el('sourceSearch').value='';}
 function getCityOptions(){if(!selectedCityId){return[];}return orderOptions.filter(item=>String(item.city_id)===String(selectedCityId));}
-function getCityProducts(){const map=new Map();getCityOptions().forEach(item=>{const key=String(item.product_id);if(!map.has(key)){map.set(key,{product_id:item.product_id,product_name:item.product_name,description:item.description,default_usage_count:Number(item.default_usage_count||1),unit_price:Number(item.unit_price)});}});return[...map.values()];}
+function getCityProducts(){if(!selectedSubCategoryId)return[];const map=new Map();getCityOptions().filter(x=>productCategoryMap.get(String(x.product_id))===String(selectedSubCategoryId)).forEach(item=>{const key=String(item.product_id);if(!map.has(key))map.set(key,{product_id:item.product_id,product_name:item.product_name,description:item.description,default_usage_count:Number(item.default_usage_count||1),unit_price:Number(item.unit_price)});});return[...map.values()];}
 function renderServices(){const box=el('serviceList');box.innerHTML='';if(!selectedCityId){box.innerHTML=panelEmpty('请先选择城市','返回上一步确认您的服务城市。');return;}const list=getCityProducts().filter(x=>containsQuery(x.product_name+' '+(x.description||''),'serviceSearch'));if(!list.length){box.innerHTML=panelEmpty('暂无匹配的服务',el('serviceSearch').value?'换个关键词试试看。':'当前城市暂无可下单的服务。');return;}list.forEach(product=>{const selected=String(selectedProductId)===String(product.product_id),card=document.createElement('article');card.className='wizard-choice'+(selected?' selected':'');const button=document.createElement('button');button.type='button';button.className='wizard-choice-main';button.setAttribute('aria-pressed',String(selected));button.innerHTML='<span class="choice-icon" aria-hidden="true">🌸</span><span class="choice-copy"><span class="choice-name">'+escapeHtml(product.product_name)+'</span><span class="choice-desc">'+escapeHtml(product.description||'点开详情，了解这项服务。')+'</span><span class="choice-meta"><span>'+Number(product.default_usage_count||1)+' 次 / 份</span><b class="choice-price">¥'+formatMoney(product.unit_price)+'</b></span></span><span class="choice-tick" aria-hidden="true">✓</span>';button.onclick=()=>pickService(product.product_id);card.appendChild(button);const actions=document.createElement('div');actions.className='choice-actions';actions.innerHTML='<span class="choice-caption">城市标准价</span>';const detail=document.createElement('button');detail.type='button';detail.className='text-action';detail.textContent='服务详情 ›';detail.onclick=()=>openServiceDetail(product.product_id);actions.appendChild(detail);card.appendChild(actions);box.appendChild(card);});}
 function openServiceDetail(productId){const product=getCityProducts().find(item=>String(item.product_id)===String(productId));if(!product){toast("暂时无法读取服务详情");return;}const uses=Math.max(1,Number(product.default_usage_count||1));const description=product.description||"该服务项目暂未填写详细服务说明。请在确认下单前向平台或服务商户核实具体服务内容。";document.getElementById("serviceDetailContent").innerHTML=`
 
-        <div class="detail-head">
-
-            <div class="detail-icon">
+        <div class="detail-head"><div class="detail-icon">
                 🌸
-            </div>
-
-
-            <div class="detail-main">
-
-                <div class="detail-name">
+            </div><div class="detail-main"><div class="detail-name">
 
                     ${escapeHtml(product.product_name)}
 
-                </div>
-
-
-                <div class="detail-tags">
-
-                    <span class="tag">
+                </div><div class="detail-tags"><span class="tag">
 
                         ${uses}
                         次 / 份
 
-                    </span>
-
-
-                    <span class="tag price-tag">
+                    </span><span class="tag price-tag">
 
                         当前城市价
 
                         ¥${formatMoney(product.unit_price)}
 
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="detail-block">
-
-            <div class="detail-block-title">
+                    </span></div></div></div><div class="detail-block"><div class="detail-block-title">
                 服务内容与说明
-            </div>
-
-
-            <div class="detail-description">
+            </div><div class="detail-description">
 ${escapeHtml(description)}
-            </div>
-
-        </div>
-
-
-        <div class="detail-warning">
+            </div></div><div class="detail-warning">
 
             请在下单前仔细核对服务内容、适用情况和消费次数是否与您的需求一致。
 
@@ -634,39 +549,17 @@ async function openMerchantReviews(merchantId){const modal=document.getElementBy
 function closeMerchantReviews(){document.getElementById("merchantReviewModal").classList.remove("show");}
 function merchantReviewMaskClose(event){if(event.target.id==="merchantReviewModal"){closeMerchantReviews();}}
 function renderMerchantReviews(merchantName,reviews){const content=document.getElementById("merchantReviewContent");if(!reviews.length){content.innerHTML=`
-            <div class="merchant-review-summary">
-
-                <div class="merchant-review-summary-main">
-
-                    <div class="merchant-review-name">
+            <div class="merchant-review-summary"><div class="merchant-review-summary-main"><div class="merchant-review-name">
 
                         ${escapeHtml(merchantName)}
 
-                    </div>
-
-                    <div class="merchant-review-count">
+                    </div><div class="merchant-review-count">
                         暂无客户评价
-                    </div>
-
-                </div>
-
-
-                <div class="merchant-review-score">
-
-                    <div class="merchant-review-score-number">
+                    </div></div><div class="merchant-review-score"><div class="merchant-review-score-number">
                         --
-                    </div>
-
-                    <div class="merchant-review-stars">
+                    </div><div class="merchant-review-stars">
                         ☆☆☆☆☆
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="merchant-review-empty">
+                    </div></div></div><div class="merchant-review-empty">
 
                 该商户目前还没有公开评价。
 
@@ -696,21 +589,13 @@ function renderMerchantReviews(merchantName,reviews){const content=document.getE
 
                         </div>
                         `;return`
-                        <div class="merchant-review-item">
-
-                            <div class="merchant-review-item-head">
-
-                                <div class="merchant-review-item-stars">
+                        <div class="merchant-review-item"><div class="merchant-review-item-head"><div class="merchant-review-item-stars">
                                     ${stars}
-                                </div>
-
-                                <div class="merchant-review-item-date">
+                                </div><div class="merchant-review-item-date">
 
                                     ${escapeHtml(formatReviewDate(item.created_at))}
 
-                                </div>
-
-                            </div>
+                                </div></div>
 
 
                             ${tagsHtml}
@@ -723,51 +608,27 @@ function renderMerchantReviews(merchantName,reviews){const content=document.getE
 
                                 ${item.is_anonymous?"匿名客户评价":"客户评价"}
 
-                            </div>
-
-                        </div>
+                            </div></div>
                     `;}).join("");content.innerHTML=`
-        <div class="merchant-review-summary">
-
-            <div class="merchant-review-summary-main">
-
-                <div class="merchant-review-name">
+        <div class="merchant-review-summary"><div class="merchant-review-summary-main"><div class="merchant-review-name">
 
                     ${escapeHtml(merchantName)}
 
-                </div>
-
-                <div class="merchant-review-count">
+                </div><div class="merchant-review-count">
 
                     共
                     ${reviews.length}
                     条评价
 
-                </div>
-
-            </div>
-
-
-            <div class="merchant-review-score">
-
-                <div class="merchant-review-score-number">
+                </div></div><div class="merchant-review-score"><div class="merchant-review-score-number">
 
                     ${average.toFixed(1)}
 
-                </div>
-
-                <div class="merchant-review-stars">
+                </div><div class="merchant-review-stars">
 
                     ${makeReviewStars(Math.round(average))}
 
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="merchant-review-list">
+                </div></div></div><div class="merchant-review-list">
 
             ${listHtml}
 
@@ -775,10 +636,8 @@ function renderMerchantReviews(merchantName,reviews){const content=document.getE
         `;}
 function makeReviewStars(rating){const value=Math.max(0,Math.min(5,Math.round(Number(rating)||0)));return"★".repeat(value)+"☆".repeat(5-value);}
 function formatReviewDate(value){if(!value){return"";}const date=new Date(value);if(Number.isNaN(date.getTime())){return"";}return date.toLocaleDateString("zh-CN",{year:"numeric",month:"2-digit",day:"2-digit"});}
-async function selectMerchant(item,fromMap){if(!getMerchantOptions().some(x=>String(x.merchant_id)===String(item.merchant_id)))return;const changed=String(selectedMerchantId)!==String(item.merchant_id)||String(selectedOption?.product_id)!==String(item.product_id);selectedMerchantId=item.merchant_id;selectedOption=item;quantity=Math.max(1,quantity);if(changed){availableTechnicians=[];selectedTechnicianId=null;techniciansError=false;const promise=loadTechnicians();renderMerchants();updateAll();await promise;}else{renderMerchants();updateAll();}if(String(selectedMerchantId)!==String(item.merchant_id)||String(selectedProductId)!==String(item.product_id))return;refreshMap();focusMapOnMerchant(item);if(fromMap)toast('已选择 '+item.merchant_name);}
-function requestLocation(automatic){if(!navigator.geolocation){locationFailed(automatic);return;}const btn=document.getElementById("locateBtn");btn.disabled=true;btn.textContent="正在获取位置...";if(!selectedCityId){updateCityUI(null,"正在获取当前位置并识别服务城市...");}navigator.geolocation.getCurrentPosition(async position=>{customerLatitude=Number(position.coords.latitude);customerLongitude=Number(position.coords.longitude);btn.disabled=false;btn.textContent="重新获取当前位置";await convertCustomerToBaidu(customerLongitude,customerLatitude);detectNearestCity();renderMerchants();refreshMap();toast("当前位置获取成功");},error=>{console.warn("geolocation",error);btn.disabled=false;btn.textContent="再次尝试定位";locationFailed(automatic);},{enableHighAccuracy:true,timeout:10000,maximumAge:60000});}
-function locationFailed(automatic){if(!selectedCityId){updateCityUI(null,"无法自动识别城市，请在下面手动选择城市。");}if(baiduMapReady){document.getElementById("mapStatusText").textContent="无法获取您的位置，可手动选择城市和商户";}if(!automatic){toast("定位失败，请手动选择城市");}}
-function detectNearestCity(){if(manualCityChoice||wizardStep>0){refreshMap();return;}const customerLat=customerBaiduLatitude??customerLatitude;const customerLng=customerBaiduLongitude??customerLongitude;if(customerLat===null||customerLng===null){return;}const merchantLocations=orderOptions.filter(item=>{const lat=Number(item.latitude);const lng=Number(item.longitude);return Number.isFinite(lat)&&Number.isFinite(lng);}).map(item=>({city_id:item.city_id,distance:haversineDistance(customerLat,customerLng,Number(item.latitude),Number(item.longitude))})).sort((a,b)=>a.distance-b.distance);if(!merchantLocations.length){if(!selectedCityId){updateCityUI(null,"位置获取成功，但暂时无法自动识别城市，请手动选择。");}refreshMap();return;}const nearest=merchantLocations[0];setCity(nearest.city_id,false,`已根据当前位置自动识别为 ${getCityName(nearest.city_id)}。`);toast(`已自动识别：${getCityName(nearest.city_id)}`);}
+async function selectMerchant(item,fromMap){if(!getMerchantOptions().some(x=>String(x.merchant_id)===String(item.merchant_id)))return;const changed=String(selectedMerchantId)!==String(item.merchant_id)||String(selectedOption?.product_id)!==String(item.product_id);selectedMerchantId=item.merchant_id;selectedOption=item;quantity=Math.max(1,quantity);if(changed){clearAppointment();availableTechnicians=[];selectedTechnicianId=null;techniciansError=false;const promise=loadTechnicians();renderMerchants();updateAll();await promise;}else{renderMerchants();updateAll();}if(String(selectedMerchantId)!==String(item.merchant_id)||String(selectedProductId)!==String(item.product_id))return;refreshMap();focusMapOnMerchant(item);if(fromMap)toast('已选择 '+item.merchant_name);}
+async function requestLocation(automatic){const request=++locationRequest;locationBusy=true;geoMessage='';updateCityUI();const fail=()=>{if(request!==locationRequest)return;locationBusy=false;geoStatus='failed';geoMessage=selectedCityId?'定位未完成，已保留您的服务城市；也可手工调整。':'无法自动获取位置，请点击“手工选择城市”。';updateCityUI();if(!automatic)toast('请手工选择服务城市');};if(!navigator.geolocation){fail();return;}navigator.geolocation.getCurrentPosition(async position=>{if(request!==locationRequest)return;const lat=Number(position.coords.latitude),lng=Number(position.coords.longitude);if(!Number.isFinite(lat)||!Number.isFinite(lng)||Math.abs(lat)>90||Math.abs(lng)>180){fail();return;}const result=await resolveLocation(lng,lat);if(request!==locationRequest||manualCityChoice||wizardStep>0){if(request===locationRequest){locationBusy=false;updateCityUI();}return;}customerLatitude=lat;customerLongitude=lng;customerBaiduLatitude=result?.point?.lat??null;customerBaiduLongitude=result?.point?.lng??null;locationBusy=false;const address=result?.location?.addressComponents;geoCityName=address?.city||address?.province||'';geoAddress=result?.location?.address||[address?.province,address?.city,address?.district,address?.street,address?.streetNumber].filter(Boolean).join('')||'纬度 '+lat.toFixed(5)+'，经度 '+lng.toFixed(5);const match=getAvailableCityIds().find(id=>normalizeCity(getCityName(id))===normalizeCity(geoCityName)&&geoCityName);if(match){geoStatus='success';geoMessage='已自动识别您的位置，可直接点“下一步”。';setCity(match,false);}else{geoStatus='failed';geoMessage=geoCityName?'当前定位城市暂无可下单服务，请手工选择服务城市。':'已获取位置，暂时无法识别城市，请手工选择服务城市。';if(selectedCityId){selectedCityId=null;resetAfterCity();renderCitySelect();renderSourceOptions();refreshSelectionPanels();}updateCityUI();}renderMerchants();refreshMap();updateAll();},fail,{enableHighAccuracy:true,timeout:10000,maximumAge:60000});}
 function calculateOptionDistance(option){const customerLat=customerBaiduLatitude??customerLatitude;const customerLng=customerBaiduLongitude??customerLongitude;if(customerLat===null||customerLng===null){return null;}const lat=Number(option.latitude);const lng=Number(option.longitude);if(!Number.isFinite(lat)||!Number.isFinite(lng)){return null;}return haversineDistance(customerLat,customerLng,lat,lng);}
 function haversineDistance(lat1,lon1,lat2,lon2){const R=6371;const dLat=toRad(lat2-lat1);const dLon=toRad(lon2-lon1);const a=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)*Math.sin(dLon/2);const c=2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));return R*c;}
 function toRad(value){return value*Math.PI/180;}
@@ -796,153 +655,13 @@ function updateQuantity(){document.getElementById("quantityNumber").textContent=
 function updateDiscount(){const calc=calculateDiscount();["tier5","tier8","tier10"].forEach(id=>{document.getElementById(id).classList.remove("active");});let message="当前订单尚未达到优惠金额。";if(calc.rate===.05){document.getElementById("tier5").classList.add("active");message=`当前原价 ¥${formatMoney(calc.subtotal)}，自动优惠5%，节省 ¥${formatMoney(calc.discount)}。`;}if(calc.rate===.08){document.getElementById("tier8").classList.add("active");message=`当前原价 ¥${formatMoney(calc.subtotal)}，自动优惠8%，节省 ¥${formatMoney(calc.discount)}。`;}if(calc.rate===.10){document.getElementById("tier10").classList.add("active");message=`当前原价 ¥${formatMoney(calc.subtotal)}，自动优惠10%，节省 ¥${formatMoney(calc.discount)}。`;}if(calc.subtotal>0&&calc.rate===0){message=`当前原价 ¥${formatMoney(calc.subtotal)}。超过 ¥2000 后可自动优惠5%。`;}document.getElementById("discountCurrent").textContent=message;}
 function updateSummary(){const source=getSelectedSource();const sourceText=source?source.no?`${source.no}｜${source.name}`:source.name:"请选择";const calc=calculateDiscount();const defaultUses=selectedOption?Math.max(1,Number(selectedOption.default_usage_count||1)):0;const totalUses=defaultUses*quantity;document.getElementById("summaryCity").textContent=selectedCityId?getCityName(selectedCityId):"未选择";document.getElementById("summaryService").textContent=selectedOption?selectedOption.product_name:selectedProductId?getSelectedProductName():"未选择";document.getElementById("summaryMerchant").textContent=selectedOption?selectedOption.merchant_name:"未选择";document.getElementById("summaryAddress").textContent=selectedOption?selectedOption.address||"地址暂未完善":"--";document.getElementById("summaryUnitPrice").textContent=selectedOption?`¥${formatMoney(selectedOption.unit_price)}`:"--";document.getElementById("summaryQuantity").textContent=quantity;document.getElementById("summaryUses").textContent=selectedOption?`${totalUses} 次`:"--";document.getElementById("summarySource").textContent=sourceText;document.getElementById("summarySubtotal").textContent=selectedOption?`¥${formatMoney(calc.subtotal)}`:"¥--";document.getElementById("summaryDiscountRate").textContent=`${Math.round(calc.rate*100)}%`;document.getElementById("summaryDiscountAmount").textContent=`- ¥${formatMoney(calc.discount)}`;document.getElementById("summaryPayable").innerHTML=selectedOption?`<small>¥</small> ${formatMoney(calc.payable)}`:`<small>¥</small> --`;document.getElementById("bottomPrice").textContent=selectedOption?`¥${formatMoney(calc.payable)}`:"¥--";document.getElementById("bottomOldPrice").textContent=selectedOption&&calc.discount>0?`¥${formatMoney(calc.subtotal)}`:"";}
 function getSelectedProductName(){const product=getCityProducts().find(item=>String(item.product_id)===String(selectedProductId));return product?.product_name||"已选择";}
-function updateSteps(){const prompt=wizardPrompts[wizardStep];el('stepCounter').textContent=wizardStep+1+' / 7';el('wizardEyebrow').textContent=prompt[0];el('wizardTitle').textContent=prompt[1];el('wizardHelp').textContent=prompt[2];el('wizardAvatar').textContent=prompt[3];el('wizardProgress').setAttribute('aria-valuenow',String(wizardStep+1));[...el('wizardProgress').children].forEach((x,i)=>{x.classList.toggle('done',i<wizardStep);x.classList.toggle('current',i===wizardStep);});for(let i=0;i<7;i++)el('panel'+i).hidden=i!==wizardStep;el('previousBtn').hidden=wizardStep===0;const service=selectedOption?.product_name||(selectedProductId?getSelectedProductName():'');el('serviceContext').textContent=getCityName(selectedCityId)+' · 为您提供的服务';el('merchantContext').textContent=getCityName(selectedCityId)+' · '+service;el('technicianContext').textContent=selectedOption?selectedOption.merchant_name+' · '+service:'';const tech=availableTechnicians.find(x=>String(x.technician_id)===String(selectedTechnicianId));const source=getSelectedSource();const selections=[selectedCityId?getCityName(selectedCityId):'请选择城市',service||'请选择服务',selectedOption?.merchant_name||'请选择门店',tech?tech.technician_name:'系统自动轮换',quantity+' 份 · '+Number(selectedOption?.default_usage_count||1)*quantity+' 次服务',source?.name||'请选择推荐来源',selectedOption?.product_name||'请核对订单'];el('footerSelection').textContent=selections[wizardStep];el('footerAmount').hidden=!selectedOption;el('footerLabel').textContent=wizardStep===6?'服务项目':'当前选择';el('quantityService').textContent=service||'服务项目';el('summaryTechnician').textContent=tech?tech.technician_name+'（'+tech.technician_no+'）':'系统自动轮换';el('quantityMinus').disabled=quantity<=1;el('quantityPlus').disabled=quantity>=999;[...document.querySelectorAll('.quantity-shortcuts button')].forEach((b,i)=>b.classList.toggle('active',quantity===[1,3,5,10][i]));}
-function updateConfirmButton(){const ready=isStepReady(wizardStep);el('confirmBtn').disabled=!ready||submitting;el('confirmBtn').innerHTML=wizardStep===6?'确认订单':'下一步 <span aria-hidden="true">→</span>';const hints=['请选择城市后继续','请选择一项服务后继续',techniciansLoading?'正在读取服务人员，请稍候':'请选择门店后继续','正在读取服务人员，请稍候','请选择 1 至 999 份','请选择具体推荐来源','请完成前面的选择'];el('navHint').textContent=submitting?'正在生成订单，请稍候':ready?wizardStep===6?'确认后生成订单，下一页继续支付':'已选好，可以继续下一步':hints[wizardStep];}
-function canSubmitOrder(){if(!selectedCityId||!selectedOption||quantity<1){return false;}if(selectedSourceType!=="platform"&&!selectedSourceNo){return false;}return true;}
-function openConfirmModal(){if(!canSubmitOrder()){toast("请先完成城市、服务、商户和推荐来源选择");return;}const source=getSelectedSource();const calc=calculateDiscount();const uses=Number(selectedOption.default_usage_count||1)*quantity;const sourceText=source.no?`${source.no}｜${source.name}`:source.name;document.getElementById("modalSummary").innerHTML=`
-
-        <div class="modal-row">
-
-            <span>
-                城市
-            </span>
-
-            <span>
-                ${escapeHtml(getCityName(selectedCityId))}
-            </span>
-
-        </div>
-
-
-        <div class="modal-row">
-
-            <span>
-                服务项目
-            </span>
-
-            <span>
-                ${escapeHtml(selectedOption.product_name)}
-            </span>
-
-        </div>
-
-
-        <div class="modal-row">
-
-            <span>
-                服务商户
-            </span>
-
-            <span>
-                ${escapeHtml(selectedOption.merchant_name)}
-            </span>
-
-        </div>
-
-
-        <div class="modal-row">
-
-            <span>
-                城市单价
-            </span>
-
-            <span>
-                ¥${formatMoney(calc.unitPrice)}
-            </span>
-
-        </div>
-
-
-        <div class="modal-row">
-
-            <span>
-                数量
-            </span>
-
-            <span>
-                ${quantity}
-            </span>
-
-        </div>
-
-
-        <div class="modal-row">
-
-            <span>
-                可消费次数
-            </span>
-
-            <span>
-                ${uses}
-                次
-            </span>
-
-        </div>
-
-
-        <div class="modal-row">
-
-            <span>
-                您是通过什么渠道了解我们的?
-            </span>
-
-            <span>
-                ${escapeHtml(sourceText)}
-            </span>
-
-        </div>
-
-
-        <div class="modal-row">
-
-            <span>
-                原价
-            </span>
-
-            <span>
-                ¥${formatMoney(calc.subtotal)}
-            </span>
-
-        </div>
-
-
-        <div class="modal-row">
-
-            <span>
-                自动优惠
-            </span>
-
-            <span>
-
-                ${Math.round(calc.rate*100)}%
-
-                （-¥${formatMoney(calc.discount)}）
-
-            </span>
-
-        </div>
-
-
-        <div class="modal-row">
-
-            <span>
-                应付金额
-            </span>
-
-            <span
-                style="
-                    color:#e94e82;
-                    font-size:16px;
-                "
-            >
-                ¥${formatMoney(calc.payable)}
-            </span>
-
-        </div>
-        `;document.getElementById("confirmModal").classList.add("show");}
+function updateSteps(){const prompt=wizardPrompts[wizardStep];el('stepCounter').textContent=wizardStep+1+' / 10';el('wizardEyebrow').textContent=prompt[0];el('wizardTitle').textContent=prompt[1];el('wizardHelp').textContent=prompt[2];el('wizardAvatar').textContent=prompt[3];el('wizardProgress').setAttribute('aria-valuenow',String(wizardStep+1));[...el('wizardProgress').children].forEach((x,i)=>{x.classList.toggle('done',i<wizardStep);x.classList.toggle('current',i===wizardStep);});for(let i=0;i<10;i++)el('panel'+i).hidden=i!==wizardStep;el('previousBtn').hidden=wizardStep===0;const service=selectedOption?.product_name||(selectedProductId?getSelectedProductName():''),city=selectedCityId?getCityName(selectedCityId):'';el('topCategoryContext').textContent=city+' · 全部服务类型';el('subCategoryContext').textContent=city+' · '+categoryName(selectedTopCategoryId);el('serviceContext').textContent=categoryName(selectedTopCategoryId)+' / '+categoryName(selectedSubCategoryId);el('merchantContext').textContent=city+' · '+service;el('technicianContext').textContent=selectedOption?selectedOption.merchant_name+' · '+service:'';el('appointmentContext').textContent=selectedOption?selectedOption.merchant_name+' · '+service:'';const tech=availableTechnicians.find(x=>String(x.technician_id)===String(selectedTechnicianId)),source=getSelectedSource();const selections=[city||'请确认服务城市',categoryName(selectedTopCategoryId)||'请选择服务类型',categoryName(selectedSubCategoryId)||'请选择具体分类',service||'请选择服务',selectedOption?.merchant_name||'请选择门店',tech?.technician_name||'系统自动轮换',quantity+' 份 · '+Number(selectedOption?.default_usage_count||1)*quantity+' 次服务',source?.name||'请选择推荐来源',service||'请核对订单',validAppointment()?formatAppointment():'请选择预约日期与时间'];el('footerSelection').textContent=selections[wizardStep];el('footerAmount').hidden=!selectedOption;el('footerLabel').textContent=wizardStep===9?'预约时间（北京时间）':'当前选择';el('quantityService').textContent=service||'服务项目';el('summaryTopCategory').textContent=categoryName(selectedTopCategoryId);el('summarySubCategory').textContent=categoryName(selectedSubCategoryId);el('summaryTechnician').textContent=tech?tech.technician_name+'（'+tech.technician_no+'）':'系统自动轮换';el('quantityMinus').disabled=quantity<=1;el('quantityPlus').disabled=quantity>=999;[...document.querySelectorAll('.quantity-shortcuts button')].forEach((b,i)=>b.classList.toggle('active',quantity===[1,3,5,10][i]));}
+function updateConfirmButton(){const ready=isStepReady(wizardStep);el('confirmBtn').disabled=!ready||submitting;el('confirmBtn').innerHTML=wizardStep===9?'确认订单':'下一步 <span aria-hidden="true">→</span>';const hints=['请确认定位城市，或手工选择城市','请选择一种服务类型','请选择一个具体分类','请选择一项服务',techniciansLoading?'正在读取服务人员，请稍候':'请选择服务门店','正在读取服务人员，请稍候','请选择 1 至 999 份','请选择具体推荐来源','请完成前面的选择','请选择尚未到达的预约日期与时间'];el('navHint').textContent=submitting?'正在生成订单，请稍候':ready?wizardStep===9?'确认后生成订单，下一页继续支付':wizardStep===8?'信息无误，下一步选择预约时间':'已选好，可以继续下一步':hints[wizardStep];}
+function canSubmitOrder(){return baseOrderReady()&&validAppointment();}
+function openConfirmModal(){if(!canSubmitOrder()){toast('请完成选择，并确认预约时间尚未到达');return;}const source=getSelectedSource(),calc=calculateDiscount(),tech=availableTechnicians.find(x=>String(x.technician_id)===String(selectedTechnicianId)),uses=Number(selectedOption.default_usage_count||1)*quantity;const rows=[['服务城市',getCityName(selectedCityId)],['服务分类',categoryName(selectedTopCategoryId)+' / '+categoryName(selectedSubCategoryId)],['服务项目',selectedOption.product_name],['服务门店',selectedOption.merchant_name],['服务人员',tech?.technician_name||'系统自动轮换'],['预约时间',formatAppointment()+'（北京时间）'],['城市单价','¥'+formatMoney(calc.unitPrice)],['购买数量',quantity+' 份 · '+uses+' 次服务'],['推荐来源',source.no?source.no+'｜'+source.name:source.name],['原价','¥'+formatMoney(calc.subtotal)],['自动优惠',Math.round(calc.rate*100)+'%（-¥'+formatMoney(calc.discount)+'）'],['应付金额','¥'+formatMoney(calc.payable)]];el('modalSummary').innerHTML=rows.map(([label,value])=>'<div class="modal-row'+(label==='预约时间'?' appointment-row':'')+'"><span>'+escapeHtml(label)+'</span><span>'+escapeHtml(value)+'</span></div>').join('');el('confirmModal').classList.add('show');}
 function closeConfirmModal(){if(submitting){return;}document.getElementById("confirmModal").classList.remove("show");}
 function maskClose(event){if(event.target.id==="confirmModal"){closeConfirmModal();}}
-async function submitOrder(){if(submitting||!canSubmitOrder()){return;}const source=getSelectedSource();if(!source){toast("请选择推荐来源");return;}submitting=true;const btn=document.getElementById("submitOrderBtn");btn.disabled=true;btn.textContent="正在生成订单...";try{const{data,error}=await sb.rpc("create_customer_order",{p_merchant_id:selectedOption.merchant_id,p_product_id:selectedOption.product_id,p_quantity:quantity,p_recommendation_source_type:source.type,p_recommendation_source_no:source.no,p_customer_longitude:customerLongitude,p_customer_latitude:customerLatitude,p_customer_coordinate_system:customerLongitude!==null?"WGS84":null,p_technician_id:selectedTechnicianId});if(error){throw error;}const result=data||{};if(!result.success||!result.order_id){throw new Error("订单创建失败");}toast(`订单创建成功，应付 ¥${formatMoney(result.payable_amount)}`);setTimeout(()=>{window.location.href=`./customer_order_detail.html?id=${encodeURIComponent(result.order_id)}`;},700);}catch(error){console.error("创建订单失败",error);submitting=false;btn.disabled=false;btn.textContent="确认生成订单";toast(error?.message||"订单创建失败，请稍后重试");}}
+async function submitOrder(){if(submitting)return;if(!canSubmitOrder()){closeConfirmModal();refreshAppointmentAvailability();toast('请选择尚未到达的预约时间');return;}const source=getSelectedSource(),params={p_merchant_id:selectedOption.merchant_id,p_product_id:selectedOption.product_id,p_quantity:quantity,p_appointment_at:appointmentISO(),p_recommendation_source_type:source.type,p_recommendation_source_no:source.no,p_customer_longitude:customerLongitude,p_customer_latitude:customerLatitude,p_customer_coordinate_system:customerLongitude!==null?'WGS84':null,p_technician_id:selectedTechnicianId};submitting=true;const btn=el('submitOrderBtn');btn.disabled=true;btn.textContent='正在生成订单…';updateAll();try{const{data,error}=await sb.rpc('create_customer_order_with_appointment',params);if(error)throw error;const result=data||{};if(!result.success||!result.order_id)throw Error('订单创建失败');toast('订单创建成功，应付 ¥'+formatMoney(result.payable_amount));setTimeout(()=>{window.location.href='./customer_order_detail.html?id='+encodeURIComponent(result.order_id);},700);}catch(error){console.error('创建订单失败',error);submitting=false;btn.disabled=false;btn.textContent='确认生成订单';refreshAppointmentAvailability();updateAll();toast(error?.message||'订单创建失败，请稍后重试');}}
 function formatMoney(value){const number=Number(value);if(!Number.isFinite(number)){return"--";}return number.toFixed(2).replace(/\.00$/,"");}
 function escapeHtml(value){return String(value??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");}
 function escapeTextForMap(value){return String(value??"").replace(/[<>]/g,"");}
@@ -957,18 +676,49 @@ function el(id){return document.getElementById(id);}
 function containsQuery(value,id){return String(value??'').toLowerCase().includes(el(id).value.trim().toLowerCase());}
 function panelEmpty(title,description){return'<div class="panel-empty"><strong>'+escapeHtml(title)+'</strong>'+escapeHtml(description)+'</div>';}
 function makeChoice(title,subtitle,selected,onclick){const button=document.createElement('button');button.type='button';button.className='choice-button'+(selected?' selected':'');button.setAttribute('aria-pressed',String(selected));button.innerHTML='<span><strong>'+escapeHtml(title)+'</strong>'+(subtitle?'<small>'+escapeHtml(subtitle)+'</small>':'')+'</span><span class="choice-tick" aria-hidden="true">✓</span>';button.onclick=onclick;return button;}
-function manualLocate(){manualCityChoice=false;requestLocation(false);}
-function pickService(productId){if(String(selectedProductId)!==String(productId)){selectedProductId=productId;selectedMerchantId=null;selectedOption=null;availableTechnicians=[];selectedTechnicianId=null;quantity=1;technicianRequest++;techniciansLoading=false;techniciansError=false;el('merchantSearch').value='';wizardScroll.fill(0,2);}renderServices();renderMerchants();renderTechnicians();updateAll();refreshMap();}
+function manualLocate(){if(!wizardReady)return;manualCityChoice=false;requestLocation(false);}
+function pickService(productId){if(!getCityProducts().some(x=>String(x.product_id)===String(productId)))return;if(String(selectedProductId)!==String(productId)){resetServiceSelection();selectedProductId=productId;}renderServices();renderMerchants();renderTechnicians();updateAll();refreshMap();}
 function renderTechnicians(){const box=el('technicianList');box.innerHTML='';if(techniciansLoading){box.innerHTML=panelEmpty('正在读取本店服务人员','请稍等片刻…');return;}if(!selectedOption){box.innerHTML=panelEmpty('请先选择门店','选择后即可查看服务人员。');return;}box.appendChild(makeChoice('系统自动轮换','由系统安排，无需指定人员',selectedTechnicianId===null,()=>pickTechnician(null)));if(techniciansError){const warning=document.createElement('div');warning.className='panel-footnote';warning.textContent='服务人员名单暂时加载失败，您可以重试，或选择系统自动分配。';box.appendChild(warning);const retry=makeChoice('重新加载服务人员','',false,()=>loadTechnicians());box.appendChild(retry);}else if(!availableTechnicians.length){const note=document.createElement('p');note.className='panel-footnote';note.textContent='暂无可手动点选的服务人员，将由系统在下单时核验并安排。';box.appendChild(note);}availableTechnicians.forEach(item=>box.appendChild(makeChoice(item.technician_name,'编号 '+item.technician_no+(item.is_default?' · 系统默认':''),String(item.technician_id)===String(selectedTechnicianId),()=>pickTechnician(item.technician_id))));}
-function pickTechnician(id){if(id!==null&&!availableTechnicians.some(x=>String(x.technician_id)===String(id)))return;selectedTechnicianId=id===null?null:Number(id);renderTechnicians();updateAll();}
+function pickTechnician(id){if(id!==null&&!availableTechnicians.some(x=>String(x.technician_id)===String(id)))return;if(String(selectedTechnicianId)!==String(id))clearAppointment();selectedTechnicianId=id===null?null:Number(id);renderTechnicians();updateAll();}
 function getSourceRows(){return recommendationSources.filter(x=>x.source_type===selectedSourceType&&String(x.city_id)===String(selectedCityId)).sort((a,b)=>Number(a.source_no||0)-Number(b.source_no||0));}
 function pickSource(no){if(!getSourceRows().some(x=>Number(x.source_no)===Number(no)))return;selectedSourceNo=Number(no);renderSourceOptions();updateAll();}
 function pickQuantity(value){if(Number.isInteger(value)&&value>=1&&value<=999){quantity=value;updateAll();}}
-function isStepReady(step){if(!wizardReady)return false;if(step===0)return!!selectedCityId;if(step===1)return!!selectedProductId;if(step===2)return!!selectedOption&&!techniciansLoading;if(step===3)return!!selectedOption&&!techniciansLoading;if(step===4)return Number.isInteger(quantity)&&quantity>=1&&quantity<=999;if(step===5)return!!getSelectedSource();return canSubmitOrder()&&!techniciansLoading;}
-function showWizardStep(step){if(submitting)return;step=Math.max(0,Math.min(6,Number(step)));for(let i=0;i<step;i++){if(!isStepReady(i)){step=i;break;}}wizardScroll[wizardStep]=el('conversationCard').scrollTop;wizardStep=step;updateAll();el('conversationCard').scrollTop=wizardScroll[wizardStep]||0;el('wizardTitle').focus({preventScroll:true});if(document.activeElement?.tagName==='INPUT')document.activeElement.blur();}
-function wizardNext(){if(submitting||!isStepReady(wizardStep))return;if(wizardStep===6){openConfirmModal();return;}showWizardStep(wizardStep+1);}
+function isStepReady(step){if(!wizardReady)return false;switch(step){case 0:return!!selectedCityId;case 1:return topCategories().some(x=>String(x.id)===String(selectedTopCategoryId));case 2:return subCategories().some(x=>String(x.id)===String(selectedSubCategoryId));case 3:return getCityProducts().some(x=>String(x.product_id)===String(selectedProductId));case 4:case 5:return!!selectedOption&&!techniciansLoading;case 6:return Number.isInteger(quantity)&&quantity>=1&&quantity<=999;case 7:return!!getSelectedSource();case 8:return baseOrderReady();case 9:return canSubmitOrder();default:return false;}}
+function showWizardStep(step){if(submitting)return;step=Math.max(0,Math.min(9,Number(step)||0));for(let i=0;i<step;i++)if(!isStepReady(i)){step=i;break;}wizardScroll[wizardStep]=el('conversationCard').scrollTop;wizardStep=step;if(wizardStep===9)renderAppointment();updateAll();el('conversationCard').scrollTop=wizardScroll[wizardStep]||0;el('wizardTitle').focus({preventScroll:true});}
+function wizardNext(){if(submitting||!isStepReady(wizardStep))return;if(wizardStep===9){openConfirmModal();return;}showWizardStep(wizardStep+1);}
 function wizardBack(){if(submitting)return;if(wizardStep>0)showWizardStep(wizardStep-1);else goBack();}
 function openMapDialog(){el('mapModal').classList.add('show');setTimeout(()=>{if(!baiduMapReady)initBaiduMap();else{if(typeof baiduMap?.checkResize==='function')baiduMap.checkResize();refreshMap();}},60);}
 function closeMapDialog(){el('mapModal').classList.remove('show');}
 function setupDialogAccess(){if(dialogAccessReady)return;dialogAccessReady=true;const masks=[...document.querySelectorAll('.modal-mask')],app=document.querySelector('.wizard-app');const opened=()=>masks.filter(m=>m.classList.contains('show'));const observer=new MutationObserver(()=>{const active=opened();if(active.length){if(!app.inert)dialogReturnFocus=document.activeElement;app.inert=true;const sheet=active[active.length-1].querySelector('[role="dialog"]');if(sheet&&!sheet.contains(document.activeElement)){const target=sheet.querySelector('button:not([disabled]),[tabindex]');target?.focus({preventScroll:true});}}else if(app.inert){app.inert=false;const target=dialogReturnFocus?.isConnected?dialogReturnFocus:el('wizardTitle');target?.focus({preventScroll:true});}});masks.forEach(mask=>observer.observe(mask,{attributes:true,attributeFilter:['class']}));document.addEventListener('keydown',event=>{const active=opened();if(!active.length)return;const mask=active[active.length-1];if(event.key==='Escape'){event.preventDefault();if(mask.id==='confirmModal')closeConfirmModal();else if(mask.id==='serviceDetailModal')closeServiceDetail();else if(mask.id==='merchantReviewModal')closeMerchantReviews();else closeMapDialog();return;}if(event.key!=='Tab')return;const items=[...mask.querySelectorAll('button:not([disabled]),a[href],input:not([disabled]),[tabindex="0"]')].filter(x=>x.getClientRects().length);if(!items.length)return;const first=items[0],last=items[items.length-1];if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}});}
-</script></body></html>
+function categoryById(id){return id==null?null:categories.find(x=>String(x.id)===String(id));}
+function categoryName(id){return categoryById(id)?.category_name||'';}
+function topCategories(){return categories.filter(x=>x.parent_category_id==null);}
+function subCategories(){return categories.filter(x=>x.parent_category_id!=null&&String(x.parent_category_id)===String(selectedTopCategoryId));}
+function categoryIcon(name){const icons=[[/母|婴|乳|孕|产|育/,'🍼'],[/健康|养|理疗|康复/,'🌿'],[/美|护肤|美容/,'🌸'],[/家政|清洁|保洁/,'🧹'],[/教育|学习|培训/,'📚'],[/修|安装/,'🛠️'],[/老人|养老|陪护/,'🤝'],[/运动|健身/,'🧘'],[/餐|食/,'🍽️']];return icons.find(x=>x[0].test(name))?.[1]||'🌷';}
+function categoryCount(category){const ids=category.parent_category_id==null?categories.filter(x=>x.parent_category_id!=null&&String(x.parent_category_id)===String(category.id)).map(x=>String(x.id)):[String(category.id)];return new Set(getCityOptions().filter(x=>ids.includes(productCategoryMap.get(String(x.product_id)))).map(x=>String(x.product_id))).size;}
+function renderCategoryList(id,list,selected,choose){const box=el(id);box.innerHTML='';if(!list.length){box.innerHTML=panelEmpty('这个分类暂时还没有项目','请返回上一步选择其他类型。');return;}list.forEach(item=>{const count=categoryCount(item),button=document.createElement('button'),active=String(item.id)===String(selected);button.type='button';button.className='category-card'+(active?' selected':'');button.setAttribute('aria-pressed',String(active));button.innerHTML='<span class="category-symbol" aria-hidden="true">'+categoryIcon(item.category_name)+'</span><strong>'+escapeHtml(item.category_name)+'</strong><small>'+(count?count+' 项本市服务':'本市暂未开展')+'</small><span class="choice-tick" aria-hidden="true">✓</span>';button.onclick=()=>choose(item.id);box.appendChild(button);});}
+function renderCategories(){renderCategoryList('topCategoryList',topCategories(),selectedTopCategoryId,pickTopCategory);renderCategoryList('subCategoryList',subCategories(),selectedSubCategoryId,pickSubCategory);}
+function clearAppointment(){appointmentDate=null;appointmentTime=null;appointmentPeriod=1;appointmentCalendarOpen=true;calendarCursor=beijingToday().slice(0,7);}
+function resetServiceSelection(){selectedProductId=null;selectedMerchantId=null;selectedOption=null;availableTechnicians=[];selectedTechnicianId=null;quantity=1;technicianRequest++;techniciansLoading=false;techniciansError=false;el('serviceSearch').value='';el('merchantSearch').value='';clearAppointment();wizardScroll.fill(0,3);}
+function refreshSelectionPanels(){renderCategories();renderServices();renderMerchants();renderTechnicians();updateAll();refreshMap();}
+function pickTopCategory(id){if(!topCategories().some(x=>String(x.id)===String(id)))return;if(String(selectedTopCategoryId)!==String(id)){selectedTopCategoryId=id;selectedSubCategoryId=null;resetServiceSelection();wizardScroll[2]=0;}refreshSelectionPanels();}
+function pickSubCategory(id){if(!subCategories().some(x=>String(x.id)===String(id)))return;if(String(selectedSubCategoryId)!==String(id)){selectedSubCategoryId=id;resetServiceSelection();}refreshSelectionPanels();}
+function toggleManualCities(){const open=el('manualCityPicker').hidden;el('manualCityPicker').hidden=!open;el('manualCityBtn').setAttribute('aria-expanded',String(open));if(open){renderCitySelect();el('citySearch').focus({preventScroll:true});}}
+function normalizeCity(name){return String(name||'').trim().replace(/市$/,'');}
+function resolveLocation(lng,lat){return new Promise(resolve=>{let settled=false;const finish=result=>{if(settled)return;settled=true;clearTimeout(timer);resolve(result);};const timer=setTimeout(()=>finish(null),9000);if(typeof BMap==='undefined'){finish(null);return;}try{new BMap.Convertor().translate([new BMap.Point(lng,lat)],1,5,result=>{if(settled)return;if(result?.status!==0||!result.points?.[0]){finish(null);return;}const point=result.points[0];try{new BMap.Geocoder().getLocation(point,location=>finish(location?{location,point}:null));}catch(error){finish(null);}});}catch(error){finish(null);}});}
+function baseOrderReady(){return wizardReady&&[0,1,2,3,4,5,6,7].every(isStepReady)&&String(selectedOption?.product_id)===String(selectedProductId)&&String(selectedOption?.city_id)===String(selectedCityId);}
+function beijingToday(){return new Date(Date.now()+8*3600000).toISOString().slice(0,10);}
+function validDate(date){if(!/^\d{4}-\d{2}-\d{2}$/.test(date||''))return false;const d=new Date(date+'T00:00:00Z');return Number.isFinite(d.getTime())&&d.toISOString().slice(0,10)===date;}
+function appointmentISO(){return appointmentDate&&appointmentTime?appointmentDate+'T'+appointmentTime+':00+08:00':null;}
+function validAppointment(){return validDate(appointmentDate)&&/^(?:[01]\d|2[0-3]):(?:00|30)$/.test(appointmentTime||'')&&Date.parse(appointmentISO())>Date.now();}
+function formatAppointment(){return appointmentDate+' '+(appointmentTime||'待选时间');}
+function slotFuture(date,time){return Date.parse(date+'T'+time+':00+08:00')>Date.now();}
+function periodTimes(index){const start=timePeriods[index][1],end=timePeriods[index][2],list=[];for(let hour=start;hour<end;hour++)for(const minute of['00','30'])list.push(String(hour).padStart(2,'0')+':'+minute);return list;}
+function renderAppointment(){if(!calendarCursor||calendarCursor<beijingToday().slice(0,7))calendarCursor=beijingToday().slice(0,7);el('appointmentCalendar').hidden=!appointmentCalendarOpen&&!!appointmentDate;el('selectedDateBar').hidden=appointmentCalendarOpen||!appointmentDate;el('appointmentTimes').hidden=appointmentCalendarOpen||!appointmentDate;el('selectedDateText').textContent=appointmentDate||'';el('calendarMonth').textContent=calendarCursor.replace('-',' 年 ')+' 月';el('calendarPrev').disabled=calendarCursor<=beijingToday().slice(0,7);const[year,month]=calendarCursor.split('-').map(Number),first=new Date(Date.UTC(year,month-1,1)),count=new Date(Date.UTC(year,month,0)).getUTCDate(),offset=(first.getUTCDay()+6)%7,box=el('calendarDays');box.innerHTML='';for(let i=0;i<offset;i++){const spacer=document.createElement('span');spacer.setAttribute('aria-hidden','true');box.appendChild(spacer);}for(let day=1;day<=count;day++){const date=calendarCursor+'-'+String(day).padStart(2,'0'),button=document.createElement('button');button.type='button';button.className='calendar-day'+(date===beijingToday()?' today':'')+(date===appointmentDate?' selected':'');button.disabled=date<beijingToday();button.textContent=String(day);button.setAttribute('aria-label',date);button.setAttribute('aria-pressed',String(date===appointmentDate));button.onclick=()=>chooseAppointmentDate(date);box.appendChild(button);}renderAppointmentTimes();el('appointmentUsesNote').textContent=Number(selectedOption?.default_usage_count||1)*quantity>1?'多次服务订单：这里选择首次服务的预约时间。':'请选择您希望到店的时间。';el('appointmentSelection').classList.toggle('selected',validAppointment());el('appointmentSelection').textContent=validAppointment()?'已选：'+formatAppointment()+'（北京时间）':appointmentDate?'日期已选好，请继续选择时间。':'先点选日期，再选择时间。';}
+function moveCalendar(offset){if(!Number.isInteger(offset)||Math.abs(offset)!==1)return;const[y,m]=calendarCursor.split('-').map(Number),next=new Date(Date.UTC(y,m-1+offset,1)).toISOString().slice(0,7);if(next<beijingToday().slice(0,7))return;calendarCursor=next;renderAppointment();}
+function chooseAppointmentDate(date){if(!validDate(date)||date<beijingToday())return;if(date!==appointmentDate)appointmentTime=null;appointmentDate=date;calendarCursor=date.slice(0,7);appointmentCalendarOpen=false;if(!periodTimes(appointmentPeriod).some(t=>slotFuture(date,t)))appointmentPeriod=timePeriods.findIndex((_,i)=>periodTimes(i).some(t=>slotFuture(date,t)));if(appointmentPeriod<0)appointmentPeriod=3;renderAppointment();updateAll();el('conversationCard').scrollTop=0;}
+function editAppointmentDate(){appointmentCalendarOpen=true;renderAppointment();el('conversationCard').scrollTop=0;}
+function chooseTimePeriod(index){if(!timePeriods[index]||!periodTimes(index).some(t=>slotFuture(appointmentDate,t)))return;appointmentPeriod=index;renderAppointmentTimes();}
+function renderAppointmentTimes(){const periods=el('timePeriods'),slots=el('timeSlots');periods.innerHTML='';slots.innerHTML='';if(!appointmentDate)return;timePeriods.forEach(([label],index)=>{const b=document.createElement('button');b.type='button';b.className='time-period'+(index===appointmentPeriod?' selected':'');b.textContent=label;b.disabled=!periodTimes(index).some(t=>slotFuture(appointmentDate,t));b.setAttribute('aria-pressed',String(index===appointmentPeriod));b.onclick=()=>chooseTimePeriod(index);periods.appendChild(b);});periodTimes(appointmentPeriod).forEach(time=>{const b=document.createElement('button');b.type='button';b.className='time-slot'+(appointmentTime===time?' selected':'');b.textContent=time;b.disabled=!slotFuture(appointmentDate,time);b.setAttribute('aria-pressed',String(time===appointmentTime));b.onclick=()=>chooseAppointmentTime(time);slots.appendChild(b);});el('timeSlotNote').textContent=timePeriods.some((_,i)=>periodTimes(i).some(t=>slotFuture(appointmentDate,t)))?'这里记录您的预约意向，实际安排以门店确认为准。':'今天没有可选时间了，请修改预约日期。';}
+function chooseAppointmentTime(time){if(!periodTimes(appointmentPeriod).includes(time)||!slotFuture(appointmentDate,time))return;appointmentTime=time;renderAppointment();updateAll();}
+function refreshAppointmentAvailability(){if(submitting)return;if(appointmentTime&&!validAppointment()){appointmentTime=null;closeConfirmModal();if(wizardStep===9)toast('刚才选择的时间已过，请重新选择');}if(wizardStep===9){renderAppointment();updateAll();}}</script></body></html>

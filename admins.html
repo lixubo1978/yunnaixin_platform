@@ -351,6 +351,9 @@ td{
     .coordinate-grid{grid-template-columns:1fr}
     .toast{left:10px;right:10px}
 }
+.panel-toolbar.merchant-toolbar{grid-template-columns:minmax(0,1.6fr) minmax(0,.7fr) minmax(0,1.2fr) auto;align-items:center}
+.merchant-toolbar>*{min-width:0}.merchant-toolbar .select{font-size:13px;text-overflow:ellipsis}.merchant-toolbar .primary-button{white-space:nowrap}
+@media(max-width:760px){.panel-toolbar.merchant-toolbar{grid-template-columns:minmax(220px,1.6fr) minmax(130px,.7fr) minmax(200px,1.2fr) auto;overflow-x:auto}}
 </style>
 </head>
 
@@ -437,12 +440,15 @@ td{
 </div>
 
 <div class="panel">
-<div class="panel-toolbar">
+<div class="panel-toolbar merchant-toolbar">
     <input id="merchantSearch" class="input" type="search" placeholder="搜索编号、名称、联系人、登录邮箱、地址或税号" oninput="renderMerchants()">
     <select id="merchantTypeFilter" class="select" onchange="renderMerchants()">
         <option value="">全部商户</option>
         <option value="organization">机构</option>
         <option value="individual">个体户</option>
+    </select>
+    <select id="merchantAreaFilter" class="select" aria-label="已开通服务区域" title="已开通服务区域" onchange="renderMerchants()">
+        <option value="">已开通服务区域（全部）</option>
     </select>
     <button id="createMerchantButton" class="primary-button" onclick="openMerchantModal()">＋ 创建商户</button>
 </div>
@@ -971,6 +977,16 @@ function populateServiceAreas(){
         serviceAreas.map(x=>`<option value="${x.id}">${escapeHtml(serviceAreaLabel(x))}</option>`).join("");
     document.getElementById("merchantServiceArea").innerHTML=html;
     document.getElementById("consultantServiceArea").innerHTML=html;
+    populateMerchantAreaFilter();
+}
+
+function populateMerchantAreaFilter(){
+    const select=document.getElementById("merchantAreaFilter"),old=select.value;
+    const areas=[...new Map(serviceAreas.filter(x=>x.status==="active").map(x=>[String(x.id),x])).values()];
+    select.innerHTML=`<option value="">${areas.length?"已开通服务区域（全部）":"暂无已开通服务区域"}</option>`+
+        areas.map(x=>`<option value="${escapeHtml(x.id)}">${escapeHtml(serviceAreaLabel(x))}</option>`).join("");
+    select.value=old&&areas.some(x=>String(x.id)===old)?old:"";
+    select.disabled=!areas.length;
 }
 
 function activateTab(tab){
@@ -1037,8 +1053,10 @@ function renderStaff(){
 function renderMerchants(){
     const keyword=document.getElementById("merchantSearch").value.trim().toLowerCase();
     const filter=document.getElementById("merchantTypeFilter").value;
+    const areaId=document.getElementById("merchantAreaFilter").value;
 
     const list=merchants.filter(row=>{
+        if(areaId&&String(row.service_area_id??"")!==areaId)return false;
         if(filter&&row.merchant_type!==filter)return false;
         if(!keyword)return true;
         return [

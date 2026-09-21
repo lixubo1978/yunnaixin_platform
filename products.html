@@ -3176,6 +3176,8 @@ function renderStats() {
 
 function renderProducts() {
 
+    const topCategoryFilterId = document.getElementById("topCategoryFilter")?.value || "";
+
     const keyword =
         document.getElementById(
             "searchInput"
@@ -3234,6 +3236,9 @@ function renderProducts() {
                         item.category_id
                     );
 
+                if (topCategoryFilterId && String(category?.parent_category_id ?? "") !== topCategoryFilterId) {
+                    return false;
+                }
 
                 const text =
 
@@ -6847,13 +6852,20 @@ async function loadCategories(){
 }
 function fillTopCategorySelect(selectedId=null){
  [document.getElementById("topCategory"),document.getElementById("topCategoryFilter"),document.getElementById("categoryParentSelect")].filter(Boolean).forEach(s=>{
-  const isFilter=s.id==="topCategoryFilter",old=selectedId??s.value;s.innerHTML=`<option value="">${isFilter?"全部一级大类":"请选择一级服务大类"}</option>`+topCategories().map(x=>`<option value="${x.id}">${escapeHtml(x.category_name)}${x.status!=="active"?"（已失效）":""}</option>`).join("");if(old&&[...s.options].some(o=>o.value===String(old)))s.value=old;
+  const isFilter=s.id==="topCategoryFilter",old=isFilter?s.value:(selectedId??s.value);s.innerHTML=`<option value="">${isFilter?"全部一级大类":"请选择一级服务大类"}</option>`+topCategories().map(x=>`<option value="${x.id}">${escapeHtml(x.category_name)}${x.status!=="active"?"（已失效）":""}</option>`).join("");if(old&&[...s.options].some(o=>o.value===String(old)))s.value=old;
  });
 }
 function fillCategorySelect(selectedId=null){const s=document.getElementById("serviceCategory");if(!s)return;const old=selectedId??s.value,list=childCategories().filter(x=>x.status==="active");s.innerHTML='<option value="">请选择二级服务类型</option>'+list.map(x=>`<option value="${x.id}">${escapeHtml(x.category_name)}</option>`).join("");s.disabled=!topCategoryId;if(old&&list.some(x=>String(x.id)===String(old)))s.value=old}
-function fillCategoryFilter(){const s=document.getElementById("categoryFilter");if(!s)return;const old=s.value,list=childCategories(document.getElementById("topCategoryFilter")?.value||"");s.innerHTML='<option value="">全部二级服务类型</option>'+list.map(x=>`<option value="${x.id}">${escapeHtml(x.category_name)}${x.status!=="active"?"（已失效）":""}</option>`).join("");if(old&&list.some(x=>String(x.id)===String(old)))s.value=old}
+function fillCategoryFilter(){
+ const s=document.getElementById("categoryFilter");if(!s)return;
+ const old=s.value,parentId=document.getElementById("topCategoryFilter")?.value||"";
+ const list=categories.filter(x=>x.parent_category_id!=null&&(!parentId||String(x.parent_category_id)===parentId));
+ s.innerHTML=`<option value="">${parentId&&!list.length?"暂无二级目录":"全部二级服务类型"}</option>`+list.map(x=>`<option value="${x.id}">${escapeHtml(x.category_name)}${x.status!=="active"?"（已失效）":""}</option>`).join("");
+ s.value=old&&list.some(x=>String(x.id)===String(old))?String(old):"";
+ s.disabled=list.length===0;
+}
 function topCategoryChanged(){topCategoryId=document.getElementById("topCategory").value;fillCategorySelect()}
-function topCategoryFilterChanged(){fillCategoryFilter();renderProducts()}
+function topCategoryFilterChanged(){document.getElementById("categoryFilter").value="";fillCategoryFilter();renderProducts()}
 function openTopCategoryModal(){document.getElementById("topCategoryName").value="";document.getElementById("topCategoryDescription").value="";document.getElementById("topCategoryModal").classList.add("show")}
 function closeTopCategoryModal(){document.getElementById("topCategoryModal").classList.remove("show")}
 async function saveTopCategory(){const name=document.getElementById("topCategoryName").value.trim(),description=document.getElementById("topCategoryDescription").value.trim(),btn=document.getElementById("saveTopCategoryButton");if(!name)return showToast("请输入一级服务大类名称。","error");if(topCategories().some(x=>x.category_name===name))return showToast("该一级大类已经存在。","error");btn.disabled=true;try{const {data,error}=await supabaseClient.from("service_categories").insert({category_name:name,description:description||null,status:"active",created_by:currentUser.id,parent_category_id:null}).select("id").single();if(error)throw error;await loadCategories();topCategoryId=String(data.id);fillTopCategorySelect(data.id);topCategoryChanged();closeTopCategoryModal();showToast("一级服务大类创建成功。","success")}catch(e){showToast(e.message||"创建一级大类失败。","error")}finally{btn.disabled=false}}

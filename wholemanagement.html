@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -409,5 +410,6 @@ supabaseClient.auth.onAuthStateChange(event=>{if(event==="SIGNED_OUT")window.loc
 document.addEventListener("keydown",event=>{if(event.key==="Escape"){if(document.getElementById("rejectModal").classList.contains("show"))closeRejectModal();else if(document.getElementById("consultantModal").classList.contains("show"))closeConsultantModal()}});
 document.addEventListener("DOMContentLoaded",initializePage);
 </script>
+
 </body>
 </html>

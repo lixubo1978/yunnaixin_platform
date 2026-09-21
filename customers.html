@@ -1,1 +1,167 @@
 
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>客户管理 - 孕乃馨平台管理中心</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box}:root{--pink:#e64f7c;--dark:#713148;--text:#382a30;--muted:#9b8990;--border:#eee3e7;--bg:#fffafb;--green:#26966a;--orange:#d58a21;--red:#dc4c64;--blue:#3879c9;--shadow:0 8px 28px rgba(111,63,78,.06)}body{margin:0;background:var(--bg);color:var(--text);font:14px -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}header{height:72px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:20}.brand{display:flex;align-items:center;gap:12px}.logo{width:40px;height:40px;border-radius:12px;object-fit:contain;background:#fff;box-shadow:0 5px 15px rgba(186,63,110,.12)}h1{margin:0;font-size:18px;color:#8c3d58}.brand small{display:block;color:#aaa;font-size:11px;margin-top:3px}.header-actions{display:flex;gap:10px}.btn{border:1px solid var(--border);background:#fff;border-radius:10px;padding:10px 17px;color:#67575d}.btn:hover{border-color:#efacc0;color:#b93667}.btn-primary{background:var(--pink);border-color:var(--pink);color:#fff}.btn-primary:hover{background:#d84270;color:#fff}.btn-small{padding:7px 11px;border-radius:8px;font-size:12px}main{max-width:1440px;margin:24px auto 70px;padding:0 20px}.hero{position:relative;overflow:hidden;background:linear-gradient(110deg,#fff0f5,#ffdce8);border:1px solid #ffd7e3;border-radius:20px;padding:28px 30px;margin-bottom:18px}.hero:after{content:"";position:absolute;width:170px;height:170px;border-radius:50%;right:-50px;top:-80px;background:rgba(255,255,255,.32)}.hero-tag{display:inline-block;background:#fff;color:var(--pink);font-weight:800;font-size:11px;border-radius:20px;padding:6px 10px;margin-bottom:9px}.hero h2{margin:0 0 10px;font-size:24px;color:#75354c}.hero p{margin:0;color:#9b6578;font-size:13px;line-height:1.8;max-width:1100px}.stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-bottom:18px}.stat{background:#fff;border:1px solid var(--border);border-radius:14px;padding:17px 18px;box-shadow:var(--shadow);min-height:96px}.stat-label{font-size:11px;color:#aaa;margin-bottom:8px}.stat-value{font-size:22px;font-weight:800;color:var(--dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.stat-sub{font-size:10px;color:#baaab0;margin-top:4px}.money .stat-value{font-size:18px}.panel{background:#fff;border:1px solid var(--border);border-radius:16px;margin-bottom:16px;box-shadow:var(--shadow)}.panel-head{padding:17px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:15px}.panel-title{font-size:15px;font-weight:800;color:#653146}.panel-sub{font-size:11px;color:#aaa;margin-top:4px}.filters{padding:16px;display:grid;grid-template-columns:1.1fr 1.5fr auto auto;gap:10px;align-items:end}.field label{display:block;font-size:11px;color:#96868c;margin:0 0 7px 3px}.control{width:100%;height:43px;border:1px solid var(--border);border-radius:10px;padding:0 13px;background:#fff;color:#4d4045;outline:none}.control:focus{border-color:#f39bb4;box-shadow:0 0 0 3px rgba(230,79,124,.08)}.filter-btn{height:43px;white-space:nowrap}.scope-note{margin:0 16px 16px;padding:11px 13px;border-radius:10px;background:#fff8fa;border:1px dashed #f2cbd6;color:#a27583;font-size:11px;line-height:1.7}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:1210px}th{padding:12px 13px;text-align:left;background:#fffafb;color:#9d8a91;font-size:11px;font-weight:600;border-bottom:1px solid var(--border);white-space:nowrap}td{padding:14px 13px;border-bottom:1px solid #f3eaed;font-size:12px;vertical-align:middle}tr:last-child td{border-bottom:0}tbody tr:hover{background:#fffafb}.customer-no{font-size:15px;font-weight:850;color:#b93667;margin-bottom:3px}.main-name{font-weight:750;color:#49353d}.small{font-size:10px;color:#aaa;margin-top:3px}.amount{font-weight:800;color:#443239;white-space:nowrap}.income{font-weight:800;color:var(--green);white-space:nowrap}.badge{display:inline-flex;align-items:center;padding:5px 9px;border-radius:20px;font-size:10px;font-weight:750;white-space:nowrap}.badge-green{background:#eaf8f1;color:var(--green)}.badge-orange{background:#fff5df;color:var(--orange)}.badge-gray{background:#f3f1f2;color:#8d8387}.badge-blue{background:#edf5ff;color:var(--blue)}.badge-red{background:#fff0f2;color:var(--red)}.empty{padding:55px 20px;text-align:center;color:#aaa;font-size:13px}.empty-icon{font-size:36px;margin-bottom:10px}.mobile-list{display:none;padding:10px}.mobile-card{border:1px solid var(--border);border-radius:13px;padding:14px;margin-bottom:10px}.mobile-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.mobile-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:13px 0}.mobile-cell{font-size:10px;color:#9c8a91}.mobile-cell b{display:block;color:#49383e;font-size:12px;margin-top:4px}.mobile-actions{display:flex;justify-content:flex-end;border-top:1px solid #f3eaed;padding-top:11px}.loading{position:fixed;inset:0;background:rgba(255,250,251,.91);z-index:500;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#a45470;font-size:13px}.spinner{width:38px;height:38px;border:4px solid #f6dce5;border-top-color:var(--pink);border-radius:50%;animation:spin .8s linear infinite;margin-bottom:13px}@keyframes spin{to{transform:rotate(360deg)}}.toast{position:fixed;right:22px;bottom:22px;max-width:400px;background:#41353a;color:#fff;padding:13px 17px;border-radius:10px;font-size:12px;z-index:600;box-shadow:0 10px 35px rgba(0,0,0,.18);display:none}.toast.show{display:block}.toast.error{background:#b94057}.modal-mask{position:fixed;inset:0;background:rgba(45,27,34,.45);display:none;align-items:center;justify-content:center;z-index:100;padding:18px}.modal-mask.show{display:flex}.modal{width:min(1180px,100%);max-height:90vh;background:#fff;border-radius:18px;box-shadow:0 20px 70px rgba(40,20,30,.22);overflow:hidden;display:flex;flex-direction:column}.modal-head{padding:18px 21px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:15px}.modal-title{font-size:17px;font-weight:800;color:#70354a}.modal-sub{font-size:11px;color:#999;margin-top:4px}.close{border:0;background:#fff3f6;width:36px;height:36px;border-radius:50%;font-size:22px;color:#956578}.modal-body{padding:16px;overflow:auto}.profile-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:15px}.profile-cell{border:1px solid var(--border);border-radius:11px;padding:11px;min-height:65px}.profile-cell span{display:block;font-size:10px;color:#aaa;margin-bottom:6px}.profile-cell b{display:block;font-size:12px;color:#563b45;word-break:break-all}.profile-cell.wide{grid-column:span 2}.order-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}.summary-card{border:1px solid var(--border);border-radius:11px;padding:12px}.summary-card span{display:block;font-size:10px;color:#aaa;margin-bottom:5px}.summary-card strong{font-size:16px;color:#693148}.order-table{min-width:1100px}.order-mobile{display:none}.modal-loading{padding:50px;text-align:center;color:#aaa}@media(max-width:1100px){.stats{grid-template-columns:repeat(3,minmax(0,1fr))}.filters{grid-template-columns:repeat(2,1fr)}}@media(max-width:760px){header{height:64px;padding:0 13px}.brand h1{font-size:15px}.brand small{display:none}.logo{width:37px;height:37px}.header-actions .btn{padding:8px 10px;font-size:11px}main{margin-top:14px;padding:0 12px}.hero{padding:21px 19px}.hero h2{font-size:21px}.stats{grid-template-columns:1fr 1fr;gap:9px}.stat{padding:14px;min-height:88px}.stat-value{font-size:19px}.filters{grid-template-columns:1fr;padding:13px}.filter-btn{width:100%}.desktop-table{display:none}.mobile-list{display:block}.modal-mask{padding:7px}.modal{max-height:95vh}.profile-grid,.order-summary{grid-template-columns:1fr 1fr}.profile-cell.wide{grid-column:span 2}.order-desktop{display:none}.order-mobile{display:block}.modal-body{padding:11px}}
+</style>
+</head>
+<body>
+<div id="loading" class="loading"><div class="spinner"></div><div>正在读取客户管理数据...</div></div>
+<header>
+<div class="brand"><img src="./logo.jpeg" class="logo" alt="孕乃馨 Logo"><div><h1>客户管理</h1><small>按已开通城市隔离查看客户资料与订单</small></div></div>
+<div class="header-actions"><button class="btn" onclick="goBack()">返回工作台</button><button class="btn btn-primary" onclick="logout()">退出</button></div>
+</header>
+<main>
+<section class="hero">
+<div class="hero-tag">CUSTOMER MANAGEMENT</div>
+<h2>客户管理</h2>
+<p>仅可选择当前账号有权限的已开通城市。客户资料和订单明细均由数据库再次验证城市权限：创始人、平台管理员可查看全国已开通城市；省管理员仅可查看本省；市管理员仅可查看本市。</p>
+</section>
+<section class="stats">
+<div class="stat"><div class="stat-label">可管理已开通城市</div><div class="stat-value" id="statCities">0</div><div class="stat-sub">当前账号授权范围</div></div>
+<div class="stat"><div class="stat-label">客户总数</div><div class="stat-value" id="statCustomers">0</div><div class="stat-sub" id="statCustomerStatus">正常 0</div></div>
+<div class="stat"><div class="stat-label">已完善资料客户</div><div class="stat-value" id="statCompleted">0</div><div class="stat-sub">已提交个人资料</div></div>
+<div class="stat"><div class="stat-label">订单总数</div><div class="stat-value" id="statOrders">0</div><div class="stat-sub">当前城市范围内订单</div></div>
+<div class="stat money"><div class="stat-label">已支付订单</div><div class="stat-value" id="statPaidOrders">0</div><div class="stat-sub">支付状态为已支付</div></div>
+<div class="stat money"><div class="stat-label">已支付金额</div><div class="stat-value" id="statPaidAmount">¥0.00</div><div class="stat-sub">当前城市范围内</div></div>
+<div class="stat"><div class="stat-label">当前查看范围</div><div class="stat-value" id="statScope" style="font-size:15px">—</div><div class="stat-sub" id="roleText">正在验证权限</div></div>
+</section>
+<section class="panel">
+<div class="panel-head"><div><div class="panel-title">客户筛选</div><div class="panel-sub">城市筛选与客户资料、订单明细采用同一套数据库辖区验证</div></div></div>
+<div class="filters">
+<div class="field"><label>已开通城市</label><select id="citySelect" class="control"><option value="">正在读取城市...</option></select></div>
+<div class="field"><label>客户搜索</label><input id="keyword" class="control" placeholder="客户编号、姓名、昵称或手机号"></div>
+<button id="searchBtn" class="btn btn-primary filter-btn" onclick="loadDashboard()">查询客户</button>
+<button class="btn filter-btn" onclick="resetFilters()">重置</button>
+</div>
+<div id="scopeNote" class="scope-note">系统正在读取当前账号可管理的已开通城市。页面不直接读取客户和订单原始表。</div>
+</section>
+<section class="panel">
+<div class="panel-head"><div><div class="panel-title">客户列表</div><div class="panel-sub">查看资料后，仅显示该客户在当前选择城市内的订单；不会显示其他城市订单</div></div><div id="resultCount" style="font-size:11px;color:#aaa">0 位客户</div></div>
+<div class="desktop-table table-wrap">
+<table><thead><tr><th>客户</th><th>登记城市</th><th>账户状态</th><th>资料状态</th><th>当前城市订单</th><th>已支付订单</th><th>已支付金额</th><th>最近订单</th><th>注册时间</th><th>操作</th></tr></thead><tbody id="customerBody"></tbody></table>
+<div id="desktopEmpty" class="empty hidden"><div class="empty-icon">♡</div>当前筛选范围内没有客户数据</div>
+</div>
+<div id="mobileList" class="mobile-list"></div>
+</section>
+</main>
+<div id="detailModal" class="modal-mask">
+<div class="modal">
+<div class="modal-head"><div><div id="modalTitle" class="modal-title">客户资料与订单</div><div id="modalSub" class="modal-sub">—</div></div><button class="close" onclick="closeModal()">×</button></div>
+<div class="modal-body">
+<div id="modalLoading" class="modal-loading">正在读取客户资料与订单...</div>
+<div id="modalContent" class="hidden">
+<div class="profile-grid">
+<div class="profile-cell"><span>客户编号</span><b id="dNo">—</b></div><div class="profile-cell"><span>手机号码</span><b id="dPhone">—</b></div>
+<div class="profile-cell"><span>姓名 / 昵称</span><b id="dName">—</b></div><div class="profile-cell"><span>客户状态</span><b id="dStatus">—</b></div>
+<div class="profile-cell"><span>登记城市</span><b id="dCity">—</b></div><div class="profile-cell"><span>资料完善状态</span><b id="dProfile">—</b></div>
+<div class="profile-cell"><span>工作单位</span><b id="dWork">—</b></div><div class="profile-cell"><span>职业</span><b id="dJob">—</b></div>
+<div class="profile-cell wide"><span>地址</span><b id="dAddress">—</b></div><div class="profile-cell"><span>紧急联系人</span><b id="dEmergencyName">—</b></div>
+<div class="profile-cell"><span>紧急联系人电话</span><b id="dEmergencyPhone">—</b></div><div class="profile-cell"><span>注册时间</span><b id="dCreated">—</b></div>
+<div class="profile-cell"><span>资料完成时间</span><b id="dCompletedAt">—</b></div>
+</div>
+<div class="order-summary">
+<div class="summary-card"><span>当前城市订单</span><strong id="dOrderCount">0</strong></div>
+<div class="summary-card"><span>已支付订单</span><strong id="dPaidOrderCount">0</strong></div>
+<div class="summary-card"><span>已支付金额</span><strong id="dPaidAmount">¥0.00</strong></div>
+<div class="summary-card"><span>待消费次数</span><strong id="dRemaining">0</strong></div>
+</div>
+<div class="order-desktop table-wrap">
+<table class="order-table"><thead><tr><th>订单编号</th><th>商户</th><th>订单金额</th><th>订单状态</th><th>支付状态</th><th>消费次数</th><th>分账状态</th><th>预约时间</th><th>支付时间</th></tr></thead><tbody id="orderBody"></tbody></table>
+<div id="orderEmpty" class="empty hidden"><div class="empty-icon">♡</div>该客户在当前城市暂无订单</div>
+</div>
+<div id="orderMobile" class="order-mobile"></div>
+</div>
+</div>
+</div>
+</div>
+<div id="toast" class="toast"></div>
+<script>
+const SUPABASE_URL="https://qbuqjwpkltbjhlfbyjyb.supabase.co",SUPABASE_ANON_KEY="sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3";
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+const LOGIN_PAGE="./login.html",HOME_PAGE="./wholemanagement.html",IDLE_LIMIT=600000,ROLES=["founder","platform_admin","province_admin","city_admin"];
+let profile=null,data=null,customers=[],cities=[],idleTimer=null,searchTimer=null,requestNo=0;
+const $=id=>document.getElementById(id),esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;"),num=v=>{const n=Number(v);return Number.isFinite(n)?n:0},integer=v=>num(v).toLocaleString("zh-CN",{maximumFractionDigits:0}),money=v=>"¥"+num(v).toLocaleString("zh-CN",{minimumFractionDigits:2,maximumFractionDigits:2});
+function time(v){if(!v)return"—";const d=new Date(v);return Number.isNaN(d.getTime())?"—":d.toLocaleString("zh-CN",{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false})}
+function roleName(v){return{founder:"创始人",platform_admin:"平台管理员",province_admin:"省管理员",city_admin:"城市管理员"}[v]||v||"—"}
+function customerStatus(v){return{active:"正常",inactive:"无效",suspended:"停用"}[v]||v||"未知"}
+function orderStatus(v){return{pending_payment:"待支付",paid:"已支付",completed:"已完成",cancelled:"已取消",refunded:"已退款",refund_pending:"退款中"}[v]||v||"—"}
+function paymentStatus(v){return{pending:"待支付",pending_payment:"待支付",paid:"已支付",refunded:"已退款",failed:"支付失败",cancelled:"已取消"}[v]||v||"—"}
+function badge(v,type){return`<span class="badge badge-${type}">${esc(v)}</span>`}
+function toast(msg,type=""){const x=$("toast");x.textContent=msg;x.className="toast show "+type;clearTimeout(x._t);x._t=setTimeout(()=>x.className="toast",3200)}
+function busy(el,on,label){if(on){el.dataset.text=el.textContent;el.textContent=label||"处理中...";el.disabled=true}else{el.textContent=el.dataset.text||el.textContent;el.disabled=false}}
+function showLoading(t="正在读取客户管理数据..."){$("loading").style.display="flex";$("loading").lastElementChild.textContent=t}function hideLoading(){$("loading").style.display="none"}
+function parse(v){if(typeof v==="string"){try{return JSON.parse(v)}catch{return{}}}return v||{}}
+function resetIdle(){clearTimeout(idleTimer);idleTimer=setTimeout(async()=>{try{await sb.auth.signOut()}finally{alert("由于10分钟未操作，系统已自动退出。");location.href=LOGIN_PAGE}},IDLE_LIMIT)}
+["mousemove","mousedown","keydown","touchstart","scroll","click"].forEach(x=>document.addEventListener(x,resetIdle,{passive:true}));
+function goBack(){location.href=HOME_PAGE}async function logout(){try{await sb.auth.signOut()}finally{location.href=LOGIN_PAGE}}
+async function initialize(){
+resetIdle();
+try{
+const {data:{session},error}=await sb.auth.getSession();if(error)throw error;if(!session){location.replace(LOGIN_PAGE);return}
+const r=await sb.from("profiles").select("id,full_name,role,status").eq("id",session.user.id).maybeSingle();
+if(r.error||!r.data)throw new Error("无法读取当前管理账号资料。");
+if(r.data.status!=="active")throw new Error("当前管理账号已停用。");
+if(!ROLES.includes(r.data.role)){alert("您没有客户管理页面访问权限。");location.replace(HOME_PAGE);return}
+profile=r.data;$("roleText").textContent=roleName(profile.role);await loadDashboard(true);
+}catch(e){console.error(e);hideLoading();alert(e.message||"页面初始化失败。");if(String(e.message||"").includes("登录"))location.replace(LOGIN_PAGE)}
+}
+function params(){return{p_city_id:$("citySelect").value?Number($("citySelect").value):null,p_keyword:$("keyword").value.trim()||null}}
+async function loadDashboard(initial=false){
+const n=++requestNo,btn=$("searchBtn");if(initial)showLoading();else busy(btn,true,"正在查询...");
+try{
+const r=await sb.rpc("get_customer_management_dashboard",params());if(r.error)throw r.error;if(n!==requestNo)return;
+data=parse(r.data);if(!data.success)throw new Error(data.error||"客户数据读取失败。");
+cities=Array.isArray(data.cities)?data.cities:[];customers=Array.isArray(data.customers)?data.customers:[];
+renderCity(initial);renderSummary();renderCustomers();renderScope();
+}catch(e){console.error(e);toast(e.message||"客户数据读取失败","error");if(initial)failure()}
+finally{if(initial)hideLoading();busy(btn,false)}
+}
+function renderCity(initial){
+const el=$("citySelect"),old=el.value;let h="";
+if(cities.length>1)h+='<option value="">全部已开通城市</option>';
+if(!cities.length)h='<option value="">暂无可管理的已开通城市</option>';
+h+=cities.map(x=>`<option value="${esc(x.city_id)}">${esc((x.city_code?x.city_code+" | ":"")+x.city_name)}</option>`).join("");el.innerHTML=h;
+if(old&&cities.some(x=>String(x.city_id)===String(old)))el.value=old;else if(cities.length===1)el.value=String(cities[0].city_id);else if(initial)el.value="";
+}
+function renderSummary(){
+const s=data.summary||{};$("statCities").textContent=integer(s.city_count);$("statCustomers").textContent=integer(s.customer_count);$("statCustomerStatus").textContent=`正常 ${integer(s.active_customer_count)}`;$("statCompleted").textContent=integer(s.profile_completed_count);$("statOrders").textContent=integer(s.order_count);$("statPaidOrders").textContent=integer(s.paid_order_count);$("statPaidAmount").textContent=money(s.paid_amount);
+}
+function renderScope(){
+const id=$("citySelect").value,c=cities.find(x=>String(x.city_id)===String(id));const scope=id?(c?.city_name||"当前城市"):(cities.length?"全部已开通城市":"无授权城市");$("statScope").textContent=scope;$("scopeNote").textContent=`当前身份：${roleName(profile?.role)}。当前数据范围：${scope}。所有客户资料和订单明细均由数据库按城市权限验证，页面不能越权读取其他城市数据。`;
+}
+function customerBadges(c){return`<div style="display:flex;flex-direction:column;gap:5px;align-items:flex-start">${badge(customerStatus(c.status),c.status==="active"?"green":"gray")}${c.profile_completed?badge("资料已完善","blue"):badge("资料未完善","orange")}</div>`}
+function renderCustomers(){
+$("resultCount").textContent=`${customers.length} 位客户`;$("desktopEmpty").classList.toggle("hidden",!!customers.length);
+if(!customers.length){$("customerBody").innerHTML="";$("mobileList").innerHTML='<div class="empty"><div class="empty-icon">♡</div>当前筛选范围内没有客户数据</div>';return}
+$("customerBody").innerHTML=customers.map(c=>`<tr><td><div class="customer-no">${esc(c.customer_no||"—")}</div><div class="main-name">${esc(c.real_name||c.nickname||"未填写姓名")}</div><div class="small">${esc(c.phone||"未登记手机号")}</div></td><td><b>${esc(c.city_name||"未登记")}</b></td><td>${badge(customerStatus(c.status),c.status==="active"?"green":"gray")}</td><td>${c.profile_completed?badge("已完善","blue"):badge("未完善","orange")}</td><td><span class="amount">${integer(c.order_count)}</span></td><td><span class="income">${integer(c.paid_order_count)}</span></td><td><span class="income">${money(c.paid_amount)}</span></td><td>${esc(time(c.last_order_at))}</td><td>${esc(time(c.created_at))}</td><td><button class="btn btn-small" data-open="${esc(c.id)}">查看资料及订单</button></td></tr>`).join("");
+$("mobileList").innerHTML=customers.map(c=>`<div class="mobile-card"><div class="mobile-top"><div><div class="customer-no">${esc(c.customer_no||"—")}</div><div class="main-name">${esc(c.real_name||c.nickname||"未填写姓名")}</div><div class="small">${esc(c.phone||"未登记手机号")} · ${esc(c.city_name||"未登记城市")}</div></div>${badge(customerStatus(c.status),c.status==="active"?"green":"gray")}</div><div class="mobile-grid"><div class="mobile-cell">资料状态<b>${c.profile_completed?"已完善":"未完善"}</b></div><div class="mobile-cell">当前城市订单<b>${integer(c.order_count)}</b></div><div class="mobile-cell">已支付订单<b>${integer(c.paid_order_count)}</b></div><div class="mobile-cell">已支付金额<b style="color:var(--green)">${money(c.paid_amount)}</b></div><div class="mobile-cell">最近订单<b>${esc(time(c.last_order_at))}</b></div><div class="mobile-cell">注册时间<b>${esc(time(c.created_at))}</b></div></div><div class="mobile-actions"><button class="btn btn-small" data-open="${esc(c.id)}">查看资料及订单</button></div></div>`).join("");
+}
+function failure(){data={summary:{},cities:[],customers:[]};cities=[];customers=[];renderCity(true);renderSummary();renderCustomers();$("statScope").textContent="读取失败"}
+function resetFilters(){$("keyword").value="";$("citySelect").value=cities.length===1?String(cities[0].city_id):"";loadDashboard()}
+function setText(id,v){$(id).textContent=v||"—"}
+async function openDetail(customerId){
+const cityId=$("citySelect").value;
+if(!cityId){toast("请先选择一个已开通城市，再查看客户资料与订单。","error");return}
+const c=customers.find(x=>String(x.id)===String(customerId));if(!c)return toast("没有找到该客户资料","error");
+$("detailModal").classList.add("show");$("modalTitle").textContent=`${c.real_name||c.nickname||"客户"} · ${c.customer_no||"—"}`;$("modalSub").textContent=`当前城市：${cities.find(x=>String(x.city_id)===String(cityId))?.city_name||"—"}｜仅显示该城市订单`;$("modalLoading").classList.remove("hidden");$("modalContent").classList.add("hidden");
+try{const r=await sb.rpc("get_customer_management_detail",{p_customer_id:customerId,p_city_id:Number(cityId)});if(r.error)throw r.error;const d=parse(r.data);if(!d.success)throw new Error(d.error||"客户详情读取失败");renderDetail(d.customer||{},Array.isArray(d.orders)?d.orders:[])}
+catch(e){console.error(e);toast(e.message||"客户详情读取失败","error");closeModal()}
+finally{$("modalLoading").classList.add("hidden")}
+}
+function renderDetail(c,orders){
+setText("dNo",String(c.customer_no||"—"));setText("dPhone",c.phone);setText("dName",[c.real_name,c.nickname].filter(Boolean).join(" / "));setText("dStatus",customerStatus(c.status));setText("dCity",c.registered_city_name);setText("dProfile",c.profile_completed?"已完善":"未完善");setText("dWork",c.work_unit);setText("dJob",c.occupation);setText("dAddress",c.address);setText("dEmergencyName",c.emergency_contact_name);setText("dEmergencyPhone",c.emergency_contact_phone);setText("dCreated",time(c.created_at));setText("dCompletedAt",time(c.profile_completed_at));
+const paid=orders.filter(x=>x.payment_status==="paid"),amount=paid.reduce((s,x)=>s+num(x.payment_amount??x.payable_amount??x.total_amount),0),remaining=orders.reduce((s,x)=>s+num(x.remaining_uses),0);$("dOrderCount").textContent=integer(orders.length);$("dPaidOrderCount").textContent=integer(paid.length);$("dPaidAmount").textContent=money(amount);$("dRemaining").textContent=integer(remaining);$("modalContent").classList.remove("hidden");$("orderEmpty").classList.toggle("hidden",!!orders.length);
+$("orderBody").innerHTML=orders.map(o=>`<tr><td><b>${esc(o.order_no||"—")}</b><div class="small">${esc(time(o.created_at))}</div></td><td>${esc(o.merchant_name||"—")}<div class="small">${esc(o.merchant_no||"")}</div></td><td class="amount">${money(o.payment_amount??o.payable_amount??o.total_amount)}</td><td>${badge(orderStatus(o.order_status),o.order_status==="completed"?"green":"blue")}</td><td>${badge(paymentStatus(o.payment_status),o.payment_status==="paid"?"green":"orange")}</td><td>${integer(o.used_uses)} / ${integer(o.total_uses)}<div class="small">剩余 ${integer(o.remaining_uses)}</div></td><td>${esc(o.split_status||"—")}</td><td>${esc(time(o.appointment_at))}</td><td>${esc(time(o.paid_at))}</td></tr>`).join("");
+$("orderMobile").innerHTML=orders.length?orders.map(o=>`<div class="mobile-card"><div class="mobile-top"><div><div class="main-name">${esc(o.order_no||"—")}</div><div class="small">${esc(o.merchant_name||"—")}</div></div>${badge(orderStatus(o.order_status),o.order_status==="completed"?"green":"blue")}</div><div class="mobile-grid"><div class="mobile-cell">订单金额<b>${money(o.payment_amount??o.payable_amount??o.total_amount)}</b></div><div class="mobile-cell">支付状态<b>${esc(paymentStatus(o.payment_status))}</b></div><div class="mobile-cell">消费次数<b>${integer(o.used_uses)} / ${integer(o.total_uses)}</b></div><div class="mobile-cell">剩余次数<b>${integer(o.remaining_uses)}</b></div><div class="mobile-cell">预约时间<b>${esc(time(o.appointment_at))}</b></div><div class="mobile-cell">支付时间<b>${esc(time(o.paid_at))}</b></div></div></div>`).join(""):'<div class="empty"><div class="empty-icon">♡</div>该客户在当前城市暂无订单</div>';
+}
+function closeModal(){$("detailModal").classList.remove("show")}
+$("citySelect").addEventListener("change",loadDashboard);$("keyword").addEventListener("input",()=>{clearTimeout(searchTimer);searchTimer=setTimeout(loadDashboard,450)});$("keyword").addEventListener("keydown",e=>{if(e.key==="Enter"){clearTimeout(searchTimer);loadDashboard()}});document.addEventListener("click",e=>{const b=e.target.closest("[data-open]");if(b)openDetail(b.dataset.open)});$("detailModal").addEventListener("click",e=>{if(e.target===$("detailModal"))closeModal()});document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});sb.auth.onAuthStateChange(e=>{if(e==="SIGNED_OUT")location.replace(LOGIN_PAGE)});initialize();
+</script>
+</body>
+</html>

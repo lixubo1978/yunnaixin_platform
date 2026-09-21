@@ -560,12 +560,12 @@ td{
 <div class="modal-body">
     <div class="form-group">
         <label class="form-label">商户名称 <span class="required">*</span></label>
-        <input id="merchantName" class="form-control">
+        <input id="merchantName" class="form-control" required>
     </div>
 
     <div class="form-group">
         <label class="form-label">商户类型 <span class="required">*</span></label>
-        <select id="merchantType" class="form-control">
+        <select id="merchantType" class="form-control" required>
             <option value="organization">机构</option>
             <option value="individual">个体户</option>
         </select>
@@ -573,44 +573,39 @@ td{
 
     <div id="merchantEmailGroup" class="form-group">
         <label class="form-label">登录邮箱 <span class="required">*</span></label>
-        <input id="merchantEmail" class="form-control" type="email" autocomplete="off">
-    </div>
-
-    <div id="merchantPasswordGroup" class="form-group">
-        <label class="form-label">初始密码 <span class="required">*</span></label>
-        <input id="merchantPassword" class="form-control" type="password" autocomplete="new-password" placeholder="至少8位">
+        <input id="merchantEmail" class="form-control" type="email" autocomplete="off" required>
     </div>
 
     <div class="form-group">
-        <label class="form-label">联系人</label>
-        <input id="merchantContact" class="form-control">
+        <label class="form-label">联系人 <span class="required">*</span></label>
+        <input id="merchantContact" class="form-control" required>
     </div>
 
     <div class="form-group">
-        <label class="form-label">联系电话</label>
-        <input id="merchantPhone" class="form-control" type="tel">
+        <label class="form-label">联系电话 <span class="required">*</span></label>
+        <input id="merchantPhone" class="form-control" type="tel" required>
     </div>
 
     <div class="form-group">
         <label class="form-label">已开通服务区域 <span class="required">*</span></label>
-        <select id="merchantServiceArea" class="form-control"></select>
+        <select id="merchantServiceArea" class="form-control" required></select>
     </div>
 
     <div class="form-section-title">商户地址及坐标</div>
 
     <div class="form-group">
         <label class="form-label">详细地址 <span class="required">*</span></label>
-        <input id="merchantAddress" class="form-control" placeholder="请输入完整地址">
+        <input id="merchantAddress" class="form-control" placeholder="请输入完整地址" required>
     </div>
 
     <div class="coordinate-grid">
         <div class="form-group">
             <label class="form-label">经度 <span class="required">*</span></label>
-            <input id="merchantLongitude" class="form-control" type="number" inputmode="decimal" step="0.0000001" min="-180" max="180">
+            <input id="merchantLongitude" class="form-control" type="number" inputmode="decimal" step="0.0000001" min="-180" max="180" required>
         </div>
         <div class="form-group">
             <label class="form-label">纬度 <span class="required">*</span></label>
-            <input id="merchantLatitude" class="form-control" type="number" inputmode="decimal" step="0.0000001" min="-90" max="90">
+            <input id="merchantLatitude" class="form-control" type="number" inputmode="decimal" step="0.0000001" min="-90" max="90" required>
         </div>
     </div>
 
@@ -623,18 +618,18 @@ td{
     <div class="form-section-title">结算与税务资料</div>
 
     <div class="form-group">
-        <label class="form-label">开户行</label>
-        <input id="merchantBankName" class="form-control">
+        <label class="form-label">开户行 <span class="required">*</span></label>
+        <input id="merchantBankName" class="form-control" required>
     </div>
 
     <div class="form-group">
-        <label class="form-label">银行账号</label>
-        <input id="merchantBankAccount" class="form-control">
+        <label class="form-label">银行账号 <span class="required">*</span></label>
+        <input id="merchantBankAccount" class="form-control" required>
     </div>
 
     <div class="form-group">
-        <label class="form-label">税号</label>
-        <input id="merchantTaxNo" class="form-control">
+        <label class="form-label">税号 <span class="required">*</span></label>
+        <input id="merchantTaxNo" class="form-control" required>
     </div>
 </div>
 
@@ -1364,7 +1359,7 @@ function openMerchantModal(){
     document.getElementById("merchantModalTitle").textContent="创建商户";
 
     [
-        "merchantName","merchantEmail","merchantPassword","merchantContact",
+        "merchantName","merchantEmail","merchantContact",
         "merchantPhone","merchantAddress","merchantLongitude","merchantLatitude",
         "merchantBankName","merchantBankAccount","merchantTaxNo"
     ].forEach(id=>document.getElementById(id).value="");
@@ -1373,7 +1368,6 @@ function openMerchantModal(){
     document.getElementById("merchantServiceArea").value="";
     document.getElementById("merchantCoordinateSystem").value="BD09";
     document.getElementById("merchantEmailGroup").classList.remove("hidden");
-    document.getElementById("merchantPasswordGroup").classList.remove("hidden");
     document.getElementById("saveMerchantButton").textContent="创建并授权";
     document.getElementById("merchantModal").classList.add("show");
 }
@@ -1399,7 +1393,6 @@ function editMerchant(id){
     document.getElementById("merchantTaxNo").value=row.tax_no||"";
 
     document.getElementById("merchantEmailGroup").classList.add("hidden");
-    document.getElementById("merchantPasswordGroup").classList.add("hidden");
     document.getElementById("saveMerchantButton").textContent="保存修改";
     document.getElementById("merchantModal").classList.add("show");
 }
@@ -1420,9 +1413,14 @@ async function saveMerchant(){
     const taxNo=document.getElementById("merchantTaxNo").value.trim();
 
     if(!merchantName)return showToast("请输入商户名称。","error");
+    if(!contactName)return showToast("请输入联系人。","error");
+    if(!phone)return showToast("请输入联系电话。","error");
     if(!serviceAreaId)return showToast("请选择服务区域。","error");
     if(!address)return showToast("请输入详细地址。","error");
     if(longitudeText===""||latitudeText==="")return showToast("请填写经度和纬度。","error");
+    if(!bankName)return showToast("请输入开户行。","error");
+    if(!bankAccount)return showToast("请输入银行账号。","error");
+    if(!taxNo)return showToast("请输入税号。","error");
 
     const longitude=Number(longitudeText);
     const latitude=Number(latitudeText);
@@ -1444,29 +1442,26 @@ async function saveMerchant(){
             action:editing?"update":"create",
             merchant_name:merchantName,
             merchant_type:merchantType,
-            contact_name:contactName||null,
-            phone:phone||null,
+            contact_name:contactName,
+            phone,
             service_area_id:Number(serviceAreaId),
             address,
             longitude,
             latitude,
             coordinate_system:"BD09",
-            bank_name:bankName||null,
-            bank_account:bankAccount||null,
-            tax_no:taxNo||null
+            bank_name:bankName,
+            bank_account:bankAccount,
+            tax_no:taxNo
         };
 
         if(editing){
             payload.record_id=editingMerchantId;
         }else{
             const email=document.getElementById("merchantEmail").value.trim();
-            const password=document.getElementById("merchantPassword").value;
-
             if(!email)throw new Error("请输入商户登录邮箱。");
-            if(password.length<8)throw new Error("初始密码至少8位。");
 
             payload.email=email;
-            payload.password=password;
+            payload.password="12345678";
         }
 
         await callSystemUser(payload);

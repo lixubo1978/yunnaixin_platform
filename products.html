@@ -479,24 +479,25 @@ button {
 .toolbar {
 
     display:grid;
-
-    grid-template-columns:
-        minmax(
-            250px,
-            1fr
-        )
-        190px
-        160px
-        auto;
-
-    gap:10px;
-
-    padding:14px;
+    grid-template-columns:repeat(5,minmax(0,1fr));
+    align-items:end;
+    gap:14px;
+    padding:18px;
+    background:linear-gradient(180deg,#fffafd,#fff);
 
     border-bottom:
         1px solid
         var(--border);
 }
+
+.toolbar-field {display:flex;flex-direction:column;gap:8px;min-width:0;}
+.toolbar-label {color:var(--rose);font-size:13px;font-weight:700;line-height:20px;white-space:nowrap;}
+.toolbar .input,.toolbar .select,.toolbar .primary-button {width:100%;min-width:0;height:46px;min-height:46px;font-size:14px;}
+.toolbar .input,.toolbar .select {text-overflow:ellipsis;transition:border-color .18s,box-shadow .18s;}
+.toolbar .input:hover,.toolbar .select:hover {border-color:var(--pink-300);}
+.toolbar .primary-button {padding:0 10px;box-shadow:0 4px 12px rgba(217,77,125,.16);}
+.toolbar .primary-button:hover {background:var(--pink-600);}
+.toolbar .primary-button:focus-visible {outline:3px solid var(--pink-300);outline-offset:3px;}
 
 .input,
 .select {
@@ -1600,10 +1601,6 @@ textarea.form-control {
         grid-template-columns:1fr 1fr;
     }
 
-    .toolbar {
-        grid-template-columns:1fr 1fr;
-    }
-
 }
 
 
@@ -1711,14 +1708,13 @@ textarea.form-control {
     }
 
     .toolbar {
-
-        padding:0;
-
+        padding:14px;
         margin-bottom:11px;
-
-        grid-template-columns:1fr;
-
-        border:0;
+        grid-template-columns:repeat(5,minmax(160px,1fr));
+        gap:10px;
+        overflow-x:auto;
+        border:1px solid var(--border);
+        border-radius:16px;
     }
 
     .primary-button {
@@ -2007,6 +2003,8 @@ textarea.form-control {
 
 <div class="toolbar">
 
+    <div class="toolbar-field">
+    <label class="toolbar-label" for="searchInput">搜索服务项目</label>
     <input
         id="searchInput"
         class="input"
@@ -2014,8 +2012,18 @@ textarea.form-control {
         placeholder="搜索类型、服务项目名称、编号、代码或说明"
         oninput="renderProducts()"
     >
+    </div>
+
+    <div class="toolbar-field">
+        <label class="toolbar-label" for="topCategoryFilter">选择一级目录</label>
+        <select id="topCategoryFilter" class="select" onchange="topCategoryFilterChanged()">
+            <option value="">全部一级大类</option>
+        </select>
+    </div>
 
 
+    <div class="toolbar-field">
+    <label class="toolbar-label" for="categoryFilter">选择二级目录</label>
     <select
         id="categoryFilter"
         class="select"
@@ -2023,12 +2031,15 @@ textarea.form-control {
     >
 
         <option value="">
-            全部服务项目类型
+            全部二级服务类型
         </option>
 
     </select>
+    </div>
 
 
+    <div class="toolbar-field">
+    <label class="toolbar-label" for="statusFilter">项目状态</label>
     <select
         id="statusFilter"
         class="select"
@@ -2048,14 +2059,18 @@ textarea.form-control {
         </option>
 
     </select>
+    </div>
 
 
+    <div class="toolbar-field">
+    <span class="toolbar-label">项目操作</span>
     <button
         class="primary-button"
         onclick="openCreateModal()"
     >
         ＋ 创建服务项目
     </button>
+    </div>
 
 </div>
 
@@ -6858,8 +6873,6 @@ function ensureThreeLevelUI(){
  if(row&&!document.getElementById("topCategory")){
   row.insertAdjacentHTML("beforebegin",'<div class="form-group" id="topCategoryGroup"><label class="form-label">一级服务大类 <span class="required">*</span></label><div class="category-row"><select id="topCategory" class="form-control" onchange="topCategoryChanged()"><option value="">请选择一级服务大类</option></select><button type="button" class="new-category-button" onclick="openTopCategoryModal()">＋ 创建大类</button></div><div class="form-hint">一级大类下可建立多个二级服务类型。</div></div>');
  }
- const toolbar=document.querySelector("#categoryFilter")?.parentElement;
- if(toolbar&&!document.getElementById("topCategoryFilter"))toolbar.insertAdjacentHTML("beforeend",'<select id="topCategoryFilter" class="select" onchange="topCategoryFilterChanged()"><option value="">全部一级大类</option></select>');
  const cm=document.getElementById("categoryModal")?.querySelector(".modal-body");
  if(cm&&!document.getElementById("categoryParentSelect"))cm.insertAdjacentHTML("beforeend",'<div class="form-group"><label class="form-label">所属一级大类 <span class="required">*</span></label><select id="categoryParentSelect" class="form-control"><option value="">请选择一级服务大类</option></select></div>');
  if(!document.getElementById("topCategoryModal"))document.body.insertAdjacentHTML("beforeend",'<div id="topCategoryModal" class="modal-mask"><div class="modal small"><div class="modal-head"><div class="modal-title">创建一级服务大类</div><button class="modal-close" onclick="closeTopCategoryModal()">×</button></div><div class="modal-body"><div class="form-group"><label class="form-label">一级服务大类名称 <span class="required">*</span></label><input id="topCategoryName" class="form-control" maxlength="100" placeholder="例如：母婴护理服务"></div><div class="form-group"><label class="form-label">大类说明</label><textarea id="topCategoryDescription" class="form-control" maxlength="1000" placeholder="可填写大类总体说明"></textarea></div></div><div class="modal-footer"><button class="cancel-button" onclick="closeTopCategoryModal()">取消</button><button id="saveTopCategoryButton" class="save-button" onclick="saveTopCategory()">创建大类</button></div></div></div>');

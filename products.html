@@ -6847,6 +6847,46 @@ document.addEventListener(
 </script>
 
 
+<script>
+/* 三层目录增强：一级大类 → 二级服务类型 → 三级服务项目 */
+let topCategoryId="";
+function topCategories(){return categories.filter(x=>!x.parent_category_id)}
+function childCategories(parentId=topCategoryId){return categories.filter(x=>String(x.parent_category_id||"")===String(parentId||""))}
+function categoryParent(item){return categories.find(x=>String(x.id)===String(item?.parent_category_id))}
+function ensureThreeLevelUI(){
+ const row=document.querySelector("#serviceCategory")?.closest(".category-row");
+ if(row&&!document.getElementById("topCategory")){
+  row.insertAdjacentHTML("beforebegin",'<div class="form-group" id="topCategoryGroup"><label class="form-label">一级服务大类 <span class="required">*</span></label><div class="category-row"><select id="topCategory" class="form-control" onchange="topCategoryChanged()"><option value="">请选择一级服务大类</option></select><button type="button" class="new-category-button" onclick="openTopCategoryModal()">＋ 创建大类</button></div><div class="form-hint">一级大类下可建立多个二级服务类型。</div></div>');
+ }
+ const toolbar=document.querySelector("#categoryFilter")?.parentElement;
+ if(toolbar&&!document.getElementById("topCategoryFilter"))toolbar.insertAdjacentHTML("beforeend",'<select id="topCategoryFilter" class="select" onchange="topCategoryFilterChanged()"><option value="">全部一级大类</option></select>');
+ const cm=document.getElementById("categoryModal")?.querySelector(".modal-body");
+ if(cm&&!document.getElementById("categoryParentSelect"))cm.insertAdjacentHTML("beforeend",'<div class="form-group"><label class="form-label">所属一级大类 <span class="required">*</span></label><select id="categoryParentSelect" class="form-control"><option value="">请选择一级服务大类</option></select></div>');
+ if(!document.getElementById("topCategoryModal"))document.body.insertAdjacentHTML("beforeend",'<div id="topCategoryModal" class="modal-mask"><div class="modal small"><div class="modal-head"><div class="modal-title">创建一级服务大类</div><button class="modal-close" onclick="closeTopCategoryModal()">×</button></div><div class="modal-body"><div class="form-group"><label class="form-label">一级服务大类名称 <span class="required">*</span></label><input id="topCategoryName" class="form-control" maxlength="100" placeholder="例如：母婴护理服务"></div><div class="form-group"><label class="form-label">大类说明</label><textarea id="topCategoryDescription" class="form-control" maxlength="1000" placeholder="可填写大类总体说明"></textarea></div></div><div class="modal-footer"><button class="cancel-button" onclick="closeTopCategoryModal()">取消</button><button id="saveTopCategoryButton" class="save-button" onclick="saveTopCategory()">创建大类</button></div></div></div>');
+ document.querySelector(".hero p").textContent="服务项目采用三级结构管理：一级为服务大类，二级为服务项目类型，三级为具体服务项目。每一级均可自由创建；城市销售价格和商户分成规则仍以三级具体服务项目为单位管理。";
+ const th=document.querySelector("#productTable")?.closest("table")?.querySelectorAll("thead th");if(th?.[1])th[1].textContent="一级大类 / 二级服务类型";
+}
+async function loadCategories(){
+ const {data,error}=await supabaseClient.from("service_categories").select("id,category_name,description,status,created_at,updated_at,parent_category_id").order("id",{ascending:true});
+ if(error)throw new Error("服务目录读取失败："+error.message);categories=data||[];ensureThreeLevelUI();fillTopCategorySelect();fillCategorySelect();fillCategoryFilter();renderStats();
+}
+function fillTopCategorySelect(selectedId=null){
+ [document.getElementById("topCategory"),document.getElementById("topCategoryFilter"),document.getElementById("categoryParentSelect")].filter(Boolean).forEach(s=>{
+  const isFilter=s.id==="topCategoryFilter",old=selectedId??s.value;s.innerHTML=`<option value="">${isFilter?"全部一级大类":"请选择一级服务大类"}</option>`+topCategories().map(x=>`<option value="${x.id}">${escapeHtml(x.category_name)}${x.status!=="active"?"（已失效）":""}</option>`).join("");if(old&&[...s.options].some(o=>o.value===String(old)))s.value=old;
+ });
+}
+function fillCategorySelect(selectedId=null){const s=document.getElementById("serviceCategory");if(!s)return;const old=selectedId??s.value,list=childCategories().filter(x=>x.status==="active");s.innerHTML='<option value="">请选择二级服务类型</option>'+list.map(x=>`<option value="${x.id}">${escapeHtml(x.category_name)}</option>`).join("");s.disabled=!topCategoryId;if(old&&list.some(x=>String(x.id)===String(old)))s.value=old}
+function fillCategoryFilter(){const s=document.getElementById("categoryFilter");if(!s)return;const old=s.value,list=childCategories(document.getElementById("topCategoryFilter")?.value||"");s.innerHTML='<option value="">全部二级服务类型</option>'+list.map(x=>`<option value="${x.id}">${escapeHtml(x.category_name)}${x.status!=="active"?"（已失效）":""}</option>`).join("");if(old&&list.some(x=>String(x.id)===String(old)))s.value=old}
+function topCategoryChanged(){topCategoryId=document.getElementById("topCategory").value;fillCategorySelect()}
+function topCategoryFilterChanged(){fillCategoryFilter();renderProducts()}
+function openTopCategoryModal(){document.getElementById("topCategoryName").value="";document.getElementById("topCategoryDescription").value="";document.getElementById("topCategoryModal").classList.add("show")}
+function closeTopCategoryModal(){document.getElementById("topCategoryModal").classList.remove("show")}
+async function saveTopCategory(){const name=document.getElementById("topCategoryName").value.trim(),description=document.getElementById("topCategoryDescription").value.trim(),btn=document.getElementById("saveTopCategoryButton");if(!name)return showToast("请输入一级服务大类名称。","error");if(topCategories().some(x=>x.category_name===name))return showToast("该一级大类已经存在。","error");btn.disabled=true;try{const {data,error}=await supabaseClient.from("service_categories").insert({category_name:name,description:description||null,status:"active",created_by:currentUser.id,parent_category_id:null}).select("id").single();if(error)throw error;await loadCategories();topCategoryId=String(data.id);fillTopCategorySelect(data.id);topCategoryChanged();closeTopCategoryModal();showToast("一级服务大类创建成功。","success")}catch(e){showToast(e.message||"创建一级大类失败。","error")}finally{btn.disabled=false}}
+function openCategoryModal(){fillTopCategorySelect(topCategoryId);document.getElementById("categoryName").value="";document.getElementById("categoryDescription").value="";document.getElementById("categoryParentSelect").value=topCategoryId||"";document.getElementById("categoryModal").classList.add("show")}
+async function saveCategory(){const name=document.getElementById("categoryName").value.trim(),description=document.getElementById("categoryDescription").value.trim(),parentId=document.getElementById("categoryParentSelect").value,btn=document.getElementById("saveCategoryButton");if(!parentId)return showToast("请选择所属一级服务大类。","error");if(!name)return showToast("请输入二级服务类型名称。","error");if(childCategories(parentId).some(x=>x.category_name===name))return showToast("该一级大类下已存在同名二级类型。","error");btn.disabled=true;try{const {data,error}=await supabaseClient.from("service_categories").insert({category_name:name,description:description||null,status:"active",created_by:currentUser.id,parent_category_id:Number(parentId)}).select("id").single();if(error)throw error;await loadCategories();topCategoryId=String(parentId);fillTopCategorySelect(parentId);fillCategorySelect(data.id);document.getElementById("categoryModal").classList.remove("show");showToast("二级服务类型创建成功。","success")}catch(e){showToast(e.message||"创建二级服务类型失败。","error")}finally{btn.disabled=false}}
+const _openCreateModal=openCreateModal;openCreateModal=function(){_openCreateModal();ensureThreeLevelUI();topCategoryId="";fillTopCategorySelect();fillCategorySelect()};
+const _editService=editService;editService=async function(id){const item=products.find(x=>Number(x.id)===Number(id)),child=categories.find(x=>String(x.id)===String(item?.category_id));topCategoryId=String(child?.parent_category_id||"");ensureThreeLevelUI();fillTopCategorySelect(topCategoryId);return _editService(id)};
+</script>
 </body>
 
 </html>

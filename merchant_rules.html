@@ -17,6 +17,7 @@ main{max-width:1240px;margin:24px auto 70px;padding:0 20px}.hero{background:line
 .empty{padding:50px 20px;text-align:center;color:#aaa;font-size:13px}.empty-icon{font-size:35px;margin-bottom:10px}.toast{position:fixed;right:22px;bottom:22px;max-width:440px;background:#41353a;color:#fff;padding:13px 17px;border-radius:10px;font-size:12px;z-index:300;box-shadow:0 10px 35px rgba(0,0,0,.18);display:none}.toast.show{display:block}.toast.error{background:#b94057}.loading-overlay{position:fixed;inset:0;background:rgba(255,250,251,.88);z-index:500;display:flex;align-items:center;justify-content:center;color:#a45470;font-size:14px}
 .modal-mask{position:fixed;inset:0;background:rgba(55,39,46,.42);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}.modal-mask.show{display:flex}.modal{width:min(680px,100%);background:#fff;border-radius:18px;box-shadow:0 22px 70px rgba(50,20,30,.22);overflow:hidden}.modal-head{padding:19px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}.modal-title{font-size:17px;font-weight:800;color:#653146}.modal-close{border:0;background:#fff3f6;color:#c94d73;border-radius:9px;width:34px;height:34px;font-size:18px}.modal-body{padding:20px 22px}.rule-target{background:#fff7fa;border:1px solid #ffe0e9;border-radius:12px;padding:13px 15px;margin-bottom:17px;font-size:12px;line-height:1.8}.rule-target b{color:#843b55}.ratio-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field label{display:block;font-size:11px;color:#8d7c83;margin:0 0 6px 2px}.ratio-input{width:100%;height:43px;border:1px solid var(--border);border-radius:10px;padding:0 12px;outline:none}.ratio-input:focus{border-color:#f39bb4;box-shadow:0 0 0 3px rgba(230,79,124,.08)}.ratio-input[readonly]{background:#f5f3f4;color:#777}.total-box{margin-top:16px;border-radius:11px;padding:12px 14px;background:#fff7fa;display:flex;justify-content:space-between;align-items:center;font-size:13px}.total-box strong{font-size:18px;color:var(--pink)}.total-box.bad{background:#fff0f0;color:#b33}.modal-foot{padding:15px 22px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:9px}.mobile-list{display:none}
 @media(max-width:800px){header{height:64px;padding:0 14px}.brand h1{font-size:15px}.brand small{display:none}.header-actions .btn{padding:8px 10px;font-size:11px}main{padding:0 12px;margin-top:14px}.hero{padding:20px}.hero h2{font-size:21px}.stats{grid-template-columns:1fr 1fr}.filterbar{grid-template-columns:repeat(5,minmax(160px,1fr));overflow-x:auto;gap:10px}.desktop-table{display:none}.mobile-list{display:block;padding:10px}.mobile-card{border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:9px}.mobile-card.locked{background:#f6f5f5}.mobile-card-top{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px}.mobile-meta{font-size:11px;color:#888;line-height:1.8;margin:10px 0}.ratio-grid{grid-template-columns:1fr}.action-line{flex-wrap:wrap}}
+.city-price-heading,.city-price{white-space:nowrap}.city-price{color:#8c3d58;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}.mobile-city-price{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:12px;color:#8d7c83}
 </style>
 </head>
 <body>
@@ -44,7 +45,7 @@ main{max-width:1240px;margin:24px auto 70px;padding:0 20px}.hero{background:line
 </div><div id="totalBox" class="total-box"><span>六方比例合计（必须等于100%）</span><strong id="ratioTotal">2%</strong></div></div><div class="modal-foot"><button class="btn" id="cancelRuleBtn">取消</button><button class="btn btn-primary" id="saveRuleBtn">保存分账规则</button></div></div></div>
 <script>
 const SUPABASE_URL="https://qbuqjwpkltbjhlfbyjyb.supabase.co",SUPABASE_ANON_KEY="sb_publishable_fqMc6n_yKymvZEb-6u6DDQ_CJZpEbl3",db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}}),LOGIN_PAGE="./login.html",HOME_PAGE="./wholemanagement.html",IDLE_LIMIT=600000;
-let currentUser=null,currentProfile=null,merchants=[],products=[],categories=[],rules=[],serviceAreas=[],cities=[],provinces=[],idleTimer=null,editingMerchantId=null,editingProductId=null,saving=false;
+let currentUser=null,currentProfile=null,merchants=[],products=[],categories=[],rules=[],serviceAreas=[],cities=[],provinces=[],cityPrices=[],idleTimer=null,editingMerchantId=null,editingProductId=null,saving=false;
 const $=id=>document.getElementById(id),esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
 const isUUID=v=>typeof v==="string"&&/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v.trim());
 function toast(t,type=""){const e=$("toast");e.textContent=t;e.className="toast show "+type;clearTimeout(e._t);e._t=setTimeout(()=>e.className="toast",4000)}
@@ -56,18 +57,36 @@ function productCategory(p){const c=categories.find(x=>String(x.id)===String(p?.
 function cityById(id){return cities.find(x=>String(x.id)===String(id))}
 function provinceById(id){return provinces.find(x=>String(x.id)===String(id))}
 function activeRule(mid,pid){return rules.find(r=>String(r.merchant_id)===String(mid)&&String(r.product_id)===String(pid)&&r.status==="active")}
+function cityPriceHtml(m,p){
+const cityId=merchantCityId(m),undefinedPrice='<span class="badge badge-orange">未定义</span>';
+if(cityId==null||!serviceAreas.some(a=>a.status==="active"&&String(a.city_id)===String(cityId)))return undefinedPrice;
+const now=Date.now(),r=cityPrices.find(x=>String(x.city_id)===String(cityId)&&String(x.product_id)===String(p.id)&&x.status==="active"&&x.invalidated_at==null&&Date.parse(x.effective_from)<=now);
+if(!r||r.price==null||String(r.price).trim()==="")return undefinedPrice;
+const price=Number(r.price);
+return Number.isFinite(price)&&price>=0?`<span class="city-price">¥${price.toLocaleString("zh-CN",{minimumFractionDigits:2,maximumFractionDigits:2})}</span>`:undefinedPrice
+}
+async function readCityPrices(){
+const rows=[],now=new Date().toISOString();
+for(;;){
+const {data,error}=await db.from("city_prices").select("id,city_id,product_id,price,status,effective_from,version_no,invalidated_at").eq("status","active").is("invalidated_at",null).lte("effective_from",now).order("version_no",{ascending:false}).order("id",{ascending:false}).range(rows.length,rows.length+499);
+if(error)return{data:null,error};
+if(!data?.length)return{data:rows,error:null};
+rows.push(...data)
+}
+}
 function rv(v){const n=Number(v);return Number.isFinite(n)?n.toLocaleString("zh-CN",{maximumFractionDigits:4}):"0"}
 function ratioHtml(r){return r?`<div class="ratio-line"><span class="ratio-item">平台 <b>${rv(r.platform_ratio)}%</b></span><span class="ratio-item">城市负责人 <b>${rv(r.city_manager_ratio)}%</b></span><span class="ratio-item">商户 <b>${rv(r.store_ratio)}%</b></span><span class="ratio-item">服务人员 <b>${rv(r.operator_ratio)}%</b></span><span class="ratio-item">健康顾问 <b>${rv(r.order_source_ratio)}%</b></span><span class="ratio-item">软件服务 <b>${rv(r.software_service_ratio)}%</b></span></div>`:"—"}
 async function init(){resetIdle();try{const {data:{session},error}=await db.auth.getSession();if(error)throw error;if(!session){location.replace(LOGIN_PAGE);return}currentUser=session.user;const {data:p,error:pe}=await db.from("profiles").select("id,full_name,role,status").eq("id",currentUser.id).single();if(pe||!p)throw new Error("无法读取当前账号权限。");if(p.status!=="active")throw new Error("当前账号已经停用。");if(!["founder","platform_admin"].includes(p.role)){alert("您没有商户分账规则管理权限。");location.replace(HOME_PAGE);return}currentProfile=p;await loadData();loading()}catch(e){console.error(e);loading();alert(e.message||"页面初始化失败。")}}
-async function loadData(){const [a,b,c,d,e,f,g]=await Promise.all([
+async function loadData(){const [a,b,c,d,e,f,g,h]=await Promise.all([
 db.from("merchants").select("*").eq("status","active").order("id"),
 db.from("products").select("*").eq("status","active").order("id"),
 db.from("service_categories").select("id,category_name,status,parent_category_id").order("id"),
 db.from("merchant_product_rules").select("*").eq("status","active").order("created_at",{ascending:false}),
 db.from("service_areas").select("id,area_no,province_id,city_id,district_id,status").eq("status","active").is("district_id",null).order("area_no"),
 db.from("cities").select("id,province_id,city_code,city_name,status").eq("status","active").order("city_code"),
-db.from("provinces").select("id,province_code,province_name,status").eq("status","active").order("province_code")
-]);for(const [r,n] of [[a,"商户"],[b,"服务项目"],[c,"服务项目类型"],[d,"分账规则"],[e,"已开通服务城市"],[f,"城市"],[g,"省份"]])if(r.error)throw new Error(n+"读取失败："+r.error.message);merchants=a.data||[];products=b.data||[];categories=c.data||[];rules=d.data||[];serviceAreas=e.data||[];cities=f.data||[];provinces=g.data||[];renderCity();renderMerchantFilter();renderCategoryFilters();renderAll()}
+db.from("provinces").select("id,province_code,province_name,status").eq("status","active").order("province_code"),
+readCityPrices()
+]);for(const [r,n] of [[a,"商户"],[b,"服务项目"],[c,"服务项目类型"],[d,"分账规则"],[e,"已开通服务城市"],[f,"城市"],[g,"省份"],[h,"城市标准价"]])if(r.error)throw new Error(n+"读取失败："+r.error.message);merchants=a.data||[];products=b.data||[];categories=c.data||[];rules=d.data||[];serviceAreas=e.data||[];cities=f.data||[];provinces=g.data||[];cityPrices=h.data||[];renderCity();renderMerchantFilter();renderCategoryFilters();renderAll()}
 function openedCities(){const m=new Map;serviceAreas.forEach(a=>{if(a.city_id&&!m.has(String(a.city_id)))m.set(String(a.city_id),a)});return [...m.values()]}
 function renderCity(){const s=$("cityFilter"),old=s.value,list=openedCities();s.innerHTML='<option value="">全部已开通服务城市</option>'+list.map(a=>{const c=cityById(a.city_id),p=provinceById(a.province_id||c?.province_id),no=a.area_no?String(a.area_no).padStart(3,"0"):"";return `<option value="${esc(a.city_id)}">${no?esc(no)+" | ":""}${p?.province_name?esc(p.province_name)+" · ":""}${esc(c?.city_name||"城市 "+a.city_id)}</option>`}).join("");if(old&&list.some(a=>String(a.city_id)===String(old)))s.value=old}
 function cityMerchants(){const c=$("cityFilter").value;return c?merchants.filter(m=>String(merchantCityId(m))===String(c)):merchants}
@@ -92,11 +111,12 @@ return `<tr class="${r?"rule-active-row":""}">
 <td><span class="badge ${r?"badge-green":"badge-orange"}">${r?"已定义并生效":"未定义"}</span></td>
 <td>${r?ratioHtml(r):"—"}</td>
 <td>${r?`<div class="action-line"><button class="btn btn-small btn-disabled" disabled>已锁定</button><button class="btn btn-small btn-danger invalidate-btn" data-rule-id="${esc(r.id)}" data-merchant-index="${merchants.indexOf(m)}" data-product-id="${esc(p.id)}">设为无效</button></div>`:`<button class="btn btn-primary btn-small set-rule-btn" data-merchant-index="${merchants.indexOf(m)}" data-product-id="${esc(p.id)}">设置分账</button>`}</td>
+<td>${cityPriceHtml(m,p)}</td>
 </tr>`}).join("");
 const mobile=ps.map(p=>{
 const r=activeRule(m.id,p.id);
-return `<div class="mobile-card ${r?"locked":""}"><div class="mobile-card-top"><div><div class="product-name">${esc(productName(p))}</div><div class="product-code">${esc(productCode(p)||"—")}</div></div><span class="badge ${r?"badge-green":"badge-orange"}">${r?"已定义":"未定义"}</span></div><div class="mobile-meta">服务项目类型：<span class="category-badge">${esc(productCategory(p))}</span></div>${r?`${ratioHtml(r)}<div class="action-line" style="margin-top:12px"><button class="btn btn-small btn-disabled" disabled>已锁定</button><button class="btn btn-small btn-danger invalidate-btn" data-rule-id="${esc(r.id)}" data-merchant-index="${merchants.indexOf(m)}" data-product-id="${esc(p.id)}">设为无效</button></div>`:`<button class="btn btn-primary btn-small set-rule-btn" data-merchant-index="${merchants.indexOf(m)}" data-product-id="${esc(p.id)}">设置分账</button>`}</div>`}).join("");
-blocks.push(`<section class="merchant-section"><div class="merchant-head"><div><div class="merchant-name">${esc(merchantName(m))}</div><div class="merchant-meta">${merchantCode(m)?"商户编号："+esc(merchantCode(m))+" · ":""}共 ${ps.length} 个服务项目 · ${count} 个已定义分账规则</div></div><div class="merchant-count">${count} / ${ps.length} 已定义</div></div><div class="desktop-table table-wrap"><table><thead><tr><th>服务项目</th><th>服务项目类型</th><th>分账状态</th><th>当前分账比例</th><th>操作</th></tr></thead><tbody>${rows}</tbody></table></div><div class="mobile-list">${mobile}</div></section>`)
+return `<div class="mobile-card ${r?"locked":""}"><div class="mobile-card-top"><div><div class="product-name">${esc(productName(p))}</div><div class="product-code">${esc(productCode(p)||"—")}</div></div><span class="badge ${r?"badge-green":"badge-orange"}">${r?"已定义":"未定义"}</span></div><div class="mobile-meta">服务项目类型：<span class="category-badge">${esc(productCategory(p))}</span></div>${r?`${ratioHtml(r)}<div class="action-line" style="margin-top:12px"><button class="btn btn-small btn-disabled" disabled>已锁定</button><button class="btn btn-small btn-danger invalidate-btn" data-rule-id="${esc(r.id)}" data-merchant-index="${merchants.indexOf(m)}" data-product-id="${esc(p.id)}">设为无效</button></div>`:`<button class="btn btn-primary btn-small set-rule-btn" data-merchant-index="${merchants.indexOf(m)}" data-product-id="${esc(p.id)}">设置分账</button>`}<div class="mobile-city-price"><span>当前城市标准价</span>${cityPriceHtml(m,p)}</div></div>`}).join("");
+blocks.push(`<section class="merchant-section"><div class="merchant-head"><div><div class="merchant-name">${esc(merchantName(m))}</div><div class="merchant-meta">${merchantCode(m)?"商户编号："+esc(merchantCode(m))+" · ":""}共 ${ps.length} 个服务项目 · ${count} 个已定义分账规则</div></div><div class="merchant-count">${count} / ${ps.length} 已定义</div></div><div class="desktop-table table-wrap"><table><thead><tr><th>服务项目</th><th>服务项目类型</th><th>分账状态</th><th>当前分账比例</th><th>操作</th><th class="city-price-heading">当前城市标准价</th></tr></thead><tbody>${rows}</tbody></table></div><div class="mobile-list">${mobile}</div></section>`)
 });
 box.innerHTML=blocks.join("");$("emptyBox").style.display=blocks.length?"none":"block"
 }

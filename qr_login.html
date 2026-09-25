@@ -180,4 +180,56 @@ document.addEventListener("DOMContentLoaded",()=>{let manual=$("changeCity"),sea
 document.addEventListener("DOMContentLoaded",()=>{let manual=$("changeCity"),search=$("citySearch"),picker=$("cityPicker"),panel=picker.querySelector(".citydialog"),list=$("cityList"),vv=window.visualViewport;function fitDialog(){let h=vv?vv.height:window.innerHeight,top=vv?vv.offsetTop:0,covered=Math.max(0,window.innerHeight-h-top);picker.style.paddingBottom=(16+covered)+"px";panel.style.maxHeight=Math.max(220,h-32)+"px";list.style.maxHeight=Math.max(110,h-174)+"px"}function openCityDialog(){search.value="";renderCities();picker.hidden=false;fitDialog();if((catalog.cities||[]).length>12)setTimeout(()=>search.focus(),180)}manual.onclick=openCityDialog;search.oninput=renderCities;search.onfocus=fitDialog;if(vv){vv.addEventListener("resize",fitDialog);vv.addEventListener("scroll",fitDialog)}}); 
 document.addEventListener("DOMContentLoaded",()=>{getLocation=async function(){const request=++locationRequest;locationBusy=true;$("cityMsg").textContent="正在获取当前位置…";const fail=()=>{if(request!==locationRequest)return;locationBusy=false;showManualCities(cityId?"定位未完成，已保留您选择的服务城市；也可手工调整。":"无法自动识别当前城市，请点击“手工选择城市”。")};if(!navigator.geolocation)return fail();navigator.geolocation.getCurrentPosition(async p=>{if(request!==locationRequest)return;let lat=Number(p.coords.latitude),lng=Number(p.coords.longitude);if(!Number.isFinite(lat)||!Number.isFinite(lng)||Math.abs(lat)>90||Math.abs(lng)>180)return fail();let result=await resolveLocation(lng,lat);if(request!==locationRequest||manualCityChoice){if(request===locationRequest)locationBusy=false;return}customerLatitude=lat;customerLongitude=lng;locationBusy=false;let a=result?.location?.addressComponents||{},address=result?.location?.address||[a.province,a.city,a.district,a.street,a.streetNumber].filter(Boolean).join("");geoAddress=address||"已获取当前位置";geoCityName=a.city||a.district||a.province||"";let text=[a.city,a.district,a.province,geoAddress].filter(Boolean).join(" "),cities=Array.isArray(catalog&&catalog.cities)?catalog.cities:[],matched=cities.find(x=>{let n=normalizeCity(x.city_name);return n&&(normalizeCity(text).includes(n)||text.includes(x.city_name))});if(matched){setCity(matched.id,false);$("cityMsg").textContent="定位成功，已识别为 "+matched.city_name+"。"+(geoAddress?" 定位地址："+geoAddress:"")}else showManualCities("已获取当前位置，但未匹配到已开通服务城市。请手工选择服务城市。")},fail,{enableHighAccuracy:true,timeout:8000,maximumAge:0})}}); 
 document.addEventListener("DOMContentLoaded",()=>{showManualCities=function(message){locationBusy=false;$("cityName").textContent=cityId?cityName():"请选择服务城市";$("cityMsg").textContent=message||"定位失败，请从已开通城市中选择。";let manual=$("changeCity"),search=$("citySearch");search.value="";renderCities();if(typeof manual.onclick==="function")manual.onclick();else $("cityPicker").hidden=false}}); 
+/* 移动网络可能比桌面慢：独立加载并重试公开目录，不能因旧页面的 5 秒提示而丢失城市列表。 */
+document.addEventListener("DOMContentLoaded",()=>{
+let catalogLoading=false,loadFinished=false;
+const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+const originalShowManualCities=showManualCities;
+function showCatalogLoading(){
+  locationBusy=false;
+  $("cityName").textContent=cityId?cityName():"正在读取服务城市…";
+  $("cityMsg").textContent="网络较慢，正在连接服务目录，请稍候。";
+  $("citySearch").value="";
+  $("cityList").innerHTML='<div class="empty">正在读取已开通服务城市…</div>';
+  $("cityPicker").hidden=false;
+}
+showManualCities=function(message){
+  if(catalogLoading&&!(Array.isArray(catalog.cities)&&catalog.cities.length))return showCatalogLoading();
+  return originalShowManualCities(message);
+};
+async function loadPublicCatalog(){
+  if(catalogLoading||loadFinished)return;
+  catalogLoading=true;
+  let lastError=null;
+  for(let attempt=0;attempt<3;attempt++){
+    try{
+      const result=await sb.rpc("get_public_qr_order_catalog");
+      if(result.error)throw result.error;
+      let data=typeof result.data==="string"?JSON.parse(result.data):result.data;
+      if(!data||!Array.isArray(data.cities)||!data.cities.length||!Array.isArray(data.second_categories)||!Array.isArray(data.items))throw Error("服务目录数据不完整");
+      catalog=data;
+      loadFinished=true;
+      catalogLoading=false;
+      renderCities();
+      renderCatalog();
+      $("cityMsg").textContent="已读取 "+data.cities.length+" 个已开通服务城市。";
+      if(!$("cityPicker").hidden)renderCities();
+      if(!cityId&&!locationBusy)getLocation();
+      return;
+    }catch(error){
+      lastError=error;
+      if(attempt<2)await sleep(1500*(attempt+1));
+    }
+  }
+  catalogLoading=false;
+  $("cityName").textContent=cityId?cityName():"请选择服务城市";
+  $("cityMsg").textContent="服务目录暂时无法连接，请检查网络后重新定位或稍后重试。";
+  $("cityList").innerHTML='<div class="empty">服务目录暂时无法连接，请稍后重试。</div>';
+  $("items").innerHTML='<div class="empty">服务目录读取失败，请检查网络后重试。</div>';
+  if(lastError)toast(lastError.message||"服务目录读取失败");
+}
+const relocate=$("relocateBtn");
+if(relocate)relocate.onclick=()=>{manualCityChoice=false;loadPublicCatalog();getLocation()};
+loadPublicCatalog();
+});
 </script></body></html>
